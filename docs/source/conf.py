@@ -25,7 +25,7 @@ author = 'Pushpak Dagade'
 
 # The full version, including alpha/beta/rc tags
 with open(os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'VERSION')) as f:
-    release=f.read()
+    release = f.read()
 
 # -- General configuration ---------------------------------------------------
 
@@ -67,17 +67,18 @@ html_sidebars = {
 html_theme_options = {
     # 'logo': 'logo.svg',       # TODO: Enable this when there is a logo for this package
     # 'touch_icon': 'favicon.svg',  # TODO: Enable this when there is a logo for this package
-    'description': 'Algorithmic Trading as a Service',
+    'description': 'Official Python Package for Algorithmic Trading APIs powered by AlgoBulls',
     'fixed_sidebar': 'fixed',
     'logo_name': 'true',
     'show_related': 'true',
     'show_relbars': 'true',
 
-    'extra_nav_links': {'algobulls': 'https://algobulls.com'},
-    'analytics_id': 'UA-147658856-4',   # TODO: This id will work only if site is available at pyalgotrading.readthedocs.org; Update when uploaded online
+    'extra_nav_links': {'pyalgostrategypool': 'https://github.com/algobulls/pyalgostrategypool',
+                        'algobulls': 'https://algobulls.com'},
+    'analytics_id': 'UA-147658856-4',
     'github_button': 'true',
     'github_user': 'algobulls',
-    'github_repo': 'pyalgotrading',     # TODO: Update this when published
+    'github_repo': 'pyalgotrading',
 }
 
 # Trying a ReadtheDocs fix from - https://stackoverflow.com/questions/56336234/build-fail-sphinx-error-contents-rst-not-found
