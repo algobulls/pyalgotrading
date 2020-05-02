@@ -206,7 +206,7 @@ setup(
     # what's used to render the link text on PyPI.
     project_urls={  # Optional
         'Source': 'https://github.com/algobulls/pyalgotrading',
-        'Documentation': 'https://pyalgotrading.readthedocs.org',
+        'Documentation': 'https://pyalgotrading.readthedocs.io/en/latest/',
         'Bug Reports': 'https://github.com/algobulls/pyalgotrading/issues',
         'Say Thanks!': 'https://saythanks.io/to/guanidene%40gmail.com',
     },
