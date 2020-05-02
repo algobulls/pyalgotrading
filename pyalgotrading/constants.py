@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 # TODO: 1. Sort this file
 # TODO: 2. Use only Enums
 # TODO: 3. See how values of constants can be maintained across this project and other projects
