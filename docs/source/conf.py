@@ -79,3 +79,6 @@ html_theme_options = {
     'github_user': 'algobulls',
     'github_repo': 'pyalgotrading',     # TODO: Update this when published
 }
+
+# Trying a ReadtheDocs fix from - https://stackoverflow.com/questions/56336234/build-fail-sphinx-error-contents-rst-not-found
+master_doc = 'index'
