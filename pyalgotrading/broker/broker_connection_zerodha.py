@@ -1,5 +1,4 @@
 import pandas as pd
-from kiteconnect import KiteConnect
 
 from pyalgotrading.broker.broker_connection_base import BrokerConnectionBase
 from pyalgotrading.constants import *
@@ -25,6 +24,12 @@ class BrokerConnectionZerodha(BrokerConnectionBase):
     def __init__(self, api_key, api_secret):
         self.api_key = api_key
         self.api_secret = api_secret
+
+        try:
+            from kiteconnect import KiteConnect
+        except ImportError:
+            print("Error: Please install 'kitecoonect' to use the broker Zerodha. You can install it by running the following command - pip install kiteconnect.")
+            raise SystemExit
 
         self.api = KiteConnect(api_key=self.api_key)
         print(self.api.login_url())
