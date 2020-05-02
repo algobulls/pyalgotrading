@@ -10,6 +10,7 @@ Subpackages
    pyalgotrading.algobulls
    pyalgotrading.broker
    pyalgotrading.instrument
+   pyalgotrading.order
    pyalgotrading.strategy
    pyalgotrading.utils
 

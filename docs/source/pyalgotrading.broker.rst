@@ -20,6 +20,14 @@ pyalgotrading.broker.broker\_connection\_zerodha module
    :undoc-members:
    :show-inheritance:
 
+pyalgotrading.broker.utils module
+---------------------------------
+
+.. automodule:: pyalgotrading.broker.utils
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 
 Module contents
 ---------------

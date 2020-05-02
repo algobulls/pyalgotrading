@@ -13,7 +13,9 @@
 import os
 import sys
 
-sys.path.insert(0, os.path.abspath('../../..'))
+# package_parent_path = os.path.dirname(os.path.dirname(__file__))
+# sys.path.insert(0, package_parent_path)
+sys.path.insert(0, os.path.abspath('../../'))
 
 # -- Project information -----------------------------------------------------
 
@@ -22,7 +24,8 @@ copyright = '2020, AlgoBulls'
 author = 'Pushpak Dagade'
 
 # The full version, including alpha/beta/rc tags
-release = '1.0.0-beta'
+with open(os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'VERSION')) as f:
+    release=f.read()
 
 # -- General configuration ---------------------------------------------------
 
