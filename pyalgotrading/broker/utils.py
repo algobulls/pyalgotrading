@@ -8,4 +8,5 @@ def crossover(val1_hist, val2_hist, accuracy_decimals=2):
 
     :return: 1 if val1_hist cuts val2_hist upwards, -1 if cut is downwards and 0 if there is no cut
     """
+    # This is a dummy function with a sole purpose of mimicing the signature of the actual function on the AlgoBulls platform, as described in the documentation.
     pass

@@ -1,8 +1,8 @@
 import pandas as pd
 from kiteconnect import KiteConnect
 
-from .broker_connection_base import BrokerConnectionBase
-from ..constants import *
+from pyalgotrading.broker.broker_connection_base import BrokerConnectionBase
+from pyalgotrading.constants import *
 
 ORDER_TRANSACTION_TYPE_MAP = {BrokerOrderTransactionTypeConstants.BROKER_ORDER_TRANSACTION_TYPE_BUY: 'BUY',
                               BrokerOrderTransactionTypeConstants.BROKER_ORDER_TRANSACTION_TYPE_SELL: 'SELL'}
