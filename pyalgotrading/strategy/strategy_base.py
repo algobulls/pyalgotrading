@@ -1,6 +1,8 @@
 from abc import ABCMeta, abstractmethod
 from collections import defaultdict
 
+import broker
+
 
 class StrategyBase(object, metaclass=ABCMeta):
     """
@@ -10,12 +12,24 @@ class StrategyBase(object, metaclass=ABCMeta):
     """
 
     def __init__(self, *args, **kwargs):
+        # Dummy attributes
         self.strategy_parameters = defaultdict(lambda: 'dummy')
+        self.strategy_mode = StrategyMode.INTRADAY  # <Type: Enum of type StrategyMode; This attribute will hold one of the following values - StrategyMode.INTRADAY or StrategyMode.DELIVERY. This value is passed to pyalgotrading.algobulls.connection.backtest/papertest/realtrade methods.>
+        self.number_of_lots = 1  # <Type: This attribute will hold one of the following values - StrategyMode.INTRADAY or StrategyMode.DELIVERY. This value is passed to pyalgotrading.algobulls.connection.backtest/papertest/realtrade methods.>
+        self.broker = broker.broker_connection_base.BrokerConnectionBase()
+        self.utils = broker.utils
+        self.BuyOrderRegular = BuyOrderRegular
+        self.SellOrderRegular = SellOrderRegular
+        self.BuyOrderBracket = BuyOrderBracket
+        self.SellOrderBracket = SellOrderBracket
 
     @staticmethod
     @abstractmethod
     def name():
         raise NotImplementedError
+
+    def get_historical_data(self, instrument):
+        pass
 
     @staticmethod
     @abstractmethod
@@ -48,5 +62,5 @@ class StrategyBase(object, metaclass=ABCMeta):
         raise NotImplementedError
 
     @abstractmethod
-    def strategy_exit_position(self, candle, instrument):
+    def strategy_exit_position(self, candle, instrument, sideband_info):
         raise NotImplementedError
