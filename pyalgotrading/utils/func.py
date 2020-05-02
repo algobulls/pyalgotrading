@@ -16,7 +16,7 @@ def plot_candlestick_chart(data, plot_type, caption='', hide_missing_dates=False
     try:
         from plotly.subplots import make_subplots
     except ImportError:
-        print('Error: Please install plotly to use this function. You can install it by running the following command - pip install plotly.')
+        print("Error: Please install 'plotly' to use this function. You can install it by running the following command - pip install plotly.")
 
     # Sanity checks
     if not isinstance(plot_type, PlotType):
