@@ -36,6 +36,7 @@ class StrategyBase(object, metaclass=ABCMeta):
         raise NotImplementedError
 
     def get_historical_data(self, instrument):
+        # This is a dummy function with a sole purpose of mimicing the signature of the actual function on the AlgoBulls platform, as described in the documentation.
         pass
 
     @staticmethod
