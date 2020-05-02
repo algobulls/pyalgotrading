@@ -1,10 +1,8 @@
-from abc import ABCMeta
-
 from .order_base import OrderBase
 from ..constants import BrokerOrderTypeConstants, BrokerOrderTransactionTypeConstants
 
 
-class OrderRegularBase(metaclass=ABCMeta, OrderBase):
+class OrderRegularBase(OrderBase):
     def __init__(self, instrument, order_transaction_type, order_code, order_variety, quantity, price=None, trigger_price=None):
         self.instrument = instrument
         self.order_transaction_type = order_transaction_type
@@ -16,13 +14,13 @@ class OrderRegularBase(metaclass=ABCMeta, OrderBase):
         self.trigger_price = trigger_price
 
 
-class BuyOrderRegularBase(OrderRegularBase):
+class BuyOrderRegular(OrderRegularBase):
     def __init__(self, instrument, order_code, order_variety, quantity, price=None, trigger_price=None):
         super().__init__(instrument=instrument, order_transaction_type=BrokerOrderTransactionTypeConstants.BROKER_ORDER_TRANSACTION_TYPE_BUY, order_code=order_code, order_variety=order_variety, quantity=quantity, price=price,
                          trigger_price=trigger_price)
 
 
-class SellOrderRegularBase(OrderRegularBase):
+class SellOrderRegular(OrderRegularBase):
     def __init__(self, instrument, order_code, order_variety, quantity, price=None, trigger_price=None):
         super().__init__(instrument=instrument, order_transaction_type=BrokerOrderTransactionTypeConstants.BROKER_ORDER_TRANSACTION_TYPE_SELL, order_code=order_code, order_variety=order_variety, quantity=quantity, price=price,
                          trigger_price=trigger_price)
