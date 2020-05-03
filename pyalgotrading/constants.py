@@ -32,7 +32,7 @@ class BrokerOrderTransactionTypeConstants(Enum):
 
 class TradingType(Enum):
     TRADING_TYPE_BACKTESTING = 0
-    TRADING_TYPE_PAPERTESTING = 1
+    TRADING_TYPE_PAPERTRADING = 1
     TRADING_TYPE_REALTRADING = 2
 
 

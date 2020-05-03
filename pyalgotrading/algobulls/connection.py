@@ -160,7 +160,7 @@ class AlgoBullsConnection:
         assert ((strategy_mode in [_strategy_mode.value for _strategy_mode in StrategyMode]) is True), f'Argument strategy_mode should be a string'
         assert (isinstance(candle_interval, CandleIntervalEnum)), f'Argument candle_interval should be an enum of type CandleIntervalEnum'
 
-        # Setup config for Papertesting
+        # Setup config for Paper Trading
         strategy_config = {'trading_start_time': start_time,
                            'trading_end_time': end_time,
                            'instrument': instrument_id,
@@ -171,9 +171,9 @@ class AlgoBullsConnection:
         self.api.set_strategy_config(strategy_code=strategy_code, strategy_config=strategy_config)
         print('Success.')
 
-        # Submit Papertesting job
-        print('Submitting Papertesting Job...', end=' ')
-        response = self.api.start_strategy_algotrading(strategy_code=strategy_code, trading_type=TradingType.TRADING_TYPE_PAPERTESTING.value)
+        # Submit Paper Trading job
+        print('Submitting Paper Trading Job...', end=' ')
+        response = self.api.start_strategy_algotrading(strategy_code=strategy_code, trading_type=TradingType.TRADING_TYPE_PAPERTRADING.value)
         print('Success.')
 
         if response.get('success') is True:
@@ -181,23 +181,23 @@ class AlgoBullsConnection:
         else:
             return ResponseEnum.RESPONSE_ERROR, response
 
-    def get_papertesting_job_status(self, strategy_code):
-        return self.get_job_status(strategy_code, TradingType.TRADING_TYPE_PAPERTESTING.value)
+    def get_papertrading_job_status(self, strategy_code):
+        return self.get_job_status(strategy_code, TradingType.TRADING_TYPE_PAPERTRADING.value)
 
-    def stop_papertesting_job(self, strategy_code):
-        return self.stop_job(strategy_code=strategy_code, trading_type=TradingType.TRADING_TYPE_PAPERTESTING.value)
+    def stop_papertrading_job(self, strategy_code):
+        return self.stop_job(strategy_code=strategy_code, trading_type=TradingType.TRADING_TYPE_PAPERTRADING.value)
 
-    def get_papertesting_logs(self, strategy_code):
-        return self.get_report(strategy_code=strategy_code, trading_type=TradingType.TRADING_TYPE_PAPERTESTING.value, report_type=TradingReportType.TRADING_REPORT_TYPE_LOGS.value)
+    def get_papertrading_logs(self, strategy_code):
+        return self.get_report(strategy_code=strategy_code, trading_type=TradingType.TRADING_TYPE_PAPERTRADING.value, report_type=TradingReportType.TRADING_REPORT_TYPE_LOGS.value)
 
-    def get_papertesting_report_pnl_table(self, strategy_code, show_all_rows=False):
-        return self.get_report(strategy_code=strategy_code, trading_type=TradingType.TRADING_TYPE_PAPERTESTING.value, report_type=TradingReportType.TRADING_REPORT_TYPE_PNL_TABLE.value, render_as_dataframe=True, show_all_rows=show_all_rows)
+    def get_papertrading_report_pnl_table(self, strategy_code, show_all_rows=False):
+        return self.get_report(strategy_code=strategy_code, trading_type=TradingType.TRADING_TYPE_PAPERTRADING.value, report_type=TradingReportType.TRADING_REPORT_TYPE_PNL_TABLE.value, render_as_dataframe=True, show_all_rows=show_all_rows)
 
-    def get_papertesting_report_statistics(self, strategy_code):
-        return self.get_report(strategy_code=strategy_code, trading_type=TradingType.TRADING_TYPE_PAPERTESTING.value, report_type=TradingReportType.TRADING_REPORT_TYPE_STATS_TABLE.value, render_as_dataframe=True)
+    def get_papertrading_report_statistics(self, strategy_code):
+        return self.get_report(strategy_code=strategy_code, trading_type=TradingType.TRADING_TYPE_PAPERTRADING.value, report_type=TradingReportType.TRADING_REPORT_TYPE_STATS_TABLE.value, render_as_dataframe=True)
 
-    def get_papertesting_report_order_history(self, strategy_code):
-        return self.get_report(strategy_code=strategy_code, trading_type=TradingType.TRADING_TYPE_PAPERTESTING.value, report_type=TradingReportType.TRADING_REPORT_TYPE_ORDER_HISTORY.value)
+    def get_papertrading_report_order_history(self, strategy_code):
+        return self.get_report(strategy_code=strategy_code, trading_type=TradingType.TRADING_TYPE_PAPERTRADING.value, report_type=TradingReportType.TRADING_REPORT_TYPE_ORDER_HISTORY.value)
 
     def realtrade(self, strategy_code, start_time, end_time, instrument_id, strategy_parameters, candle_interval, strategy_mode=StrategyMode.INTRADAY.value):
         # Validate config parameters
