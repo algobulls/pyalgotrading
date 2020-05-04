@@ -1,5 +1,5 @@
 # pyalgotrading
-Official Python Package for Algorithmic Trading APIs powered by AlgoBulls
+Official Python Package for Algorithmic Trading APIs powered by AlgoBulls!
 
 
 ### Features
@@ -43,8 +43,9 @@ pip install pyalgotrading
 ```
 
 ### Support / Getting Help
-- Bug Reporting: Please raise issues on GitHub
-- Additional Support: Please contact [pushpak@algobulls.com](mailto:pushpak@algobulls.com)
+- *Bug Reporting / New Feature Request*: Please [create a new issue](https://github.com/algobulls/pyalgotrading/issues/new) here on GitHub.
+- *Discussion Forum*: Coming Soon!
+- *Additional Support*: If none of the above help, please contact [pushpak@algobulls.com](mailto:pushpak@algobulls.com).
 
 ### Contribution Guidelines
 Here’s how we suggest you go about proposing a change to this project:
