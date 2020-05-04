@@ -33,8 +33,11 @@ Backtesting, Paper Trading and Real Trading can be performed on the same strateg
 ### Documentation
 Coming soon!
 
-### Python Support
-`Python 3.5+`
+
+### Python 
+- Python Support: `Python 3.5+`.
+- Python Requirements: See [requirements.txt](https://github.com/algobulls/pyalgotrading/blob/master/requirements.txt).
+
 
 ### Installation
 Package can be easily installed using `pip` - 
@@ -60,8 +63,8 @@ Here’s how we suggest you go about proposing a change to this project:
 [pr]: https://help.github.com/articles/using-pull-requests/
 
 ### Changelog
-See [CHANGELOG.md](https://github.com/algobulls/pyalgostrategypool/blob/master/CHANGELOG.md).
+See [CHANGELOG.md](https://github.com/algobulls/pyalgotrading/blob/master/CHANGELOG.md).
 
 ### License
-See [LICENSE](https://github.com/algobulls/pyalgostrategypool/blob/master/LICENSE).
+See [LICENSE](https://github.com/algobulls/pyalgotrading/blob/master/LICENSE).
 
