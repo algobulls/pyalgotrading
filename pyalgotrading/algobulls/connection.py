@@ -220,8 +220,8 @@ class AlgoBullsConnection:
         self.api.set_strategy_config(strategy_code=strategy_code, strategy_config=strategy_config)
         print('Success.')
 
-        # Submit backtesting job
-        print('Submitting Realtrading Job...', end=' ')
+        # Submit Real Trading job
+        print('Submitting Real Trading Job...', end=' ')
         response = self.api.start_strategy_algotrading(strategy_code=strategy_code, trading_type=TradingType.TRADING_TYPE_REALTRADING.value)
         print('Success.')
 
