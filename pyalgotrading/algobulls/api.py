@@ -76,7 +76,7 @@ class AlgoBullsAPI:
         return response
 
     def set_strategy_config(self, strategy_code, strategy_config):
-        params = {'strategy_code': strategy_code, 'strategy_type': StrategyType.STRATEGY_TYPE_CUSTOMER_PYTHON.value}
+        params = {'strategy_code': strategy_code, 'strategy_type': StrategyType.PYTHON.value}
         form_data = strategy_config
         endpoint = f'v1/customer_strategy_tweak'
         response = self._send_request(method='patch', endpoint=endpoint, params=params, form_data=form_data)
@@ -86,7 +86,7 @@ class AlgoBullsAPI:
         """
         Submit backtesting job for strategy with code strategy_code & return the job ID.
         """
-        params = {'strategy_code': strategy_code, 'strategy_type': StrategyType.STRATEGY_TYPE_CUSTOMER_PYTHON.value, 'trading_type': trading_type}
+        params = {'strategy_code': strategy_code, 'strategy_type': StrategyType.PYTHON.value, 'trading_type': trading_type}
         endpoint = f'v1/customer_strategy_algotrading'
         form_data = {'action': 'start'}
         response = self._send_request(method='post', endpoint=endpoint, params=params, form_data=form_data)
@@ -96,7 +96,7 @@ class AlgoBullsAPI:
         """
         Submit backtesting job for strategy with code strategy_code & return the job ID.
         """
-        params = {'strategy_code': strategy_code, 'strategy_type': StrategyType.STRATEGY_TYPE_CUSTOMER_PYTHON.value, 'trading_type': trading_type}
+        params = {'strategy_code': strategy_code, 'strategy_type': StrategyType.PYTHON.value, 'trading_type': trading_type}
         endpoint = f'v1/customer_strategy_algotrading'
         form_data = {'action': 'stop'}
         response = self._send_request(method='post', endpoint=endpoint, params=params, form_data=form_data)
@@ -106,13 +106,13 @@ class AlgoBullsAPI:
         """
         Get JOB status for a given strategy_code and given trading_type
         """
-        params = {'strategy_code': strategy_code, 'strategy_type': StrategyType.STRATEGY_TYPE_CUSTOMER_PYTHON.value, 'trading_type': trading_type}
+        params = {'strategy_code': strategy_code, 'strategy_type': StrategyType.PYTHON.value, 'trading_type': trading_type}
         endpoint = f'v1/customer_strategy_algotrading'
         response = self._send_request(endpoint=endpoint, params=params)
         return response
 
     def get_reports(self, strategy_code, trading_type, report_type):
-        params = {'strategy_code': strategy_code, 'strategy_type': StrategyType.STRATEGY_TYPE_CUSTOMER_PYTHON.value, 'trading_type': trading_type, 'report_type': report_type}
+        params = {'strategy_code': strategy_code, 'strategy_type': StrategyType.PYTHON.value, 'trading_type': trading_type, 'report_type': report_type}
         endpoint = f'v1/customer_strategy_algotrading_reports'
         response = self._send_request(endpoint=endpoint, params=params)
         return response

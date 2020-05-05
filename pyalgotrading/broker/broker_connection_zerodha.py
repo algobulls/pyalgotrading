@@ -7,10 +7,10 @@ from pyalgotrading.utils.func import import_with_install
 
 class BrokerConnectionZerodha(BrokerConnectionBase):
     # Initializing constants. They will be populated correctly by the populate_constants() method
-    ORDER_TRANSACTION_TYPE_MAP = None
-    ORDER_TYPE_MAP = None
-    ORDER_CODE_MAP = None
-    ORDER_VARIETY_MAP = None
+    ORDER_TRANSACTION_TYPE_MAP = {}
+    ORDER_TYPE_MAP = {}
+    ORDER_CODE_MAP = {}
+    ORDER_VARIETY_MAP = {}
 
     def __init__(self, api_key, api_secret):
         self.api_key = api_key
@@ -21,7 +21,7 @@ class BrokerConnectionZerodha(BrokerConnectionBase):
         self.api = kiteconnect.KiteConnect(api_key=self.api_key)
 
         # Print the login url. User will use this to login to broker site and get access token
-        print(self.api.login_url())
+        print(f'Please login to this link to generate your request token: {self.api.login_url()}')
 
         # Create other attributes
         self.all_instruments = None
@@ -34,21 +34,21 @@ class BrokerConnectionZerodha(BrokerConnectionBase):
         """
         _ = import_with_install('kiteconnect').KiteConnect
 
-        BrokerConnectionZerodha.ORDER_TRANSACTION_TYPE_MAP = {BrokerOrderTransactionTypeConstants.BROKER_ORDER_TRANSACTION_TYPE_BUY: _.TRANSACTION_TYPE_BUY,
-                                                              BrokerOrderTransactionTypeConstants.BROKER_ORDER_TRANSACTION_TYPE_SELL: _.TRANSACTION_TYPE_SELL}
+        BrokerConnectionZerodha.ORDER_TRANSACTION_TYPE_MAP = {BrokerOrderTransactionTypeConstants.BUY: _.TRANSACTION_TYPE_BUY,
+                                                              BrokerOrderTransactionTypeConstants.SELL: _.TRANSACTION_TYPE_SELL}
 
-        BrokerConnectionZerodha.ORDER_TYPE_MAP = {BrokerOrderTypeConstants.BROKER_ORDER_TYPE_REGULAR: _.VARIETY_REGULAR,
-                                                  BrokerOrderTypeConstants.BROKER_ORDER_TYPE_BRACKET: _.VARIETY_BO,
-                                                  BrokerOrderTypeConstants.BROKER_ORDER_TYPE_COVER: _.VARIETY_CO,
-                                                  BrokerOrderTypeConstants.BROKER_ORDER_TYPE_AFTER_MARKET_ORDER: _.VARIETY_AMO}
+        BrokerConnectionZerodha.ORDER_TYPE_MAP = {BrokerOrderTypeConstants.REGULAR: _.VARIETY_REGULAR,
+                                                  BrokerOrderTypeConstants.BRACKET: _.VARIETY_BO,
+                                                  BrokerOrderTypeConstants.COVER: _.VARIETY_CO,
+                                                  BrokerOrderTypeConstants.AMO: _.VARIETY_AMO}
 
-        BrokerConnectionZerodha.ORDER_CODE_MAP = {BrokerOrderCodeConstants.BROKER_ORDER_CODE_INTRADAY: _.PRODUCT_MIS,
-                                                  BrokerOrderCodeConstants.BROKER_ORDER_CODE_DELIVERY: _.PRODUCT_CNC}
+        BrokerConnectionZerodha.ORDER_CODE_MAP = {BrokerOrderCodeConstants.INTRADAY: _.PRODUCT_MIS,
+                                                  BrokerOrderCodeConstants.DELIVERY: _.PRODUCT_CNC}
 
-        BrokerConnectionZerodha.ORDER_VARIETY_MAP = {BrokerOrderVarietyConstants.BROKER_ORDER_VARIETY_MARKET: _.ORDER_TYPE_MARKET,
-                                                     BrokerOrderVarietyConstants.BROKER_ORDER_VARIETY_LIMIT: _.ORDER_TYPE_LIMIT,
-                                                     BrokerOrderVarietyConstants.BROKER_ORDER_VARIETY_STOPLOSS_LIMIT: _.ORDER_TYPE_SL,
-                                                     BrokerOrderVarietyConstants.BROKER_ORDER_VARIETY_STOPLOSS_MARKET: _.ORDER_TYPE_SLM}
+        BrokerConnectionZerodha.ORDER_VARIETY_MAP = {BrokerOrderVarietyConstants.MARKET: _.ORDER_TYPE_MARKET,
+                                                     BrokerOrderVarietyConstants.LIMIT: _.ORDER_TYPE_LIMIT,
+                                                     BrokerOrderVarietyConstants.STOPLOSS_LIMIT: _.ORDER_TYPE_SL,
+                                                     BrokerOrderVarietyConstants.STOPLOSS_MARKET: _.ORDER_TYPE_SLM}
 
     def set_access_token(self, request_token):
         data = self.api.generate_session(request_token, api_secret=self.api_secret)
