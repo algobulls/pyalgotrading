@@ -1,6 +1,5 @@
 import enum
 
-
 counter = 0
 
 
@@ -12,21 +11,32 @@ class PlotType(enum.Enum):
     QUANDL_OHLC = 'Quandl OHLC'
 
 
-def plot_candlestick_chart(data, plot_type, caption='', hide_missing_dates=False, show=True, indicators=None, plot_indicators_separately=False, plot_height=500, plot_width=1000):
+def import_with_install(package_import_name, package_install_name=None):
+    """
+    Helps import 'package'. If its not present, it will be installed using 'pip' and a re-import will be attempted, which should succeed if the package was imported correctly
+
+    :param package_import_name: name of package to be installed using pip, str
+    :param package_install_name: name of package to be imported. Default is None, which means package can be imported with the same name as used for installation. If not, this parameter can be used to specify a different import name.
+    :return: imported package
+    """
+    module_name = package_install_name if package_install_name is not None else package_import_name
     try:
-        from plotly.subplots import make_subplots
+        return __import__(module_name)
     except ImportError:
-        print("Error: Please install 'plotly' to use this function. You can install it by running the following command - pip install plotly.")
+        print(f"Installing package_import_name {package_import_name} via pip...")
+        import subprocess
+        import sys
+        subprocess.check_call([sys.executable, '-m', 'pip', 'install', package_import_name])
+        return __import__(module_name)
+
+
+def plot_candlestick_chart(data, plot_type, caption='', hide_missing_dates=False, show=True, indicators=None, plot_indicators_separately=False, plot_height=500, plot_width=1000):
+    make_subplots = import_with_install('plotly').subplots.make_subplots
+    go = import_with_install('plotly').graph_objects
 
     # Sanity checks
     if not isinstance(plot_type, PlotType):
         print(f'Error: plot_type should be an instance of {PlotType.__class__}')
-        return
-
-    try:
-        import plotly.graph_objects as go
-    except ModuleNotFoundError:
-        print('Error: Please install plotly to use this function (Command: pip install plotly)')
         return
 
     # Plot

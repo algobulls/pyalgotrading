@@ -2,6 +2,7 @@ import pandas as pd
 
 from pyalgotrading.broker.broker_connection_base import BrokerConnectionBase
 from pyalgotrading.constants import *
+from pyalgotrading.utils.func import import_with_install
 
 ORDER_TRANSACTION_TYPE_MAP = {BrokerOrderTransactionTypeConstants.BROKER_ORDER_TRANSACTION_TYPE_BUY: 'BUY',
                               BrokerOrderTransactionTypeConstants.BROKER_ORDER_TRANSACTION_TYPE_SELL: 'SELL'}
@@ -25,13 +26,9 @@ class BrokerConnectionZerodha(BrokerConnectionBase):
         self.api_key = api_key
         self.api_secret = api_secret
 
-        try:
-            from kiteconnect import KiteConnect
-        except ImportError:
-            print("Error: Please install 'kitecoonect' to use the broker Zerodha. You can install it by running the following command - pip install kiteconnect.")
-            raise SystemExit
+        kiteconnect = import_with_install('kiteconnect')
 
-        self.api = KiteConnect(api_key=self.api_key)
+        self.api = kiteconnect.KiteConnect(api_key=self.api_key)
         print(self.api.login_url())
 
         self.all_instruments = None
