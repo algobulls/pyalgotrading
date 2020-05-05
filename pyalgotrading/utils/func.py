@@ -19,15 +19,15 @@ def import_with_install(package_import_name, package_install_name=None):
     :param package_install_name: name of package to be imported. Default is None, which means package can be imported with the same name as used for installation. If not, this parameter can be used to specify a different import name.
     :return: imported package
     """
-    module_name = package_install_name if package_install_name is not None else package_import_name
+    package_install_name = package_install_name if package_install_name is not None else package_import_name
     try:
-        return __import__(module_name)
+        return __import__(package_import_name)
     except ImportError:
-        print(f"Installing package_import_name {package_import_name} via pip...")
+        print(f"Installing package {package_import_name} via pip...")
         import subprocess
         import sys
-        subprocess.check_call([sys.executable, '-m', 'pip', 'install', package_import_name])
-        return __import__(module_name)
+        subprocess.check_call([sys.executable, '-m', 'pip', 'install', package_install_name])
+        return __import__(package_import_name)
 
 
 def plot_candlestick_chart(data, plot_type, caption='', hide_missing_dates=False, show=True, indicators=None, plot_indicators_separately=False, plot_height=500, plot_width=1000):

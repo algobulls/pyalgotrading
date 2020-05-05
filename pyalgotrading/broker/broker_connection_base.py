@@ -64,6 +64,10 @@ class BrokerConnectionBase:
         raise NotImplementedError
 
     @abstractmethod
+    def get_margins(self, *args, **kwargs):
+        raise NotImplementedError
+
+    @abstractmethod
     def get_funds(self, *args, **kwargs):
         raise NotImplementedError
 
