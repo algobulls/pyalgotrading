@@ -6,7 +6,7 @@ import pandas as pd
 
 from .api import AlgoBullsAPI
 from .exceptions import AlgoBullsAPIBadRequest
-from ..constants import StrategyMode, TradingType, TradingReportType, JobStatusEnum, ResponseEnum, CandleIntervalEnum
+from ..constants import StrategyMode, TradingType, TradingReportType, AlgoBullsJobStatusEnum, AlgoBullsJobSubmissionResponseEnum, CandleIntervalEnum
 from ..strategy.strategy_base import StrategyBase
 
 
@@ -71,16 +71,16 @@ class AlgoBullsConnection:
         """
         response = self.api.get_job_status(strategy_code=strategy_code, trading_type=trading_type)
         if response.get('success') is True:
-            return JobStatusEnum(response['details'])
+            return AlgoBullsJobStatusEnum(response['details'])
         else:
-            return ResponseEnum.RESPONSE_ERROR, response
+            return AlgoBullsJobSubmissionResponseEnum.RESPONSE_ERROR, response
 
     def stop_job(self, strategy_code, trading_type):
         response = self.api.stop_strategy_algotrading(strategy_code=strategy_code, trading_type=trading_type)
         if response.get('success') is True:
-            return ResponseEnum(response['details'])
+            return AlgoBullsJobSubmissionResponseEnum(response['details'])
         else:
-            return ResponseEnum.RESPONSE_ERROR, response
+            return AlgoBullsJobSubmissionResponseEnum.RESPONSE_ERROR, response
 
     def get_report(self, strategy_code, trading_type, report_type, render_as_dataframe=False, show_all_rows=False):
         response = self.api.get_reports(strategy_code=strategy_code, trading_type=trading_type, report_type=report_type)
@@ -93,7 +93,7 @@ class AlgoBullsConnection:
                 _response = response['details']
             return _response
         else:
-            return ResponseEnum.RESPONSE_ERROR, response
+            return AlgoBullsJobSubmissionResponseEnum.RESPONSE_ERROR, response
 
     def backtest(self, strategy_code, start_timestamp, end_timestamp, instrument_id, strategy_parameters, candle_interval, strategy_mode=StrategyMode.INTRADAY.value):
         # Validate config parameters
@@ -122,9 +122,9 @@ class AlgoBullsConnection:
         print('Success.')
 
         if response.get('success') is True:
-            return ResponseEnum(response['details'])
+            return AlgoBullsJobSubmissionResponseEnum(response['details'])
         else:
-            return ResponseEnum.RESPONSE_ERROR, response
+            return AlgoBullsJobSubmissionResponseEnum.RESPONSE_ERROR, response
 
     def get_backtesting_job_status(self, strategy_code):
         """
@@ -177,9 +177,9 @@ class AlgoBullsConnection:
         print('Success.')
 
         if response.get('success') is True:
-            return ResponseEnum(response['details'])
+            return AlgoBullsJobSubmissionResponseEnum(response['details'])
         else:
-            return ResponseEnum.RESPONSE_ERROR, response
+            return AlgoBullsJobSubmissionResponseEnum.RESPONSE_ERROR, response
 
     def get_papertrading_job_status(self, strategy_code):
         return self.get_job_status(strategy_code, TradingType.TRADING_TYPE_PAPERTRADING.value)
@@ -226,9 +226,9 @@ class AlgoBullsConnection:
         print('Success.')
 
         if response.get('success') is True:
-            return ResponseEnum(response['details'])
+            return AlgoBullsJobSubmissionResponseEnum(response['details'])
         else:
-            return ResponseEnum.RESPONSE_ERROR, response
+            return AlgoBullsJobSubmissionResponseEnum.RESPONSE_ERROR, response
 
     def get_realtrading_job_status(self, strategy_code):
         return self.get_job_status(strategy_code, TradingType.TRADING_TYPE_REALTRADING.value)
