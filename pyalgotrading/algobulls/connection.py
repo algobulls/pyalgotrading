@@ -5,7 +5,7 @@ from datetime import datetime as dt, time
 import pandas as pd
 
 from .api import AlgoBullsAPI
-from .exceptions import AlgoBullsAPIBadRequest
+from .exceptions import AlgoBullsAPIAPIBadRequest
 from ..constants import StrategyMode, TradingType, TradingReportType, AlgoBullsJobStatusEnum, AlgoBullsJobSubmissionResponseEnum, CandleIntervalEnum
 from ..strategy.strategy_base import StrategyBase
 
@@ -21,9 +21,16 @@ class AlgoBullsConnection:
     def set_access_token(self, access_token):
         self.api.set_access_token(access_token)
 
-    def upload_strategy(self, strategy, strategy_code=None):
+    def upload_strategy(self, strategy, overwrite=False):
         """
-        Method to upload new strategy (if strategy_code is None) or update existing strategy (if strategy_code is not None)
+        Method to upload new strategy.
+
+        All strategies are unique by name, per customer.
+        If customer tries to upload strategy with the same name as an already existing strategy -
+        if overwrite is False:
+            - AlgoBullsAPIAPIBadRequest Exception will be thrown. No change would be done in the backend database.
+        If overwrite is True,
+            - Existing strategy with strategy_name would be overwritten. No exception will be thrown.
         """
 
         # Check for type
@@ -36,13 +43,18 @@ class AlgoBullsConnection:
         # Get source code, and upload as new strategy (if strategy_code is None) else edit same strategy
         strategy_name = strategy.name()
         strategy_details = inspect.getsource(strategy)
+        abc_version = strategy.versions_supported().value
 
-        if strategy_code is None:
-            # If strategy code is None, create a new strategy object
-            response = self.api.upload_strategy(strategy_name=strategy_name, strategy_details=strategy_details, abc_version=strategy.versions_supported())
-        else:
-            # If strategy code is available, update the existing strategy
-            response = self.api.update_strategy(strategy_code=strategy_code, strategy_name=strategy_name, strategy_details=strategy_details, abc_version=strategy.versions_supported())
+        # If strategy code is None, create a new strategy object
+        try:
+            response = self.api.upload_strategy(strategy_name=strategy_name, strategy_details=strategy_details, abc_version=abc_version)
+        except AlgoBullsAPIAPIBadRequest as ex:
+            if overwrite is True:
+                # If strategy code is available, update the existing strategy
+                response = self.api.update_strategy(strategy_name=strategy_name, strategy_details=strategy_details, abc_version=abc_version)
+            else:
+                raise ex
+
         return response
 
     def get_all_strategies(self):
@@ -57,7 +69,7 @@ class AlgoBullsConnection:
             response = self.api.get_strategy_details(strategy_code)
             strategy_code = response['details']
             return strategy_code
-        except AlgoBullsAPIBadRequest:
+        except AlgoBullsAPIAPIBadRequest:
             print(f'ERROR: No strategy found with ID: {strategy_code}')
 
     def search_instrument(self, instrument):
