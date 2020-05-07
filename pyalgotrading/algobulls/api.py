@@ -1,6 +1,8 @@
+from json import JSONDecodeError
+
 import requests
 
-from .exceptions import AlgoBullsBaseException, AlgoBullsAPIUnauthorizedError, AlgoBullsAPINotFoundError, AlgoBullsAPIBadRequest
+from .exceptions import AlgoBullsAPIBaseException, AlgoBullsAPIAPIUnauthorizedError, AlgoBullsAPIAPIResourceNotFoundError, AlgoBullsAPIAPIBadRequest, AlgoBullsAPIAPIInternalServerErrorException
 from ..constants import StrategyType
 
 
@@ -21,18 +23,25 @@ class AlgoBullsAPI:
         headers = self.headers if requires_authorization else None
         response = requests.request(method=method, headers=headers, url=url, params=params, data=form_data)
 
+        try:
+            response_json = response.json()
+        except JSONDecodeError:
+            response_json = str(response)
+
         if response.status_code == 200:
             response_json = response.json()
             return response_json
-        elif response.status_code == 401:
-            raise AlgoBullsAPIUnauthorizedError(f'Unauthorized Error --> Method: {method} | URL: {url} | Response: {response.json()}')
-        elif response.status_code == 404:
-            raise AlgoBullsAPINotFoundError(f'API Not Found --> Method: {method} | URL: {url} | Response: {response.json()}')
         elif response.status_code == 400:
-            raise AlgoBullsAPIBadRequest(f'Bad Request --> Method: {method} | URL: {url} | Response: {response.json()}')
+            raise AlgoBullsAPIAPIBadRequest(f'Bad Request --> Method: {method} | URL: {url} | Response: {response_json}')
+        elif response.status_code == 401:
+            raise AlgoBullsAPIAPIUnauthorizedError(f'Unauthorized Error --> Method: {method} | URL: {url} | Response: {response_json}')
+        elif response.status_code == 404:
+            raise AlgoBullsAPIAPIResourceNotFoundError(f'API Not Found --> Method: {method} | URL: {url} | Response: {response_json}')
+        elif response.status_code == 500:
+            raise AlgoBullsAPIAPIInternalServerErrorException(f'Internal Server Error --> Method: {method} | URL: {url} | Response: {response_json}')
         else:
             response.raw.decode_content = True
-            raise AlgoBullsBaseException(f'Unknown non-200 status code --> Method: {method} | URL: {url} | Response: {response.json()} | Response code: {response.status_code}')
+            raise AlgoBullsAPIBaseException(f'Unknown non-200 status code --> Method: {method} | URL: {url} | Response: {response_json} | Response code: {response.status_code}')
 
     def upload_strategy(self, strategy_name, strategy_details, abc_version):
         """
@@ -43,11 +52,11 @@ class AlgoBullsAPI:
         response = self._send_request(endpoint=endpoint, method='post', form_data=form_data)
         return response
 
-    def update_strategy(self, strategy_code, strategy_name, strategy_details, abc_version):
+    def update_strategy(self, strategy_name, strategy_details, abc_version):
         """
         Update existing strategy
         """
-        form_data = {'strategy_code': strategy_code, 'build_strategy_name': strategy_name, 'strategy_details': strategy_details, 'abc_version': abc_version}
+        form_data = {'strategy_name': strategy_name, 'strategy_details': strategy_details, 'abc_version': abc_version}
         endpoint = f'v1/build_python_strategy'
         response = self._send_request(endpoint=endpoint, method='put', form_data=form_data)
         return response
