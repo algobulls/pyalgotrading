@@ -1,46 +1,22 @@
-class AlgoBullsBaseException(Exception):
+class AlgoBullsAPIBaseException(Exception):
     pass
 
 
-class AlgoBullsAPIUnauthorizedError(AlgoBullsBaseException):
+class AlgoBullsAPIAPIBadRequest(AlgoBullsAPIBaseException):
+    # HTTP Response Code: 400
     pass
 
 
-class AlgoBullsIncorrectParamsError(AlgoBullsBaseException):
+class AlgoBullsAPIAPIUnauthorizedError(AlgoBullsAPIBaseException):
+    # HTTP Response Code: 401
     pass
 
 
-class AlgoBullsAPICallFailedError(AlgoBullsBaseException):
+class AlgoBullsAPIAPIResourceNotFoundError(AlgoBullsAPIBaseException):
+    # HTTP Response Code: 404
     pass
 
 
-class AlgoBullsAPINotFoundError(AlgoBullsBaseException):
-    pass
-
-
-class AlgoBullsAPIBadRequest(AlgoBullsBaseException):
-    pass
-
-
-class AlgoBullsIncorrectUsernameException(AlgoBullsBaseException):
-    pass
-
-
-class AlgoBullsIncorrectPasswordException(AlgoBullsBaseException):
-    pass
-
-
-class AlgoBullsIncorrectApiSecretException(AlgoBullsBaseException):
-    pass
-
-
-class AlgoBullsInternalServerErrorException(AlgoBullsBaseException):
-    pass
-
-
-class AlgoBullsLoginErrorException(AlgoBullsBaseException):
-    pass
-
-
-class AlgoBullsAccessTokenNotFound(AlgoBullsBaseException):
+class AlgoBullsAPIAPIInternalServerErrorException(AlgoBullsAPIBaseException):
+    # HTTP Response Code: 500
     pass
