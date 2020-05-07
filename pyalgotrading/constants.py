@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class AlgoBullsEngineVersion:
+class AlgoBullsEngineVersion(Enum):
     VERSION_3_1_0 = '3.1.0'
 
 
