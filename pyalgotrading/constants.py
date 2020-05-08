@@ -43,9 +43,6 @@ class BrokerOrderVarietyConstants(Enum):
 
 
 class CandleIntervalEnum(Enum):
-    MINUTE = 'minute'
-    MINUTE_1 = 'minute'
-    MINUTES = 'minute'
     MINUTES_1 = 'minute'
     MINUTES_3 = '3minutes'
     MINUTES_5 = '5minutes'
@@ -53,10 +50,24 @@ class CandleIntervalEnum(Enum):
     MINUTES_15 = '15minutes'
     MINUTES_30 = '30minutes'
     MINUTES_60 = '60minutes'
-    HOUR = '60minutes'
-    HOUR_1 = '60minutes'
     HOURS_1 = '60minutes'
     HOURS_24 = 'day'
+    DAYS_1 = 'day'
+
+    # Alternative names
+    MINUTE_1 = 'minute'
+    MINUTE_3 = '3minutes'
+    MINUTE_5 = '5minutes'
+    MINUTE_10 = '10minutes'
+    MINUTE_15 = '15minutes'
+    MINUTE_30 = '30minutes'
+    MINUTE_60 = '60minutes'
+    HOUR_1 = '60minutes'
+    HOUR_24 = 'day'
+    DAY_1 = 'day'
+
+    MINUTE = 'minute'
+    HOUR = '60minutes'
     DAY = 'day'
 
 
