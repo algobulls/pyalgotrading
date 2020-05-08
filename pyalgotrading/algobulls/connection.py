@@ -5,7 +5,7 @@ from datetime import datetime as dt, time
 import pandas as pd
 
 from .api import AlgoBullsAPI
-from .exceptions import AlgoBullsAPIAPIBadRequest
+from .exceptions import AlgoBullsAPIBadRequest
 from ..constants import StrategyMode, TradingType, TradingReportType, AlgoBullsJobStatusEnum, AlgoBullsJobSubmissionResponseEnum, CandleIntervalEnum
 from ..strategy.strategy_base import StrategyBase
 
@@ -21,14 +21,14 @@ class AlgoBullsConnection:
     def set_access_token(self, access_token):
         self.api.set_access_token(access_token)
 
-    def upload_strategy(self, strategy, overwrite=False):
+    def create_strategy(self, strategy, overwrite=False):
         """
         Method to upload new strategy.
 
         All strategies are unique by name, per customer.
         If customer tries to upload strategy with the same name as an already existing strategy -
         if overwrite is False:
-            - AlgoBullsAPIAPIBadRequest Exception will be thrown. No change would be done in the backend database.
+            - AlgoBullsAPIBadRequest Exception will be thrown. No change would be done in the backend database.
         If overwrite is True,
             - Existing strategy with strategy_name would be overwritten. No exception will be thrown.
         """
@@ -47,8 +47,8 @@ class AlgoBullsConnection:
 
         # If strategy code is None, create a new strategy object
         try:
-            response = self.api.upload_strategy(strategy_name=strategy_name, strategy_details=strategy_details, abc_version=abc_version)
-        except AlgoBullsAPIAPIBadRequest as ex:
+            response = self.api.create_strategy(strategy_name=strategy_name, strategy_details=strategy_details, abc_version=abc_version)
+        except AlgoBullsAPIBadRequest as ex:
             if overwrite is True:
                 # If strategy code is available, update the existing strategy
                 response = self.api.update_strategy(strategy_name=strategy_name, strategy_details=strategy_details, abc_version=abc_version)
@@ -69,7 +69,7 @@ class AlgoBullsConnection:
             response = self.api.get_strategy_details(strategy_code)
             strategy_code = response['details']
             return strategy_code
-        except AlgoBullsAPIAPIBadRequest:
+        except AlgoBullsAPIBadRequest:
             print(f'ERROR: No strategy found with ID: {strategy_code}')
 
     def search_instrument(self, instrument):
@@ -100,7 +100,7 @@ class AlgoBullsConnection:
             if render_as_dataframe:
                 if show_all_rows:
                     pandas_dataframe_all_rows()
-                _response = pd.DataFrame(response['detaills'])
+                _response = pd.DataFrame(response['details'])
             else:
                 _response = response['details']
             return _response
@@ -117,7 +117,7 @@ class AlgoBullsConnection:
         assert ((strategy_mode in [_strategy_mode.value for _strategy_mode in StrategyMode]) is True), f'Argument strategy_mode should be a string'
         assert (isinstance(candle_interval, CandleIntervalEnum)), f'Argument candle_interval should be an enum of type CandleIntervalEnum'
 
-        # Setup config for backtesting
+        # Setup config for Backtesting
         strategy_config = {'trading_start_date': start_timestamp.date(), 'trading_start_time': start_timestamp.time(),
                            'trading_end_date': end_timestamp.date(), 'trading_end_time': end_timestamp.time(),
                            'instrument': instrument_id,
@@ -128,9 +128,9 @@ class AlgoBullsConnection:
         self.api.set_strategy_config(strategy_code=strategy_code, strategy_config=strategy_config)
         print('Success.')
 
-        # Submit backtesting job
+        # Submit Backtesting job
         print('Submitting Backtesting Job...', end=' ')
-        response = self.api.start_strategy_algotrading(strategy_code=strategy_code, trading_type=TradingType.BACKTESTING.value)
+        response = self.api.start_strategy_algotrading(strategy_code=strategy_code, trading_type=TradingType.BACKTESTING)
         print('Success.')
 
         if response.get('success') is True:
@@ -142,27 +142,27 @@ class AlgoBullsConnection:
         """
         Gets BACKTESTING job status for given strategy_code
         """
-        return self.get_job_status(strategy_code, TradingType.BACKTESTING.value)
+        return self.get_job_status(strategy_code, TradingType.BACKTESTING)
 
     def stop_backtesting_job(self, strategy_code):
         """
         Gets BACKTESTING job status for given strategy_code
         """
-        return self.stop_job(strategy_code=strategy_code, trading_type=TradingType.BACKTESTING.value)
+        return self.stop_job(strategy_code=strategy_code, trading_type=TradingType.BACKTESTING)
 
     def get_backtesting_logs(self, strategy_code):
-        return self.get_report(strategy_code, trading_type=TradingType.BACKTESTING.value, report_type=TradingReportType.LOGS)
+        return self.get_report(strategy_code, trading_type=TradingType.BACKTESTING, report_type=TradingReportType.LOGS)
 
     def get_backtesting_report_pnl_table(self, strategy_code, show_all_rows=False):
-        return self.get_report(strategy_code=strategy_code, trading_type=TradingType.BACKTESTING.value, report_type=TradingReportType.PNL_TABLE.value, render_as_dataframe=True, show_all_rows=show_all_rows)
+        return self.get_report(strategy_code=strategy_code, trading_type=TradingType.BACKTESTING, report_type=TradingReportType.PNL_TABLE, render_as_dataframe=True, show_all_rows=show_all_rows)
 
     def get_backtesting_report_statistics(self, strategy_code):
-        return self.get_report(strategy_code=strategy_code, trading_type=TradingType.BACKTESTING.value, report_type=TradingReportType.STATS_TABLE.value, render_as_dataframe=True)
+        return self.get_report(strategy_code=strategy_code, trading_type=TradingType.BACKTESTING, report_type=TradingReportType.STATS_TABLE, render_as_dataframe=True)
 
     def get_backtesting_report_order_history(self, strategy_code):
-        return self.get_report(strategy_code=strategy_code, trading_type=TradingType.BACKTESTING.value, report_type=TradingReportType.ORDER_HISTORY.value)
+        return self.get_report(strategy_code=strategy_code, trading_type=TradingType.BACKTESTING, report_type=TradingReportType.ORDER_HISTORY)
 
-    def papertest(self, strategy_code, start_time, end_time, instrument_id, strategy_parameters, candle_interval, strategy_mode=StrategyMode.INTRADAY.value):
+    def papertest(self, strategy_code, start_time, end_time, instrument_id, strategy_parameters, candle_interval, strategy_mode=StrategyMode.INTRADAY):
         # Validate config parameters
         assert (isinstance(strategy_code, str) is True), f'Argument strategy_code should be a string'
         assert (isinstance(start_time, time) is True), f'Argument start_timestamp should be an instance of type datetime.datetime'
@@ -185,7 +185,7 @@ class AlgoBullsConnection:
 
         # Submit Paper Trading job
         print('Submitting Paper Trading Job...', end=' ')
-        response = self.api.start_strategy_algotrading(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING.value)
+        response = self.api.start_strategy_algotrading(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING)
         print('Success.')
 
         if response.get('success') is True:
@@ -194,24 +194,24 @@ class AlgoBullsConnection:
             return AlgoBullsJobSubmissionResponseEnum.ERROR, response
 
     def get_papertrading_job_status(self, strategy_code):
-        return self.get_job_status(strategy_code, TradingType.PAPERTRADING.value)
+        return self.get_job_status(strategy_code, TradingType.PAPERTRADING)
 
     def stop_papertrading_job(self, strategy_code):
-        return self.stop_job(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING.value)
+        return self.stop_job(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING)
 
     def get_papertrading_logs(self, strategy_code):
-        return self.get_report(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING.value, report_type=TradingReportType.LOGS.value)
+        return self.get_report(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING, report_type=TradingReportType.LOGS)
 
     def get_papertrading_report_pnl_table(self, strategy_code, show_all_rows=False):
-        return self.get_report(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING.value, report_type=TradingReportType.PNL_TABLE.value, render_as_dataframe=True, show_all_rows=show_all_rows)
+        return self.get_report(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING, report_type=TradingReportType.PNL_TABLE, render_as_dataframe=True, show_all_rows=show_all_rows)
 
     def get_papertrading_report_statistics(self, strategy_code):
-        return self.get_report(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING.value, report_type=TradingReportType.STATS_TABLE.value, render_as_dataframe=True)
+        return self.get_report(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING, report_type=TradingReportType.STATS_TABLE, render_as_dataframe=True)
 
     def get_papertrading_report_order_history(self, strategy_code):
-        return self.get_report(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING.value, report_type=TradingReportType.ORDER_HISTORY.value)
+        return self.get_report(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING, report_type=TradingReportType.ORDER_HISTORY)
 
-    def realtrade(self, strategy_code, start_time, end_time, instrument_id, strategy_parameters, candle_interval, strategy_mode=StrategyMode.INTRADAY.value):
+    def realtrade(self, strategy_code, start_time, end_time, instrument_id, strategy_parameters, candle_interval, strategy_mode=StrategyMode.INTRADAY):
         # Validate config parameters
         assert (isinstance(strategy_code, str) is True), f'Argument strategy_code should be a string'
         assert (isinstance(start_time, time) is True), f'Argument start_time should be an instance of type datetime.time'
@@ -234,7 +234,7 @@ class AlgoBullsConnection:
 
         # Submit Real Trading job
         print('Submitting Real Trading Job...', end=' ')
-        response = self.api.start_strategy_algotrading(strategy_code=strategy_code, trading_type=TradingType.REALTRADING.value)
+        response = self.api.start_strategy_algotrading(strategy_code=strategy_code, trading_type=TradingType.REALTRADING)
         print('Success.')
 
         if response.get('success') is True:
@@ -243,26 +243,26 @@ class AlgoBullsConnection:
             return AlgoBullsJobSubmissionResponseEnum.ERROR, response
 
     def get_realtrading_job_status(self, strategy_code):
-        return self.get_job_status(strategy_code, TradingType.REALTRADING.value)
+        return self.get_job_status(strategy_code, TradingType.REALTRADING)
 
     def stop_realtrading_job(self, strategy_code):
-        return self.stop_job(strategy_code=strategy_code, trading_type=TradingType.REALTRADING.value)
+        return self.stop_job(strategy_code=strategy_code, trading_type=TradingType.REALTRADING)
 
     def get_realtrading_logs(self, strategy_code):
-        return self.get_report(strategy_code=strategy_code, trading_type=TradingType.REALTRADING.value, report_type=TradingReportType.LOGS.value)
+        return self.get_report(strategy_code=strategy_code, trading_type=TradingType.REALTRADING, report_type=TradingReportType.LOGS)
 
     def get_realtrading_report_pnl_table(self, strategy_code, show_all_rows=False):
-        return self.get_report(strategy_code=strategy_code, trading_type=TradingType.REALTRADING.value, report_type=TradingReportType.PNL_TABLE.value, render_as_dataframe=True, show_all_rows=show_all_rows)
+        return self.get_report(strategy_code=strategy_code, trading_type=TradingType.REALTRADING, report_type=TradingReportType.PNL_TABLE, render_as_dataframe=True, show_all_rows=show_all_rows)
 
     def get_realtrading_report_statistics(self, strategy_code):
-        return self.get_report(strategy_code=strategy_code, trading_type=TradingType.REALTRADING.value, report_type=TradingReportType.STATS_TABLE.value, render_as_dataframe=True)
+        return self.get_report(strategy_code=strategy_code, trading_type=TradingType.REALTRADING, report_type=TradingReportType.STATS_TABLE, render_as_dataframe=True)
 
     def get_realtrading_report_order_history(self, strategy_code):
-        return self.get_report(strategy_code=strategy_code, trading_type=TradingType.REALTRADING.value, report_type=TradingReportType.ORDER_HISTORY.value)
+        return self.get_report(strategy_code=strategy_code, trading_type=TradingType.REALTRADING, report_type=TradingReportType.ORDER_HISTORY)
 
 
 def pandas_dataframe_all_rows():
     pd.set_option('display.max_rows', None)
     pd.set_option('display.max_columns', None)
     pd.set_option('display.width', None)
-    pd.set_option('display.max_colwidth', -1)
+    pd.set_option('display.max_colwidth', None)
