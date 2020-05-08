@@ -2,21 +2,21 @@ class AlgoBullsAPIBaseException(Exception):
     pass
 
 
-class AlgoBullsAPIAPIBadRequest(AlgoBullsAPIBaseException):
+class AlgoBullsAPIBadRequest(AlgoBullsAPIBaseException):
     # HTTP Response Code: 400
     pass
 
 
-class AlgoBullsAPIAPIUnauthorizedError(AlgoBullsAPIBaseException):
+class AlgoBullsAPIUnauthorizedError(AlgoBullsAPIBaseException):
     # HTTP Response Code: 401
     pass
 
 
-class AlgoBullsAPIAPIResourceNotFoundError(AlgoBullsAPIBaseException):
+class AlgoBullsAPIResourceNotFoundError(AlgoBullsAPIBaseException):
     # HTTP Response Code: 404
     pass
 
 
-class AlgoBullsAPIAPIInternalServerErrorException(AlgoBullsAPIBaseException):
+class AlgoBullsAPIInternalServerErrorException(AlgoBullsAPIBaseException):
     # HTTP Response Code: 500
     pass
