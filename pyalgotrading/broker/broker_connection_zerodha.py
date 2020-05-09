@@ -1,3 +1,8 @@
+"""
+File holding class for Broker Connection Zerodha
+
+
+"""
 import pandas as pd
 
 from pyalgotrading.broker.broker_connection_base import BrokerConnectionBase
@@ -6,6 +11,10 @@ from pyalgotrading.utils.func import import_with_install
 
 
 class BrokerConnectionZerodha(BrokerConnectionBase):
+    """
+    class for Broker Connection Zerodha
+
+    """
     # Initializing constants. They will be populated correctly by the populate_constants() method
     ORDER_TRANSACTION_TYPE_MAP = {}
     ORDER_TYPE_MAP = {}
@@ -26,6 +35,9 @@ class BrokerConnectionZerodha(BrokerConnectionBase):
         # Create other attributes
         self.all_instruments = None
         self.populate_constants()
+
+    def get_name(self):
+        return 'ZERODHA'
 
     def populate_constants(self):
         """

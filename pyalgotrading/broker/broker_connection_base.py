@@ -4,6 +4,10 @@ from abc import abstractmethod
 class BrokerConnectionBase:
 
     @abstractmethod
+    def get_name(self):
+        raise NotImplementedError
+
+    @abstractmethod
     def get_all_instruments(self):
         raise NotImplementedError
 
