@@ -124,37 +124,37 @@ class AlgoBullsAPI:
         response = self._send_request(method='patch', endpoint=endpoint, params=params, form_data=form_data)
         return response
 
-    def start_strategy_algotrading(self, strategy_code, trading_type):
+    def start_strategy_algotrading(self, strategy_code, trading_type, broker=''):
         """
-        Submit backtesting job for strategy with code strategy_code & return the job ID.
+        Submit Backtesting / Paper Trading / Real Trading job for strategy with code strategy_code & return the job ID.
         """
-        params = {'strategy_code': strategy_code, 'strategy_type': StrategyType.PYTHON.value, 'trading_type': trading_type.value}
+        params = {'strategy_code': strategy_code, 'strategy_type': StrategyType.PYTHON.value, 'trading_type': trading_type.value, 'broker': broker}
         endpoint = f'v1/customer_strategy_algotrading'
         form_data = {'action': 'start'}
         response = self._send_request(method='post', endpoint=endpoint, params=params, form_data=form_data)
         return response
 
-    def stop_strategy_algotrading(self, strategy_code, trading_type):
+    def stop_strategy_algotrading(self, strategy_code, trading_type, broker=''):
         """
-        Submit backtesting job for strategy with code strategy_code & return the job ID.
+        Stop Backtesting / Paper Trading / Real Trading job for strategy with code strategy_code & return the job ID.
         """
-        params = {'strategy_code': strategy_code, 'strategy_type': StrategyType.PYTHON.value, 'trading_type': trading_type.value}
+        params = {'strategy_code': strategy_code, 'strategy_type': StrategyType.PYTHON.value, 'trading_type': trading_type.value, 'broker': broker}
         endpoint = f'v1/customer_strategy_algotrading'
         form_data = {'action': 'stop'}
         response = self._send_request(method='post', endpoint=endpoint, params=params, form_data=form_data)
         return response
 
-    def get_job_status(self, strategy_code, trading_type):
+    def get_job_status(self, strategy_code, trading_type, broker=''):
         """
         Get JOB status for a given strategy_code and given trading_type
         """
-        params = {'strategy_code': strategy_code, 'strategy_type': StrategyType.PYTHON.value, 'trading_type': trading_type.value}
+        params = {'strategy_code': strategy_code, 'strategy_type': StrategyType.PYTHON.value, 'trading_type': trading_type.value, 'broker': broker}
         endpoint = f'v1/customer_strategy_algotrading'
         response = self._send_request(endpoint=endpoint, params=params)
         return response
 
-    def get_reports(self, strategy_code, trading_type, report_type):
-        params = {'strategy_code': strategy_code, 'strategy_type': StrategyType.PYTHON.value, 'trading_type': trading_type.value, 'report_type': report_type.value}
+    def get_reports(self, strategy_code, trading_type, report_type, broker=''):
+        params = {'strategy_code': strategy_code, 'strategy_type': StrategyType.PYTHON.value, 'trading_type': trading_type.value, 'report_type': report_type.value, 'broker': broker}
         endpoint = f'v1/customer_strategy_algotrading_reports'
         response = self._send_request(endpoint=endpoint, params=params)
         return response

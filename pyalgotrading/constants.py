@@ -5,15 +5,21 @@ class AlgoBullsEngineVersion(Enum):
     VERSION_3_1_0 = '3.1.0'
 
 
-class AlgoBullsJobStatusEnum(Enum):
+class AlgoBullsJobStatus(Enum):
     JOB_RUNNING = 'RUNNING'
     JOB_STOPPED = 'STOPPED'
+    JOB_STATUS_UNKNOWN = 'JOB STATUS UNKNOWN'
 
 
-class AlgoBullsJobSubmissionResponseEnum(Enum):
-    SUCCESS = 'Success'
-    ERROR = 'Error'
-    JOB_NOT_RUNNING = 'Job not running'
+class AlgoBullsJobSubmissionResponse(Enum):
+    SUCCESS = 'SUCCESS'
+    ERROR = 'ERROR'
+    JOB_ALREADY_RUNNING = 'ALREADY RUNNING'
+    JOB_NOT_RUNNING = 'JOB NOT RUNNING'
+
+
+class AlgoBullsSupportedBrokers(Enum):
+    ZERODHA = 'ZERODHA'
 
 
 class BrokerOrderTransactionTypeConstants(Enum):
@@ -42,7 +48,7 @@ class BrokerOrderVarietyConstants(Enum):
     STOPLOSS_LIMIT = 'ORDER_VARIETY_STOPLOSS_LIMIT'
 
 
-class CandleIntervalEnum(Enum):
+class CandleInterval(Enum):
     MINUTES_1 = 'minute'
     MINUTES_3 = '3minutes'
     MINUTES_5 = '5minutes'
