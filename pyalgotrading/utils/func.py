@@ -30,8 +30,10 @@ def import_with_install(package_import_name, package_install_name=None):
         return __import__(package_import_name)
 
 
-def plot_candlestick_chart(data, plot_type, caption='', hide_missing_dates=False, show=True, indicators=None, plot_indicators_separately=False, plot_height=500, plot_width=1000):
-    make_subplots = import_with_install('plotly').subplots.make_subplots
+def plot_candlestick_chart(data, plot_type, caption='', hide_missing_dates=False, show=True, indicators=(), plot_indicators_separately=False, plot_height=500, plot_width=1000):
+    import_with_install('plotly', 'plotly')
+    from plotly.subplots import make_subplots
+    # make_subplots = import_with_install('plotly.subplots', 'plotly').make_subplots        #  TODO: Fix this; not working; gives import error
     go = import_with_install('plotly').graph_objects
 
     # Sanity checks
@@ -54,7 +56,7 @@ def plot_candlestick_chart(data, plot_type, caption='', hide_missing_dates=False
 
     candlesticks_data_subplot_row_index = 1
     candlesticks_data_subplot_col_index = 1
-    if (indicators is not None) and (plot_indicators_separately is True):
+    if indicators and (plot_indicators_separately is True):
         fig = make_subplots(rows=3, cols=1, vertical_spacing=0.05, shared_xaxes=True, specs=[[{"rowspan": 2}], [{}], [{}]])
         indicator_subplot_row_index = 3
         indicator_subplot_col_index = 1
@@ -66,13 +68,17 @@ def plot_candlestick_chart(data, plot_type, caption='', hide_missing_dates=False
     if plot_type in [PlotType.OHLC, PlotType.HEIKINASHI]:
         fig.append_trace(go.Candlestick(x=timestamps, open=data['open'], high=data['high'], low=data['low'], close=data['close'], name='Historical Data'), row=candlesticks_data_subplot_row_index, col=candlesticks_data_subplot_col_index)
     elif plot_type == PlotType.LINEBREAK:
-        fig = go.Figure(data=[go.Candlestick(x=timestamps, open=data['open'], high=data[["open", "close"]].max(axis=1), low=data[["open", "close"]].min(axis=1), close=data['close'], name='Historical Data')], row=candlesticks_data_subplot_row_index,
-                        col=candlesticks_data_subplot_col_index)
+        fig = go.Figure(data=[go.Candlestick(x=timestamps, open=data['open'], high=data[["open", "close"]].max(axis=1), low=data[["open", "close"]].min(axis=1), close=data['close'], name='Historical Data')])
+                        # rows=candlesticks_data_subplot_row_index,
+                        # cols=candlesticks_data_subplot_col_index)
     elif plot_type == PlotType.RENKO:
-        fig = go.Figure(data=[go.Candlestick(x=timestamps, open=data['open'], high=data[["open", "close"]].max(axis=1), low=data[["open", "close"]].min(axis=1), close=data['close'], name='Historical Data')], row=candlesticks_data_subplot_row_index,
-                        col=candlesticks_data_subplot_col_index)
+        fig = go.Figure(data=[go.Candlestick(x=timestamps, open=data['open'], high=data[["open", "close"]].max(axis=1), low=data[["open", "close"]].min(axis=1), close=data['close'], name='Historical Data')])
+                        # rows=candlesticks_data_subplot_row_index,
+                        # cols=candlesticks_data_subplot_col_index)
     elif plot_type == PlotType.QUANDL_OHLC:
-        fig = go.Figure(data=[go.Candlestick(x=timestamps, open=data['Open'], high=data['High'], low=data['Low'], close=data['Close'], name='Historical Data')], row=candlesticks_data_subplot_row_index, col=candlesticks_data_subplot_col_index)
+        fig = go.Figure(data=[go.Candlestick(x=timestamps, open=data['Open'], high=data['High'], low=data['Low'], close=data['Close'], name='Historical Data')])
+                        # rows=candlesticks_data_subplot_row_index,
+                        # cols=candlesticks_data_subplot_col_index)
     else:
         print(f'Error: plot_type ({plot_type}) is not implemented yet')
         return
