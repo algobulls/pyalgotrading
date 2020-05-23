@@ -1,0 +1,2 @@
+# pyalgotrading Package Documentation
+::: pyalgotrading
