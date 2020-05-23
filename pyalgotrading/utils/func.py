@@ -1,17 +1,14 @@
-import enum
+import pandas as pd
 
-
-class PlotType(enum.Enum):
-    OHLC = 'OHLC'
-    LINEBREAK = 'Linebreak'
-    RENKO = 'Renko'
-    HEIKINASHI = 'HeikinAshi'
-    QUANDL_OHLC = 'Quandl OHLC'
+from pyalgotrading.constants import PlotType
 
 
 def import_with_install(package_import_name, package_install_name=None, package_version=''):
     """
-    Helps import 'package'. If its not present, it will be installed using 'pip' and a re-import will be attempted, which should succeed if the package was imported correctly
+    Helps import 'package' even if its not installed.
+
+    If package is installed, it will be imported and returned.
+    If its not installed, it will be installed using 'pip' and a re-import will be attempted, which should succeed if the package was imported correctly.
 
     Args:
         package_import_name: name of package to be installed using pip, str
@@ -37,7 +34,31 @@ def import_with_install(package_import_name, package_install_name=None, package_
 counter = 0
 
 
-def plot_candlestick_chart(data, plot_type, caption='', hide_missing_dates=False, show=True, indicators=(), plot_indicators_separately=False, plot_height=500, plot_width=1000):
+def plot_candlestick_chart(data: pd.DataFrame, plot_type: PlotType, caption: str = '', hide_missing_dates: bool = False, show: bool = True, indicators: tuple = (), plot_indicators_separately: bool = False, plot_height: int = 500,
+                           plot_width: int = 1000):
+    """
+    Function to create charts for various candlesticks pattern data -
+        - Japanese
+        - Heikin-Ashi
+        - Linebreak
+        - Renko
+        - Japanese for Quandl data
+
+    Support for displaying indicator data (on top of candlesticks pattern data or separately).
+
+    Args:
+        data: Pandas DataFrame with columns `timestamp`, `open`, 'high`, 'low`, `close`
+        plot_type: Enum of type PlotType
+        caption: Caption for the chart
+        hide_missing_dates: If True, missing dates in the `data` (say due to no data over weekend) will be hidden and a continuous plot will be shown.
+                            If False, gaps would be shown for missing dates. However, the date formatting on the x-axis is better here, so prefer this when there are no date gaps.
+        show: If True, figure will be shown. Useful for displaying figures inline while using Jupyter Notebooks
+        indicators: Indicator data to be displayed
+        plot_indicators_separately: If True, indicator data would be plotted in a different subplot. Use this when indicator data range coincides with the historical data range.
+                                    If False, it will be plotted in the same subplot as the historical data. Use this when indicator data range does not coincide with the historical data range
+        plot_height: Plot height in pixels
+        plot_width: Plot width in pixels
+    """
     import_with_install(package_import_name='plotly', package_install_name='plotly', package_version='4.7.1')
     from plotly.subplots import make_subplots
     go = plotly.graph_objects
@@ -48,7 +69,7 @@ def plot_candlestick_chart(data, plot_type, caption='', hide_missing_dates=False
         return
 
     # Plot
-    if plot_type is PlotType.QUANDL_OHLC:
+    if plot_type is PlotType.QUANDL_JAPANESE:
         data['timestamp'] = data.index
 
     if hide_missing_dates:
@@ -71,13 +92,13 @@ def plot_candlestick_chart(data, plot_type, caption='', hide_missing_dates=False
         indicator_subplot_row_index = 1
         indicator_subplot_col_index = 1
 
-    if plot_type in [PlotType.OHLC, PlotType.HEIKINASHI]:
+    if plot_type in [PlotType.JAPANESE, PlotType.HEIKINASHI]:
         fig.append_trace(go.Candlestick(x=timestamps, open=data['open'], high=data['high'], low=data['low'], close=data['close'], name='Historical Data'), row=candlesticks_data_subplot_row_index, col=candlesticks_data_subplot_col_index)
     elif plot_type == PlotType.LINEBREAK:
         fig = go.Figure(data=[go.Candlestick(x=timestamps, open=data['open'], high=data[["open", "close"]].max(axis=1), low=data[["open", "close"]].min(axis=1), close=data['close'], name='Historical Data')])
     elif plot_type == PlotType.RENKO:
         fig = go.Figure(data=[go.Candlestick(x=timestamps, open=data['open'], high=data[["open", "close"]].max(axis=1), low=data[["open", "close"]].min(axis=1), close=data['close'], name='Historical Data')])
-    elif plot_type == PlotType.QUANDL_OHLC:
+    elif plot_type == PlotType.QUANDL_JAPANESE:
         fig = go.Figure(data=[go.Candlestick(x=timestamps, open=data['Open'], high=data['High'], low=data['Low'], close=data['Close'], name='Historical Data')])
     else:
         print(f'Error: plot_type ({plot_type}) is not implemented yet')

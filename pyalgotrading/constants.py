@@ -97,3 +97,11 @@ class TradingReportType(Enum):
     STATS_TABLE = 1
     ORDER_HISTORY = 2
     LOGS = 3
+
+
+class PlotType(Enum):
+    JAPANESE = 'JAPANESE'
+    LINEBREAK = 'Linebreak'
+    RENKO = 'Renko'
+    HEIKINASHI = 'HeikinAshi'
+    QUANDL_JAPANESE = 'Quandl JAPANESE'

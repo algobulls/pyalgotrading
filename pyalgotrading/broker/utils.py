@@ -14,7 +14,7 @@ def crossover(val1_hist: Union[Tuple, List, pd.Series], val2_hist: Union[Tuple, 
                            Ex: with accuracy_decimals=2, 3.456 and 3.457 are considered equal, but 3.456 and 3.466 are considered unequal.
 
     Returns:
-        - `1` if `val1_hist` cuts `val2_hist` upwards
+        - `1` if `val1_hist(OHLC)` cuts `val2_hist` upwards
         - `-1` if `val1_hist` cuts `val2_hist` downwards
         - `0` if there is no cut between `val1_hist` and `val2_hist`
 
