@@ -1,22 +1,33 @@
 class AlgoBullsAPIBaseException(Exception):
+    """
+    Base exception class for all API related exceptions
+    """
     pass
 
 
 class AlgoBullsAPIBadRequest(AlgoBullsAPIBaseException):
-    # HTTP Response Code: 400
+    """
+    Exception class for HTTP status code of 400 (Bad Request)
+    """
     pass
 
 
 class AlgoBullsAPIUnauthorizedError(AlgoBullsAPIBaseException):
-    # HTTP Response Code: 401
+    """
+    Exception class for HTTP status code of 401 (Unauthorized)
+    """
     pass
 
 
 class AlgoBullsAPIResourceNotFoundError(AlgoBullsAPIBaseException):
-    # HTTP Response Code: 404
+    """
+    Exception class for HTTP status code of 404 (Resource Not Found)
+    """
     pass
 
 
 class AlgoBullsAPIInternalServerErrorException(AlgoBullsAPIBaseException):
-    # HTTP Response Code: 500
+    """
+    Exception class for HTTP status code of 500 (Internal Server Error)
+    """
     pass

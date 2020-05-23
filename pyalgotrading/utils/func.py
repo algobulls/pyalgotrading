@@ -1,7 +1,5 @@
 import enum
 
-counter = 0
-
 
 class PlotType(enum.Enum):
     OHLC = 'OHLC'
@@ -11,30 +9,38 @@ class PlotType(enum.Enum):
     QUANDL_OHLC = 'Quandl OHLC'
 
 
-def import_with_install(package_import_name, package_install_name=None):
+def import_with_install(package_import_name, package_install_name=None, package_version=''):
     """
     Helps import 'package'. If its not present, it will be installed using 'pip' and a re-import will be attempted, which should succeed if the package was imported correctly
 
-    :param package_import_name: name of package to be installed using pip, str
-    :param package_install_name: name of package to be imported. Default is None, which means package can be imported with the same name as used for installation. If not, this parameter can be used to specify a different import name.
-    :return: imported package
+    Args:
+        package_import_name: name of package to be installed using pip, str
+        package_install_name: name of package to be imported. Default is None, which means package can be imported with the same name as used for installation. If not, this parameter can be used to specify a different import name.
+        package_version: version of package to be installed, str, Example: '1.0.0' or '==1.0.0'
+
+    Returns:
+        The imported package
     """
+
     package_install_name = package_install_name if package_install_name is not None else package_import_name
+    package_version = f'=={package_version}' if (package_version is not '' and '==' not in package_version) else package_version
     try:
         return __import__(package_import_name)
     except ImportError:
         print(f"Installing package {package_import_name} via pip...")
         import subprocess
         import sys
-        subprocess.check_call([sys.executable, '-m', 'pip', 'install', package_install_name])
+        subprocess.check_call([sys.executable, '-m', 'pip', 'install', package_install_name, package_version])
         return __import__(package_import_name)
 
 
+counter = 0
+
+
 def plot_candlestick_chart(data, plot_type, caption='', hide_missing_dates=False, show=True, indicators=(), plot_indicators_separately=False, plot_height=500, plot_width=1000):
-    import_with_install('plotly', 'plotly')
+    import_with_install(package_import_name='plotly', package_install_name='plotly', package_version='4.7.1')
     from plotly.subplots import make_subplots
-    # make_subplots = import_with_install('plotly.subplots', 'plotly').make_subplots        #  TODO: Fix this; not working; gives import error
-    go = import_with_install('plotly').graph_objects
+    go = plotly.graph_objects
 
     # Sanity checks
     if not isinstance(plot_type, PlotType):
@@ -69,16 +75,10 @@ def plot_candlestick_chart(data, plot_type, caption='', hide_missing_dates=False
         fig.append_trace(go.Candlestick(x=timestamps, open=data['open'], high=data['high'], low=data['low'], close=data['close'], name='Historical Data'), row=candlesticks_data_subplot_row_index, col=candlesticks_data_subplot_col_index)
     elif plot_type == PlotType.LINEBREAK:
         fig = go.Figure(data=[go.Candlestick(x=timestamps, open=data['open'], high=data[["open", "close"]].max(axis=1), low=data[["open", "close"]].min(axis=1), close=data['close'], name='Historical Data')])
-                        # rows=candlesticks_data_subplot_row_index,
-                        # cols=candlesticks_data_subplot_col_index)
     elif plot_type == PlotType.RENKO:
         fig = go.Figure(data=[go.Candlestick(x=timestamps, open=data['open'], high=data[["open", "close"]].max(axis=1), low=data[["open", "close"]].min(axis=1), close=data['close'], name='Historical Data')])
-                        # rows=candlesticks_data_subplot_row_index,
-                        # cols=candlesticks_data_subplot_col_index)
     elif plot_type == PlotType.QUANDL_OHLC:
         fig = go.Figure(data=[go.Candlestick(x=timestamps, open=data['Open'], high=data['High'], low=data['Low'], close=data['Close'], name='Historical Data')])
-                        # rows=candlesticks_data_subplot_row_index,
-                        # cols=candlesticks_data_subplot_col_index)
     else:
         print(f'Error: plot_type ({plot_type}) is not implemented yet')
         return
@@ -87,7 +87,7 @@ def plot_candlestick_chart(data, plot_type, caption='', hide_missing_dates=False
         indicator_name = indicator['name']
         indicator_data = indicator['data']
         extra = indicator['extra'] if 'extra' in indicator else {}
-        fig.add_trace(go.Scatter(x=timestamps, y=indicator_data, name=indicator_name, **extra), row=indicator_subplot_row_index, col=1)
+        fig.add_trace(go.Scatter(x=timestamps, y=indicator_data, name=indicator_name, **extra), row=indicator_subplot_row_index, col=indicator_subplot_col_index)
 
     # Plot customization
     if hide_missing_dates:

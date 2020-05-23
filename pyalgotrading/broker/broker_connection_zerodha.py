@@ -1,7 +1,5 @@
 """
-File holding class for Broker Connection Zerodha
-
-
+Module for class BrokerConnectionZerodha
 """
 import pandas as pd
 
@@ -26,7 +24,7 @@ class BrokerConnectionZerodha(BrokerConnectionBase):
         self.api_secret = api_secret
 
         # Create kiteconnect instance
-        kiteconnect = import_with_install('kiteconnect')
+        kiteconnect = import_with_install(package_import_name='kiteconnect', package_install_name='kiteconnect', package_version='3.8.2')
         self.api = kiteconnect.KiteConnect(api_key=self.api_key)
 
         # Print the login url. User will use this to login to broker site and get access token
@@ -44,7 +42,7 @@ class BrokerConnectionZerodha(BrokerConnectionBase):
         Map pyalgotrading constants to broker constants
         :return: None
         """
-        _ = import_with_install('kiteconnect').KiteConnect
+        _ = import_with_install(package_import_name='kiteconnect', package_install_name='kiteconnect', package_version='3.8.2').KiteConnect
 
         BrokerConnectionZerodha.ORDER_TRANSACTION_TYPE_MAP = {BrokerOrderTransactionTypeConstants.BUY: _.TRANSACTION_TYPE_BUY,
                                                               BrokerOrderTransactionTypeConstants.SELL: _.TRANSACTION_TYPE_SELL}
