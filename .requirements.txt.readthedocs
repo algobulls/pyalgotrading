@@ -1,4 +1,7 @@
+# Mkdocs build on readthedocs.org cannot find pyalgotrading package while building, hence this custom requirements file which explicitly adds the package
+# Make sure this is kept in sync with requirements.txt for all packages but pyalgotrading
 pyalgotrading
+
 pandas>=1.0.3
 requests>=2.23.0
 mkdocs>=1.1
