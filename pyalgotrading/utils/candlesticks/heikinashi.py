@@ -7,7 +7,7 @@ def HeikinAshi(japanese_data: pd.DataFrame, ohlc: tuple = ('timestamp', 'open', 
 
     Args:
         japanese_data: Pandas DataFrame holding Japanese Candlesticks Pattern Data
-        ohlc: Column names corresponding to 'timestamp', 'open', 'high', 'low' and 'close' data respectivel
+        ohlc: Column names corresponding to 'timestamp', 'open', 'high', 'low' and 'close' data respectively
 
     Returns:
         HeikinAshi Candlesticks Pattern data

@@ -20,7 +20,7 @@ def import_with_install(package_import_name, package_install_name=None, package_
     """
 
     package_install_name = package_install_name if package_install_name is not None else package_import_name
-    package_version = f'=={package_version}' if (package_version is not '' and '==' not in package_version) else package_version
+    package_version = f'=={package_version}' if ((package_version != '') and ('==' not in package_version)) else package_version
     try:
         return __import__(package_import_name)
     except ImportError:
@@ -61,7 +61,7 @@ def plot_candlestick_chart(data: pd.DataFrame, plot_type: PlotType, caption: str
     """
     import_with_install(package_import_name='plotly', package_install_name='plotly', package_version='4.7.1')
     from plotly.subplots import make_subplots
-    go = plotly.graph_objects
+    from plotly import graph_objects as go
 
     # Sanity checks
     if not isinstance(plot_type, PlotType):
