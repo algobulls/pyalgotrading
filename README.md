@@ -1,6 +1,9 @@
 # pyalgotrading
 Official Python Package for Algorithmic Trading APIs powered by AlgoBulls!
 
+-----
+## Currently, in Beta. Check source code here: [devel branch](https://github.com/algobulls/pyalgotrading/tree/devel)
+-----
 
 ### Features
 - Powered by [AlgoBulls Platform](https://algobulls.com)
