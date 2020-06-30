@@ -1,5 +1,5 @@
 """
-Module for handling API calls to the [AlgoBulls](https://www.algobulls.com) backend
+Module for handling API calls to the [AlgoBulls](https://www.algobulls.com) backend.
 """
 
 from json import JSONDecodeError
@@ -11,9 +11,15 @@ from ..constants import StrategyType
 
 
 class AlgoBullsAPI:
+    """
+    AlgoBulls API
+    """
     SERVER_ENDPOINT = 'http://127.0.0.1:8000/'
 
     def __init__(self):
+        """
+        Init method that is used while creating an object of this class
+        """
         self.headers = None
 
     def set_access_token(self, access_token: str):
@@ -29,6 +35,19 @@ class AlgoBullsAPI:
         }
 
     def _send_request(self, method: str = 'get', endpoint: str = '', base_url: str = SERVER_ENDPOINT, params: [str, dict] = None, form_data: [str, dict] = None, requires_authorization: bool = True) -> dict:
+        """
+        Send the request to the platform
+        Args:
+            method: get
+            endpoint: endpoint url
+            base_url: base url
+            params: parameters
+            form_data: form data
+            requires_authorization: True or False
+
+        Returns:
+            request status
+        """
         url = f'{base_url}{endpoint}'
         headers = self.headers if requires_authorization else None
         response = requests.request(method=method, headers=headers, url=url, params=params, data=form_data)
@@ -132,7 +151,7 @@ class AlgoBullsAPI:
         """
 
         Args:
-            instrument:
+            instrument: instrument key
 
         Returns:
             JSON Response
@@ -150,8 +169,8 @@ class AlgoBullsAPI:
         """
 
         Args:
-            strategy_code:
-            strategy_config:
+            strategy_code: strategy code
+            strategy_config: strategy configuration
 
         Returns:
 

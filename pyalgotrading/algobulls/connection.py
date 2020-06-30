@@ -1,3 +1,6 @@
+"""
+Module for AlgoBulls connection
+"""
 import inspect
 import json
 from datetime import datetime as dt, time
@@ -11,14 +14,33 @@ from ..strategy.strategy_base import StrategyBase
 
 
 class AlgoBullsConnection:
+    """
+    Class for Algobulls connection
+    """
     def __init__(self):
+        """
+        Init method that is used while creating an object of this class
+        """
         self.api = AlgoBullsAPI()
 
     def get_authorization_url(self):
+        """
+        Fetches the authorization URL
+        Returns:
+            authorization URL
+        """
         print('This is not implemented YET!!!')
         return 'http://127.0.0.1:8000/login/'
 
     def set_access_token(self, access_token):
+        """
+        Set the access token
+        Args:
+            access_token: access token
+
+        Returns:
+            None
+        """
         assert (isinstance(access_token, str) is True), f'Argument access_token should be a string'
         self.api.set_access_token(access_token)
 
@@ -59,6 +81,11 @@ class AlgoBullsConnection:
         return response
 
     def get_all_strategies(self):
+        """
+        Fetch all available strategies
+        Returns:
+            list of available strategies
+        """
         response = self.api.get_all_strategies()
         if isinstance(response['details'], list):
             return pd.DataFrame(response['details'])
@@ -66,6 +93,14 @@ class AlgoBullsConnection:
             return response
 
     def get_strategy_details(self, strategy_code):
+        """
+        Fetch the strategy details of a particular strategy
+        Args:
+            strategy_code: strategy code
+
+        Returns:
+            strategy program / code
+        """
         assert (isinstance(strategy_code, str) is True), f'Argument strategy_code should be a string'
 
         try:
@@ -76,6 +111,14 @@ class AlgoBullsConnection:
             print(f'ERROR: No strategy found with ID: {strategy_code}')
 
     def search_instrument(self, instrument):
+        """
+        Search for an instrument
+        Args:
+            instrument: instrument key
+
+        Returns:
+            True or False
+        """
         assert (isinstance(instrument, str) is True), f'Argument instrument should be a string'
 
         response = self.api.search_instrument(instrument)['details']
@@ -96,6 +139,16 @@ class AlgoBullsConnection:
             return AlgoBullsJobStatus.JOB_STATUS_UNKNOWN, response
 
     def stop_job(self, strategy_code, trading_type, broker=None):
+        """
+        Stops a job
+        Args:
+            strategy_code: strategy code
+            trading_type: trading type
+            broker: broker name
+
+        Returns:
+            job status
+        """
         assert (isinstance(strategy_code, str) is True), f'Argument strategy_code should be a string'
         assert (isinstance(trading_type, TradingType) is True), f'Argument trading_type should be an enum of type {TradingType.__name__}'
         assert (broker is None or isinstance(broker, AlgoBullsSupportedBrokers) is True), f'Argument broker should be None or an enum of type {AlgoBullsSupportedBrokers.__name__}'
@@ -107,6 +160,19 @@ class AlgoBullsConnection:
             return AlgoBullsJobSubmissionResponse.ERROR, response
 
     def get_report(self, strategy_code, trading_type, report_type, render_as_dataframe=False, show_all_rows=False, broker=None):
+        """
+        Fetch the report of a strategy
+        Args:
+            strategy_code: strategy code
+            trading_type: trading type
+            report_type: report type
+            render_as_dataframe: True or False
+            show_all_rows: True or False
+            broker: broker name
+
+        Returns:
+            report details
+        """
         assert (isinstance(strategy_code, str) is True), f'Argument strategy_code should be a string'
         assert (isinstance(trading_type, TradingType) is True), f'Argument trading_type should be an enum of type {TradingType.__name__}'
         assert (isinstance(report_type, TradingReportType) is True), f'Argument report_type should be an enum of type {TradingReportType.__name__}'
@@ -127,6 +193,20 @@ class AlgoBullsConnection:
             return AlgoBullsJobSubmissionResponse.ERROR, response
 
     def backtest(self, strategy_code, start_timestamp, end_timestamp, instrument_id, strategy_parameters, candle_interval, strategy_mode=StrategyMode.INTRADAY):
+        """
+
+        Args:
+            strategy_code: strategy code
+            start_timestamp: start date/time
+            end_timestamp: end date/time
+            instrument_id: instrument key
+            strategy_parameters: parameters
+            candle_interval: candle interval
+            strategy_mode: intraday or delivery
+
+        Returns:
+            backtest status
+        """
         # Sanity checks - Validate config parameters
         assert (isinstance(strategy_code, str) is True), f'Argument strategy_code should be a string'
         assert (isinstance(start_timestamp, dt) is True), f'Argument start_timestamp should be an instance of type datetime.datetime'
@@ -166,28 +246,80 @@ class AlgoBullsConnection:
 
     def stop_backtesting_job(self, strategy_code):
         """
-        Gets BACKTESTING job status for given strategy_code
+        Stops the BACKTESTING job
+        Args:
+            strategy_code: Strategy Code / ID
+
+        Returns:
+            None
         """
         assert (isinstance(strategy_code, str) is True), f'Argument strategy_code should be a string'
         return self.stop_job(strategy_code=strategy_code, trading_type=TradingType.BACKTESTING)
 
     def get_backtesting_logs(self, strategy_code):
+        """
+        Fetch backtesting logs
+        Args:
+            strategy_code:
+
+        Returns:
+            report details
+        """
         assert (isinstance(strategy_code, str) is True), f'Argument strategy_code should be a string'
         return self.get_report(strategy_code, trading_type=TradingType.BACKTESTING, report_type=TradingReportType.LOGS)
 
     def get_backtesting_report_pnl_table(self, strategy_code, show_all_rows=False):
+        """
+        Fetch backtesting Profit / Loss details
+        Args:
+            strategy_code: strategy code
+            show_all_rows: True or False
+
+        Returns:
+            report details
+        """
         assert (isinstance(strategy_code, str) is True), f'Argument strategy_code should be a string'
         return self.get_report(strategy_code=strategy_code, trading_type=TradingType.BACKTESTING, report_type=TradingReportType.PNL_TABLE, render_as_dataframe=True, show_all_rows=show_all_rows)
 
     def get_backtesting_report_statistics(self, strategy_code):
+        """
+        Fetch backtesting report statistics
+        Args:
+            strategy_code: strategy code
+
+        Returns:
+            report details
+        """
         assert (isinstance(strategy_code, str) is True), f'Argument strategy_code should be a string'
         return self.get_report(strategy_code=strategy_code, trading_type=TradingType.BACKTESTING, report_type=TradingReportType.STATS_TABLE, render_as_dataframe=True)
 
     def get_backtesting_report_order_history(self, strategy_code):
+        """
+        Fetch backtesting order history
+        Args:
+            strategy_code: strategy code
+
+        Returns:
+            report details
+        """
         assert (isinstance(strategy_code, str) is True), f'Argument strategy_code should be a string'
         return self.get_report(strategy_code=strategy_code, trading_type=TradingType.BACKTESTING, report_type=TradingReportType.ORDER_HISTORY)
 
     def papertrade(self, strategy_code, start_time, end_time, instrument_id, strategy_parameters, candle_interval, strategy_mode=StrategyMode.INTRADAY):
+        """
+        Start a paper trading session
+        Args:
+            strategy_code: strategy code
+            start_time: start time
+            end_time: end time
+            instrument_id: instrument key
+            strategy_parameters: parameters
+            candle_interval: candle interval
+            strategy_mode: intraday or delivery
+
+        Returns:
+            job status
+        """
         # Sanity checks - Validate config parameters
         assert (isinstance(strategy_code, str) is True), f'Argument strategy_code should be a string'
         assert (isinstance(start_time, time) is True), f'Argument start_timestamp should be an instance of type datetime.datetime'
@@ -219,30 +351,94 @@ class AlgoBullsConnection:
             return AlgoBullsJobSubmissionResponse.ERROR, response
 
     def get_papertrading_job_status(self, strategy_code):
+        """
+        Get papertrading job status
+        Args:
+            strategy_code:
+
+        Returns:
+            job status
+        """
         assert (isinstance(strategy_code, str) is True), f'Argument strategy_code should be a string'
         return self.get_job_status(strategy_code, TradingType.PAPERTRADING)
 
     def stop_papertrading_job(self, strategy_code):
+        """
+        Stop the papertrading session
+        Args:
+            strategy_code: strategy code
+
+        Returns:
+            None
+        """
         assert (isinstance(strategy_code, str) is True), f'Argument strategy_code should be a string'
         return self.stop_job(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING)
 
     def get_papertrading_logs(self, strategy_code):
+        """
+        Fetch papertesting logs
+        Args:
+            strategy_code: strategy code
+
+        Returns:
+            report details
+        """
         assert (isinstance(strategy_code, str) is True), f'Argument strategy_code should be a string'
         return self.get_report(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING, report_type=TradingReportType.LOGS)
 
     def get_papertrading_report_pnl_table(self, strategy_code, show_all_rows=False):
+        """
+        Fetch papertesting Profit / Loss details
+        Args:
+            strategy_code: strategy code
+            show_all_rows: True or False
+
+        Returns:
+            report details
+        """
         assert (isinstance(strategy_code, str) is True), f'Argument strategy_code should be a string'
         return self.get_report(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING, report_type=TradingReportType.PNL_TABLE, render_as_dataframe=True, show_all_rows=show_all_rows)
 
     def get_papertrading_report_statistics(self, strategy_code):
+        """
+        Fetch papertesting report statistics
+        Args:
+            strategy_code: strategy code
+
+        Returns:
+            report details
+        """
         assert (isinstance(strategy_code, str) is True), f'Argument strategy_code should be a string'
         return self.get_report(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING, report_type=TradingReportType.STATS_TABLE, render_as_dataframe=True)
 
     def get_papertrading_report_order_history(self, strategy_code):
+        """
+        Fetch papertesting prder history
+        Args:
+            strategy_code: strategy code
+
+        Returns:
+            report details
+        """
         assert (isinstance(strategy_code, str) is True), f'Argument strategy_code should be a string'
         return self.get_report(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING, report_type=TradingReportType.ORDER_HISTORY)
 
     def realtrade(self, broker, strategy_code, start_time, end_time, instrument_id, strategy_parameters, candle_interval, strategy_mode=StrategyMode.INTRADAY):
+        """
+        Start a realtrading session
+        Args:
+            broker: broker name
+            strategy_code: strategy code
+            start_time: start time
+            end_time: end time
+            instrument_id: instrument key
+            strategy_parameters: parameters
+            candle_interval: candle interval
+            strategy_mode: intraday or delivery
+
+        Returns:
+            job status
+        """
         # Sanity checks - Validate config parameters
         assert (isinstance(broker, AlgoBullsSupportedBrokers) is True), f'Argument broker should be an enum of type {AlgoBullsSupportedBrokers.__name__}'
         assert (isinstance(strategy_code, str) is True), f'Argument strategy_code should be a string'
@@ -275,36 +471,91 @@ class AlgoBullsConnection:
             return AlgoBullsJobSubmissionResponse.ERROR, response
 
     def get_realtrading_job_status(self, broker, strategy_code):
+        """
+        Fetch realtrading job status
+        Args:
+            broker: broker name
+            strategy_code: strategy code
+
+        Returns:
+            job status
+        """
         assert (isinstance(broker, AlgoBullsSupportedBrokers) is True), f'Argument broker should be an enum of type {AlgoBullsSupportedBrokers.__name__}'
         assert (isinstance(strategy_code, str) is True), f'Argument strategy_code should be a string'
 
         return self.get_job_status(strategy_code, TradingType.REALTRADING, broker=broker)
 
     def stop_realtrading_job(self, broker, strategy_code):
+        """
+        Stop the realtrading session
+        Args:
+            broker: brker name
+            strategy_code: strategy code
+
+        Returns:
+            None
+        """
         assert (isinstance(broker, AlgoBullsSupportedBrokers) is True), f'Argument broker should be an enum of type {AlgoBullsSupportedBrokers.__name__}'
         assert (isinstance(strategy_code, str) is True), f'Argument strategy_code should be a string'
 
         return self.stop_job(strategy_code=strategy_code, trading_type=TradingType.REALTRADING, broker=broker)
 
     def get_realtrading_logs(self, broker, strategy_code):
+        """
+        Fetch realtrading logs
+        Args:
+            broker: broker name
+            strategy_code: strategy code
+
+        Returns:
+            report details
+        """
         assert (isinstance(broker, AlgoBullsSupportedBrokers) is True), f'Argument broker should be an enum of type {AlgoBullsSupportedBrokers.__name__}'
         assert (isinstance(strategy_code, str) is True), f'Argument strategy_code should be a string'
 
         return self.get_report(strategy_code=strategy_code, trading_type=TradingType.REALTRADING, report_type=TradingReportType.LOGS, broker=broker)
 
     def get_realtrading_report_pnl_table(self, broker, strategy_code, show_all_rows=False):
+        """
+        Fetch realtrading Profit / Loss table
+        Args:
+            broker: broker name
+            strategy_code: strategy code
+            show_all_rows: True or False
+
+        Returns:
+            report details
+        """
         assert (isinstance(broker, AlgoBullsSupportedBrokers) is True), f'Argument broker should be an enum of type {AlgoBullsSupportedBrokers.__name__}'
         assert (isinstance(strategy_code, str) is True), f'Argument strategy_code should be a string'
 
         return self.get_report(strategy_code=strategy_code, trading_type=TradingType.REALTRADING, report_type=TradingReportType.PNL_TABLE, render_as_dataframe=True, show_all_rows=show_all_rows, broker=broker)
 
     def get_realtrading_report_statistics(self, broker, strategy_code):
+        """
+        Fetch realtrading report statistics
+        Args:
+            broker: broker name
+            strategy_code: strategy code
+
+        Returns:
+            report details
+        """
         assert (isinstance(broker, AlgoBullsSupportedBrokers) is True), f'Argument broker should be an enum of type {AlgoBullsSupportedBrokers.__name__}'
         assert (isinstance(strategy_code, str) is True), f'Argument strategy_code should be a string'
 
         return self.get_report(strategy_code=strategy_code, trading_type=TradingType.REALTRADING, report_type=TradingReportType.STATS_TABLE, render_as_dataframe=True, broker=broker)
 
     def get_realtrading_report_order_history(self, broker, strategy_code):
+        """
+        Fetch realtrading order history
+        Args:
+            broker: broker name
+            strategy_code: strategy code
+
+        Returns:
+            report details
+        """
         assert (isinstance(broker, AlgoBullsSupportedBrokers) is True), f'Argument broker should be an enum of type {AlgoBullsSupportedBrokers.__name__}'
         assert (isinstance(strategy_code, str) is True), f'Argument strategy_code should be a string'
 
@@ -312,6 +563,11 @@ class AlgoBullsConnection:
 
 
 def pandas_dataframe_all_rows():
+    """
+
+    Returns: None
+
+    """
     pd.set_option('display.max_rows', None)
     pd.set_option('display.max_columns', None)
     pd.set_option('display.width', None)
