@@ -14,7 +14,7 @@ class AlgoBullsAPI:
     """
     AlgoBulls API
     """
-    SERVER_ENDPOINT = 'http://127.0.0.1:8000/'
+    SERVER_ENDPOINT = 'https://api.algobulls.com/'
 
     def __init__(self):
         """
@@ -88,10 +88,10 @@ class AlgoBullsAPI:
             For every user, the `strategy_name` should be unique. You cannot create multiple strategies with the same name.
 
         Info: ENDPOINT
-            `POST` v1/build_python_strategy
+            `POST` v2/user/strategy/build/python
         """
         form_data = {'strategy_name': strategy_name, 'strategy_details': strategy_details, 'abc_version': abc_version}
-        endpoint = f'v1/build_python_strategy'
+        endpoint = f'v2/user/strategy/build/python'
         response = self._send_request(endpoint=endpoint, method='post', form_data=form_data)
         return response
 
@@ -108,10 +108,10 @@ class AlgoBullsAPI:
             JSON Response received from AlgoBulls platform after (attempt to) updating an existing strategy.
 
         Info: ENDPOINT
-            PUT v1/build_python_strategy
+            PUT v2/user/strategy/build/python
         """
         form_data = {'strategy_name': strategy_name, 'strategy_details': strategy_details, 'abc_version': abc_version}
-        endpoint = f'v1/build_python_strategy'
+        endpoint = f'v2/user/strategy/build/python'
         response = self._send_request(endpoint=endpoint, method='put', form_data=form_data)
         return response
 
@@ -123,10 +123,10 @@ class AlgoBullsAPI:
             JSON Response received from AlgoBulls platform with list of all the created strategies.
 
         Info: ENDPOINT
-            `GET` v1/build_python_strategy_get_all
+            `GET` v2/user/strategy/build/python
         """
-        endpoint = f'v1/build_python_strategy_get_all'
-        response = self._send_request(endpoint=endpoint)
+        endpoint = f'v2/user/strategy/build/python'
+        response = self._send_request(endpoint=endpoint, method='options')
         return response
 
     def get_strategy_details(self, strategy_code: str) -> dict:
@@ -140,10 +140,10 @@ class AlgoBullsAPI:
             JSON
 
         Info: ENDPOINT
-            `GET` v1/build_python_strategy
+            `GET` v2/user/strategy/build/python
         """
-        params = {'strategy_code': strategy_code}
-        endpoint = f'v1/build_python_strategy'
+        params = {'strategyCode': strategy_code}
+        endpoint = f'v2/user/strategy/build/python'
         response = self._send_request(endpoint=endpoint, params=params)
         return response
 
@@ -177,7 +177,7 @@ class AlgoBullsAPI:
         Info: ENDPOINT
            PATCH v1/customer_strategy_tweak
         """
-        params = {'strategy_code': strategy_code, 'strategy_type': StrategyType.PYTHON.value}
+        params = {'strategyCode': strategy_code, 'strategy_type': StrategyType.PYTHON.value}
         form_data = strategy_config
         endpoint = f'v1/customer_strategy_tweak'
         response = self._send_request(method='patch', endpoint=endpoint, params=params, form_data=form_data)
@@ -190,7 +190,7 @@ class AlgoBullsAPI:
         Info: ENDPOINT
             `POST` v1/customer_strategy_algotrading
         """
-        params = {'strategy_code': strategy_code, 'strategy_type': StrategyType.PYTHON.value, 'trading_type': trading_type.value, 'broker': broker}
+        params = {'strategyCode': strategy_code, 'strategy_type': StrategyType.PYTHON.value, 'trading_type': trading_type.value, 'broker': broker}
         endpoint = f'v1/customer_strategy_algotrading'
         form_data = {'action': 'start'}
         response = self._send_request(method='post', endpoint=endpoint, params=params, form_data=form_data)
@@ -203,7 +203,7 @@ class AlgoBullsAPI:
         Info: ENDPOINT
             `POST` v1/customer_strategy_algotrading
         """
-        params = {'strategy_code': strategy_code, 'strategy_type': StrategyType.PYTHON.value, 'trading_type': trading_type.value, 'broker': broker}
+        params = {'strategyCode': strategy_code, 'strategy_type': StrategyType.PYTHON.value, 'trading_type': trading_type.value, 'broker': broker}
         endpoint = f'v1/customer_strategy_algotrading'
         form_data = {'action': 'stop'}
         response = self._send_request(method='post', endpoint=endpoint, params=params, form_data=form_data)
@@ -226,7 +226,7 @@ class AlgoBullsAPI:
         Info: ENDPOINT
             `GET` v1/customer_strategy_algotrading
         """
-        params = {'strategy_code': strategy_code, 'strategy_type': StrategyType.PYTHON.value, 'trading_type': trading_type.value, 'broker': broker}
+        params = {'strategyCode': strategy_code, 'strategy_type': StrategyType.PYTHON.value, 'trading_type': trading_type.value, 'broker': broker}
         endpoint = f'v1/customer_strategy_algotrading'
         response = self._send_request(endpoint=endpoint, params=params)
         return response
@@ -247,7 +247,7 @@ class AlgoBullsAPI:
         Info: ENDPOINT
             `GET` v1/customer_strategy_algotrading_reports
         """
-        params = {'strategy_code': strategy_code, 'strategy_type': StrategyType.PYTHON.value, 'trading_type': trading_type.value, 'report_type': report_type.value, 'broker': broker}
+        params = {'strategyCode': strategy_code, 'strategy_type': StrategyType.PYTHON.value, 'trading_type': trading_type.value, 'report_type': report_type.value, 'broker': broker}
         endpoint = f'v1/customer_strategy_algotrading_reports'
         response = self._send_request(endpoint=endpoint, params=params)
         return response
