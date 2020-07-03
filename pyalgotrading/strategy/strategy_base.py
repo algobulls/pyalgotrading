@@ -1,3 +1,6 @@
+"""
+
+"""
 from abc import ABCMeta, abstractmethod
 from collections import defaultdict
 
@@ -15,6 +18,12 @@ class StrategyBase(object, metaclass=ABCMeta):
     """
 
     def __init__(self, *args, **kwargs):
+        """
+        Init method that is used while creating an object of this class
+        Args:
+            *args: a variable-length argument list
+            **kwargs: a keyworded, variable-length argument list
+        """
         # Dummy attributes
         self.strategy_parameters = defaultdict(lambda: 'dummy')
         self.broker = broker.broker_connection_base.BrokerConnectionBase()
@@ -33,9 +42,23 @@ class StrategyBase(object, metaclass=ABCMeta):
     @staticmethod
     @abstractmethod
     def name():
+        """
+        Name of the strategy
+        Returns: None
+
+        """
         raise NotImplementedError
 
     def get_historical_data(self, instrument):
+        """
+        Fetch the historical data of an instrument
+        This is a dummy function with a sole purpose of mimicing the signature of the actual function on the AlgoBulls platform, as described in the documentation.
+        Args:
+            instrument: instrument key
+
+        Returns:
+            None
+        """
         # This is a dummy function with a sole purpose of mimicing the signature of the actual function on the AlgoBulls platform, as described in the documentation.
         pass
 
@@ -43,6 +66,7 @@ class StrategyBase(object, metaclass=ABCMeta):
     @abstractmethod
     def versions_supported():
         """
+        Version of the AlgoBulls platform that this Strategy will run on/tested on
         :return: Should return a single version or list of versions of ABC on which the current strategy has been tested to run successfully
         """
         raise NotImplementedError
@@ -59,16 +83,54 @@ class StrategyBase(object, metaclass=ABCMeta):
         raise NotImplementedError
 
     def strategy_select_instruments_for_entry(self, candle, instruments_bucket):
+        """
+        Select instruments for entry here
+        Args:
+            candle: the current candle
+            instruments_bucket: the list of instruments to be selected from
+
+        Returns:
+            selected instruments and sideband (additional) information for each
+        """
         raise NotImplementedError
 
     @abstractmethod
     def strategy_enter_position(self, candle, instrument, sideband_info):
+        """
+        Enter position for each instrument
+        Args:
+            candle: the current candle
+            instrument: the instrument key
+            sideband_info: the additional information regarding the instrument action
+
+        Returns:
+            the order, if position is entered
+        """
         raise NotImplementedError
 
     @abstractmethod
     def strategy_select_instruments_for_exit(self, candle, instruments_bucket):
+        """
+        Select instruments for exit here
+        Args:
+            candle: the current candle
+            instruments_bucket: the list of instruments to be selected from
+
+        Returns:
+            selected instruments and sideband (additional) information for each
+        """
         raise NotImplementedError
 
     @abstractmethod
     def strategy_exit_position(self, candle, instrument, sideband_info):
+        """
+        Exit position for each instrument
+        Args:
+            candle: the current candle
+            instrument: the instrument key
+            sideband_info: the additional information regarding the instrument action
+
+        Returns:
+            True if order is exited else False
+        """
         raise NotImplementedError

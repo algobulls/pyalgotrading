@@ -1,7 +1,18 @@
+"""
+
+"""
 import pandas as pd
 
 
 def Linebreak(japanese_candles):
+    """
+
+    Args:
+        japanese_candles:
+
+    Returns:
+
+    """
     linebreak_candles = [{'close': candle['close'], 'open': candle['open'], 'timestamp': candle['timestamp']} for _, candle in japanese_candles.iloc[:3].iterrows()]
 
     for _, candle in japanese_candles.iloc[3:].iterrows():

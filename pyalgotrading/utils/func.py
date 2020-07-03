@@ -1,3 +1,6 @@
+"""
+A module for plotting candlesticks
+"""
 import pandas as pd
 
 from pyalgotrading.constants import PlotType

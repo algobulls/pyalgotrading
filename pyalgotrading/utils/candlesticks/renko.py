@@ -1,9 +1,23 @@
+"""
+
+"""
 import math
 
 import pandas as pd
 
 
 def Renko(japanese_candles, brick_count=2, initial_open=None, initial_close=None):
+    """
+
+    Args:
+        japanese_candles:
+        brick_count:
+        initial_open:
+        initial_close:
+
+    Returns:
+
+    """
     if not initial_close:
         initial_open = japanese_candles.iloc[0]['open']
         initial_close = japanese_candles.iloc[0]['close']

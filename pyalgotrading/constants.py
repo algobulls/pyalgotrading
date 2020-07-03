@@ -1,17 +1,29 @@
+"""
+A collection of classes of type Enumeration use while programming a new strategy
+"""
 from enum import Enum
 
 
 class AlgoBullsEngineVersion(Enum):
+    """
+    A class of Versioning Constants
+    """
     VERSION_3_1_0 = '3.1.0'
 
 
 class AlgoBullsJobStatus(Enum):
+    """
+    A class of job status Constants
+    """
     JOB_RUNNING = 'RUNNING'
     JOB_STOPPED = 'STOPPED'
     JOB_STATUS_UNKNOWN = 'JOB STATUS UNKNOWN'
 
 
 class AlgoBullsJobSubmissionResponse(Enum):
+    """
+    A class of responses when querying the job status
+    """
     SUCCESS = 'SUCCESS'
     ERROR = 'ERROR'
     JOB_ALREADY_RUNNING = 'ALREADY RUNNING'
@@ -19,15 +31,24 @@ class AlgoBullsJobSubmissionResponse(Enum):
 
 
 class AlgoBullsSupportedBrokers(Enum):
+    """
+    A class of supported brokers
+    """
     ZERODHA = 'ZERODHA'
 
 
 class BrokerOrderTransactionTypeConstants(Enum):
+    """
+    A class of Order Transaction Type Constants
+    """
     BUY = 'BUY'
     SELL = 'SELL'
 
 
 class BrokerOrderTypeConstants(Enum):
+    """
+    A class of Order Type Constants
+    """
     REGULAR = 'ORDER_TYPE_REGULAR'
     BRACKET = 'ORDER_TYPE_BRACKET'
     COVER = 'ORDER_TYPE_COVER'
@@ -35,6 +56,9 @@ class BrokerOrderTypeConstants(Enum):
 
 
 class BrokerOrderCodeConstants(Enum):
+    """
+A class of Order Code Constants
+    """
     INTRADAY = 'ORDER_CODE_INTRADAY'
     DELIVERY = 'ORDER_CODE_DELIVERY_T0'
     DELIVERY_T1 = 'ORDER_CODE_DELIVERY_T1'
@@ -42,6 +66,9 @@ class BrokerOrderCodeConstants(Enum):
 
 
 class BrokerOrderVarietyConstants(Enum):
+    """
+    A class of Order Variety Constants
+    """
     MARKET = 'ORDER_VARIETY_MARKET'
     LIMIT = 'ORDER_VARIETY_LIMIT'
     STOPLOSS_MARKET = 'ORDER_VARIETY_STOPLOSS_MARKET'
@@ -49,6 +76,9 @@ class BrokerOrderVarietyConstants(Enum):
 
 
 class CandleInterval(Enum):
+    """
+    A class of Candle Intervals with their Alternate names
+    """
     MINUTES_1 = 'minute'
     MINUTES_3 = '3minutes'
     MINUTES_5 = '5minutes'
@@ -78,21 +108,33 @@ class CandleInterval(Enum):
 
 
 class StrategyMode(Enum):
+    """
+    A class of Strategy Modes
+    """
     INTRADAY = 0
     DELIVERY = 1
 
 
 class StrategyType(Enum):
+    """
+    A class of Strategy Type
+    """
     PYTHON = 1
 
 
 class TradingType(Enum):
+    """
+    A class of Trading Types
+    """
     BACKTESTING = 0
     PAPERTRADING = 1
     REALTRADING = 2
 
 
 class TradingReportType(Enum):
+    """
+    A class of Trading Report Types
+    """
     PNL_TABLE = 0
     STATS_TABLE = 1
     ORDER_HISTORY = 2
@@ -100,6 +142,9 @@ class TradingReportType(Enum):
 
 
 class PlotType(Enum):
+    """
+    A class of Plot Types
+    """
     JAPANESE = 'JAPANESE'
     LINEBREAK = 'Linebreak'
     RENKO = 'Renko'
