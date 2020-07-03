@@ -8,7 +8,7 @@ class AlgoBullsEngineVersion(Enum):
     """
     A class of Versioning Constants
     """
-    VERSION_3_1_0 = '3.1.0'
+    VERSION_3_2_0 = '3.2.0'
 
 
 class AlgoBullsJobStatus(Enum):
