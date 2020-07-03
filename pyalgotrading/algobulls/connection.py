@@ -29,8 +29,9 @@ class AlgoBullsConnection:
         Returns:
             authorization URL
         """
-        print('Please login to this site and get your developer access token.')
-        return 'https://app.algobulls.com/user/login'
+        url = 'https://devel.appv2.algobulls.com/user/login'        # TODO: Update this when we move out of beta
+        print(f'Please login to this URL with your AlgoBulls credentials and get your developer access token: {url}')
+        return url
 
     def set_access_token(self, access_token):
         """
