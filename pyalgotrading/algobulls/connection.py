@@ -29,8 +29,8 @@ class AlgoBullsConnection:
         Returns:
             authorization URL
         """
-        print('This is not implemented YET!!!')
-        return 'http://127.0.0.1:8000/login/'
+        print('Please login to this site and get your developer access token.')
+        return 'https://app.algobulls.com/user/login'
 
     def set_access_token(self, access_token):
         """
@@ -87,8 +87,8 @@ class AlgoBullsConnection:
             list of available strategies
         """
         response = self.api.get_all_strategies()
-        if isinstance(response['details'], list):
-            return pd.DataFrame(response['details'])
+        if isinstance(response['data'], list):
+            return pd.DataFrame(response['data'])
         else:
             return response
 
@@ -105,7 +105,7 @@ class AlgoBullsConnection:
 
         try:
             response = self.api.get_strategy_details(strategy_code)
-            strategy_code = response['details']
+            strategy_code = response['data']
             return strategy_code
         except AlgoBullsAPIBadRequest:
             print(f'ERROR: No strategy found with ID: {strategy_code}')
@@ -134,7 +134,7 @@ class AlgoBullsConnection:
 
         response = self.api.get_job_status(strategy_code=strategy_code, trading_type=trading_type, broker=broker.value)
         if response.get('success') is True:
-            return AlgoBullsJobStatus(response['details'].upper())
+            return AlgoBullsJobStatus(response['data'].upper())
         else:
             return AlgoBullsJobStatus.JOB_STATUS_UNKNOWN, response
 
@@ -155,7 +155,7 @@ class AlgoBullsConnection:
 
         response = self.api.stop_strategy_algotrading(strategy_code=strategy_code, trading_type=trading_type, broker=broker.value)
         if response.get('success') is True:
-            return AlgoBullsJobSubmissionResponse(response['details'].upper())
+            return AlgoBullsJobSubmissionResponse(response['data'].upper())
         else:
             return AlgoBullsJobSubmissionResponse.ERROR, response
 
@@ -185,9 +185,9 @@ class AlgoBullsConnection:
             if render_as_dataframe:
                 if show_all_rows:
                     pandas_dataframe_all_rows()
-                _response = pd.DataFrame(response['details'])
+                _response = pd.DataFrame(response['data'])
             else:
-                _response = response['details']
+                _response = response['data']
             return _response
         else:
             return AlgoBullsJobSubmissionResponse.ERROR, response
@@ -233,7 +233,7 @@ class AlgoBullsConnection:
         print('Success.')
 
         if response.get('success') is True:
-            return AlgoBullsJobSubmissionResponse(response['details'].upper())
+            return AlgoBullsJobSubmissionResponse(response['data'].upper())
         else:
             return AlgoBullsJobSubmissionResponse.ERROR, response
 
@@ -346,7 +346,7 @@ class AlgoBullsConnection:
         print('Success.')
 
         if response.get('success') is True:
-            return AlgoBullsJobSubmissionResponse(response['details'].upper())
+            return AlgoBullsJobSubmissionResponse(response['data'].upper())
         else:
             return AlgoBullsJobSubmissionResponse.ERROR, response
 
@@ -466,7 +466,7 @@ class AlgoBullsConnection:
         print('Success.')
 
         if response.get('success') is True:
-            return AlgoBullsJobSubmissionResponse(response['details'].upper())
+            return AlgoBullsJobSubmissionResponse(response['data'].upper())
         else:
             return AlgoBullsJobSubmissionResponse.ERROR, response
 
