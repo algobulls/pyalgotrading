@@ -3,13 +3,13 @@ Official Python Package for Algorithmic Trading APIs powered by AlgoBulls!
 
 
 ### Features
-- Powered by [AlgoBulls Platform](https://algobulls.com)
+- Powered by the [AlgoBulls Platform](https://algobulls.com)
 - Everything related to Algorithmic Trading Strategies!
     - Create & upload strategies on the [AlgoBulls Platform](https://algobulls.com)
     - Free pool of Strategies are available separately at [pyalgostrategypool](https://github.com/algobulls/pyalgostrategypool)!
     - Support for all 150+ Technical Indicators provided by [TA-Lib](https://mrjbq7.github.io/ta-lib/index.html)
-    - Support for multiple candlesticks patterns - Japanese, Renko, Heikin-Ashi, Linebreak
-    - Support for multiple candlesticks - 1 minute, 3 minutes, 5 minutes, 10 minutes, 15 minutes, 30 minutes, 1 hour, 1 day. 
+    - Support for multiple candlesticks patterns - Japanese OHLC, Renko, Heikin-Ashi, Linebreak
+    - Support for multiple candle inntervals - 1 minute, 3 minutes, 5 minutes, 10 minutes, 15 minutes, 30 minutes, 1 hour, 1 day. 
     - Support for **Regular Orders** and **Bracket Orders**
     - Support for **MARKET**, **LIMIT**, **STOPLOSS**, **STOPLOSS-LIMIT** orders
     - Support for **INTRADAY** and **DELIVERY** orders
@@ -17,11 +17,11 @@ Official Python Package for Algorithmic Trading APIs powered by AlgoBulls!
 - Support for **Paper Trading**
 - Support for **Real Trading**
 - Support for multiple brokers for Real Trading 
-    - Currently supported brokers - Zerodha. 
-    - Coming soon - AliceBlue, Mastertrust.
+    - Currently supported brokers - Zerodha, AliceBlue. 
+    - Coming soon - Mastertrust
     - More on the way!
 - Real-time Logs for Backtesting, Paper Trading, Real Trading
-- Multiple Reports available for Backtesting, Paper Trading and Real Trading - 
+- Multiple real-time Reports available for Backtesting, Paper Trading and Real Trading - 
     - Profit-n-Loss report (PnL report)
     - Statistics of (PnL report)
     - Order History for each order with state transitions & timestamps
@@ -31,11 +31,11 @@ Backtesting, Paper Trading and Real Trading can be performed on the same strateg
 
 
 ### Documentation
-Coming soon!
+[Read the Docs!](https://pyalgotrading.readthedocs.io/)
 
 
 ### Python 
-- Python Support: `Python 3.5+`.
+- Python Support: `Python 3.6+`.
 - Python Requirements: See [requirements.txt](https://github.com/algobulls/pyalgotrading/blob/master/requirements.txt).
 
 
