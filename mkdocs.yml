@@ -28,8 +28,14 @@ copyright: Copyright © 2020 | All Rights Reserved | AlgoBulls Technologies Priv
 # Navigation
 nav:
   - Home: 'index.md'
-  - source docs:
-      - 'pyalgotrading': 'package_pyalgotrading.md'
+  - Source Docs:
+      - 'algobulls': 'package_algobulls.md'
+      - 'broker': 'package_broker.md'
+      - 'instrument': 'package_instrument.md'
+      - 'order': 'package_order.md'
+      - 'strategy': 'package_strategy.md'
+      - 'utils': 'package_utils.md'
+      - 'constants': 'module_constants.md'
 
 plugins:
   - search                                  # necessary for search to work
