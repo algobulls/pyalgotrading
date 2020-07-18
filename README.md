@@ -17,8 +17,8 @@ Official Python Package for Algorithmic Trading APIs powered by AlgoBulls!
 - Support for **Paper Trading**
 - Support for **Real Trading**
 - Support for multiple brokers for Real Trading 
-    - Currently supported brokers - Zerodha, AliceBlue. 
-    - Coming soon - Mastertrust
+    - Currently supported brokers - Zerodha 
+    - Coming soon - AliceBlue, Mastertrust
     - More on the way!
 - Real-time Logs for Backtesting, Paper Trading, Real Trading
 - Multiple real-time Reports available for Backtesting, Paper Trading and Real Trading - 
@@ -31,7 +31,7 @@ Backtesting, Paper Trading and Real Trading can be performed on the same strateg
 
 
 ### Documentation
-[Read the Docs!](https://pyalgotrading.readthedocs.io/)
+You can find the docs [here](https://algobulls.github.io/pyalgotrading/).
 
 
 ### Python 
