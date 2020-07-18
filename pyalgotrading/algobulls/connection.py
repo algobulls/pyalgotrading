@@ -195,6 +195,7 @@ class AlgoBullsConnection:
 
     def backtest(self, strategy_code, start_timestamp, end_timestamp, instrument_id, strategy_parameters, candle_interval, strategy_mode=StrategyMode.INTRADAY):
         """
+        Submit a backtesting job for a strategy on the AlgoBulls Platform
 
         Args:
             strategy_code: strategy code
@@ -206,7 +207,7 @@ class AlgoBullsConnection:
             strategy_mode: intraday or delivery
 
         Returns:
-            backtest status
+            backtest job submission status
         """
         # Sanity checks - Validate config parameters
         assert (isinstance(strategy_code, str) is True), f'Argument strategy_code should be a string'
@@ -414,7 +415,7 @@ class AlgoBullsConnection:
 
     def get_papertrading_report_order_history(self, strategy_code):
         """
-        Fetch papertesting prder history
+        Fetch papertesting order history
         Args:
             strategy_code: strategy code
 

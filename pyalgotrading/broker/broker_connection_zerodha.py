@@ -5,6 +5,7 @@ import pandas as pd
 
 from pyalgotrading.broker.broker_connection_base import BrokerConnectionBase
 from pyalgotrading.constants import *
+from pyalgotrading.instrument.instrument import Instrument
 from pyalgotrading.utils.func import import_with_install
 
 
@@ -92,201 +93,194 @@ class BrokerConnectionZerodha(BrokerConnectionBase):
         self.all_instruments = pd.DataFrame(self.api.instruments())
         return self.all_instruments
 
-    def get_instrument(self, segment, tradingsymbol):
+    def get_instrument(self, segment: str, tradingsymbol: str) -> Instrument:
         """
         Fetch an instrument
         Args:
-            segment: segment
-            tradingsymbol: trading symbol
+            segment: Segment to which instrument belongs to
+            tradingsymbol: Trading symbol of the instrument
 
         Returns:
-            instrument
+           Instrument object
         """
         if self.all_instruments is None:
             self.all_instruments = self.get_all_instruments()
-        return self.all_instruments[(self.all_instruments.segment == segment) & (self.all_instruments.tradingsymbol == tradingsymbol)].iloc[0]
+        try:
+            _inst = self.all_instruments[(self.all_instruments.segment == segment) & (self.all_instruments.tradingsymbol == tradingsymbol)].iloc[0]
+            instrument = Instrument(segment=_inst['segment'], exchange=_inst['exchange'], tradingsymbol=_inst['tradingsymbol'], broker_token=_inst['instrument_token'], tick_size=_inst['tick_size'], lot_size=_inst['lot_size'], expiry=_inst['expiry'],
+                                    strike_price=_inst['strike'])
+            return instrument
+        except IndexError:
+            print('ERROR: Instrument not found. Either it is expired and hence not available, or you have given misspelled the "segment" and "tradingsymbol" parameters.')
 
-    def get_quote(self, segment, tradingsymbol):
+    def get_quote(self, instrument: Instrument):
         """
         Fetch the quote
         Args:
-            segment:
-            tradingsymbol:
+            instrument: Financial Instrument
 
         Returns:
             quote value
         """
-        instrument = f'{segment}:{tradingsymbol}'
-        quote = self.api.quote([instrument])[instrument]
+        _inst = f'{instrument.segment}:{instrument.tradingsymbol}'
+        quote = self.api.quote([_inst])[_inst]
         return quote
 
-    def get_market_depth(self, segment, tradingsymbol):
+    def get_market_depth(self, instrument: Instrument):
         """
         Fetch the market depth
         Args:
-            segment: segment
-            tradingsymbol: trading symbol
+            instrument: Financial Instrument
 
         Returns:
             market depth value
         """
-        quote = self.get_quote(segment, tradingsymbol)
+        quote = self.get_quote(instrument)
         buy_market_depth = pd.DataFrame(quote['depth']['buy'])
         sell_market_depth = pd.DataFrame(quote['depth']['sell'])
         return buy_market_depth, sell_market_depth
 
-    def get_circuit_limits(self, segment, tradingsymbol):
+    def get_circuit_limits(self, instrument: Instrument):
         """
         Fetch the circuit limits
         Args:
-            segment: segment
-            tradingsymbol: trading symbol
+            instrument: Financial Instrument
 
         Returns:
             circuit limit value
         """
-        quote = self.get_quote(segment, tradingsymbol)
+        quote = self.get_quote(instrument)
         lower_circuit_limit = quote['lower_circuit_limit']
         upper_circuit_limit = quote['upper_circuit_limit']
         return lower_circuit_limit, upper_circuit_limit
 
-    def get_ltp(self, segment, tradingsymbol):
+    def get_ltp(self, instrument: Instrument):
         """
         Fetch the Last Trading Price (LTP)
         Args:
-            segment: segment
-            tradingsymbol: trading symbol
+            instrument: Financial Instrument
 
         Returns:
             ltp value
         """
-        quote = self.get_quote(segment, tradingsymbol)
+        quote = self.get_quote(instrument)
         ltp = quote['last_price']
         return ltp
 
-    def get_ltt(self, segment, tradingsymbol):
+    def get_ltt(self, instrument):
         """
         Fetch the Last Trading Time (LTT)
         Args:
-            segment: segment
-            tradingsymbol: trading symbol
+            instrument: Financial Instrument
 
         Returns:
             ltt value
         """
-        quote = self.get_quote(segment, tradingsymbol)
+        quote = self.get_quote(instrument)
         ltt = quote['last_trade_time']
         return ltt
 
-    def get_ltq(self, segment, tradingsymbol):
+    def get_ltq(self, instrument):
         """
         Fetch the Last Trading Quantity (LTQ)
         Args:
-            segment: segment
-            tradingsymbol: trading symbol
+            instrument: Financial Instrument
 
         Returns:
             ltq value
         """
-        quote = self.get_quote(segment, tradingsymbol)
+        quote = self.get_quote(instrument)
         ltq = quote['last_quantity']
         return ltq
 
-    def get_total_buy_quantity_day(self, segment, tradingsymbol):
+    def get_total_buy_quantity_day(self, instrument):
         """
         Fetch the total buy quantity for the day
         Args:
-            segment: segment
-            tradingsymbol: trading symbol
+            instrument: Financial Instrument
 
         Returns:
             total quantity value
         """
-        quote = self.get_quote(segment, tradingsymbol)
+        quote = self.get_quote(instrument)
         total_buy_quantity_day = quote['buy_quantity']
         return total_buy_quantity_day
 
-    def get_total_sell_quantity_day(self, segment, tradingsymbol):
+    def get_total_sell_quantity_day(self, instrument: Instrument):
         """
         Fetch the total sell quantity for the day
         Args:
-            segment: segment
-            tradingsymbol: trading symbol
+            instrument: Financial Instrument
 
         Returns:
             total quantity value
         """
-        quote = self.get_quote(segment, tradingsymbol)
+        quote = self.get_quote(instrument)
         total_sell_quantity_day = quote['sell_quantity']
         return total_sell_quantity_day
 
-    def get_total_volume_day(self, segment, tradingsymbol):
+    def get_total_volume_day(self, instrument: Instrument):
         """
         Fetch the total volume for the day
         Args:
-            segment: segment
-            tradingsymbol: trading symbol
+            instrument: Financial Instrument
 
         Returns:
             total volume value
         """
-        quote = self.get_quote(segment, tradingsymbol)
+        quote = self.get_quote(instrument)
         total_volume_day = quote['volume']
         return total_volume_day
 
-    def get_open_price_day(self, segment, tradingsymbol):
+    def get_open_price_day(self, instrument: Instrument):
         """
         Fetch the open price of the day
         Args:
-            segment: segment
-            tradingsymbol: trading symbol
+            instrument: Financial Instrument
 
         Returns:
             open price value
         """
-        quote = self.get_quote(segment, tradingsymbol)
+        quote = self.get_quote(instrument)
         open_price_day = quote['ohlc']['open']
         return open_price_day
 
-    def get_high_price_day(self, segment, tradingsymbol):
+    def get_high_price_day(self, instrument: Instrument):
         """
         Fetch the high price of the day
         Args:
-            segment: segment
-            tradingsymbol: trading symbol
+            instrument: Financial Instrument
 
         Returns:
             high price value
         """
-        quote = self.get_quote(segment, tradingsymbol)
+        quote = self.get_quote(instrument)
         high_price_day = quote['ohlc']['high']
         return high_price_day
 
-    def get_low_price_day(self, segment, tradingsymbol):
+    def get_low_price_day(self, instrument: Instrument):
         """
         Fetch the low price of the day
         Args:
-            segment: segment
-            tradingsymbol: trading symbol
+            instrument: Financial Instrument
 
         Returns:
             low price value
         """
-        quote = self.get_quote(segment, tradingsymbol)
+        quote = self.get_quote(instrument)
         low_price_day = quote['ohlc']['low']
         return low_price_day
 
-    def get_close_price_last_day(self, segment, tradingsymbol):
+    def get_close_price_last_day(self, instrument: Instrument):
         """
         Fetch the closed price of the day
         Args:
-            segment: segment
-            tradingsymbol: trading symbol
+            instrument: Financial Instrument
 
         Returns:
             closed price value
         """
-        quote = self.get_quote(segment, tradingsymbol)
+        quote = self.get_quote(instrument)
         close_price_day = quote['ohlc']['close']
         return close_price_day
 
@@ -294,7 +288,7 @@ class BrokerConnectionZerodha(BrokerConnectionBase):
         """
         Fetch the historical data
         Args:
-            instrument: instrument key
+            instrument: Financial Instrument
             candle_interval: candle interval
             start_date: date from which to fetch the historical data
             end_date: date till which to fetch the historical data
@@ -302,7 +296,7 @@ class BrokerConnectionZerodha(BrokerConnectionBase):
         Returns:
             historical data
         """
-        return pd.DataFrame(self.api.historical_data(instrument['instrument_token'], from_date=start_date, to_date=end_date, interval=candle_interval)) \
+        return pd.DataFrame(self.api.historical_data(instrument.instrument_token, from_date=start_date, to_date=end_date, interval=candle_interval)) \
             .reindex(['date', 'open', 'high', 'low', 'close', 'volume'], axis="columns").rename(columns={'date': 'timestamp'})
 
     def get_margins(self, segment):
@@ -343,7 +337,7 @@ class BrokerConnectionZerodha(BrokerConnectionBase):
         """
         Place an order
         Args:
-            instrument: instrument key
+            instrument: Financial Instrument
             order_transaction_type: buy or sell
             order_type: regular or bracket
             order_code: orde code
