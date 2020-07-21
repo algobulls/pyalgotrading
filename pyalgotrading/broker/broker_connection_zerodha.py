@@ -31,7 +31,7 @@ class BrokerConnectionZerodha(BrokerConnectionBase):
         self.api_secret = api_secret
 
         # Create kiteconnect instance
-        kiteconnect = import_with_install(package_import_name='kiteconnect', package_install_name='kiteconnect', package_version='3.8.2')
+        kiteconnect = import_with_install(package_import_name='kiteconnect', package_install_name='kiteconnect==3.8.2')
         self.api = kiteconnect.KiteConnect(api_key=self.api_key)
 
         # Print the login url. User will use this to login to broker site and get access token
@@ -54,7 +54,7 @@ class BrokerConnectionZerodha(BrokerConnectionBase):
         Map pyalgotrading constants to broker constants
         :return: None
         """
-        _ = import_with_install(package_import_name='kiteconnect', package_install_name='kiteconnect', package_version='3.8.2').KiteConnect
+        _ = import_with_install(package_import_name='kiteconnect', package_install_name='kiteconnect==3.8.2').KiteConnect
 
         BrokerConnectionZerodha.ORDER_TRANSACTION_TYPE_MAP = {BrokerOrderTransactionTypeConstants.BUY: _.TRANSACTION_TYPE_BUY,
                                                               BrokerOrderTransactionTypeConstants.SELL: _.TRANSACTION_TYPE_SELL}
@@ -111,7 +111,7 @@ class BrokerConnectionZerodha(BrokerConnectionBase):
                                     strike_price=_inst['strike'])
             return instrument
         except IndexError:
-            print('ERROR: Instrument not found. Either it is expired and hence not available, or you have given misspelled the "segment" and "tradingsymbol" parameters.')
+            print('ERROR: Instrument not found. Either it is expired and hence not available, or you have misspelled the "segment" and "tradingsymbol" parameters.')
 
     def get_quote(self, instrument: Instrument):
         """
@@ -193,9 +193,9 @@ class BrokerConnectionZerodha(BrokerConnectionBase):
         ltq = quote['last_quantity']
         return ltq
 
-    def get_total_buy_quantity_day(self, instrument):
+    def get_total_pending_buy_quantity(self, instrument):
         """
-        Fetch the total buy quantity for the day
+        Fetch the total pending buy quantity for instrument
         Args:
             instrument: Financial Instrument
 
@@ -206,9 +206,9 @@ class BrokerConnectionZerodha(BrokerConnectionBase):
         total_buy_quantity_day = quote['buy_quantity']
         return total_buy_quantity_day
 
-    def get_total_sell_quantity_day(self, instrument: Instrument):
+    def get_total_pending_sell_quantity(self, instrument: Instrument):
         """
-        Fetch the total sell quantity for the day
+        Fetch the total pending sell quantity for instrument
         Args:
             instrument: Financial Instrument
 
@@ -296,7 +296,7 @@ class BrokerConnectionZerodha(BrokerConnectionBase):
         Returns:
             historical data
         """
-        return pd.DataFrame(self.api.historical_data(instrument.instrument_token, from_date=start_date, to_date=end_date, interval=candle_interval)) \
+        return pd.DataFrame(self.api.historical_data(instrument.broker_token, from_date=start_date, to_date=end_date, interval=candle_interval)) \
             .reindex(['date', 'open', 'high', 'low', 'close', 'volume'], axis="columns").rename(columns={'date': 'timestamp'})
 
     def get_margins(self, segment):

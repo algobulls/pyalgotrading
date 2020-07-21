@@ -6,7 +6,7 @@ import pandas as pd
 from pyalgotrading.constants import PlotType
 
 
-def import_with_install(package_import_name, package_install_name=None, package_version=''):
+def import_with_install(package_import_name, package_install_name=None, dependancies=()):
     """
     Helps import 'package' even if its not installed.
 
@@ -16,29 +16,29 @@ def import_with_install(package_import_name, package_install_name=None, package_
     Args:
         package_import_name: name of package to be installed using pip, str
         package_install_name: name of package to be imported. Default is None, which means package can be imported with the same name as used for installation. If not, this parameter can be used to specify a different import name.
-        package_version: version of package to be installed, str, Example: '1.0.0' or '==1.0.0'
+        dependancies: list of python packages to be installed as additional dependencies'
 
     Returns:
         The imported package
     """
 
     package_install_name = package_install_name if package_install_name is not None else package_import_name
-    package_version = f'=={package_version}' if ((package_version != '') and ('==' not in package_version)) else package_version
+
     try:
         return __import__(package_import_name)
     except ImportError:
-        print(f"Installing package {package_import_name} via pip...")
+        print(f"Installing package {package_import_name} via pip. This may take a while...")
         import subprocess
         import sys
-        subprocess.check_call([sys.executable, '-m', 'pip', 'install', package_install_name, package_version])
+        cmd_list = [sys.executable, '-m', 'pip', 'install', package_install_name]
+        if dependancies:
+            cmd_list.extend(dependancies)
+        subprocess.check_call(cmd_list)
         return __import__(package_import_name)
 
 
-counter = 0
-
-
-def plot_candlestick_chart(data: pd.DataFrame, plot_type: PlotType, caption: str = '', hide_missing_dates: bool = False, show: bool = True, indicators: tuple = (), plot_indicators_separately: bool = False, plot_height: int = 500,
-                           plot_width: int = 1000):
+def plot_candlesticks_chart(data: pd.DataFrame, plot_type: PlotType, caption: str = '', hide_missing_dates: bool = False, show: bool = True, indicators: tuple = (), plot_indicators_separately: bool = False, plot_height: int = 500,
+                            plot_width: int = 1000):
     """
     Function to create charts for various candlesticks pattern data -
         - Japanese
@@ -62,7 +62,8 @@ def plot_candlestick_chart(data: pd.DataFrame, plot_type: PlotType, caption: str
         plot_height: Plot height in pixels
         plot_width: Plot width in pixels
     """
-    import_with_install(package_import_name='plotly', package_install_name='plotly', package_version='4.7.1')
+    import_with_install(package_import_name='plotly', package_install_name='plotly==4.9.0', dependancies=['notebook>=5.3', 'ipywidgets==7.5', 'psutil'])
+    # Plotly requirements taken from here: https://pypi.org/project/plotly/
     from plotly.subplots import make_subplots
     from plotly import graph_objects as go
 
@@ -125,6 +126,3 @@ def plot_candlestick_chart(data: pd.DataFrame, plot_type: PlotType, caption: str
     # Show the plot
     if show:
         fig.show()
-        global counter
-        fig.write_image(f'fig_{counter}.pdf')
-        counter += 1

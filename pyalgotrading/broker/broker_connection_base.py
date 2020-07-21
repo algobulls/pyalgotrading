@@ -105,9 +105,9 @@ class BrokerConnectionBase:
         raise NotImplementedError
 
     @abstractmethod
-    def get_total_buy_quantity_day(self, *args, **kwargs):
+    def get_total_pending_buy_quantity(self, *args, **kwargs):
         """
-        Fetch the total buy quantity for the day
+        Fetch the total pending buy quantity for instrument
         Args:
             *args: a variable-length argument list
             **kwargs: a keyworded, variable-length argument list
@@ -118,9 +118,9 @@ class BrokerConnectionBase:
         raise NotImplementedError
 
     @abstractmethod
-    def get_total_sell_quantity_day(self, *args, **kwargs):
+    def get_total_pending_sell_quantity(self, *args, **kwargs):
         """
-        Fetch the total sell quantity for the day
+        Fetch the total pending sell quantity for the instrument
         Args:
             *args: a variable-length argument list
             **kwargs: a keyworded, variable-length argument list
