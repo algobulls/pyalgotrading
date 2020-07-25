@@ -29,7 +29,7 @@ class AlgoBullsConnection:
         Returns:
             authorization URL
         """
-        url = 'https://devel.appv2.algobulls.com/user/login'        # TODO: Update this when we move out of beta
+        url = 'https://app.algobulls.com/user/login'
         print(f'Please login to this URL with your AlgoBulls credentials and get your developer access token: {url}')
         return url
 
@@ -77,7 +77,8 @@ class AlgoBullsConnection:
                 # If strategy code is available, update the existing strategy
                 response = self.api.update_strategy(strategy_name=strategy_name, strategy_details=strategy_details, abc_version=abc_version)
             else:
-                raise ex
+                print(f'Error uploading strategy. Details:\n{ex}')
+                return
 
         return response
 
@@ -122,7 +123,7 @@ class AlgoBullsConnection:
         """
         assert (isinstance(instrument, str) is True), f'Argument instrument should be a string'
 
-        response = self.api.search_instrument(instrument)['details']
+        response = self.api.search_instrument(instrument).get('data')
         return response
 
     def get_job_status(self, strategy_code, trading_type, broker=None):
@@ -221,17 +222,17 @@ class AlgoBullsConnection:
         # Setup config for Backtesting
         strategy_config = {'trading_start_date': start_timestamp.date(), 'trading_start_time': start_timestamp.time(),
                            'trading_end_date': end_timestamp.date(), 'trading_end_time': end_timestamp.time(),
-                           'instrument': instrument_id,
+                           'instruments': [instrument_id],
                            'parameters': json.dumps(strategy_parameters),
                            'candle_interval': candle_interval.value,
                            'strategy_mode': strategy_mode}
         print('Setting Strategy Config...', end=' ')
-        self.api.set_strategy_config(strategy_code=strategy_code, strategy_config=strategy_config)
+        key, _ = self.api.set_strategy_config(strategy_code=strategy_code, strategy_config=strategy_config, trading_type=TradingType.BACKTESTING)
         print('Success.')
 
         # Submit Backtesting job
         print('Submitting Backtesting Job...', end=' ')
-        response = self.api.start_strategy_algotrading(strategy_code=strategy_code, trading_type=TradingType.BACKTESTING)
+        response = self.api.start_strategy_algotrading(key=key, trading_type=TradingType.BACKTESTING)
         print('Success.')
 
         if response.get('success') is True:
@@ -339,12 +340,12 @@ class AlgoBullsConnection:
                            'candle_interval': candle_interval.value,
                            'strategy_mode': strategy_mode.value}
         print('Setting Strategy Config...', end=' ')
-        self.api.set_strategy_config(strategy_code=strategy_code, strategy_config=strategy_config)
+        key, _ = self.api.set_strategy_config(strategy_code=strategy_code, strategy_config=strategy_config, trading_type=TradingType.PAPERTRADING)
         print('Success.')
 
         # Submit Paper Trading job
         print('Submitting Paper Trading Job...', end=' ')
-        response = self.api.start_strategy_algotrading(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING)
+        response = self.api.start_strategy_algotrading(key=key, trading_type=TradingType.PAPERTRADING)
         print('Success.')
 
         if response.get('success') is True:
@@ -459,12 +460,12 @@ class AlgoBullsConnection:
                            'candle_interval': candle_interval.value,
                            'strategy_mode': strategy_mode.value}
         print('Setting Strategy Config...', end=' ')
-        self.api.set_strategy_config(strategy_code=strategy_code, strategy_config=strategy_config)
+        key, _ = self.api.set_strategy_config(strategy_code=strategy_code, strategy_config=strategy_config, trading_type=TradingType.REALTRADING)
         print('Success.')
 
         # Submit Real Trading job
         print('Submitting Real Trading Job...', end=' ')
-        response = self.api.start_strategy_algotrading(strategy_code=strategy_code, trading_type=TradingType.REALTRADING, broker=broker.value)
+        response = self.api.start_strategy_algotrading(key=key, trading_type=TradingType.REALTRADING, broker=broker.value)
         print('Success.')
 
         if response.get('success') is True:

@@ -7,14 +7,15 @@ from json import JSONDecodeError
 import requests
 
 from .exceptions import AlgoBullsAPIBaseException, AlgoBullsAPIUnauthorizedError, AlgoBullsAPIResourceNotFoundError, AlgoBullsAPIBadRequest, AlgoBullsAPIInternalServerErrorException
-from ..constants import StrategyType
+from ..constants import StrategyType, TradingType
 
 
 class AlgoBullsAPI:
     """
     AlgoBulls API
     """
-    SERVER_ENDPOINT = 'https://api.algobulls.com/'
+    # SERVER_ENDPOINT = 'https://api.algobulls.com/'
+    SERVER_ENDPOINT = 'http://127.0.0.1:8000/'
 
     def __init__(self):
         """
@@ -123,7 +124,7 @@ class AlgoBullsAPI:
             JSON Response received from AlgoBulls platform with list of all the created strategies.
 
         Info: ENDPOINT
-            `GET` v2/user/strategy/build/python
+            `OPTIONS` v2/user/strategy/build/python
         """
         endpoint = f'v2/user/strategy/build/python'
         response = self._send_request(endpoint=endpoint, method='options')
@@ -158,42 +159,58 @@ class AlgoBullsAPI:
 
 
         Info: ENDPOINT
-            `GET` v1/instrument_search
+            `GET` v2/instrument/search
         """
         params = {'instrument': instrument}
-        endpoint = f'v1/instrument_search'
+        endpoint = f'v2/instrument/search'
         response = self._send_request(endpoint=endpoint, params=params, requires_authorization=False)
         return response
 
-    def set_strategy_config(self, strategy_code: str, strategy_config: str) -> dict:
+    def set_strategy_config(self, strategy_code: str, strategy_config: dict, trading_type: TradingType) -> (str, dict):
         """
 
         Args:
             strategy_code: strategy code
             strategy_config: strategy configuration
+            trading_type: BACKTESTING, PAPER TRADING or REAL TRADING
 
         Returns:
 
         Info: ENDPOINT
-           PATCH v1/customer_strategy_tweak
+           PATCH v2/portfolio/strategy
         """
-        params = {'strategyCode': strategy_code, 'strategyType': StrategyType.PYTHON.value}
-        json_data = strategy_config
-        endpoint = f'v1/customer_strategy_tweak'
-        response = self._send_request(method='patch', endpoint=endpoint, params=params, json_data=json_data)
-        return response
+        # Add strategy to backtesting
+        endpoint = f'v2/portfolio/strategy'
+        json_data = {'strategyId': strategy_code, 'tradingType': trading_type.value}
+        response1 = self._send_request(method='options', endpoint=endpoint, json_data=json_data)
+        print(response1)
+        key = response1.get('key')
+        # TODO: Check response to know if request was successful
 
-    def start_strategy_algotrading(self, strategy_code: str, trading_type: str, broker: str = '') -> dict:
+        # Configure the params
+        json_data = strategy_config
+        endpoint = f'v2/user/strategy/{key}/tweak'
+        response2 = self._send_request(method='patch', endpoint=endpoint, json_data=json_data)
+        return key, response2
+
+    def start_strategy_algotrading(self, key: str, trading_type: TradingType, broker: str = '') -> dict:
         """
         Submit Backtesting / Paper Trading / Real Trading job for strategy with code strategy_code & return the job ID.
 
         Info: ENDPOINT
-            `POST` v1/customer_strategy_algotrading
+            `POST` v2/customer_strategy_algotrading
         """
-        params = {'strategyCode': strategy_code, 'strategyType': StrategyType.PYTHON.value, 'tradingType': trading_type.value, 'broker': broker}
-        endpoint = f'v1/customer_strategy_algotrading'
-        json_data = {'action': 'start'}
-        response = self._send_request(method='post', endpoint=endpoint, params=params, json_data=json_data)
+        if trading_type == TradingType.REALTRADING:
+            endpoint = 'v2/portfolio/strategies'
+        elif trading_type == TradingType.PAPERTRADING:
+            endpoint = 'v2/papertrading/strategies'
+        elif trading_type == TradingType.BACKTESTING:
+            endpoint = 'v2/backtesting/strategies'
+        else:
+            raise NotImplementedError
+
+        json_data = {'method': 'update', 'key': key, 'record': {'status': 0}}
+        response = self._send_request(method='post', endpoint=endpoint, json_data=json_data)
         return response
 
     def stop_strategy_algotrading(self, strategy_code: str, trading_type: str, broker: str = '') -> dict:
@@ -203,10 +220,17 @@ class AlgoBullsAPI:
         Info: ENDPOINT
             `POST` v1/customer_strategy_algotrading
         """
-        params = {'strategyCode': strategy_code, 'strategyType': StrategyType.PYTHON.value, 'tradingType': trading_type.value, 'broker': broker}
-        endpoint = f'v1/customer_strategy_algotrading'
-        json_data = {'action': 'stop'}
-        response = self._send_request(method='post', endpoint=endpoint, params=params, json_data=json_data)
+        if trading_type == TradingType.REALTRADING:
+            endpoint = 'v2/portfolio/strategies'
+        elif trading_type == TradingType.PAPERTRADING:
+            endpoint = 'v2/papertrading/strategies'
+        elif trading_type == TradingType.BACKTESTING:
+            endpoint = 'v2/backtesting/strategies'
+        else:
+            raise NotImplementedError
+
+        json_data = {'method': 'update', 'key': cstc_id, 'record': {'status': 0}}
+        response = self._send_request(method='post', endpoint=endpoint, json_data=json_data)
         return response
 
     def get_job_status(self, strategy_code: str, trading_type: str, broker: str = '') -> dict:
