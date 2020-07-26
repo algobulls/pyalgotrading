@@ -19,6 +19,13 @@ class AlgoBullsAPIUnauthorizedError(AlgoBullsAPIBaseException):
     pass
 
 
+class AlgoBullsAPIInsufficientBalanceError(AlgoBullsAPIBaseException):
+    """
+    Exception class for HTTP status code of 402 (Insufficient Balance)
+    """
+    pass
+
+
 class AlgoBullsAPIResourceNotFoundError(AlgoBullsAPIBaseException):
     """
     Exception class for HTTP status code of 404 (Resource Not Found)

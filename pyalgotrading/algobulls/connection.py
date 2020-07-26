@@ -214,18 +214,17 @@ class AlgoBullsConnection:
         assert (isinstance(strategy_code, str) is True), f'Argument strategy_code should be a string'
         assert (isinstance(start_timestamp, dt) is True), f'Argument start_timestamp should be an instance of type datetime.datetime'
         assert (isinstance(end_timestamp, dt) is True), f'Argument start_timestamp should be an instance of type datetime.datetime'
-        assert (isinstance(instrument_id, int) is True), f'Argument instrument_id should be a integer. You can find the right id using the \'get_instrument()\' method of AlgoBullsConnection class'
+        # assert (isinstance(instrument_id, int) is True), f'Argument instrument_id should be a integer. You can find the right id using the \'get_instrument()\' method of AlgoBullsConnection class'
         assert (isinstance(strategy_parameters, dict) is True), f'Argument strategy_parameters should be a dict'
         assert (isinstance(strategy_mode, StrategyMode) is True), f'Argument strategy_mode should be enum of type StrategyMode'
         assert (isinstance(candle_interval, CandleInterval)), f'Argument candle_interval should be an enum of type CandleInterval'
 
         # Setup config for Backtesting
-        strategy_config = {'trading_start_date': start_timestamp.date(), 'trading_start_time': start_timestamp.time(),
-                           'trading_end_date': end_timestamp.date(), 'trading_end_time': end_timestamp.time(),
+        strategy_config = {'tradingTime': [start_timestamp.strftime('%d-%m-%Y %H:%M'), end_timestamp.strftime('%d-%m-%Y %H:%M')],
                            'instruments': [instrument_id],
-                           'parameters': json.dumps(strategy_parameters),
-                           'candle_interval': candle_interval.value,
-                           'strategy_mode': strategy_mode}
+                           'parameters': strategy_parameters,
+                           'candle': candle_interval.value,
+                           'strategyMode': strategy_mode.value}
         print('Setting Strategy Config...', end=' ')
         key, _ = self.api.set_strategy_config(strategy_code=strategy_code, strategy_config=strategy_config, trading_type=TradingType.BACKTESTING)
         print('Success.')
@@ -235,10 +234,11 @@ class AlgoBullsConnection:
         response = self.api.start_strategy_algotrading(key=key, trading_type=TradingType.BACKTESTING)
         print('Success.')
 
-        if response.get('success') is True:
-            return AlgoBullsJobSubmissionResponse(response['data'].upper())
-        else:
-            return AlgoBullsJobSubmissionResponse.ERROR, response
+        # print(response)
+        # if response.get('success') is True:
+        #     return AlgoBullsJobSubmissionResponse(response['data'].upper())
+        # else:
+        #     return AlgoBullsJobSubmissionResponse.ERROR, response
 
     def get_backtesting_job_status(self, strategy_code):
         """
@@ -348,10 +348,10 @@ class AlgoBullsConnection:
         response = self.api.start_strategy_algotrading(key=key, trading_type=TradingType.PAPERTRADING)
         print('Success.')
 
-        if response.get('success') is True:
-            return AlgoBullsJobSubmissionResponse(response['data'].upper())
-        else:
-            return AlgoBullsJobSubmissionResponse.ERROR, response
+        # if response.get('success') is True:
+        #     return AlgoBullsJobSubmissionResponse(response['data'].upper())
+        # else:
+        #     return AlgoBullsJobSubmissionResponse.ERROR, response
 
     def get_papertrading_job_status(self, strategy_code):
         """
@@ -468,10 +468,10 @@ class AlgoBullsConnection:
         response = self.api.start_strategy_algotrading(key=key, trading_type=TradingType.REALTRADING, broker=broker.value)
         print('Success.')
 
-        if response.get('success') is True:
-            return AlgoBullsJobSubmissionResponse(response['data'].upper())
-        else:
-            return AlgoBullsJobSubmissionResponse.ERROR, response
+        # if response.get('success') is True:
+        #     return AlgoBullsJobSubmissionResponse(response['data'].upper())
+        # else:
+        #     return AlgoBullsJobSubmissionResponse.ERROR, response
 
     def get_realtrading_job_status(self, broker, strategy_code):
         """

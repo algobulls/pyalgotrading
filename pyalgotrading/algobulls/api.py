@@ -6,7 +6,7 @@ from json import JSONDecodeError
 
 import requests
 
-from .exceptions import AlgoBullsAPIBaseException, AlgoBullsAPIUnauthorizedError, AlgoBullsAPIResourceNotFoundError, AlgoBullsAPIBadRequest, AlgoBullsAPIInternalServerErrorException
+from .exceptions import AlgoBullsAPIBaseException, AlgoBullsAPIUnauthorizedError, AlgoBullsAPIInsufficientBalanceError, AlgoBullsAPIResourceNotFoundError, AlgoBullsAPIBadRequest, AlgoBullsAPIInternalServerErrorException
 from ..constants import StrategyType, TradingType
 
 
@@ -65,6 +65,8 @@ class AlgoBullsAPI:
             raise AlgoBullsAPIBadRequest(f'Bad Request --> Method: {method} | URL: {url} | Response: {response_json}')
         elif response.status_code == 401:
             raise AlgoBullsAPIUnauthorizedError(f'Unauthorized Error --> Method: {method} | URL: {url} | Response: {response_json}')
+        elif response.status_code == 402:
+            raise AlgoBullsAPIInsufficientBalanceError(f'Insufficient Balance --> Method: {method} | URL: {url} | Response: {response_json}')
         elif response.status_code == 404:
             raise AlgoBullsAPIResourceNotFoundError(f'API Not Found --> Method: {method} | URL: {url} | Response: {response_json}')
         elif response.status_code == 500:
@@ -183,7 +185,6 @@ class AlgoBullsAPI:
         endpoint = f'v2/portfolio/strategy'
         json_data = {'strategyId': strategy_code, 'tradingType': trading_type.value}
         response1 = self._send_request(method='options', endpoint=endpoint, json_data=json_data)
-        print(response1)
         key = response1.get('key')
         # TODO: Check response to know if request was successful
 
@@ -209,11 +210,11 @@ class AlgoBullsAPI:
         else:
             raise NotImplementedError
 
-        json_data = {'method': 'update', 'key': key, 'record': {'status': 0}}
+        json_data = {'method': 'update', 'newVal': 1, 'key': key, 'record': {'status': 0}}
         response = self._send_request(method='post', endpoint=endpoint, json_data=json_data)
         return response
 
-    def stop_strategy_algotrading(self, strategy_code: str, trading_type: str, broker: str = '') -> dict:
+    def stop_strategy_algotrading(self, key: str, trading_type: str, broker: str = '') -> dict:
         """
         Stop Backtesting / Paper Trading / Real Trading job for strategy with code strategy_code & return the job ID.
 
@@ -229,7 +230,7 @@ class AlgoBullsAPI:
         else:
             raise NotImplementedError
 
-        json_data = {'method': 'update', 'key': cstc_id, 'record': {'status': 0}}
+        json_data = {'method': 'update', 'newVal': 0, 'key': key, 'record': {'status': 2}}
         response = self._send_request(method='post', endpoint=endpoint, json_data=json_data)
         return response
 
