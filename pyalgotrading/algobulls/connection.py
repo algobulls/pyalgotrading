@@ -9,7 +9,7 @@ import pandas as pd
 
 from .api import AlgoBullsAPI
 from .exceptions import AlgoBullsAPIBadRequest
-from ..constants import StrategyMode, TradingType, TradingReportType, AlgoBullsJobStatus, AlgoBullsJobSubmissionResponse, CandleInterval, AlgoBullsSupportedBrokers
+from ..constants import StrategyMode, TradingType, TradingReportType, AlgoBullsJobSubmissionResponse, CandleInterval, AlgoBullsSupportedBrokers
 from ..strategy.strategy_base import StrategyBase
 
 
@@ -17,6 +17,7 @@ class AlgoBullsConnection:
     """
     Class for Algobulls connection
     """
+
     def __init__(self):
         """
         Init method that is used while creating an object of this class
@@ -122,25 +123,21 @@ class AlgoBullsConnection:
             True or False
         """
         assert (isinstance(instrument, str) is True), f'Argument instrument should be a string'
-
         response = self.api.search_instrument(instrument).get('data')
         return response
 
-    def get_job_status(self, strategy_code, trading_type, broker=None):
+    def get_job_status(self, strategy_code, trading_type):
         """
         Gets job status for given strategy_code and trading_type
         """
         assert (isinstance(strategy_code, str) is True), f'Argument strategy_code should be a string'
         assert (isinstance(trading_type, TradingType) is True), f'Argument trading_type should be an enum of type {TradingType.__name__}'
-        assert (broker is None or isinstance(broker, AlgoBullsSupportedBrokers) is True), f'Argument broker should be None or an enum of type {AlgoBullsSupportedBrokers.__name__}'
+        # assert (broker is None or isinstance(broker, AlgoBullsSupportedBrokers) is True), f'Argument broker should be None or an enum of type {AlgoBullsSupportedBrokers.__name__}'
 
-        response = self.api.get_job_status(strategy_code=strategy_code, trading_type=trading_type, broker=broker.value)
-        if response.get('success') is True:
-            return AlgoBullsJobStatus(response['data'].upper())
-        else:
-            return AlgoBullsJobStatus.JOB_STATUS_UNKNOWN, response
+        response = self.api.get_job_status(strategy_code=strategy_code, trading_type=trading_type)
+        return response
 
-    def stop_job(self, strategy_code, trading_type, broker=None):
+    def stop_job(self, strategy_code, trading_type):
         """
         Stops a job
         Args:
@@ -153,13 +150,11 @@ class AlgoBullsConnection:
         """
         assert (isinstance(strategy_code, str) is True), f'Argument strategy_code should be a string'
         assert (isinstance(trading_type, TradingType) is True), f'Argument trading_type should be an enum of type {TradingType.__name__}'
-        assert (broker is None or isinstance(broker, AlgoBullsSupportedBrokers) is True), f'Argument broker should be None or an enum of type {AlgoBullsSupportedBrokers.__name__}'
+        # assert (broker is None or isinstance(broker, AlgoBullsSupportedBrokers) is True), f'Argument broker should be None or an enum of type {AlgoBullsSupportedBrokers.__name__}'
 
-        response = self.api.stop_strategy_algotrading(strategy_code=strategy_code, trading_type=trading_type, broker=broker.value)
-        if response.get('success') is True:
-            return AlgoBullsJobSubmissionResponse(response['data'].upper())
-        else:
-            return AlgoBullsJobSubmissionResponse.ERROR, response
+        print(f'Stopping {trading_type.name} job...', end=' ')
+        response = self.api.stop_strategy_algotrading(strategy_code=strategy_code, trading_type=trading_type)
+        print('Success.')
 
     def get_report(self, strategy_code, trading_type, report_type, render_as_dataframe=False, show_all_rows=False, broker=None):
         """
@@ -194,7 +189,7 @@ class AlgoBullsConnection:
         else:
             return AlgoBullsJobSubmissionResponse.ERROR, response
 
-    def backtest(self, strategy_code, start_timestamp, end_timestamp, instrument_id, strategy_parameters, candle_interval, strategy_mode=StrategyMode.INTRADAY):
+    def backtest(self, strategy_code, start_timestamp, end_timestamp, instrument, strategy_parameters, candle_interval, strategy_mode=StrategyMode.INTRADAY):
         """
         Submit a backtesting job for a strategy on the AlgoBulls Platform
 
@@ -202,7 +197,7 @@ class AlgoBullsConnection:
             strategy_code: strategy code
             start_timestamp: start date/time
             end_timestamp: end date/time
-            instrument_id: instrument key
+            instrument: instrument key
             strategy_parameters: parameters
             candle_interval: candle interval
             strategy_mode: intraday or delivery
@@ -214,24 +209,24 @@ class AlgoBullsConnection:
         assert (isinstance(strategy_code, str) is True), f'Argument strategy_code should be a string'
         assert (isinstance(start_timestamp, dt) is True), f'Argument start_timestamp should be an instance of type datetime.datetime'
         assert (isinstance(end_timestamp, dt) is True), f'Argument start_timestamp should be an instance of type datetime.datetime'
-        # assert (isinstance(instrument_id, int) is True), f'Argument instrument_id should be a integer. You can find the right id using the \'get_instrument()\' method of AlgoBullsConnection class'
+        assert (isinstance(instrument, str) is True), f'Argument instrument should be a string. You can find the right id using the \'get_instrument()\' method of AlgoBullsConnection class'
         assert (isinstance(strategy_parameters, dict) is True), f'Argument strategy_parameters should be a dict'
         assert (isinstance(strategy_mode, StrategyMode) is True), f'Argument strategy_mode should be enum of type StrategyMode'
         assert (isinstance(candle_interval, CandleInterval)), f'Argument candle_interval should be an enum of type CandleInterval'
 
         # Setup config for Backtesting
         strategy_config = {'tradingTime': [start_timestamp.strftime('%d-%m-%Y %H:%M'), end_timestamp.strftime('%d-%m-%Y %H:%M')],
-                           'instruments': [instrument_id],
+                           'instruments': [instrument],
                            'parameters': strategy_parameters,
                            'candle': candle_interval.value,
                            'strategyMode': strategy_mode.value}
         print('Setting Strategy Config...', end=' ')
-        key, _ = self.api.set_strategy_config(strategy_code=strategy_code, strategy_config=strategy_config, trading_type=TradingType.BACKTESTING)
+        self.api.set_strategy_config(strategy_code=strategy_code, strategy_config=strategy_config, trading_type=TradingType.BACKTESTING)
         print('Success.')
 
         # Submit Backtesting job
-        print('Submitting Backtesting Job...', end=' ')
-        response = self.api.start_strategy_algotrading(key=key, trading_type=TradingType.BACKTESTING)
+        print(f'Submitting {TradingType.BACKTESTING.name} Job...', end=' ')
+        response = self.api.start_strategy_algotrading(strategy_code=strategy_code, trading_type=TradingType.BACKTESTING)
         print('Success.')
 
         # print(response)
@@ -327,7 +322,7 @@ class AlgoBullsConnection:
         assert (isinstance(strategy_code, str) is True), f'Argument strategy_code should be a string'
         assert (isinstance(start_time, time) is True), f'Argument start_timestamp should be an instance of type datetime.datetime'
         assert (isinstance(end_time, time) is True), f'Argument start_timestamp should be an instance of type datetime.datetime'
-        assert (isinstance(instrument_id, int) is True), f'Argument instrument_id should be a integer. You can find the right id using the \'get_instrument()\' method of AlgoBullsConnection class'
+        assert (isinstance(instrument_id, int) is True), f'Argument instrument should be a integer. You can find the right id using the \'get_instrument()\' method of AlgoBullsConnection class'
         assert (isinstance(strategy_parameters, dict) is True), f'Argument strategy_parameters should be a dict'
         assert (isinstance(strategy_mode, StrategyMode) is True), f'Argument strategy_mode should be enum of type StrategyMode'
         assert (isinstance(candle_interval, CandleInterval)), f'Argument candle_interval should be an enum of type CandleInterval'
@@ -340,12 +335,12 @@ class AlgoBullsConnection:
                            'candle_interval': candle_interval.value,
                            'strategy_mode': strategy_mode.value}
         print('Setting Strategy Config...', end=' ')
-        key, _ = self.api.set_strategy_config(strategy_code=strategy_code, strategy_config=strategy_config, trading_type=TradingType.PAPERTRADING)
+        self.api.set_strategy_config(strategy_code=strategy_code, strategy_config=strategy_config, trading_type=TradingType.PAPERTRADING)
         print('Success.')
 
         # Submit Paper Trading job
-        print('Submitting Paper Trading Job...', end=' ')
-        response = self.api.start_strategy_algotrading(key=key, trading_type=TradingType.PAPERTRADING)
+        print(f'Submitting {TradingType.PAPERTRADING.name} Job...', end=' ')
+        response = self.api.start_strategy_algotrading(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING)
         print('Success.')
 
         # if response.get('success') is True:
@@ -447,7 +442,7 @@ class AlgoBullsConnection:
         assert (isinstance(strategy_code, str) is True), f'Argument strategy_code should be a string'
         assert (isinstance(start_time, time) is True), f'Argument start_time should be an instance of type datetime.time'
         assert (isinstance(end_time, time) is True), f'Argument end_time should be an instance of type datetime.time'
-        assert (isinstance(instrument_id, int) is True), f'Argument instrument_id should be a integer. You can find the right id using the \'get_instrument()\' method of AlgoBullsConnection class'
+        assert (isinstance(instrument_id, int) is True), f'Argument instrument should be a integer. You can find the right id using the \'get_instrument()\' method of AlgoBullsConnection class'
         assert (isinstance(strategy_parameters, dict) is True), f'Argument strategy_parameters should be a dict'
         assert (isinstance(strategy_mode, StrategyMode) is True), f'Argument strategy_mode should be enum of type StrategyMode'
         assert (isinstance(candle_interval, CandleInterval)), f'Argument candle_interval should be an enum of type CandleInterval'
@@ -460,12 +455,12 @@ class AlgoBullsConnection:
                            'candle_interval': candle_interval.value,
                            'strategy_mode': strategy_mode.value}
         print('Setting Strategy Config...', end=' ')
-        key, _ = self.api.set_strategy_config(strategy_code=strategy_code, strategy_config=strategy_config, trading_type=TradingType.REALTRADING)
+        self.api.set_strategy_config(strategy_code=strategy_code, strategy_config=strategy_config, trading_type=TradingType.REALTRADING)
         print('Success.')
 
         # Submit Real Trading job
-        print('Submitting Real Trading Job...', end=' ')
-        response = self.api.start_strategy_algotrading(key=key, trading_type=TradingType.REALTRADING, broker=broker.value)
+        print(f'Submitting {TradingType.REALTRADING.name} Job...', end=' ')
+        response = self.api.start_strategy_algotrading(strategy_code=strategy_code, trading_type=TradingType.REALTRADING, broker=broker.value)
         print('Success.')
 
         # if response.get('success') is True:
@@ -486,9 +481,9 @@ class AlgoBullsConnection:
         assert (isinstance(broker, AlgoBullsSupportedBrokers) is True), f'Argument broker should be an enum of type {AlgoBullsSupportedBrokers.__name__}'
         assert (isinstance(strategy_code, str) is True), f'Argument strategy_code should be a string'
 
-        return self.get_job_status(strategy_code, TradingType.REALTRADING, broker=broker)
+        return self.get_job_status(strategy_code, TradingType.REALTRADING)
 
-    def stop_realtrading_job(self, broker, strategy_code):
+    def stop_realtrading_job(self, strategy_code):
         """
         Stop the realtrading session
         Args:
@@ -498,10 +493,9 @@ class AlgoBullsConnection:
         Returns:
             None
         """
-        assert (isinstance(broker, AlgoBullsSupportedBrokers) is True), f'Argument broker should be an enum of type {AlgoBullsSupportedBrokers.__name__}'
+        # assert (isinstance(broker, AlgoBullsSupportedBrokers) is True), f'Argument broker should be an enum of type {AlgoBullsSupportedBrokers.__name__}'
         assert (isinstance(strategy_code, str) is True), f'Argument strategy_code should be a string'
-
-        return self.stop_job(strategy_code=strategy_code, trading_type=TradingType.REALTRADING, broker=broker)
+        return self.stop_job(strategy_code=strategy_code, trading_type=TradingType.REALTRADING)
 
     def get_realtrading_logs(self, broker, strategy_code):
         """

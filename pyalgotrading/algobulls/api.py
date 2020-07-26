@@ -22,6 +22,9 @@ class AlgoBullsAPI:
         Init method that is used while creating an object of this class
         """
         self.headers = None
+        self.__key_backtesting = None  # cstc id
+        self.__key_papertrading = None  # cstc id
+        self.__key_realtrading = None  # cstc id
 
     def set_access_token(self, access_token: str):
         """
@@ -74,6 +77,30 @@ class AlgoBullsAPI:
         else:
             response.raw.decode_content = True
             raise AlgoBullsAPIBaseException(f'Unknown non-200 status code --> Method: {method} | URL: {url} | Response: {response_json} | Response code: {response.status_code}')
+
+    def __fetch_key(self, strategy_code, trading_type):
+        # Add strategy to backtesting
+        endpoint = f'v2/portfolio/strategy'
+        json_data = {'strategyId': strategy_code, 'tradingType': trading_type.value}
+        response = self._send_request(method='options', endpoint=endpoint, json_data=json_data)
+        key = response.get('key')
+        return key
+
+    def __get_key(self, strategy_code, trading_type):
+        if trading_type is TradingType.BACKTESTING:
+            if self.__key_backtesting is None:
+                self.__key_backtesting = self.__fetch_key(strategy_code=strategy_code, trading_type=TradingType.BACKTESTING)
+            return self.__key_backtesting
+        elif trading_type is TradingType.PAPERTRADING:
+            if self.__key_papertrading is None:
+                self.__key_papertrading = self.__fetch_key(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING)
+            return self.__key_papertrading
+        elif trading_type is TradingType.REALTRADING:
+            if self.__key_realtrading is None:
+                self.__key_realtrading = self.__fetch_key(strategy_code=strategy_code, trading_type=TradingType.REALTRADING)
+            return self.__key_realtrading
+        else:
+            raise NotImplementedError
 
     def create_strategy(self, strategy_name: str, strategy_details: str, abc_version: str) -> dict:
         """
@@ -181,20 +208,15 @@ class AlgoBullsAPI:
         Info: ENDPOINT
            PATCH v2/portfolio/strategy
         """
-        # Add strategy to backtesting
-        endpoint = f'v2/portfolio/strategy'
-        json_data = {'strategyId': strategy_code, 'tradingType': trading_type.value}
-        response1 = self._send_request(method='options', endpoint=endpoint, json_data=json_data)
-        key = response1.get('key')
-        # TODO: Check response to know if request was successful
 
         # Configure the params
         json_data = strategy_config
+        key = self.__get_key(strategy_code=strategy_code, trading_type=trading_type)
         endpoint = f'v2/user/strategy/{key}/tweak'
         response2 = self._send_request(method='patch', endpoint=endpoint, json_data=json_data)
         return key, response2
 
-    def start_strategy_algotrading(self, key: str, trading_type: TradingType, broker: str = '') -> dict:
+    def start_strategy_algotrading(self, strategy_code: str, trading_type: TradingType, broker: str = '') -> dict:
         """
         Submit Backtesting / Paper Trading / Real Trading job for strategy with code strategy_code & return the job ID.
 
@@ -210,11 +232,12 @@ class AlgoBullsAPI:
         else:
             raise NotImplementedError
 
+        key = self.__get_key(strategy_code=strategy_code, trading_type=trading_type)
         json_data = {'method': 'update', 'newVal': 1, 'key': key, 'record': {'status': 0}}
         response = self._send_request(method='post', endpoint=endpoint, json_data=json_data)
         return response
 
-    def stop_strategy_algotrading(self, key: str, trading_type: str, broker: str = '') -> dict:
+    def stop_strategy_algotrading(self, strategy_code: str, trading_type: str, broker: str = '') -> dict:
         """
         Stop Backtesting / Paper Trading / Real Trading job for strategy with code strategy_code & return the job ID.
 
@@ -230,11 +253,12 @@ class AlgoBullsAPI:
         else:
             raise NotImplementedError
 
+        key = self.__get_key(strategy_code=strategy_code, trading_type=trading_type)
         json_data = {'method': 'update', 'newVal': 0, 'key': key, 'record': {'status': 2}}
         response = self._send_request(method='post', endpoint=endpoint, json_data=json_data)
         return response
 
-    def get_job_status(self, strategy_code: str, trading_type: str, broker: str = '') -> dict:
+    def get_job_status(self, strategy_code: str, trading_type: TradingType) -> dict:
         """
 
 
@@ -243,16 +267,16 @@ class AlgoBullsAPI:
         Args:
             strategy_code: Strategy code
             trading_type: Trading type
-            broker: Name of the broker
 
         Returns:
             Job status
 
         Info: ENDPOINT
-            `GET` v1/customer_strategy_algotrading
+            `GET` v2/user/strategy/status
         """
-        params = {'strategyCode': strategy_code, 'strategyType': StrategyType.PYTHON.value, 'tradingType': trading_type.value, 'broker': broker}
-        endpoint = f'v1/customer_strategy_algotrading'
+        key = self.__get_key(strategy_code=strategy_code, trading_type=trading_type)
+        params = {'key': key}
+        endpoint = f'v2/user/strategy/status'
         response = self._send_request(endpoint=endpoint, params=params)
         return response
 
