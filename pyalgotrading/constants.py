@@ -162,10 +162,9 @@ class TradingReportType(Enum):
     """
     A class of Trading Report Types
     """
-    PNL_TABLE = 0
-    STATS_TABLE = 1
-    ORDER_HISTORY = 2
-    LOGS = 3
+    PNL_TABLE = 1
+    STATS_TABLE = 2
+    ORDER_HISTORY = 3
 
 
 class PlotType(Enum):
