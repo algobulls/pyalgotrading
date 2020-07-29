@@ -9,13 +9,13 @@ import pandas as pd
 
 from .api import AlgoBullsAPI
 from .exceptions import AlgoBullsAPIBadRequest
-from ..constants import StrategyMode, TradingType, TradingReportType, AlgoBullsJobSubmissionResponse, CandleInterval, AlgoBullsSupportedBrokers
+from ..constants import StrategyMode, TradingType, TradingReportType, CandleInterval, AlgoBullsSupportedBrokers
 from ..strategy.strategy_base import StrategyBase
 
 
 class AlgoBullsConnection:
     """
-    Class for Algobulls connection
+    Class for AlgoBulls connection
     """
 
     def __init__(self):
@@ -24,7 +24,8 @@ class AlgoBullsConnection:
         """
         self.api = AlgoBullsAPI()
 
-    def get_authorization_url(self):
+    @staticmethod
+    def get_authorization_url():
         """
         Fetches the authorization URL
         Returns:
@@ -132,7 +133,6 @@ class AlgoBullsConnection:
         """
         assert (isinstance(strategy_code, str) is True), f'Argument strategy_code should be a string'
         assert (isinstance(trading_type, TradingType) is True), f'Argument trading_type should be an enum of type {TradingType.__name__}'
-        # assert (broker is None or isinstance(broker, AlgoBullsSupportedBrokers) is True), f'Argument broker should be None or an enum of type {AlgoBullsSupportedBrokers.__name__}'
 
         response = self.api.get_job_status(strategy_code=strategy_code, trading_type=trading_type)
         return response
@@ -143,29 +143,41 @@ class AlgoBullsConnection:
         Args:
             strategy_code: strategy code
             trading_type: trading type
-            broker: broker name
 
         Returns:
             job status
         """
         assert (isinstance(strategy_code, str) is True), f'Argument strategy_code should be a string'
         assert (isinstance(trading_type, TradingType) is True), f'Argument trading_type should be an enum of type {TradingType.__name__}'
-        # assert (broker is None or isinstance(broker, AlgoBullsSupportedBrokers) is True), f'Argument broker should be None or an enum of type {AlgoBullsSupportedBrokers.__name__}'
 
-        print(f'Stopping {trading_type.name} job...', end=' ')
         response = self.api.stop_strategy_algotrading(strategy_code=strategy_code, trading_type=trading_type)
-        print('Success.')
 
-    def get_report(self, strategy_code, trading_type, report_type, render_as_dataframe=False, show_all_rows=False, broker=None):
+    def get_logs(self, strategy_code, trading_type):
         """
-        Fetch the report of a strategy
+        Fetch logs for a strategy
+
+        Args:
+            strategy_code: strategy code
+            trading_type: trading type
+
+        Returns:
+            Execution logs
+        """
+        assert (isinstance(strategy_code, str) is True), f'Argument strategy_code should be a string'
+        assert (isinstance(trading_type, TradingType) is True), f'Argument trading_type should be an enum of type {TradingType.__name__}'
+
+        return self.api.get_logs(strategy_code=strategy_code, trading_type=trading_type).get('data')
+
+    def get_report(self, strategy_code, trading_type, report_type, render_as_dataframe=False, show_all_rows=False):
+        """
+        Fetch report for a strategy
+
         Args:
             strategy_code: strategy code
             trading_type: trading type
             report_type: report type
             render_as_dataframe: True or False
             show_all_rows: True or False
-            broker: broker name
 
         Returns:
             report details
@@ -175,10 +187,10 @@ class AlgoBullsConnection:
         assert (isinstance(report_type, TradingReportType) is True), f'Argument report_type should be an enum of type {TradingReportType.__name__}'
         assert (isinstance(render_as_dataframe, bool) is True), f'Argument render_as_dataframe should be a bool'
         assert (isinstance(show_all_rows, bool) is True), f'Argument show_all_Rows should be a bool'
-        assert (broker is None or isinstance(broker, AlgoBullsSupportedBrokers) is True), f'Argument broker should be None or an enum of type {AlgoBullsSupportedBrokers.__name__}'
+        # assert (broker is None or isinstance(broker, AlgoBullsSupportedBrokers) is True), f'Argument broker should be None or an enum of type {AlgoBullsSupportedBrokers.__name__}'
 
-        response = self.api.get_reports(strategy_code=strategy_code, trading_type=trading_type, report_type=report_type, broker=broker.value)
-        if response.get('success') is True:
+        response = self.api.get_reports(strategy_code=strategy_code, trading_type=trading_type, report_type=report_type)
+        if response.get('data'):
             if render_as_dataframe:
                 if show_all_rows:
                     pandas_dataframe_all_rows()
@@ -187,7 +199,8 @@ class AlgoBullsConnection:
                 _response = response['data']
             return _response
         else:
-            return AlgoBullsJobSubmissionResponse.ERROR, response
+            print('Report not available yet. Please retry in sometime')
+            # return response
 
     def backtest(self, strategy_code, start_timestamp, end_timestamp, instrument, strategy_parameters, candle_interval, strategy_mode=StrategyMode.INTRADAY):
         """
@@ -220,20 +233,10 @@ class AlgoBullsConnection:
                            'parameters': strategy_parameters,
                            'candle': candle_interval.value,
                            'strategyMode': strategy_mode.value}
-        print('Setting Strategy Config...', end=' ')
         self.api.set_strategy_config(strategy_code=strategy_code, strategy_config=strategy_config, trading_type=TradingType.BACKTESTING)
-        print('Success.')
 
         # Submit Backtesting job
-        print(f'Submitting {TradingType.BACKTESTING.name} Job...', end=' ')
         response = self.api.start_strategy_algotrading(strategy_code=strategy_code, trading_type=TradingType.BACKTESTING)
-        print('Success.')
-
-        # print(response)
-        # if response.get('success') is True:
-        #     return AlgoBullsJobSubmissionResponse(response['data'].upper())
-        # else:
-        #     return AlgoBullsJobSubmissionResponse.ERROR, response
 
     def get_backtesting_job_status(self, strategy_code):
         """
@@ -264,7 +267,7 @@ class AlgoBullsConnection:
             report details
         """
         assert (isinstance(strategy_code, str) is True), f'Argument strategy_code should be a string'
-        return self.get_report(strategy_code, trading_type=TradingType.BACKTESTING, report_type=TradingReportType.LOGS)
+        return self.get_logs(strategy_code, trading_type=TradingType.BACKTESTING)
 
     def get_backtesting_report_pnl_table(self, strategy_code, show_all_rows=False):
         """
@@ -334,19 +337,10 @@ class AlgoBullsConnection:
                            'parameters': json.dumps(strategy_parameters),
                            'candle_interval': candle_interval.value,
                            'strategy_mode': strategy_mode.value}
-        print('Setting Strategy Config...', end=' ')
         self.api.set_strategy_config(strategy_code=strategy_code, strategy_config=strategy_config, trading_type=TradingType.PAPERTRADING)
-        print('Success.')
 
         # Submit Paper Trading job
-        print(f'Submitting {TradingType.PAPERTRADING.name} Job...', end=' ')
         response = self.api.start_strategy_algotrading(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING)
-        print('Success.')
-
-        # if response.get('success') is True:
-        #     return AlgoBullsJobSubmissionResponse(response['data'].upper())
-        # else:
-        #     return AlgoBullsJobSubmissionResponse.ERROR, response
 
     def get_papertrading_job_status(self, strategy_code):
         """
@@ -374,7 +368,7 @@ class AlgoBullsConnection:
 
     def get_papertrading_logs(self, strategy_code):
         """
-        Fetch papertesting logs
+        Fetch papertrading logs
         Args:
             strategy_code: strategy code
 
@@ -382,11 +376,11 @@ class AlgoBullsConnection:
             report details
         """
         assert (isinstance(strategy_code, str) is True), f'Argument strategy_code should be a string'
-        return self.get_report(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING, report_type=TradingReportType.LOGS)
+        return self.get_logs(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING)
 
     def get_papertrading_report_pnl_table(self, strategy_code, show_all_rows=False):
         """
-        Fetch papertesting Profit / Loss details
+        Fetch papertrading Profit / Loss details
         Args:
             strategy_code: strategy code
             show_all_rows: True or False
@@ -399,7 +393,7 @@ class AlgoBullsConnection:
 
     def get_papertrading_report_statistics(self, strategy_code):
         """
-        Fetch papertesting report statistics
+        Fetch papertrading report statistics
         Args:
             strategy_code: strategy code
 
@@ -411,7 +405,7 @@ class AlgoBullsConnection:
 
     def get_papertrading_report_order_history(self, strategy_code):
         """
-        Fetch papertesting order history
+        Fetch papertrading order history
         Args:
             strategy_code: strategy code
 
@@ -454,19 +448,10 @@ class AlgoBullsConnection:
                            'parameters': json.dumps(strategy_parameters),
                            'candle_interval': candle_interval.value,
                            'strategy_mode': strategy_mode.value}
-        print('Setting Strategy Config...', end=' ')
         self.api.set_strategy_config(strategy_code=strategy_code, strategy_config=strategy_config, trading_type=TradingType.REALTRADING)
-        print('Success.')
 
         # Submit Real Trading job
-        print(f'Submitting {TradingType.REALTRADING.name} Job...', end=' ')
-        response = self.api.start_strategy_algotrading(strategy_code=strategy_code, trading_type=TradingType.REALTRADING, broker=broker.value)
-        print('Success.')
-
-        # if response.get('success') is True:
-        #     return AlgoBullsJobSubmissionResponse(response['data'].upper())
-        # else:
-        #     return AlgoBullsJobSubmissionResponse.ERROR, response
+        response = self.api.start_strategy_algotrading(strategy_code=strategy_code, trading_type=TradingType.REALTRADING)
 
     def get_realtrading_job_status(self, broker, strategy_code):
         """
@@ -487,7 +472,6 @@ class AlgoBullsConnection:
         """
         Stop the realtrading session
         Args:
-            broker: brker name
             strategy_code: strategy code
 
         Returns:
@@ -510,7 +494,7 @@ class AlgoBullsConnection:
         assert (isinstance(broker, AlgoBullsSupportedBrokers) is True), f'Argument broker should be an enum of type {AlgoBullsSupportedBrokers.__name__}'
         assert (isinstance(strategy_code, str) is True), f'Argument strategy_code should be a string'
 
-        return self.get_report(strategy_code=strategy_code, trading_type=TradingType.REALTRADING, report_type=TradingReportType.LOGS, broker=broker)
+        return self.get_logs(strategy_code=strategy_code, trading_type=TradingType.REALTRADING)
 
     def get_realtrading_report_pnl_table(self, broker, strategy_code, show_all_rows=False):
         """
@@ -526,7 +510,7 @@ class AlgoBullsConnection:
         assert (isinstance(broker, AlgoBullsSupportedBrokers) is True), f'Argument broker should be an enum of type {AlgoBullsSupportedBrokers.__name__}'
         assert (isinstance(strategy_code, str) is True), f'Argument strategy_code should be a string'
 
-        return self.get_report(strategy_code=strategy_code, trading_type=TradingType.REALTRADING, report_type=TradingReportType.PNL_TABLE, render_as_dataframe=True, show_all_rows=show_all_rows, broker=broker)
+        return self.get_report(strategy_code=strategy_code, trading_type=TradingType.REALTRADING, report_type=TradingReportType.PNL_TABLE, render_as_dataframe=True, show_all_rows=show_all_rows)
 
     def get_realtrading_report_statistics(self, broker, strategy_code):
         """
@@ -541,7 +525,7 @@ class AlgoBullsConnection:
         assert (isinstance(broker, AlgoBullsSupportedBrokers) is True), f'Argument broker should be an enum of type {AlgoBullsSupportedBrokers.__name__}'
         assert (isinstance(strategy_code, str) is True), f'Argument strategy_code should be a string'
 
-        return self.get_report(strategy_code=strategy_code, trading_type=TradingType.REALTRADING, report_type=TradingReportType.STATS_TABLE, render_as_dataframe=True, broker=broker)
+        return self.get_report(strategy_code=strategy_code, trading_type=TradingType.REALTRADING, report_type=TradingReportType.STATS_TABLE, render_as_dataframe=True)
 
     def get_realtrading_report_order_history(self, broker, strategy_code):
         """
@@ -556,7 +540,7 @@ class AlgoBullsConnection:
         assert (isinstance(broker, AlgoBullsSupportedBrokers) is True), f'Argument broker should be an enum of type {AlgoBullsSupportedBrokers.__name__}'
         assert (isinstance(strategy_code, str) is True), f'Argument strategy_code should be a string'
 
-        return self.get_report(strategy_code=strategy_code, trading_type=TradingType.REALTRADING, report_type=TradingReportType.ORDER_HISTORY, broker=broker)
+        return self.get_report(strategy_code=strategy_code, trading_type=TradingType.REALTRADING, report_type=TradingReportType.ORDER_HISTORY)
 
 
 def pandas_dataframe_all_rows():

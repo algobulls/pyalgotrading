@@ -6,8 +6,8 @@ from json import JSONDecodeError
 
 import requests
 
-from .exceptions import AlgoBullsAPIBaseException, AlgoBullsAPIUnauthorizedError, AlgoBullsAPIInsufficientBalanceError, AlgoBullsAPIResourceNotFoundError, AlgoBullsAPIBadRequest, AlgoBullsAPIInternalServerErrorException
-from ..constants import StrategyType, TradingType
+from .exceptions import AlgoBullsAPIBaseException, AlgoBullsAPIUnauthorizedError, AlgoBullsAPIInsufficientBalanceError, AlgoBullsAPIResourceNotFoundError, AlgoBullsAPIBadRequest, AlgoBullsAPIInternalServerErrorException, AlgoBullsAPIForbiddenError
+from ..constants import TradingType, TradingReportType
 
 
 class AlgoBullsAPI:
@@ -65,18 +65,24 @@ class AlgoBullsAPI:
             response_json = response.json()
             return response_json
         elif response.status_code == 400:
-            raise AlgoBullsAPIBadRequest(f'Bad Request --> Method: {method} | URL: {url} | Response: {response_json}')
+            raise AlgoBullsAPIBadRequest(method=method, url=url, response=response_json)
         elif response.status_code == 401:
-            raise AlgoBullsAPIUnauthorizedError(f'Unauthorized Error --> Method: {method} | URL: {url} | Response: {response_json}')
+            raise AlgoBullsAPIUnauthorizedError(method=method, url=url, response=response_json)
+            # try:
+            #     raise AlgoBullsAPIUnauthorizedError(method=method, url=url, response=response_json)
+            # except AlgoBullsAPIUnauthorizedError as ex:
+            #     print(f'{ex.get_error_type()}. {ex.response}')
         elif response.status_code == 402:
-            raise AlgoBullsAPIInsufficientBalanceError(f'Insufficient Balance --> Method: {method} | URL: {url} | Response: {response_json}')
+            raise AlgoBullsAPIInsufficientBalanceError(method=method, url=url, response=response_json)
+        elif response.status_code == 403:
+            raise AlgoBullsAPIForbiddenError(method=method, url=url, response=response_json)
         elif response.status_code == 404:
-            raise AlgoBullsAPIResourceNotFoundError(f'API Not Found --> Method: {method} | URL: {url} | Response: {response_json}')
+            raise AlgoBullsAPIResourceNotFoundError(method=method, url=url, response=response_json)
         elif response.status_code == 500:
-            raise AlgoBullsAPIInternalServerErrorException(f'Internal Server Error --> Method: {method} | URL: {url} | Response: {response_json}')
+            raise AlgoBullsAPIInternalServerErrorException(method=method, url=url, response=response_json)
         else:
             response.raw.decode_content = True
-            raise AlgoBullsAPIBaseException(f'Unknown non-200 status code --> Method: {method} | URL: {url} | Response: {response_json} | Response code: {response.status_code}')
+            raise AlgoBullsAPIBaseException(method=method, url=url, response=response_json)
 
     def __fetch_key(self, strategy_code, trading_type):
         # Add strategy to backtesting
@@ -213,10 +219,12 @@ class AlgoBullsAPI:
         json_data = strategy_config
         key = self.__get_key(strategy_code=strategy_code, trading_type=trading_type)
         endpoint = f'v2/user/strategy/{key}/tweak'
-        response2 = self._send_request(method='patch', endpoint=endpoint, json_data=json_data)
-        return key, response2
+        print('Setting Strategy Config...', end=' ')
+        response = self._send_request(method='patch', endpoint=endpoint, json_data=json_data)
+        print('Success.')
+        return key, response
 
-    def start_strategy_algotrading(self, strategy_code: str, trading_type: TradingType, broker: str = '') -> dict:
+    def start_strategy_algotrading(self, strategy_code: str, trading_type: TradingType) -> dict:
         """
         Submit Backtesting / Paper Trading / Real Trading job for strategy with code strategy_code & return the job ID.
 
@@ -232,12 +240,18 @@ class AlgoBullsAPI:
         else:
             raise NotImplementedError
 
-        key = self.__get_key(strategy_code=strategy_code, trading_type=trading_type)
-        json_data = {'method': 'update', 'newVal': 1, 'key': key, 'record': {'status': 0}}
-        response = self._send_request(method='post', endpoint=endpoint, json_data=json_data)
-        return response
+        try:
+            key = self.__get_key(strategy_code=strategy_code, trading_type=trading_type)
+            json_data = {'method': 'update', 'newVal': 1, 'key': key, 'record': {'status': 0}}
+            print(f'Submitting {trading_type.name} job...', end=' ')
+            response = self._send_request(method='post', endpoint=endpoint, json_data=json_data)
+            print('Success.')
+            return response
+        except (AlgoBullsAPIForbiddenError, AlgoBullsAPIInsufficientBalanceError) as ex:
+            print('Fail.')
+            print(f'{ex.get_error_type()}: {ex.response}')
 
-    def stop_strategy_algotrading(self, strategy_code: str, trading_type: str, broker: str = '') -> dict:
+    def stop_strategy_algotrading(self, strategy_code: str, trading_type: TradingType) -> dict:
         """
         Stop Backtesting / Paper Trading / Real Trading job for strategy with code strategy_code & return the job ID.
 
@@ -253,16 +267,22 @@ class AlgoBullsAPI:
         else:
             raise NotImplementedError
 
-        key = self.__get_key(strategy_code=strategy_code, trading_type=trading_type)
-        json_data = {'method': 'update', 'newVal': 0, 'key': key, 'record': {'status': 2}}
-        response = self._send_request(method='post', endpoint=endpoint, json_data=json_data)
-        return response
+        try:
+            key = self.__get_key(strategy_code=strategy_code, trading_type=trading_type)
+            json_data = {'method': 'update', 'newVal': 0, 'key': key, 'record': {'status': 2}}
+            print(f'Stopping {trading_type.name} job...', end=' ')
+            response = self._send_request(method='post', endpoint=endpoint, json_data=json_data)
+            print('Success.')
+            return response
+        except (AlgoBullsAPIForbiddenError, AlgoBullsAPIInsufficientBalanceError) as ex:
+            print('Fail.')
+            print(f'{ex.get_error_type()}: {ex.response}')
 
     def get_job_status(self, strategy_code: str, trading_type: TradingType) -> dict:
         """
 
 
-        Get status for a BACKTESTING/PAPERTESTING/REALTRADING Job
+        Get status for a BACKTESTING/PAPERTRADING/REALTRADING Job
 
         Args:
             strategy_code: Strategy code
@@ -280,15 +300,21 @@ class AlgoBullsAPI:
         response = self._send_request(endpoint=endpoint, params=params)
         return response
 
-    def get_reports(self, strategy_code: str, trading_type: str, report_type: str, broker: str = '') -> dict:
+    def get_logs(self, strategy_code: str, trading_type: TradingType) -> dict:
+        endpoint = 'v2/user/strategy/logs'
+        key = self.__get_key(strategy_code=strategy_code, trading_type=trading_type)
+        json_data = {'key': key}
+        response = self._send_request(method='post', endpoint=endpoint, json_data=json_data)
+        return response
+
+    def get_reports(self, strategy_code: str, trading_type: TradingType, report_type: TradingReportType) -> dict:
         """
-        Get reports for a BACKTESTING/PAPERTESTING/REALTRADING Job
+        Get reports for a BACKTESTING/PAPERTRADING/REALTRADING Job
 
         Args:
             strategy_code: Strategy code
             trading_type: Value of TradingType Enum
             report_type: Value of TradingReportType Enum
-            broker: Name of the broker
 
         Returns:
             Report data
@@ -296,7 +322,16 @@ class AlgoBullsAPI:
         Info: ENDPOINT
             `GET` v1/customer_strategy_algotrading_reports
         """
-        params = {'strategyCode': strategy_code, 'strategyType': StrategyType.PYTHON.value, 'tradingType': trading_type.value, 'reportType': report_type.value, 'broker': broker}
-        endpoint = f'v1/customer_strategy_algotrading_reports'
+        if report_type is TradingReportType.PNL_TABLE:
+            endpoint = 'v2/user/strategy/pltable'
+        elif report_type is TradingReportType.STATS_TABLE:
+            endpoint = 'v2/user/strategy/statstable'
+        elif report_type is TradingReportType.ORDER_HISTORY:
+            endpoint = 'v2/user/strategy/orderhistory'
+        else:
+            raise NotImplementedError
+
+        key = self.__get_key(strategy_code=strategy_code, trading_type=trading_type)
+        params = {'key': key}
         response = self._send_request(endpoint=endpoint, params=params)
         return response
