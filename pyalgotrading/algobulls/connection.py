@@ -202,7 +202,7 @@ class AlgoBullsConnection:
             print('Report not available yet. Please retry in sometime')
             # return response
 
-    def backtest(self, strategy_code, start_timestamp, end_timestamp, instrument, strategy_parameters, candle_interval, strategy_mode=StrategyMode.INTRADAY):
+    def backtest(self, strategy_code, start_timestamp, end_timestamp, instrument, lots, strategy_parameters, candle_interval, strategy_mode=StrategyMode.INTRADAY):
         """
         Submit a backtesting job for a strategy on the AlgoBulls Platform
 
@@ -211,6 +211,7 @@ class AlgoBullsConnection:
             start_timestamp: start date/time
             end_timestamp: end date/time
             instrument: instrument key
+            lots: Number of lots of the passed instrument to trade on
             strategy_parameters: parameters
             candle_interval: candle interval
             strategy_mode: intraday or delivery
@@ -223,6 +224,7 @@ class AlgoBullsConnection:
         assert (isinstance(start_timestamp, dt) is True), f'Argument start_timestamp should be an instance of type datetime.datetime'
         assert (isinstance(end_timestamp, dt) is True), f'Argument start_timestamp should be an instance of type datetime.datetime'
         assert (isinstance(instrument, str) is True), f'Argument instrument should be a string. You can find the right id using the \'get_instrument()\' method of AlgoBullsConnection class'
+        assert (isinstance(lots, int) is True and lots > 0), f'Argument lots should be a positive integer.'
         assert (isinstance(strategy_parameters, dict) is True), f'Argument strategy_parameters should be a dict'
         assert (isinstance(strategy_mode, StrategyMode) is True), f'Argument strategy_mode should be enum of type StrategyMode'
         assert (isinstance(candle_interval, CandleInterval)), f'Argument candle_interval should be an enum of type CandleInterval'
@@ -230,6 +232,7 @@ class AlgoBullsConnection:
         # Setup config for Backtesting
         strategy_config = {'tradingTime': [start_timestamp.strftime('%d-%m-%Y %H:%M'), end_timestamp.strftime('%d-%m-%Y %H:%M')],
                            'instruments': [instrument],
+                           'lots': lots,
                            'parameters': strategy_parameters,
                            'candle': candle_interval.value,
                            'strategyMode': strategy_mode.value}
@@ -306,14 +309,15 @@ class AlgoBullsConnection:
         assert (isinstance(strategy_code, str) is True), f'Argument strategy_code should be a string'
         return self.get_report(strategy_code=strategy_code, trading_type=TradingType.BACKTESTING, report_type=TradingReportType.ORDER_HISTORY)
 
-    def papertrade(self, strategy_code, start_time, end_time, instrument_id, strategy_parameters, candle_interval, strategy_mode=StrategyMode.INTRADAY):
+    def papertrade(self, strategy_code, start_time, end_time, instrument, lots, strategy_parameters, candle_interval, strategy_mode=StrategyMode.INTRADAY):
         """
         Start a paper trading session
         Args:
             strategy_code: strategy code
             start_time: start time
             end_time: end time
-            instrument_id: instrument key
+            instrument: instrument key
+            lots: Number of lots of the passed instrument to trade on
             strategy_parameters: parameters
             candle_interval: candle interval
             strategy_mode: intraday or delivery
@@ -325,7 +329,8 @@ class AlgoBullsConnection:
         assert (isinstance(strategy_code, str) is True), f'Argument strategy_code should be a string'
         assert (isinstance(start_time, time) is True), f'Argument start_timestamp should be an instance of type datetime.datetime'
         assert (isinstance(end_time, time) is True), f'Argument start_timestamp should be an instance of type datetime.datetime'
-        assert (isinstance(instrument_id, int) is True), f'Argument instrument should be a integer. You can find the right id using the \'get_instrument()\' method of AlgoBullsConnection class'
+        assert (isinstance(instrument, int) is True), f'Argument instrument should be a integer. You can find the right id using the \'get_instrument()\' method of AlgoBullsConnection class'
+        assert (isinstance(lots, int) is True and lots > 0), f'Argument lots should be a positive integer.'
         assert (isinstance(strategy_parameters, dict) is True), f'Argument strategy_parameters should be a dict'
         assert (isinstance(strategy_mode, StrategyMode) is True), f'Argument strategy_mode should be enum of type StrategyMode'
         assert (isinstance(candle_interval, CandleInterval)), f'Argument candle_interval should be an enum of type CandleInterval'
@@ -333,7 +338,8 @@ class AlgoBullsConnection:
         # Setup config for Paper Trading
         strategy_config = {'trading_start_time': start_time,
                            'trading_end_time': end_time,
-                           'instrument': instrument_id,
+                           'instrument': instrument,
+                           'lots': lots,
                            'parameters': json.dumps(strategy_parameters),
                            'candle_interval': candle_interval.value,
                            'strategy_mode': strategy_mode.value}
@@ -415,7 +421,7 @@ class AlgoBullsConnection:
         assert (isinstance(strategy_code, str) is True), f'Argument strategy_code should be a string'
         return self.get_report(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING, report_type=TradingReportType.ORDER_HISTORY)
 
-    def realtrade(self, broker, strategy_code, start_time, end_time, instrument_id, strategy_parameters, candle_interval, strategy_mode=StrategyMode.INTRADAY):
+    def realtrade(self, broker, strategy_code, start_time, end_time, instrument, lots, strategy_parameters, candle_interval, strategy_mode=StrategyMode.INTRADAY):
         """
         Start a realtrading session
         Args:
@@ -423,7 +429,8 @@ class AlgoBullsConnection:
             strategy_code: strategy code
             start_time: start time
             end_time: end time
-            instrument_id: instrument key
+            instrument: instrument key
+            lots: Number of lots of the passed instrument to trade on
             strategy_parameters: parameters
             candle_interval: candle interval
             strategy_mode: intraday or delivery
@@ -436,7 +443,8 @@ class AlgoBullsConnection:
         assert (isinstance(strategy_code, str) is True), f'Argument strategy_code should be a string'
         assert (isinstance(start_time, time) is True), f'Argument start_time should be an instance of type datetime.time'
         assert (isinstance(end_time, time) is True), f'Argument end_time should be an instance of type datetime.time'
-        assert (isinstance(instrument_id, int) is True), f'Argument instrument should be a integer. You can find the right id using the \'get_instrument()\' method of AlgoBullsConnection class'
+        assert (isinstance(instrument, int) is True), f'Argument instrument should be a integer. You can find the right id using the \'get_instrument()\' method of AlgoBullsConnection class'
+        assert (isinstance(lots, int) is True and lots > 0), f'Argument lots should be a positive integer.'
         assert (isinstance(strategy_parameters, dict) is True), f'Argument strategy_parameters should be a dict'
         assert (isinstance(strategy_mode, StrategyMode) is True), f'Argument strategy_mode should be enum of type StrategyMode'
         assert (isinstance(candle_interval, CandleInterval)), f'Argument candle_interval should be an enum of type CandleInterval'
@@ -444,7 +452,8 @@ class AlgoBullsConnection:
         # Setup config for backtesting
         strategy_config = {'trading_start_time': start_time,
                            'trading_end_time': end_time,
-                           'instrument': instrument_id,
+                           'instrument': instrument,
+                           'lots': lots,
                            'parameters': json.dumps(strategy_parameters),
                            'candle_interval': candle_interval.value,
                            'strategy_mode': strategy_mode.value}
