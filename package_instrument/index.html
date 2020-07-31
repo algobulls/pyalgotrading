@@ -316,7 +316,7 @@
 <div class="doc doc-object doc-method">
 <h4 class="doc doc-heading" id="pyalgotrading.instrument.instrument.Instrument.__init__">
 <code class="highlight language-python">
-__init__<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">segment</span><span class="p">,</span> <span class="n">tradingsymbol</span><span class="p">,</span> <span class="n">broker_token</span><span class="p">,</span> <span class="n">tick_size</span><span class="p">,</span> <span class="n">lot_size</span><span class="p">,</span> <span class="n">expiry</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">strike_price</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> </code>
+__init__<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">segment</span><span class="p">,</span> <span class="n">exchange</span><span class="p">,</span> <span class="n">tradingsymbol</span><span class="p">,</span> <span class="n">broker_token</span><span class="p">,</span> <span class="n">tick_size</span><span class="p">,</span> <span class="n">lot_size</span><span class="p">,</span> <span class="n">expiry</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">strike_price</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> </code>
 <span class="doc doc-properties">
 <small class="doc doc-property doc-property-special"><code>special</code></small>
 </span>
@@ -339,6 +339,14 @@ __init__<span class="p">(</span><span class="bp">self</span><span class="p">,</s
 <td><code></code></td>
 <td>
 <p>segment</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>exchange</code></td>
+<td><code></code></td>
+<td>
+<p>exchange</p>
 </td>
 <td><em>required</em></td>
 </tr>
@@ -398,8 +406,7 @@ __init__<span class="p">(</span><span class="bp">self</span><span class="p">,</s
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>11
-12
+<pre><span></span>12
 13
 14
 15
@@ -417,16 +424,19 @@ __init__<span class="p">(</span><span class="bp">self</span><span class="p">,</s
 27
 28
 29
-30</pre>
+30
+31
+32</pre>
 </div>
 </td>
 <td class="code">
 <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">segment</span><span class="p">,</span> <span class="n">tradingsymbol</span><span class="p">,</span> <span class="n">broker_token</span><span class="p">,</span> <span class="n">tick_size</span><span class="p">,</span> <span class="n">lot_size</span><span class="p">,</span> <span class="n">expiry</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">strike_price</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">segment</span><span class="p">,</span> <span class="n">exchange</span><span class="p">,</span> <span class="n">tradingsymbol</span><span class="p">,</span> <span class="n">broker_token</span><span class="p">,</span> <span class="n">tick_size</span><span class="p">,</span> <span class="n">lot_size</span><span class="p">,</span> <span class="n">expiry</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">strike_price</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">"""</span>
 <span class="sd">    Init method that is used while creating an object of this class</span>
 <span class="sd">    Args:</span>
 <span class="sd">        segment: segment</span>
+<span class="sd">        exchange: exchange</span>
 <span class="sd">        tradingsymbol: trading symbol</span>
 <span class="sd">        broker_token: alphnumeric token</span>
 <span class="sd">        tick_size: tick size</span>
@@ -435,7 +445,7 @@ __init__<span class="p">(</span><span class="bp">self</span><span class="p">,</s
 <span class="sd">        strike_price: strike amount / value</span>
 <span class="sd">    """</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">segment</span> <span class="o">=</span> <span class="n">segment</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">exchange</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">segment</span><span class="o">.</span><span class="n">exchange</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">exchange</span> <span class="o">=</span> <span class="n">exchange</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">tradingsymbol</span> <span class="o">=</span> <span class="n">tradingsymbol</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">broker_token</span> <span class="o">=</span> <span class="n">broker_token</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">tick_size</span> <span class="o">=</span> <span class="n">tick_size</span>
@@ -467,7 +477,7 @@ is_expired<span class="p">(</span><span class="bp">self</span><span class="p">)<
 </thead>
 <tbody>
 <tr>
-<td><code></code></td>
+<td><code>bool</code></td>
 <td>
 <p>True or False</p>
 </td>
@@ -480,30 +490,24 @@ is_expired<span class="p">(</span><span class="bp">self</span><span class="p">)<
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>40
-41
-42
+<pre><span></span>42
 43
 44
 45
 46
 47
-48
-49</pre>
+48</pre>
 </div>
 </td>
 <td class="code">
 <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">is_expired</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<pre><span></span><code><span class="k">def</span> <span class="nf">is_expired</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="sd">"""</span>
 <span class="sd">    Returns whether expired or not</span>
 <span class="sd">    Returns:</span>
 <span class="sd">        True or False</span>
 <span class="sd">    """</span>
-    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">expiry</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">expiry</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">return</span> <span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">expiry</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">will_expire</span><span class="p">()</span> <span class="k">else</span> <span class="kc">False</span>
 </code></pre>
 </div>
 </td>
@@ -529,7 +533,7 @@ will_expire<span class="p">(</span><span class="bp">self</span><span class="p">)
 </thead>
 <tbody>
 <tr>
-<td><code></code></td>
+<td><code>bool</code></td>
 <td>
 <p>a value containing the expiry date</p>
 </td>
@@ -542,24 +546,24 @@ will_expire<span class="p">(</span><span class="bp">self</span><span class="p">)
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>32
-33
-34
+<pre><span></span>34
 35
 36
 37
-38</pre>
+38
+39
+40</pre>
 </div>
 </td>
 <td class="code">
 <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">will_expire</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<pre><span></span><code><span class="k">def</span> <span class="nf">will_expire</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="sd">"""</span>
 <span class="sd">    Returns expiry details</span>
 <span class="sd">    Returns:</span>
 <span class="sd">        a value containing the expiry date</span>
 <span class="sd">    """</span>
-    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">expiry</span>
+    <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">expiry</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">expiry</span> <span class="o">!=</span> <span class="s1">''</span><span class="p">)</span>
 </code></pre>
 </div>
 </td>

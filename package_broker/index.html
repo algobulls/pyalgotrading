@@ -263,13 +263,13 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#pyalgotrading.broker.broker_connection_base.BrokerConnectionBase.get_total_buy_quantity_day">
-    get_total_buy_quantity_day()
+<a class="md-nav__link" href="#pyalgotrading.broker.broker_connection_base.BrokerConnectionBase.get_total_pending_buy_quantity">
+    get_total_pending_buy_quantity()
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#pyalgotrading.broker.broker_connection_base.BrokerConnectionBase.get_total_sell_quantity_day">
-    get_total_sell_quantity_day()
+<a class="md-nav__link" href="#pyalgotrading.broker.broker_connection_base.BrokerConnectionBase.get_total_pending_sell_quantity">
+    get_total_pending_sell_quantity()
   </a>
 </li>
 <li class="md-nav__item">
@@ -401,13 +401,13 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#pyalgotrading.broker.broker_connection_zerodha.BrokerConnectionZerodha.get_total_buy_quantity_day">
-    get_total_buy_quantity_day()
+<a class="md-nav__link" href="#pyalgotrading.broker.broker_connection_zerodha.BrokerConnectionZerodha.get_total_pending_buy_quantity">
+    get_total_pending_buy_quantity()
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#pyalgotrading.broker.broker_connection_zerodha.BrokerConnectionZerodha.get_total_sell_quantity_day">
-    get_total_sell_quantity_day()
+<a class="md-nav__link" href="#pyalgotrading.broker.broker_connection_zerodha.BrokerConnectionZerodha.get_total_pending_sell_quantity">
+    get_total_pending_sell_quantity()
   </a>
 </li>
 <li class="md-nav__item">
@@ -600,13 +600,13 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#pyalgotrading.broker.broker_connection_base.BrokerConnectionBase.get_total_buy_quantity_day">
-    get_total_buy_quantity_day()
+<a class="md-nav__link" href="#pyalgotrading.broker.broker_connection_base.BrokerConnectionBase.get_total_pending_buy_quantity">
+    get_total_pending_buy_quantity()
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#pyalgotrading.broker.broker_connection_base.BrokerConnectionBase.get_total_sell_quantity_day">
-    get_total_sell_quantity_day()
+<a class="md-nav__link" href="#pyalgotrading.broker.broker_connection_base.BrokerConnectionBase.get_total_pending_sell_quantity">
+    get_total_pending_sell_quantity()
   </a>
 </li>
 <li class="md-nav__item">
@@ -738,13 +738,13 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#pyalgotrading.broker.broker_connection_zerodha.BrokerConnectionZerodha.get_total_buy_quantity_day">
-    get_total_buy_quantity_day()
+<a class="md-nav__link" href="#pyalgotrading.broker.broker_connection_zerodha.BrokerConnectionZerodha.get_total_pending_buy_quantity">
+    get_total_pending_buy_quantity()
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#pyalgotrading.broker.broker_connection_zerodha.BrokerConnectionZerodha.get_total_sell_quantity_day">
-    get_total_sell_quantity_day()
+<a class="md-nav__link" href="#pyalgotrading.broker.broker_connection_zerodha.BrokerConnectionZerodha.get_total_pending_sell_quantity">
+    get_total_pending_sell_quantity()
   </a>
 </li>
 <li class="md-nav__item">
@@ -2332,12 +2332,12 @@ get_profile<span class="p">(</span><span class="bp">self</span><span class="p">)
 </div>
 </div>
 <div class="doc doc-object doc-method">
-<h4 class="doc doc-heading" id="pyalgotrading.broker.broker_connection_base.BrokerConnectionBase.get_total_buy_quantity_day">
+<h4 class="doc doc-heading" id="pyalgotrading.broker.broker_connection_base.BrokerConnectionBase.get_total_pending_buy_quantity">
 <code class="highlight language-python">
-get_total_buy_quantity_day<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> </code>
-<a class="headerlink" href="#pyalgotrading.broker.broker_connection_base.BrokerConnectionBase.get_total_buy_quantity_day" title="Permanent link">¶</a></h4>
+get_total_pending_buy_quantity<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> </code>
+<a class="headerlink" href="#pyalgotrading.broker.broker_connection_base.BrokerConnectionBase.get_total_pending_buy_quantity" title="Permanent link">¶</a></h4>
 <div class="doc doc-contents">
-<p>Fetch the total buy quantity for the day</p>
+<p>Fetch the total pending buy quantity for instrument</p>
 <p><strong>Parameters:</strong></p>
 <table>
 <thead>
@@ -2407,9 +2407,9 @@ get_total_buy_quantity_day<span class="p">(</span><span class="bp">self</span><s
 <td class="code">
 <div class="highlight">
 <pre><span></span><code><span class="nd">@abstractmethod</span>
-<span class="k">def</span> <span class="nf">get_total_buy_quantity_day</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">get_total_pending_buy_quantity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">"""</span>
-<span class="sd">    Fetch the total buy quantity for the day</span>
+<span class="sd">    Fetch the total pending buy quantity for instrument</span>
 <span class="sd">    Args:</span>
 <span class="sd">        *args: a variable-length argument list</span>
 <span class="sd">        **kwargs: a keyworded, variable-length argument list</span>
@@ -2427,12 +2427,12 @@ get_total_buy_quantity_day<span class="p">(</span><span class="bp">self</span><s
 </div>
 </div>
 <div class="doc doc-object doc-method">
-<h4 class="doc doc-heading" id="pyalgotrading.broker.broker_connection_base.BrokerConnectionBase.get_total_sell_quantity_day">
+<h4 class="doc doc-heading" id="pyalgotrading.broker.broker_connection_base.BrokerConnectionBase.get_total_pending_sell_quantity">
 <code class="highlight language-python">
-get_total_sell_quantity_day<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> </code>
-<a class="headerlink" href="#pyalgotrading.broker.broker_connection_base.BrokerConnectionBase.get_total_sell_quantity_day" title="Permanent link">¶</a></h4>
+get_total_pending_sell_quantity<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> </code>
+<a class="headerlink" href="#pyalgotrading.broker.broker_connection_base.BrokerConnectionBase.get_total_pending_sell_quantity" title="Permanent link">¶</a></h4>
 <div class="doc doc-contents">
-<p>Fetch the total sell quantity for the day</p>
+<p>Fetch the total pending sell quantity for the instrument</p>
 <p><strong>Parameters:</strong></p>
 <table>
 <thead>
@@ -2502,9 +2502,9 @@ get_total_sell_quantity_day<span class="p">(</span><span class="bp">self</span><
 <td class="code">
 <div class="highlight">
 <pre><span></span><code><span class="nd">@abstractmethod</span>
-<span class="k">def</span> <span class="nf">get_total_sell_quantity_day</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">get_total_pending_sell_quantity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">"""</span>
-<span class="sd">    Fetch the total sell quantity for the day</span>
+<span class="sd">    Fetch the total pending sell quantity for the instrument</span>
 <span class="sd">    Args:</span>
 <span class="sd">        *args: a variable-length argument list</span>
 <span class="sd">        **kwargs: a keyworded, variable-length argument list</span>
@@ -2901,7 +2901,7 @@ __init__<span class="p">(</span><span class="bp">self</span><span class="p">,</s
     <span class="bp">self</span><span class="o">.</span><span class="n">api_secret</span> <span class="o">=</span> <span class="n">api_secret</span>
 
     <span class="c1"># Create kiteconnect instance</span>
-    <span class="n">kiteconnect</span> <span class="o">=</span> <span class="n">import_with_install</span><span class="p">(</span><span class="n">package_import_name</span><span class="o">=</span><span class="s1">'kiteconnect'</span><span class="p">,</span> <span class="n">package_install_name</span><span class="o">=</span><span class="s1">'kiteconnect'</span><span class="p">,</span> <span class="n">package_version</span><span class="o">=</span><span class="s1">'3.8.2'</span><span class="p">)</span>
+    <span class="n">kiteconnect</span> <span class="o">=</span> <span class="n">import_with_install</span><span class="p">(</span><span class="n">package_import_name</span><span class="o">=</span><span class="s1">'kiteconnect'</span><span class="p">,</span> <span class="n">package_install_name</span><span class="o">=</span><span class="s1">'kiteconnect==3.8.2'</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">api</span> <span class="o">=</span> <span class="n">kiteconnect</span><span class="o">.</span><span class="n">KiteConnect</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">api_key</span><span class="p">)</span>
 
     <span class="c1"># Print the login url. User will use this to login to broker site and get access token</span>
@@ -2977,18 +2977,18 @@ cancel_order<span class="p">(</span><span class="bp">self</span><span class="p">
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>368
-369
-370
-371
-372
-373
+<pre><span></span>373
 374
 375
 376
 377
 378
-379</pre>
+379
+380
+381
+382
+383
+384</pre>
 </div>
 </td>
 <td class="code">
@@ -3122,19 +3122,19 @@ get_circuit_limits<span class="p">(</span><span class="bp">self</span><span clas
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>138
-139
-140
-141
-142
-143
+<pre><span></span>143
 144
 145
 146
 147
 148
 149
-150</pre>
+150
+151
+152
+153
+154
+155</pre>
 </div>
 </td>
 <td class="code">
@@ -3211,18 +3211,18 @@ get_close_price_last_day<span class="p">(</span><span class="bp">self</span><spa
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>269
-270
-271
-272
-273
-274
+<pre><span></span>274
 275
 276
 277
 278
 279
-280</pre>
+280
+281
+282
+283
+284
+285</pre>
 </div>
 </td>
 <td class="code">
@@ -3298,18 +3298,18 @@ get_funds<span class="p">(</span><span class="bp">self</span><span class="p">,</
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>310
-311
-312
-313
-314
-315
+<pre><span></span>315
 316
 317
 318
 319
 320
-321</pre>
+321
+322
+323
+324
+325
+326</pre>
 </div>
 </td>
 <td class="code">
@@ -3385,18 +3385,18 @@ get_high_price_day<span class="p">(</span><span class="bp">self</span><span clas
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>243
-244
-245
-246
-247
-248
+<pre><span></span>248
 249
 250
 251
 252
 253
-254</pre>
+254
+255
+256
+257
+258
+259</pre>
 </div>
 </td>
 <td class="code">
@@ -3496,12 +3496,7 @@ get_historical_data<span class="p">(</span><span class="bp">self</span><span cla
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>282
-283
-284
-285
-286
-287
+<pre><span></span>287
 288
 289
 290
@@ -3509,7 +3504,12 @@ get_historical_data<span class="p">(</span><span class="bp">self</span><span cla
 292
 293
 294
-295</pre>
+295
+296
+297
+298
+299
+300</pre>
 </div>
 </td>
 <td class="code">
@@ -3526,7 +3526,7 @@ get_historical_data<span class="p">(</span><span class="bp">self</span><span cla
 <span class="sd">    Returns:</span>
 <span class="sd">        historical data</span>
 <span class="sd">    """</span>
-    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">historical_data</span><span class="p">(</span><span class="n">instrument</span><span class="p">[</span><span class="s1">'instrument_token'</span><span class="p">],</span> <span class="n">from_date</span><span class="o">=</span><span class="n">start_date</span><span class="p">,</span> <span class="n">to_date</span><span class="o">=</span><span class="n">end_date</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="n">candle_interval</span><span class="p">))</span> \
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">historical_data</span><span class="p">(</span><span class="n">instrument</span><span class="o">.</span><span class="n">broker_token</span><span class="p">,</span> <span class="n">from_date</span><span class="o">=</span><span class="n">start_date</span><span class="p">,</span> <span class="n">to_date</span><span class="o">=</span><span class="n">end_date</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="n">candle_interval</span><span class="p">))</span> \
         <span class="o">.</span><span class="n">reindex</span><span class="p">([</span><span class="s1">'date'</span><span class="p">,</span> <span class="s1">'open'</span><span class="p">,</span> <span class="s1">'high'</span><span class="p">,</span> <span class="s1">'low'</span><span class="p">,</span> <span class="s1">'close'</span><span class="p">,</span> <span class="s1">'volume'</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="s2">"columns"</span><span class="p">)</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">'date'</span><span class="p">:</span> <span class="s1">'timestamp'</span><span class="p">})</span>
 </code></pre>
 </div>
@@ -3539,7 +3539,7 @@ get_historical_data<span class="p">(</span><span class="bp">self</span><span cla
 <div class="doc doc-object doc-method">
 <h4 class="doc doc-heading" id="pyalgotrading.broker.broker_connection_zerodha.BrokerConnectionZerodha.get_instrument">
 <code class="highlight language-python">
-get_instrument<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instrument</span><span class="p">)</span> </code>
+get_instrument<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">segment</span><span class="p">,</span> <span class="n">tradingsymbol</span><span class="p">)</span> </code>
 <a class="headerlink" href="#pyalgotrading.broker.broker_connection_zerodha.BrokerConnectionZerodha.get_instrument" title="Permanent link">¶</a></h4>
 <div class="doc doc-contents">
 <p>Fetch an instrument</p>
@@ -3555,10 +3555,18 @@ get_instrument<span class="p">(</span><span class="bp">self</span><span class="p
 </thead>
 <tbody>
 <tr>
-<td><code>instrument</code></td>
-<td><code>Instrument</code></td>
+<td><code>segment</code></td>
+<td><code>str</code></td>
 <td>
-<p>Financial Instrument</p>
+<p>Segment to which instrument belongs to</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>tradingsymbol</code></td>
+<td><code>str</code></td>
+<td>
+<p>Trading symbol of the instrument</p>
 </td>
 <td><em>required</em></td>
 </tr>
@@ -3574,9 +3582,9 @@ get_instrument<span class="p">(</span><span class="bp">self</span><span class="p
 </thead>
 <tbody>
 <tr>
-<td><code></code></td>
+<td><code>Instrument</code></td>
 <td>
-<p>instrument</p>
+<p>Instrument object</p>
 </td>
 </tr>
 </tbody>
@@ -3600,25 +3608,35 @@ get_instrument<span class="p">(</span><span class="bp">self</span><span class="p
 106
 107
 108
-109</pre>
+109
+110
+111
+112
+113
+114</pre>
 </div>
 </td>
 <td class="code">
 <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">get_instrument</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instrument</span><span class="p">:</span> <span class="n">Instrument</span><span class="p">):</span>
+<pre><span></span><code><span class="k">def</span> <span class="nf">get_instrument</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">segment</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">tradingsymbol</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Instrument</span><span class="p">:</span>
     <span class="sd">"""</span>
 <span class="sd">    Fetch an instrument</span>
 <span class="sd">    Args:</span>
-<span class="sd">        instrument: Financial Instrument</span>
+<span class="sd">        segment: Segment to which instrument belongs to</span>
+<span class="sd">        tradingsymbol: Trading symbol of the instrument</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        instrument</span>
+<span class="sd">       Instrument object</span>
 <span class="sd">    """</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_instruments</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">all_instruments</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_all_instruments</span><span class="p">()</span>
-    <span class="n">_inst</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_instruments</span><span class="p">[(</span><span class="bp">self</span><span class="o">.</span><span class="n">all_instruments</span><span class="o">.</span><span class="n">segment</span> <span class="o">==</span> <span class="n">segment</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">all_instruments</span><span class="o">.</span><span class="n">tradingsymbol</span> <span class="o">==</span> <span class="n">tradingsymbol</span><span class="p">)]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">instrument</span> <span class="o">=</span> <span class="n">Instrument</span><span class="p">(</span><span class="n">segment</span><span class="o">=</span><span class="n">_inst</span><span class="p">[</span><span class="s1">'segment'</span><span class="p">],</span> <span class="n">tradingsymbol</span><span class="o">=</span><span class="n">_inst</span><span class="p">[</span><span class="s1">'tradingsymbol'</span><span class="p">],</span> <span class="n">broker_token</span><span class="o">=</span><span class="n">_inst</span><span class="p">[</span><span class="s1">'instrument_token'</span><span class="p">],</span> <span class="n">tick_size</span><span class="o">=</span><span class="n">_inst</span><span class="p">[</span><span class="s1">'tick_size'</span><span class="p">],</span> <span class="n">lot_size</span><span class="o">=</span><span class="n">_inst</span><span class="p">[</span><span class="s1">'lot_size'</span><span class="p">],</span> <span class="n">expiry</span><span class="o">=</span><span class="n">_inst</span><span class="p">[</span><span class="s1">'expiry'</span><span class="p">],</span> <span class="n">strike_price</span><span class="o">=</span><span class="n">_inst</span><span class="p">[</span><span class="s1">'strike'</span><span class="p">])</span>
-    <span class="k">return</span> <span class="n">instrument</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">_inst</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_instruments</span><span class="p">[(</span><span class="bp">self</span><span class="o">.</span><span class="n">all_instruments</span><span class="o">.</span><span class="n">segment</span> <span class="o">==</span> <span class="n">segment</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">all_instruments</span><span class="o">.</span><span class="n">tradingsymbol</span> <span class="o">==</span> <span class="n">tradingsymbol</span><span class="p">)]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">instrument</span> <span class="o">=</span> <span class="n">Instrument</span><span class="p">(</span><span class="n">segment</span><span class="o">=</span><span class="n">_inst</span><span class="p">[</span><span class="s1">'segment'</span><span class="p">],</span> <span class="n">exchange</span><span class="o">=</span><span class="n">_inst</span><span class="p">[</span><span class="s1">'exchange'</span><span class="p">],</span> <span class="n">tradingsymbol</span><span class="o">=</span><span class="n">_inst</span><span class="p">[</span><span class="s1">'tradingsymbol'</span><span class="p">],</span> <span class="n">broker_token</span><span class="o">=</span><span class="n">_inst</span><span class="p">[</span><span class="s1">'instrument_token'</span><span class="p">],</span> <span class="n">tick_size</span><span class="o">=</span><span class="n">_inst</span><span class="p">[</span><span class="s1">'tick_size'</span><span class="p">],</span> <span class="n">lot_size</span><span class="o">=</span><span class="n">_inst</span><span class="p">[</span><span class="s1">'lot_size'</span><span class="p">],</span> <span class="n">expiry</span><span class="o">=</span><span class="n">_inst</span><span class="p">[</span><span class="s1">'expiry'</span><span class="p">],</span>
+                                <span class="n">strike_price</span><span class="o">=</span><span class="n">_inst</span><span class="p">[</span><span class="s1">'strike'</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">instrument</span>
+    <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">'ERROR: Instrument not found. Either it is expired and hence not available, or you have misspelled the "segment" and "tradingsymbol" parameters.'</span><span class="p">)</span>
 </code></pre>
 </div>
 </td>
@@ -3678,18 +3696,18 @@ get_low_price_day<span class="p">(</span><span class="bp">self</span><span class
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>256
-257
-258
-259
-260
-261
+<pre><span></span>261
 262
 263
 264
 265
 266
-267</pre>
+267
+268
+269
+270
+271
+272</pre>
 </div>
 </td>
 <td class="code">
@@ -3765,18 +3783,18 @@ get_ltp<span class="p">(</span><span class="bp">self</span><span class="p">,</sp
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>152
-153
-154
-155
-156
-157
+<pre><span></span>157
 158
 159
 160
 161
 162
-163</pre>
+163
+164
+165
+166
+167
+168</pre>
 </div>
 </td>
 <td class="code">
@@ -3852,18 +3870,18 @@ get_ltq<span class="p">(</span><span class="bp">self</span><span class="p">,</sp
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>178
-179
-180
-181
-182
-183
+<pre><span></span>183
 184
 185
 186
 187
 188
-189</pre>
+189
+190
+191
+192
+193
+194</pre>
 </div>
 </td>
 <td class="code">
@@ -3939,18 +3957,18 @@ get_ltt<span class="p">(</span><span class="bp">self</span><span class="p">,</sp
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>165
-166
-167
-168
-169
-170
+<pre><span></span>170
 171
 172
 173
 174
 175
-176</pre>
+176
+177
+178
+179
+180
+181</pre>
 </div>
 </td>
 <td class="code">
@@ -4026,18 +4044,18 @@ get_margins<span class="p">(</span><span class="bp">self</span><span class="p">,
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>297
-298
-299
-300
-301
-302
+<pre><span></span>302
 303
 304
 305
 306
 307
-308</pre>
+308
+309
+310
+311
+312
+313</pre>
 </div>
 </td>
 <td class="code">
@@ -4113,19 +4131,19 @@ get_market_depth<span class="p">(</span><span class="bp">self</span><span class=
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>124
-125
-126
-127
-128
-129
+<pre><span></span>129
 130
 131
 132
 133
 134
 135
-136</pre>
+136
+137
+138
+139
+140
+141</pre>
 </div>
 </td>
 <td class="code">
@@ -4258,18 +4276,18 @@ get_open_price_day<span class="p">(</span><span class="bp">self</span><span clas
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>230
-231
-232
-233
-234
-235
+<pre><span></span>235
 236
 237
 238
 239
 240
-241</pre>
+241
+242
+243
+244
+245
+246</pre>
 </div>
 </td>
 <td class="code">
@@ -4345,16 +4363,16 @@ get_order_status<span class="p">(</span><span class="bp">self</span><span class=
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>357
-358
-359
-360
-361
-362
+<pre><span></span>362
 363
 364
 365
-366</pre>
+366
+367
+368
+369
+370
+371</pre>
 </div>
 </td>
 <td class="code">
@@ -4407,13 +4425,13 @@ get_profile<span class="p">(</span><span class="bp">self</span><span class="p">)
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>323
-324
-325
-326
-327
-328
-329</pre>
+<pre><span></span>328
+329
+330
+331
+332
+333
+334</pre>
 </div>
 </td>
 <td class="code">
@@ -4484,18 +4502,18 @@ get_quote<span class="p">(</span><span class="bp">self</span><span class="p">,</
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>111
-112
-113
-114
-115
-116
+<pre><span></span>116
 117
 118
 119
 120
 121
-122</pre>
+122
+123
+124
+125
+126
+127</pre>
 </div>
 </td>
 <td class="code">
@@ -4521,12 +4539,12 @@ get_quote<span class="p">(</span><span class="bp">self</span><span class="p">,</
 </div>
 </div>
 <div class="doc doc-object doc-method">
-<h4 class="doc doc-heading" id="pyalgotrading.broker.broker_connection_zerodha.BrokerConnectionZerodha.get_total_buy_quantity_day">
+<h4 class="doc doc-heading" id="pyalgotrading.broker.broker_connection_zerodha.BrokerConnectionZerodha.get_total_pending_buy_quantity">
 <code class="highlight language-python">
-get_total_buy_quantity_day<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instrument</span><span class="p">)</span> </code>
-<a class="headerlink" href="#pyalgotrading.broker.broker_connection_zerodha.BrokerConnectionZerodha.get_total_buy_quantity_day" title="Permanent link">¶</a></h4>
+get_total_pending_buy_quantity<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instrument</span><span class="p">)</span> </code>
+<a class="headerlink" href="#pyalgotrading.broker.broker_connection_zerodha.BrokerConnectionZerodha.get_total_pending_buy_quantity" title="Permanent link">¶</a></h4>
 <div class="doc doc-contents">
-<p>Fetch the total buy quantity for the day</p>
+<p>Fetch the total pending buy quantity for instrument</p>
 <p><strong>Parameters:</strong></p>
 <table>
 <thead>
@@ -4571,25 +4589,25 @@ get_total_buy_quantity_day<span class="p">(</span><span class="bp">self</span><s
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>191
-192
-193
-194
-195
-196
+<pre><span></span>196
 197
 198
 199
 200
 201
-202</pre>
+202
+203
+204
+205
+206
+207</pre>
 </div>
 </td>
 <td class="code">
 <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">get_total_buy_quantity_day</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instrument</span><span class="p">):</span>
+<pre><span></span><code><span class="k">def</span> <span class="nf">get_total_pending_buy_quantity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instrument</span><span class="p">):</span>
     <span class="sd">"""</span>
-<span class="sd">    Fetch the total buy quantity for the day</span>
+<span class="sd">    Fetch the total pending buy quantity for instrument</span>
 <span class="sd">    Args:</span>
 <span class="sd">        instrument: Financial Instrument</span>
 
@@ -4608,12 +4626,12 @@ get_total_buy_quantity_day<span class="p">(</span><span class="bp">self</span><s
 </div>
 </div>
 <div class="doc doc-object doc-method">
-<h4 class="doc doc-heading" id="pyalgotrading.broker.broker_connection_zerodha.BrokerConnectionZerodha.get_total_sell_quantity_day">
+<h4 class="doc doc-heading" id="pyalgotrading.broker.broker_connection_zerodha.BrokerConnectionZerodha.get_total_pending_sell_quantity">
 <code class="highlight language-python">
-get_total_sell_quantity_day<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instrument</span><span class="p">)</span> </code>
-<a class="headerlink" href="#pyalgotrading.broker.broker_connection_zerodha.BrokerConnectionZerodha.get_total_sell_quantity_day" title="Permanent link">¶</a></h4>
+get_total_pending_sell_quantity<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instrument</span><span class="p">)</span> </code>
+<a class="headerlink" href="#pyalgotrading.broker.broker_connection_zerodha.BrokerConnectionZerodha.get_total_pending_sell_quantity" title="Permanent link">¶</a></h4>
 <div class="doc doc-contents">
-<p>Fetch the total sell quantity for the day</p>
+<p>Fetch the total pending sell quantity for instrument</p>
 <p><strong>Parameters:</strong></p>
 <table>
 <thead>
@@ -4658,25 +4676,25 @@ get_total_sell_quantity_day<span class="p">(</span><span class="bp">self</span><
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>204
-205
-206
-207
-208
-209
+<pre><span></span>209
 210
 211
 212
 213
 214
-215</pre>
+215
+216
+217
+218
+219
+220</pre>
 </div>
 </td>
 <td class="code">
 <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">get_total_sell_quantity_day</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instrument</span><span class="p">:</span> <span class="n">Instrument</span><span class="p">):</span>
+<pre><span></span><code><span class="k">def</span> <span class="nf">get_total_pending_sell_quantity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instrument</span><span class="p">:</span> <span class="n">Instrument</span><span class="p">):</span>
     <span class="sd">"""</span>
-<span class="sd">    Fetch the total sell quantity for the day</span>
+<span class="sd">    Fetch the total pending sell quantity for instrument</span>
 <span class="sd">    Args:</span>
 <span class="sd">        instrument: Financial Instrument</span>
 
@@ -4745,18 +4763,18 @@ get_total_volume_day<span class="p">(</span><span class="bp">self</span><span cl
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>217
-218
-219
-220
-221
-222
+<pre><span></span>222
 223
 224
 225
 226
 227
-228</pre>
+228
+229
+230
+231
+232
+233</pre>
 </div>
 </td>
 <td class="code">
@@ -4912,12 +4930,7 @@ place_order<span class="p">(</span><span class="bp">self</span><span class="p">,
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>331
-332
-333
-334
-335
-336
+<pre><span></span>336
 337
 338
 339
@@ -4936,7 +4949,12 @@ place_order<span class="p">(</span><span class="bp">self</span><span class="p">,
 352
 353
 354
-355</pre>
+355
+356
+357
+358
+359
+360</pre>
 </div>
 </td>
 <td class="code">
@@ -5019,7 +5037,7 @@ populate_constants<span class="p">(</span><span class="bp">self</span><span clas
 <span class="sd">    Map pyalgotrading constants to broker constants</span>
 <span class="sd">    :return: None</span>
 <span class="sd">    """</span>
-    <span class="n">_</span> <span class="o">=</span> <span class="n">import_with_install</span><span class="p">(</span><span class="n">package_import_name</span><span class="o">=</span><span class="s1">'kiteconnect'</span><span class="p">,</span> <span class="n">package_install_name</span><span class="o">=</span><span class="s1">'kiteconnect'</span><span class="p">,</span> <span class="n">package_version</span><span class="o">=</span><span class="s1">'3.8.2'</span><span class="p">)</span><span class="o">.</span><span class="n">KiteConnect</span>
+    <span class="n">_</span> <span class="o">=</span> <span class="n">import_with_install</span><span class="p">(</span><span class="n">package_import_name</span><span class="o">=</span><span class="s1">'kiteconnect'</span><span class="p">,</span> <span class="n">package_install_name</span><span class="o">=</span><span class="s1">'kiteconnect==3.8.2'</span><span class="p">)</span><span class="o">.</span><span class="n">KiteConnect</span>
 
     <span class="n">BrokerConnectionZerodha</span><span class="o">.</span><span class="n">ORDER_TRANSACTION_TYPE_MAP</span> <span class="o">=</span> <span class="p">{</span><span class="n">BrokerOrderTransactionTypeConstants</span><span class="o">.</span><span class="n">BUY</span><span class="p">:</span> <span class="n">_</span><span class="o">.</span><span class="n">TRANSACTION_TYPE_BUY</span><span class="p">,</span>
                                                           <span class="n">BrokerOrderTransactionTypeConstants</span><span class="o">.</span><span class="n">SELL</span><span class="p">:</span> <span class="n">_</span><span class="o">.</span><span class="n">TRANSACTION_TYPE_SELL</span><span class="p">}</span>

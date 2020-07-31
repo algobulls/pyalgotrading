@@ -248,8 +248,8 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#pyalgotrading.utils.func.plot_candlestick_chart">
-    plot_candlestick_chart()
+<a class="md-nav__link" href="#pyalgotrading.utils.func.plot_candlesticks_chart">
+    plot_candlesticks_chart()
   </a>
 </li>
 </ul>
@@ -350,8 +350,8 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#pyalgotrading.utils.func.plot_candlestick_chart">
-    plot_candlestick_chart()
+<a class="md-nav__link" href="#pyalgotrading.utils.func.plot_candlesticks_chart">
+    plot_candlesticks_chart()
   </a>
 </li>
 </ul>
@@ -820,7 +820,7 @@ Renko<span class="p">(</span><span class="n">japanese_candles</span><span class=
 <div class="doc doc-object doc-function">
 <h3 class="doc doc-heading" id="pyalgotrading.utils.func.import_with_install">
 <code class="highlight language-python">
-import_with_install<span class="p">(</span><span class="n">package_import_name</span><span class="p">,</span> <span class="n">package_install_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">package_version</span><span class="o">=</span><span class="s1">''</span><span class="p">)</span> </code>
+import_with_install<span class="p">(</span><span class="n">package_import_name</span><span class="p">,</span> <span class="n">package_install_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dependancies</span><span class="o">=</span><span class="p">())</span> </code>
 <a class="headerlink" href="#pyalgotrading.utils.func.import_with_install" title="Permanent link">¶</a></h3>
 <div class="doc doc-contents">
 <p>Helps import 'package' even if its not installed.</p>
@@ -854,12 +854,12 @@ If its not installed, it will be installed using 'pip' and a re-import will be a
 <td><code>None</code></td>
 </tr>
 <tr>
-<td><code>package_version</code></td>
+<td><code>dependancies</code></td>
 <td><code></code></td>
 <td>
-<p>version of package to be installed, str, Example: '1.0.0' or '==1.0.0'</p>
+<p>list of python packages to be installed as additional dependencies'</p>
 </td>
-<td><code>''</code></td>
+<td><code>()</code></td>
 </tr>
 </tbody>
 </table>
@@ -911,12 +911,15 @@ If its not installed, it will be installed using 'pip' and a re-import will be a
 31
 32
 33
-34</pre>
+34
+35
+36
+37</pre>
 </div>
 </td>
 <td class="code">
 <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">import_with_install</span><span class="p">(</span><span class="n">package_import_name</span><span class="p">,</span> <span class="n">package_install_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">package_version</span><span class="o">=</span><span class="s1">''</span><span class="p">):</span>
+<pre><span></span><code><span class="k">def</span> <span class="nf">import_with_install</span><span class="p">(</span><span class="n">package_import_name</span><span class="p">,</span> <span class="n">package_install_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dependancies</span><span class="o">=</span><span class="p">()):</span>
     <span class="sd">"""</span>
 <span class="sd">    Helps import 'package' even if its not installed.</span>
 
@@ -926,21 +929,24 @@ If its not installed, it will be installed using 'pip' and a re-import will be a
 <span class="sd">    Args:</span>
 <span class="sd">        package_import_name: name of package to be installed using pip, str</span>
 <span class="sd">        package_install_name: name of package to be imported. Default is None, which means package can be imported with the same name as used for installation. If not, this parameter can be used to specify a different import name.</span>
-<span class="sd">        package_version: version of package to be installed, str, Example: '1.0.0' or '==1.0.0'</span>
+<span class="sd">        dependancies: list of python packages to be installed as additional dependencies'</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        The imported package</span>
 <span class="sd">    """</span>
 
     <span class="n">package_install_name</span> <span class="o">=</span> <span class="n">package_install_name</span> <span class="k">if</span> <span class="n">package_install_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">package_import_name</span>
-    <span class="n">package_version</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">'==</span><span class="si">{</span><span class="n">package_version</span><span class="si">}</span><span class="s1">'</span> <span class="k">if</span> <span class="p">((</span><span class="n">package_version</span> <span class="o">!=</span> <span class="s1">''</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="s1">'=='</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">package_version</span><span class="p">))</span> <span class="k">else</span> <span class="n">package_version</span>
+
     <span class="k">try</span><span class="p">:</span>
         <span class="k">return</span> <span class="nb">__import__</span><span class="p">(</span><span class="n">package_import_name</span><span class="p">)</span>
     <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Installing package </span><span class="si">{</span><span class="n">package_import_name</span><span class="si">}</span><span class="s2"> via pip..."</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Installing package </span><span class="si">{</span><span class="n">package_import_name</span><span class="si">}</span><span class="s2"> via pip. This may take a while..."</span><span class="p">)</span>
         <span class="kn">import</span> <span class="nn">subprocess</span>
         <span class="kn">import</span> <span class="nn">sys</span>
-        <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">([</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="s1">'-m'</span><span class="p">,</span> <span class="s1">'pip'</span><span class="p">,</span> <span class="s1">'install'</span><span class="p">,</span> <span class="n">package_install_name</span><span class="p">,</span> <span class="n">package_version</span><span class="p">])</span>
+        <span class="n">cmd_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="s1">'-m'</span><span class="p">,</span> <span class="s1">'pip'</span><span class="p">,</span> <span class="s1">'install'</span><span class="p">,</span> <span class="n">package_install_name</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">dependancies</span><span class="p">:</span>
+            <span class="n">cmd_list</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">dependancies</span><span class="p">)</span>
+        <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">(</span><span class="n">cmd_list</span><span class="p">)</span>
         <span class="k">return</span> <span class="nb">__import__</span><span class="p">(</span><span class="n">package_import_name</span><span class="p">)</span>
 </code></pre>
 </div>
@@ -951,10 +957,10 @@ If its not installed, it will be installed using 'pip' and a re-import will be a
 </div>
 </div>
 <div class="doc doc-object doc-function">
-<h3 class="doc doc-heading" id="pyalgotrading.utils.func.plot_candlestick_chart">
+<h3 class="doc doc-heading" id="pyalgotrading.utils.func.plot_candlesticks_chart">
 <code class="highlight language-python">
-plot_candlestick_chart<span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">plot_type</span><span class="p">,</span> <span class="n">caption</span><span class="o">=</span><span class="s1">''</span><span class="p">,</span> <span class="n">hide_missing_dates</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indicators</span><span class="o">=</span><span class="p">(),</span> <span class="n">plot_indicators_separately</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">plot_height</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">plot_width</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span> </code>
-<a class="headerlink" href="#pyalgotrading.utils.func.plot_candlestick_chart" title="Permanent link">¶</a></h3>
+plot_candlesticks_chart<span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">plot_type</span><span class="p">,</span> <span class="n">caption</span><span class="o">=</span><span class="s1">''</span><span class="p">,</span> <span class="n">hide_missing_dates</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indicators</span><span class="o">=</span><span class="p">(),</span> <span class="n">plot_indicators_separately</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">plot_height</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">plot_width</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span> </code>
+<a class="headerlink" href="#pyalgotrading.utils.func.plot_candlesticks_chart" title="Permanent link">¶</a></h3>
 <div class="doc doc-contents">
 <p>Function to create charts for various candlesticks pattern data -
     - Japanese
@@ -1144,15 +1150,13 @@ plot_candlestick_chart<span class="p">(</span><span class="n">data</span><span c
 125
 126
 127
-128
-129
-130</pre>
+128</pre>
 </div>
 </td>
 <td class="code">
 <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">plot_candlestick_chart</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">plot_type</span><span class="p">:</span> <span class="n">PlotType</span><span class="p">,</span> <span class="n">caption</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">''</span><span class="p">,</span> <span class="n">hide_missing_dates</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">show</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">indicators</span><span class="p">:</span> <span class="nb">tuple</span> <span class="o">=</span> <span class="p">(),</span> <span class="n">plot_indicators_separately</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">plot_height</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">500</span><span class="p">,</span>
-                           <span class="n">plot_width</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">):</span>
+<pre><span></span><code><span class="k">def</span> <span class="nf">plot_candlesticks_chart</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">plot_type</span><span class="p">:</span> <span class="n">PlotType</span><span class="p">,</span> <span class="n">caption</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">''</span><span class="p">,</span> <span class="n">hide_missing_dates</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">show</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">indicators</span><span class="p">:</span> <span class="nb">tuple</span> <span class="o">=</span> <span class="p">(),</span> <span class="n">plot_indicators_separately</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">plot_height</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">500</span><span class="p">,</span>
+                            <span class="n">plot_width</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">):</span>
     <span class="sd">"""</span>
 <span class="sd">    Function to create charts for various candlesticks pattern data -</span>
 <span class="sd">        - Japanese</span>
@@ -1176,7 +1180,8 @@ plot_candlestick_chart<span class="p">(</span><span class="n">data</span><span c
 <span class="sd">        plot_height: Plot height in pixels</span>
 <span class="sd">        plot_width: Plot width in pixels</span>
 <span class="sd">    """</span>
-    <span class="n">import_with_install</span><span class="p">(</span><span class="n">package_import_name</span><span class="o">=</span><span class="s1">'plotly'</span><span class="p">,</span> <span class="n">package_install_name</span><span class="o">=</span><span class="s1">'plotly'</span><span class="p">,</span> <span class="n">package_version</span><span class="o">=</span><span class="s1">'4.7.1'</span><span class="p">)</span>
+    <span class="n">import_with_install</span><span class="p">(</span><span class="n">package_import_name</span><span class="o">=</span><span class="s1">'plotly'</span><span class="p">,</span> <span class="n">package_install_name</span><span class="o">=</span><span class="s1">'plotly==4.9.0'</span><span class="p">,</span> <span class="n">dependancies</span><span class="o">=</span><span class="p">[</span><span class="s1">'notebook&gt;=5.3'</span><span class="p">,</span> <span class="s1">'ipywidgets==7.5'</span><span class="p">,</span> <span class="s1">'psutil'</span><span class="p">])</span>
+    <span class="c1"># Plotly requirements taken from here: https://pypi.org/project/plotly/</span>
     <span class="kn">from</span> <span class="nn">plotly.subplots</span> <span class="kn">import</span> <span class="n">make_subplots</span>
     <span class="kn">from</span> <span class="nn">plotly</span> <span class="kn">import</span> <span class="n">graph_objects</span> <span class="k">as</span> <span class="n">go</span>
 
@@ -1239,9 +1244,6 @@ plot_candlestick_chart<span class="p">(</span><span class="n">data</span><span c
     <span class="c1"># Show the plot</span>
     <span class="k">if</span> <span class="n">show</span><span class="p">:</span>
         <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-        <span class="k">global</span> <span class="n">counter</span>
-        <span class="n">fig</span><span class="o">.</span><span class="n">write_image</span><span class="p">(</span><span class="sa">f</span><span class="s1">'fig_</span><span class="si">{</span><span class="n">counter</span><span class="si">}</span><span class="s1">.pdf'</span><span class="p">)</span>
-        <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
 </code></pre>
 </div>
 </td>
