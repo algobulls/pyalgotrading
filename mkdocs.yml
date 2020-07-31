@@ -1,0 +1,72 @@
+# Reference:
+# mkdocs - https://www.mkdocs.org/user-guide/configuration/
+# mkdocs material theme - https://squidfunk.github.io/mkdocs-material/getting-started/#configuration
+
+# Project Information
+site_name: pyalgotrading
+site_description: Official Python Package for Algorithmic Trading APIs powered by AlgoBulls
+site_author: Pushpak Dagade (pushpak@algobulls.com)
+site_url: https://pyalgotrading.readthedocs.io/en/latest/
+
+# GitHub Repo information
+repo_url: https://github.com/algobulls/pyalgotrading
+
+theme:
+  name: material
+  # favicon: 'imgs/favicon.svg'
+  # logo: 'imgs/site_logo_white.svg'
+  palette:
+    primary: blue
+    accent: blue
+#    scheme: slate       # dark mode
+    scheme: default     # light mode
+  language: en
+
+
+copyright: Copyright © 2020 | All Rights Reserved | AlgoBulls Technologies Private Limited
+
+# Navigation
+nav:
+  - Home: 'index.md'
+  - Source Docs:
+      - 'algobulls': 'package_algobulls.md'
+      - 'broker': 'package_broker.md'
+      - 'instrument': 'package_instrument.md'
+      - 'order': 'package_order.md'
+      - 'strategy': 'package_strategy.md'
+      - 'utils': 'package_utils.md'
+      - 'constants': 'module_constants.md'
+
+plugins:
+  - search                                  # necessary for search to work
+  - git-revision-date-localized:            # When enabled, the respective 'Last Updated' date is automatically added at the bottom of each page. Docs: https://squidfunk.github.io/mkdocs-material/plugins/revision-date/
+      type: timeago
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          rendering:
+            show_source: true
+      watch:
+        - pyalgotrading
+
+google_analytics:
+  - 'UA-147658856-4'
+  - 'auto'
+
+extra:
+  social:
+    - icon: fontawesome/brands/linkedin
+      link: https://linkedin.com/company/algobulls
+    - icon: fontawesome/brands/facebook
+      link: https://facebook.com/algobullsalgotrading
+    - icon: fontawesome/brands/github-alt
+      link: https://github.com/algobulls/
+  disqus: algobulls
+
+
+markdown_extensions:
+  - admonition              # Add note, tip, question, warning, error, etc. Docs: https://squidfunk.github.io/mkdocs-material/extensions/admonition/
+  - codehilite
+  - toc:                    # Docs: https://squidfunk.github.io/mkdocs-material/extensions/permalinks/
+      permalink: true
