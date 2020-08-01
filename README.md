@@ -9,8 +9,8 @@ Official Python Package for Algorithmic Trading APIs powered by AlgoBulls!
     - Support for all 150+ Technical Indicators provided by [TA-Lib](https://mrjbq7.github.io/ta-lib/index.html)
     - Support for multiple candlesticks patterns - Japanese OHLC, Renko, Heikin-Ashi, Linebreak
     - Support for multiple candle inntervals - 1 minute, 3 minutes, 5 minutes, 10 minutes, 15 minutes, 30 minutes, 1 hour, 1 day. 
-    - Support for **Regular Orders** and **Bracket Orders**
-    - Support for **MARKET**, **LIMIT**, **STOPLOSS**, **STOPLOSS-LIMIT** orders
+    - Support for **Regular Orders**, **Bracket Orders** and **Cover Orders**
+    - Support for **MARKET**, **LIMIT**, **STOPLOSS-LIMIT**, **STOPLOSS-MARKET** orders
     - Support for **INTRADAY** and **DELIVERY** orders
 - Support for **Backtesting**
 - Support for **Paper Trading**
@@ -21,9 +21,9 @@ Official Python Package for Algorithmic Trading APIs powered by AlgoBulls!
     - More on the way!
 - Real-time Logs for Backtesting, Paper Trading, Real Trading
 - Multiple real-time Reports available for Backtesting, Paper Trading and Real Trading - 
-    - Profit-n-Loss report (PnL report)
-    - Statistics of (PnL report)
-    - Order History for each order with state transitions & timestamps
+    - Profit-&-Loss report (PnL report)
+    - Statistics Report (PnL report)
+    - Order History Log for each order with state transitions & timestamps
 - Plot Candlestick charts using [plotly.py](https://github.com/plotly/plotly.py)
     
 Backtesting, Paper Trading and Real Trading can be performed on the same strategy code base!
