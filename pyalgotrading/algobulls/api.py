@@ -14,8 +14,8 @@ class AlgoBullsAPI:
     """
     AlgoBulls API
     """
-    # SERVER_ENDPOINT = 'https://api.algobulls.com/'
-    SERVER_ENDPOINT = 'http://127.0.0.1:8000/'
+    SERVER_ENDPOINT = 'https://api.algobulls.com/'
+    # SERVER_ENDPOINT = 'http://127.0.0.1:8000/'
 
     def __init__(self):
         """
