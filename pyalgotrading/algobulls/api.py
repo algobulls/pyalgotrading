@@ -88,7 +88,19 @@ class AlgoBullsAPI:
         # Add strategy to backtesting
         endpoint = f'v2/portfolio/strategy'
         json_data = {'strategyId': strategy_code, 'tradingType': trading_type.value}
-        response = self._send_request(method='options', endpoint=endpoint, json_data=json_data)
+
+        # This api fails for some weird reason
+        # response = self._send_request(method='options', endpoint=endpoint, json_data=json_data)
+
+        if trading_type is TradingType.REALTRADING:
+            response = self._send_request(method='post', endpoint=endpoint, json_data=json_data)
+        elif trading_type is TradingType.PAPERTRADING:
+            response = self._send_request(method='put', endpoint=endpoint, json_data=json_data)
+        elif trading_type is TradingType.BACKTESTING:
+            response = self._send_request(method='patch', endpoint=endpoint, json_data=json_data)
+        else:
+            raise NotImplementedError
+
         key = response.get('key')
         return key
 
