@@ -228,7 +228,7 @@ class AlgoBullsAPI:
         """
 
         # Configure the params
-        json_data = strategy_config
+        json_data = {**strategy_config, 'overwrite': True}
         key = self.__get_key(strategy_code=strategy_code, trading_type=trading_type)
         endpoint = f'v2/user/strategy/{key}/tweak'
         print('Setting Strategy Config...', end=' ')
