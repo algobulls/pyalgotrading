@@ -47,5 +47,16 @@ class Instrument:
         """
         return date.today() > self.expiry if self.will_expire() else False
 
+    def __repr__(self):
+        return self.__str__()
+
     def __str__(self):
-        return f'{self.segment}:{self.tradingsymbol}'
+        return f"""segment: {self.segment}
+exchange: {self.exchange}
+tradingsymbol: {self.tradingsymbol}
+broker_token: {self.broker_token}
+tick_size: {self.tick_size}
+lot_size: {self.lot_size}
+expiry: {self.expiry}
+strike_price: {self.strike_price}
+"""
