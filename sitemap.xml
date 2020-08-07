@@ -28,15 +28,7 @@
      <lastmod>2020-08-07</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
-     <loc>https://pyalgotrading.readthedocs.io/en/latest/backtesting/</loc>
-     <lastmod>2020-08-07</lastmod>
-     <changefreq>daily</changefreq>
-    </url><url>
-     <loc>https://pyalgotrading.readthedocs.io/en/latest/papertrading/</loc>
-     <lastmod>2020-08-07</lastmod>
-     <changefreq>daily</changefreq>
-    </url><url>
-     <loc>https://pyalgotrading.readthedocs.io/en/latest/realtrading/</loc>
+     <loc>https://pyalgotrading.readthedocs.io/en/latest/testing/</loc>
      <lastmod>2020-08-07</lastmod>
      <changefreq>daily</changefreq>
     </url>
