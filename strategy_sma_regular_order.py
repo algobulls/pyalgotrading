@@ -7,8 +7,8 @@ class StrategySMARegularOrder(StrategyBase):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.timeperiod1 = self.strategy_parameters['timeperiod1']
-        self.timeperiod2 = self.strategy_parameters['timeperiod2']
+        self.timeperiod_x = self.strategy_parameters['timeperiod1']
+        self.timeperiod_y = self.strategy_parameters['timeperiod2']
 
         self.main_order = None
 

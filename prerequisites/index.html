@@ -202,19 +202,20 @@
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
 <h1>Prerequisites</h1>
-<p>You will need the following things to perform this tutorial</p>
+<p>You will need the following to perform this tutorial:</p>
 <ol>
-<li>Python 3.7+ <a href="https://www.python.org/downloads/">Link</a></li>
-<li>A Python IDE of your choice, like Pycharm <a href="https://www.jetbrains.com/pycharm/download/">Link</a></li>
-<li>TA-Lib Package <a href="https://mrjbq7.github.io/ta-lib/install.html">Link</a></li>
-<li>pyalgotrading Package <a href="https://pypi.org/project/pyalgotrading/">Link</a></li>
-<li>Jupyter Notebook <a href="https://jupyter.org/install">Link</a></li>
+<li><strong>Algobulls Account (<a href="https://www.algobulls.com/">Link</a>)</strong> - You will need this account to upload and test your strategies. The account needs to be setup with the proper risk managmenet values and a binded broker before any trades can be excecuted. Make sure the account is properly setup or contact <a href="mailto:support@algobulls.com">Algobulls Support</a> for any help.</li>
+<li><strong>Python 3.7+ (<a href="https://www.python.org/downloads/">Link</a>)</strong> - The AlgoBulls platform can run all strategies that conform to Python 3.7 and above. </li>
+<li><strong>A Python IDE of your choice, like Pycharm (<a href="https://www.jetbrains.com/pycharm/download/">Link</a>)</strong> - As mentioned in the [Introduction], this tutorial will demonstrate the pyalgotrading package by implementing the Simple Moving Average Crossover Strategy for Regular Orders. You will make this strategy as a separate python file, and the PyCharm Community Edition IDE is enough for this purpose. If you are already using a Python IDE of your choice, you may skip this step. </li>
+<li><strong>TA-Lib Package (<a href="https://mrjbq7.github.io/ta-lib/install.html">Link</a>)</strong> - This package encompasses all Technical Indicators used in Technical Analysis by strategists. You will need this package to compute Moving Average (SMA) for the example.</li>
+<li><strong>pyalgotrading Package (<a href="https://pypi.org/project/pyalgotrading/">Link</a>)</strong> - This package has all the necessary classes to create strategies. For the SMA strategy, you will subclass your class from the StrategyBase class which is present in this package.</li>
+<li><strong>Jupyter Notebook (<a href="https://jupyter.org/install">Link</a>)</strong> - You will use a Jupyter Notebook to connect to the AlgoBulls platform. You will upload the strategy, test your strategy (Backtest, Paper Trade, Real Trade), and fetch logs using the notebook.</li>
 </ol>
 <hr/>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="timeago" datetime="1596799323000" locale="en"></span>
+      Last update: <span class="timeago" datetime="1596826399000" locale="en"></span>
 </small>
 </div>
 <h2 id="__comments">Comments</h2>

@@ -361,21 +361,31 @@
 Now you can add the methods mentioned in the <a href="../structure/">structure</a> inside the class. First you can add the <code>__init__</code> and the <code>initialize</code> methods.</p>
 <h2 id="init-method">Init method<a class="headerlink" href="#init-method" title="Permanent link">¶</a></h2>
 <hr/>
-<p><div class="highlight"><pre><span></span><code>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">timeperiod1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">strategy_parameters</span><span class="p">[</span><span class="s1">'timeperiod1'</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">timeperiod2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">strategy_parameters</span><span class="p">[</span><span class="s1">'timeperiod2'</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timeperiod_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">strategy_parameters</span><span class="p">[</span><span class="s1">'timeperiod1'</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timeperiod_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">strategy_parameters</span><span class="p">[</span><span class="s1">'timeperiod2'</span><span class="p">]</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">main_order</span> <span class="o">=</span> <span class="kc">None</span>
 </code></pre></div>
-The <code>init</code> method is specific to Python's internal workings and it is preceded and succeeded by double underscores ( _ _ ) joined together.</p>
+<p>The <code>init</code> method does the following:</p>
+<ol>
+<li><code>super()</code> - Calls the constructor of the superclass.</li>
+<li><code>self.strategy_parameters</code> - Catches the parameters and saves them for local use - When you will submit a testing job for your SMA strategy, 
+you will pass parameters that will be used inside the strategy. 
+For SMA, we are calculating crossover for 2 SMA timeperiod values, example 5 and 12.  These 2 parameters will be caught by <code>self.strategy_parameters</code> and stored for local use in <code>self.timeperiod1</code> and <code>self.timeperiod2</code>.</li>
+<li><code>self.main_order</code> - Create an object that manages orders for you throughout the strategy.</li>
+</ol>
+<p>The <code>init</code> method is specific to Python's internal workings and it is preceded and succeeded by double underscores ( _ _ ) joined together.</p>
 <h2 id="initialize-method">Initialize method<a class="headerlink" href="#initialize-method" title="Permanent link">¶</a></h2>
 <hr/>
-<p><div class="highlight"><pre><span></span><code>    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code>    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">main_order</span> <span class="o">=</span> <span class="p">{}</span>
 </code></pre></div>
-Now add the two static methods, <code>name</code> and <code>versions_supprted</code>.</p>
+<p>The <code>initialize</code> method sets the <code>self.main_order</code> as an empty dictionary. This method is called at the start of every trading day.</p>
+<p>For instance, say you are submitting a backtesting job for 5 previous days starting at 10:30 everyday, then the <code>initialize</code> method will be called everyday for 5 days at 10:30.</p>
+<p>Now add the two static methods, <code>name</code> and <code>versions_supprted</code>.</p>
 <h2 id="name-method">Name method<a class="headerlink" href="#name-method" title="Permanent link">¶</a></h2>
 <hr/>
 <p><div class="highlight"><pre><span></span><code>    <span class="nd">@staticmethod</span>
@@ -390,6 +400,13 @@ The name should be unique in your collection of strategies.</p>
         <span class="k">return</span> <span class="n">AlgoBullsEngineVersion</span><span class="o">.</span><span class="n">VERSION_3_2_0</span>
 </code></pre></div>
 Mark both the above methods as <code>@staticmethod</code>.</p>
+<p>The <code>versions_supported</code> method does the following:</p>
+<ol>
+<li>It notifies the AlgoBulls platform that the strategy is working correctly for the platform version 3.2.0</li>
+<li>Since the platform will be constantly upgraded to incorporate new features and improve efficiency, the verion may change.</li>
+<li>If the version changes, and if you submit a job for this strategy, then the AlgoBulls platform will spawn a server having version 3.2.0 for your strategy.</li>
+<li>Having this method ensures that the AlgoBulls platform always provides the correct environment for your strategy.</li>
+</ol>
 <h2 id="select-instruments-for-entry">Select Instruments for Entry<a class="headerlink" href="#select-instruments-for-entry" title="Permanent link">¶</a></h2>
 <hr/>
 <div class="highlight"><pre><span></span><code>    <span class="k">def</span> <span class="nf">strategy_select_instruments_for_entry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">candle</span><span class="p">,</span> <span class="n">instruments_bucket</span><span class="p">):</span>
@@ -409,6 +426,28 @@ Mark both the above methods as <code>@staticmethod</code>.</p>
 
         <span class="k">return</span> <span class="n">selected_instruments_bucket</span><span class="p">,</span> <span class="n">sideband_info_bucket</span>
 </code></pre></div>
+<p>The <code>strategy_select_instruments_for_entry</code> method does the following:</p>
+<ol>
+<li><code>selected_instruments_bucket</code> and <code>sideband_info_bucket</code> - Creates 2 empty lists that will be used to pass the selected instruments and additional information about them respectively.</li>
+<li>The Loop - The loop will iterate over each instrument name passed (while submitting the job) and will decide whether to set an entry position or not for it.</li>
+<li><code>crossover_value</code> - The crossover value is calculated and stored here. Crossover values are interpreted as:<ol>
+<li>Value 1 - Cut upwards</li>
+<li>Value -1 - Cut downwards</li>
+<li>Value 0 - No crossover</li>
+</ol>
+</li>
+<li>If conditions - If the crossover value is 1, then the instrument is selected for entry position, with the position as 'BUY'. If the crossover value is -1, then the instrument is selected for entry position, with the position as 'SELL'. The selected instrument is appended to the <code>selected_instruments_bucket</code>, and the associated action (BUY/SELL) is appended to the <code>sideband_info_bucket</code>.</li>
+<li><code>selected_instruments_bucket</code> and <code>sideband_info_bucket</code> - Both the lists (whether populated or empty) are returned to the platform for further actions.</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul>
+<li>SELL Entry positions are allowed only if the strategy is running for INTRADAY. DELIVERY strategies do not allow SELL as entry positions. This is taken care of in the <code>elif</code> part.</li>
+<li>The <code>strategy_select_instruments_for_entry</code> method is called once for every candle time. For Instance, if you submit a job with the candle time as 15 minutes, then this method will be called once for every 15 minute candle.</li>
+<li>The actual Entry position (BUY/SELL) is not entered here. Here, only the instrument is selected based on the crossover value with the proper action mentioned in the <code>sideband_info_bucket</code>. The Entry position will be taken in the next method below.</li>
+<li>The <code>sideband_info_bucket</code> contains a very versatile dictionary object. You may use it to pass any other additional information that you wish. </li>
+</ul>
+</div>
 <h2 id="entry-position-for-each-selected-instrument">Entry Position for each (Selected) Instrument<a class="headerlink" href="#entry-position-for-each-selected-instrument" title="Permanent link">¶</a></h2>
 <hr/>
 <div class="highlight"><pre><span></span><code>    <span class="k">def</span> <span class="nf">strategy_enter_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">candle</span><span class="p">,</span> <span class="n">instrument</span><span class="p">,</span> <span class="n">sideband_info</span><span class="p">):</span>
@@ -431,6 +470,58 @@ Mark both the above methods as <code>@staticmethod</code>.</p>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">main_order</span><span class="p">[</span><span class="n">instrument</span><span class="p">]</span>
 </code></pre></div>
+<p>The <code>strategy_enter_position</code> method does the following:</p>
+<ol>
+<li>If conditions - The conditions read the action from the <code>sideband_info</code> and perform the required action (BUY/SELL).</li>
+<li><code>qty</code> - The quantity is calculated and stored here. The number of lots will be passed by you as a parameter while submitting a job. The parameter will be caught in <code>self.number_of_lots</code>. The instrument object has the lot size, which you can retrieve using <code>instrument.lot_size</code>. You can then use the formula as shown in the code to calculate the quantity.</li>
+<li><code>BuyOrderRegular</code> and <code>SellOrderRegular</code> - These execute the required action. You need the pass the instrument, order code, order variety and the quantity values.<ul>
+<li><code>instrument</code> - the instrument on which the BUY/SELL action will be performed.</li>
+<li><code>order_code</code> - whether the order is for INTRADAY or DELIVERY. Possible values are:<ul>
+<li><code>BrokerOrderCodeConstants.INTRADAY</code></li>
+<li><code>BrokerOrderCodeConstants.DELIVERY</code></li>
+<li><code>BrokerOrderCodeConstants.DELIVERY_T1</code></li>
+<li><code>BrokerOrderCodeConstants.DELIVERY_T2</code></li>
+</ul>
+</li>
+<li><code>order_variety</code> - the type of order variety. Possible values are:<ul>
+<li><code>BrokerOrderVarietyConstants.MARKET</code></li>
+<li><code>BrokerOrderVarietyConstants.LIMIT</code></li>
+<li><code>BrokerOrderVarietyConstants.STOPLOSS_MARKET</code></li>
+<li><code>BrokerOrderVarietyConstants.STOPLOSS_LIMIT</code></li>
+</ul>
+</li>
+<li><code>qty</code> - the quantity to BUY/SELL.</li>
+</ul>
+</li>
+<li><code>self.main_order</code> - The main order (for that particular instrument) is now populated (BUY OR SELL) and is returned to the platform for further actions.</li>
+</ol>
+<p>You can also punch Bracket Orders instead of Regular Orders. A typical BUY Bracket Order will look like this:
+<div class="highlight"><pre><span></span><code>    <span class="n">qty</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">number_of_lots</span> <span class="o">*</span> <span class="n">instrument</span><span class="o">.</span><span class="n">lot_size</span>
+    <span class="n">ltp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">broker</span><span class="o">.</span><span class="n">get_ltp</span><span class="p">(</span><span class="n">instrument</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">main_order</span><span class="p">[</span><span class="n">instrument</span><span class="p">]</span> <span class="o">=</span> \
+                <span class="bp">self</span><span class="o">.</span><span class="n">broker</span><span class="o">.</span><span class="n">BuyOrderBracket</span><span class="p">(</span><span class="n">instrument</span><span class="o">=</span><span class="n">instrument</span><span class="p">,</span>
+                                            <span class="n">order_code</span><span class="o">=</span><span class="n">BrokerOrderCodeConstants</span><span class="o">.</span><span class="n">INTRADAY</span><span class="p">,</span>
+                                            <span class="n">order_variety</span><span class="o">=</span><span class="n">BrokerOrderVarietyConstants</span><span class="o">.</span><span class="n">LIMIT</span><span class="p">,</span>
+                                            <span class="n">quantity</span><span class="o">=</span><span class="n">qty</span><span class="p">,</span>
+                                            <span class="n">price</span><span class="o">=</span><span class="n">ltp</span><span class="p">,</span>
+                                            <span class="n">stoploss_trigger</span><span class="o">=</span><span class="n">ltp</span> <span class="o">-</span> <span class="p">(</span><span class="n">ltp</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">stoploss</span><span class="p">),</span>
+                                            <span class="n">target_trigger</span><span class="o">=</span><span class="n">ltp</span> <span class="o">+</span> <span class="p">(</span><span class="n">ltp</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">target</span><span class="p">),</span>
+                                            <span class="n">trailing_stoploss_trigger</span><span class="o">=</span><span class="n">ltp</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">trailing_stoploss</span><span class="p">)</span>
+</code></pre></div></p>
+<p>The additional parameters are:</p>
+<ul>
+<li><code>price</code> - If you want to BUY at the market price (Last Traded Price) or LTP, then just fetch the LTP using <code>get_ltp</code> as shown in the code above. Store the value in <code>ltp</code> and pass it to <code>price</code>.</li>
+<li><code>stoploss_trigger</code>, <code>target_trigger</code> and <code>trailing_stoploss_trigger</code> - You can calculate these using the <code>ltp</code> and the values you will pass through 
+the job that you will submit. The parameters will be caught as <code>self.stoploss</code>, <code>self.target</code> and <code>self.trailing_stoploss</code>.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul>
+<li>If you plan to use Bracket Order instead of Regular Orders, then create a separate Python file for it, say <code>strategy_sma_bracket_order.py</code>.
+ You can also change the class name as <code>StrategySMABracketOrder</code>. There will be changes in the entry and exit methods also.</li>
+<li>The <code>strategy_enter_position</code> method is called once for every instrument. For instance, you want to run this strategy for 5 instruments. Say that the <code>strategy_select_instruments_for_entry</code> method selects 3 instruments for ENTRY positions (BUY/SELL). Then, the <code>strategy_enter_position</code> method will be called thrice, once for each instrument respectively within the candle time frame (say, 15 minutes). </li>
+</ul>
+</div>
 <h2 id="select-instruments-for-exit">Select Instruments for Exit<a class="headerlink" href="#select-instruments-for-exit" title="Permanent link">¶</a></h2>
 <hr/>
 <div class="highlight"><pre><span></span><code>    <span class="k">def</span> <span class="nf">strategy_select_instruments_for_exit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">candle</span><span class="p">,</span> <span class="n">instruments_bucket</span><span class="p">):</span>
@@ -445,6 +536,28 @@ Mark both the above methods as <code>@staticmethod</code>.</p>
                     <span class="n">sideband_info_bucket</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">'action'</span><span class="p">:</span> <span class="s1">'EXIT'</span><span class="p">})</span>
         <span class="k">return</span> <span class="n">selected_instruments_bucket</span><span class="p">,</span> <span class="n">sideband_info_bucket</span>
 </code></pre></div>
+<p>The <code>strategy_select_instruments_for_exit</code> method does the following:</p>
+<ol>
+<li><code>selected_instruments_bucket</code> and <code>sideband_info_bucket</code> - Creates 2 empty lists that will be used to pass the selected instruments and additional information about them respectively.</li>
+<li>The Loop - The loop will iterate over each instrument name passed (which are in Entry position (BUY/SELL)) and will decide whether to set an exit position or not for it.</li>
+<li>If condition - The exit steps are executed only if the instrument is holding at an ENTRY position (BUY/SELL). You can do this by checking if the <code>self.main_order</code> object is <code>None</code> or not, and proceed only if it is not <code>None</code>. </li>
+<li><code>crossover_value</code> - The crossover value is calculated and stored here. Crossover values are interpreted as:<ol>
+<li>Value 1 - Cut upwards</li>
+<li>Value -1 - Cut downwards</li>
+<li>Value 0 - No crossover</li>
+</ol>
+</li>
+<li>If condition - If the crossover value is 1 or -1, then the instrument is selected for exit position. The selected instrument is appended to the <code>selected_instruments_bucket</code>, and the associated action (EXIT) is appended to the <code>sideband_info_bucket</code>.</li>
+<li><code>selected_instruments_bucket</code> and <code>sideband_info_bucket</code> - Both the lists (whether populated or empty) are returned to the platform for further actions.</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul>
+<li>The actual Exit position (BUY/SELL) is not entered here. Here, only the instrument is selected based on the crossover value with the proper action mentioned in the <code>sideband_info_bucket</code>. The Exit position will be taken in the next method below.</li>
+<li>The <code>sideband_info_bucket</code> contains a very versatile dictionary object. You may use it to pass any other additional information that you wish.</li>
+<li>Whenever a new trading day starts, the <code>strategy_select_instruments_for_exit</code> is called first. This is very important for DELIVERY strategies. Many instruments might be holding in an Entry Position at the end of the previous trading day, and they might be eligible for exit at the start of the new trading day.  </li>
+</ul>
+</div>
 <h2 id="exit-position-for-each-selected-instrument">Exit Position for each (Selected) Instrument<a class="headerlink" href="#exit-position-for-each-selected-instrument" title="Permanent link">¶</a></h2>
 <hr/>
 <div class="highlight"><pre><span></span><code>    <span class="k">def</span> <span class="nf">strategy_exit_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">candle</span><span class="p">,</span> <span class="n">instrument</span><span class="p">,</span> <span class="n">sideband_info</span><span class="p">):</span>
@@ -455,6 +568,13 @@ Mark both the above methods as <code>@staticmethod</code>.</p>
 
         <span class="k">return</span> <span class="kc">False</span>
 </code></pre></div>
+<p>The <code>strategy_exit_position</code> method does the following:</p>
+<ol>
+<li>If condition - checks whether the appropriate action is set in the <code>sideband_info</code>.</li>
+<li><code>self.main_order</code> - calls <code>exit_position</code> method for the particular main order of the instrument. If the Entry Position was BUY, then the exit position is automatically taken as SELL and vice versa. The platform takes care of this automatically.</li>
+<li><code>self.main_order</code> - set it to <code>None</code>, as the order has been exited and no longer holds anything.</li>
+<li>Return values - returns <code>True</code> to the platform if the exit steps were performed, else return <code>False</code>.</li>
+</ol>
 <h2 id="crossover-function">Crossover function<a class="headerlink" href="#crossover-function" title="Permanent link">¶</a></h2>
 <hr/>
 <div class="highlight"><pre><span></span><code>    <span class="k">def</span> <span class="nf">get_crossover_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instrument</span><span class="p">):</span>
@@ -464,11 +584,30 @@ Mark both the above methods as <code>@staticmethod</code>.</p>
         <span class="n">crossover_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">crossover</span><span class="p">(</span><span class="n">sma_x</span><span class="p">,</span> <span class="n">sma_y</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">crossover_value</span>
 </code></pre></div>
+<p>The <code>get_crossover_value</code> method does the following:</p>
+<ol>
+<li><code>hist_data</code> - The historical data for the instrument is fetched using the <code>get_historical_data</code> method and stored here. The data is in the form of a table (Pandas DataFrame) having the follwing columns:<ul>
+<li><code>timestamp</code> - the data and time when the datawas measured</li>
+<li><code>volume</code> - the volume of that instrument</li>
+<li><code>open</code>, <code>high</code>, <code>low</code> and <code>close</code> - the OHLC values of the intrument</li>
+<li><code>oi</code> - the Open Interest of that instrument</li>
+</ul>
+</li>
+<li><code>sma_x</code> and <code>sma_y</code> - the SMA function from the <code>talib</code> package is used to calculate the Moving Average for both SMA timeperiods. The candle close value is used for calculations, i.e. <code>hist_data['close']</code>.</li>
+<li><code>crossover_value</code> - calculates the crossover value using the <code>crossover</code> method from the <code>utils</code> package.</li>
+<li>Return value - return the crossover value to the caller method.</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul>
+<li>The order of values passed to the <code>crossover</code> method of the <code>utils</code> package is very important. For instance, you have 2 SMA values, 5 and 12, and the strategy describes that there should be an BUY Entry Position when SMA(5) cuts SMA(12) upwards (crossover value should be 1). In this case, if you mistakenly pass SMA(12) value first and SMA(5) value next to the <code>crossover</code> function, the answer you will get is -1 (Cut downwards). This is correct but the strategy will not take the BUY Entry Position as it is expecting the value of 1 (Cut Upwards) to take that position. Therefore, the strategy will work correctly only if you pass SMA(5) first and then SMA(12). </li>
+</ul>
+</div>
 <hr/>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="timeago" datetime="1596799323000" locale="en"></span>
+      Last update: <span class="timeago" datetime="1596826399000" locale="en"></span>
 </small>
 </div>
 <h2 id="__comments">Comments</h2>
