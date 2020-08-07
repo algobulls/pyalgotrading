@@ -1,35 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url>
      <loc>https://pyalgotrading.readthedocs.io/en/latest/</loc>
-     <lastmod>2020-07-31</lastmod>
+     <lastmod>2020-08-07</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
-     <loc>https://pyalgotrading.readthedocs.io/en/latest/package_algobulls/</loc>
-     <lastmod>2020-07-31</lastmod>
+     <loc>https://pyalgotrading.readthedocs.io/en/latest/package_pyalgotrading/</loc>
+     <lastmod>2020-08-07</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
-     <loc>https://pyalgotrading.readthedocs.io/en/latest/package_broker/</loc>
-     <lastmod>2020-07-31</lastmod>
+     <loc>https://pyalgotrading.readthedocs.io/en/latest/introduction/</loc>
+     <lastmod>2020-08-07</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
-     <loc>https://pyalgotrading.readthedocs.io/en/latest/package_instrument/</loc>
-     <lastmod>2020-07-31</lastmod>
+     <loc>https://pyalgotrading.readthedocs.io/en/latest/prerequisites/</loc>
+     <lastmod>2020-08-07</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
-     <loc>https://pyalgotrading.readthedocs.io/en/latest/package_order/</loc>
-     <lastmod>2020-07-31</lastmod>
+     <loc>https://pyalgotrading.readthedocs.io/en/latest/structure/</loc>
+     <lastmod>2020-08-07</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
-     <loc>https://pyalgotrading.readthedocs.io/en/latest/package_strategy/</loc>
-     <lastmod>2020-07-31</lastmod>
+     <loc>https://pyalgotrading.readthedocs.io/en/latest/programexample/</loc>
+     <lastmod>2020-08-07</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
-     <loc>https://pyalgotrading.readthedocs.io/en/latest/package_utils/</loc>
-     <lastmod>2020-07-31</lastmod>
+     <loc>https://pyalgotrading.readthedocs.io/en/latest/upload/</loc>
+     <lastmod>2020-08-07</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
-     <loc>https://pyalgotrading.readthedocs.io/en/latest/module_constants/</loc>
-     <lastmod>2020-07-31</lastmod>
+     <loc>https://pyalgotrading.readthedocs.io/en/latest/backtesting/</loc>
+     <lastmod>2020-08-07</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://pyalgotrading.readthedocs.io/en/latest/papertrading/</loc>
+     <lastmod>2020-08-07</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://pyalgotrading.readthedocs.io/en/latest/realtrading/</loc>
+     <lastmod>2020-08-07</lastmod>
      <changefreq>daily</changefreq>
     </url>
 </urlset>
