@@ -361,13 +361,13 @@
 Now you can add the methods mentioned in the <a href="../structure/">structure</a> inside the class. First you can add the <code>__init__</code> and the <code>initialize</code> methods.</p>
 <h2 id="init-method">Init method<a class="headerlink" href="#init-method" title="Permanent link">¶</a></h2>
 <hr/>
-<div class="highlight"><pre><span></span><code>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">timeperiod_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">strategy_parameters</span><span class="p">[</span><span class="s1">'timeperiod1'</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">timeperiod_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">strategy_parameters</span><span class="p">[</span><span class="s1">'timeperiod2'</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">timeperiod_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">strategy_parameters</span><span class="p">[</span><span class="s1">'timeperiod1'</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">timeperiod_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">strategy_parameters</span><span class="p">[</span><span class="s1">'timeperiod2'</span><span class="p">]</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">main_order</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">main_order</span> <span class="o">=</span> <span class="kc">None</span>
 </code></pre></div>
 <p>The <code>init</code> method does the following:</p>
 <ol>
@@ -380,24 +380,24 @@ For SMA, we are calculating crossover for 2 SMA timeperiod values, example 5 and
 <p>The <code>init</code> method is specific to Python's internal workings and it is preceded and succeeded by double underscores ( _ _ ) joined together.</p>
 <h2 id="initialize-method">Initialize method<a class="headerlink" href="#initialize-method" title="Permanent link">¶</a></h2>
 <hr/>
-<div class="highlight"><pre><span></span><code>    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">main_order</span> <span class="o">=</span> <span class="p">{}</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">main_order</span> <span class="o">=</span> <span class="p">{}</span>
 </code></pre></div>
 <p>The <code>initialize</code> method sets the <code>self.main_order</code> as an empty dictionary. This method is called at the start of every trading day.</p>
 <p>For instance, say you are submitting a backtesting job for 5 previous days starting at 10:30 everyday, then the <code>initialize</code> method will be called everyday for 5 days at 10:30.</p>
 <p>Now add the two static methods, <code>name</code> and <code>versions_supprted</code>.</p>
 <h2 id="name-method">Name method<a class="headerlink" href="#name-method" title="Permanent link">¶</a></h2>
 <hr/>
-<p><div class="highlight"><pre><span></span><code>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">name</span><span class="p">():</span>
-        <span class="k">return</span> <span class="s1">'SMA Regular Order Strategy'</span>
+<p><div class="highlight"><pre><span></span><code><span class="nd">@staticmethod</span>
+<span class="k">def</span> <span class="nf">name</span><span class="p">():</span>
+    <span class="k">return</span> <span class="s1">'SMA Regular Order Strategy'</span>
 </code></pre></div>
 The name should be unique in your collection of strategies.</p>
 <h2 id="versions-suported">Versions Suported<a class="headerlink" href="#versions-suported" title="Permanent link">¶</a></h2>
 <hr/>
-<p><div class="highlight"><pre><span></span><code>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">versions_supported</span><span class="p">():</span>
-        <span class="k">return</span> <span class="n">AlgoBullsEngineVersion</span><span class="o">.</span><span class="n">VERSION_3_2_0</span>
+<p><div class="highlight"><pre><span></span><code><span class="nd">@staticmethod</span>
+<span class="k">def</span> <span class="nf">versions_supported</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">AlgoBullsEngineVersion</span><span class="o">.</span><span class="n">VERSION_3_2_0</span>
 </code></pre></div>
 Mark both the above methods as <code>@staticmethod</code>.</p>
 <p>The <code>versions_supported</code> method does the following:</p>
@@ -409,22 +409,22 @@ Mark both the above methods as <code>@staticmethod</code>.</p>
 </ol>
 <h2 id="select-instruments-for-entry">Select Instruments for Entry<a class="headerlink" href="#select-instruments-for-entry" title="Permanent link">¶</a></h2>
 <hr/>
-<div class="highlight"><pre><span></span><code>    <span class="k">def</span> <span class="nf">strategy_select_instruments_for_entry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">candle</span><span class="p">,</span> <span class="n">instruments_bucket</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">strategy_select_instruments_for_entry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">candle</span><span class="p">,</span> <span class="n">instruments_bucket</span><span class="p">):</span>
 
-        <span class="n">selected_instruments_bucket</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">sideband_info_bucket</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">selected_instruments_bucket</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">sideband_info_bucket</span> <span class="o">=</span> <span class="p">[]</span>
 
-        <span class="k">for</span> <span class="n">instrument</span> <span class="ow">in</span> <span class="n">instruments_bucket</span><span class="p">:</span>
-            <span class="n">crossover_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_crossover_value</span><span class="p">(</span><span class="n">instrument</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">crossover_value</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">instrument</span> <span class="ow">in</span> <span class="n">instruments_bucket</span><span class="p">:</span>
+        <span class="n">crossover_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_crossover_value</span><span class="p">(</span><span class="n">instrument</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">crossover_value</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">selected_instruments_bucket</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">instrument</span><span class="p">)</span>
+            <span class="n">sideband_info_bucket</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">'action'</span><span class="p">:</span> <span class="s1">'BUY'</span><span class="p">})</span>
+        <span class="k">elif</span> <span class="n">crossover_value</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">strategy_mode</span> <span class="ow">is</span> <span class="n">StrategyMode</span><span class="o">.</span><span class="n">INTRADAY</span><span class="p">:</span>
                 <span class="n">selected_instruments_bucket</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">instrument</span><span class="p">)</span>
-                <span class="n">sideband_info_bucket</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">'action'</span><span class="p">:</span> <span class="s1">'BUY'</span><span class="p">})</span>
-            <span class="k">elif</span> <span class="n">crossover_value</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">strategy_mode</span> <span class="ow">is</span> <span class="n">StrategyMode</span><span class="o">.</span><span class="n">INTRADAY</span><span class="p">:</span>
-                    <span class="n">selected_instruments_bucket</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">instrument</span><span class="p">)</span>
-                    <span class="n">sideband_info_bucket</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">'action'</span><span class="p">:</span> <span class="s1">'SELL'</span><span class="p">})</span>
+                <span class="n">sideband_info_bucket</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">'action'</span><span class="p">:</span> <span class="s1">'SELL'</span><span class="p">})</span>
 
-        <span class="k">return</span> <span class="n">selected_instruments_bucket</span><span class="p">,</span> <span class="n">sideband_info_bucket</span>
+    <span class="k">return</span> <span class="n">selected_instruments_bucket</span><span class="p">,</span> <span class="n">sideband_info_bucket</span>
 </code></pre></div>
 <p>The <code>strategy_select_instruments_for_entry</code> method does the following:</p>
 <ol>
@@ -450,25 +450,25 @@ Mark both the above methods as <code>@staticmethod</code>.</p>
 </div>
 <h2 id="entry-position-for-each-selected-instrument">Entry Position for each (Selected) Instrument<a class="headerlink" href="#entry-position-for-each-selected-instrument" title="Permanent link">¶</a></h2>
 <hr/>
-<div class="highlight"><pre><span></span><code>    <span class="k">def</span> <span class="nf">strategy_enter_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">candle</span><span class="p">,</span> <span class="n">instrument</span><span class="p">,</span> <span class="n">sideband_info</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">sideband_info</span><span class="p">[</span><span class="s1">'action'</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'BUY'</span><span class="p">:</span>
-            <span class="n">qty</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">number_of_lots</span> <span class="o">*</span> <span class="n">instrument</span><span class="o">.</span><span class="n">lot_size</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">main_order</span><span class="p">[</span><span class="n">instrument</span><span class="p">]</span> <span class="o">=</span> \
-                <span class="bp">self</span><span class="o">.</span><span class="n">broker</span><span class="o">.</span><span class="n">BuyOrderRegular</span><span class="p">(</span><span class="n">instrument</span><span class="o">=</span><span class="n">instrument</span><span class="p">,</span>
-                                            <span class="n">order_code</span><span class="o">=</span><span class="n">BrokerOrderCodeConstants</span><span class="o">.</span><span class="n">INTRADAY</span><span class="p">,</span>
-                                            <span class="n">order_variety</span><span class="o">=</span><span class="n">BrokerOrderVarietyConstants</span><span class="o">.</span><span class="n">MARKET</span><span class="p">,</span>
-                                            <span class="n">quantity</span><span class="o">=</span><span class="n">qty</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">sideband_info</span><span class="p">[</span><span class="s1">'action'</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'SELL'</span><span class="p">:</span>
-            <span class="n">qty</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">number_of_lots</span> <span class="o">*</span> <span class="n">instrument</span><span class="o">.</span><span class="n">lot_size</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">main_order</span><span class="p">[</span><span class="n">instrument</span><span class="p">]</span> <span class="o">=</span> \
-                <span class="bp">self</span><span class="o">.</span><span class="n">broker</span><span class="o">.</span><span class="n">SellOrderRegular</span><span class="p">(</span><span class="n">instrument</span><span class="o">=</span><span class="n">instrument</span><span class="p">,</span>
-                                             <span class="n">order_code</span><span class="o">=</span><span class="n">BrokerOrderCodeConstants</span><span class="o">.</span><span class="n">INTRADAY</span><span class="p">,</span>
-                                             <span class="n">order_variety</span><span class="o">=</span><span class="n">BrokerOrderVarietyConstants</span><span class="o">.</span><span class="n">MARKET</span><span class="p">,</span>
-                                             <span class="n">quantity</span><span class="o">=</span><span class="n">qty</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">SystemExit</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Got invalid sideband_info value: </span><span class="si">{</span><span class="n">sideband_info</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">strategy_enter_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">candle</span><span class="p">,</span> <span class="n">instrument</span><span class="p">,</span> <span class="n">sideband_info</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">sideband_info</span><span class="p">[</span><span class="s1">'action'</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'BUY'</span><span class="p">:</span>
+        <span class="n">qty</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">number_of_lots</span> <span class="o">*</span> <span class="n">instrument</span><span class="o">.</span><span class="n">lot_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">main_order</span><span class="p">[</span><span class="n">instrument</span><span class="p">]</span> <span class="o">=</span> \
+            <span class="bp">self</span><span class="o">.</span><span class="n">broker</span><span class="o">.</span><span class="n">BuyOrderRegular</span><span class="p">(</span><span class="n">instrument</span><span class="o">=</span><span class="n">instrument</span><span class="p">,</span>
+                <span class="n">order_code</span><span class="o">=</span><span class="n">BrokerOrderCodeConstants</span><span class="o">.</span><span class="n">INTRADAY</span><span class="p">,</span>
+                <span class="n">order_variety</span><span class="o">=</span><span class="n">BrokerOrderVarietyConstants</span><span class="o">.</span><span class="n">MARKET</span><span class="p">,</span>
+                <span class="n">quantity</span><span class="o">=</span><span class="n">qty</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">sideband_info</span><span class="p">[</span><span class="s1">'action'</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'SELL'</span><span class="p">:</span>
+        <span class="n">qty</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">number_of_lots</span> <span class="o">*</span> <span class="n">instrument</span><span class="o">.</span><span class="n">lot_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">main_order</span><span class="p">[</span><span class="n">instrument</span><span class="p">]</span> <span class="o">=</span> \
+            <span class="bp">self</span><span class="o">.</span><span class="n">broker</span><span class="o">.</span><span class="n">SellOrderRegular</span><span class="p">(</span><span class="n">instrument</span><span class="o">=</span><span class="n">instrument</span><span class="p">,</span>
+                 <span class="n">order_code</span><span class="o">=</span><span class="n">BrokerOrderCodeConstants</span><span class="o">.</span><span class="n">INTRADAY</span><span class="p">,</span>
+                 <span class="n">order_variety</span><span class="o">=</span><span class="n">BrokerOrderVarietyConstants</span><span class="o">.</span><span class="n">MARKET</span><span class="p">,</span>
+                 <span class="n">quantity</span><span class="o">=</span><span class="n">qty</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">SystemExit</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Got invalid sideband_info value: </span><span class="si">{</span><span class="n">sideband_info</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">main_order</span><span class="p">[</span><span class="n">instrument</span><span class="p">]</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">main_order</span><span class="p">[</span><span class="n">instrument</span><span class="p">]</span>
 </code></pre></div>
 <p>The <code>strategy_enter_position</code> method does the following:</p>
 <ol>
@@ -496,17 +496,17 @@ Mark both the above methods as <code>@staticmethod</code>.</p>
 <li><code>self.main_order</code> - The main order (for that particular instrument) is now populated (BUY OR SELL) and is returned to the platform for further actions.</li>
 </ol>
 <p>You can also punch Bracket Orders instead of Regular Orders. A typical BUY Bracket Order will look like this:
-<div class="highlight"><pre><span></span><code>    <span class="n">qty</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">number_of_lots</span> <span class="o">*</span> <span class="n">instrument</span><span class="o">.</span><span class="n">lot_size</span>
-    <span class="n">ltp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">broker</span><span class="o">.</span><span class="n">get_ltp</span><span class="p">(</span><span class="n">instrument</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">main_order</span><span class="p">[</span><span class="n">instrument</span><span class="p">]</span> <span class="o">=</span> \
-                <span class="bp">self</span><span class="o">.</span><span class="n">broker</span><span class="o">.</span><span class="n">BuyOrderBracket</span><span class="p">(</span><span class="n">instrument</span><span class="o">=</span><span class="n">instrument</span><span class="p">,</span>
-                                            <span class="n">order_code</span><span class="o">=</span><span class="n">BrokerOrderCodeConstants</span><span class="o">.</span><span class="n">INTRADAY</span><span class="p">,</span>
-                                            <span class="n">order_variety</span><span class="o">=</span><span class="n">BrokerOrderVarietyConstants</span><span class="o">.</span><span class="n">LIMIT</span><span class="p">,</span>
-                                            <span class="n">quantity</span><span class="o">=</span><span class="n">qty</span><span class="p">,</span>
-                                            <span class="n">price</span><span class="o">=</span><span class="n">ltp</span><span class="p">,</span>
-                                            <span class="n">stoploss_trigger</span><span class="o">=</span><span class="n">ltp</span> <span class="o">-</span> <span class="p">(</span><span class="n">ltp</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">stoploss</span><span class="p">),</span>
-                                            <span class="n">target_trigger</span><span class="o">=</span><span class="n">ltp</span> <span class="o">+</span> <span class="p">(</span><span class="n">ltp</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">target</span><span class="p">),</span>
-                                            <span class="n">trailing_stoploss_trigger</span><span class="o">=</span><span class="n">ltp</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">trailing_stoploss</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">qty</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">number_of_lots</span> <span class="o">*</span> <span class="n">instrument</span><span class="o">.</span><span class="n">lot_size</span>
+<span class="n">ltp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">broker</span><span class="o">.</span><span class="n">get_ltp</span><span class="p">(</span><span class="n">instrument</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">main_order</span><span class="p">[</span><span class="n">instrument</span><span class="p">]</span> <span class="o">=</span> \
+            <span class="bp">self</span><span class="o">.</span><span class="n">broker</span><span class="o">.</span><span class="n">BuyOrderBracket</span><span class="p">(</span><span class="n">instrument</span><span class="o">=</span><span class="n">instrument</span><span class="p">,</span>
+                <span class="n">order_code</span><span class="o">=</span><span class="n">BrokerOrderCodeConstants</span><span class="o">.</span><span class="n">INTRADAY</span><span class="p">,</span>
+                <span class="n">order_variety</span><span class="o">=</span><span class="n">BrokerOrderVarietyConstants</span><span class="o">.</span><span class="n">LIMIT</span><span class="p">,</span>
+                <span class="n">quantity</span><span class="o">=</span><span class="n">qty</span><span class="p">,</span>
+                <span class="n">price</span><span class="o">=</span><span class="n">ltp</span><span class="p">,</span>
+                <span class="n">stoploss_trigger</span><span class="o">=</span><span class="n">ltp</span> <span class="o">-</span> <span class="p">(</span><span class="n">ltp</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">stoploss</span><span class="p">),</span>
+                <span class="n">target_trigger</span><span class="o">=</span><span class="n">ltp</span> <span class="o">+</span> <span class="p">(</span><span class="n">ltp</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">target</span><span class="p">),</span>
+                <span class="n">trailing_stoploss_trigger</span><span class="o">=</span><span class="n">ltp</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">trailing_stoploss</span><span class="p">)</span>
 </code></pre></div></p>
 <p>The additional parameters are:</p>
 <ul>
@@ -524,17 +524,17 @@ the job that you will submit. The parameters will be caught as <code>self.stoplo
 </div>
 <h2 id="select-instruments-for-exit">Select Instruments for Exit<a class="headerlink" href="#select-instruments-for-exit" title="Permanent link">¶</a></h2>
 <hr/>
-<div class="highlight"><pre><span></span><code>    <span class="k">def</span> <span class="nf">strategy_select_instruments_for_exit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">candle</span><span class="p">,</span> <span class="n">instruments_bucket</span><span class="p">):</span>
-        <span class="n">selected_instruments_bucket</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">sideband_info_bucket</span> <span class="o">=</span> <span class="p">[]</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">strategy_select_instruments_for_exit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">candle</span><span class="p">,</span> <span class="n">instruments_bucket</span><span class="p">):</span>
+    <span class="n">selected_instruments_bucket</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">sideband_info_bucket</span> <span class="o">=</span> <span class="p">[]</span>
 
-        <span class="k">for</span> <span class="n">instrument</span> <span class="ow">in</span> <span class="n">instruments_bucket</span><span class="p">:</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">main_order</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">instrument</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">crossover_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_crossover_value</span><span class="p">(</span><span class="n">instrument</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">crossover_value</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
-                    <span class="n">selected_instruments_bucket</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">instrument</span><span class="p">)</span>
-                    <span class="n">sideband_info_bucket</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">'action'</span><span class="p">:</span> <span class="s1">'EXIT'</span><span class="p">})</span>
-        <span class="k">return</span> <span class="n">selected_instruments_bucket</span><span class="p">,</span> <span class="n">sideband_info_bucket</span>
+    <span class="k">for</span> <span class="n">instrument</span> <span class="ow">in</span> <span class="n">instruments_bucket</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">main_order</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">instrument</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">crossover_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_crossover_value</span><span class="p">(</span><span class="n">instrument</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">crossover_value</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                <span class="n">selected_instruments_bucket</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">instrument</span><span class="p">)</span>
+                <span class="n">sideband_info_bucket</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">'action'</span><span class="p">:</span> <span class="s1">'EXIT'</span><span class="p">})</span>
+    <span class="k">return</span> <span class="n">selected_instruments_bucket</span><span class="p">,</span> <span class="n">sideband_info_bucket</span>
 </code></pre></div>
 <p>The <code>strategy_select_instruments_for_exit</code> method does the following:</p>
 <ol>
@@ -560,13 +560,13 @@ the job that you will submit. The parameters will be caught as <code>self.stoplo
 </div>
 <h2 id="exit-position-for-each-selected-instrument">Exit Position for each (Selected) Instrument<a class="headerlink" href="#exit-position-for-each-selected-instrument" title="Permanent link">¶</a></h2>
 <hr/>
-<div class="highlight"><pre><span></span><code>    <span class="k">def</span> <span class="nf">strategy_exit_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">candle</span><span class="p">,</span> <span class="n">instrument</span><span class="p">,</span> <span class="n">sideband_info</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">sideband_info</span><span class="p">[</span><span class="s1">'action'</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'EXIT'</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">main_order</span><span class="p">[</span><span class="n">instrument</span><span class="p">]</span><span class="o">.</span><span class="n">exit_position</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">main_order</span><span class="p">[</span><span class="n">instrument</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-            <span class="k">return</span> <span class="kc">True</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">strategy_exit_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">candle</span><span class="p">,</span> <span class="n">instrument</span><span class="p">,</span> <span class="n">sideband_info</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">sideband_info</span><span class="p">[</span><span class="s1">'action'</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'EXIT'</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">main_order</span><span class="p">[</span><span class="n">instrument</span><span class="p">]</span><span class="o">.</span><span class="n">exit_position</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">main_order</span><span class="p">[</span><span class="n">instrument</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="kc">True</span>
 
-        <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">return</span> <span class="kc">False</span>
 </code></pre></div>
 <p>The <code>strategy_exit_position</code> method does the following:</p>
 <ol>
@@ -577,12 +577,12 @@ the job that you will submit. The parameters will be caught as <code>self.stoplo
 </ol>
 <h2 id="crossover-function">Crossover function<a class="headerlink" href="#crossover-function" title="Permanent link">¶</a></h2>
 <hr/>
-<div class="highlight"><pre><span></span><code>    <span class="k">def</span> <span class="nf">get_crossover_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instrument</span><span class="p">):</span>
-        <span class="n">hist_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_historical_data</span><span class="p">(</span><span class="n">instrument</span><span class="p">)</span>
-        <span class="n">sma_x</span> <span class="o">=</span> <span class="n">talib</span><span class="o">.</span><span class="n">SMA</span><span class="p">(</span><span class="n">hist_data</span><span class="p">[</span><span class="s1">'close'</span><span class="p">],</span> <span class="n">timeperiod</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">timeperiod_x</span><span class="p">)</span>
-        <span class="n">sma_y</span> <span class="o">=</span> <span class="n">talib</span><span class="o">.</span><span class="n">SMA</span><span class="p">(</span><span class="n">hist_data</span><span class="p">[</span><span class="s1">'close'</span><span class="p">],</span> <span class="n">timeperiod</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">timeperiod_y</span><span class="p">)</span>
-        <span class="n">crossover_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">crossover</span><span class="p">(</span><span class="n">sma_x</span><span class="p">,</span> <span class="n">sma_y</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">crossover_value</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_crossover_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instrument</span><span class="p">):</span>
+    <span class="n">hist_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_historical_data</span><span class="p">(</span><span class="n">instrument</span><span class="p">)</span>
+    <span class="n">sma_x</span> <span class="o">=</span> <span class="n">talib</span><span class="o">.</span><span class="n">SMA</span><span class="p">(</span><span class="n">hist_data</span><span class="p">[</span><span class="s1">'close'</span><span class="p">],</span> <span class="n">timeperiod</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">timeperiod_x</span><span class="p">)</span>
+    <span class="n">sma_y</span> <span class="o">=</span> <span class="n">talib</span><span class="o">.</span><span class="n">SMA</span><span class="p">(</span><span class="n">hist_data</span><span class="p">[</span><span class="s1">'close'</span><span class="p">],</span> <span class="n">timeperiod</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">timeperiod_y</span><span class="p">)</span>
+    <span class="n">crossover_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">crossover</span><span class="p">(</span><span class="n">sma_x</span><span class="p">,</span> <span class="n">sma_y</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">crossover_value</span>
 </code></pre></div>
 <p>The <code>get_crossover_value</code> method does the following:</p>
 <ol>
@@ -600,14 +600,14 @@ the job that you will submit. The parameters will be caught as <code>self.stoplo
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul>
-<li>The order of values passed to the <code>crossover</code> method of the <code>utils</code> package is very important. For instance, you have 2 SMA values, 5 and 12, and the strategy describes that there should be an BUY Entry Position when SMA(5) cuts SMA(12) upwards (crossover value should be 1). In this case, if you mistakenly pass SMA(12) value first and SMA(5) value next to the <code>crossover</code> function, the answer you will get is -1 (Cut downwards). This is correct but the strategy will not take the BUY Entry Position as it is expecting the value of 1 (Cut Upwards) to take that position. Therefore, the strategy will work correctly only if you pass SMA(5) first and then SMA(12). </li>
+<li>The order of values passed to the <code>crossover</code> method of the <code>utils</code> package is very important. For instance, you have 2 SMA values, 5 and 12, and the strategy describes that there should be an BUY Entry Position when SMA(5) cuts SMA(12) upwards (crossover value should be 1). In this case, if you mistakenly pass SMA(12) value first and SMA(5) value next to the <code>crossover</code> function, the answer you will get is -1 (Cut downwards). This is correct but the strategy will not take the BUY Entry Position as it is expecting the value of 1 (Cut Upwards) to take that position. Therefore, the strategy will work correctly only if you pass SMA(5) first and then SMA(12).</li>
 </ul>
 </div>
 <hr/>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="timeago" datetime="1596828978000" locale="en"></span>
+      Last update: <span class="timeago" datetime="1596831004000" locale="en"></span>
 </small>
 </div>
 <h2 id="__comments">Comments</h2>

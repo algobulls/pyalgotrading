@@ -414,57 +414,57 @@ Now display some instruments and select one of them.</p>
 <h2 id="submit-a-job">Submit a Job<a class="headerlink" href="#submit-a-job" title="Permanent link">¶</a></h2>
 <hr/>
 <div class="tabbed-set" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio"><label for="__tabbed_1_1">Backtesting</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code>    <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">backtest</span><span class="p">(</span><span class="n">strategy_code</span><span class="o">=</span><span class="n">strategy_code1</span><span class="p">,</span> 
-                                <span class="n">start_timestamp</span><span class="o">=</span><span class="n">dt</span><span class="p">(</span><span class="n">year</span><span class="o">=</span><span class="mi">2020</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">hour</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="mi">15</span><span class="p">),</span> 
-                                <span class="n">end_timestamp</span><span class="o">=</span><span class="n">dt</span><span class="p">(</span><span class="n">year</span><span class="o">=</span><span class="mi">2020</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">hour</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="mi">30</span><span class="p">),</span> 
-                                <span class="n">instrument</span><span class="o">=</span><span class="n">instrument</span><span class="p">,</span> 
-                                <span class="n">lots</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                                <span class="n">strategy_parameters</span><span class="o">=</span><span class="p">{</span>
-                                  <span class="s1">'timeperiod1'</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
-                                  <span class="s1">'timeperiod2'</span><span class="p">:</span> <span class="mi">12</span>
-                                <span class="p">},</span> 
-                                <span class="n">candle_interval</span><span class="o">=</span><span class="n">CandleInterval</span><span class="o">.</span><span class="n">MINUTES_15</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">backtest</span><span class="p">(</span><span class="n">strategy_code</span><span class="o">=</span><span class="n">strategy_code1</span><span class="p">,</span> 
+        <span class="n">start_timestamp</span><span class="o">=</span><span class="n">dt</span><span class="p">(</span><span class="n">year</span><span class="o">=</span><span class="mi">2020</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">hour</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="mi">15</span><span class="p">),</span> 
+        <span class="n">end_timestamp</span><span class="o">=</span><span class="n">dt</span><span class="p">(</span><span class="n">year</span><span class="o">=</span><span class="mi">2020</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">hour</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="mi">30</span><span class="p">),</span> 
+        <span class="n">instrument</span><span class="o">=</span><span class="n">instrument</span><span class="p">,</span> 
+        <span class="n">lots</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">strategy_parameters</span><span class="o">=</span><span class="p">{</span>
+          <span class="s1">'timeperiod1'</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+          <span class="s1">'timeperiod2'</span><span class="p">:</span> <span class="mi">12</span>
+        <span class="p">},</span> 
+        <span class="n">candle_interval</span><span class="o">=</span><span class="n">CandleInterval</span><span class="o">.</span><span class="n">MINUTES_15</span><span class="p">)</span>
 </code></pre></div>
 </div>
 <input id="__tabbed_1_2" name="__tabbed_1" type="radio"><label for="__tabbed_1_2">Paper Trading</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code>    <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">papertrade</span><span class="p">(</span><span class="n">strategy_code</span><span class="o">=</span><span class="n">strategy_code1</span><span class="p">,</span> 
-                                <span class="n">start_time</span><span class="o">=</span><span class="n">time</span><span class="p">(</span><span class="n">hour</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="mi">15</span><span class="p">),</span> 
-                                <span class="n">end_time</span><span class="o">=</span><span class="n">time</span><span class="p">(</span><span class="n">hour</span><span class="o">=</span><span class="mi">23</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="mi">30</span><span class="p">),</span> 
-                                <span class="n">instrument</span><span class="o">=</span><span class="n">instrument</span><span class="p">,</span> 
-                                <span class="n">lots</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                                <span class="n">strategy_parameters</span><span class="o">=</span><span class="p">{</span>
-                                    <span class="s1">'timeperiod1'</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
-                                    <span class="s1">'timeperiod2'</span><span class="p">:</span> <span class="mi">12</span>
-                                <span class="p">},</span> 
-                                <span class="n">candle_interval</span><span class="o">=</span><span class="n">CandleInterval</span><span class="o">.</span><span class="n">MINUTES_15</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">papertrade</span><span class="p">(</span><span class="n">strategy_code</span><span class="o">=</span><span class="n">strategy_code1</span><span class="p">,</span> 
+        <span class="n">start_time</span><span class="o">=</span><span class="n">time</span><span class="p">(</span><span class="n">hour</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="mi">15</span><span class="p">),</span> 
+        <span class="n">end_time</span><span class="o">=</span><span class="n">time</span><span class="p">(</span><span class="n">hour</span><span class="o">=</span><span class="mi">23</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="mi">30</span><span class="p">),</span> 
+        <span class="n">instrument</span><span class="o">=</span><span class="n">instrument</span><span class="p">,</span> 
+        <span class="n">lots</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">strategy_parameters</span><span class="o">=</span><span class="p">{</span>
+            <span class="s1">'timeperiod1'</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+            <span class="s1">'timeperiod2'</span><span class="p">:</span> <span class="mi">12</span>
+        <span class="p">},</span> 
+        <span class="n">candle_interval</span><span class="o">=</span><span class="n">CandleInterval</span><span class="o">.</span><span class="n">MINUTES_15</span><span class="p">)</span>
 </code></pre></div>
 </div>
 <input id="__tabbed_1_3" name="__tabbed_1" type="radio"><label for="__tabbed_1_3">Real Trading</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code>    <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">realtrade</span><span class="p">(</span><span class="n">strategy_code</span><span class="o">=</span><span class="n">strategy_code1</span><span class="p">,</span> 
-                               <span class="n">start_time</span><span class="o">=</span><span class="n">time</span><span class="p">(</span><span class="n">hour</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="mi">15</span><span class="p">),</span> 
-                               <span class="n">end_time</span><span class="o">=</span><span class="n">time</span><span class="p">(</span><span class="n">hour</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="mi">30</span><span class="p">),</span> 
-                               <span class="n">instrument</span><span class="o">=</span><span class="n">instrument</span><span class="p">,</span> 
-                               <span class="n">lots</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                               <span class="n">strategy_parameters</span><span class="o">=</span><span class="p">{</span>
-                                   <span class="s1">'timeperiod1'</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> 
-                                    <span class="s1">'timeperiod2'</span><span class="p">:</span> <span class="mi">12</span>
-                               <span class="p">},</span>
-                               <span class="n">candle_interval</span><span class="o">=</span><span class="n">CandleInterval</span><span class="o">.</span><span class="n">MINUTES_1</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">realtrade</span><span class="p">(</span><span class="n">strategy_code</span><span class="o">=</span><span class="n">strategy_code1</span><span class="p">,</span> 
+        <span class="n">start_time</span><span class="o">=</span><span class="n">time</span><span class="p">(</span><span class="n">hour</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="mi">15</span><span class="p">),</span> 
+        <span class="n">end_time</span><span class="o">=</span><span class="n">time</span><span class="p">(</span><span class="n">hour</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="mi">30</span><span class="p">),</span> 
+        <span class="n">instrument</span><span class="o">=</span><span class="n">instrument</span><span class="p">,</span> 
+        <span class="n">lots</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">strategy_parameters</span><span class="o">=</span><span class="p">{</span>
+           <span class="s1">'timeperiod1'</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> 
+            <span class="s1">'timeperiod2'</span><span class="p">:</span> <span class="mi">12</span>
+        <span class="p">},</span>
+        <span class="n">candle_interval</span><span class="o">=</span><span class="n">CandleInterval</span><span class="o">.</span><span class="n">MINUTES_1</span><span class="p">)</span>
 </code></pre></div>
 </div>
 </input></input></input></div>
 <h2 id="fetch-job-status">Fetch Job Status<a class="headerlink" href="#fetch-job-status" title="Permanent link">¶</a></h2>
 <hr/>
 <div class="tabbed-set" data-tabs="2:3"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio"><label for="__tabbed_2_1">Backtesting</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code>    <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_backtesting_job_status</span><span class="p">(</span><span class="n">strategy_code1</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_backtesting_job_status</span><span class="p">(</span><span class="n">strategy_code1</span><span class="p">)</span>
 </code></pre></div>
 </div>
 <input id="__tabbed_2_2" name="__tabbed_2" type="radio"><label for="__tabbed_2_2">Paper Trading</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code>    <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_papertrading_job_status</span><span class="p">(</span><span class="n">strategy_code1</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_papertrading_job_status</span><span class="p">(</span><span class="n">strategy_code1</span><span class="p">)</span>
 </code></pre></div>
 </div>
 <input id="__tabbed_2_3" name="__tabbed_2" type="radio"><label for="__tabbed_2_3">Real Trading</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code>    <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_realtrading_job_status</span><span class="p">(</span><span class="n">strategy_code</span><span class="o">=</span><span class="n">strategy_code1</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_realtrading_job_status</span><span class="p">(</span><span class="n">strategy_code</span><span class="o">=</span><span class="n">strategy_code1</span><span class="p">)</span>
 </code></pre></div>
 </div>
 </input></input></input></div>
@@ -472,15 +472,15 @@ Now display some instruments and select one of them.</p>
 <h2 id="stop-a-job">Stop a Job<a class="headerlink" href="#stop-a-job" title="Permanent link">¶</a></h2>
 <hr/>
 <div class="tabbed-set" data-tabs="3:3"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio"/><label for="__tabbed_3_1">Backtesting</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code>    <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">stop_backtesting_job</span><span class="p">(</span><span class="n">strategy_code1</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">stop_backtesting_job</span><span class="p">(</span><span class="n">strategy_code1</span><span class="p">)</span>
 </code></pre></div>
 </div>
 <input id="__tabbed_3_2" name="__tabbed_3" type="radio"/><label for="__tabbed_3_2">Paper Trading</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code>    <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">stop_papertrading_job</span><span class="p">(</span><span class="n">strategy_code1</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">stop_papertrading_job</span><span class="p">(</span><span class="n">strategy_code1</span><span class="p">)</span>
 </code></pre></div>
 </div>
 <input id="__tabbed_3_3" name="__tabbed_3" type="radio"/><label for="__tabbed_3_3">Real Trading</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code>    <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">stop_realtrading_job</span><span class="p">(</span><span class="n">strategy_code</span><span class="o">=</span><span class="n">strategy_code1</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">stop_realtrading_job</span><span class="p">(</span><span class="n">strategy_code</span><span class="o">=</span><span class="n">strategy_code1</span><span class="p">)</span>
 </code></pre></div>
 </div>
 </div>
@@ -488,40 +488,40 @@ Now display some instruments and select one of them.</p>
 <h2 id="fetch-logs-of-an-ongoingstoppedcompleted-job">Fetch logs of an ongoing/stopped/completed job<a class="headerlink" href="#fetch-logs-of-an-ongoingstoppedcompleted-job" title="Permanent link">¶</a></h2>
 <hr/>
 <div class="tabbed-set" data-tabs="4:3"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio"/><label for="__tabbed_4_1">Backtesting</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code>    <span class="n">logs</span> <span class="o">=</span> <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_backtesting_logs</span><span class="p">(</span><span class="n">strategy_code1</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">logs</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">logs</span> <span class="o">=</span> <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_backtesting_logs</span><span class="p">(</span><span class="n">strategy_code1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">logs</span><span class="p">)</span>
 </code></pre></div>
 </div>
 <input id="__tabbed_4_2" name="__tabbed_4" type="radio"/><label for="__tabbed_4_2">Paper Trading</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code>    <span class="n">logs</span> <span class="o">=</span> <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_papertrading_logs</span><span class="p">(</span><span class="n">strategy_code1</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">logs</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">logs</span> <span class="o">=</span> <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_papertrading_logs</span><span class="p">(</span><span class="n">strategy_code1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">logs</span><span class="p">)</span>
 </code></pre></div>
 </div>
 <input id="__tabbed_4_3" name="__tabbed_4" type="radio"/><label for="__tabbed_4_3">Real Trading</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code>    <span class="n">logs</span> <span class="o">=</span> <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_realtrading_logs</span><span class="p">(</span><span class="n">strategy_code</span><span class="o">=</span><span class="n">strategy_code1</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">logs</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">logs</span> <span class="o">=</span> <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_realtrading_logs</span><span class="p">(</span><span class="n">strategy_code</span><span class="o">=</span><span class="n">strategy_code1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">logs</span><span class="p">)</span>
 </code></pre></div>
 </div>
 </div>
 <p>You can fetch the PnL report, statistics and order history for a job.</p>
 <div class="tabbed-set" data-tabs="5:3"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio"/><label for="__tabbed_5_1">Backtesting</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code>    <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_backtesting_report_pnl_table</span><span class="p">(</span><span class="n">strategy_code1</span><span class="p">,</span> <span class="n">show_all_rows</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_backtesting_report_statistics</span><span class="p">(</span><span class="n">strategy_code1</span><span class="p">)</span>
-    <span class="n">order_history</span> <span class="o">=</span> <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_backtesting_report_order_history</span><span class="p">(</span><span class="n">strategy_code1</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">order_history</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_backtesting_report_pnl_table</span><span class="p">(</span><span class="n">strategy_code1</span><span class="p">,</span> <span class="n">show_all_rows</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_backtesting_report_statistics</span><span class="p">(</span><span class="n">strategy_code1</span><span class="p">)</span>
+<span class="n">order_history</span> <span class="o">=</span> <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_backtesting_report_order_history</span><span class="p">(</span><span class="n">strategy_code1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">order_history</span><span class="p">)</span>
 </code></pre></div>
 </div>
 <input id="__tabbed_5_2" name="__tabbed_5" type="radio"/><label for="__tabbed_5_2">Paper Trading</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code>    <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_papertrading_report_pnl_table</span><span class="p">(</span><span class="n">strategy_code1</span><span class="p">)</span>
-    <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_papertrading_report_statistics</span><span class="p">(</span><span class="n">strategy_code1</span><span class="p">)</span>
-    <span class="n">order_history</span> <span class="o">=</span> <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_papertrading_report_order_history</span><span class="p">(</span><span class="n">strategy_code1</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">order_history</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_papertrading_report_pnl_table</span><span class="p">(</span><span class="n">strategy_code1</span><span class="p">)</span>
+<span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_papertrading_report_statistics</span><span class="p">(</span><span class="n">strategy_code1</span><span class="p">)</span>
+<span class="n">order_history</span> <span class="o">=</span> <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_papertrading_report_order_history</span><span class="p">(</span><span class="n">strategy_code1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">order_history</span><span class="p">)</span>
 </code></pre></div>
 </div>
 <input id="__tabbed_5_3" name="__tabbed_5" type="radio"/><label for="__tabbed_5_3">Real Trading</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code>    <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_realtrading_report_pnl_table</span><span class="p">(</span><span class="n">strategy_code</span><span class="o">=</span><span class="n">strategy_code1</span><span class="p">)</span>
-    <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_realtrading_report_statistics</span><span class="p">(</span><span class="n">strategy_code</span><span class="o">=</span><span class="n">strategy_code1</span><span class="p">)</span>
-    <span class="c1"># order history is missing</span>
+<div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_realtrading_report_pnl_table</span><span class="p">(</span><span class="n">strategy_code</span><span class="o">=</span><span class="n">strategy_code1</span><span class="p">)</span>
+<span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_realtrading_report_statistics</span><span class="p">(</span><span class="n">strategy_code</span><span class="o">=</span><span class="n">strategy_code1</span><span class="p">)</span>
+<span class="c1"># order history is missing</span>
 </code></pre></div>
 </div>
 </div>
@@ -529,7 +529,7 @@ Now display some instruments and select one of them.</p>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="timeago" datetime="1596828978000" locale="en"></span>
+      Last update: <span class="timeago" datetime="1596831005000" locale="en"></span>
 </small>
 </div>
 <h2 id="__comments">Comments</h2>
