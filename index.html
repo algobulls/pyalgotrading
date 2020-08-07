@@ -25,7 +25,7 @@
 <input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
 <label class="md-overlay" for="__drawer"></label>
 <div data-md-component="skip">
-<a class="md-skip" href="#welcome-to-mkdocs">
+<a class="md-skip" href="#welcome-to-pyalgotrading-documentation">
           Skip to content
         </a>
 </div>
@@ -135,13 +135,8 @@
     </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#commands">
-    Commands
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#project-layout">
-    Project layout
+<a class="md-nav__link" href="#to-browse-the-source-docs-use-the-below-links">
+    To browse the source docs, use the below links
   </a>
 </li>
 </ul>
@@ -237,13 +232,8 @@
     </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#commands">
-    Commands
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#project-layout">
-    Project layout
+<a class="md-nav__link" href="#to-browse-the-source-docs-use-the-below-links">
+    To browse the source docs, use the below links
   </a>
 </li>
 </ul>
@@ -256,21 +246,89 @@
 <a class="md-content__button md-icon" href="https://github.com/algobulls/pyalgotrading/edit/master/docs/index.md" title="Edit this page">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
-<h1 id="welcome-to-mkdocs">Welcome to MkDocs<a class="headerlink" href="#welcome-to-mkdocs" title="Permanent link">¶</a></h1>
-<p>For full documentation visit <a href="https://www.mkdocs.org">mkdocs.org</a>.</p>
-<h2 id="commands">Commands<a class="headerlink" href="#commands" title="Permanent link">¶</a></h2>
+<h1 id="welcome-to-pyalgotrading-documentation">Welcome to <code>pyalgotrading</code> Documentation!<a class="headerlink" href="#welcome-to-pyalgotrading-documentation" title="Permanent link">¶</a></h1>
+<h3 id="to-browse-the-source-docs-use-the-below-links">To browse the source docs, use the below links<a class="headerlink" href="#to-browse-the-source-docs-use-the-below-links" title="Permanent link">¶</a></h3>
 <ul>
-<li><code>mkdocs new [dir-name]</code> - Create a new project.</li>
-<li><code>mkdocs serve</code> - Start the live-reloading docs server.</li>
-<li><code>mkdocs build</code> - Build the documentation site.</li>
-<li><code>mkdocs -h</code> - Print help message and exit.</li>
+<li>Packages<ul>
+<li><a href="package_algobulls.md">algobulls</a>/</li>
+<li><a href="package_broker.md">broker</a>/</li>
+<li><a href="package_instrument.md">instrument</a>/</li>
+<li><a href="package_order.md">order</a>/</li>
+<li><a href="package_strategy.md">strategy</a>/</li>
+<li><a href="package_utils.md">utils</a>/</li>
 </ul>
-<h2 id="project-layout">Project layout<a class="headerlink" href="#project-layout" title="Permanent link">¶</a></h2>
-<div class="codehilite"><pre><span></span><code><span class="err">mkdocs.yml    # The configuration file.</span>
-<span class="err">docs/</span>
-<span class="err">    index.md  # The documentation homepage.</span>
-<span class="err">    ...       # Other markdown pages, images and other files.</span>
-</code></pre></div>
+</li>
+<li>Modules:<ul>
+<li><a href="module_constants.md">constants</a></li>
+</ul>
+</li>
+</ul>
+<hr/>
+<h1 id="pyalgotrading">pyalgotrading<a class="headerlink" href="#pyalgotrading" title="Permanent link">¶</a></h1>
+<p>Official Python Package for Algorithmic Trading APIs powered by AlgoBulls!</p>
+<h3 id="features">Features<a class="headerlink" href="#features" title="Permanent link">¶</a></h3>
+<ul>
+<li>Powered by the <a href="https://algobulls.com">AlgoBulls Platform</a></li>
+<li>Everything related to Algorithmic Trading Strategies!<ul>
+<li>Create &amp; upload strategies on the <a href="https://algobulls.com">AlgoBulls Platform</a></li>
+<li>Free pool of Strategies are available separately at <a href="https://github.com/algobulls/pyalgostrategypool">pyalgostrategypool</a>!</li>
+<li>Support for all 150+ Technical Indicators provided by <a href="https://mrjbq7.github.io/ta-lib/index.html">TA-Lib</a></li>
+<li>Support for multiple candlesticks patterns - Japanese OHLC, Renko, Heikin-Ashi, Linebreak</li>
+<li>Support for multiple candle inntervals - 1 minute, 3 minutes, 5 minutes, 10 minutes, 15 minutes, 30 minutes, 1 hour, 1 day. </li>
+<li>Support for <strong>Regular Orders</strong> and <strong>Bracket Orders</strong></li>
+<li>Support for <strong>MARKET</strong>, <strong>LIMIT</strong>, <strong>STOPLOSS</strong>, <strong>STOPLOSS-LIMIT</strong> orders</li>
+<li>Support for <strong>INTRADAY</strong> and <strong>DELIVERY</strong> orders</li>
+</ul>
+</li>
+<li>Support for <strong>Backtesting</strong></li>
+<li>Support for <strong>Paper Trading</strong></li>
+<li>Support for <strong>Real Trading</strong></li>
+<li>Support for multiple brokers for Real Trading <ul>
+<li>Currently supported brokers - Zerodha </li>
+<li>Coming soon - AliceBlue, Mastertrust</li>
+<li>More on the way!</li>
+</ul>
+</li>
+<li>Real-time Logs for Backtesting, Paper Trading, Real Trading</li>
+<li>Multiple real-time Reports available for Backtesting, Paper Trading and Real Trading - <ul>
+<li>Profit-n-Loss report (PnL report)</li>
+<li>Statistics of (PnL report)</li>
+<li>Order History for each order with state transitions &amp; timestamps</li>
+</ul>
+</li>
+<li>Plot Candlestick charts using <a href="https://github.com/plotly/plotly.py">plotly.py</a></li>
+</ul>
+<p>Backtesting, Paper Trading and Real Trading can be performed on the same strategy code base!</p>
+<h3 id="documentation">Documentation<a class="headerlink" href="#documentation" title="Permanent link">¶</a></h3>
+<p>You can find the docs <a href="https://algobulls.github.io/pyalgotrading/">here</a>.</p>
+<h3 id="python">Python<a class="headerlink" href="#python" title="Permanent link">¶</a></h3>
+<ul>
+<li>Python Support: <code>Python 3.6+</code>.</li>
+<li>Python Requirements: See <a href="https://github.com/algobulls/pyalgotrading/blob/master/requirements.txt">requirements.txt</a>.</li>
+<li>We recommend you to use the latest version of Python (v3.8+) to enjoy better performance benefits, especially for pandas. (For Python 3.6, the latest supported Pandas version is v0.25.3. For Python 3.8, the latest supported version is v1.0.x)</li>
+</ul>
+<h3 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">¶</a></h3>
+<p>Package can be easily installed using <code>pip</code> - 
+<div class="highlight"><pre><span></span><code>pip install pyalgotrading
+</code></pre></div></p>
+<h3 id="support-getting-help">Support / Getting Help<a class="headerlink" href="#support-getting-help" title="Permanent link">¶</a></h3>
+<ul>
+<li><em>Bug Reporting / New Feature Request</em>: Please <a href="https://github.com/algobulls/pyalgotrading/issues/new">create a new issue</a> here on GitHub.</li>
+<li><em>Discussion Forum</em>: Coming Soon!</li>
+<li><em>Additional Support</em>: If none of the above help, please contact <a href="mailto:pushpak@algobulls.com">pushpak@algobulls.com</a>.</li>
+</ul>
+<h3 id="contribution-guidelines">Contribution Guidelines<a class="headerlink" href="#contribution-guidelines" title="Permanent link">¶</a></h3>
+<p>Here’s how we suggest you go about proposing a change to this project:</p>
+<ol>
+<li><a href="https://help.github.com/articles/fork-a-repo/">Fork this project</a> to your account.</li>
+<li><a href="https://help.github.com/articles/creating-and-deleting-branches-within-your-repository">Create a branch</a> for the change you intend to make.</li>
+<li>Make your changes to your fork.</li>
+<li><a href="https://help.github.com/articles/using-pull-requests/">Send a pull request</a> from your fork’s branch to our <code>master</code> branch.</li>
+</ol>
+<h3 id="changelog">Changelog<a class="headerlink" href="#changelog" title="Permanent link">¶</a></h3>
+<p>See <a href="https://github.com/algobulls/pyalgotrading/blob/master/CHANGELOG.md">CHANGELOG.md</a>.</p>
+<h3 id="license">License<a class="headerlink" href="#license" title="Permanent link">¶</a></h3>
+<p>See <a href="https://github.com/algobulls/pyalgotrading/blob/master/LICENSE">LICENSE</a>.</p>
 <hr/>
 <div class="md-source-date">
 <small>
