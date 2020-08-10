@@ -58,7 +58,7 @@ Here’s how we suggest you go about proposing a change to this project:
 3. Make your changes to your fork.
 4. [Send a pull request][pr] from your fork’s branch to our `master` branch.
 
-#### Rewards
+### Rewards
 If you are interested in contributing to [pyalgostrategypool](https://github.com/algobulls/pyalgostrategypool), our official pool of FREE algorithmic trading strategies, please reach out to support@algobulls.com.
 You would be provided with credits for unlimited trading access on the AlgoBulls platform.
 
