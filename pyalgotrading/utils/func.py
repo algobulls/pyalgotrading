@@ -37,8 +37,8 @@ def import_with_install(package_import_name, package_install_name=None, dependan
         return __import__(package_import_name)
 
 
-def plot_candlesticks_chart(data: pd.DataFrame, plot_type: PlotType, caption: str = '', hide_missing_dates: bool = False, show: bool = True, indicators: tuple = (), plot_indicators_separately: bool = False, plot_height: int = 500,
-                            plot_width: int = 1000):
+def plot_candlestick_chart(data: pd.DataFrame, plot_type: PlotType, caption: str = '', hide_missing_dates: bool = False, show: bool = True, indicators: tuple = (), plot_indicators_separately: bool = False, plot_height: int = 500,
+                           plot_width: int = 1000):
     """
     Function to create charts for various candlesticks pattern data -
         - Japanese
