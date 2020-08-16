@@ -12,6 +12,7 @@ from ..constants import StrategyMode, TradingType, TradingReportType, CandleInte
 from ..strategy.strategy_base import StrategyBase
 
 
+
 class AlgoBullsConnection:
     """
     Class for AlgoBulls connection
@@ -513,7 +514,16 @@ class AlgoBullsConnection:
         # assert (isinstance(broker, AlgoBullsSupportedBrokers) is True), f'Argument broker should be an enum of type {AlgoBullsSupportedBrokers.__name__}'
         assert (isinstance(strategy_code, str) is True), f'Argument "strategy_code" should be a string'
 
-        return self.get_report(strategy_code=strategy_code, trading_type=TradingType.REALTRADING, report_type=TradingReportType.PNL_TABLE, render_as_dataframe=True, show_all_rows=show_all_rows)
+        report = self.get_report(strategy_code=strategy_code, trading_type=TradingType.REALTRADING, report_type=TradingReportType.PNL_TABLE, render_as_dataframe=True, show_all_rows=show_all_rows)
+        if isinstance(report, pd.DataFrame):
+            # To avoid warnings thrown by pandas while adding columns to pnl table. Taken from here: https://stackoverflow.com/a/20627316/565595
+            pd.options.mode.chained_assignment = None  # default='warn'
+
+            _ = report[::-1]        # Reverse the list first as list is in descending order, by timestamp
+            _['pnl_cumulative_absolute'] = pd.to_numeric(_['pnl_absolute']).cumsum()
+            _['pnl_cumulative_percentage'] = _['pnl_cumulative_absolute']/pd.to_numeric(_['entry_price'])/pd.to_numeric(_['exit_quantity'])
+            report = _[::-1]        # Reverse the list to original order
+        return report
 
     def get_realtrading_report_statistics(self, strategy_code):
         """
