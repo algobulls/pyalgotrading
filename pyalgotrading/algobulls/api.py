@@ -138,10 +138,16 @@ class AlgoBullsAPI:
         Info: ENDPOINT
             `POST` v2/user/strategy/build/python
         """
-        json_data = {'strategyName': strategy_name, 'strategyDetails': strategy_details, 'abcVersion': abc_version}
-        endpoint = f'v2/user/strategy/build/python'
-        response = self._send_request(endpoint=endpoint, method='post', json_data=json_data)
-        return response
+        try:
+            json_data = {'strategyName': strategy_name, 'strategyDetails': strategy_details, 'abcVersion': abc_version}
+            endpoint = f'v2/user/strategy/build/python'
+            print(f'Uploading strategy {strategy_name} ...', end=' ')
+            response = self._send_request(endpoint=endpoint, method='post', json_data=json_data)
+            print('Success.')
+            return response
+        except AlgoBullsAPIForbiddenError as ex:
+            print('Fail.')
+            print(f'{ex.get_error_type()}: {ex.response}')
 
     def update_strategy(self, strategy_name: str, strategy_details: str, abc_version: str) -> dict:
         """
