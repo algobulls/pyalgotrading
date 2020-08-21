@@ -71,16 +71,10 @@ class AlgoBullsConnection:
         strategy_details = inspect.getsource(strategy)
         abc_version = strategy.versions_supported().value
 
-        # If strategy code is None, create a new strategy object
-        try:
+        if overwrite is False:
             response = self.api.create_strategy(strategy_name=strategy_name, strategy_details=strategy_details, abc_version=abc_version)
-        except (AlgoBullsAPIBadRequest, AlgoBullsAPIForbiddenError) as ex:
-            if overwrite is True:
-                # If strategy code is available, update the existing strategy
-                response = self.api.update_strategy(strategy_name=strategy_name, strategy_details=strategy_details, abc_version=abc_version)
-            else:
-                print(f'Error uploading strategy. Details:\n{ex}')
-                return
+        else:
+            response = self.api.update_strategy(strategy_name=strategy_name, strategy_details=strategy_details, abc_version=abc_version)
 
         return response
 
