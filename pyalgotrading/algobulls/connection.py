@@ -7,7 +7,7 @@ from datetime import datetime as dt, time
 import pandas as pd
 
 from .api import AlgoBullsAPI
-from .exceptions import AlgoBullsAPIBadRequest
+from .exceptions import AlgoBullsAPIBadRequest, AlgoBullsAPIForbiddenError
 from ..constants import StrategyMode, TradingType, TradingReportType, CandleInterval
 from ..strategy.strategy_base import StrategyBase
 
@@ -74,7 +74,7 @@ class AlgoBullsConnection:
         # If strategy code is None, create a new strategy object
         try:
             response = self.api.create_strategy(strategy_name=strategy_name, strategy_details=strategy_details, abc_version=abc_version)
-        except AlgoBullsAPIBadRequest as ex:
+        except (AlgoBullsAPIBadRequest, AlgoBullsAPIForbiddenError) as ex:
             if overwrite is True:
                 # If strategy code is available, update the existing strategy
                 response = self.api.update_strategy(strategy_name=strategy_name, strategy_details=strategy_details, abc_version=abc_version)
