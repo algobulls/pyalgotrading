@@ -1047,7 +1047,13 @@ create_strategy<span class="p">(</span><span class="bp">self</span><span class="
 141
 142
 143
-144</pre>
+144
+145
+146
+147
+148
+149
+150</pre>
 </div>
 </td>
 <td class="code">
@@ -1070,10 +1076,16 @@ create_strategy<span class="p">(</span><span class="bp">self</span><span class="
 <span class="sd">    Info: ENDPOINT</span>
 <span class="sd">        `POST` v2/user/strategy/build/python</span>
 <span class="sd">    """</span>
-    <span class="n">json_data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'strategyName'</span><span class="p">:</span> <span class="n">strategy_name</span><span class="p">,</span> <span class="s1">'strategyDetails'</span><span class="p">:</span> <span class="n">strategy_details</span><span class="p">,</span> <span class="s1">'abcVersion'</span><span class="p">:</span> <span class="n">abc_version</span><span class="p">}</span>
-    <span class="n">endpoint</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">'v2/user/strategy/build/python'</span>
-    <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_send_request</span><span class="p">(</span><span class="n">endpoint</span><span class="o">=</span><span class="n">endpoint</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">'post'</span><span class="p">,</span> <span class="n">json_data</span><span class="o">=</span><span class="n">json_data</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">response</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">json_data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'strategyName'</span><span class="p">:</span> <span class="n">strategy_name</span><span class="p">,</span> <span class="s1">'strategyDetails'</span><span class="p">:</span> <span class="n">strategy_details</span><span class="p">,</span> <span class="s1">'abcVersion'</span><span class="p">:</span> <span class="n">abc_version</span><span class="p">}</span>
+        <span class="n">endpoint</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">'v2/user/strategy/build/python'</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Uploading strategy '</span><span class="si">{</span><span class="n">strategy_name</span><span class="si">}</span><span class="s2">' ..."</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">' '</span><span class="p">)</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_send_request</span><span class="p">(</span><span class="n">endpoint</span><span class="o">=</span><span class="n">endpoint</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">'post'</span><span class="p">,</span> <span class="n">json_data</span><span class="o">=</span><span class="n">json_data</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">'Success.'</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">response</span>
+    <span class="k">except</span> <span class="p">(</span><span class="n">AlgoBullsAPIForbiddenError</span><span class="p">,</span> <span class="n">AlgoBullsAPIInsufficientBalanceError</span><span class="p">)</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">'Fail.'</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">ex</span><span class="o">.</span><span class="n">get_error_type</span><span class="p">()</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">ex</span><span class="o">.</span><span class="n">response</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
 </code></pre>
 </div>
 </td>
@@ -1116,19 +1128,19 @@ get_all_strategies<span class="p">(</span><span class="bp">self</span><span clas
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>166
-167
-168
-169
-170
-171
-172
+<pre><span></span>172
 173
 174
 175
 176
 177
-178</pre>
+178
+179
+180
+181
+182
+183
+184</pre>
 </div>
 </td>
 <td class="code">
@@ -1217,13 +1229,7 @@ get_job_status<span class="p">(</span><span class="bp">self</span><span class="p
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>293
-294
-295
-296
-297
-298
-299
+<pre><span></span>299
 300
 301
 302
@@ -1237,7 +1243,13 @@ get_job_status<span class="p">(</span><span class="bp">self</span><span class="p
 310
 311
 312
-313</pre>
+313
+314
+315
+316
+317
+318
+319</pre>
 </div>
 </td>
 <td class="code">
@@ -1342,13 +1354,7 @@ get_reports<span class="p">(</span><span class="bp">self</span><span class="p">,
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>322
-323
-324
-325
-326
-327
-328
+<pre><span></span>328
 329
 330
 331
@@ -1369,7 +1375,13 @@ get_reports<span class="p">(</span><span class="bp">self</span><span class="p">,
 346
 347
 348
-349</pre>
+349
+350
+351
+352
+353
+354
+355</pre>
 </div>
 </td>
 <td class="code">
@@ -1465,13 +1477,7 @@ get_strategy_details<span class="p">(</span><span class="bp">self</span><span cl
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>180
-181
-182
-183
-184
-185
-186
+<pre><span></span>186
 187
 188
 189
@@ -1481,7 +1487,13 @@ get_strategy_details<span class="p">(</span><span class="bp">self</span><span cl
 193
 194
 195
-196</pre>
+196
+197
+198
+199
+200
+201
+202</pre>
 </div>
 </td>
 <td class="code">
@@ -1565,13 +1577,7 @@ search_instrument<span class="p">(</span><span class="bp">self</span><span class
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>198
-199
-200
-201
-202
-203
-204
+<pre><span></span>204
 205
 206
 207
@@ -1581,7 +1587,13 @@ search_instrument<span class="p">(</span><span class="bp">self</span><span class
 211
 212
 213
-214</pre>
+214
+215
+216
+217
+218
+219
+220</pre>
 </div>
 </td>
 <td class="code">
@@ -1746,13 +1758,7 @@ set_strategy_config<span class="p">(</span><span class="bp">self</span><span cla
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>216
-217
-218
-219
-220
-221
-222
+<pre><span></span>222
 223
 224
 225
@@ -1767,7 +1773,13 @@ set_strategy_config<span class="p">(</span><span class="bp">self</span><span cla
 234
 235
 236
-237</pre>
+237
+238
+239
+240
+241
+242
+243</pre>
 </div>
 </td>
 <td class="code">
@@ -1819,13 +1831,7 @@ start_strategy_algotrading<span class="p">(</span><span class="bp">self</span><s
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>239
-240
-241
-242
-243
-244
-245
+<pre><span></span>245
 246
 247
 248
@@ -1844,7 +1850,13 @@ start_strategy_algotrading<span class="p">(</span><span class="bp">self</span><s
 261
 262
 263
-264</pre>
+264
+265
+266
+267
+268
+269
+270</pre>
 </div>
 </td>
 <td class="code">
@@ -1900,13 +1912,7 @@ stop_strategy_algotrading<span class="p">(</span><span class="bp">self</span><sp
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>266
-267
-268
-269
-270
-271
-272
+<pre><span></span>272
 273
 274
 275
@@ -1925,7 +1931,13 @@ stop_strategy_algotrading<span class="p">(</span><span class="bp">self</span><sp
 288
 289
 290
-291</pre>
+291
+292
+293
+294
+295
+296
+297</pre>
 </div>
 </td>
 <td class="code">
@@ -2035,13 +2047,7 @@ update_strategy<span class="p">(</span><span class="bp">self</span><span class="
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>146
-147
-148
-149
-150
-151
-152
+<pre><span></span>152
 153
 154
 155
@@ -2053,7 +2059,13 @@ update_strategy<span class="p">(</span><span class="bp">self</span><span class="
 161
 162
 163
-164</pre>
+164
+165
+166
+167
+168
+169
+170</pre>
 </div>
 </td>
 <td class="code">
@@ -2121,11 +2133,11 @@ __init__<span class="p">(</span><span class="bp">self</span><span class="p">)</s
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>20
-21
+<pre><span></span>21
 22
 23
-24</pre>
+24
+25</pre>
 </div>
 </td>
 <td class="code">
@@ -2250,7 +2262,12 @@ backtest<span class="p">(</span><span class="bp">self</span><span class="p">,</s
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>204
+<pre><span></span>199
+200
+201
+202
+203
+204
 205
 206
 207
@@ -2282,12 +2299,7 @@ backtest<span class="p">(</span><span class="bp">self</span><span class="p">,</s
 233
 234
 235
-236
-237
-238
-239
-240
-241</pre>
+236</pre>
 </div>
 </td>
 <td class="code">
@@ -2357,8 +2369,7 @@ If overwrite is True,
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>49
-50
+<pre><span></span>50
 51
 52
 53
@@ -2387,12 +2398,7 @@ If overwrite is True,
 76
 77
 78
-79
-80
-81
-82
-83
-84</pre>
+79</pre>
 </div>
 </td>
 <td class="code">
@@ -2421,16 +2427,10 @@ If overwrite is True,
     <span class="n">strategy_details</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getsource</span><span class="p">(</span><span class="n">strategy</span><span class="p">)</span>
     <span class="n">abc_version</span> <span class="o">=</span> <span class="n">strategy</span><span class="o">.</span><span class="n">versions_supported</span><span class="p">()</span><span class="o">.</span><span class="n">value</span>
 
-    <span class="c1"># If strategy code is None, create a new strategy object</span>
-    <span class="k">try</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">overwrite</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
         <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">create_strategy</span><span class="p">(</span><span class="n">strategy_name</span><span class="o">=</span><span class="n">strategy_name</span><span class="p">,</span> <span class="n">strategy_details</span><span class="o">=</span><span class="n">strategy_details</span><span class="p">,</span> <span class="n">abc_version</span><span class="o">=</span><span class="n">abc_version</span><span class="p">)</span>
-    <span class="k">except</span> <span class="n">AlgoBullsAPIBadRequest</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">overwrite</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
-            <span class="c1"># If strategy code is available, update the existing strategy</span>
-            <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">update_strategy</span><span class="p">(</span><span class="n">strategy_name</span><span class="o">=</span><span class="n">strategy_name</span><span class="p">,</span> <span class="n">strategy_details</span><span class="o">=</span><span class="n">strategy_details</span><span class="p">,</span> <span class="n">abc_version</span><span class="o">=</span><span class="n">abc_version</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Error uploading strategy. Details:</span><span class="se">\n</span><span class="si">{</span><span class="n">ex</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
-            <span class="k">return</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">update_strategy</span><span class="p">(</span><span class="n">strategy_name</span><span class="o">=</span><span class="n">strategy_name</span><span class="p">,</span> <span class="n">strategy_details</span><span class="o">=</span><span class="n">strategy_details</span><span class="p">,</span> <span class="n">abc_version</span><span class="o">=</span><span class="n">abc_version</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">response</span>
 </code></pre>
@@ -2471,17 +2471,17 @@ get_all_strategies<span class="p">(</span><span class="bp">self</span><span clas
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>86
+<pre><span></span>81
+82
+83
+84
+85
+86
 87
 88
 89
 90
-91
-92
-93
-94
-95
-96</pre>
+91</pre>
 </div>
 </td>
 <td class="code">
@@ -2538,8 +2538,7 @@ get_authorization_url<span class="p">()</span> </code>
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>26
-27
+<pre><span></span>27
 28
 29
 30
@@ -2547,7 +2546,8 @@ get_authorization_url<span class="p">()</span> </code>
 32
 33
 34
-35</pre>
+35
+36</pre>
 </div>
 </td>
 <td class="code">
@@ -2583,12 +2583,12 @@ get_backtesting_job_status<span class="p">(</span><span class="bp">self</span><s
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>243
-244
-245
-246
-247
-248</pre>
+<pre><span></span>238
+239
+240
+241
+242
+243</pre>
 </div>
 </td>
 <td class="code">
@@ -2656,17 +2656,17 @@ get_backtesting_logs<span class="p">(</span><span class="bp">self</span><span cl
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>262
+<pre><span></span>257
+258
+259
+260
+261
+262
 263
 264
 265
 266
-267
-268
-269
-270
-271
-272</pre>
+267</pre>
 </div>
 </td>
 <td class="code">
@@ -2741,17 +2741,17 @@ get_backtesting_report_order_history<span class="p">(</span><span class="bp">sel
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>299
+<pre><span></span>294
+295
+296
+297
+298
+299
 300
 301
 302
 303
-304
-305
-306
-307
-308
-309</pre>
+304</pre>
 </div>
 </td>
 <td class="code">
@@ -2834,18 +2834,18 @@ get_backtesting_report_pnl_table<span class="p">(</span><span class="bp">self</s
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>274
+<pre><span></span>269
+270
+271
+272
+273
+274
 275
 276
 277
 278
 279
-280
-281
-282
-283
-284
-285</pre>
+280</pre>
 </div>
 </td>
 <td class="code">
@@ -2921,17 +2921,17 @@ get_backtesting_report_statistics<span class="p">(</span><span class="bp">self</
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>287
+<pre><span></span>282
+283
+284
+285
+286
+287
 288
 289
 290
 291
-292
-293
-294
-295
-296
-297</pre>
+292</pre>
 </div>
 </td>
 <td class="code">
@@ -2968,15 +2968,15 @@ get_job_status<span class="p">(</span><span class="bp">self</span><span class="p
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>129
+<pre><span></span>124
+125
+126
+127
+128
+129
 130
 131
-132
-133
-134
-135
-136
-137</pre>
+132</pre>
 </div>
 </td>
 <td class="code">
@@ -3057,7 +3057,12 @@ get_logs<span class="p">(</span><span class="bp">self</span><span class="p">,</s
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>154
+<pre><span></span>149
+150
+151
+152
+153
+154
 155
 156
 157
@@ -3066,12 +3071,7 @@ get_logs<span class="p">(</span><span class="bp">self</span><span class="p">,</s
 160
 161
 162
-163
-164
-165
-166
-167
-168</pre>
+163</pre>
 </div>
 </td>
 <td class="code">
@@ -3148,17 +3148,17 @@ get_papertrading_job_status<span class="p">(</span><span class="bp">self</span><
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>349
+<pre><span></span>344
+345
+346
+347
+348
+349
 350
 351
 352
 353
-354
-355
-356
-357
-358
-359</pre>
+354</pre>
 </div>
 </td>
 <td class="code">
@@ -3233,17 +3233,17 @@ get_papertrading_logs<span class="p">(</span><span class="bp">self</span><span c
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>373
+<pre><span></span>368
+369
+370
+371
+372
+373
 374
 375
 376
 377
-378
-379
-380
-381
-382
-383</pre>
+378</pre>
 </div>
 </td>
 <td class="code">
@@ -3318,17 +3318,17 @@ get_papertrading_report_order_history<span class="p">(</span><span class="bp">se
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>410
+<pre><span></span>405
+406
+407
+408
+409
+410
 411
 412
 413
 414
-415
-416
-417
-418
-419
-420</pre>
+415</pre>
 </div>
 </td>
 <td class="code">
@@ -3411,18 +3411,18 @@ get_papertrading_report_pnl_table<span class="p">(</span><span class="bp">self</
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>385
+<pre><span></span>380
+381
+382
+383
+384
+385
 386
 387
 388
 389
 390
-391
-392
-393
-394
-395
-396</pre>
+391</pre>
 </div>
 </td>
 <td class="code">
@@ -3498,17 +3498,17 @@ get_papertrading_report_statistics<span class="p">(</span><span class="bp">self<
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>398
+<pre><span></span>393
+394
+395
+396
+397
+398
 399
 400
 401
 402
-403
-404
-405
-406
-407
-408</pre>
+403</pre>
 </div>
 </td>
 <td class="code">
@@ -3583,19 +3583,19 @@ get_realtrading_job_status<span class="p">(</span><span class="bp">self</span><s
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>461
+<pre><span></span>456
+457
+458
+459
+460
+461
 462
 463
 464
 465
 466
 467
-468
-469
-470
-471
-472
-473</pre>
+468</pre>
 </div>
 </td>
 <td class="code">
@@ -3672,19 +3672,19 @@ get_realtrading_logs<span class="p">(</span><span class="bp">self</span><span cl
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>488
+<pre><span></span>483
+484
+485
+486
+487
+488
 489
 490
 491
 492
 493
 494
-495
-496
-497
-498
-499
-500</pre>
+495</pre>
 </div>
 </td>
 <td class="code">
@@ -3769,20 +3769,20 @@ get_realtrading_report_order_history<span class="p">(</span><span class="bp">sel
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>533
+<pre><span></span>527
+528
+529
+530
+531
+532
+533
 534
 535
 536
 537
 538
 539
-540
-541
-542
-543
-544
-545
-546</pre>
+540</pre>
 </div>
 </td>
 <td class="code">
@@ -3876,7 +3876,12 @@ get_realtrading_report_pnl_table<span class="p">(</span><span class="bp">self</s
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>502
+<pre><span></span>497
+498
+499
+500
+501
+502
 503
 504
 505
@@ -3884,13 +3889,7 @@ get_realtrading_report_pnl_table<span class="p">(</span><span class="bp">self</s
 507
 508
 509
-510
-511
-512
-513
-514
-515
-516</pre>
+510</pre>
 </div>
 </td>
 <td class="code">
@@ -3908,7 +3907,6 @@ get_realtrading_report_pnl_table<span class="p">(</span><span class="bp">self</s
 <span class="sd">    """</span>
     <span class="c1"># assert (isinstance(broker, AlgoBullsSupportedBrokers) is True), f'Argument broker should be an enum of type {AlgoBullsSupportedBrokers.__name__}'</span>
     <span class="k">assert</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">strategy_code</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">),</span> <span class="sa">f</span><span class="s1">'Argument "strategy_code" should be a string'</span>
-
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_report</span><span class="p">(</span><span class="n">strategy_code</span><span class="o">=</span><span class="n">strategy_code</span><span class="p">,</span> <span class="n">trading_type</span><span class="o">=</span><span class="n">TradingType</span><span class="o">.</span><span class="n">REALTRADING</span><span class="p">,</span> <span class="n">report_type</span><span class="o">=</span><span class="n">TradingReportType</span><span class="o">.</span><span class="n">PNL_TABLE</span><span class="p">,</span> <span class="n">render_as_dataframe</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">show_all_rows</span><span class="o">=</span><span class="n">show_all_rows</span><span class="p">)</span>
 </code></pre>
 </div>
@@ -3977,20 +3975,20 @@ get_realtrading_report_statistics<span class="p">(</span><span class="bp">self</
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>518
+<pre><span></span>512
+513
+514
+515
+516
+517
+518
 519
 520
 521
 522
 523
 524
-525
-526
-527
-528
-529
-530
-531</pre>
+525</pre>
 </div>
 </td>
 <td class="code">
@@ -4100,7 +4098,12 @@ get_report<span class="p">(</span><span class="bp">self</span><span class="p">,<
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>170
+<pre><span></span>165
+166
+167
+168
+169
+170
 171
 172
 173
@@ -4126,12 +4129,7 @@ get_report<span class="p">(</span><span class="bp">self</span><span class="p">,<
 193
 194
 195
-196
-197
-198
-199
-200
-201</pre>
+196</pre>
 </div>
 </td>
 <td class="code">
@@ -4227,7 +4225,12 @@ get_strategy_details<span class="p">(</span><span class="bp">self</span><span cl
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span> 98
+<pre><span></span> 93
+ 94
+ 95
+ 96
+ 97
+ 98
  99
 100
 101
@@ -4238,12 +4241,7 @@ get_strategy_details<span class="p">(</span><span class="bp">self</span><span cl
 106
 107
 108
-109
-110
-111
-112
-113
-114</pre>
+109</pre>
 </div>
 </td>
 <td class="code">
@@ -4380,7 +4378,12 @@ papertrade<span class="p">(</span><span class="bp">self</span><span class="p">,<
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>311
+<pre><span></span>306
+307
+308
+309
+310
+311
 312
 313
 314
@@ -4411,12 +4414,7 @@ papertrade<span class="p">(</span><span class="bp">self</span><span class="p">,<
 339
 340
 341
-342
-343
-344
-345
-346
-347</pre>
+342</pre>
 </div>
 </td>
 <td class="code">
@@ -4573,7 +4571,12 @@ realtrade<span class="p">(</span><span class="bp">self</span><span class="p">,</
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>422
+<pre><span></span>417
+418
+419
+420
+421
+422
 423
 424
 425
@@ -4605,12 +4608,7 @@ realtrade<span class="p">(</span><span class="bp">self</span><span class="p">,</
 451
 452
 453
-454
-455
-456
-457
-458
-459</pre>
+454</pre>
 </div>
 </td>
 <td class="code">
@@ -4712,18 +4710,18 @@ search_instrument<span class="p">(</span><span class="bp">self</span><span class
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>116
+<pre><span></span>111
+112
+113
+114
+115
+116
 117
 118
 119
 120
 121
-122
-123
-124
-125
-126
-127</pre>
+122</pre>
 </div>
 </td>
 <td class="code">
@@ -4799,8 +4797,7 @@ set_access_token<span class="p">(</span><span class="bp">self</span><span class=
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>37
-38
+<pre><span></span>38
 39
 40
 41
@@ -4809,7 +4806,8 @@ set_access_token<span class="p">(</span><span class="bp">self</span><span class=
 44
 45
 46
-47</pre>
+47
+48</pre>
 </div>
 </td>
 <td class="code">
@@ -4884,17 +4882,17 @@ stop_backtesting_job<span class="p">(</span><span class="bp">self</span><span cl
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>250
+<pre><span></span>245
+246
+247
+248
+249
+250
 251
 252
 253
 254
-255
-256
-257
-258
-259
-260</pre>
+255</pre>
 </div>
 </td>
 <td class="code">
@@ -4977,7 +4975,12 @@ stop_job<span class="p">(</span><span class="bp">self</span><span class="p">,</s
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>139
+<pre><span></span>134
+135
+136
+137
+138
+139
 140
 141
 142
@@ -4985,12 +4988,7 @@ stop_job<span class="p">(</span><span class="bp">self</span><span class="p">,</s
 144
 145
 146
-147
-148
-149
-150
-151
-152</pre>
+147</pre>
 </div>
 </td>
 <td class="code">
@@ -5068,17 +5066,17 @@ stop_papertrading_job<span class="p">(</span><span class="bp">self</span><span c
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>361
+<pre><span></span>356
+357
+358
+359
+360
+361
 362
 363
 364
 365
-366
-367
-368
-369
-370
-371</pre>
+366</pre>
 </div>
 </td>
 <td class="code">
@@ -5153,18 +5151,18 @@ stop_realtrading_job<span class="p">(</span><span class="bp">self</span><span cl
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>475
+<pre><span></span>470
+471
+472
+473
+474
+475
 476
 477
 478
 479
 480
-481
-482
-483
-484
-485
-486</pre>
+481</pre>
 </div>
 </td>
 <td class="code">
@@ -5205,16 +5203,16 @@ pandas_dataframe_all_rows<span class="p">()</span> </code>
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>549
+<pre><span></span>543
+544
+545
+546
+547
+548
+549
 550
 551
-552
-553
-554
-555
-556
-557
-558</pre>
+552</pre>
 </div>
 </td>
 <td class="code">
