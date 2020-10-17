@@ -6,7 +6,7 @@
 site_name: pyalgotrading
 site_description: Official Python Package for Algorithmic Trading APIs powered by AlgoBulls
 site_author: Pushpak Dagade (pushpak@algobulls.com)
-site_url: https://pyalgotrading.readthedocs.io/en/latest/
+site_url: https://algobulls.github.io/pyalgotrading/
 
 # GitHub Repo information
 repo_url: https://github.com/algobulls/pyalgotrading
@@ -28,7 +28,14 @@ copyright: Copyright © 2020 | All Rights Reserved | AlgoBulls Technologies Priv
 # Navigation
 nav:
   - Home: 'index.md'
-  - Source Docs:
+  - Tutorial:
+      - 'Introduction': 'introduction.md'
+      - 'Prerequisites': 'prerequisites.md'
+      - 'Basic Structure': 'structure.md'
+      - 'Program Example': 'programexample.md'
+      - 'Upload your Strategy': 'upload.md'
+      - 'Testing': 'testing.md'
+  - API:
       - 'algobulls': 'package_algobulls.md'
       - 'broker': 'package_broker.md'
       - 'instrument': 'package_instrument.md'
@@ -36,6 +43,7 @@ nav:
       - 'strategy': 'package_strategy.md'
       - 'utils': 'package_utils.md'
       - 'constants': 'module_constants.md'
+  - Strategy Coding Guidelines: 'codeguide.md'
 
 plugins:
   - search                                  # necessary for search to work
@@ -70,3 +78,5 @@ markdown_extensions:
   - codehilite
   - toc:                    # Docs: https://squidfunk.github.io/mkdocs-material/extensions/permalinks/
       permalink: true
+  - pymdownx.tabbed
+  - pymdownx.superfences

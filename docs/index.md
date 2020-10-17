@@ -1,6 +1,15 @@
 # Welcome to `pyalgotrading` Documentation!
 
-### To browse the source docs, use the below links
+### Visit the Tutorial
+- Tutorial:
+    - [Introduction](introduction.md)
+    - [Prerequisites](prerequisites.md)
+    - [Basic Structure of a Strategy](structure.md)
+    - [Program Example](programexample.md)
+    - [Upload your Strategy](upload.md)
+    - [Test your Strategy](testing.md)
+
+### Visit the API
 - Packages
     - [algobulls](package_algobulls.md)/
     - [broker](package_broker.md)/
@@ -10,12 +19,9 @@
     - [utils](package_utils.md)/
 - Modules:
     - [constants](module_constants.md)
-    
-----
 
 # pyalgotrading
 Official Python Package for Algorithmic Trading APIs powered by AlgoBulls!
-
 
 ### Features
 - Powered by the [AlgoBulls Platform](https://algobulls.com)
@@ -44,16 +50,13 @@ Official Python Package for Algorithmic Trading APIs powered by AlgoBulls!
     
 Backtesting, Paper Trading and Real Trading can be performed on the same strategy code base!
 
-
 ### Documentation
 You can find the docs [here](https://algobulls.github.io/pyalgotrading/).
-
 
 ### Python 
 - Python Support: `Python 3.6+`.
 - Python Requirements: See [requirements.txt](https://github.com/algobulls/pyalgotrading/blob/master/requirements.txt).
 - We recommend you to use the latest version of Python (v3.8+) to enjoy better performance benefits, especially for pandas. (For Python 3.6, the latest supported Pandas version is v0.25.3. For Python 3.8, the latest supported version is v1.0.x)
-
 
 ### Installation
 Package can be easily installed using `pip` - 
