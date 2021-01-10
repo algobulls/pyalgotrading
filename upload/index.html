@@ -25,7 +25,7 @@
 <input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
 <label class="md-overlay" for="__drawer"></label>
 <div data-md-component="skip">
-<a class="md-skip" href="#import-the-following">
+<a class="md-skip" href="#upload-your-strategy">
           Skip to content
         </a>
 </div>
@@ -144,12 +144,24 @@
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="../structure/">
-      Basic Structure
+      Code Structure of a Strategy
     </a>
 </li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" data-md-toggle="nav-2-4" id="nav-2-4" type="checkbox"/>
+<label class="md-nav__link" for="nav-2-4">
+      Hands On
+      <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Hands On" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="nav-2-4">
+<span class="md-nav__icon md-icon"></span>
+        Hands On
+      </label>
+<ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
 <a class="md-nav__link" href="../programexample/">
-      Program Example
+      Create your Strategy
     </a>
 </li>
 <li class="md-nav__item md-nav__item--active">
@@ -168,13 +180,34 @@
     </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#import-the-following">
-    Import the following
+<a class="md-nav__link" href="#previously">
+    Previously...
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#import-your-own-strategy-a-readymade-strategy">
-    Import your own strategy / a readymade strategy
+<a class="md-nav__link" href="#now">
+    Now...
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#before-you-start">
+    Before you start...
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#lets-start">
+    Let's Start...
+  </a>
+<nav aria-label="Let's Start..." class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#import-statements">
+    Import statements
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#import-the-strategy-class">
+    Import the strategy class
   </a>
 </li>
 <li class="md-nav__item">
@@ -188,8 +221,21 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#upload-your-strategy">
+<a class="md-nav__link" href="#upload-your-strategy_1">
     Upload your Strategy
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#re-upload-your-strategy-after-modifications">
+    Re-upload your Strategy after modifications
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#whats-next">
+    What's Next...
   </a>
 </li>
 </ul>
@@ -197,8 +243,11 @@
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="../testing/">
-      Testing
+      Test your Strategy
     </a>
+</li>
+</ul>
+</nav>
 </li>
 </ul>
 </nav>
@@ -273,13 +322,34 @@
     </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#import-the-following">
-    Import the following
+<a class="md-nav__link" href="#previously">
+    Previously...
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#import-your-own-strategy-a-readymade-strategy">
-    Import your own strategy / a readymade strategy
+<a class="md-nav__link" href="#now">
+    Now...
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#before-you-start">
+    Before you start...
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#lets-start">
+    Let's Start...
+  </a>
+<nav aria-label="Let's Start..." class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#import-statements">
+    Import statements
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#import-the-strategy-class">
+    Import the strategy class
   </a>
 </li>
 <li class="md-nav__item">
@@ -293,8 +363,21 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#upload-your-strategy">
+<a class="md-nav__link" href="#upload-your-strategy_1">
     Upload your Strategy
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#re-upload-your-strategy-after-modifications">
+    Re-upload your Strategy after modifications
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#whats-next">
+    What's Next...
   </a>
 </li>
 </ul>
@@ -307,56 +390,84 @@
 <a class="md-content__button md-icon" href="https://github.com/algobulls/pyalgotrading/edit/master/docs/upload.md" title="Edit this page">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
-<h1>Upload your Strategy</h1>
-<p>You can open a Jupyter Notebook.</p>
-<p>You will run the following code snippets into the notebook one by one (or all together).</p>
-<h2 id="import-the-following">Import the following<a class="headerlink" href="#import-the-following" title="Permanent link">¶</a></h2>
+<h1 id="upload-your-strategy">Upload your Strategy<a class="headerlink" href="#upload-your-strategy" title="Permanent link">¶</a></h1>
+<h2 id="previously">Previously...<a class="headerlink" href="#previously" title="Permanent link">¶</a></h2>
+<hr/>
+<p>You have created a strategy by:</p>
+<ul>
+<li>Coding the complete strategy from the <a href="../programexample/">Create</a> page.</li>
+</ul>
+<p><strong>OR</strong></p>
+<ul>
+<li>Picking up a ready strategy from the <a href="https://github.com/algobulls/pyalgostrategypool">pyalgostrategypool</a> package.</li>
+</ul>
+<h2 id="now">Now...<a class="headerlink" href="#now" title="Permanent link">¶</a></h2>
+<hr/>
+<p>You are now ready to upload your strategy into your AlgoBulls account for Backtesting, Paper Trading and/or Real Trading. </p>
+<h2 id="before-you-start">Before you start...<a class="headerlink" href="#before-you-start" title="Permanent link">¶</a></h2>
+<hr/>
+<ul>
+<li>Make sure you have an active working AlgoBulls account ready to go!</li>
+<li>Open a Jupyter Notebook.</li>
+<li>If you have coded the strategy yourself and not used a ready strategy from the <a href="https://github.com/algobulls/pyalgostrategypool">pyalgostrategypool</a> package, then make sure your strategy file (.py) and the Jupyter Notebook <strong>are in the same folder</strong>. </li>
+</ul>
+<h2 id="lets-start">Let's Start...<a class="headerlink" href="#lets-start" title="Permanent link">¶</a></h2>
+<hr/>
+<p>Run the following code snippets into the Jupyter Notebook one by one (or all together).</p>
+<h3 id="import-statements">Import statements<a class="headerlink" href="#import-statements" title="Permanent link">¶</a></h3>
 <hr/>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">inspect</span>
 <span class="kn">from</span> <span class="nn">pyalgotrading.algobulls</span> <span class="kn">import</span> <span class="n">AlgoBullsConnection</span>
 </code></pre></div>
-<h2 id="import-your-own-strategy-a-readymade-strategy">Import your own strategy / a readymade strategy<a class="headerlink" href="#import-your-own-strategy-a-readymade-strategy" title="Permanent link">¶</a></h2>
+<h3 id="import-the-strategy-class">Import the strategy class<a class="headerlink" href="#import-the-strategy-class" title="Permanent link">¶</a></h3>
 <hr/>
-<p>Now perform either of these steps:</p>
-<p>1) You can now upload your own created strategy.</p>
-<p>2) As an example, you can also upload the <code>StrategyEMARegularOrder</code> strategy from the <a href="https://github.com/algobulls/pyalgostrategypool">pyalgostrategypool</a> package. </p>
-<div class="tabbed-set" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio"><label for="__tabbed_1_1">Import your own strategy</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">strategy_sma_regular_order</span> <span class="kn">import</span> <span class="n">StrategySMARegularOrder</span>
-</code></pre></div>
-</div>
-<input id="__tabbed_1_2" name="__tabbed_1" type="radio"><label for="__tabbed_1_2">Import a readymade strategy</label><div class="tabbed-content">
+<p>Perform the below step either to import a ready strategy <strong>OR</strong> to import your own created strategy.</p>
+<div class="tabbed-set" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio"><label for="__tabbed_1_1">Import a ready strategy</label><div class="tabbed-content">
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pyalgostrategypool.strategy_ema_regular_order</span> <span class="kn">import</span> <span class="n">StrategyEMARegularOrder</span>
 </code></pre></div>
 </div>
+<input id="__tabbed_1_2" name="__tabbed_1" type="radio"><label for="__tabbed_1_2">Import your own strategy</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">strategy_sma_regular_order</span> <span class="kn">import</span> <span class="n">StrategySMARegularOrder</span>
+</code></pre></div>
+</div>
 </input></input></div>
-<p>Now you will establish a connection to the Algobulls Platform.</p>
-<p>You will need to login to your AlgoBulls account and fetch the access token from:</p>
-<p>Settings -&gt; General -&gt; Developer Options </p>
-<h2 id="establish-a-connection-to-the-algobulls-platform">Establish a connection to the AlgoBulls Platform<a class="headerlink" href="#establish-a-connection-to-the-algobulls-platform" title="Permanent link">¶</a></h2>
+<h3 id="establish-a-connection-to-the-algobulls-platform">Establish a connection to the AlgoBulls Platform<a class="headerlink" href="#establish-a-connection-to-the-algobulls-platform" title="Permanent link">¶</a></h3>
 <hr/>
-<div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span> <span class="o">=</span> <span class="n">AlgoBullsConnection</span><span class="p">()</span>
+<p><div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span> <span class="o">=</span> <span class="n">AlgoBullsConnection</span><span class="p">()</span>
 <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_authorization_url</span><span class="p">()</span>
-<span class="c1"># The output of the above step is:</span>
-<span class="c1"># Please login to this URL with your AlgoBulls credentials and get your developer access token: https://app.algobulls.com/user/login</span>
-<span class="c1"># Set the access token in the next line of code as shown here:</span>
-<span class="n">algobulls_connection</span><span class="o">.</span><span class="n">set_access_token</span><span class="p">(</span><span class="s1">'4365817b795770ea31040a21ad29c8e78b63ad88'</span><span class="p">)</span>
 </code></pre></div>
-<p>You can print your strategy code once to verify if this is the correct code before uploading it to the platform.</p>
-<h2 id="print-your-strategy-code">Print your Strategy code<a class="headerlink" href="#print-your-strategy-code" title="Permanent link">¶</a></h2>
+The output of the above step is:</p>
+<p><code>Please login to this URL with your AlgoBulls credentials and get your developer access token: https://app.algobulls.com/user/login</code></p>
+<p>You will need to login to your AlgoBulls account and fetch the access token from:</p>
+<p>Settings -&gt; General -&gt; Developer Options</p>
+<p>(<a href="https://help.algobulls.com/member/Settings/general-settings/#developer-options">See How</a>)</p>
+<p>Once you have the access token, set it in the code as shown here:</p>
+<p><div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">set_access_token</span><span class="p">(</span><span class="s1">'4365817b795770ea31040a21ad29c8e78b63ad88'</span><span class="p">)</span>
+</code></pre></div>
+Replace the token you have copied with the token in the code above.</p>
+<h3 id="print-your-strategy-code">Print your Strategy code<a class="headerlink" href="#print-your-strategy-code" title="Permanent link">¶</a></h3>
 <hr/>
+<p>You can print your strategy code once to verify if this is the correct code before uploading it to the platform. This step is optional.
 <div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">getsource</span><span class="p">(</span><span class="n">StrategySMARegularOrder</span><span class="p">))</span>
-</code></pre></div>
-<h2 id="upload-your-strategy">Upload your Strategy<a class="headerlink" href="#upload-your-strategy" title="Permanent link">¶</a></h2>
+</code></pre></div></p>
+<h3 id="upload-your-strategy_1">Upload your Strategy<a class="headerlink" href="#upload-your-strategy_1" title="Permanent link">¶</a></h3>
 <hr/>
+<p>Upload your strategy as shown in the code below.
 <div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">create_strategy</span><span class="p">(</span><span class="n">StrategySMARegularOrder</span><span class="p">)</span>
-<span class="c1"># If you are re-uploading your strategy after some changes, then use the overwrite switch as shown here:</span>
-<span class="c1"># algobulls_connection.create_strategy(StrategySMARegularOrder, overwrite=True)</span>
-</code></pre></div>
+</code></pre></div></p>
+<h3 id="re-upload-your-strategy-after-modifications">Re-upload your Strategy after modifications<a class="headerlink" href="#re-upload-your-strategy-after-modifications" title="Permanent link">¶</a></h3>
+<hr/>
+<p>If you are re-uploading your strategy after some changes, then use the overwrite switch as shown here.
+<div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">create_strategy</span><span class="p">(</span><span class="n">StrategySMARegularOrder</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div></p>
+<h2 id="whats-next">What's Next...<a class="headerlink" href="#whats-next" title="Permanent link">¶</a></h2>
+<hr/>
+<p>You are now ready to test your uploaded strategy and perform Backtesting, Paper Trading and/or Real Trading with it.</p>
 <hr/>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="timeago" datetime="1602952696000" locale="en"></span>
+      Last update: <span class="timeago" datetime="1610292245000" locale="en"></span>
 </small>
 </div>
 <h2 id="__comments">Comments</h2>
@@ -378,7 +489,7 @@
 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Program Example
+                Create your Strategy
               </div>
 </div>
 </a>
@@ -388,7 +499,7 @@
 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Testing
+                Test your Strategy
               </div>
 </div>
 <div class="md-footer-nav__button md-icon">

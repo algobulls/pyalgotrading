@@ -10,7 +10,7 @@
 <meta content="Pushpak Dagade (pushpak@algobulls.com)" name="author"/>
 <link href="../assets/images/favicon.png" rel="shortcut icon"/>
 <meta content="mkdocs-1.1.2, mkdocs-material-6.1.0" name="generator"/>
-<title>Testing - pyalgotrading</title>
+<title>Test your Strategy - pyalgotrading</title>
 <link href="../assets/stylesheets/main.bc7e593a.min.css" rel="stylesheet"/>
 <link href="../assets/stylesheets/palette.ab28b872.min.css" rel="stylesheet"/>
 <meta content="#2094f3" name="theme-color"/>
@@ -25,7 +25,7 @@
 <input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
 <label class="md-overlay" for="__drawer"></label>
 <div data-md-component="skip">
-<a class="md-skip" href="#import-the-following">
+<a class="md-skip" href="#test-your-strategy">
           Skip to content
         </a>
 </div>
@@ -46,7 +46,7 @@
           </span>
 <span class="md-header-nav__topic md-ellipsis">
             
-              Testing
+              Test your Strategy
             
           </span>
 </div>
@@ -144,12 +144,24 @@
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="../structure/">
-      Basic Structure
+      Code Structure of a Strategy
     </a>
 </li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" data-md-toggle="nav-2-4" id="nav-2-4" type="checkbox"/>
+<label class="md-nav__link" for="nav-2-4">
+      Hands On
+      <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Hands On" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="nav-2-4">
+<span class="md-nav__icon md-icon"></span>
+        Hands On
+      </label>
+<ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
 <a class="md-nav__link" href="../programexample/">
-      Program Example
+      Create your Strategy
     </a>
 </li>
 <li class="md-nav__item">
@@ -160,11 +172,11 @@
 <li class="md-nav__item md-nav__item--active">
 <input class="md-nav__toggle md-toggle" data-md-toggle="toc" id="__toc" type="checkbox"/>
 <label class="md-nav__link md-nav__link--active" for="__toc">
-        Testing
+        Test your Strategy
         <span class="md-nav__icon md-icon"></span>
 </label>
 <a class="md-nav__link md-nav__link--active" href="./">
-      Testing
+      Test your Strategy
     </a>
 <nav aria-label="Table of contents" class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="__toc">
@@ -173,8 +185,29 @@
     </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#import-the-following">
-    Import the following
+<a class="md-nav__link" href="#previously">
+    Previously...
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#now">
+    Now...
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#before-you-start">
+    Before you start...
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#lets-start">
+    Let's Start...
+  </a>
+<nav aria-label="Let's Start..." class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#import-statements">
+    Import statements
   </a>
 </li>
 <li class="md-nav__item">
@@ -226,6 +259,32 @@
 <a class="md-nav__link" href="#fetch-logs-of-an-ongoingstoppedcompleted-job">
     Fetch logs of an ongoing/stopped/completed job
   </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#fetch-pnl-reports">
+    Fetch PnL Reports
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#fetch-report-statistics">
+    Fetch Report Statistics
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#fetch-order-history">
+    Fetch Order History
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#whats-next">
+    What's Next...
+  </a>
+</li>
+</ul>
+</nav>
 </li>
 </ul>
 </nav>
@@ -303,8 +362,29 @@
     </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#import-the-following">
-    Import the following
+<a class="md-nav__link" href="#previously">
+    Previously...
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#now">
+    Now...
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#before-you-start">
+    Before you start...
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#lets-start">
+    Let's Start...
+  </a>
+<nav aria-label="Let's Start..." class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#import-statements">
+    Import statements
   </a>
 </li>
 <li class="md-nav__item">
@@ -357,6 +437,29 @@
     Fetch logs of an ongoing/stopped/completed job
   </a>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#fetch-pnl-reports">
+    Fetch PnL Reports
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#fetch-report-statistics">
+    Fetch Report Statistics
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#fetch-order-history">
+    Fetch Order History
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#whats-next">
+    What's Next...
+  </a>
+</li>
 </ul>
 </nav>
 </div>
@@ -367,9 +470,21 @@
 <a class="md-content__button md-icon" href="https://github.com/algobulls/pyalgotrading/edit/master/docs/testing.md" title="Edit this page">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
-<h1>Testing</h1>
-<p>Once the SMA Strategy is uploaded successfully, you can now perform Backtesting, Paper Trading and Real Trading on it.</p>
-<p>You can open a Jupyter Notebook.</p>
+<h1 id="test-your-strategy">Test your Strategy<a class="headerlink" href="#test-your-strategy" title="Permanent link">¶</a></h1>
+<h2 id="previously">Previously...<a class="headerlink" href="#previously" title="Permanent link">¶</a></h2>
+<hr/>
+<p>You have uploaded your strategy to the AlgoBulls platform.</p>
+<h2 id="now">Now...<a class="headerlink" href="#now" title="Permanent link">¶</a></h2>
+<hr/>
+<p>Using the uploaded strategy, you can now try:</p>
+<ul>
+<li>Backtesting</li>
+<li>Paper Trading</li>
+<li>Real Trading </li>
+</ul>
+<h2 id="before-you-start">Before you start...<a class="headerlink" href="#before-you-start" title="Permanent link">¶</a></h2>
+<hr/>
+<p>Open a Jupyter Notebook.</p>
 <p>The steps you will follow are:</p>
 <ol>
 <li>Establish a connection to the AlgoBulls Platform.</li>
@@ -380,60 +495,65 @@
 <li>Submit/Run a Backtest, Paper Trade or Real Trade job.</li>
 <li>Check Job Status.</li>
 <li>Fetch Logs (even while the job is running).</li>
-<li>Fetch Reports. (PnL, Statistics, Order History)  </li>
+<li>Fetch Reports. (PnL, Statistics, Order History)</li>
 </ol>
-<p>You will run the following code snippets into the notebook one by one (or all together).</p>
-<h2 id="import-the-following">Import the following<a class="headerlink" href="#import-the-following" title="Permanent link">¶</a></h2>
+<h2 id="lets-start">Let's Start...<a class="headerlink" href="#lets-start" title="Permanent link">¶</a></h2>
 <hr/>
-<p><div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pyalgotrading.algobulls</span> <span class="kn">import</span> <span class="n">AlgoBullsConnection</span>
+<p>Run the following code snippets into the Jupyter Notebook one by one (or all together).</p>
+<h3 id="import-statements">Import statements<a class="headerlink" href="#import-statements" title="Permanent link">¶</a></h3>
+<hr/>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pyalgotrading.algobulls</span> <span class="kn">import</span> <span class="n">AlgoBullsConnection</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span> <span class="k">as</span> <span class="n">dt</span>
 <span class="kn">from</span> <span class="nn">pyalgotrading.constants</span> <span class="kn">import</span> <span class="o">*</span>
 </code></pre></div>
-Now you will establish a connection to the Algobulls Platform.</p>
-<p>You will need to login to your AlgoBulls account and fetch the access token from:</p>
-<p>Settings -&gt; General -&gt; Developer Options </p>
-<h2 id="establish-a-connection-to-the-algobulls-platform">Establish a connection to the AlgoBulls Platform<a class="headerlink" href="#establish-a-connection-to-the-algobulls-platform" title="Permanent link">¶</a></h2>
+<h3 id="establish-a-connection-to-the-algobulls-platform">Establish a connection to the AlgoBulls Platform<a class="headerlink" href="#establish-a-connection-to-the-algobulls-platform" title="Permanent link">¶</a></h3>
 <hr/>
-<div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span> <span class="o">=</span> <span class="n">AlgoBullsConnection</span><span class="p">()</span>
+<p><div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span> <span class="o">=</span> <span class="n">AlgoBullsConnection</span><span class="p">()</span>
 <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_authorization_url</span><span class="p">()</span>
-<span class="c1"># The output of the above step is:</span>
-<span class="c1"># Please login to this URL with your AlgoBulls credentials and get your developer access token: https://app.algobulls.com/user/login</span>
-<span class="c1"># Set the access token in the next line of code as shown here:</span>
-<span class="n">algobulls_connection</span><span class="o">.</span><span class="n">set_access_token</span><span class="p">(</span><span class="s1">'4365817b795770ea31040a21ad29c8e78b63ad88'</span><span class="p">)</span>
 </code></pre></div>
-<h2 id="display-all-strategies-in-your-account">Display all strategies in your account<a class="headerlink" href="#display-all-strategies-in-your-account" title="Permanent link">¶</a></h2>
+The output of the above step is:</p>
+<p><code>Please login to this URL with your AlgoBulls credentials and get your developer access token: https://app.algobulls.com/user/login</code></p>
+<p>You will need to login to your AlgoBulls account and fetch the access token from:</p>
+<p>Settings -&gt; General -&gt; Developer Options</p>
+<p>(<a href="https://help.algobulls.com/member/Settings/general-settings/#developer-options">See How</a>)</p>
+<p>Once you have the access token, set it in the code as shown here:</p>
+<p><div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">set_access_token</span><span class="p">(</span><span class="s1">'4365817b795770ea31040a21ad29c8e78b63ad88'</span><span class="p">)</span>
+</code></pre></div>
+Replace the token you have copied with the token in the code above.</p>
+<h3 id="display-all-strategies-in-your-account">Display all strategies in your account<a class="headerlink" href="#display-all-strategies-in-your-account" title="Permanent link">¶</a></h3>
 <hr/>
 <div class="highlight"><pre><span></span><code><span class="n">all_strategies</span> <span class="o">=</span> <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_all_strategies</span><span class="p">()</span>
 <span class="n">all_strategies</span>
 </code></pre></div>
 <p>An example of the output wil be:
 <img alt="Output" src="../output.png" title="Sample Output"/></p>
-<p>In this case, we will seelct the last entry of the column <code>strategyCode</code> and display it.</p>
-<h2 id="select-the-sma-strategy">Select the SMA strategy<a class="headerlink" href="#select-the-sma-strategy" title="Permanent link">¶</a></h2>
+<h3 id="select-the-sma-strategy">Select the SMA strategy<a class="headerlink" href="#select-the-sma-strategy" title="Permanent link">¶</a></h3>
 <hr/>
+<p>Select the last entry of the <code>strategyCode</code> column and display it.
 <div class="highlight"><pre><span></span><code><span class="n">strategy_code1</span> <span class="o">=</span> <span class="n">all_strategies</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s1">'strategyCode'</span><span class="p">]</span>
 <span class="n">strategy_code1</span>
-</code></pre></div>
-<p>You can print your strategy code once to verify if this is the correct code.</p>
-<h2 id="print-your-strategy-code">Print your Strategy code<a class="headerlink" href="#print-your-strategy-code" title="Permanent link">¶</a></h2>
+</code></pre></div></p>
+<h3 id="print-your-strategy-code">Print your Strategy code<a class="headerlink" href="#print-your-strategy-code" title="Permanent link">¶</a></h3>
 <hr/>
-<p><div class="highlight"><pre><span></span><code><span class="n">strategy_details1</span> <span class="o">=</span> <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_strategy_details</span><span class="p">(</span><span class="n">strategy_code1</span><span class="p">)</span>
+<p>You can print your strategy code once to verify if this is the correct code. This step is optional.</p>
+<div class="highlight"><pre><span></span><code><span class="n">strategy_details1</span> <span class="o">=</span> <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_strategy_details</span><span class="p">(</span><span class="n">strategy_code1</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">strategy_details1</span><span class="p">)</span>
 </code></pre></div>
-Now display some instruments and select one of them.</p>
-<h2 id="search-for-instruments-based-on-a-search-query">Search for instruments (based on a search query)<a class="headerlink" href="#search-for-instruments-based-on-a-search-query" title="Permanent link">¶</a></h2>
+<h3 id="search-for-instruments-based-on-a-search-query">Search for instruments (based on a search query)<a class="headerlink" href="#search-for-instruments-based-on-a-search-query" title="Permanent link">¶</a></h3>
 <hr/>
+<p>Now display a few instruments with some keyword. The example below uses 'SBIN' as the keyword.</p>
 <div class="highlight"><pre><span></span><code><span class="n">instruments</span> <span class="o">=</span> <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">search_instrument</span><span class="p">(</span><span class="s1">'SBIN'</span><span class="p">)</span>
 <span class="n">instruments</span>
 </code></pre></div>
-<p>Select the first one for this example.</p>
-<h2 id="select-an-instrument">Select an instrument<a class="headerlink" href="#select-an-instrument" title="Permanent link">¶</a></h2>
+<h3 id="select-an-instrument">Select an instrument<a class="headerlink" href="#select-an-instrument" title="Permanent link">¶</a></h3>
 <hr/>
+<p>From the output, select the instrument on which you wish to test your strategy. For this example, select the first one.
 <div class="highlight"><pre><span></span><code><span class="n">instrument</span> <span class="o">=</span> <span class="n">instruments</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">'value'</span><span class="p">]</span>
 <span class="n">instrument</span>
-</code></pre></div>
-<h2 id="submit-a-job">Submit a Job<a class="headerlink" href="#submit-a-job" title="Permanent link">¶</a></h2>
+</code></pre></div></p>
+<h3 id="submit-a-job">Submit a Job<a class="headerlink" href="#submit-a-job" title="Permanent link">¶</a></h3>
 <hr/>
+<p>Click on each of the tabs to see the relevant code snippet.</p>
 <div class="tabbed-set" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio"><label for="__tabbed_1_1">Backtesting</label><div class="tabbed-content">
 <div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">backtest</span><span class="p">(</span><span class="n">strategy_code</span><span class="o">=</span><span class="n">strategy_code1</span><span class="p">,</span> 
         <span class="n">start_timestamp</span><span class="o">=</span><span class="n">dt</span><span class="p">(</span><span class="n">year</span><span class="o">=</span><span class="mi">2020</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">hour</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">minute</span><span class="o">=</span><span class="mi">15</span><span class="p">),</span> 
@@ -474,8 +594,9 @@ Now display some instruments and select one of them.</p>
 </code></pre></div>
 </div>
 </input></input></input></div>
-<h2 id="fetch-job-status">Fetch Job Status<a class="headerlink" href="#fetch-job-status" title="Permanent link">¶</a></h2>
+<h3 id="fetch-job-status">Fetch Job Status<a class="headerlink" href="#fetch-job-status" title="Permanent link">¶</a></h3>
 <hr/>
+<p>Click on each of the tabs to see the relevant code snippet.</p>
 <div class="tabbed-set" data-tabs="2:3"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio"><label for="__tabbed_2_1">Backtesting</label><div class="tabbed-content">
 <div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_backtesting_job_status</span><span class="p">(</span><span class="n">strategy_code1</span><span class="p">)</span>
 </code></pre></div>
@@ -490,9 +611,10 @@ Now display some instruments and select one of them.</p>
 </div>
 </input></input></input></div>
 <p>You can stop a submitted job anytime.</p>
-<h2 id="stop-a-job">Stop a Job<a class="headerlink" href="#stop-a-job" title="Permanent link">¶</a></h2>
+<h3 id="stop-a-job">Stop a Job<a class="headerlink" href="#stop-a-job" title="Permanent link">¶</a></h3>
 <hr/>
-<div class="tabbed-set" data-tabs="3:3"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio"/><label for="__tabbed_3_1">Backtesting</label><div class="tabbed-content">
+<p>Click on each of the tabs to see the relevant code snippet.</p>
+<div class="tabbed-set" data-tabs="3:3"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio"><label for="__tabbed_3_1">Backtesting</label><div class="tabbed-content">
 <div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">stop_backtesting_job</span><span class="p">(</span><span class="n">strategy_code1</span><span class="p">)</span>
 </code></pre></div>
 </div>
@@ -504,10 +626,11 @@ Now display some instruments and select one of them.</p>
 <div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">stop_realtrading_job</span><span class="p">(</span><span class="n">strategy_code</span><span class="o">=</span><span class="n">strategy_code1</span><span class="p">)</span>
 </code></pre></div>
 </div>
-</div>
+</input></div>
 <p>You can fetch the logs in the middle of a job to mnoitor the progress.</p>
-<h2 id="fetch-logs-of-an-ongoingstoppedcompleted-job">Fetch logs of an ongoing/stopped/completed job<a class="headerlink" href="#fetch-logs-of-an-ongoingstoppedcompleted-job" title="Permanent link">¶</a></h2>
+<h3 id="fetch-logs-of-an-ongoingstoppedcompleted-job">Fetch logs of an ongoing/stopped/completed job<a class="headerlink" href="#fetch-logs-of-an-ongoingstoppedcompleted-job" title="Permanent link">¶</a></h3>
 <hr/>
+<p>Click on each of the tabs to see the relevant code snippet.</p>
 <div class="tabbed-set" data-tabs="4:3"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio"/><label for="__tabbed_4_1">Backtesting</label><div class="tabbed-content">
 <div class="highlight"><pre><span></span><code><span class="n">logs</span> <span class="o">=</span> <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_backtesting_logs</span><span class="p">(</span><span class="n">strategy_code1</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">logs</span><span class="p">)</span>
@@ -525,32 +648,68 @@ Now display some instruments and select one of them.</p>
 </div>
 </div>
 <p>You can fetch the PnL report, statistics and order history for a job.</p>
+<h3 id="fetch-pnl-reports">Fetch PnL Reports<a class="headerlink" href="#fetch-pnl-reports" title="Permanent link">¶</a></h3>
+<hr/>
+<p>Click on each of the tabs to see the relevant code snippet.</p>
 <div class="tabbed-set" data-tabs="5:3"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio"/><label for="__tabbed_5_1">Backtesting</label><div class="tabbed-content">
 <div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_backtesting_report_pnl_table</span><span class="p">(</span><span class="n">strategy_code1</span><span class="p">,</span> <span class="n">show_all_rows</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_backtesting_report_statistics</span><span class="p">(</span><span class="n">strategy_code1</span><span class="p">)</span>
-<span class="n">order_history</span> <span class="o">=</span> <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_backtesting_report_order_history</span><span class="p">(</span><span class="n">strategy_code1</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">order_history</span><span class="p">)</span>
 </code></pre></div>
 </div>
 <input id="__tabbed_5_2" name="__tabbed_5" type="radio"/><label for="__tabbed_5_2">Paper Trading</label><div class="tabbed-content">
 <div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_papertrading_report_pnl_table</span><span class="p">(</span><span class="n">strategy_code1</span><span class="p">)</span>
-<span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_papertrading_report_statistics</span><span class="p">(</span><span class="n">strategy_code1</span><span class="p">)</span>
-<span class="n">order_history</span> <span class="o">=</span> <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_papertrading_report_order_history</span><span class="p">(</span><span class="n">strategy_code1</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">order_history</span><span class="p">)</span>
 </code></pre></div>
 </div>
 <input id="__tabbed_5_3" name="__tabbed_5" type="radio"/><label for="__tabbed_5_3">Real Trading</label><div class="tabbed-content">
 <div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_realtrading_report_pnl_table</span><span class="p">(</span><span class="n">strategy_code</span><span class="o">=</span><span class="n">strategy_code1</span><span class="p">)</span>
-<span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_realtrading_report_statistics</span><span class="p">(</span><span class="n">strategy_code</span><span class="o">=</span><span class="n">strategy_code1</span><span class="p">)</span>
-<span class="c1"># order history is missing</span>
 </code></pre></div>
 </div>
 </div>
+<h3 id="fetch-report-statistics">Fetch Report Statistics<a class="headerlink" href="#fetch-report-statistics" title="Permanent link">¶</a></h3>
+<hr/>
+<p>Click on each of the tabs to see the relevant code snippet.</p>
+<div class="tabbed-set" data-tabs="6:3"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio"/><label for="__tabbed_6_1">Backtesting</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_backtesting_report_statistics</span><span class="p">(</span><span class="n">strategy_code1</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<input id="__tabbed_6_2" name="__tabbed_6" type="radio"/><label for="__tabbed_6_2">Paper Trading</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_papertrading_report_statistics</span><span class="p">(</span><span class="n">strategy_code1</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<input id="__tabbed_6_3" name="__tabbed_6" type="radio"/><label for="__tabbed_6_3">Real Trading</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_realtrading_report_statistics</span><span class="p">(</span><span class="n">strategy_code</span><span class="o">=</span><span class="n">strategy_code1</span><span class="p">)</span>
+</code></pre></div>
+</div>
+</div>
+<h3 id="fetch-order-history">Fetch Order History<a class="headerlink" href="#fetch-order-history" title="Permanent link">¶</a></h3>
+<hr/>
+<p>Click on each of the tabs to see the relevant code snippet.</p>
+<div class="tabbed-set" data-tabs="7:2"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio"/><label for="__tabbed_7_1">Backtesting</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="n">order_history</span> <span class="o">=</span> <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_backtesting_report_order_history</span><span class="p">(</span><span class="n">strategy_code1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">order_history</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<input id="__tabbed_7_2" name="__tabbed_7" type="radio"/><label for="__tabbed_7_2">Paper Trading</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="n">order_history</span> <span class="o">=</span> <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_papertrading_report_order_history</span><span class="p">(</span><span class="n">strategy_code1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">order_history</span><span class="p">)</span>
+</code></pre></div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul>
+<li>Order History for Real Trading is not supported by brokers.</li>
+<li>Order History for Backtesting and Paper Trading is supported by the AlgoBulls Virtual Brokers.</li>
+</ul>
+</div>
+<h2 id="whats-next">What's Next...<a class="headerlink" href="#whats-next" title="Permanent link">¶</a></h2>
+<hr/>
+<p>You can now explore more by creating and uploading more complex strategies.</p>
+<p>You can also check out the <a href="../codeguide/">Strategy Coding Guidelines</a>.</p>
 <hr/>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="timeago" datetime="1602952696000" locale="en"></span>
+      Last update: <span class="timeago" datetime="1610292245000" locale="en"></span>
 </small>
 </div>
 <h2 id="__comments">Comments</h2>

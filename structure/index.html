@@ -10,7 +10,7 @@
 <meta content="Pushpak Dagade (pushpak@algobulls.com)" name="author"/>
 <link href="../assets/images/favicon.png" rel="shortcut icon"/>
 <meta content="mkdocs-1.1.2, mkdocs-material-6.1.0" name="generator"/>
-<title>Basic Structure - pyalgotrading</title>
+<title>Code Structure of a Strategy - pyalgotrading</title>
 <link href="../assets/stylesheets/main.bc7e593a.min.css" rel="stylesheet"/>
 <link href="../assets/stylesheets/palette.ab28b872.min.css" rel="stylesheet"/>
 <meta content="#2094f3" name="theme-color"/>
@@ -25,6 +25,9 @@
 <input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
 <label class="md-overlay" for="__drawer"></label>
 <div data-md-component="skip">
+<a class="md-skip" href="#previously">
+          Skip to content
+        </a>
 </div>
 <div data-md-component="announce">
 </div>
@@ -43,7 +46,7 @@
           </span>
 <span class="md-header-nav__topic md-ellipsis">
             
-              Basic Structure
+              Code Structure of a Strategy
             
           </span>
 </div>
@@ -141,13 +144,62 @@
 </li>
 <li class="md-nav__item md-nav__item--active">
 <input class="md-nav__toggle md-toggle" data-md-toggle="toc" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+        Code Structure of a Strategy
+        <span class="md-nav__icon md-icon"></span>
+</label>
 <a class="md-nav__link md-nav__link--active" href="./">
-      Basic Structure
+      Code Structure of a Strategy
     </a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#previously">
+    Previously...
+  </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#now">
+    Now...
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#lets-start">
+    Let's Start...
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#flowchart">
+    Flowchart
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#whats-next">
+    What's Next...
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-4" id="nav-2-4" type="checkbox"/>
+<label class="md-nav__link" for="nav-2-4">
+      Hands On
+      <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="Hands On" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="nav-2-4">
+<span class="md-nav__icon md-icon"></span>
+        Hands On
+      </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
 <a class="md-nav__link" href="../programexample/">
-      Program Example
+      Create your Strategy
     </a>
 </li>
 <li class="md-nav__item">
@@ -157,8 +209,11 @@
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="../testing/">
-      Testing
+      Test your Strategy
     </a>
+</li>
+</ul>
+</nav>
 </li>
 </ul>
 </nav>
@@ -223,37 +278,94 @@
 </div>
 </div>
 </div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#previously">
+    Previously...
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#now">
+    Now...
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#lets-start">
+    Let's Start...
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#flowchart">
+    Flowchart
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#whats-next">
+    What's Next...
+  </a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
 <div class="md-content">
 <article class="md-content__inner md-typeset">
 <a class="md-content__button md-icon" href="https://github.com/algobulls/pyalgotrading/edit/master/docs/structure.md" title="Edit this page">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
-<h1>Basic Structure</h1>
+<h1>Code Structure of a Strategy</h1>
+<h2 id="previously">Previously...<a class="headerlink" href="#previously" title="Permanent link">¶</a></h2>
+<hr/>
+<p>You now have the necessary prerequisites installed and ready.</p>
+<h2 id="now">Now...<a class="headerlink" href="#now" title="Permanent link">¶</a></h2>
+<hr/>
+<p>This page describes the methods you will use to create your strategy. </p>
+<h2 id="lets-start">Let's Start...<a class="headerlink" href="#lets-start" title="Permanent link">¶</a></h2>
+<hr/>
 <p>You have the following methods:</p>
 <ol>
-<li><code>strategy_select_instruments_for_entry(self, candle, instruments_bucket)</code> - A method to select instruments for entry</li>
-<li><code>strategy_enter_position(self, candle, instrument, sideband_info)</code> - A method to set enter positions for each selected instrument</li>
-<li><code>strategy_select_instruments_for_exit(self, candle, instruments_bucket)</code> - A method to select instruments for exit</li>
-<li><code>strategy_exit_position(self, candle, instrument, sideband_info)</code> - A method to set exit positions for each selected instrument</li>
+<li><code>strategy_select_instruments_for_entry()</code> - You may want to run your strategy for multiple instruments. When you pass those instruments to the strategy, 
+the backend core calls this method for each instrument one by one, every candle time. This allows you to write decision making code for each instrument, 
+allowing you to decide whether an order is to be punched for that particular instrument or not.</li>
+<li><code>strategy_enter_position()</code> - You can now punch your order in this method for each instrument that you have selected for entry in the previous method.</li>
+<li><code>strategy_select_instruments_for_exit()</code> - Once a position is entered for a particular instrument, the backend core calls this method for those 
+instruments one by one, every candle time. This allows you to write decision making code for each instrument, allowing you to decide whether that 
+particular instrument is to be exited or not.</li>
+<li><code>strategy_exit_position()</code> - You can now exit positions in this method for each instrument that you have selected for exit in the previous method.</li>
 </ol>
 <p>You have the following supporting methods:</p>
 <ol>
-<li><code>__init__(self, *args, **kwargs)</code> - A method called init which is called when the strategy starts for the first time</li>
-<li><code>initialize(self)</code> - A method called initialise which is called when the strategy starts for the first time as well as the start of every trading day</li>
-<li><code>name()</code> - A method which sets a unique name for your strategy</li>
-<li><code>versions_supported()</code> - A method which sets the version of Algobulls Platform on which this strategy is certified tested successfully by you</li>
+<li><code>__init__()</code> - Thia ia the constructor method used in every strategy. You can perform sanity checks here for each parameter passed as an argument to the strategy.
+You can also declare the set of variables that you may need for your strategy.   </li>
+<li><code>initialize()</code> - This method is called every time the strategy starts for the first time as well as the start of every trading day. 
+You may set initial values for the set of variables that you have declared in the previous method. </li>
+<li><code>name()</code> - This method sets a unique name for your strategy.</li>
+<li><code>versions_supported()</code> - This method sets the version of AlgoBulls Platform on which this strategy is certified tested successfully by you.</li>
 </ol>
-<p>You have the following strategy specific method:</p>
+<p>You have the following utility function to be used in this strategy :</p>
 <ol>
-<li><code>get_crossover_value(self, instrument)</code> - A method which calculates the crossover value </li>
+<li><code>get_crossover_value(self, instrument)</code> - A utility method available which calculates the crossover value. </li>
 </ol>
-<p>The flowchart is as follows:</p>
+<h2 id="flowchart">Flowchart<a class="headerlink" href="#flowchart" title="Permanent link">¶</a></h2>
+<p>Once you create your own strategy or use a ready strategy from the <a href="https://github.com/algobulls/pyalgostrategypool">pyalgostrategypool</a> package, this is how it works internally on the AlgoBulls Core Trading Engine.</p>
 <p><img alt="Flowchart" src="../flow1.png" title="How does a Strategy work"/></p>
+<h2 id="whats-next">What's Next...<a class="headerlink" href="#whats-next" title="Permanent link">¶</a></h2>
+<hr/>
+<p>Next, you code the actual strategy taken as an example in this tutorial. Alternatively, you can pick up a ready strategy and directly <a href="../upload/">upload</a> it.</p>
 <hr/>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="timeago" datetime="1602952696000" locale="en"></span>
+      Last update: <span class="timeago" datetime="1610292245000" locale="en"></span>
 </small>
 </div>
 <h2 id="__comments">Comments</h2>
@@ -285,7 +397,7 @@
 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Program Example
+                Create your Strategy
               </div>
 </div>
 <div class="md-footer-nav__button md-icon">
