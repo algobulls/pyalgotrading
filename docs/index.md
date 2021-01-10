@@ -5,9 +5,10 @@
     - [Introduction](introduction.md)
     - [Prerequisites](prerequisites.md)
     - [Basic Structure of a Strategy](structure.md)
-    - [Program Example](programexample.md)
-    - [Upload your Strategy](upload.md)
-    - [Test your Strategy](testing.md)
+    - Hands On:
+        - [Program Example](programexample.md)
+        - [Upload your Strategy](upload.md)
+        - [Test your Strategy](testing.md)
 
 ### Visit the API
 - Packages

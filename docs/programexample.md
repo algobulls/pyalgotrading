@@ -1,26 +1,40 @@
+# Create your Strategy
+
+## Previously...
+---
+You have covered the basic code structure of a strategy.
+
+## Now...
+---
+You can either follow this page to create a strategy, or you can pickup a ready strategy (shown below) and move to the next page. 
+
+## Before you start...
+---
+If you want to use a ready strategy from the [pyalgostrategypool](https://github.com/algobulls/pyalgostrategypool) package, then you can directly jump to the [Upload](upload.md) section. 
+
+## Let's Start...
+---
+Follow the steps given below to create a new strategy of your own.
+
 Create a python file called `strategy_sma_regular_order.py`.
 
 You will add the following code snippets into the file and then save it.
 
-## Before you start
----
-If you want to use a readymade strategy from the [pyalgostrategypool](https://github.com/algobulls/pyalgostrategypool) package, then you can directly jump to the [Upload](upload.md) section. 
-
-## Import the following
+### Import statements
 ---
 ```python
 from pyalgotrading.strategy.strategy_base import StrategyBase
 from pyalgotrading.constants import *
 ```
 
-## Create the class `StrategySMARegularOrder` and subclass it from `StrategyBase`
+### Create the class `StrategySMARegularOrder` and subclass it from `StrategyBase`
 ---
 ```python
 class StrategySMARegularOrder(StrategyBase):
 ```
 Now you can add the methods mentioned in the [structure](structure.md) inside the class. First you can add the `__init__` and the `initialize` methods.
 
-## Init method
+### Constructor: `def __init__()`
 ---
 ```python
 def __init__(self, *args, **kwargs):
@@ -42,7 +56,7 @@ For SMA, we are calculating crossover for 2 SMA timeperiod values, example 5 and
 
 The `init` method is specific to Python's internal workings and it is preceded and succeeded by double underscores ( _ _ ) joined together.
 
-## Initialize method
+### `def initialize()`
 ---
 ```python
 def initialize(self):
@@ -55,7 +69,7 @@ For instance, say you are submitting a backtesting job for 5 previous days start
 
 Now add the two static methods, `name` and `versions_supprted`.
 
-## Name method
+### `def name()`
 ---
 ```python
 @staticmethod
@@ -64,7 +78,7 @@ def name():
 ```
 The name should be unique in your collection of strategies.
 
-## Versions Suported
+### `def versions_supported()`
 ---
 ```python
 @staticmethod
@@ -80,7 +94,7 @@ The `versions_supported` method does the following:
 3. If the version changes, and if you submit a job for this strategy, then the AlgoBulls platform will spawn a server having version 3.2.0 for your strategy.
 4. Having this method ensures that the AlgoBulls platform always provides the correct environment for your strategy.
 
-## Select Instruments for Entry
+### `def strategy_select_instruments_for_entry()`
 ---
 ```python
 def strategy_select_instruments_for_entry(self, candle, instruments_bucket):
@@ -118,7 +132,7 @@ The `strategy_select_instruments_for_entry` method does the following:
     * The actual Entry position (BUY/SELL) is not entered here. Here, only the instrument is selected based on the crossover value with the proper action mentioned in the `sideband_info_bucket`. The Entry position will be taken in the next method below.
     * The `sideband_info_bucket` contains a very versatile dictionary object. You may use it to pass any other additional information that you wish. 
 
-## Entry Position for each (Selected) Instrument
+### `def strategy_enter_position()`
 ---
 ```python
 def strategy_enter_position(self, candle, instrument, sideband_info):
@@ -187,7 +201,7 @@ the job that you will submit. The parameters will be caught as `self.stoploss`, 
      You can also change the class name as `StrategySMABracketOrder`. There will be changes in the entry and exit methods also.
     * The `strategy_enter_position` method is called once for every instrument. For instance, you want to run this strategy for 5 instruments. Say that the `strategy_select_instruments_for_entry` method selects 3 instruments for ENTRY positions (BUY/SELL). Then, the `strategy_enter_position` method will be called thrice, once for each instrument respectively within the candle time frame (say, 15 minutes). 
 
-## Select Instruments for Exit
+### `def strategy_select_instruments_for_exit()`
 ---
 ```python
 def strategy_select_instruments_for_exit(self, candle, instruments_bucket):
@@ -220,7 +234,7 @@ The `strategy_select_instruments_for_exit` method does the following:
     * The `sideband_info_bucket` contains a very versatile dictionary object. You may use it to pass any other additional information that you wish.
     * Whenever a new trading day starts, the `strategy_select_instruments_for_exit` is called first. This is very important for DELIVERY strategies. Many instruments might be holding in an Entry Position at the end of the previous trading day, and they might be eligible for exit at the start of the new trading day.  
 
-## Exit Position for each (Selected) Instrument
+### `def strategy_exit_position()`
 ---
 ```python
 def strategy_exit_position(self, candle, instrument, sideband_info):
@@ -239,7 +253,7 @@ The `strategy_exit_position` method does the following:
 3. `self.main_order` - set it to `None`, as the order has been exited and no longer holds anything.
 4. Return values - returns `True` to the platform if the exit steps were performed, else return `False`.
 
-## Crossover function
+### `def get_crossover_value()`
 ---
 ```python
 def get_crossover_value(self, instrument):
@@ -262,5 +276,12 @@ The `get_crossover_value` method does the following:
 4. Return value - return the crossover value to the caller method.
 
 !!! Note
-    * The order of values passed to the `crossover` method of the `utils` package is very important. For instance, you have 2 SMA values, 5 and 12, and the strategy describes that there should be an BUY Entry Position when SMA(5) cuts SMA(12) upwards (crossover value should be 1). In this case, if you mistakenly pass SMA(12) value first and SMA(5) value next to the `crossover` function, the answer you will get is -1 (Cut downwards). This is correct but the strategy will not take the BUY Entry Position as it is expecting the value of 1 (Cut Upwards) to take that position. Therefore, the strategy will work correctly only if you pass SMA(5) first and then SMA(12).
- 
+    * The order of values passed to the `crossover` method of the `utils` package is very important.
+    * Example: you have 2 SMA values, 5 and 12.The strategy describes that there should be an BUY Entry Position when SMA(5) cuts SMA(12) upwards (crossover value should be 1).
+    * In this case, if you mistakenly pass SMA(12) value first and SMA(5) value next to the `crossover` function, the answer you will get is -1 (Cut downwards).
+    * Though, the crossover value is correct, the strategy is expecting to BUY at crossover 1 as per the code, which will not work now.
+    * Therefore, the strategy will work correctly only if you pass SMA(5) first and then SMA(12) to the `crossover` function, thus making the order of parameters passed an important point to be aware of, while coding the strategy.
+
+## What's Next...
+---
+Next, you upload the strategy into your AlgoBulls account.
