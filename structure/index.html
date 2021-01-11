@@ -171,11 +171,30 @@
 <a class="md-nav__link" href="#lets-start">
     Let's Start...
   </a>
+<nav aria-label="Let's Start..." class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#methods">
+    Methods
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#supporting-methods">
+    Supporting Methods
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#utility-functions">
+    Utility Functions
+  </a>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#flowchart">
     Flowchart
   </a>
+</li>
+</ul>
+</nav>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#whats-next">
@@ -301,11 +320,30 @@
 <a class="md-nav__link" href="#lets-start">
     Let's Start...
   </a>
+<nav aria-label="Let's Start..." class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#methods">
+    Methods
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#supporting-methods">
+    Supporting Methods
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#utility-functions">
+    Utility Functions
+  </a>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#flowchart">
     Flowchart
   </a>
+</li>
+</ul>
+</nav>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#whats-next">
@@ -331,7 +369,9 @@
 <p>This page describes the methods you will use to create your strategy. </p>
 <h2 id="lets-start">Let's Start...<a class="headerlink" href="#lets-start" title="Permanent link">¶</a></h2>
 <hr/>
-<p>You have the following methods:</p>
+<p>You have the following methods.</p>
+<h3 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">¶</a></h3>
+<hr/>
 <ol>
 <li><code>strategy_select_instruments_for_entry()</code> - You may want to run your strategy for multiple instruments. When you pass those instruments to the strategy, 
 the backend core calls this method for each instrument one by one, every candle time. This allows you to write decision making code for each instrument, 
@@ -342,6 +382,8 @@ instruments one by one, every candle time. This allows you to write decision mak
 particular instrument is to be exited or not.</li>
 <li><code>strategy_exit_position()</code> - You can now exit positions in this method for each instrument that you have selected for exit in the previous method.</li>
 </ol>
+<h3 id="supporting-methods">Supporting Methods<a class="headerlink" href="#supporting-methods" title="Permanent link">¶</a></h3>
+<hr/>
 <p>You have the following supporting methods:</p>
 <ol>
 <li><code>__init__()</code> - Thia ia the constructor method used in every strategy. You can perform sanity checks here for each parameter passed as an argument to the strategy.
@@ -351,11 +393,14 @@ You may set initial values for the set of variables that you have declared in th
 <li><code>name()</code> - This method sets a unique name for your strategy.</li>
 <li><code>versions_supported()</code> - This method sets the version of AlgoBulls Platform on which this strategy is certified tested successfully by you.</li>
 </ol>
+<h3 id="utility-functions">Utility Functions<a class="headerlink" href="#utility-functions" title="Permanent link">¶</a></h3>
+<hr/>
 <p>You have the following utility function to be used in this strategy :</p>
 <ol>
-<li><code>get_crossover_value(self, instrument)</code> - A utility method available which calculates the crossover value. </li>
+<li><code>get_crossover_value()</code> - A utility method available which calculates the crossover value. </li>
 </ol>
-<h2 id="flowchart">Flowchart<a class="headerlink" href="#flowchart" title="Permanent link">¶</a></h2>
+<h3 id="flowchart">Flowchart<a class="headerlink" href="#flowchart" title="Permanent link">¶</a></h3>
+<hr/>
 <p>Once you create your own strategy or use a ready strategy from the <a href="https://github.com/algobulls/pyalgostrategypool">pyalgostrategypool</a> package, this is how it works internally on the AlgoBulls Core Trading Engine.</p>
 <p><img alt="Flowchart" src="../flow1.png" title="How does a Strategy work"/></p>
 <h2 id="whats-next">What's Next...<a class="headerlink" href="#whats-next" title="Permanent link">¶</a></h2>
@@ -365,7 +410,7 @@ You may set initial values for the set of variables that you have declared in th
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="timeago" datetime="1610292245000" locale="en"></span>
+      Last update: <span class="timeago" datetime="1610355483000" locale="en"></span>
 </small>
 </div>
 <h2 id="__comments">Comments</h2>

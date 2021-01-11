@@ -427,7 +427,7 @@
 </code></pre></div>
 </div>
 <input id="__tabbed_1_2" name="__tabbed_1" type="radio"><label for="__tabbed_1_2">Import your own strategy</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">strategy_sma_regular_order</span> <span class="kn">import</span> <span class="n">StrategySMARegularOrder</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">strategy_sma_regular_order</span> <span class="kn">import</span> <span class="n">StrategyEMARegularOrder</span>
 </code></pre></div>
 </div>
 </input></input></div>
@@ -448,7 +448,7 @@ Replace the token you have copied with the token in the code above.</p>
 <h3 id="print-your-strategy-code">Print your Strategy code<a class="headerlink" href="#print-your-strategy-code" title="Permanent link">¶</a></h3>
 <hr/>
 <p>You can print your strategy code once to verify if this is the correct code before uploading it to the platform. This step is optional.
-<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">getsource</span><span class="p">(</span><span class="n">StrategySMARegularOrder</span><span class="p">))</span>
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">getsource</span><span class="p">(</span><span class="n">StrategyEMARegularOrder</span><span class="p">))</span>
 </code></pre></div></p>
 <h3 id="upload-your-strategy_1">Upload your Strategy<a class="headerlink" href="#upload-your-strategy_1" title="Permanent link">¶</a></h3>
 <hr/>
@@ -458,7 +458,7 @@ Replace the token you have copied with the token in the code above.</p>
 <h3 id="re-upload-your-strategy-after-modifications">Re-upload your Strategy after modifications<a class="headerlink" href="#re-upload-your-strategy-after-modifications" title="Permanent link">¶</a></h3>
 <hr/>
 <p>If you are re-uploading your strategy after some changes, then use the overwrite switch as shown here.
-<div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">create_strategy</span><span class="p">(</span><span class="n">StrategySMARegularOrder</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">create_strategy</span><span class="p">(</span><span class="n">StrategyEMARegularOrder</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </code></pre></div></p>
 <h2 id="whats-next">What's Next...<a class="headerlink" href="#whats-next" title="Permanent link">¶</a></h2>
 <hr/>
@@ -467,7 +467,7 @@ Replace the token you have copied with the token in the code above.</p>
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="timeago" datetime="1610292245000" locale="en"></span>
+      Last update: <span class="timeago" datetime="1610355483000" locale="en"></span>
 </small>
 </div>
 <h2 id="__comments">Comments</h2>
