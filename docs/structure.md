@@ -8,8 +8,10 @@ This page describes the methods you will use to create your strategy.
 
 ## Let's Start...
 ---
-You have the following methods:
+You have the following methods.
 
+### Methods
+---
 1. `strategy_select_instruments_for_entry()` - You may want to run your strategy for multiple instruments. When you pass those instruments to the strategy, 
 the backend core calls this method for each instrument one by one, every candle time. This allows you to write decision making code for each instrument, 
 allowing you to decide whether an order is to be punched for that particular instrument or not.
@@ -19,6 +21,8 @@ instruments one by one, every candle time. This allows you to write decision mak
 particular instrument is to be exited or not.
 4. `strategy_exit_position()` - You can now exit positions in this method for each instrument that you have selected for exit in the previous method.
 
+### Supporting Methods
+---
 You have the following supporting methods:
 
 1. `__init__()` - Thia ia the constructor method used in every strategy. You can perform sanity checks here for each parameter passed as an argument to the strategy.
@@ -28,12 +32,14 @@ You may set initial values for the set of variables that you have declared in th
 3. `name()` - This method sets a unique name for your strategy.
 4. `versions_supported()` - This method sets the version of AlgoBulls Platform on which this strategy is certified tested successfully by you.
 
+### Utility Functions
+---
 You have the following utility function to be used in this strategy :
 
-1. `get_crossover_value(self, instrument)` - A utility method available which calculates the crossover value. 
+1. `get_crossover_value()` - A utility method available which calculates the crossover value. 
 
-## Flowchart
-
+### Flowchart
+---
 Once you create your own strategy or use a ready strategy from the [pyalgostrategypool](https://github.com/algobulls/pyalgostrategypool) package, this is how it works internally on the AlgoBulls Core Trading Engine.
 
 ![Flowchart](flow1.png "How does a Strategy work")
