@@ -47,7 +47,7 @@ class AlgoBullsConnection:
         assert (isinstance(access_token, str) is True), f'Argument "access_token" should be a string'
         self.api.set_access_token(access_token)
 
-    def create_strategy(self, strategy, overwrite=False):
+    def create_strategy(self, strategy, overwrite=False, abc_version=None):
         """
         Method to upload new strategy.
 
@@ -57,6 +57,10 @@ class AlgoBullsConnection:
             - AlgoBullsAPIBadRequest Exception will be thrown. No change would be done in the backend database.
         If overwrite is True,
             - Existing strategy with strategy_name would be overwritten. No exception will be thrown.
+        If abc_version is not None,
+            - Create strategy for specific version
+        else:
+            - Create strategy for latest version
         """
 
         # Sanity checks
@@ -69,12 +73,21 @@ class AlgoBullsConnection:
         # Get source code, and upload as new strategy (if strategy_code is None) else edit same strategy
         strategy_name = strategy.name()
         strategy_details = inspect.getsource(strategy)
-        abc_version = strategy.versions_supported().value
+        versions_supported = strategy.versions_supported()
+
+        if abc_version is None:
+            if isinstance(versions_supported, list):
+                _abc_version = strategy.versions_supported()[0].value       # Take the first version
+                # TODO: Once 3.3.0 is available for pyalgotrading, change index from '0' to '-1' to take the latest version
+            else:
+                _abc_version = strategy.versions_supported().value
+        else:
+            _abc_version = abc_version.value
 
         if overwrite is False:
-            response = self.api.create_strategy(strategy_name=strategy_name, strategy_details=strategy_details, abc_version=abc_version)
+            response = self.api.create_strategy(strategy_name=strategy_name, strategy_details=strategy_details, abc_version=_abc_version)
         else:
-            response = self.api.update_strategy(strategy_name=strategy_name, strategy_details=strategy_details, abc_version=abc_version)
+            response = self.api.update_strategy(strategy_name=strategy_name, strategy_details=strategy_details, abc_version=_abc_version)
 
         return response
 
