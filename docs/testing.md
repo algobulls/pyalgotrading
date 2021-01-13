@@ -69,7 +69,7 @@ all_strategies = algobulls_connection.get_all_strategies()
 all_strategies
 ```
 
-An example of the output wil be:
+An example of the output will be:
 ![Output](output.png "Sample Output")
 
 ### Select the SMA strategy
@@ -192,7 +192,7 @@ Click on each of the tabs to see the relevant code snippet.
     algobulls_connection.stop_realtrading_job(strategy_code=strategy_code1)
     ```
 
-You can fetch the logs in the middle of a job to mnoitor the progress.
+You can fetch the logs in the middle of a job to monitor the progress.
 
 ### Fetch logs of an ongoing/stopped/completed job
 ---

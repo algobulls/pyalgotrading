@@ -13,11 +13,11 @@ You have the following methods.
 ### Methods
 ---
 1. `strategy_select_instruments_for_entry()` - You may want to run your strategy for multiple instruments. When you pass those instruments to the strategy, 
-the backend core calls this method for each instrument one by one, every candle time. This allows you to write decision making code for each instrument, 
+the backend core calls this method for each instrument one by one, every candle time. This allows you to write decision-making code for each instrument, 
 allowing you to decide whether an order is to be punched for that particular instrument or not.
 2. `strategy_enter_position()` - You can now punch your order in this method for each instrument that you have selected for entry in the previous method.
 3. `strategy_select_instruments_for_exit()` - Once a position is entered for a particular instrument, the backend core calls this method for those 
-instruments one by one, every candle time. This allows you to write decision making code for each instrument, allowing you to decide whether that 
+instruments one by one, every candle time. This allows you to write decision-making code for each instrument, allowing you to decide whether that 
 particular instrument is to be exited or not.
 4. `strategy_exit_position()` - You can now exit positions in this method for each instrument that you have selected for exit in the previous method.
 

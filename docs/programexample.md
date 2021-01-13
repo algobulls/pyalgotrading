@@ -65,7 +65,7 @@ def initialize(self):
 
 The `initialize` method sets the `self.main_order` as an empty dictionary. This method is called at the start of every trading day.
 
-For instance, say you are submitting a backtesting job for 5 previous days starting at 10:30 everyday, then the `initialize` method will be called everyday for 5 days at 10:30.
+For instance, say you are submitting a backtesting job for 5 previous days starting at 10:30 every day, then the `initialize` method will be called every day for 5 days at 10:30.
 
 Now add the two static methods, `name` and `versions_supprted`.
 
@@ -159,8 +159,8 @@ def strategy_enter_position(self, candle, instrument, sideband_info):
 The `strategy_enter_position` method does the following:
 
 1. If conditions - The conditions read the action from the `sideband_info` and perform the required action (BUY/SELL).
-2. `qty` - The quantity is calculated and stored here. The number of lots will be passed by you as a parameter while submitting a job. The parameter will be caught in `self.number_of_lots`. The instrument object has the lot size, which you can retrieve using `instrument.lot_size`. You can then use the formula as shown in the code to calculate the quantity.
-3. `BuyOrderRegular` and `SellOrderRegular` - These execute the required action. You need the pass the instrument, order code, order variety and the quantity values.
+2. `qty` - The quantity is calculated and stored here. The number of lots will be passed by you as a parameter while submitting a job. The parameter will be caught in `self.number_of_lots`. The instrument object has the 'lot size', which you can retrieve using `instrument.lot_size`. You can then use the formula as shown in the code to calculate the quantity.
+3. `BuyOrderRegular` and `SellOrderRegular` - These execute the required action. You need to pass the instrument, order code, order variety and the quantity values.
     * `instrument` - the instrument on which the BUY/SELL action will be performed.
     * `order_code` - whether the order is for INTRADAY or DELIVERY. Possible values are:
         + `BrokerOrderCodeConstants.INTRADAY`
@@ -266,10 +266,10 @@ def get_crossover_value(self, instrument):
 
 The `get_crossover_value` method does the following:
 
-1. `hist_data` - The historical data for the instrument is fetched using the `get_historical_data` method and stored here. The data is in the form of a table (Pandas DataFrame) having the follwing columns:
-    * `timestamp` - the data and time when the datawas measured
+1. `hist_data` - The historical data for the instrument is fetched using the `get_historical_data` method and stored here. The data is in the form of a table (Pandas DataFrame) having the following columns:
+    * `timestamp` - the data and time when the data was measured
     * `volume` - the volume of that instrument
-    * `open`, `high`, `low` and `close` - the OHLC values of the intrument
+    * `open`, `high`, `low` and `close` - the OHLC values of the instrument
     * `oi` - the Open Interest of that instrument
 2. `sma_x` and `sma_y` - the SMA function from the `talib` package is used to calculate the Moving Average for both SMA timeperiods. The candle close value is used for calculations, i.e. `hist_data['close']`.
 3. `crossover_value` - calculates the crossover value using the `crossover` method from the `utils` package.
@@ -277,7 +277,7 @@ The `get_crossover_value` method does the following:
 
 !!! Note
     * The order of values passed to the `crossover` method of the `utils` package is very important.
-    * Example: you have 2 SMA values, 5 and 12.The strategy describes that there should be an BUY Entry Position when SMA(5) cuts SMA(12) upwards (crossover value should be 1).
+    * Example: you have 2 SMA values, 5 and 12. The strategy describes that there should be an BUY Entry Position when SMA(5) cuts SMA(12) upwards (crossover value should be 1).
     * In this case, if you mistakenly pass SMA(12) value first and SMA(5) value next to the `crossover` function, the answer you will get is -1 (Cut downwards).
     * Though, the crossover value is correct, the strategy is expecting to BUY at crossover 1 as per the code, which will not work now.
     * Therefore, the strategy will work correctly only if you pass SMA(5) first and then SMA(12) to the `crossover` function, thus making the order of parameters passed an important point to be aware of, while coding the strategy.
