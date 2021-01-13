@@ -490,7 +490,7 @@ For SMA, we are calculating crossover for 2 SMA timeperiod values, example 5 and
     <span class="bp">self</span><span class="o">.</span><span class="n">main_order</span> <span class="o">=</span> <span class="p">{}</span>
 </code></pre></div>
 <p>The <code>initialize</code> method sets the <code>self.main_order</code> as an empty dictionary. This method is called at the start of every trading day.</p>
-<p>For instance, say you are submitting a backtesting job for 5 previous days starting at 10:30 everyday, then the <code>initialize</code> method will be called everyday for 5 days at 10:30.</p>
+<p>For instance, say you are submitting a backtesting job for 5 previous days starting at 10:30 every day, then the <code>initialize</code> method will be called every day for 5 days at 10:30.</p>
 <p>Now add the two static methods, <code>name</code> and <code>versions_supprted</code>.</p>
 <h3 id="def-name"><code>def name()</code><a class="headerlink" href="#def-name" title="Permanent link">¶</a></h3>
 <hr/>
@@ -579,8 +579,8 @@ Mark both the above methods as <code>@staticmethod</code>.</p>
 <p>The <code>strategy_enter_position</code> method does the following:</p>
 <ol>
 <li>If conditions - The conditions read the action from the <code>sideband_info</code> and perform the required action (BUY/SELL).</li>
-<li><code>qty</code> - The quantity is calculated and stored here. The number of lots will be passed by you as a parameter while submitting a job. The parameter will be caught in <code>self.number_of_lots</code>. The instrument object has the lot size, which you can retrieve using <code>instrument.lot_size</code>. You can then use the formula as shown in the code to calculate the quantity.</li>
-<li><code>BuyOrderRegular</code> and <code>SellOrderRegular</code> - These execute the required action. You need the pass the instrument, order code, order variety and the quantity values.<ul>
+<li><code>qty</code> - The quantity is calculated and stored here. The number of lots will be passed by you as a parameter while submitting a job. The parameter will be caught in <code>self.number_of_lots</code>. The instrument object has the 'lot size', which you can retrieve using <code>instrument.lot_size</code>. You can then use the formula as shown in the code to calculate the quantity.</li>
+<li><code>BuyOrderRegular</code> and <code>SellOrderRegular</code> - These execute the required action. You need to pass the instrument, order code, order variety and the quantity values.<ul>
 <li><code>instrument</code> - the instrument on which the BUY/SELL action will be performed.</li>
 <li><code>order_code</code> - whether the order is for INTRADAY or DELIVERY. Possible values are:<ul>
 <li><code>BrokerOrderCodeConstants.INTRADAY</code></li>
@@ -692,10 +692,10 @@ the job that you will submit. The parameters will be caught as <code>self.stoplo
 </code></pre></div>
 <p>The <code>get_crossover_value</code> method does the following:</p>
 <ol>
-<li><code>hist_data</code> - The historical data for the instrument is fetched using the <code>get_historical_data</code> method and stored here. The data is in the form of a table (Pandas DataFrame) having the follwing columns:<ul>
-<li><code>timestamp</code> - the data and time when the datawas measured</li>
+<li><code>hist_data</code> - The historical data for the instrument is fetched using the <code>get_historical_data</code> method and stored here. The data is in the form of a table (Pandas DataFrame) having the following columns:<ul>
+<li><code>timestamp</code> - the data and time when the data was measured</li>
 <li><code>volume</code> - the volume of that instrument</li>
-<li><code>open</code>, <code>high</code>, <code>low</code> and <code>close</code> - the OHLC values of the intrument</li>
+<li><code>open</code>, <code>high</code>, <code>low</code> and <code>close</code> - the OHLC values of the instrument</li>
 <li><code>oi</code> - the Open Interest of that instrument</li>
 </ul>
 </li>
@@ -707,7 +707,7 @@ the job that you will submit. The parameters will be caught as <code>self.stoplo
 <p class="admonition-title">Note</p>
 <ul>
 <li>The order of values passed to the <code>crossover</code> method of the <code>utils</code> package is very important.</li>
-<li>Example: you have 2 SMA values, 5 and 12.The strategy describes that there should be an BUY Entry Position when SMA(5) cuts SMA(12) upwards (crossover value should be 1).</li>
+<li>Example: you have 2 SMA values, 5 and 12. The strategy describes that there should be an BUY Entry Position when SMA(5) cuts SMA(12) upwards (crossover value should be 1).</li>
 <li>In this case, if you mistakenly pass SMA(12) value first and SMA(5) value next to the <code>crossover</code> function, the answer you will get is -1 (Cut downwards).</li>
 <li>Though, the crossover value is correct, the strategy is expecting to BUY at crossover 1 as per the code, which will not work now.</li>
 <li>Therefore, the strategy will work correctly only if you pass SMA(5) first and then SMA(12) to the <code>crossover</code> function, thus making the order of parameters passed an important point to be aware of, while coding the strategy.</li>
@@ -720,7 +720,7 @@ the job that you will submit. The parameters will be caught as <code>self.stoplo
 <div class="md-source-date">
 <small>
     
-      Last update: <span class="timeago" datetime="1610292245000" locale="en"></span>
+      Last update: <span class="timeago" datetime="1610550404000" locale="en"></span>
 </small>
 </div>
 <h2 id="__comments">Comments</h2>
