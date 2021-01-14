@@ -67,8 +67,10 @@ class AlgoBullsConnection:
         assert issubclass(strategy, StrategyBase), f'strategy should be a subclass of class StrategyBase. Got class of type: type{strategy}'
 
         # Validate class by creating an instance
-        print('Validating Strategy...')
-        strategy()
+        # Todo: Temporarily disabling strategy validation for this bug fix: Validating strategy which has assert checks for strategy parameters to be of specific type (say 'int') fails with TypeError.
+        #       In future, if assert checks can be taken care of dynamically, turn this validation ON.
+        # print('Validating Strategy...')
+        # strategy()
 
         # Get source code, and upload as new strategy (if strategy_code is None) else edit same strategy
         strategy_name = strategy.name()
