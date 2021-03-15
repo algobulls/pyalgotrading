@@ -42,7 +42,7 @@ Perform the below step either to import a ready strategy **OR** to import your o
 
 === "Import your own strategy"
     ```python
-    from strategy_sma_regular_order import StrategyEMARegularOrder
+    from strategy_sma_regular_order import StrategySMARegularOrder
     ```
 ### Establish a connection to the AlgoBulls Platform
 ---
@@ -71,7 +71,7 @@ Replace the token you have copied with the token in the code above.
 --- 
 You can print your strategy code once to verify if this is the correct code before uploading it to the platform. This step is optional.
 ```python
-print(inspect.getsource(StrategyEMARegularOrder))
+print(inspect.getsource(StrategySMARegularOrder))
 ```
 
 ### Upload your Strategy
@@ -85,7 +85,7 @@ algobulls_connection.create_strategy(StrategySMARegularOrder)
 ---
 If you are re-uploading your strategy after some changes, then use the overwrite switch as shown here.
 ```python
-algobulls_connection.create_strategy(StrategyEMARegularOrder, overwrite=True)
+algobulls_connection.create_strategy(StrategySMARegularOrder, overwrite=True)
 ```
 ## What's Next...
 ---
