@@ -242,7 +242,7 @@ class AlgoBullsAPI:
         print('Success.')
         return key, response
 
-    def start_strategy_algotrading(self, strategy_code: str, trading_type: TradingType) -> dict:
+    def start_strategy_algotrading(self, strategy_code: str, trading_type: TradingType, lots: int) -> dict:
         """
         Submit Backtesting / Paper Trading / Real Trading job for strategy with code strategy_code & return the job ID.
 
@@ -260,7 +260,7 @@ class AlgoBullsAPI:
 
         try:
             key = self.__get_key(strategy_code=strategy_code, trading_type=trading_type)
-            json_data = {'method': 'update', 'newVal': 1, 'key': key, 'record': {'status': 0}}
+            json_data = {'method': 'update', 'newVal': 1, 'key': key, 'record': {'status': 0, 'lots': lots}}
             print(f'Submitting {trading_type.name} job...', end=' ')
             response = self._send_request(method='post', endpoint=endpoint, json_data=json_data)
             print('Success.')

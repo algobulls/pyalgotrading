@@ -248,7 +248,7 @@ class AlgoBullsConnection:
         self.api.set_strategy_config(strategy_code=strategy_code, strategy_config=strategy_config, trading_type=TradingType.BACKTESTING)
 
         # Submit Backtesting job
-        response = self.api.start_strategy_algotrading(strategy_code=strategy_code, trading_type=TradingType.BACKTESTING)
+        response = self.api.start_strategy_algotrading(strategy_code=strategy_code, trading_type=TradingType.BACKTESTING, lots=lots)
 
     def get_backtesting_job_status(self, strategy_code):
         """
@@ -354,7 +354,7 @@ class AlgoBullsConnection:
         self.api.set_strategy_config(strategy_code=strategy_code, strategy_config=strategy_config, trading_type=TradingType.PAPERTRADING)
 
         # Submit Paper Trading job
-        response = self.api.start_strategy_algotrading(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING)
+        response = self.api.start_strategy_algotrading(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING, lots=lots)
 
     def get_papertrading_job_status(self, strategy_code):
         """
@@ -466,7 +466,7 @@ class AlgoBullsConnection:
         self.api.set_strategy_config(strategy_code=strategy_code, strategy_config=strategy_config, trading_type=TradingType.REALTRADING)
 
         # Submit Real Trading job
-        response = self.api.start_strategy_algotrading(strategy_code=strategy_code, trading_type=TradingType.REALTRADING)
+        response = self.api.start_strategy_algotrading(strategy_code=strategy_code, trading_type=TradingType.REALTRADING, lots=lots)
 
     def get_realtrading_job_status(self, strategy_code):
         """
