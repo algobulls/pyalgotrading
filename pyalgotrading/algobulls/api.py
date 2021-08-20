@@ -15,6 +15,7 @@ class AlgoBullsAPI:
     AlgoBulls API
     """
     SERVER_ENDPOINT = 'https://api.algobulls.com/'
+
     # SERVER_ENDPOINT = 'http://127.0.0.1:8000/'
 
     def __init__(self):
@@ -22,9 +23,9 @@ class AlgoBullsAPI:
         Init method that is used while creating an object of this class
         """
         self.headers = None
-        self.__key_backtesting = None  # cstc id
-        self.__key_papertrading = None  # cstc id
-        self.__key_realtrading = None  # cstc id
+        self.__key_backtesting = {}  # strategy-cstc_id mapping
+        self.__key_papertrading = {}  # strategy-cstc_id mapping
+        self.__key_realtrading = {}  # strategy-cstc_id mapping
 
     def set_access_token(self, access_token: str):
         """
@@ -106,17 +107,17 @@ class AlgoBullsAPI:
 
     def __get_key(self, strategy_code, trading_type):
         if trading_type is TradingType.BACKTESTING:
-            if self.__key_backtesting is None:
-                self.__key_backtesting = self.__fetch_key(strategy_code=strategy_code, trading_type=TradingType.BACKTESTING)
-            return self.__key_backtesting
+            if self.__key_backtesting.get(strategy_code) is None:
+                self.__key_backtesting[strategy_code] = self.__fetch_key(strategy_code=strategy_code, trading_type=TradingType.BACKTESTING)
+            return self.__key_backtesting[strategy_code]
         elif trading_type is TradingType.PAPERTRADING:
-            if self.__key_papertrading is None:
-                self.__key_papertrading = self.__fetch_key(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING)
-            return self.__key_papertrading
+            if self.__key_papertrading.get(strategy_code) is None:
+                self.__key_papertrading[strategy_code] = self.__fetch_key(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING)
+            return self.__key_papertrading[strategy_code]
         elif trading_type is TradingType.REALTRADING:
-            if self.__key_realtrading is None:
-                self.__key_realtrading = self.__fetch_key(strategy_code=strategy_code, trading_type=TradingType.REALTRADING)
-            return self.__key_realtrading
+            if self.__key_realtrading.get(strategy_code) is None:
+                self.__key_realtrading[strategy_code] = self.__fetch_key(strategy_code=strategy_code, trading_type=TradingType.REALTRADING)
+            return self.__key_realtrading[strategy_code]
         else:
             raise NotImplementedError
 
