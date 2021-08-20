@@ -47,7 +47,7 @@ pip install pyalgotrading
 
 ### Support / Getting Help
 - *Bug Reporting / New Feature Request*: Please [create a new issue](https://github.com/algobulls/pyalgotrading/issues/new) here on GitHub.
-- *Discussion Forum*: Coming Soon!
+- *Discussion Forum*: [AlgoBulls Community Forum](https://community.algobulls.com/)
 - *Additional Support*: If none of the above help, please contact [pushpak@algobulls.com](mailto:pushpak@algobulls.com).
 
 ### Contribution Guidelines
