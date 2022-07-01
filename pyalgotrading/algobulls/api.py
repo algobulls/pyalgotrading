@@ -3,6 +3,7 @@ Module for handling API calls to the [AlgoBulls](https://www.algobulls.com) back
 """
 import re
 from json import JSONDecodeError
+from datetime import datetime as dt
 
 import requests
 
@@ -242,7 +243,7 @@ class AlgoBullsAPI:
         print('Success.')
         return key, response
 
-    def start_strategy_algotrading(self, strategy_code: str, trading_type: TradingType, lots: int) -> dict:
+    def start_strategy_algotrading(self, strategy_code: str, start_timestamp: dt, end_timestamp: dt, trading_type: TradingType, lots: int) -> dict:
         """
         Submit Backtesting / Paper Trading / Real Trading job for strategy with code strategy_code & return the job ID.
 
@@ -258,7 +259,17 @@ class AlgoBullsAPI:
 
         try:
             key = self.__get_key(strategy_code=strategy_code, trading_type=trading_type)
-            json_data = {'method': 'update', 'newVal': 1, 'key': key, 'record': {'status': 0, 'lots': lots}, 'dataIndex': 'executeConfig'}
+            map_trading_type_to_date_key = {
+                TradingType.REALTRADING: 'liveDataTime',
+                TradingType.PAPERTRADING: 'backDataTime',
+                TradingType.BACKTESTING: 'backDataDate'
+            }
+            execute_config = {
+                map_trading_type_to_date_key[trading_type]: [start_timestamp, end_timestamp],
+                'isLiveDataTestMode': trading_type == TradingType.PAPERTRADING,
+                'customizationsQuantity': lots
+            }
+            json_data = {'method': 'update', 'newVal': 1, 'key': key, 'record': {'status': 0, 'lots': lots, 'executeConfig': execute_config}, 'dataIndex': 'executeConfig'}
             print(f'Submitting {trading_type.name} job...', end=' ')
             response = self._send_request(method='patch', endpoint=endpoint, json_data=json_data)
             print('Success.')

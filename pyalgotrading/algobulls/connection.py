@@ -129,7 +129,7 @@ class AlgoBullsConnection:
         except AlgoBullsAPIBadRequest:
             print(f'ERROR: No strategy found with ID: {strategy_code}')
 
-    def search_instrument(self, instrument):
+    def search_instrument(self, instrument, exchange='NSE'):
         """
         Search for an instrument
         Args:
@@ -139,7 +139,7 @@ class AlgoBullsConnection:
             True or False
         """
         assert (isinstance(instrument, str) is True), f'Argument "instrument" should be a string'
-        response = self.api.search_instrument(instrument, exchange='NSE').get('data')
+        response = self.api.search_instrument(instrument, exchange=exchange).get('data')
         return response
 
     def get_job_status(self, strategy_code, trading_type):
@@ -244,18 +244,35 @@ class AlgoBullsConnection:
         assert (isinstance(strategy_mode, StrategyMode) is True), f'Argument "strategy_mode" should be enum of type StrategyMode'
         assert (isinstance(candle_interval, CandleInterval)), f'Argument "candle_interval" should be an enum of type CandleInterval'
 
+        # Restructuring strategy params
+        restructured_strategy_parameters = []
+        for _ in strategy_parameters:
+            restructured_strategy_parameters.append({
+                'paramName': _,
+                'paramValue': strategy_parameters[_]
+            })
+
+        instrument_id = None
+        instrument_results = self.search_instrument(instrument)
+        for _ in instrument_results:
+            if _["value"] == instrument:
+                instrument_id = _["id"]
+                break
+
         # Setup config for Backtesting
-        strategy_config = {'tradingTime': [start_timestamp.strftime('%d-%m-%Y %H:%M'), end_timestamp.strftime('%d-%m-%Y %H:%M')],
-                           'instruments': [instrument],
-                           'lots': lots,
-                           'parameters': strategy_parameters,
-                           'candle': candle_interval.value,
+        strategy_config = {#'tradingTime': [start_timestamp.strftime('%d-%m-%Y %H:%M'), end_timestamp.strftime('%d-%m-%Y %H:%M')],
+                           'instruments': {
+                               'instruments': [{'id': instrument_id}]
+                           },
+                           # 'lots': lots,
+                           'userParams': restructured_strategy_parameters,
+                           'candleDuration': candle_interval.value,
                            'strategyMode': strategy_mode.value}
         # TODO: fix this api call
-        # self.api.set_strategy_config(strategy_code=strategy_code, strategy_config=strategy_config, trading_type=TradingType.BACKTESTING)
+        self.api.set_strategy_config(strategy_code=strategy_code, strategy_config=strategy_config, trading_type=TradingType.BACKTESTING)
 
         # Submit Backtesting job
-        response = self.api.start_strategy_algotrading(strategy_code=strategy_code, trading_type=TradingType.BACKTESTING, lots=lots)
+        response = self.api.start_strategy_algotrading(strategy_code=strategy_code, start_timestamp=start_timestamp, end_timestamp=start_timestamp, trading_type=TradingType.BACKTESTING, lots=lots)
 
     def get_backtesting_job_status(self, strategy_code):
         """
