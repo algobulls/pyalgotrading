@@ -7,10 +7,9 @@ from datetime import datetime as dt, time
 import pandas as pd
 
 from .api import AlgoBullsAPI
-from .exceptions import AlgoBullsAPIBadRequest, AlgoBullsAPIForbiddenError
+from .exceptions import AlgoBullsAPIBadRequest
 from ..constants import StrategyMode, TradingType, TradingReportType, CandleInterval
 from ..strategy.strategy_base import StrategyBase
-
 
 
 class AlgoBullsConnection:
@@ -47,7 +46,7 @@ class AlgoBullsConnection:
         assert (isinstance(access_token, str) is True), f'Argument "access_token" should be a string'
         self.api.set_access_token(access_token)
 
-    def create_strategy(self, strategy, overwrite=False, abc_version=None):
+    def create_strategy(self, strategy, overwrite=False, strategy_code=None, abc_version=None):
         """
         Method to upload new strategy.
 
@@ -79,7 +78,7 @@ class AlgoBullsConnection:
 
         if abc_version is None:
             if isinstance(versions_supported, list):
-                _abc_version = strategy.versions_supported()[0].value       # Take the first version
+                _abc_version = strategy.versions_supported()[0].value  # Take the first version
                 # TODO: Once 3.3.0 is available for pyalgotrading, change index from '0' to '-1' to take the latest version
             else:
                 _abc_version = strategy.versions_supported().value
@@ -89,11 +88,17 @@ class AlgoBullsConnection:
         if overwrite is False:
             response = self.api.create_strategy(strategy_name=strategy_name, strategy_details=strategy_details, abc_version=_abc_version)
         else:
-            response = self.api.update_strategy(strategy_name=strategy_name, strategy_details=strategy_details, abc_version=_abc_version)
+            if strategy_code:
+                _strategy_code = strategy_code
+            else:
+                _ = self.get_all_strategies(return_as_dataframe=False)
+                _strategy_code = {_dict['strategyName']:_dict['strategyCode'] for _dict in _}[strategy_name]
+            print(_strategy_code)
+            response = self.api.update_strategy(strategy_code=_strategy_code, strategy_name=strategy_name, strategy_details=strategy_details, abc_version=_abc_version)
 
         return response
 
-    def get_all_strategies(self):
+    def get_all_strategies(self, return_as_dataframe=True):
         """
         Fetch all available strategies
         Returns:
@@ -101,7 +106,8 @@ class AlgoBullsConnection:
         """
         response = self.api.get_all_strategies()
         if isinstance(response['data'], list):
-            return pd.DataFrame(response['data'])
+            _ = response['data']
+            return pd.DataFrame(_) if return_as_dataframe else _
         else:
             return response
 
@@ -133,7 +139,7 @@ class AlgoBullsConnection:
             True or False
         """
         assert (isinstance(instrument, str) is True), f'Argument "instrument" should be a string'
-        response = self.api.search_instrument(instrument).get('data')
+        response = self.api.search_instrument(instrument, exchange='NSE').get('data')
         return response
 
     def get_job_status(self, strategy_code, trading_type):
@@ -245,7 +251,8 @@ class AlgoBullsConnection:
                            'parameters': strategy_parameters,
                            'candle': candle_interval.value,
                            'strategyMode': strategy_mode.value}
-        self.api.set_strategy_config(strategy_code=strategy_code, strategy_config=strategy_config, trading_type=TradingType.BACKTESTING)
+        # TODO: fix this api call
+        # self.api.set_strategy_config(strategy_code=strategy_code, strategy_config=strategy_config, trading_type=TradingType.BACKTESTING)
 
         # Submit Backtesting job
         response = self.api.start_strategy_algotrading(strategy_code=strategy_code, trading_type=TradingType.BACKTESTING, lots=lots)
