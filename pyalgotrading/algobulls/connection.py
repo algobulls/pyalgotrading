@@ -92,10 +92,13 @@ class AlgoBullsConnection:
                 _strategy_code = strategy_code
             else:
                 _ = self.get_all_strategies(return_as_dataframe=False)
-                _strategy_code = {_dict['strategyName']:_dict['strategyCode'] for _dict in _}[strategy_name]
-            print(_strategy_code)
-            response = self.api.update_strategy(strategy_code=_strategy_code, strategy_name=strategy_name, strategy_details=strategy_details, abc_version=_abc_version)
+                try:
+                    _strategy_code = {_dict['strategyName']:_dict['strategyCode'] for _dict in _}[strategy_name]
+                    response = self.api.update_strategy(strategy_code=_strategy_code, strategy_name=strategy_name,strategy_details=strategy_details, abc_version=_abc_version)
 
+                except KeyError:
+                    response = self.api.create_strategy(strategy_name=strategy_name, strategy_details=strategy_details,
+                                                        abc_version=_abc_version)
         return response
 
     def get_all_strategies(self, return_as_dataframe=True):
@@ -264,7 +267,7 @@ class AlgoBullsConnection:
                            'instruments': {
                                'instruments': [{'id': instrument_id}]
                            },
-                           # 'lots': lots,
+                           'lots': lots,
                            'userParams': restructured_strategy_parameters,
                            'candleDuration': candle_interval.value,
                            'strategyMode': strategy_mode.value}
@@ -360,25 +363,43 @@ class AlgoBullsConnection:
         """
         # Sanity checks - Validate config parameters
         assert (isinstance(strategy_code, str) is True), f'Argument "strategy_code" should be a string'
-        assert (isinstance(start_time, time) is True), f'Argument "start_timestamp" should be an instance of type datetime.datetime'
-        assert (isinstance(end_time, time) is True), f'Argument "start_timestamp" should be an instance of type datetime.datetime'
+        assert (isinstance(start_time, dt) is True), f'Argument "start_timestamp" should be an instance of type datetime.datetime'
+        assert (isinstance(end_time, dt) is True), f'Argument "start_timestamp" should be an instance of type datetime.datetime'
         assert (isinstance(instrument, str) is True), f'Argument "instrument" should be a string. You can find the right id using the \'get_instrument()\' method of AlgoBullsConnection class'
         assert (isinstance(lots, int) is True and lots > 0), f'Argument "lots" should be a positive integer.'
         assert (isinstance(strategy_parameters, dict) is True), f'Argument "strategy_parameters" should be a dict'
         assert (isinstance(strategy_mode, StrategyMode) is True), f'Argument "strategy_mode" should be enum of type StrategyMode'
         assert (isinstance(candle_interval, CandleInterval)), f'Argument "candle_interval" should be an enum of type CandleInterval'
 
+        # Restructuring strategy params
+        restructured_strategy_parameters = []
+        for _ in strategy_parameters:
+            restructured_strategy_parameters.append({
+                'paramName': _,
+                'paramValue': strategy_parameters[_]
+            })
+
+        instrument_id = None
+        instrument_results = self.search_instrument(instrument)
+        for _ in instrument_results:
+            if _["value"] == instrument:
+                instrument_id = _["id"]
+                break
+
         # Setup config for Paper Trading
-        strategy_config = {'tradingTime': [start_time.strftime('%H:%M'), end_time.strftime('%H:%M')],
-                           'instruments': [instrument],
-                           'lots': lots,
-                           'parameters': strategy_parameters,
-                           'candle': candle_interval.value,
-                           'strategyMode': strategy_mode.value}
+        strategy_config = {
+                            # 'tradingTime': [start_timestamp.strftime('%d-%m-%Y %H:%M'), end_timestamp.strftime('%d-%m-%Y %H:%M')],
+                            'instruments': {
+                                'instruments': [{'id': instrument_id}]
+                            },
+                            'lots': lots,
+                            'userParams': restructured_strategy_parameters,
+                            'candleDuration': candle_interval.value,
+                            'strategyMode': strategy_mode.value}
         self.api.set_strategy_config(strategy_code=strategy_code, strategy_config=strategy_config, trading_type=TradingType.PAPERTRADING)
 
         # Submit Paper Trading job
-        response = self.api.start_strategy_algotrading(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING, lots=lots)
+        response = self.api.start_strategy_algotrading(strategy_code=strategy_code, start_timestamp=start_time, end_timestamp=end_time, trading_type=TradingType.PAPERTRADING, lots=lots)
 
     def get_papertrading_job_status(self, strategy_code):
         """

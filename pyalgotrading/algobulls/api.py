@@ -31,7 +31,7 @@ class AlgoBullsAPI:
 
     def __convert(self, _dict):
         # Helps convert _dict keys from camelcase to snakecase
-        return {self.pattern.sub('_', k).lower(): v for k, v in _dict}
+        return {self.pattern.sub('_', k).lower(): v for k, v in _dict.items()}
 
     def set_access_token(self, access_token: str):
         """
@@ -147,7 +147,7 @@ class AlgoBullsAPI:
         """
         try:
             json_data = {'strategyName': strategy_name, 'strategyDetails': strategy_details, 'abcVersion': abc_version}
-            endpoint = f'v1/build/strategy'
+            endpoint = f'v2/user/strategy/build/python'
             print(f"Uploading strategy '{strategy_name}' ...", end=' ')
             response = self._send_request(endpoint=endpoint, method='post', json_data=json_data)
             print('Success.')
@@ -173,7 +173,7 @@ class AlgoBullsAPI:
             PUT v2/user/strategy/build/python
         """
         json_data = {'strategyId': strategy_code, 'strategyName': strategy_name, 'strategyDetails': strategy_details, 'abcVersion': abc_version}
-        endpoint = f'v1/build/strategy'
+        endpoint = f'v2/user/strategy/build/python'
         response = self._send_request(endpoint=endpoint, method='put', json_data=json_data)
         return response
 
@@ -184,9 +184,7 @@ class AlgoBullsAPI:
         Returns:
             JSON Response received from AlgoBulls platform with list of all the created strategies.
         """
-        endpoint = f'v1/build/strategy'
-        print(endpoint)
-        # endpoint = f'v2/user/strategy/build/python'
+        endpoint = f'v2/user/strategy/build/python'
         response = self._send_request(endpoint=endpoint, method='options')
         return response
 
@@ -201,7 +199,7 @@ class AlgoBullsAPI:
             JSON
         """
         params = {}
-        endpoint = f'v1/build/strategy/{strategy_code}'
+        endpoint = f'v2/user/strategy/build/python?strategyCode={strategy_code}'
         print(endpoint)
         response = self._send_request(endpoint=endpoint, params=params)
         return response
@@ -253,7 +251,7 @@ class AlgoBullsAPI:
         if trading_type == TradingType.REALTRADING:
             return {'message': 'Please get approval for your strategy by writing to support@algobulls.com. Once approved, you can START the strategy in REALTRADING mode directly from the website.'}
         elif trading_type in [TradingType.PAPERTRADING, TradingType.BACKTESTING]:
-            endpoint = 'v4/portfolio/strategies'
+            endpoint = 'v4/portfolio/strategies?isPythonBuild=true'
         else:
             raise NotImplementedError
 
@@ -265,7 +263,8 @@ class AlgoBullsAPI:
                 TradingType.BACKTESTING: 'backDataDate'
             }
             execute_config = {
-                map_trading_type_to_date_key[trading_type]: [start_timestamp, end_timestamp],
+                # Changing datetime.datetime to string because it's not serializable
+                map_trading_type_to_date_key[trading_type]: [start_timestamp.strftime("%Y-%m-%dT%H:%M:%SZ"), end_timestamp.strftime("%Y-%m-%dT%H:%M:%SZ")],
                 'isLiveDataTestMode': trading_type == TradingType.PAPERTRADING,
                 'customizationsQuantity': lots
             }
