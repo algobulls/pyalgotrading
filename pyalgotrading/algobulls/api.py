@@ -147,7 +147,7 @@ class AlgoBullsAPI:
         """
         try:
             json_data = {'strategyName': strategy_name, 'strategyDetails': strategy_details, 'abcVersion': abc_version}
-            endpoint = f'v2/user/strategy/build/python'
+            endpoint = f'v3/build/python/strategies'
             print(f"Uploading strategy '{strategy_name}' ...", end=' ')
             response = self._send_request(endpoint=endpoint, method='post', json_data=json_data)
             print('Success.')
@@ -173,7 +173,7 @@ class AlgoBullsAPI:
             PUT v2/user/strategy/build/python
         """
         json_data = {'strategyId': strategy_code, 'strategyName': strategy_name, 'strategyDetails': strategy_details, 'abcVersion': abc_version}
-        endpoint = f'v2/user/strategy/build/python'
+        endpoint = f'v3/build/python/strategies'
         response = self._send_request(endpoint=endpoint, method='put', json_data=json_data)
         return response
 
@@ -184,7 +184,7 @@ class AlgoBullsAPI:
         Returns:
             JSON Response received from AlgoBulls platform with list of all the created strategies.
         """
-        endpoint = f'v2/user/strategy/build/python'
+        endpoint = f'v3/build/python/strategies'
         response = self._send_request(endpoint=endpoint, method='options')
         return response
 
@@ -199,7 +199,7 @@ class AlgoBullsAPI:
             JSON
         """
         params = {}
-        endpoint = f'v2/user/strategy/build/python?strategyCode={strategy_code}'
+        endpoint = f'v3/build/python/strategies/{strategy_code}'
         print(endpoint)
         response = self._send_request(endpoint=endpoint, params=params)
         return response
