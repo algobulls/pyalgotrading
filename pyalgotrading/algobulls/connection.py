@@ -2,7 +2,7 @@
 Module for AlgoBulls connection
 """
 import inspect
-from datetime import datetime as dt, time
+from datetime import datetime as dt
 
 import pandas as pd
 
@@ -94,8 +94,8 @@ class AlgoBullsConnection:
             else:
                 _ = self.get_all_strategies(return_as_dataframe=False)
                 try:
-                    _strategy_code = {_dict['strategyName']:_dict['strategyCode'] for _dict in _}[strategy_name]
-                    response = self.api.update_strategy(strategy_code=_strategy_code, strategy_name=strategy_name,strategy_details=strategy_details, abc_version=_abc_version)
+                    _strategy_code = {_dict['strategyName']: _dict['strategyCode'] for _dict in _}[strategy_name]
+                    response = self.api.update_strategy(strategy_code=_strategy_code, strategy_name=strategy_name, strategy_details=strategy_details, abc_version=_abc_version)
 
                 except KeyError:
                     response = self.api.create_strategy(strategy_name=strategy_name, strategy_details=strategy_details,
@@ -257,7 +257,7 @@ class AlgoBullsConnection:
             })
 
         instrument_id = None
-        instrument_results = self.search_instrument(instrument)
+        instrument_results = self.search_instrument(instrument.split(':')[-1])
         for _ in instrument_results:
             if _["value"] == instrument:
                 instrument_id = _["id"]
@@ -265,13 +265,13 @@ class AlgoBullsConnection:
 
         # Setup config for Backtesting
         strategy_config = {
-                           'instruments': {
-                               'instruments': [{'id': instrument_id}]
-                           },
-                           'lots': lots,
-                           'userParams': restructured_strategy_parameters,
-                           'candleDuration': candle_interval.value,
-                           'strategyMode': strategy_mode.value}
+            'instruments': {
+                'instruments': [{'id': instrument_id}]
+            },
+            'lots': lots,
+            'userParams': restructured_strategy_parameters,
+            'candleDuration': candle_interval.value,
+            'strategyMode': strategy_mode.value}
         self.api.set_strategy_config(strategy_code=strategy_code, strategy_config=strategy_config, trading_type=TradingType.BACKTESTING)
 
         # Submit Backtesting job
@@ -380,7 +380,7 @@ class AlgoBullsConnection:
             })
 
         instrument_id = None
-        instrument_results = self.search_instrument(instrument)
+        instrument_results = self.search_instrument(instrument.split(':')[-1])
         for _ in instrument_results:
             if _["value"] == instrument:
                 instrument_id = _["id"]
@@ -388,13 +388,13 @@ class AlgoBullsConnection:
 
         # Setup config for Paper Trading
         strategy_config = {
-                            'instruments': {
-                                'instruments': [{'id': instrument_id}]
-                            },
-                            'lots': lots,
-                            'userParams': restructured_strategy_parameters,
-                            'candleDuration': candle_interval.value,
-                            'strategyMode': strategy_mode.value}
+            'instruments': {
+                'instruments': [{'id': instrument_id}]
+            },
+            'lots': lots,
+            'userParams': restructured_strategy_parameters,
+            'candleDuration': candle_interval.value,
+            'strategyMode': strategy_mode.value}
         self.api.set_strategy_config(strategy_code=strategy_code, strategy_config=strategy_config, trading_type=TradingType.PAPERTRADING)
 
         # Submit Paper Trading job
