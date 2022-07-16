@@ -7,9 +7,8 @@ from datetime import datetime as dt
 
 import requests
 
-from constants import MESSAGE_REALTRADING_FORBIDDEN
 from .exceptions import AlgoBullsAPIBaseException, AlgoBullsAPIUnauthorizedError, AlgoBullsAPIInsufficientBalanceError, AlgoBullsAPIResourceNotFoundError, AlgoBullsAPIBadRequest, AlgoBullsAPIInternalServerErrorException, AlgoBullsAPIForbiddenError
-from ..constants import TradingType, TradingReportType
+from ..constants import TradingType, TradingReportType, MESSAGE_REALTRADING_FORBIDDEN
 
 
 class AlgoBullsAPI:
