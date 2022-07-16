@@ -3,7 +3,7 @@ Module for handling API calls to the [AlgoBulls](https://www.algobulls.com) back
 """
 import re
 from json import JSONDecodeError
-from datetime import datetime as dt
+from datetime import datetime as dt, timezone
 
 import requests
 
@@ -262,9 +262,9 @@ class AlgoBullsAPI:
                 TradingType.PAPERTRADING: 'backDataTime',
                 TradingType.BACKTESTING: 'backDataDate'
             }
+            _timestamp_format = "%d-%m-%YT%H:%MZ"
             execute_config = {
-                # Changing datetime.datetime to string because it's not serializable
-                map_trading_type_to_date_key[trading_type]: [start_timestamp.strftime("%Y-%m-%dT%H:%M:%SZ"), end_timestamp.strftime("%Y-%m-%dT%H:%M:%SZ")],
+                map_trading_type_to_date_key[trading_type]: [start_timestamp.astimezone().astimezone(timezone.utc).isoformat(), end_timestamp.astimezone().astimezone(timezone.utc).isoformat()],
                 'isLiveDataTestMode': trading_type == TradingType.PAPERTRADING,
                 'customizationsQuantity': lots
             }
