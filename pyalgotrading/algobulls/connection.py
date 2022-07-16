@@ -6,7 +6,7 @@ from datetime import datetime as dt
 
 import pandas as pd
 
-from . import MESSAGE_REALTRADING_FORBIDDEN
+from constants import MESSAGE_REALTRADING_FORBIDDEN
 from .api import AlgoBullsAPI
 from .exceptions import AlgoBullsAPIBadRequest
 from ..constants import StrategyMode, TradingType, TradingReportType, CandleInterval
