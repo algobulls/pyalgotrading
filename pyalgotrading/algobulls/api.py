@@ -7,6 +7,7 @@ from datetime import datetime as dt
 
 import requests
 
+from . import MESSAGE_REALTRADING_FORBIDDEN
 from .exceptions import AlgoBullsAPIBaseException, AlgoBullsAPIUnauthorizedError, AlgoBullsAPIInsufficientBalanceError, AlgoBullsAPIResourceNotFoundError, AlgoBullsAPIBadRequest, AlgoBullsAPIInternalServerErrorException, AlgoBullsAPIForbiddenError
 from ..constants import TradingType, TradingReportType
 
@@ -249,7 +250,7 @@ class AlgoBullsAPI:
             `POST` v2/customer_strategy_algotrading
         """
         if trading_type == TradingType.REALTRADING:
-            return {'message': 'Please get approval for your strategy by writing to support@algobulls.com. Once approved, you can START the strategy in REALTRADING mode directly from the website.'}
+            return {'message': MESSAGE_REALTRADING_FORBIDDEN}
         elif trading_type in [TradingType.PAPERTRADING, TradingType.BACKTESTING]:
             endpoint = 'v4/portfolio/strategies?isPythonBuild=true'
         else:

@@ -6,6 +6,7 @@ from datetime import datetime as dt, time
 
 import pandas as pd
 
+from . import MESSAGE_REALTRADING_FORBIDDEN
 from .api import AlgoBullsAPI
 from .exceptions import AlgoBullsAPIBadRequest
 from ..constants import StrategyMode, TradingType, TradingReportType, CandleInterval
@@ -240,7 +241,7 @@ class AlgoBullsConnection:
         # Sanity checks - Validate config parameters
         assert (isinstance(strategy_code, str) is True), f'Argument "strategy_code" should be a string'
         assert (isinstance(start_timestamp, dt) is True), f'Argument "start_timestamp" should be an instance of type datetime.datetime'
-        assert (isinstance(end_timestamp, dt) is True), f'Argument "start_timestamp" should be an instance of type datetime.datetime'
+        assert (isinstance(end_timestamp, dt) is True), f'Argument "end_timestamp" should be an instance of type datetime.datetime'
         assert (isinstance(instrument, str) is True), f'Argument "instrument" should be a string. You can find the right id using the \'get_instrument()\' method of AlgoBullsConnection class'
         assert (isinstance(lots, int) is True and lots > 0), f'Argument "lots" should be a positive integer.'
         assert (isinstance(strategy_parameters, dict) is True), f'Argument "strategy_parameters" should be a dict'
@@ -263,7 +264,7 @@ class AlgoBullsConnection:
                 break
 
         # Setup config for Backtesting
-        strategy_config = {#'tradingTime': [start_timestamp.strftime('%d-%m-%Y %H:%M'), end_timestamp.strftime('%d-%m-%Y %H:%M')],
+        strategy_config = {
                            'instruments': {
                                'instruments': [{'id': instrument_id}]
                            },
@@ -271,11 +272,10 @@ class AlgoBullsConnection:
                            'userParams': restructured_strategy_parameters,
                            'candleDuration': candle_interval.value,
                            'strategyMode': strategy_mode.value}
-        # TODO: fix this api call
         self.api.set_strategy_config(strategy_code=strategy_code, strategy_config=strategy_config, trading_type=TradingType.BACKTESTING)
 
         # Submit Backtesting job
-        response = self.api.start_strategy_algotrading(strategy_code=strategy_code, start_timestamp=start_timestamp, end_timestamp=start_timestamp, trading_type=TradingType.BACKTESTING, lots=lots)
+        response = self.api.start_strategy_algotrading(strategy_code=strategy_code, start_timestamp=start_timestamp, end_timestamp=end_timestamp, trading_type=TradingType.BACKTESTING, lots=lots)
 
     def get_backtesting_job_status(self, strategy_code):
         """
@@ -363,8 +363,8 @@ class AlgoBullsConnection:
         """
         # Sanity checks - Validate config parameters
         assert (isinstance(strategy_code, str) is True), f'Argument "strategy_code" should be a string'
-        assert (isinstance(start_time, dt) is True), f'Argument "start_timestamp" should be an instance of type datetime.datetime'
-        assert (isinstance(end_time, dt) is True), f'Argument "start_timestamp" should be an instance of type datetime.datetime'
+        assert (isinstance(start_time, dt) is True), f'Argument "start_time" should be an instance of type datetime.datetime'
+        assert (isinstance(end_time, dt) is True), f'Argument "end_time" should be an instance of type datetime.datetime'
         assert (isinstance(instrument, str) is True), f'Argument "instrument" should be a string. You can find the right id using the \'get_instrument()\' method of AlgoBullsConnection class'
         assert (isinstance(lots, int) is True and lots > 0), f'Argument "lots" should be a positive integer.'
         assert (isinstance(strategy_parameters, dict) is True), f'Argument "strategy_parameters" should be a dict'
@@ -388,7 +388,6 @@ class AlgoBullsConnection:
 
         # Setup config for Paper Trading
         strategy_config = {
-                            # 'tradingTime': [start_timestamp.strftime('%d-%m-%Y %H:%M'), end_timestamp.strftime('%d-%m-%Y %H:%M')],
                             'instruments': {
                                 'instruments': [{'id': instrument_id}]
                             },
@@ -490,28 +489,7 @@ class AlgoBullsConnection:
         Returns:
             job status
         """
-        # Sanity checks - Validate config parameters
-        # assert (isinstance(broker, AlgoBullsSupportedBrokers) is True), f'Argument broker should be an enum of type {AlgoBullsSupportedBrokers.__name__}'
-        assert (isinstance(strategy_code, str) is True), f'Argument "strategy_code" should be a string'
-        assert (isinstance(start_time, time) is True), f'Argument "start_time" should be an instance of type datetime.time'
-        assert (isinstance(end_time, time) is True), f'Argument "end_time" should be an instance of type datetime.time'
-        assert (isinstance(instrument, str) is True), f'Argument "instrument" should be a string. You can find the right id using the \'get_instrument()\' method of AlgoBullsConnection class'
-        assert (isinstance(lots, int) is True and lots > 0), f'Argument "lots" should be a positive integer.'
-        assert (isinstance(strategy_parameters, dict) is True), f'Argument "strategy_parameters" should be a dict'
-        assert (isinstance(strategy_mode, StrategyMode) is True), f'Argument "strategy_mode" should be enum of type StrategyMode'
-        assert (isinstance(candle_interval, CandleInterval)), f'Argument "candle_interval" should be an enum of type CandleInterval'
-
-        # Setup config for backtesting
-        strategy_config = {'tradingTime': [start_time.strftime('%H:%M'), end_time.strftime('%H:%M')],
-                           'instruments': [instrument],
-                           'lots': lots,
-                           'parameters': strategy_parameters,
-                           'candle': candle_interval.value,
-                           'strategyMode': strategy_mode.value}
-        self.api.set_strategy_config(strategy_code=strategy_code, strategy_config=strategy_config, trading_type=TradingType.REALTRADING)
-
-        # Submit Real Trading job
-        response = self.api.start_strategy_algotrading(strategy_code=strategy_code, trading_type=TradingType.REALTRADING, lots=lots)
+        print(MESSAGE_REALTRADING_FORBIDDEN)
 
     def get_realtrading_job_status(self, strategy_code):
         """
