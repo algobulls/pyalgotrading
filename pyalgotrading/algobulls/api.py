@@ -237,7 +237,7 @@ class AlgoBullsAPI:
         key = self.__get_key(strategy_code=strategy_code, trading_type=trading_type)
         endpoint = f'v4/portfolio/tweak/{key}?isPythonBuild=true'
         print('Setting Strategy Config...', end=' ')
-        response = self._send_request(method='post', endpoint=endpoint, json_data=self.__convert(strategy_config))
+        response = self._send_request(method='post', endpoint=endpoint, json_data=strategy_config)
         print('Success.')
         return key, response
 

@@ -88,6 +88,7 @@ class AlgoBullsConnection:
         if overwrite is False:
             response = self.api.create_strategy(strategy_name=strategy_name, strategy_details=strategy_details, abc_version=_abc_version)
         else:
+            response = None
             if strategy_code:
                 _strategy_code = strategy_code
             else:
@@ -137,6 +138,7 @@ class AlgoBullsConnection:
         Search for an instrument
         Args:
             instrument: instrument key
+            exchange: exchange, default is 'NSE'
 
         Returns:
             True or False
@@ -254,6 +256,7 @@ class AlgoBullsConnection:
                 'paramName': _,
                 'paramValue': strategy_parameters[_]
             })
+
 
         instrument_id = None
         instrument_results = self.search_instrument(instrument.split(':')[-1])
