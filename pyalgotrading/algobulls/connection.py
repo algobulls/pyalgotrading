@@ -155,7 +155,7 @@ class AlgoBullsConnection:
             exchange: exchange, default is 'NSE'
 
         Returns:
-            True or False
+            A list of matching instruments
         """
         assert isinstance(instrument, str), f'Argument "instrument" should be a string'
         response = self.api.search_instrument(instrument, exchange=exchange).get('data')
