@@ -48,6 +48,7 @@ class AlgoBullsAPI:
     def _send_request(self, method: str = 'get', endpoint: str = '', base_url: str = SERVER_ENDPOINT, params: [str, dict] = None, json_data: [str, dict] = None, requires_authorization: bool = True) -> dict:
         """
         Send the request to the platform
+        
         Args:
             method: get
             endpoint: endpoint url
@@ -221,7 +222,6 @@ class AlgoBullsAPI:
         """
         params = {}
         endpoint = f'v3/build/python/user/strategy/code/{strategy_code}'
-        print(endpoint)
         response = self._send_request(endpoint=endpoint, params=params)
         return response
 
