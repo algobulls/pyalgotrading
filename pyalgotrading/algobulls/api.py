@@ -35,7 +35,7 @@ class AlgoBullsAPI:
 
     def set_access_token(self, access_token: str):
         """
-        Sets access token to the header attribute, which is needed for APIs requiring authorization
+        Set access token to the header attribute, which is needed for APIs requiring authorization
         Package for interacting with AlgoBulls Algorithmic Trading Platform (https://www.algobulls.com)
 
         Args:
@@ -92,7 +92,22 @@ class AlgoBullsAPI:
             raise AlgoBullsAPIBaseException(method=method, url=url, response=response_json)
 
     def __fetch_key(self, strategy_code, trading_type):
-        # Add strategy to backtesting
+        """
+        Add strategy to Back Testing
+        
+        Args:
+            strategy_code: strategy code
+            trading_type: trading type
+
+        Returns:
+            key
+
+        Info: ENDPOINT
+            `POST` v2/portfolio/strategy
+            `PUT` v2/portfolio/strategy
+            `PATCH` v2/portfolio/strategy
+        """
+
         endpoint = f'v2/portfolio/strategy'
         json_data = {'strategyId': strategy_code, 'tradingType': trading_type.value}
 
@@ -183,6 +198,9 @@ class AlgoBullsAPI:
 
         Returns:
             JSON Response received from AlgoBulls platform with list of all the created strategies.
+
+        Info: ENDPOINT
+            `OPTIONS` v3/build/python/user/strategy/code
         """
         endpoint = f'v3/build/python/user/strategy/code'
         response = self._send_request(endpoint=endpoint, method='options')
@@ -190,13 +208,16 @@ class AlgoBullsAPI:
 
     def get_strategy_details(self, strategy_code: str) -> dict:
         """
-        Get strategy details for
+        Get strategy details for a particular strategy
 
-        Arguments:
+        Args:
             strategy_code: unique code of strategy, which is received while creating the strategy or
 
-        Return:
+        Returns:
             JSON
+            
+        Info: ENDPOINT
+            `GET` v3/build/python/user/strategy/code/{strategy_code}
         """
         params = {}
         endpoint = f'v3/build/python/user/strategy/code/{strategy_code}'
@@ -206,13 +227,17 @@ class AlgoBullsAPI:
 
     def search_instrument(self, tradingsymbol: str, exchange: str) -> dict:
         """
-
+        Search for an instrument using its trading symbol
+        
         Args:
             tradingsymbol: instrument tradingsymbol
             exchange: instrument exchange
 
         Returns:
             JSON Response
+            
+        INFO: ENDPOINT
+            `GET` v4/portfolio/searchInstrument
         """
         params = {'search': tradingsymbol, 'exchange': exchange}
         endpoint = f'v4/portfolio/searchInstrument'
@@ -221,7 +246,8 @@ class AlgoBullsAPI:
 
     def set_strategy_config(self, strategy_code: str, strategy_config: dict, trading_type: TradingType) -> (str, dict):
         """
-
+        Set configuration before running a strategy
+        
         Args:
             strategy_code: strategy code
             strategy_config: strategy configuration
@@ -230,7 +256,7 @@ class AlgoBullsAPI:
         Returns:
 
         Info: ENDPOINT
-           PATCH v2/portfolio/strategy
+           `POST` v4/portfolio/tweak/{key}/?isPythonBuild=true
         """
 
         # Configure the params
@@ -244,9 +270,16 @@ class AlgoBullsAPI:
     def start_strategy_algotrading(self, strategy_code: str, start_timestamp: dt, end_timestamp: dt, trading_type: TradingType, lots: int) -> dict:
         """
         Submit Backtesting / Paper Trading / Real Trading job for strategy with code strategy_code & return the job ID.
+        
+        Args:
+            strategy_code: Strategy code
+            start_timestamp: Start date/time
+            end_timestamp: End date/time
+            trading_type: Trading type
+            lots: Lots
 
         Info: ENDPOINT
-            `POST` v2/customer_strategy_algotrading
+            `PATCH` v4/portfolio/strategies?isPythonBuild=true
         """
         if trading_type == TradingType.REALTRADING:
             return {'message': MESSAGE_REALTRADING_FORBIDDEN}
@@ -280,9 +313,13 @@ class AlgoBullsAPI:
     def stop_strategy_algotrading(self, strategy_code: str, trading_type: TradingType) -> dict:
         """
         Stop Backtesting / Paper Trading / Real Trading job for strategy with code strategy_code & return the job ID.
-
+        
+        Args:
+            strategy_code: Strategy code
+            trading_type: Trading type
+        
         Info: ENDPOINT
-            `POST` v1/customer_strategy_algotrading
+            `POST` v4/portfolio/strategies
         """
         if trading_type == TradingType.REALTRADING:
             return {'message': 'Please get approval for your strategy by writing to support@algobulls.com. Once approved, you can STOP the strategy in REALTRADING mode directly from the website.'}
@@ -304,7 +341,7 @@ class AlgoBullsAPI:
 
     def get_job_status(self, strategy_code: str, trading_type: TradingType) -> dict:
         """
-        Get status for a BACKTESTING/PAPERTRADING/REALTRADING Job
+        Get status for a Back Testing / Paper Trading / Real Trading Job
 
         Args:
             strategy_code: Strategy code
@@ -323,6 +360,19 @@ class AlgoBullsAPI:
         return response
 
     def get_logs(self, strategy_code: str, trading_type: TradingType) -> dict:
+        """
+        Fetch logs for a strategy
+        
+        Args:
+            strategy_code: Strategy code
+            trading_type: Trading type
+        
+        Returns:
+            Execution logs
+            
+        Info: ENDPOINT
+            `POST`: v2/user/strategy/logs
+        """
         endpoint = 'v2/user/strategy/logs'
         key = self.__get_key(strategy_code=strategy_code, trading_type=trading_type)
         json_data = {'key': key}
@@ -331,7 +381,7 @@ class AlgoBullsAPI:
 
     def get_reports(self, strategy_code: str, trading_type: TradingType, report_type: TradingReportType) -> dict:
         """
-        Get reports for a BACKTESTING/PAPERTRADING/REALTRADING Job
+        Fetch report for a strategy
 
         Args:
             strategy_code: Strategy code
@@ -342,7 +392,9 @@ class AlgoBullsAPI:
             Report data
 
         Info: ENDPOINT
-            `GET` v1/customer_strategy_algotrading_reports
+            `GET` v2/user/strategy/pltable          for P&L Table
+            `GET` v2/user/strategy/statstable       for Stats Table
+            `GET` v2/user/strategy/orderhistory     Order History
         """
         if report_type is TradingReportType.PNL_TABLE:
             endpoint = 'v2/user/strategy/pltable'
