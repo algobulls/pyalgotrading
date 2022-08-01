@@ -1,3 +1,4 @@
-#!/bin/bash
-
-git tag -a `cat VERSION` -m `cat VERSION`
+#!/usr/bin/env bash
+set -e
+VERSION="$(cat VERSION)"
+git tag -a "$VERSION" -m "$VERSION"
