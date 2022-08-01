@@ -8,7 +8,6 @@ class AlgoBullsEngineVersion(Enum):
     """
     A class of Versioning Constants
     """
-    VERSION_3_2_0 = '3.2.0'
     VERSION_3_3_0 = '3.3.0'
 
 
@@ -80,67 +79,67 @@ class CandleInterval(Enum):
     """
     A class of Candle Intervals with their Alternate names
     """
-    MINUTES_1 = 0
-    MINUTES_3 = 1
-    MINUTES_5 = 2
-    MINUTES_10 = 3
-    MINUTES_15 = 4
-    MINUTES_30 = 5
-    MINUTES_60 = 6
-    HOURS_1 = 6
-    HOURS_24 = 7
-    DAYS_1 = 7
-
-    # Alternative names
-    MINUTE_1 = 0
-    MINUTE_3 = 1
-    MINUTE_5 = 2
-    MINUTE_10 = 3
-    MINUTE_15 = 4
-    MINUTE_30 = 5
-    MINUTE_60 = 6
-    HOUR_1 = 6
-    HOUR_24 = 7
-    DAY_1 = 7
-
-    MINUTE = 0
-    HOUR = 6
-    DAY = 7
-
-    # MINUTES_1 = 'minute'
-    # MINUTES_3 = '3minutes'
-    # MINUTES_5 = '5minutes'
-    # MINUTES_10 = '10minutes'
-    # MINUTES_15 = '15minutes'
-    # MINUTES_30 = '30minutes'
-    # MINUTES_60 = '60minutes'
-    # HOURS_1 = '60minutes'
-    # HOURS_24 = 'day'
-    # DAYS_1 = 'day'
+    # MINUTES_1 = 0
+    # MINUTES_3 = 1
+    # MINUTES_5 = 2
+    # MINUTES_10 = 3
+    # MINUTES_15 = 4
+    # MINUTES_30 = 5
+    # MINUTES_60 = 6
+    # HOURS_1 = 6
+    # HOURS_24 = 7
+    # DAYS_1 = 7
     #
     # # Alternative names
-    # MINUTE_1 = 'minute'
-    # MINUTE_3 = '3minutes'
-    # MINUTE_5 = '5minutes'
-    # MINUTE_10 = '10minutes'
-    # MINUTE_15 = '15minutes'
-    # MINUTE_30 = '30minutes'
-    # MINUTE_60 = '60minutes'
-    # HOUR_1 = '60minutes'
-    # HOUR_24 = 'day'
-    # DAY_1 = 'day'
+    # MINUTE_1 = 0
+    # MINUTE_3 = 1
+    # MINUTE_5 = 2
+    # MINUTE_10 = 3
+    # MINUTE_15 = 4
+    # MINUTE_30 = 5
+    # MINUTE_60 = 6
+    # HOUR_1 = 6
+    # HOUR_24 = 7
+    # DAY_1 = 7
     #
-    # MINUTE = 'minute'
-    # HOUR = '60minutes'
-    # DAY = 'day'
+    # MINUTE = 0
+    # HOUR = 6
+    # DAY = 7
+
+    MINUTES_1 = 'minute'
+    MINUTES_3 = '3minutes'
+    MINUTES_5 = '5minutes'
+    MINUTES_10 = '10minutes'
+    MINUTES_15 = '15minutes'
+    MINUTES_30 = '30minutes'
+    MINUTES_60 = '60minutes'
+    HOURS_1 = '60minutes'
+    HOURS_24 = 'day'
+    DAYS_1 = 'day'
+
+    # Alternative names
+    MINUTE_1 = 'minute'
+    MINUTE_3 = '3minutes'
+    MINUTE_5 = '5minutes'
+    MINUTE_10 = '10minutes'
+    MINUTE_15 = '15minutes'
+    MINUTE_30 = '30minutes'
+    MINUTE_60 = '60minutes'
+    HOUR_1 = '60minutes'
+    HOUR_24 = 'day'
+    DAY_1 = 'day'
+
+    MINUTE = 'minute'
+    HOUR = '60minutes'
+    DAY = 'day'
 
 
 class StrategyMode(Enum):
     """
     A class of Strategy Modes
     """
-    INTRADAY = 0
-    DELIVERY = 1
+    INTRADAY = "INTRADAY"
+    DELIVERY = "DELIVERY"
 
 
 class StrategyType(Enum):
@@ -177,3 +176,7 @@ class PlotType(Enum):
     RENKO = 'Renko'
     HEIKINASHI = 'HeikinAshi'
     QUANDL_JAPANESE = 'Quandl JAPANESE'
+
+
+MESSAGE_REALTRADING_FORBIDDEN = 'Forbidden. This strategy is not approved for RT mode. Email us on support@algobulls.com to get your strategy approved. ' \
+                                'The AlgoBulls support team will guide you with the approval process. Once your strategy is approved, you can run it for RT directly from your AlgoBulls account.'

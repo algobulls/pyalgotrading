@@ -1,13 +1,14 @@
 """
 Module for handling API calls to the [AlgoBulls](https://www.algobulls.com) backend.
 """
-
+import re
 from json import JSONDecodeError
+from datetime import datetime as dt, timezone
 
 import requests
 
 from .exceptions import AlgoBullsAPIBaseException, AlgoBullsAPIUnauthorizedError, AlgoBullsAPIInsufficientBalanceError, AlgoBullsAPIResourceNotFoundError, AlgoBullsAPIBadRequest, AlgoBullsAPIInternalServerErrorException, AlgoBullsAPIForbiddenError
-from ..constants import TradingType, TradingReportType
+from ..constants import TradingType, TradingReportType, MESSAGE_REALTRADING_FORBIDDEN
 
 
 class AlgoBullsAPI:
@@ -26,10 +27,15 @@ class AlgoBullsAPI:
         self.__key_backtesting = {}  # strategy-cstc_id mapping
         self.__key_papertrading = {}  # strategy-cstc_id mapping
         self.__key_realtrading = {}  # strategy-cstc_id mapping
+        self.pattern = re.compile(r'(?<!^)(?=[A-Z])')
+
+    def __convert(self, _dict):
+        # Helps convert _dict keys from camelcase to snakecase
+        return {self.pattern.sub('_', k).lower(): v for k, v in _dict.items()}
 
     def set_access_token(self, access_token: str):
         """
-        Sets access token to the header attribute, which is needed for APIs requiring authorization
+        Set access token to the header attribute, which is needed for APIs requiring authorization
         Package for interacting with AlgoBulls Algorithmic Trading Platform (https://www.algobulls.com)
 
         Args:
@@ -42,6 +48,7 @@ class AlgoBullsAPI:
     def _send_request(self, method: str = 'get', endpoint: str = '', base_url: str = SERVER_ENDPOINT, params: [str, dict] = None, json_data: [str, dict] = None, requires_authorization: bool = True) -> dict:
         """
         Send the request to the platform
+        
         Args:
             method: get
             endpoint: endpoint url
@@ -86,7 +93,22 @@ class AlgoBullsAPI:
             raise AlgoBullsAPIBaseException(method=method, url=url, response=response_json)
 
     def __fetch_key(self, strategy_code, trading_type):
-        # Add strategy to backtesting
+        """
+        Add strategy to Back Testing
+        
+        Args:
+            strategy_code: strategy code
+            trading_type: trading type
+
+        Returns:
+            key
+
+        Info: ENDPOINT
+            `POST` v2/portfolio/strategy
+            `PUT` v2/portfolio/strategy
+            `PATCH` v2/portfolio/strategy
+        """
+
         endpoint = f'v2/portfolio/strategy'
         json_data = {'strategyId': strategy_code, 'tradingType': trading_type.value}
 
@@ -141,7 +163,7 @@ class AlgoBullsAPI:
         """
         try:
             json_data = {'strategyName': strategy_name, 'strategyDetails': strategy_details, 'abcVersion': abc_version}
-            endpoint = f'v2/user/strategy/build/python'
+            endpoint = f'v3/build/python/user/strategy/code'
             print(f"Uploading strategy '{strategy_name}' ...", end=' ')
             response = self._send_request(endpoint=endpoint, method='post', json_data=json_data)
             print('Success.')
@@ -150,11 +172,12 @@ class AlgoBullsAPI:
             print('Fail.')
             print(f'{ex.get_error_type()}: {ex.response}')
 
-    def update_strategy(self, strategy_name: str, strategy_details: str, abc_version: str) -> dict:
+    def update_strategy(self, strategy_code: str, strategy_name: str, strategy_details: str, abc_version: str) -> dict:
         """
         Update an already existing strategy on the AlgoBulls platform
 
         Args:
+            strategy_code: unique code of the strategy
             strategy_name: name of the strategy
             strategy_details: Python code of the strategy
             abc_version: value of one of the enums available under `AlgoBullsEngineVersion`
@@ -165,8 +188,8 @@ class AlgoBullsAPI:
         Info: ENDPOINT
             PUT v2/user/strategy/build/python
         """
-        json_data = {'strategyName': strategy_name, 'strategyDetails': strategy_details, 'abcVersion': abc_version}
-        endpoint = f'v2/user/strategy/build/python'
+        json_data = {'strategyId': strategy_code, 'strategyName': strategy_name, 'strategyDetails': strategy_details, 'abcVersion': abc_version}
+        endpoint = f'v3/build/python/user/strategy/code'
         response = self._send_request(endpoint=endpoint, method='put', json_data=json_data)
         return response
 
@@ -178,51 +201,53 @@ class AlgoBullsAPI:
             JSON Response received from AlgoBulls platform with list of all the created strategies.
 
         Info: ENDPOINT
-            `OPTIONS` v2/user/strategy/build/python
+            `OPTIONS` v3/build/python/user/strategy/code
         """
-        endpoint = f'v2/user/strategy/build/python'
+        endpoint = f'v3/build/python/user/strategy/code'
         response = self._send_request(endpoint=endpoint, method='options')
         return response
 
     def get_strategy_details(self, strategy_code: str) -> dict:
         """
-        Get strategy details for
+        Get strategy details for a particular strategy
 
-        Arguments:
+        Args:
             strategy_code: unique code of strategy, which is received while creating the strategy or
 
-        Return:
+        Returns:
             JSON
-
+            
         Info: ENDPOINT
-            `GET` v2/user/strategy/build/python
+            `GET` v3/build/python/user/strategy/code/{strategy_code}
         """
-        params = {'strategyCode': strategy_code}
-        endpoint = f'v2/user/strategy/build/python'
+        params = {}
+        endpoint = f'v3/build/python/user/strategy/code/{strategy_code}'
         response = self._send_request(endpoint=endpoint, params=params)
         return response
 
-    def search_instrument(self, instrument: str) -> dict:
+    def search_instrument(self, tradingsymbol: str, exchange: str) -> dict:
         """
-
+        Search for an instrument using its trading symbol
+        
         Args:
-            instrument: instrument key
+            tradingsymbol: instrument tradingsymbol
+            exchange: instrument exchange
 
         Returns:
             JSON Response
-
-
-        Info: ENDPOINT
-            `GET` v2/instrument/search
+            
+        INFO: ENDPOINT
+            `GET` v4/portfolio/searchInstrument
         """
-        params = {'instrument': instrument}
-        endpoint = f'v2/instrument/search'
+        params = {'search': tradingsymbol, 'exchange': exchange}
+        endpoint = f'v4/portfolio/searchInstrument'
         response = self._send_request(endpoint=endpoint, params=params, requires_authorization=False)
         return response
 
     def set_strategy_config(self, strategy_code: str, strategy_config: dict, trading_type: TradingType) -> (str, dict):
         """
-
+        Set configuration before running a strategy
+        
         Args:
             strategy_code: strategy code
             strategy_config: strategy configuration
@@ -231,39 +256,54 @@ class AlgoBullsAPI:
         Returns:
 
         Info: ENDPOINT
-           PATCH v2/portfolio/strategy
+           `POST` v4/portfolio/tweak/{key}/?isPythonBuild=true
         """
 
         # Configure the params
-        json_data = {**strategy_config, 'overwrite': True}
         key = self.__get_key(strategy_code=strategy_code, trading_type=trading_type)
-        endpoint = f'v2/user/strategy/{key}/tweak'
+        endpoint = f'v4/portfolio/tweak/{key}?isPythonBuild=true'
         print('Setting Strategy Config...', end=' ')
-        response = self._send_request(method='patch', endpoint=endpoint, json_data=json_data)
+        response = self._send_request(method='post', endpoint=endpoint, json_data=strategy_config)
         print('Success.')
         return key, response
 
-    def start_strategy_algotrading(self, strategy_code: str, trading_type: TradingType, lots: int) -> dict:
+    def start_strategy_algotrading(self, strategy_code: str, start_timestamp: dt, end_timestamp: dt, trading_type: TradingType, lots: int) -> dict:
         """
         Submit Backtesting / Paper Trading / Real Trading job for strategy with code strategy_code & return the job ID.
+        
+        Args:
+            strategy_code: Strategy code
+            start_timestamp: Start date/time
+            end_timestamp: End date/time
+            trading_type: Trading type
+            lots: Lots
 
         Info: ENDPOINT
-            `POST` v2/customer_strategy_algotrading
+            `PATCH` v4/portfolio/strategies?isPythonBuild=true
         """
         if trading_type == TradingType.REALTRADING:
-            endpoint = 'v2/portfolio/strategies'
-        elif trading_type == TradingType.PAPERTRADING:
-            endpoint = 'v2/papertrading/strategies'
-        elif trading_type == TradingType.BACKTESTING:
-            endpoint = 'v2/backtesting/strategies'
+            return {'message': MESSAGE_REALTRADING_FORBIDDEN}
+        elif trading_type in [TradingType.PAPERTRADING, TradingType.BACKTESTING]:
+            endpoint = 'v4/portfolio/strategies?isPythonBuild=true'
         else:
             raise NotImplementedError
 
         try:
             key = self.__get_key(strategy_code=strategy_code, trading_type=trading_type)
-            json_data = {'method': 'update', 'newVal': 1, 'key': key, 'record': {'status': 0, 'lots': lots}}
+            map_trading_type_to_date_key = {
+                TradingType.REALTRADING: 'liveDataTime',
+                TradingType.PAPERTRADING: 'backDataTime',
+                TradingType.BACKTESTING: 'backDataDate'
+            }
+            _timestamp_format = "%d-%m-%YT%H:%MZ"
+            execute_config = {
+                map_trading_type_to_date_key[trading_type]: [start_timestamp.astimezone().astimezone(timezone.utc).isoformat(), end_timestamp.astimezone().astimezone(timezone.utc).isoformat()],
+                'isLiveDataTestMode': trading_type == TradingType.PAPERTRADING,
+                'customizationsQuantity': lots
+            }
+            json_data = {'method': 'update', 'newVal': 1, 'key': key, 'record': {'status': 0, 'lots': lots, 'executeConfig': execute_config}, 'dataIndex': 'executeConfig'}
             print(f'Submitting {trading_type.name} job...', end=' ')
-            response = self._send_request(method='post', endpoint=endpoint, json_data=json_data)
+            response = self._send_request(method='patch', endpoint=endpoint, json_data=json_data)
             print('Success.')
             return response
         except (AlgoBullsAPIForbiddenError, AlgoBullsAPIInsufficientBalanceError) as ex:
@@ -273,24 +313,26 @@ class AlgoBullsAPI:
     def stop_strategy_algotrading(self, strategy_code: str, trading_type: TradingType) -> dict:
         """
         Stop Backtesting / Paper Trading / Real Trading job for strategy with code strategy_code & return the job ID.
-
+        
+        Args:
+            strategy_code: Strategy code
+            trading_type: Trading type
+        
         Info: ENDPOINT
-            `POST` v1/customer_strategy_algotrading
+            `POST` v4/portfolio/strategies
         """
         if trading_type == TradingType.REALTRADING:
-            endpoint = 'v2/portfolio/strategies'
-        elif trading_type == TradingType.PAPERTRADING:
-            endpoint = 'v2/papertrading/strategies'
-        elif trading_type == TradingType.BACKTESTING:
-            endpoint = 'v2/backtesting/strategies'
+            return {'message': 'Please get approval for your strategy by writing to support@algobulls.com. Once approved, you can STOP the strategy in REALTRADING mode directly from the website.'}
+        elif trading_type in [TradingType.PAPERTRADING, TradingType.BACKTESTING]:
+            endpoint = 'v4/portfolio/strategies'
         else:
             raise NotImplementedError
 
         try:
             key = self.__get_key(strategy_code=strategy_code, trading_type=trading_type)
-            json_data = {'method': 'update', 'newVal': 0, 'key': key, 'record': {'status': 2}}
+            json_data = {'method': 'update', 'newVal': 0, 'key': key, 'record': {'status': 2}, 'dataIndex': 'executeConfig'}
             print(f'Stopping {trading_type.name} job...', end=' ')
-            response = self._send_request(method='post', endpoint=endpoint, json_data=json_data)
+            response = self._send_request(method='patch', endpoint=endpoint, json_data=json_data)
             print('Success.')
             return response
         except (AlgoBullsAPIForbiddenError, AlgoBullsAPIInsufficientBalanceError) as ex:
@@ -299,9 +341,7 @@ class AlgoBullsAPI:
 
     def get_job_status(self, strategy_code: str, trading_type: TradingType) -> dict:
         """
-
-
-        Get status for a BACKTESTING/PAPERTRADING/REALTRADING Job
+        Get status for a Back Testing / Paper Trading / Real Trading Job
 
         Args:
             strategy_code: Strategy code
@@ -320,6 +360,19 @@ class AlgoBullsAPI:
         return response
 
     def get_logs(self, strategy_code: str, trading_type: TradingType) -> dict:
+        """
+        Fetch logs for a strategy
+        
+        Args:
+            strategy_code: Strategy code
+            trading_type: Trading type
+        
+        Returns:
+            Execution logs
+            
+        Info: ENDPOINT
+            `POST`: v2/user/strategy/logs
+        """
         endpoint = 'v2/user/strategy/logs'
         key = self.__get_key(strategy_code=strategy_code, trading_type=trading_type)
         json_data = {'key': key}
@@ -328,7 +381,7 @@ class AlgoBullsAPI:
 
     def get_reports(self, strategy_code: str, trading_type: TradingType, report_type: TradingReportType) -> dict:
         """
-        Get reports for a BACKTESTING/PAPERTRADING/REALTRADING Job
+        Fetch report for a strategy
 
         Args:
             strategy_code: Strategy code
@@ -339,7 +392,9 @@ class AlgoBullsAPI:
             Report data
 
         Info: ENDPOINT
-            `GET` v1/customer_strategy_algotrading_reports
+            `GET` v2/user/strategy/pltable          for P&L Table
+            `GET` v2/user/strategy/statstable       for Stats Table
+            `GET` v2/user/strategy/orderhistory     Order History
         """
         if report_type is TradingReportType.PNL_TABLE:
             endpoint = 'v2/user/strategy/pltable'
