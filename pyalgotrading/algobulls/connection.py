@@ -87,7 +87,6 @@ class AlgoBullsConnection:
         if abc_version is None:
             if isinstance(versions_supported, list):
                 _abc_version = strategy.versions_supported()[0].value  # Take the first version
-                # TODO: Once 3.3.0 is available for pyalgotrading, change index from '0' to '-1' to take the latest version
             else:
                 _abc_version = strategy.versions_supported().value
         else:
