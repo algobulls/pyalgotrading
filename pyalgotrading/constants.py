@@ -178,6 +178,5 @@ class PlotType(Enum):
     QUANDL_JAPANESE = 'Quandl JAPANESE'
 
 
-MESSAGE_REALTRADING_FORBIDDEN = 'Forbidden. As per the new policy, directly running a strategy in RT mode is prohibited. ' \
-                                'To run this strategy in RT mode, you need to get an approval. You can get an approval for your strategy by writing to support@algobulls.com. ' \
-                                'Once approved, you can START the strategy in REALTRADING mode directly from the website. The AlgoBulls support team will guide you for a process on the same.'
+MESSAGE_REALTRADING_FORBIDDEN = 'Forbidden. This strategy is not approved for RT mode. Email us on support@algobulls.com to get your strategy approved. ' \
+                                'The AlgoBulls support team will guide you with the approval process. Once your strategy is approved, you can run it for RT directly from your AlgoBulls account.'
