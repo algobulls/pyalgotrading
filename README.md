@@ -2,9 +2,9 @@
 Official Python Package for Algorithmic Trading APIs powered by AlgoBulls!
 
 ### Features
-- Powered by the [AlgoBulls Platform](https://algobulls.com)
+- Powered by the [AlgoBulls Platform](https://app.algobulls.com)
 - Everything related to Algorithmic Trading Strategies!
-    - Create & upload strategies on the [AlgoBulls Platform](https://algobulls.com)
+    - Create & upload strategies on the [AlgoBulls Platform](https://app.algobulls.com)
     - Free pool of Strategies are available separately at [pyalgostrategypool](https://github.com/algobulls/pyalgostrategypool)!
     - Support for all 150+ Technical Indicators provided by [TA-Lib](https://mrjbq7.github.io/ta-lib/index.html)
     - Support for multiple candlesticks patterns - Japanese OHLC, Renko, Heikin-Ashi, Linebreak
@@ -14,15 +14,12 @@ Official Python Package for Algorithmic Trading APIs powered by AlgoBulls!
     - Support for **INTRADAY** and **DELIVERY** orders
 - Support for **Backtesting**
 - Support for **Paper Trading**
-- Support for **Real Trading**
-- Support for multiple brokers for Real Trading 
-    - Currently supported brokers - Zerodha 
-    - Coming soon - AliceBlue, Mastertrust
-    - More on the way!
+- Support for **Real Trading** (subject to approval)
+- Support for multiple brokers for Real Trading. Check list of supported brokers [here](https://app.algobulls.com/user/brokerlogin).
 - Real-time Logs for Backtesting, Paper Trading, Real Trading
-- Multiple real-time Reports available for Backtesting, Paper Trading and Real Trading - 
-    - Profit-&-Loss report (PnL report)
-    - Statistics Report (PnL report)
+- Multiple real-time Reports available for Backtesting, Paper Trading and Real Trading: 
+    - Profit-&-Loss report (P&L report)
+    - Statistics Report
     - Order History Log for each order with state transitions & timestamps
 - Plot Candlestick charts using [plotly.py](https://github.com/plotly/plotly.py)
     
