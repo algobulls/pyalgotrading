@@ -81,6 +81,20 @@ class BrokerExistingOrderPositionConstants(Enum):
     ENTER = 'ORDER_POSITION_ENTER'
     EXIT = 'ORDER_POSITION_EXIT'
 
+class BrokerOrderStatusConstants(Enum):
+    """
+    A class of Order Status Constants
+    """
+    PUT_ORDER_REQ_RECEIVED = 'PUT ORDER REQ RECEIVED'
+    VALIDATION_PENDING = 'VALIDATION PENDING'
+    OPEN_PENDING = 'OPEN PENDING'
+    TRIGGER_PENDING = 'TRIGGER PENDING'
+    CANCEL_PENDING = 'CANCEL PENDING'
+    COMPLETE = 'COMPLETE'
+    CANCELLED = 'CANCELLED'
+    OPEN = 'OPEN'
+    REJECTED = 'REJECTED'
+
 class CandleInterval(Enum):
     """
     A class of Candle Intervals with their Alternate names
