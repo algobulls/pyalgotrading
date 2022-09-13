@@ -57,7 +57,7 @@ class BrokerOrderTypeConstants(Enum):
 
 class BrokerOrderCodeConstants(Enum):
     """
-A class of Order Code Constants
+    A class of Order Code Constants
     """
     INTRADAY = 'ORDER_CODE_INTRADAY'
     DELIVERY = 'ORDER_CODE_DELIVERY_T0'
@@ -73,6 +73,29 @@ class BrokerOrderVarietyConstants(Enum):
     LIMIT = 'ORDER_VARIETY_LIMIT'
     STOPLOSS_MARKET = 'ORDER_VARIETY_STOPLOSS_MARKET'
     STOPLOSS_LIMIT = 'ORDER_VARIETY_STOPLOSS_LIMIT'
+
+
+class BrokerExistingOrderPositionConstants(Enum):
+    """
+    A class of Order Position Constants
+    """
+    ENTER = 'ORDER_POSITION_ENTER'
+    EXIT = 'ORDER_POSITION_EXIT'
+
+
+class BrokerOrderStatusConstants(Enum):
+    """
+    A class of Order Status Constants
+    """
+    PUT_ORDER_REQ_RECEIVED = 'PUT ORDER REQ RECEIVED'
+    VALIDATION_PENDING = 'VALIDATION PENDING'
+    OPEN_PENDING = 'OPEN PENDING'
+    TRIGGER_PENDING = 'TRIGGER PENDING'
+    CANCEL_PENDING = 'CANCEL PENDING'
+    COMPLETE = 'COMPLETE'
+    CANCELLED = 'CANCELLED'
+    OPEN = 'OPEN'
+    REJECTED = 'REJECTED'
 
 
 class CandleInterval(Enum):
