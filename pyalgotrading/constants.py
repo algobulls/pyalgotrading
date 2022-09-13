@@ -203,7 +203,7 @@ class PlotType(Enum):
 
 class DecisionConstants(Enum):
     """
-    A class of Decision Type
+    A class of Decision Types
     """
     ENTRY_POSITION = 'ENTRY_POSITION'
     EXIT_POSITION = 'EXIT_POSITION'
