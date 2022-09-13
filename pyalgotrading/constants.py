@@ -200,6 +200,7 @@ class PlotType(Enum):
     HEIKINASHI = 'HeikinAshi'
     QUANDL_JAPANESE = 'Quandl JAPANESE'
 
+
 class DecisionConstants(Enum):
     """
     A class of Decision Type
