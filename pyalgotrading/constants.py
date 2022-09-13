@@ -74,12 +74,14 @@ class BrokerOrderVarietyConstants(Enum):
     STOPLOSS_MARKET = 'ORDER_VARIETY_STOPLOSS_MARKET'
     STOPLOSS_LIMIT = 'ORDER_VARIETY_STOPLOSS_LIMIT'
 
+
 class BrokerExistingOrderPositionConstants(Enum):
     """
     A class of Order Position Constants
     """
     ENTER = 'ORDER_POSITION_ENTER'
     EXIT = 'ORDER_POSITION_EXIT'
+
 
 class BrokerOrderStatusConstants(Enum):
     """
@@ -94,6 +96,7 @@ class BrokerOrderStatusConstants(Enum):
     CANCELLED = 'CANCELLED'
     OPEN = 'OPEN'
     REJECTED = 'REJECTED'
+
 
 class CandleInterval(Enum):
     """
