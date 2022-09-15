@@ -1,10 +1,12 @@
 """
 
 """
+import logging
 from abc import ABCMeta, abstractmethod
 from collections import defaultdict
 
 from pyalgotrading import broker
+
 from ..constants import StrategyMode
 from ..order.order_bracket_base import BuyOrderBracket, SellOrderBracket
 from ..order.order_regular_base import BuyOrderRegular, SellOrderRegular
@@ -28,6 +30,7 @@ class StrategyBase(object, metaclass=ABCMeta):
         self.strategy_parameters = defaultdict(lambda: 'dummy')
         self.broker = broker.broker_connection_base.BrokerConnectionBase()
         self.utils = broker.utils
+        self.logger = logging.getLogger('strategy')
 
         # Dummy Order Attributes
         self.BuyOrderRegular = BuyOrderRegular
