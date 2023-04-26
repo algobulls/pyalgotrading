@@ -1,3 +1,7 @@
+# Code Structure of Strategy
+
+---
+
 ### **Previously...**
 You now have the necessary prerequisites installed and ready.
 
@@ -48,7 +52,7 @@ You have the following utility function to be used in this strategy :
 
 Once you create your own strategy or use a ready strategy from the [pyalgostrategypool](https://github.com/algobulls/pyalgostrategypool) package, this is how it works internally on the AlgoBulls Core Trading Engine.
 
-![Flowchart](flow1.png "How does a Strategy work")
+![Flowchart](flowchart.png "How does a Strategy work")
 
 ---
 ### **What's Next...**

@@ -116,7 +116,7 @@ instrument
 
 Click on each of the tabs to see the relevant code snippet.
 
-=== "Backtesting"
+> **Backtesting**
     ```python
     algobulls_connection.backtest(strategy_code=strategy_code1, 
             start_timestamp=dt(year=2020, month=7, day=1, hour=9, minute=15), 
@@ -130,7 +130,7 @@ Click on each of the tabs to see the relevant code snippet.
             candle_interval=CandleInterval.MINUTES_15)
     ```
     
-=== "Paper Trading"
+> **Paper Trading**
     ```python
     algobulls_connection.papertrade(strategy_code=strategy_code1, 
             start_time=time(hour=9, minute=15), 
@@ -144,7 +144,7 @@ Click on each of the tabs to see the relevant code snippet.
             candle_interval=CandleInterval.MINUTES_15)
     ```
     
-=== "Real Trading"
+> **Real Trading**
     ```python
     algobulls_connection.realtrade(strategy_code=strategy_code1, 
             start_time=time(hour=9, minute=15), 
@@ -163,17 +163,17 @@ Click on each of the tabs to see the relevant code snippet.
 
 Click on each of the tabs to see the relevant code snippet.
 
-=== "Backtesting"
+> **Backtesting**
     ```python
     algobulls_connection.get_backtesting_job_status(strategy_code1)
     ```
     
-=== "Paper Trading"
+> **Paper Trading**
     ```python
     algobulls_connection.get_papertrading_job_status(strategy_code1)
     ```
     
-=== "Real Trading"
+> **Real Trading**
     ```python
     algobulls_connection.get_realtrading_job_status(strategy_code=strategy_code1)
     ```
@@ -185,17 +185,17 @@ You can stop a submitted job anytime.
 
 Click on each of the tabs to see the relevant code snippet.
 
-=== "Backtesting"
+> **Backtesting**
     ```python
     algobulls_connection.stop_backtesting_job(strategy_code1)
     ```
     
-=== "Paper Trading"
+> **Paper Trading**
     ```python
     algobulls_connection.stop_papertrading_job(strategy_code1)
     ```
     
-=== "Real Trading"
+> **Real Trading**
     ```python
     algobulls_connection.stop_realtrading_job(strategy_code=strategy_code1)
     ```
@@ -207,19 +207,19 @@ You can fetch the logs in the middle of a job to monitor the progress.
 
 Click on each of the tabs to see the relevant code snippet.
 
-=== "Backtesting"
+> **Backtesting**
     ```python
     logs = algobulls_connection.get_backtesting_logs(strategy_code1)
     print(logs)
     ```
     
-=== "Paper Trading"
+> **Paper Trading**
     ```python
     logs = algobulls_connection.get_papertrading_logs(strategy_code1)
     print(logs)
     ```
     
-=== "Real Trading"
+> **Real Trading**
     ```python
     logs = algobulls_connection.get_realtrading_logs(strategy_code=strategy_code1)
     print(logs)
@@ -232,17 +232,17 @@ You can fetch the PnL report, statistics and order history for a job.
 
 Click on each of the tabs to see the relevant code snippet.
 
-=== "Backtesting"
+> **Backtesting**
     ```python
     algobulls_connection.get_backtesting_report_pnl_table(strategy_code1, show_all_rows=True)
     ```
     
-=== "Paper Trading"
+> **Paper Trading**
     ```python
     algobulls_connection.get_papertrading_report_pnl_table(strategy_code1)
     ```
     
-=== "Real Trading"
+> **Real Trading**
     ```python
     algobulls_connection.get_realtrading_report_pnl_table(strategy_code=strategy_code1)
     ```
@@ -252,17 +252,17 @@ Click on each of the tabs to see the relevant code snippet.
 
 Click on each of the tabs to see the relevant code snippet.
 
-=== "Backtesting"
+> **Backtesting**
     ```python
     algobulls_connection.get_backtesting_report_statistics(strategy_code1)
     ```
     
-=== "Paper Trading"
+> **Paper Trading**
     ```python
     algobulls_connection.get_papertrading_report_statistics(strategy_code1)
     ```
     
-=== "Real Trading"
+> **Real Trading**
     ```python
     algobulls_connection.get_realtrading_report_statistics(strategy_code=strategy_code1)
     ```
@@ -272,13 +272,13 @@ Click on each of the tabs to see the relevant code snippet.
 
 Click on each of the tabs to see the relevant code snippet.
 
-=== "Backtesting"
+> **Backtesting**
     ```python
     order_history = algobulls_connection.get_backtesting_report_order_history(strategy_code1)
     print(order_history)
     ```
     
-=== "Paper Trading"
+> **Paper Trading**
     ```python
     order_history = algobulls_connection.get_papertrading_report_order_history(strategy_code1)
     print(order_history)

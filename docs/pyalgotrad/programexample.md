@@ -234,12 +234,12 @@ The `strategy_select_instruments_for_exit` method does the following:
 1. `selected_instruments_bucket` and `sideband_info_bucket` - Creates 2 empty lists that will be used to pass the selected instruments and additional information about them respectively.
 2. The Loop - The loop will iterate over each instrument name passed (which are in Entry position (BUY/SELL)) and will decide whether to set an exit position or not for it.
 3. If condition - The exit steps are executed only if the instrument is holding at an ENTRY position (BUY/SELL). You can do this by checking if the `self.main_order` object is `None` or not, and proceed only if it is not `None`. 
-3. `crossover_value` - The crossover value is calculated and stored here. Crossover values are interpreted as:
+4. `crossover_value` - The crossover value is calculated and stored here. Crossover values are interpreted as:
     1. Value 1 - Cut upwards
     2. Value -1 - Cut downwards
     3. Value 0 - No crossover
-4. If condition - If the crossover value is 1 or -1, then the instrument is selected for exit position. The selected instrument is appended to the `selected_instruments_bucket`, and the associated action (EXIT) is appended to the `sideband_info_bucket`.
-5. `selected_instruments_bucket` and `sideband_info_bucket` - Both the lists (whether populated or empty) are returned to the platform for further actions.
+5. If condition - If the crossover value is 1 or -1, then the instrument is selected for exit position. The selected instrument is appended to the `selected_instruments_bucket`, and the associated action (EXIT) is appended to the `sideband_info_bucket`.
+6. `selected_instruments_bucket` and `sideband_info_bucket` - Both the lists (whether populated or empty) are returned to the platform for further actions.
 
 !!! Note
     * The actual Exit position (BUY/SELL) is not entered here. Here, only the instrument is selected based on the crossover value with the proper action mentioned in the `sideband_info_bucket`. The Exit position will be taken in the next method below.
