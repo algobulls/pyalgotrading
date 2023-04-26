@@ -10,17 +10,6 @@
         - [Upload your Strategy](upload.md)
         - [Test your Strategy](testing.md)
 
-### Visit the API
-- Packages
-    - [algobulls](package_algobulls.md)/
-    - [broker](package_broker.md)/
-    - [instrument](package_instrument.md)/
-    - [order](package_order.md)/
-    - [strategy](package_strategy.md)/
-    - [utils](package_utils.md)/
-- Modules:
-    - [constants](module_constants.md)
-
 # pyalgotrading
 Official Python Package for Algorithmic Trading APIs powered by AlgoBulls!
 
