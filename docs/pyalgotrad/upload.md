@@ -59,7 +59,7 @@ The output of the above step is:
 
 `Please login to this URL with your AlgoBulls credentials and get your developer access token: https://app.algobulls.com/user/login`
 
-You will need to login to your AlgoBulls account and fetch the access token from:
+You will need to log in to your AlgoBulls account and fetch the access token from:
 
 Settings -> General -> Developer Options
 
@@ -88,7 +88,7 @@ algobulls_connection.create_strategy(StrategySMARegularOrder)
 
 ---
 #### Re-upload your Strategy after modifications
-If you are re-uploading your strategy after some changes, then use the overwrite switch as shown here.
+If you are re-uploading your strategy after some changes, then use the ```overwrite``` switch as shown here.
 ```python
 algobulls_connection.create_strategy(StrategySMARegularOrder, overwrite=True)
 ```

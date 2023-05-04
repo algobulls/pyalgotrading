@@ -7,7 +7,7 @@ You have covered the basic code structure of a strategy.
 ---
 ### **Now...**
 
-You can either follow this page to create a strategy, or you can pickup a ready strategy (shown below) and move to the next page. 
+You can either follow this page to create a strategy, or you can pick up a ready strategy (shown below) and move to the next page. 
 
 ---
 ### **Before you start...**
@@ -34,7 +34,7 @@ from pyalgotrading.constants import *
 ---
 #### Create the class `StrategySMARegularOrder` and subclass it from `StrategyBase`
 
-```python
+``` python
 class StrategySMARegularOrder(StrategyBase):
 ```
 Now you can add the methods mentioned in the [structure](structure.md) inside the class. First you can add the `__init__` and the `initialize` methods.
@@ -60,7 +60,7 @@ you will pass parameters that will be used inside the strategy.
 For SMA, we are calculating crossover for 2 SMA timeperiod values, example 5 and 12.  These 2 parameters will be caught by `self.strategy_parameters` and stored for local use in `self.timeperiod1` and `self.timeperiod2`.
 3. `self.main_order` - Create an object that manages orders for you throughout the strategy.
 
-The `init` method is specific to Python's internal workings and it is preceded and succeeded by double underscores ( _ _ ) joined together.
+The `init` method is specific to Python's internal workings, and it is preceded and succeeded by double underscores ( _ _ ) joined together.
 
 ---
 #### `def initialize()`
@@ -99,7 +99,7 @@ Mark both the above methods as `@staticmethod`.
 The `versions_supported` method does the following:
 
 1. It notifies the AlgoBulls platform that the strategy is working correctly for the platform version 3.2.0
-2. Since the platform will be constantly upgraded to incorporate new features and improve efficiency, the verion may change.
+2. Since the platform will be constantly upgraded to incorporate new features and improve efficiency, the version may change.
 3. If the version changes, and if you submit a job for this strategy, then the AlgoBulls platform will spawn a server having version 3.2.0 for your strategy.
 4. Having this method ensures that the AlgoBulls platform always provides the correct environment for your strategy.
 
@@ -285,7 +285,7 @@ The `get_crossover_value` method does the following:
     * `volume` - the volume of that instrument
     * `open`, `high`, `low` and `close` - the OHLC values of the instrument
     * `oi` - the Open Interest of that instrument
-2. `sma_x` and `sma_y` - the SMA function from the `talib` package is used to calculate the Moving Average for both SMA timeperiods. The candle close value is used for calculations, i.e. `hist_data['close']`.
+2. `sma_x` and `sma_y` - the SMA function from the `talib` package is used to calculate the Moving Average for both SMA time-periods. The candle close value is used for calculations, i.e. `hist_data['close']`.
 3. `crossover_value` - calculates the crossover value using the `crossover` method from the `utils` package.
 4. Return value - return the crossover value to the caller method.
 

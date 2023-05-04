@@ -8,14 +8,15 @@ This page helps you to understand the best practices to create a good strategy.
 ---
 1. The following Python packages/modules are available to you:
 
-    | Package / Module | Version |
-    |------------------|---------|
-    | [**TA-Lib**](https://mrjbq7.github.io/ta-lib/install.html)       | 0.4.17  |
-    | [**pandas**](https://pypi.org/project/pandas/)       | 1.1.1   |
-    | [**numpy**](https://pypi.org/project/numpy/)        | 1.16.3  |
+    | Package / Module                                           | Version  | 
+    |------------------------------------------------------------|----------| 
+    | [**TA-Lib**](https://mrjbq7.github.io/ta-lib/install.html) | 0.4.17   | 
+    | [**pandas**](https://pypi.org/project/pandas/)             | 1.1.1    | 
+    | [**numpy**](https://pypi.org/project/numpy/)               | 1.16.3   | 
 
 2. The strategy class should not import any packages/modules.
 3. The entire strategy should be a single Python class.
+
 ---
 
 !!! Note

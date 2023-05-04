@@ -3,7 +3,7 @@
 ---
 You will need the following to perform this tutorial:
 
-1. **AlgoBulls Account ([Link](https://www.algobulls.com/))** - You will need this account to upload and test your strategies. The account needs to be setup with the proper risk management values and a binded broker before any trades can be excecuted. Make sure the account is properly setup or contact [AlgoBulls Support](mailto:support@algobulls.com) for any help.
+1. **AlgoBulls Account ([Link](https://www.algobulls.com/))** - You will need this account to upload and test your strategies. The account needs to be setup with the proper risk management values and a bound broker before any trades can be executed. Make sure the account is properly setup or contact [AlgoBulls Support](mailto:support@algobulls.com) for any help.
 
     ---
 
@@ -28,7 +28,7 @@ You will need the following to perform this tutorial:
     ---
 
 !!! Tips
-    * It is a good idea to setup a virtual environment first
+    * It is a good idea to set up a virtual environment first
     * Install Python 3.7+
     * Once Python is installed, most packages are easily installed in your venv using `pip install` command
     * `pip install TA-Lib`
