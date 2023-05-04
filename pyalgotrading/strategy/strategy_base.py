@@ -1,12 +1,10 @@
 """
 
 """
-import logging
 from abc import ABCMeta, abstractmethod
 from collections import defaultdict
 
 from pyalgotrading import broker
-
 from ..constants import StrategyMode
 from ..order.order_bracket_base import BuyOrderBracket, SellOrderBracket
 from ..order.order_regular_base import BuyOrderRegular, SellOrderRegular
@@ -30,7 +28,6 @@ class StrategyBase(object, metaclass=ABCMeta):
         self.strategy_parameters = defaultdict(lambda: 'dummy')
         self.broker = broker.broker_connection_base.BrokerConnectionBase()
         self.utils = broker.utils
-        self.logger = logging.getLogger('strategy')
 
         # Dummy Order Attributes
         self.BuyOrderRegular = BuyOrderRegular
@@ -65,16 +62,6 @@ class StrategyBase(object, metaclass=ABCMeta):
         # This is a dummy function with a sole purpose of mimicing the signature of the actual function on the AlgoBulls platform, as described in the documentation.
         pass
 
-    @staticmethod
-    @abstractmethod
-    def versions_supported():
-        """
-        Version of the AlgoBulls platform that this Strategy will run on/tested on
-        :return: Should return a single version or list of versions of ABC on which the current strategy has been tested to run successfully
-        """
-        raise NotImplementedError
-
-    @abstractmethod
     def initialize(self):
         """
         Initialization task for this strategy. Calling this method should initialise/reset the strategy's internal state variables to original state.
@@ -83,7 +70,7 @@ class StrategyBase(object, metaclass=ABCMeta):
 
         Indented to be called by TLS as part of pre market activity & for backtesting mode, at the start of every new backtesting day.
         """
-        raise NotImplementedError
+        pass
 
     def strategy_select_instruments_for_entry(self, candle, instruments_bucket):
         """

@@ -209,16 +209,5 @@ class DecisionConstants(Enum):
     EXIT_POSITION = 'EXIT_POSITION'
 
 
-class ActionConstants(Enum):
-    """
-    A class of Action Types
-    """
-    ENTRY_BUY = 'ENTRY_BUY'
-    ENTRY_SELL = 'ENTRY_SELL'
-    EXIT_BUY = 'EXIT_BUY'
-    EXIT_SELL = 'EXIT_SELL'
-    NO_ACTION = 'NO_ACTION'
-
-
 MESSAGE_REALTRADING_FORBIDDEN = 'Forbidden. This strategy is not approved for RT mode. Email us on support@algobulls.com to get your strategy approved. ' \
                                 'The AlgoBulls support team will guide you with the approval process. Once your strategy is approved, you can run it for RT directly from your AlgoBulls account.'

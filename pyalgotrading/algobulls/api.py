@@ -396,16 +396,19 @@ class AlgoBullsAPI:
             `GET` v2/user/strategy/statstable       for Stats Table
             `GET` v2/user/strategy/orderhistory     Order History
         """
+        key = self.__get_key(strategy_code=strategy_code, trading_type=trading_type)
         if report_type is TradingReportType.PNL_TABLE:
-            endpoint = 'v2/user/strategy/pltable'
+            endpoint = 'v3/book/pl/data'
+            params = {'pageSize': 0, 'isPythonBuild': "true", 'strategyId': strategy_code}
         elif report_type is TradingReportType.STATS_TABLE:
             endpoint = 'v2/user/strategy/statstable'
+            params = {'key': key}
         elif report_type is TradingReportType.ORDER_HISTORY:
             endpoint = 'v2/user/strategy/orderhistory'
+            params = {'key': key}
         else:
             raise NotImplementedError
 
-        key = self.__get_key(strategy_code=strategy_code, trading_type=trading_type)
-        params = {'key': key}
         response = self._send_request(endpoint=endpoint, params=params)
+        # print(f"delete this : {response}")
         return response

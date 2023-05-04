@@ -4,11 +4,14 @@ Module for AlgoBulls connection
 import inspect
 from datetime import datetime as dt
 
+import time
+import quantstats as qs
+
 import pandas as pd
 
 from .api import AlgoBullsAPI
 from .exceptions import AlgoBullsAPIBadRequest
-from ..constants import StrategyMode, TradingType, TradingReportType, CandleInterval, MESSAGE_REALTRADING_FORBIDDEN
+from ..constants import StrategyMode, TradingType, TradingReportType, CandleInterval, MESSAGE_REALTRADING_FORBIDDEN, AlgoBullsEngineVersion
 from ..strategy.strategy_base import StrategyBase
 
 
@@ -22,6 +25,7 @@ class AlgoBullsConnection:
         Init method that is used while creating an object of this class
         """
         self.api = AlgoBullsAPI()
+        self.pnl_data = None
 
     @staticmethod
     def get_authorization_url():
@@ -72,6 +76,7 @@ class AlgoBullsConnection:
 
         # Sanity checks
         assert issubclass(strategy, StrategyBase), f'strategy should be a subclass of class StrategyBase. Got class of type: type{strategy}'
+        assert hasattr(strategy, 'name'), f'Strategy name not defined'
 
         # Validate class by creating an instance
         # Todo: Temporarily disabling strategy validation for this bug fix: Validating strategy which has assert checks for strategy parameters to be of specific type (say 'int') fails with TypeError.
@@ -80,15 +85,15 @@ class AlgoBullsConnection:
         # strategy()
 
         # Get source code, and upload as new strategy (if strategy_code is None) else edit same strategy
-        strategy_name = strategy.name()
+        strategy_name = strategy.name if isinstance(strategy.name, str) else strategy.name()
         strategy_details = inspect.getsource(strategy)
-        versions_supported = strategy.versions_supported()
+        versions_supported = strategy.versions_supported() if hasattr(strategy, 'versions_supported') else AlgoBullsEngineVersion.VERSION_3_3_0
 
         if abc_version is None:
             if isinstance(versions_supported, list):
-                _abc_version = strategy.versions_supported()[0].value  # Take the first version
+                _abc_version = versions_supported[0].value  # Take the first version
             else:
-                _abc_version = strategy.versions_supported().value
+                _abc_version = versions_supported.value
         else:
             _abc_version = abc_version.value
 
@@ -349,10 +354,62 @@ class AlgoBullsConnection:
         Returns:
             Report details
         """
-        assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
-        return self.get_report(strategy_code=strategy_code, trading_type=TradingType.BACKTESTING, report_type=TradingReportType.PNL_TABLE, render_as_dataframe=True, show_all_rows=show_all_rows)
+        # todo :
+        #  1] code can be made more simplified
 
-    def get_backtesting_report_statistics(self, strategy_code):
+        assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
+        df = self.get_report(strategy_code=strategy_code, trading_type=TradingType.BACKTESTING, report_type=TradingReportType.PNL_TABLE, render_as_dataframe=True, show_all_rows=show_all_rows)
+        dataframe_list = []
+        for c in df.columns:
+            new_df = pd.DataFrame(list(df[c]))
+            new_df = new_df.add_prefix(c + "_")
+            dataframe_list.append(new_df)
+
+        # concat the list of dataframes
+        df = pd.concat(dataframe_list, axis=1)
+
+        # expand this specific column
+        instrument_df = pd.DataFrame(list(df['strategy_instrument']))
+        df = pd.concat([instrument_df, df], axis=1)
+
+        # selecting specific columns
+        df_ = df[["segment", "tradingsymbol", "entry_timestamp", "entry_isBuy", "entry_quantity", "entry_prefix", "entry_price", "entry_price", "exit_timestamp", "exit_isBuy", "exit_prefix", "exit_price", "pnlAbsolute_value", "pnlPercentage_value"]]
+
+        # changing values based on conditions
+        df_.loc[df_["entry_isBuy"] == True, "entry_isBuy"] = "BUY"
+        df_.loc[df_["entry_isBuy"] == False, "entry_isBuy"] = "SELL"
+        df_.loc[df_["exit_isBuy"] == True, "exit_isBuy"] = "BUY"
+        df_.loc[df_["exit_isBuy"] == False, "exit_isBuy"] = "SELL"
+
+        # rename column names
+        COLUMNS = {
+            'tradingsymbol': 'instrument',
+            'entry_timestamp': 'entry_timestamp',
+            'entry_isBuy': 'entry_transaction_type',
+            'entry_quantity': 'entry_quantity',
+            'entry_prefix': 'entry_prefix',
+            'entry_price': 'entry_price',
+            'exit_timestamp': 'exit_timestamp',
+            'exit_isBuy': 'exit_transaction_type',
+            'exit_prefix': 'exit_prefix',
+            'exit_price': 'exit_price',
+            'pnlAbsolute_value': 'pnl_absolute',
+            'pnlPercentage_value': 'pnl_percentage'
+        }
+        df_ = df_.rename(columns=COLUMNS)
+
+        # cumulative sum
+        df_["pnl_cumulative_absolute"] = df_["pnl_absolute"][::-1].cumsum(axis=0, skipna=True)
+        df_["pnl_cumulative_percentage"] = df_["pnl_percentage"][::-1].cumsum(axis=0, skipna=True)
+
+        # datetime string to date-time object
+        df_["entry_timestamp"] = pd.to_datetime(df['entry_timestamp'], format="%Y-%m-%d | %H:%M")
+        df_["exit_timestamp"] = pd.to_datetime(df['exit_timestamp'], format="%Y-%m-%d | %H:%M")
+
+        self.pnl_data = df_
+        return self.pnl_data
+
+    def get_backtesting_report_statistics(self, strategy_code, mode='quantstats', report='metrics', html_dump=False):
         """
         Fetch Back Testing report statistics
 
@@ -362,8 +419,55 @@ class AlgoBullsConnection:
         Returns:
             Report details
         """
+        # todo :
+        #  1] add starting funds parameters
+        #  2] add usage for 'mode'
+
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
-        return self.get_report(strategy_code=strategy_code, trading_type=TradingType.BACKTESTING, report_type=TradingReportType.STATS_TABLE, render_as_dataframe=True)
+        if self.pnl_data is None:
+            self.get_backtesting_report_pnl_table(strategy_code)
+        else:
+            # renaming columns
+            returns = self.pnl_data[['entry_timestamp', 'pnl_absolute']]
+            returns_df_ = returns.rename(columns={'entry_timestamp': 'timestamp', 'pnl_absolute': 'PnL'})
+
+            # timestamp localization
+            returns_df_['timestamp'] = pd.to_datetime(returns_df_['timestamp'])
+            returns_df_['timestamp'] = returns_df_['timestamp'].dt.tz_localize(None)
+
+            # time stamp set as index
+            returns_df_ = returns_df_.set_index('timestamp')
+
+            # sort the dataframe first in ascending order of time
+            returns_df_ = returns_df_.sort_index(ascending=True)
+
+            # starting funds
+            start_amount = 1e9
+
+            # calculate cummulative sum using starting funds
+            returns_df_["total_funds"] = returns_df_.PnL.cumsum() + start_amount
+
+            # remove duplicates (can be later fixed by adding uniqe values in microseconds)
+            returns_df_ = returns_df_.dropna()
+            returns_df_ = returns_df_[~returns_df_.index.duplicated(keep='first')]
+
+            # total fund's series
+            profit_ = returns_df_.total_funds
+
+            # get strategy name
+            all_strategies = self.get_all_strategies()
+            strategy_name = all_strategies.loc[all_strategies['strategyCode'] == strategy_code]['strategyName'].iloc[0]
+
+            # write in html
+            if html_dump:
+                qs.reports.html(profit_, title=strategy_name, output='', download_filename=f'report_{strategy_name}_{time.time():.0f}.html')
+
+            if report == "full":
+                order_report = qs.reports.full(profit_)
+            elif report == "metrics":
+                order_report = qs.reports.metrics(profit_)
+
+        return order_report
 
     def get_backtesting_report_order_history(self, strategy_code):
         """
