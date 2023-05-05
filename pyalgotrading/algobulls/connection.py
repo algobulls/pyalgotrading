@@ -2,13 +2,15 @@
 Module for AlgoBulls connection
 """
 import inspect
+import time
 from datetime import datetime as dt
 
 import pandas as pd
+import quantstats as qs
 
 from .api import AlgoBullsAPI
 from .exceptions import AlgoBullsAPIBadRequest
-from ..constants import StrategyMode, TradingType, TradingReportType, CandleInterval, MESSAGE_REALTRADING_FORBIDDEN
+from ..constants import StrategyMode, TradingType, TradingReportType, CandleInterval, MESSAGE_REALTRADING_FORBIDDEN, AlgoBullsEngineVersion
 from ..strategy.strategy_base import StrategyBase
 
 
@@ -21,7 +23,8 @@ class AlgoBullsConnection:
         """
         Init method that is used while creating an object of this class
         """
-        self.api = AlgoBullsAPI()
+        self.api = AlgoBullsAPI(self)
+        self.pnl_data = None
 
     @staticmethod
     def get_authorization_url():
@@ -72,6 +75,7 @@ class AlgoBullsConnection:
 
         # Sanity checks
         assert issubclass(strategy, StrategyBase), f'strategy should be a subclass of class StrategyBase. Got class of type: type{strategy}'
+        assert hasattr(strategy, 'name'), f'Strategy name not defined'
 
         # Validate class by creating an instance
         # Todo: Temporarily disabling strategy validation for this bug fix: Validating strategy which has assert checks for strategy parameters to be of specific type (say 'int') fails with TypeError.
@@ -80,15 +84,15 @@ class AlgoBullsConnection:
         # strategy()
 
         # Get source code, and upload as new strategy (if strategy_code is None) else edit same strategy
-        strategy_name = strategy.name()
+        strategy_name = strategy.name if isinstance(strategy.name, str) else strategy.name()
         strategy_details = inspect.getsource(strategy)
-        versions_supported = strategy.versions_supported()
+        versions_supported = strategy.versions_supported() if hasattr(strategy, 'versions_supported') else AlgoBullsEngineVersion.VERSION_3_3_0
 
         if abc_version is None:
             if isinstance(versions_supported, list):
-                _abc_version = strategy.versions_supported()[0].value  # Take the first version
+                _abc_version = versions_supported[0].value  # Take the first version
             else:
-                _abc_version = strategy.versions_supported().value
+                _abc_version = versions_supported.value
         else:
             _abc_version = abc_version.value
 
@@ -349,10 +353,44 @@ class AlgoBullsConnection:
         Returns:
             Report details
         """
-        assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
-        return self.get_report(strategy_code=strategy_code, trading_type=TradingType.BACKTESTING, report_type=TradingReportType.PNL_TABLE, render_as_dataframe=True, show_all_rows=show_all_rows)
 
-    def get_backtesting_report_statistics(self, strategy_code):
+        assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
+
+        data = self.get_report(strategy_code=strategy_code, trading_type=TradingType.BACKTESTING, report_type=TradingReportType.PNL_TABLE)
+
+        columns_required = [
+            'strategy.instrument.segment', 'strategy.instrument.tradingsymbol',
+            'entry.timestamp', 'entry.isBuy', 'entry.quantity', 'entry.prefix', 'entry.price',
+            'exit.timestamp', 'exit.isBuy', 'exit.quantity', 'exit.prefix', 'exit.price',
+            'pnlAbsolute.value'
+        ]
+        column_rename_map = {
+            'strategy.instrument.segment': 'instrument_segment',
+            'strategy.instrument.tradingsymbol': 'instrument_tradingsymbol',
+            'entry.timestamp': 'entry_timestamp',
+            'entry.isBuy': 'entry_transaction_type',
+            'entry.quantity': 'entry_quantity',
+            'entry.prefix': 'entry_currency',
+            'entry.price': 'entry_price',
+            'exit.timestamp': 'exit_timestamp',
+            'exit.isBuy': 'exit_transaction_type',
+            'exit.quantity': 'exit_quantity',
+            'exit.prefix': 'exit_currency',
+            'exit.price': 'exit_price',
+            'pnlAbsolute.value': 'pnl_absolute',
+        }
+
+        # Generate df from json data & perform cleanups
+        _df = pd.json_normalize(data[::-1])[columns_required].rename(columns=column_rename_map)
+        _df[['entry_timestamp', 'exit_timestamp']] = _df[['entry_timestamp', 'exit_timestamp']].apply(pd.to_datetime, format="%Y-%m-%d | %H:%M", errors="coerce")
+        _df['entry_transaction_type'] = _df['entry_transaction_type'].apply(lambda _: 'BUY' if _ else 'SELL')
+        _df['exit_transaction_type'] = _df['exit_transaction_type'].apply(lambda _: 'BUY' if _ else 'SELL')
+        _df["pnl_cumulative_absolute"] = _df["pnl_absolute"].cumsum(axis=0, skipna=True)
+
+        self.pnl_data = _df
+        return self.pnl_data
+
+    def get_backtesting_report_statistics(self, strategy_code, mode='quantstats', report='metrics', html_dump=False):
         """
         Fetch Back Testing report statistics
 
@@ -362,8 +400,42 @@ class AlgoBullsConnection:
         Returns:
             Report details
         """
+
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
-        return self.get_report(strategy_code=strategy_code, trading_type=TradingType.BACKTESTING, report_type=TradingReportType.STATS_TABLE, render_as_dataframe=True)
+        order_report = None
+        initial_funds = 1e9         # TODO: Allow this to be customized by the user
+
+        if self.pnl_data is None:
+            self.get_backtesting_report_pnl_table(strategy_code)
+        else:
+            print('Generating Statistics for already fetched P&L data...')
+
+        # get pnl data and cleanup as per quantstats format
+        _returns_df = self.pnl_data[['entry_timestamp', 'pnl_absolute']]
+        _returns_df = _returns_df.set_index('entry_timestamp')
+        _returns_df["total_funds"] = _returns_df.pnl_absolute.cumsum() + initial_funds
+        _returns_df = _returns_df.dropna()
+
+        # Note: Quantstats has a potential bug. It cannot work with multiple entries having the same timestamp. For now, we are dropping multiple entries with the same entry_timestamp (else the quantstats code below would throw an error)
+        # Suggestion for workaround: For entries with same entry timestamps, we can slightly modify the entry timestamps by adding single-digit microseconds to make them unique
+        _returns_df = _returns_df[~_returns_df.index.duplicated(keep='first')]
+
+        # Extract the final column; note: timestamp is the index so that is available too
+        total_funds_series = _returns_df.total_funds
+
+        # select report type
+        if report == "metrics":
+            order_report = qs.reports.metrics(total_funds_series)
+        elif report == "full":
+            order_report = qs.reports.full(total_funds_series)
+
+        # save as html file
+        if html_dump:
+            all_strategies = self.get_all_strategies()
+            strategy_name = all_strategies.loc[all_strategies['strategyCode'] == strategy_code]['strategyName'].iloc[0]
+            qs.reports.html(total_funds_series, title=strategy_name, output='', download_filename=f'report_{strategy_name}_{time.time():.0f}.html')
+
+        return order_report
 
     def get_backtesting_report_order_history(self, strategy_code):
         """

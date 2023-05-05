@@ -19,10 +19,11 @@ class AlgoBullsAPI:
 
     # SERVER_ENDPOINT = 'http://127.0.0.1:8000/'
 
-    def __init__(self):
+    def __init__(self, connection):
         """
         Init method that is used while creating an object of this class
         """
+        self.connection = connection
         self.headers = None
         self.__key_backtesting = {}  # strategy-cstc_id mapping
         self.__key_papertrading = {}  # strategy-cstc_id mapping
@@ -305,6 +306,10 @@ class AlgoBullsAPI:
             print(f'Submitting {trading_type.name} job...', end=' ')
             response = self._send_request(method='patch', endpoint=endpoint, json_data=json_data)
             print('Success.')
+
+            # cleanup
+            self.connection.pnl_data = None
+
             return response
         except (AlgoBullsAPIForbiddenError, AlgoBullsAPIInsufficientBalanceError) as ex:
             print('Fail.')
@@ -396,16 +401,16 @@ class AlgoBullsAPI:
             `GET` v2/user/strategy/statstable       for Stats Table
             `GET` v2/user/strategy/orderhistory     Order History
         """
+        key = self.__get_key(strategy_code=strategy_code, trading_type=trading_type)
         if report_type is TradingReportType.PNL_TABLE:
-            endpoint = 'v2/user/strategy/pltable'
-        elif report_type is TradingReportType.STATS_TABLE:
-            endpoint = 'v2/user/strategy/statstable'
+            endpoint = 'v3/book/pl/data'
+            params = {'pageSize': 0, 'isPythonBuild': "true", 'strategyId': strategy_code}
+
         elif report_type is TradingReportType.ORDER_HISTORY:
             endpoint = 'v2/user/strategy/orderhistory'
+            params = {'key': key}
         else:
             raise NotImplementedError
 
-        key = self.__get_key(strategy_code=strategy_code, trading_type=trading_type)
-        params = {'key': key}
         response = self._send_request(endpoint=endpoint, params=params)
         return response
