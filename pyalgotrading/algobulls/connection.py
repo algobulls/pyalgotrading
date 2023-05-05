@@ -473,7 +473,6 @@ class AlgoBullsConnection:
             job status
         """
         # Sanity checks - Validate config parameters
-        # Sanity checks - Validate config parameters
         if isinstance(start_time, str):
             start_time = dt.strptime(start_time, '%Y-%m-%d | %H:%M')
         if isinstance(end_time, str):
