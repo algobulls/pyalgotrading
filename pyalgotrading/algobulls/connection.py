@@ -354,59 +354,46 @@ class AlgoBullsConnection:
         Returns:
             Report details
         """
-        # todo :
-        #  1] code can be made more simplified
 
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
-        df = self.get_report(strategy_code=strategy_code, trading_type=TradingType.BACKTESTING, report_type=TradingReportType.PNL_TABLE, render_as_dataframe=True, show_all_rows=show_all_rows)
-        dataframe_list = []
-        for c in df.columns:
-            new_df = pd.DataFrame(list(df[c]))
-            new_df = new_df.add_prefix(c + "_")
-            dataframe_list.append(new_df)
 
-        # concat the list of dataframes
-        df = pd.concat(dataframe_list, axis=1)
+        COLUMNS = {
+            'strategy.instrument.segment': 'instrument_segment',
+            'strategy.instrument.tradingsymbol': 'istrument_trading_symbol',
+            'entry.timestamp': 'entry_timestamp',
+            'entry.isBuy': 'entry_transaction_type',
+            'entry.quantity': 'entry_quantity',
+            'entry.prefix': 'entry_prefix',
+            'entry.price': 'entry_price',
+            'exit.timestamp': 'exit_timestamp',
+            'exit.isBuy': 'exit_transaction_type',
+            'exit.quantity': 'exit_quantity',
+            'exit.prefix': 'exit_prefix',
+            'exit.price': 'exit_price',
+            'pnlAbsolute.value': 'pnl_absolute',
+            'pnlPercentage.value': 'pnl_percentage'
 
-        # expand this specific column
-        instrument_df = pd.DataFrame(list(df['strategy_instrument']))
-        df = pd.concat([instrument_df, df], axis=1)
+        }
 
-        # selecting specific columns
-        df_ = df[["segment", "tradingsymbol", "entry_timestamp", "entry_isBuy", "entry_quantity", "entry_prefix", "entry_price", "entry_price", "exit_timestamp", "exit_isBuy", "exit_prefix", "exit_price", "pnlAbsolute_value", "pnlPercentage_value"]]
+        data = self.get_report(strategy_code=strategy_code, trading_type=TradingType.BACKTESTING, report_type=TradingReportType.PNL_TABLE, render_as_dataframe=False, show_all_rows=show_all_rows)
+
+        _df = pd.json_normalize(data[::-1])[['strategy.instrument.segment', 'strategy.instrument.tradingsymbol',
+                                                'entry.timestamp', 'entry.isBuy', 'entry.quantity', 'entry.prefix', 'entry.price',
+                                                'exit.timestamp', 'exit.isBuy', 'exit.quantity', 'exit.prefix', 'exit.price',
+                                                'pnlAbsolute.value', 'pnlPercentage.value']].rename(columns=COLUMNS)
+
+        # convert columns to datetime
+        _df[['entry_timestamp', 'exit_timestamp']] = _df[['entry_timestamp', 'exit_timestamp']].apply(pd.to_datetime, format="%Y-%m-%d | %H:%M", errors="coerce")
 
         # changing values based on conditions
-        df_.loc[df_["entry_isBuy"] == True, "entry_isBuy"] = "BUY"
-        df_.loc[df_["entry_isBuy"] == False, "entry_isBuy"] = "SELL"
-        df_.loc[df_["exit_isBuy"] == True, "exit_isBuy"] = "BUY"
-        df_.loc[df_["exit_isBuy"] == False, "exit_isBuy"] = "SELL"
+        _df['entry_transaction_type'] = _df['entry_transaction_type'].apply(lambda x: 'BUY' if x else 'SELL')
+        _df['exit_transaction_type'] = _df['exit_transaction_type'].apply(lambda x: 'BUY' if x else 'SELL')
 
-        # rename column names
-        COLUMNS = {
-            'tradingsymbol': 'instrument',
-            'entry_timestamp': 'entry_timestamp',
-            'entry_isBuy': 'entry_transaction_type',
-            'entry_quantity': 'entry_quantity',
-            'entry_prefix': 'entry_prefix',
-            'entry_price': 'entry_price',
-            'exit_timestamp': 'exit_timestamp',
-            'exit_isBuy': 'exit_transaction_type',
-            'exit_prefix': 'exit_prefix',
-            'exit_price': 'exit_price',
-            'pnlAbsolute_value': 'pnl_absolute',
-            'pnlPercentage_value': 'pnl_percentage'
-        }
-        df_ = df_.rename(columns=COLUMNS)
+        # calculate cumulative pnl and percentage
+        _df["pnl_cumulative_absolute"] = _df["pnl_absolute"].cumsum(axis=0, skipna=True)
+        _df["pnl_cumulative_percentage"] = _df["pnl_percentage"].cumsum(axis=0, skipna=True)
 
-        # cumulative sum
-        df_["pnl_cumulative_absolute"] = df_["pnl_absolute"][::-1].cumsum(axis=0, skipna=True)
-        df_["pnl_cumulative_percentage"] = df_["pnl_percentage"][::-1].cumsum(axis=0, skipna=True)
-
-        # datetime string to date-time object
-        df_["entry_timestamp"] = pd.to_datetime(df['entry_timestamp'], format="%Y-%m-%d | %H:%M")
-        df_["exit_timestamp"] = pd.to_datetime(df['exit_timestamp'], format="%Y-%m-%d | %H:%M")
-
-        self.pnl_data = df_
+        self.pnl_data = _df
         return self.pnl_data
 
     def get_backtesting_report_statistics(self, strategy_code, mode='quantstats', report='metrics', html_dump=False):
