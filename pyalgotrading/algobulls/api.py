@@ -19,10 +19,11 @@ class AlgoBullsAPI:
 
     # SERVER_ENDPOINT = 'http://127.0.0.1:8000/'
 
-    def __init__(self):
+    def __init__(self, connection):
         """
         Init method that is used while creating an object of this class
         """
+        self.connection = connection
         self.headers = None
         self.__key_backtesting = {}  # strategy-cstc_id mapping
         self.__key_papertrading = {}  # strategy-cstc_id mapping
@@ -305,6 +306,10 @@ class AlgoBullsAPI:
             print(f'Submitting {trading_type.name} job...', end=' ')
             response = self._send_request(method='patch', endpoint=endpoint, json_data=json_data)
             print('Success.')
+
+            # cleanup
+            self.connection.pnl_data = None
+
             return response
         except (AlgoBullsAPIForbiddenError, AlgoBullsAPIInsufficientBalanceError) as ex:
             print('Fail.')

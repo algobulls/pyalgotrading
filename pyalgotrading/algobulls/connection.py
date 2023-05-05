@@ -2,12 +2,11 @@
 Module for AlgoBulls connection
 """
 import inspect
+import time
 from datetime import datetime as dt
 
-import time
-import quantstats as qs
-
 import pandas as pd
+import quantstats as qs
 
 from .api import AlgoBullsAPI
 from .exceptions import AlgoBullsAPIBadRequest
@@ -24,7 +23,7 @@ class AlgoBullsConnection:
         """
         Init method that is used while creating an object of this class
         """
-        self.api = AlgoBullsAPI()
+        self.api = AlgoBullsAPI(self)
         self.pnl_data = None
 
     @staticmethod
@@ -357,41 +356,36 @@ class AlgoBullsConnection:
 
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
 
-        COLUMNS = {
+        data = self.get_report(strategy_code=strategy_code, trading_type=TradingType.BACKTESTING, report_type=TradingReportType.PNL_TABLE)
+
+        columns_required = [
+            'strategy.instrument.segment', 'strategy.instrument.tradingsymbol',
+            'entry.timestamp', 'entry.isBuy', 'entry.quantity', 'entry.prefix', 'entry.price',
+            'exit.timestamp', 'exit.isBuy', 'exit.quantity', 'exit.prefix', 'exit.price',
+            'pnlAbsolute.value'
+        ]
+        column_rename_map = {
             'strategy.instrument.segment': 'instrument_segment',
-            'strategy.instrument.tradingsymbol': 'istrument_trading_symbol',
+            'strategy.instrument.tradingsymbol': 'instrument_tradingsymbol',
             'entry.timestamp': 'entry_timestamp',
             'entry.isBuy': 'entry_transaction_type',
             'entry.quantity': 'entry_quantity',
-            'entry.prefix': 'entry_prefix',
+            'entry.prefix': 'entry_currency',
             'entry.price': 'entry_price',
             'exit.timestamp': 'exit_timestamp',
             'exit.isBuy': 'exit_transaction_type',
             'exit.quantity': 'exit_quantity',
-            'exit.prefix': 'exit_prefix',
+            'exit.prefix': 'exit_currency',
             'exit.price': 'exit_price',
             'pnlAbsolute.value': 'pnl_absolute',
-            'pnlPercentage.value': 'pnl_percentage'
-
         }
 
-        data = self.get_report(strategy_code=strategy_code, trading_type=TradingType.BACKTESTING, report_type=TradingReportType.PNL_TABLE, render_as_dataframe=False, show_all_rows=show_all_rows)
-
-        _df = pd.json_normalize(data[::-1])[['strategy.instrument.segment', 'strategy.instrument.tradingsymbol',
-                                                'entry.timestamp', 'entry.isBuy', 'entry.quantity', 'entry.prefix', 'entry.price',
-                                                'exit.timestamp', 'exit.isBuy', 'exit.quantity', 'exit.prefix', 'exit.price',
-                                                'pnlAbsolute.value', 'pnlPercentage.value']].rename(columns=COLUMNS)
-
-        # convert columns to datetime
+        # Generate df from json data & perform cleanups
+        _df = pd.json_normalize(data[::-1])[columns_required].rename(columns=column_rename_map)
         _df[['entry_timestamp', 'exit_timestamp']] = _df[['entry_timestamp', 'exit_timestamp']].apply(pd.to_datetime, format="%Y-%m-%d | %H:%M", errors="coerce")
-
-        # changing values based on conditions
-        _df['entry_transaction_type'] = _df['entry_transaction_type'].apply(lambda x: 'BUY' if x else 'SELL')
-        _df['exit_transaction_type'] = _df['exit_transaction_type'].apply(lambda x: 'BUY' if x else 'SELL')
-
-        # calculate cumulative pnl and percentage
+        _df['entry_transaction_type'] = _df['entry_transaction_type'].apply(lambda _: 'BUY' if _ else 'SELL')
+        _df['exit_transaction_type'] = _df['exit_transaction_type'].apply(lambda _: 'BUY' if _ else 'SELL')
         _df["pnl_cumulative_absolute"] = _df["pnl_absolute"].cumsum(axis=0, skipna=True)
-        _df["pnl_cumulative_percentage"] = _df["pnl_percentage"].cumsum(axis=0, skipna=True)
 
         self.pnl_data = _df
         return self.pnl_data
@@ -406,53 +400,40 @@ class AlgoBullsConnection:
         Returns:
             Report details
         """
-        # todo :
-        #  1] add starting funds parameters
-        #  2] add usage for 'mode'
 
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
+        order_report = None
+        initial_funds = 1e9         # TODO: Allow this to be customized by the user
+
         if self.pnl_data is None:
             self.get_backtesting_report_pnl_table(strategy_code)
         else:
-            # renaming columns
-            returns = self.pnl_data[['entry_timestamp', 'pnl_absolute']]
-            returns_df_ = returns.rename(columns={'entry_timestamp': 'timestamp', 'pnl_absolute': 'PnL'})
+            print('Generating Statistics for already fetched P&L data...')
 
-            # timestamp localization
-            returns_df_['timestamp'] = pd.to_datetime(returns_df_['timestamp'])
-            returns_df_['timestamp'] = returns_df_['timestamp'].dt.tz_localize(None)
+        # get pnl data and cleanup as per quantstats format
+        _returns_df = self.pnl_data[['entry_timestamp', 'pnl_absolute']]
+        _returns_df = _returns_df.set_index('entry_timestamp')
+        _returns_df["total_funds"] = _returns_df.pnl_absolute.cumsum() + initial_funds
+        _returns_df = _returns_df.dropna()
 
-            # time stamp set as index
-            returns_df_ = returns_df_.set_index('timestamp')
+        # Note: Quantstats has a potential bug. It cannot work with multiple entries having the same timestamp. For now, we are dropping multiple entries with the same entry_timestamp (else the quantstats code below would throw an error)
+        # Suggestion for workaround: For entries with same entry timestamps, we can slightly modify the entry timestamps by adding single-digit microseconds to make them unique
+        _returns_df = _returns_df[~_returns_df.index.duplicated(keep='first')]
 
-            # sort the dataframe first in ascending order of time
-            returns_df_ = returns_df_.sort_index(ascending=True)
+        # Extract the final column; note: timestamp is the index so that is available too
+        total_funds_series = _returns_df.total_funds
 
-            # starting funds
-            start_amount = 1e9
+        # select report type
+        if report == "metrics":
+            order_report = qs.reports.metrics(total_funds_series)
+        elif report == "full":
+            order_report = qs.reports.full(total_funds_series)
 
-            # calculate cummulative sum using starting funds
-            returns_df_["total_funds"] = returns_df_.PnL.cumsum() + start_amount
-
-            # remove duplicates (can be later fixed by adding uniqe values in microseconds)
-            returns_df_ = returns_df_.dropna()
-            returns_df_ = returns_df_[~returns_df_.index.duplicated(keep='first')]
-
-            # total fund's series
-            profit_ = returns_df_.total_funds
-
-            # get strategy name
+        # save as html file
+        if html_dump:
             all_strategies = self.get_all_strategies()
             strategy_name = all_strategies.loc[all_strategies['strategyCode'] == strategy_code]['strategyName'].iloc[0]
-
-            # write in html
-            if html_dump:
-                qs.reports.html(profit_, title=strategy_name, output='', download_filename=f'report_{strategy_name}_{time.time():.0f}.html')
-
-            if report == "full":
-                order_report = qs.reports.full(profit_)
-            elif report == "metrics":
-                order_report = qs.reports.metrics(profit_)
+            qs.reports.html(total_funds_series, title=strategy_name, output='', download_filename=f'report_{strategy_name}_{time.time():.0f}.html')
 
         return order_report
 
