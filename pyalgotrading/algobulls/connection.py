@@ -265,6 +265,11 @@ class AlgoBullsConnection:
             backtest job submission status
         """
         # Sanity checks - Validate config parameters
+        if isinstance(start_timestamp, str):
+            start_timestamp = dt.strptime(start_timestamp, '%Y-%m-%d | %H:%M')
+        if isinstance(end_timestamp, str):
+            end_timestamp = dt.strptime(end_timestamp, '%Y-%m-%d | %H:%M')
+
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
         assert isinstance(start_timestamp, dt), f'Argument "start_timestamp" should be an instance of type datetime.datetime'
         assert isinstance(end_timestamp, dt), f'Argument "end_timestamp" should be an instance of type datetime.datetime'
@@ -468,6 +473,11 @@ class AlgoBullsConnection:
             job status
         """
         # Sanity checks - Validate config parameters
+        if isinstance(start_time, str):
+            start_time = dt.strptime(start_time, '%Y-%m-%d | %H:%M')
+        if isinstance(end_time, str):
+            end_time = dt.strptime(end_time, '%Y-%m-%d | %H:%M')
+
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
         assert isinstance(start_time, dt), f'Argument "start_time" should be an instance of type datetime.datetime'
         assert isinstance(end_time, dt), f'Argument "end_time" should be an instance of type datetime.datetime'
