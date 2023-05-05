@@ -25,7 +25,7 @@ particular instrument is to be exited or not.
 ---
 You have the following supporting methods:
 
-1. `__init__()` - Thia ia the constructor method used in every strategy. You can perform sanity checks here for each parameter passed as an argument to the strategy.
+1. `__init__()` - This is the constructor method used in every strategy. You can perform sanity checks here for each parameter passed as an argument to the strategy.
 You can also declare the set of variables that you may need for your strategy.   
 2. `initialize()` - This method is called every time the strategy starts for the first time as well as the start of every trading day. 
 You may set initial values for the set of variables that you have declared in the previous method. 
