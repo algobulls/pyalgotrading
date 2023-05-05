@@ -400,9 +400,7 @@ class AlgoBullsAPI:
         if report_type is TradingReportType.PNL_TABLE:
             endpoint = 'v3/book/pl/data'
             params = {'pageSize': 0, 'isPythonBuild': "true", 'strategyId': strategy_code}
-        elif report_type is TradingReportType.STATS_TABLE:
-            endpoint = 'v2/user/strategy/statstable'
-            params = {'key': key}
+
         elif report_type is TradingReportType.ORDER_HISTORY:
             endpoint = 'v2/user/strategy/orderhistory'
             params = {'key': key}
@@ -410,5 +408,4 @@ class AlgoBullsAPI:
             raise NotImplementedError
 
         response = self._send_request(endpoint=endpoint, params=params)
-        # print(f"delete this : {response}")
         return response
