@@ -265,7 +265,6 @@ class AlgoBullsConnection:
             backtest job submission status
         """
         # Sanity checks - Validate config parameters
-        # Sanity checks - Validate config parameters
         if isinstance(start_timestamp, str):
             start_timestamp = dt.strptime(start_timestamp, '%Y-%m-%d | %H:%M')
         if isinstance(end_timestamp, str):
