@@ -445,7 +445,7 @@ class AlgoBullsConnection:
 
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
         order_report = None
-        initial_funds = 1e9         # TODO: Allow this to be customized by the user
+        initial_funds = 1e9  # TODO: Allow this to be customized by the user
 
         if self.pnl_data is None:
             self.get_backtesting_report_pnl_table(strategy_code)
