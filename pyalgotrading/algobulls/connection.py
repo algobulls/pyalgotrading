@@ -184,6 +184,8 @@ class AlgoBullsConnection:
             strategy: Strategy code
         """
         response = self.api.delete_previous_trades(strategy)
+        if response['data'] != 'success':
+            print(f'Deletion of previous trade data for strategy "{strategy}" may not have been successful. Details: {response}')
         return response
 
     def get_job_status(self, strategy_code, trading_type):
@@ -341,25 +343,23 @@ class AlgoBullsConnection:
         assert isinstance(delete_previous_trades, bool), 'Argument "delete_previous_trades" should be a boolean'
 
         if delete_previous_trades:
-            _response_delete = self.delete_previous_trades(strategy)
-            if _response_delete['data'] != 'successful':
-                raise 'Deletion of previous data was not successful'
+            self.delete_previous_trades(strategy)
 
         # Restructuring strategy params
         restructured_strategy_parameters = []
-        for _error_msg_timestamps in parameters:
+        for parameter_name in parameters:
             restructured_strategy_parameters.append({
-                'paramName': _error_msg_timestamps,
-                'paramValue': parameters[_error_msg_timestamps]
+                'paramName': parameter_name,
+                'paramValue': parameters[parameter_name]
             })
 
         # generate instruments' id list
         instrument_list = []
         for _instrument in instruments:
             instrument_results = self.search_instrument(_instrument.split(':')[-1])
-            for _error_msg_timestamps in instrument_results:
-                if _error_msg_timestamps["value"] == _instrument:
-                    instrument_list.append({'id': _error_msg_timestamps["id"]})
+            for _ in instrument_results:
+                if _["value"] == _instrument:
+                    instrument_list.append({'id': _["id"]})
                     break
 
         # Setup config for Backtesting
@@ -370,7 +370,8 @@ class AlgoBullsConnection:
             'lots': lots,
             'userParams': restructured_strategy_parameters,
             'candleDuration': candle.value,
-            'strategyMode': mode.value}
+            'strategyMode': mode.value
+        }
         self.api.set_strategy_config(strategy_code=strategy, strategy_config=strategy_config, trading_type=TradingType.BACKTESTING)
 
         # Submit Backtesting job
@@ -565,14 +566,14 @@ class AlgoBullsConnection:
 
         # Sanity checks - Convert config parameters
         _error_msg_candle = f'Argument "candle" should be a valid string or an enum of type CandleInterval. Possible string values can be: {get_valid_enum_names(CandleInterval)}'
-        _error_msg_timestamps = f'Argument "start" should be a valid timestamp string (HH:MM) or an instance of type datetime.datetime'
+        _error_msg_timestamps = f'Argument "start" should be a valid time string (HH:MM) or an instance of type datetime.time'
         _error_msg_instruments = f'Argument "instruments" should be a valid instrument string or a list of valid instruments strings. You can use the \'get_instrument()\' method of AlgoBullsConnection class to search for instruments'
         _error_msg_mode = f'Argument "mode" should be a valid string or an enum of type StrategyMode. Possible string values can be: {get_valid_enum_names(StrategyMode)}'
 
         if isinstance(start, str):
-            start = dt.strptime(start, '%H:%M')
+            start = dt.combine(dt.today().date(), dt.strptime(start, '%H:%M').time())
         if isinstance(end, str):
-            end = dt.strptime(end, '%H:%M')
+            end = dt.combine(dt.today().date(), dt.strptime(end, '%H:%M').time())
         if isinstance(mode, str):
             _ = mode.upper()
             assert _ in StrategyMode.__members__, _error_msg_candle
@@ -595,18 +596,15 @@ class AlgoBullsConnection:
         assert isinstance(mode, StrategyMode), _error_msg_mode
         assert isinstance(candle, CandleInterval), _error_msg_candle
 
-        start = dt.combine(dt.today().date(), start.time())
         if delete_previous_trades:
-            _response_delete = self.delete_previous_trades(strategy)
-            if _response_delete['data'] != 'successful':
-                raise f'Error deleting previous trades for strategy : {strategy}'
+            self.delete_previous_trades(strategy)
 
         # Restructuring strategy params
         restructured_strategy_parameters = []
-        for _error_msg_timestamps in parameters:
+        for parameter_name in parameters:
             restructured_strategy_parameters.append({
-                'paramName': _error_msg_timestamps,
-                'paramValue': parameters[_error_msg_timestamps]
+                'paramName': parameter_name,
+                'paramValue': parameters[parameter_name]
             })
 
         # generate instruments' id list
@@ -618,7 +616,7 @@ class AlgoBullsConnection:
                     instrument_list.append({'id': _error_msg_timestamps["id"]})
                     break
 
-        # Setup config for Backtesting
+        # Setup config for Paper Trading
         strategy_config = {
             'instruments': {
                 'instruments': instrument_list
@@ -626,7 +624,8 @@ class AlgoBullsConnection:
             'lots': lots,
             'userParams': restructured_strategy_parameters,
             'candleDuration': candle.value,
-            'strategyMode': mode.value}
+            'strategyMode': mode.value
+        }
         self.api.set_strategy_config(strategy_code=strategy, strategy_config=strategy_config, trading_type=TradingType.PAPERTRADING)
 
         # Submit Paper Trading job
