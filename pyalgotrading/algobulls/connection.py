@@ -176,6 +176,16 @@ class AlgoBullsConnection:
         response = self.api.search_instrument(instrument, exchange=exchange).get('data')
         return response
 
+    def delete_previous_trades(self, strategy):
+        """
+        Delete all the previous trades and clear the pnl table
+
+        Args:
+            strategy: Strategy code
+        """
+        response = self.api.delete_previous_trades(strategy)
+        return response
+
     def get_job_status(self, strategy_code, trading_type):
         """
         Get status for a Back Testing / Paper Trading / Real Trading Job
@@ -259,7 +269,7 @@ class AlgoBullsConnection:
             print('Report not available yet. Please retry in sometime')
             # return response
 
-    def backtest(self, strategy=None, start=None, end=None, instruments=None, lots=1, parameters=None, candle=None, mode=StrategyMode.INTRADAY, **kwargs):
+    def backtest(self, strategy=None, start=None, end=None, instruments=None, lots=1, parameters=None, candle=None, mode=StrategyMode.INTRADAY, delete_previous_trades=True, **kwargs):
         """
         Submit a backtesting job for a strategy on the AlgoBulls Platform
 
@@ -272,12 +282,13 @@ class AlgoBullsConnection:
             parameters: Parameters
             candle: Candle interval
             mode: Intraday or delivery
+            delete_previous_trades: Delete data for previous trades
 
         Legacy args (will be deprecated in future release):
             'strategy_code' behaves same 'strategy'
             'start_timestamp' behaves same 'start'
             'end_timestamp' behaves same 'end'
-            'instrument' behaves same 'instrumetns'
+            'instrument' behaves same 'instruments'
             'strategy_parameters' behaves same 'parameters'
             'candle_interval' behaves same 'candle'
             'strategy__mode' behaves same 'mode'
@@ -327,6 +338,12 @@ class AlgoBullsConnection:
         assert isinstance(parameters, dict), f'Argument "parameters" should be a dict'
         assert isinstance(mode, StrategyMode), _error_msg_mode
         assert isinstance(candle, CandleInterval), _error_msg_candle
+        assert isinstance(delete_previous_trades, bool), 'Argument "delete_previous_trades" should be a boolean'
+
+        if delete_previous_trades:
+            _response_delete = self.delete_previous_trades(strategy)
+            if _response_delete['data'] != 'successful':
+                raise 'Deletion of previous data was not successful'
 
         # Restructuring strategy params
         restructured_strategy_parameters = []
@@ -509,9 +526,9 @@ class AlgoBullsConnection:
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
         return self.get_report(strategy_code=strategy_code, trading_type=TradingType.BACKTESTING, report_type=TradingReportType.ORDER_HISTORY)
 
-    def papertrade(self, strategy=None, start=None, end=None, instruments=None, lots=None, parameters=None, candle=None, strategy_mode=StrategyMode.INTRADAY, **kwargs):
+    def papertrade(self, strategy=None, start=None, end=None, instruments=None, lots=None, parameters=None, candle=None, mode=StrategyMode.INTRADAY, delete_previous_trades=True, **kwargs):
         """
-        Submit a backtesting job for a strategy on the AlgoBulls Platform
+        Submit a papertrade job for a strategy on the AlgoBulls Platform
 
         Args:
             strategy: Strategy code
@@ -522,18 +539,19 @@ class AlgoBullsConnection:
             parameters: Parameters
             candle: Candle interval
             mode: Intraday or delivery
+            delete_previous_trades: Delete data of all previous trades
 
         Legacy args (will be deprecated in future release):
             'strategy_code' behaves same 'strategy'
             'start_timestamp' behaves same 'start'
             'end_timestamp' behaves same 'end'
-            'instrument' behaves same 'instrumetns'
+            'instrument' behaves same 'instruments'
             'strategy_parameters' behaves same 'parameters'
             'candle_interval' behaves same 'candle'
             'strategy__mode' behaves same 'mode'
 
         Returns:
-            backtest job submission status
+            papertrade job submission status
         """
 
         # check if values received by new parameter names, else extract from old parameter names
@@ -547,14 +565,14 @@ class AlgoBullsConnection:
 
         # Sanity checks - Convert config parameters
         _error_msg_candle = f'Argument "candle" should be a valid string or an enum of type CandleInterval. Possible string values can be: {get_valid_enum_names(CandleInterval)}'
-        _error_msg_timestamps = f'Argument "start" should be a valid timestamp string (YYYY-MM-DD | HH:MM) or an instance of type datetime.datetime'
+        _error_msg_timestamps = f'Argument "start" should be a valid timestamp string (HH:MM) or an instance of type datetime.datetime'
         _error_msg_instruments = f'Argument "instruments" should be a valid instrument string or a list of valid instruments strings. You can use the \'get_instrument()\' method of AlgoBullsConnection class to search for instruments'
         _error_msg_mode = f'Argument "mode" should be a valid string or an enum of type StrategyMode. Possible string values can be: {get_valid_enum_names(StrategyMode)}'
 
         if isinstance(start, str):
-            start = dt.strptime(start, '%Y-%m-%d | %H:%M')
+            start = dt.strptime(start, '%H:%M')
         if isinstance(end, str):
-            end = dt.strptime(end, '%Y-%m-%d | %H:%M')
+            end = dt.strptime(end, '%H:%M')
         if isinstance(mode, str):
             _ = mode.upper()
             assert _ in StrategyMode.__members__, _error_msg_candle
@@ -567,7 +585,6 @@ class AlgoBullsConnection:
             instruments = [instruments]
 
         # Sanity checks - Validate config parameters
-
         assert isinstance(strategy, str), f'Argument "strategy" should be a valid string'
         assert isinstance(start, dt), _error_msg_timestamps
         assert isinstance(end, dt), _error_msg_timestamps
@@ -577,6 +594,12 @@ class AlgoBullsConnection:
         assert isinstance(parameters, dict), f'Argument "parameters" should be a dict'
         assert isinstance(mode, StrategyMode), _error_msg_mode
         assert isinstance(candle, CandleInterval), _error_msg_candle
+
+        start = dt.combine(dt.today().date(), start.time())
+        if delete_previous_trades:
+            _response_delete = self.delete_previous_trades(strategy)
+            if _response_delete['data'] != 'successful':
+                raise f'Error deleting previous trades for strategy : {strategy}'
 
         # Restructuring strategy params
         restructured_strategy_parameters = []
