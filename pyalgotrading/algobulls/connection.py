@@ -38,6 +38,18 @@ class AlgoBullsConnection:
         print(f'Please login to this URL with your AlgoBulls credentials and get your developer access token: {url}')
         return url
 
+    @staticmethod
+    def get_token_url():
+        """
+        Fetch the token URL
+
+        Returns:
+            Token URL
+        """
+        url = 'https://app.algobulls.com/settings?section=developerOptions'
+        print(f'Please get your token from this url, make sure you have logged in to your Algobulls account before')
+        return url
+
     def set_access_token(self, access_token):
         """
         Set the access token
@@ -247,66 +259,85 @@ class AlgoBullsConnection:
             print('Report not available yet. Please retry in sometime')
             # return response
 
-    def backtest(self, strategy_code, start_timestamp, end_timestamp, instrument, lots, strategy_parameters, candle_interval, strategy_mode=StrategyMode.INTRADAY):
+    def backtest(self, strategy=None, start=None, end=None, instruments=None, lots=None, parameters=None, candle=None, mode=StrategyMode.INTRADAY, **kwargs):
         """
         Submit a backtesting job for a strategy on the AlgoBulls Platform
 
         Args:
-            strategy_code: Strategy code
-            start_timestamp: Start date/time
-            end_timestamp: End date/time
-            instrument: Instrument key
+            strategy: Strategy code
+            start: Start date/time
+            end: End date/time
+            instruments: Instrument key
             lots: Number of lots of the passed instrument to trade on
-            strategy_parameters: Parameters
-            candle_interval: Candle interval
-            strategy_mode: Intraday or delivery
+            parameters: Parameters
+            candle: Candle interval
+            mode: Intraday or delivery
 
         Returns:
             backtest job submission status
         """
-        # Sanity checks - Validate config parameters
-        if isinstance(start_timestamp, str):
-            start_timestamp = dt.strptime(start_timestamp, '%Y-%m-%d | %H:%M')
-        if isinstance(end_timestamp, str):
-            end_timestamp = dt.strptime(end_timestamp, '%Y-%m-%d | %H:%M')
 
-        assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
-        assert isinstance(start_timestamp, dt), f'Argument "start_timestamp" should be an instance of type datetime.datetime'
-        assert isinstance(end_timestamp, dt), f'Argument "end_timestamp" should be an instance of type datetime.datetime'
-        assert isinstance(instrument, str), f'Argument "instrument" should be a string. You can find the right id using the \'get_instrument()\' method of AlgoBullsConnection class'
+        # old version parameters check
+        strategy = strategy if strategy is not None else kwargs['strategy_code']
+        start = start if start is not None else kwargs['start_timestamp']
+        end = end if end is not None else kwargs['end_timestamp']
+        parameters = parameters if parameters is not None else kwargs['strategy_parameters']
+        candle = candle if candle is not None else kwargs['candle_interval']
+        instruments = instruments if instruments is not None else kwargs['instrument']
+        mode = mode if 'strategy_parameter' not in kwargs else kwargs['strategy_parameter']
+
+        # Sanity checks - Convert config parameters
+        if isinstance(start, str):
+            start = dt.strptime(start, '%Y-%m-%d | %H:%M')
+        if isinstance(end, str):
+            end = dt.strptime(end, '%Y-%m-%d | %H:%M')
+        if isinstance(mode, str):
+            mode = StrategyMode[mode.upper()]
+        if isinstance(candle, str):
+            candle = CandleInterval[f"{'_' if candle[0].isdigit() else ''}{candle.upper().replace(' ', '_')}"]
+        if isinstance(instruments, str):
+            instruments = [instruments]
+
+        # Sanity checks - Validate config parameters
+        assert isinstance(strategy, str), f'Argument "strategy" should be a string'
+        assert isinstance(start, dt), f'Argument "start" should be an instance of type datetime.datetime'
+        assert isinstance(end, dt), f'Argument "end" should be an instance of type datetime.datetime'
+        assert isinstance(instruments, list), f'Argument "instruments" should be a string. You can find the right id using the \'get_instrument()\' method of AlgoBullsConnection class'
         assert (isinstance(lots, int) and lots > 0), f'Argument "lots" should be a positive integer.'
-        assert isinstance(strategy_parameters, dict), f'Argument "strategy_parameters" should be a dict'
-        assert isinstance(strategy_mode, StrategyMode), f'Argument "strategy_mode" should be enum of type StrategyMode'
-        assert isinstance(candle_interval, CandleInterval), f'Argument "candle_interval" should be an enum of type CandleInterval'
+        assert isinstance(parameters, dict), f'Argument "parameters" should be a dict'
+        assert isinstance(mode, StrategyMode), f'Argument "mode" should be enum of type StrategyMode'
+        assert isinstance(candle, CandleInterval), f'Argument "candle" should be an enum of type CandleInterval'
 
         # Restructuring strategy params
         restructured_strategy_parameters = []
-        for _ in strategy_parameters:
+        for _ in parameters:
             restructured_strategy_parameters.append({
                 'paramName': _,
-                'paramValue': strategy_parameters[_]
+                'paramValue': parameters[_]
             })
 
-        instrument_id = None
-        instrument_results = self.search_instrument(instrument.split(':')[-1])
-        for _ in instrument_results:
-            if _["value"] == instrument:
-                instrument_id = _["id"]
-                break
+        # generate instrument's id list
+        instrument_list = []
+        for _instrument in instruments:
+            instrument_results = self.search_instrument(_instrument.split(':')[-1])
+            for _ in instrument_results:
+                if _["value"] == _instrument:
+                    instrument_list.append({'id': _["id"]})
+                    break
 
         # Setup config for Backtesting
         strategy_config = {
             'instruments': {
-                'instruments': [{'id': instrument_id}]
+                'instruments': instrument_list
             },
             'lots': lots,
             'userParams': restructured_strategy_parameters,
-            'candleDuration': candle_interval.value,
-            'strategyMode': strategy_mode.value}
-        self.api.set_strategy_config(strategy_code=strategy_code, strategy_config=strategy_config, trading_type=TradingType.BACKTESTING)
+            'candleDuration': candle.value,
+            'strategyMode': mode.value}
+        self.api.set_strategy_config(strategy_code=strategy, strategy_config=strategy_config, trading_type=TradingType.BACKTESTING)
 
         # Submit Backtesting job
-        response = self.api.start_strategy_algotrading(strategy_code=strategy_code, start_timestamp=start_timestamp, end_timestamp=end_timestamp, trading_type=TradingType.BACKTESTING, lots=lots)
+        response = self.api.start_strategy_algotrading(strategy_code=strategy, start_timestamp=start, end_timestamp=end, trading_type=TradingType.BACKTESTING, lots=lots)
 
     def get_backtesting_job_status(self, strategy_code):
         """
@@ -384,14 +415,17 @@ class AlgoBullsConnection:
             'exit.price': 'exit_price',
             'pnlAbsolute.value': 'pnl_absolute',
         }
+        if data:
+            # Generate df from json data & perform cleanups
+            _df = pd.json_normalize(data[::-1])[columns_required].rename(columns=column_rename_map)
+            _df[['entry_timestamp', 'exit_timestamp']] = _df[['entry_timestamp', 'exit_timestamp']].apply(pd.to_datetime, format="%Y-%m-%d | %H:%M", errors="coerce")
+            _df['entry_transaction_type'] = _df['entry_transaction_type'].apply(lambda _: 'BUY' if _ else 'SELL')
+            _df['exit_transaction_type'] = _df['exit_transaction_type'].apply(lambda _: 'BUY' if _ else 'SELL')
+            _df["pnl_cumulative_absolute"] = _df["pnl_absolute"].cumsum(axis=0, skipna=True)
 
-        # Generate df from json data & perform cleanups
-        _df = pd.json_normalize(data[::-1])[columns_required].rename(columns=column_rename_map)
-        _df[['entry_timestamp', 'exit_timestamp']] = _df[['entry_timestamp', 'exit_timestamp']].apply(pd.to_datetime, format="%Y-%m-%d | %H:%M", errors="coerce")
-        _df['entry_transaction_type'] = _df['entry_transaction_type'].apply(lambda _: 'BUY' if _ else 'SELL')
-        _df['exit_transaction_type'] = _df['exit_transaction_type'].apply(lambda _: 'BUY' if _ else 'SELL')
-        _df["pnl_cumulative_absolute"] = _df["pnl_absolute"].cumsum(axis=0, skipna=True)
-
+        else:
+            _df = pd.DataFrame(columns=list(column_rename_map.values()))
+            print('No trades found !')
         self.pnl_data = _df
         return self.pnl_data
 
@@ -401,6 +435,9 @@ class AlgoBullsConnection:
 
         Args:
             strategy_code: strategy code
+            mode: extension used to generate statistics
+            report: format and content of the report
+            html_dump: save it as a html file
 
         Returns:
             Report details
@@ -455,66 +492,82 @@ class AlgoBullsConnection:
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
         return self.get_report(strategy_code=strategy_code, trading_type=TradingType.BACKTESTING, report_type=TradingReportType.ORDER_HISTORY)
 
-    def papertrade(self, strategy_code, start_time, end_time, instrument, lots, strategy_parameters, candle_interval, strategy_mode=StrategyMode.INTRADAY):
+    def papertrade(self, strategy=None, start=None, end=None, instruments=None, lots=None, parameters=None, candle=None, strategy_mode=StrategyMode.INTRADAY, **kwargs):
         """
         Start a paper trading session
 
         Args:
-            strategy_code: Strategy code
-            start_time: Start time
-            end_time: End time
-            instrument: Instrument key
+            strategy: Strategy code
+            start: Start time
+            end: End time
+            instruments: Instrument key
             lots: Number of lots of the passed instrument to trade on
-            strategy_parameters: Parameters
-            candle_interval: Candle interval
+            parameters: Parameters
+            candle: Candle interval
             strategy_mode: Intraday or delivery
 
         Returns:
             job status
         """
-        # Sanity checks - Validate config parameters
-        if isinstance(start_time, str):
-            start_time = dt.strptime(start_time, '%Y-%m-%d | %H:%M')
-        if isinstance(end_time, str):
-            end_time = dt.strptime(end_time, '%Y-%m-%d | %H:%M')
+        # old version parameters check
+        strategy = kwargs['strategy_code'] if strategy is None else strategy
+        start = kwargs['start_timestamp'] if start is None else start
+        end = kwargs['end_timestamp'] if end is None else end
+        parameters = kwargs['strategy_parameters'] if parameters is None else parameters
+        candle = kwargs['candle_interval'] if candle is None else candle
+        instruments = kwargs['instrument'] if instruments is None else instruments
 
-        assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
-        assert isinstance(start_time, dt), f'Argument "start_time" should be an instance of type datetime.datetime'
-        assert isinstance(end_time, dt), f'Argument "end_time" should be an instance of type datetime.datetime'
-        assert isinstance(instrument, str), f'Argument "instrument" should be a string. You can find the right id using the \'get_instrument()\' method of AlgoBullsConnection class'
+        # Sanity checks - Validate config parameters
+        if isinstance(start, str):
+            start = dt.strptime(start, '%Y-%m-%d | %H:%M')
+        if isinstance(end, str):
+            end = dt.strptime(end, '%Y-%m-%d | %H:%M')
+
+        if isinstance(candle, str):
+            candle = CandleInterval[candle.upper()]
+
+        if isinstance(instruments, str):
+            instruments = [instruments]
+
+        assert isinstance(strategy, str), f'Argument "strategy" should be a string'
+        assert isinstance(start, dt), f'Argument "start" should be an instance of type datetime.datetime'
+        assert isinstance(end, dt), f'Argument "end" should be an instance of type datetime.datetime'
+
+        assert isinstance(instruments, list), f'Argument "instrument" should be a string. You can find the right id using the \'get_instrument()\' method of AlgoBullsConnection class'
         assert (isinstance(lots, int) and lots > 0), f'Argument "lots" should be a positive integer.'
-        assert isinstance(strategy_parameters, dict), f'Argument "strategy_parameters" should be a dict'
+        assert isinstance(parameters, dict), f'Argument "parameters" should be a dict'
         assert isinstance(strategy_mode, StrategyMode), f'Argument "strategy_mode" should be enum of type StrategyMode'
-        assert isinstance(candle_interval, CandleInterval), f'Argument "candle_interval" should be an enum of type CandleInterval'
+        assert isinstance(candle, CandleInterval), f'Argument "candle" should be an enum of type CandleInterval'
 
         # Restructuring strategy params
         restructured_strategy_parameters = []
-        for _ in strategy_parameters:
+        for _ in parameters:
             restructured_strategy_parameters.append({
                 'paramName': _,
-                'paramValue': strategy_parameters[_]
+                'paramValue': parameters[_]
             })
 
-        instrument_id = None
-        instrument_results = self.search_instrument(instrument.split(':')[-1])
-        for _ in instrument_results:
-            if _["value"] == instrument:
-                instrument_id = _["id"]
-                break
+        instrument_list = []
+        for inst in instruments:
+            instrument_results = self.search_instrument(inst.split(':')[-1])
+            for _ in instrument_results:
+                if _["value"] == inst:
+                    instrument_list.append({'id': _["id"]})
+                    break
 
         # Setup config for Paper Trading
         strategy_config = {
             'instruments': {
-                'instruments': [{'id': instrument_id}]
+                'instruments': instrument_list
             },
             'lots': lots,
             'userParams': restructured_strategy_parameters,
-            'candleDuration': candle_interval.value,
+            'candleDuration': candle.value,
             'strategyMode': strategy_mode.value}
-        self.api.set_strategy_config(strategy_code=strategy_code, strategy_config=strategy_config, trading_type=TradingType.PAPERTRADING)
+        self.api.set_strategy_config(strategy_code=strategy, strategy_config=strategy_config, trading_type=TradingType.PAPERTRADING)
 
         # Submit Paper Trading job
-        response = self.api.start_strategy_algotrading(strategy_code=strategy_code, start_timestamp=start_time, end_timestamp=end_time, trading_type=TradingType.PAPERTRADING, lots=lots)
+        response = self.api.start_strategy_algotrading(strategy_code=strategy, start_timestamp=start, end_timestamp=end, trading_type=TradingType.PAPERTRADING, lots=lots)
 
     def get_papertrading_job_status(self, strategy_code):
         """
@@ -595,24 +648,27 @@ class AlgoBullsConnection:
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
         return self.get_report(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING, report_type=TradingReportType.ORDER_HISTORY)
 
-    def realtrade(self, strategy_code, start_time, end_time, instrument, lots, strategy_parameters, candle_interval, strategy_mode=StrategyMode.INTRADAY):
+    def realtrade(self, strategy=None, start=None, end=None, instruments=None, lots=None, parameters=None, candle=None, mode=StrategyMode.INTRADAY, **kwargs):
         """
         Start a Real Trading session
 
         Args:
-            strategy_code: Strategy code
-            start_time: Start time
-            end_time: End time
-            instrument: Instrument key
+            strategy: Strategy code
+            start: Start time
+            end: End time
+            instruments: Instrument key
             lots: Number of lots of the passed instrument to trade on
-            strategy_parameters: Parameters
-            candle_interval: Candle interval
-            strategy_mode: Intraday or delivery
+            parameters: Parameters
+            candle: Candle interval
+            mode: Intraday or delivery
 
         Returns:
             job status
         """
         print(MESSAGE_REALTRADING_FORBIDDEN)
+
+    def livetrade(self, strategy=None, start=None, end=None, instruments=None, lots=None, parameters=None, candle=None, mode=StrategyMode.INTRADAY, **kwargs):
+        self.realtrade(strategy, start, end, instruments, lots, parameters, candle, mode=StrategyMode.INTRADAY)
 
     def get_realtrading_job_status(self, strategy_code):
         """

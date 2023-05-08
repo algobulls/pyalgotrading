@@ -102,9 +102,6 @@ class CandleInterval(Enum):
     """
     A class of Candle Intervals with their Alternate names
     """
-    # MINUTES_1 = 0
-    # MINUTES_3 = 1
-    # MINUTES_5 = 2
     # MINUTES_10 = 3
     # MINUTES_15 = 4
     # MINUTES_30 = 5
@@ -155,6 +152,51 @@ class CandleInterval(Enum):
     MINUTE = 'minute'
     HOUR = '60minutes'
     DAY = 'day'
+
+    _1_MINUTES = 'minute'
+    _3_MINUTES = '3minutes'
+    _5_MINUTES = '5minutes'
+    _10_MINUTES = '10minutes'
+    _15_MINUTES = '15minutes'
+    _30_MINUTES = '30minutes'
+    _60_MINUTES = '60minutes'
+    _1_HOURS = '60minutes'
+    _24_HOURS = 'day'
+    _1_DAYS = 'day'
+
+    _1_MINUTE = 'minute'
+    _3_MINUTE = '3minutes'
+    _5_MINUTE = '5minutes'
+    _10_MINUTE = '10minutes'
+    _15_MINUTE = '15minutes'
+    _30_MINUTE = '30minutes'
+    _60_MINUTE = '60minutes'
+    _1_HOUR = '60minutes'
+    _24_HOUR = 'day'
+    _1_DAY = 'day'
+
+    _1MINUTE = 'minute'
+    _3MINUTE = '3minutes'
+    _5MINUTE = '5minutes'
+    _10MINUTE = '10minutes'
+    _15MINUTE = '15minutes'
+    _30MINUTE = '30minutes'
+    _60MINUTE = '60minutes'
+    _1HOUR = '60minutes'
+    _24HOUR = 'day'
+    _1DAY = 'day'
+
+    _1MINUTES = 'minute'
+    _3MINUTES = '3minutes'
+    _5MINUTES = '5minutes'
+    _10MINUTES = '10minutes'
+    _15MINUTES = '15minutes'
+    _30MINUTES = '30minutes'
+    _60MINUTES = '60minutes'
+    _1HOURS = '60minutes'
+    _24HOURS = 'day'
+    _1DAYS = 'day'
+
 
 
 class StrategyMode(Enum):
