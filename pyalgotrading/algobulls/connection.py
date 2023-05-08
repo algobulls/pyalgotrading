@@ -274,46 +274,59 @@ class AlgoBullsConnection:
             mode: Intraday or delivery
 
         Legacy args (will be deprecated in future release):
-            TODO: finish this
-            strategy_parameters
-            # start_timestamp
-            # end_timestamp
+            'strategy_code' behaves same 'strategy'
+            'start_timestamp' behaves same 'start'
+            'end_timestamp' behaves same 'end'
+            'instrument' behaves same 'instrumetns'
+            'strategy_parameters' behaves same 'parameters'
+            'candle_interval' behaves same 'candle'
+            'strategy__mode' behaves same 'mode'
 
         Returns:
             backtest job submission status
         """
 
-        # old version parameters check      # TODO: improve this
-        strategy = strategy if strategy is not None else kwargs['strategy_code']
-        start = start if start is not None else kwargs['start_timestamp']
-        end = end if end is not None else kwargs['end_timestamp']
-        parameters = parameters if parameters is not None else kwargs['strategy_parameters']
-        candle = candle if candle is not None else kwargs['candle_interval']
-        instruments = instruments if instruments is not None else kwargs['instrument']
-        mode = mode if 'strategy_mode' not in kwargs else kwargs['strategy_mode']
+        # check if values received by new parameter names, else extract from old parameter names
+        strategy = strategy if strategy is not None else kwargs.get('strategy_code')
+        start = start if start is not None else kwargs.get('start_timestamp')
+        end = end if end is not None else kwargs.get('end_timestamp')
+        parameters = parameters if parameters is not None else kwargs.get('strategy_parameters')
+        candle = candle if candle is not None else kwargs.get('candle_interval')
+        instruments = instruments if instruments is not None else kwargs.get('instrument')
+        mode = mode if 'strategy_mode' not in kwargs else kwargs.get('strategy_mode')
 
         # Sanity checks - Convert config parameters
+        _error_msg_candle = f'Argument "candle" should be a valid string or an enum of type CandleInterval. Possible string values can be: {get_valid_enum_names(CandleInterval)}'
+        _error_msg_timestamps = f'Argument "start" should be a valid timestamp string (YYYY-MM-DD | HH:MM) or an instance of type datetime.datetime'
+        _error_msg_instruments = f'Argument "instruments" should be a valid instrument string or a list of valid instruments strings. You can use the \'get_instrument()\' method of AlgoBullsConnection class to search for instruments'
+        _error_msg_mode = f'Argument "mode" should be a valid string or an enum of type StrategyMode. Possible string values can be: {get_valid_enum_names(StrategyMode)}'
+
         if isinstance(start, str):
             start = dt.strptime(start, '%Y-%m-%d | %H:%M')
         if isinstance(end, str):
             end = dt.strptime(end, '%Y-%m-%d | %H:%M')
         if isinstance(mode, str):
-            mode = StrategyMode[mode.upper()]
+            _ = mode.upper()
+            assert _ in StrategyMode.__members__, _error_msg_candle
+            mode = StrategyMode[_]
         if isinstance(candle, str):
-            candle = CandleInterval[f"{'_' if candle[0].isdigit() else ''}{candle.strip().upper().replace(' ', '_')}"]
+            _ = f"{'_' if candle[0].isdigit() else ''}{candle.strip().upper().replace(' ', '_')}"
+            assert _ in CandleInterval.__members__, _error_msg_candle
+            candle = CandleInterval[_]
         if isinstance(instruments, str):
             instruments = [instruments]
 
         # Sanity checks - Validate config parameters
-        _error_msg_timestamps = f'Argument "start" should be a valid timestamp string (YYYY-MM-DD | HH:MM) or an instance of type datetime.datetime'
+
         assert isinstance(strategy, str), f'Argument "strategy" should be a valid string'
         assert isinstance(start, dt), _error_msg_timestamps
         assert isinstance(end, dt), _error_msg_timestamps
-        assert isinstance(instruments, list), f'Argument "instruments" should be a valid instrument string or a list of valid instruments strings. You can use the \'get_instrument()\' method of AlgoBullsConnection class to search for instruments'
+        assert isinstance(instruments, list), _error_msg_instruments
+        assert len(instruments) > 0, _error_msg_instruments
         assert (isinstance(lots, int) and lots > 0), f'Argument "lots" should be a positive integer.'
         assert isinstance(parameters, dict), f'Argument "parameters" should be a dict'
-        assert isinstance(mode, StrategyMode), f'Argument "mode" should be a valid string or an enum of type StrategyMode. Possible string values can be: {get_valid_enum_names(StrategyMode)}'
-        assert isinstance(candle, CandleInterval), f'Argument "candle" should be a valid string or an enum of type CandleInterval. Possible string values can be: {get_valid_enum_names(CandleInterval)}'
+        assert isinstance(mode, StrategyMode), _error_msg_mode
+        assert isinstance(candle, CandleInterval), _error_msg_candle
 
         # Restructuring strategy params
         restructured_strategy_parameters = []
@@ -498,68 +511,91 @@ class AlgoBullsConnection:
 
     def papertrade(self, strategy=None, start=None, end=None, instruments=None, lots=None, parameters=None, candle=None, strategy_mode=StrategyMode.INTRADAY, **kwargs):
         """
-        Start a paper trading session
+        Submit a backtesting job for a strategy on the AlgoBulls Platform
 
         Args:
             strategy: Strategy code
-            start: Start time
-            end: End time
+            start: Start date/time
+            end: End date/time
             instruments: Instrument key
             lots: Number of lots of the passed instrument to trade on
             parameters: Parameters
             candle: Candle interval
-            strategy_mode: Intraday or delivery
+            mode: Intraday or delivery
+
+        Legacy args (will be deprecated in future release):
+            'strategy_code' behaves same 'strategy'
+            'start_timestamp' behaves same 'start'
+            'end_timestamp' behaves same 'end'
+            'instrument' behaves same 'instrumetns'
+            'strategy_parameters' behaves same 'parameters'
+            'candle_interval' behaves same 'candle'
+            'strategy__mode' behaves same 'mode'
 
         Returns:
-            job status
+            backtest job submission status
         """
-        # old version parameters check
-        strategy = kwargs['strategy_code'] if strategy is None else strategy
-        start = kwargs['start_timestamp'] if start is None else start
-        end = kwargs['end_timestamp'] if end is None else end
-        parameters = kwargs['strategy_parameters'] if parameters is None else parameters
-        candle = kwargs['candle_interval'] if candle is None else candle
-        instruments = kwargs['instrument'] if instruments is None else instruments
 
-        # Sanity checks - Validate config parameters
+        # check if values received by new parameter names, else extract from old parameter names
+        strategy = strategy if strategy is not None else kwargs.get('strategy_code')
+        start = start if start is not None else kwargs.get('start_timestamp')
+        end = end if end is not None else kwargs.get('end_timestamp')
+        parameters = parameters if parameters is not None else kwargs.get('strategy_parameters')
+        candle = candle if candle is not None else kwargs.get('candle_interval')
+        instruments = instruments if instruments is not None else kwargs.get('instrument')
+        mode = mode if 'strategy_mode' not in kwargs else kwargs.get('strategy_mode')
+
+        # Sanity checks - Convert config parameters
+        _error_msg_candle = f'Argument "candle" should be a valid string or an enum of type CandleInterval. Possible string values can be: {get_valid_enum_names(CandleInterval)}'
+        _error_msg_timestamps = f'Argument "start" should be a valid timestamp string (YYYY-MM-DD | HH:MM) or an instance of type datetime.datetime'
+        _error_msg_instruments = f'Argument "instruments" should be a valid instrument string or a list of valid instruments strings. You can use the \'get_instrument()\' method of AlgoBullsConnection class to search for instruments'
+        _error_msg_mode = f'Argument "mode" should be a valid string or an enum of type StrategyMode. Possible string values can be: {get_valid_enum_names(StrategyMode)}'
+
         if isinstance(start, str):
             start = dt.strptime(start, '%Y-%m-%d | %H:%M')
         if isinstance(end, str):
             end = dt.strptime(end, '%Y-%m-%d | %H:%M')
-
+        if isinstance(mode, str):
+            _ = mode.upper()
+            assert _ in StrategyMode.__members__, _error_msg_candle
+            mode = StrategyMode[_]
         if isinstance(candle, str):
-            candle = CandleInterval[candle.upper()]
-
+            _ = f"{'_' if candle[0].isdigit() else ''}{candle.strip().upper().replace(' ', '_')}"
+            assert _ in CandleInterval.__members__, _error_msg_candle
+            candle = CandleInterval[_]
         if isinstance(instruments, str):
             instruments = [instruments]
 
-        assert isinstance(strategy, str), f'Argument "strategy" should be a string'
-        assert isinstance(start, dt), f'Argument "start" should be an instance of type datetime.datetime'
-        assert isinstance(end, dt), f'Argument "end" should be an instance of type datetime.datetime'
+        # Sanity checks - Validate config parameters
 
-        assert isinstance(instruments, list), f'Argument "instrument" should be a string. You can find the right id using the \'get_instrument()\' method of AlgoBullsConnection class'
+        assert isinstance(strategy, str), f'Argument "strategy" should be a valid string'
+        assert isinstance(start, dt), _error_msg_timestamps
+        assert isinstance(end, dt), _error_msg_timestamps
+        assert isinstance(instruments, list), _error_msg_instruments
+        assert len(instruments) > 0, _error_msg_instruments
         assert (isinstance(lots, int) and lots > 0), f'Argument "lots" should be a positive integer.'
         assert isinstance(parameters, dict), f'Argument "parameters" should be a dict'
-        assert isinstance(strategy_mode, StrategyMode), f'Argument "strategy_mode" should be enum of type StrategyMode'
-        assert isinstance(candle, CandleInterval), f'Argument "candle" should be an enum of type CandleInterval'
+        assert isinstance(mode, StrategyMode), _error_msg_mode
+        assert isinstance(candle, CandleInterval), _error_msg_candle
 
         # Restructuring strategy params
         restructured_strategy_parameters = []
-        for _ in parameters:
+        for _error_msg_timestamps in parameters:
             restructured_strategy_parameters.append({
-                'paramName': _,
-                'paramValue': parameters[_]
+                'paramName': _error_msg_timestamps,
+                'paramValue': parameters[_error_msg_timestamps]
             })
 
+        # generate instruments' id list
         instrument_list = []
-        for inst in instruments:
-            instrument_results = self.search_instrument(inst.split(':')[-1])
-            for _ in instrument_results:
-                if _["value"] == inst:
-                    instrument_list.append({'id': _["id"]})
+        for _instrument in instruments:
+            instrument_results = self.search_instrument(_instrument.split(':')[-1])
+            for _error_msg_timestamps in instrument_results:
+                if _error_msg_timestamps["value"] == _instrument:
+                    instrument_list.append({'id': _error_msg_timestamps["id"]})
                     break
 
-        # Setup config for Paper Trading
+        # Setup config for Backtesting
         strategy_config = {
             'instruments': {
                 'instruments': instrument_list
@@ -567,7 +603,7 @@ class AlgoBullsConnection:
             'lots': lots,
             'userParams': restructured_strategy_parameters,
             'candleDuration': candle.value,
-            'strategyMode': strategy_mode.value}
+            'strategyMode': mode.value}
         self.api.set_strategy_config(strategy_code=strategy, strategy_config=strategy_config, trading_type=TradingType.PAPERTRADING)
 
         # Submit Paper Trading job
