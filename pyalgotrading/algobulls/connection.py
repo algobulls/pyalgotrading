@@ -3,6 +3,7 @@ Module for AlgoBulls connection
 """
 import inspect
 import time
+from collections import OrderedDict
 from datetime import datetime as dt
 
 import pandas as pd
@@ -12,6 +13,7 @@ from .api import AlgoBullsAPI
 from .exceptions import AlgoBullsAPIBadRequest
 from ..constants import StrategyMode, TradingType, TradingReportType, CandleInterval, MESSAGE_REALTRADING_FORBIDDEN, AlgoBullsEngineVersion
 from ..strategy.strategy_base import StrategyBase
+from ..utils.func import get_valid_enum_names
 
 
 class AlgoBullsConnection:
@@ -36,7 +38,6 @@ class AlgoBullsConnection:
         """
         url = 'https://app.algobulls.com/user/login'
         print(f'Please login to this URL with your AlgoBulls credentials and get your developer access token: {url}')
-        return url
 
     @staticmethod
     def get_token_url():
@@ -47,8 +48,7 @@ class AlgoBullsConnection:
             Token URL
         """
         url = 'https://app.algobulls.com/settings?section=developerOptions'
-        print(f'Please get your token from this url, make sure you have logged in to your Algobulls account before')
-        return url
+        print(f'Please login to this URL to get your unique token: {url}')
 
     def set_access_token(self, access_token):
         """
@@ -259,7 +259,7 @@ class AlgoBullsConnection:
             print('Report not available yet. Please retry in sometime')
             # return response
 
-    def backtest(self, strategy=None, start=None, end=None, instruments=None, lots=None, parameters=None, candle=None, mode=StrategyMode.INTRADAY, **kwargs):
+    def backtest(self, strategy=None, start=None, end=None, instruments=None, lots=1, parameters=None, candle=None, mode=StrategyMode.INTRADAY, **kwargs):
         """
         Submit a backtesting job for a strategy on the AlgoBulls Platform
 
@@ -273,18 +273,24 @@ class AlgoBullsConnection:
             candle: Candle interval
             mode: Intraday or delivery
 
+        Legacy args (will be deprecated in future release):
+            TODO: finish this
+            strategy_parameters
+            # start_timestamp
+            # end_timestamp
+
         Returns:
             backtest job submission status
         """
 
-        # old version parameters check
+        # old version parameters check      # TODO: improve this
         strategy = strategy if strategy is not None else kwargs['strategy_code']
         start = start if start is not None else kwargs['start_timestamp']
         end = end if end is not None else kwargs['end_timestamp']
         parameters = parameters if parameters is not None else kwargs['strategy_parameters']
         candle = candle if candle is not None else kwargs['candle_interval']
         instruments = instruments if instruments is not None else kwargs['instrument']
-        mode = mode if 'strategy_parameter' not in kwargs else kwargs['strategy_parameter']
+        mode = mode if 'strategy_mode' not in kwargs else kwargs['strategy_mode']
 
         # Sanity checks - Convert config parameters
         if isinstance(start, str):
@@ -294,35 +300,36 @@ class AlgoBullsConnection:
         if isinstance(mode, str):
             mode = StrategyMode[mode.upper()]
         if isinstance(candle, str):
-            candle = CandleInterval[f"{'_' if candle[0].isdigit() else ''}{candle.upper().replace(' ', '_')}"]
+            candle = CandleInterval[f"{'_' if candle[0].isdigit() else ''}{candle.strip().upper().replace(' ', '_')}"]
         if isinstance(instruments, str):
             instruments = [instruments]
 
         # Sanity checks - Validate config parameters
-        assert isinstance(strategy, str), f'Argument "strategy" should be a string'
-        assert isinstance(start, dt), f'Argument "start" should be an instance of type datetime.datetime'
-        assert isinstance(end, dt), f'Argument "end" should be an instance of type datetime.datetime'
-        assert isinstance(instruments, list), f'Argument "instruments" should be a string. You can find the right id using the \'get_instrument()\' method of AlgoBullsConnection class'
+        _error_msg_timestamps = f'Argument "start" should be a valid timestamp string (YYYY-MM-DD | HH:MM) or an instance of type datetime.datetime'
+        assert isinstance(strategy, str), f'Argument "strategy" should be a valid string'
+        assert isinstance(start, dt), _error_msg_timestamps
+        assert isinstance(end, dt), _error_msg_timestamps
+        assert isinstance(instruments, list), f'Argument "instruments" should be a valid instrument string or a list of valid instruments strings. You can use the \'get_instrument()\' method of AlgoBullsConnection class to search for instruments'
         assert (isinstance(lots, int) and lots > 0), f'Argument "lots" should be a positive integer.'
         assert isinstance(parameters, dict), f'Argument "parameters" should be a dict'
-        assert isinstance(mode, StrategyMode), f'Argument "mode" should be enum of type StrategyMode'
-        assert isinstance(candle, CandleInterval), f'Argument "candle" should be an enum of type CandleInterval'
+        assert isinstance(mode, StrategyMode), f'Argument "mode" should be a valid string or an enum of type StrategyMode. Possible string values can be: {get_valid_enum_names(StrategyMode)}'
+        assert isinstance(candle, CandleInterval), f'Argument "candle" should be a valid string or an enum of type CandleInterval. Possible string values can be: {get_valid_enum_names(CandleInterval)}'
 
         # Restructuring strategy params
         restructured_strategy_parameters = []
-        for _ in parameters:
+        for _error_msg_timestamps in parameters:
             restructured_strategy_parameters.append({
-                'paramName': _,
-                'paramValue': parameters[_]
+                'paramName': _error_msg_timestamps,
+                'paramValue': parameters[_error_msg_timestamps]
             })
 
-        # generate instrument's id list
+        # generate instruments' id list
         instrument_list = []
         for _instrument in instruments:
             instrument_results = self.search_instrument(_instrument.split(':')[-1])
-            for _ in instrument_results:
-                if _["value"] == _instrument:
-                    instrument_list.append({'id': _["id"]})
+            for _error_msg_timestamps in instrument_results:
+                if _error_msg_timestamps["value"] == _instrument:
+                    instrument_list.append({'id': _error_msg_timestamps["id"]})
                     break
 
         # Setup config for Backtesting
@@ -392,40 +399,37 @@ class AlgoBullsConnection:
 
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
 
+        # Fetch the data
         data = self.get_report(strategy_code=strategy_code, trading_type=TradingType.BACKTESTING, report_type=TradingReportType.PNL_TABLE)
 
-        columns_required = [
-            'strategy.instrument.segment', 'strategy.instrument.tradingsymbol',
-            'entry.timestamp', 'entry.isBuy', 'entry.quantity', 'entry.prefix', 'entry.price',
-            'exit.timestamp', 'exit.isBuy', 'exit.quantity', 'exit.prefix', 'exit.price',
-            'pnlAbsolute.value'
-        ]
-        column_rename_map = {
-            'strategy.instrument.segment': 'instrument_segment',
-            'strategy.instrument.tradingsymbol': 'instrument_tradingsymbol',
-            'entry.timestamp': 'entry_timestamp',
-            'entry.isBuy': 'entry_transaction_type',
-            'entry.quantity': 'entry_quantity',
-            'entry.prefix': 'entry_currency',
-            'entry.price': 'entry_price',
-            'exit.timestamp': 'exit_timestamp',
-            'exit.isBuy': 'exit_transaction_type',
-            'exit.quantity': 'exit_quantity',
-            'exit.prefix': 'exit_currency',
-            'exit.price': 'exit_price',
-            'pnlAbsolute.value': 'pnl_absolute',
-        }
+        # Post-processing: Cleanup & converting data to dataframe
+        column_rename_map = OrderedDict([
+            ('strategy.instrument.segment', 'instrument_segment'),
+            ('strategy.instrument.tradingsymbol', 'instrument_tradingsymbol'),
+            ('entry.timestamp', 'entry_timestamp'),
+            ('entry.isBuy', 'entry_transaction_type'),
+            ('entry.quantity', 'entry_quantity'),
+            ('entry.prefix', 'entry_currency'),
+            ('entry.price', 'entry_price'),
+            ('exit.timestamp', 'exit_timestamp'),
+            ('exit.isBuy', 'exit_transaction_type'),
+            ('exit.quantity', 'exit_quantity'),
+            ('exit.prefix', 'exit_currency'),
+            ('exit.price', 'exit_price'),
+            ('pnlAbsolute.value', 'pnl_absolute')
+        ])
         if data:
             # Generate df from json data & perform cleanups
-            _df = pd.json_normalize(data[::-1])[columns_required].rename(columns=column_rename_map)
+            _df = pd.json_normalize(data[::-1])[list(column_rename_map.keys())].rename(columns=column_rename_map)
             _df[['entry_timestamp', 'exit_timestamp']] = _df[['entry_timestamp', 'exit_timestamp']].apply(pd.to_datetime, format="%Y-%m-%d | %H:%M", errors="coerce")
             _df['entry_transaction_type'] = _df['entry_transaction_type'].apply(lambda _: 'BUY' if _ else 'SELL')
             _df['exit_transaction_type'] = _df['exit_transaction_type'].apply(lambda _: 'BUY' if _ else 'SELL')
             _df["pnl_cumulative_absolute"] = _df["pnl_absolute"].cumsum(axis=0, skipna=True)
 
         else:
+            # No data available, send back an empty dataframe
             _df = pd.DataFrame(columns=list(column_rename_map.values()))
-            print('No trades found !')
+
         self.pnl_data = _df
         return self.pnl_data
 
@@ -648,27 +652,15 @@ class AlgoBullsConnection:
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
         return self.get_report(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING, report_type=TradingReportType.ORDER_HISTORY)
 
-    def realtrade(self, strategy=None, start=None, end=None, instruments=None, lots=None, parameters=None, candle=None, mode=StrategyMode.INTRADAY, **kwargs):
+    def realtrade(self, *args, **kwargs):
         """
-        Start a Real Trading session
-
-        Args:
-            strategy: Strategy code
-            start: Start time
-            end: End time
-            instruments: Instrument key
-            lots: Number of lots of the passed instrument to trade on
-            parameters: Parameters
-            candle: Candle interval
-            mode: Intraday or delivery
-
-        Returns:
-            job status
+        Start a Real Trading session.
+        Update: This requires an approval process which is currently on request basis.
         """
         print(MESSAGE_REALTRADING_FORBIDDEN)
 
-    def livetrade(self, strategy=None, start=None, end=None, instruments=None, lots=None, parameters=None, candle=None, mode=StrategyMode.INTRADAY, **kwargs):
-        self.realtrade(strategy, start, end, instruments, lots, parameters, candle, mode=StrategyMode.INTRADAY)
+    def livetrade(self, *args, **kwargs):
+        self.realtrade(*args, **kwargs)
 
     def get_realtrading_job_status(self, strategy_code):
         """

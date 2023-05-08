@@ -8,10 +8,10 @@ from pyalgotrading.constants import PlotType
 
 def import_with_install(package_import_name, package_install_name=None, dependancies=()):
     """
-    Helps import 'package' even if its not installed.
+    Helps import 'package' even if it's not installed.
 
     If package is installed, it will be imported and returned.
-    If its not installed, it will be installed using 'pip' and a re-import will be attempted, which should succeed if the package was imported correctly.
+    If it's not installed, it will be installed using 'pip' and a re-import will be attempted, which should succeed if the package was imported correctly.
 
     Args:
         package_import_name: name of package to be installed using pip, str
@@ -126,3 +126,8 @@ def plot_candlestick_chart(data: pd.DataFrame, plot_type: PlotType, caption: str
     # Show the plot
     if show:
         fig.show()
+
+
+def get_valid_enum_names(enum_obj):
+    # returns list of names from enum_obj; does a simple cleanup - replacing '_' with spaces, striping leading/trailing spaces
+    return [_.name.lower().replace('_', ' ').strip() for _ in enum_obj]

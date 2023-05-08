@@ -2,8 +2,8 @@
 Module for handling API calls to the [AlgoBulls](https://www.algobulls.com) backend.
 """
 import re
-from json import JSONDecodeError
 from datetime import datetime as dt, timezone
+from json import JSONDecodeError
 
 import requests
 

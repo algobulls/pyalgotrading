@@ -102,67 +102,6 @@ class CandleInterval(Enum):
     """
     A class of Candle Intervals with their Alternate names
     """
-    # MINUTES_10 = 3
-    # MINUTES_15 = 4
-    # MINUTES_30 = 5
-    # MINUTES_60 = 6
-    # HOURS_1 = 6
-    # HOURS_24 = 7
-    # DAYS_1 = 7
-    #
-    # # Alternative names
-    # MINUTE_1 = 0
-    # MINUTE_3 = 1
-    # MINUTE_5 = 2
-    # MINUTE_10 = 3
-    # MINUTE_15 = 4
-    # MINUTE_30 = 5
-    # MINUTE_60 = 6
-    # HOUR_1 = 6
-    # HOUR_24 = 7
-    # DAY_1 = 7
-    #
-    # MINUTE = 0
-    # HOUR = 6
-    # DAY = 7
-
-    MINUTES_1 = 'minute'
-    MINUTES_3 = '3minutes'
-    MINUTES_5 = '5minutes'
-    MINUTES_10 = '10minutes'
-    MINUTES_15 = '15minutes'
-    MINUTES_30 = '30minutes'
-    MINUTES_60 = '60minutes'
-    HOURS_1 = '60minutes'
-    HOURS_24 = 'day'
-    DAYS_1 = 'day'
-
-    # Alternative names
-    MINUTE_1 = 'minute'
-    MINUTE_3 = '3minutes'
-    MINUTE_5 = '5minutes'
-    MINUTE_10 = '10minutes'
-    MINUTE_15 = '15minutes'
-    MINUTE_30 = '30minutes'
-    MINUTE_60 = '60minutes'
-    HOUR_1 = '60minutes'
-    HOUR_24 = 'day'
-    DAY_1 = 'day'
-
-    MINUTE = 'minute'
-    HOUR = '60minutes'
-    DAY = 'day'
-
-    _1_MINUTES = 'minute'
-    _3_MINUTES = '3minutes'
-    _5_MINUTES = '5minutes'
-    _10_MINUTES = '10minutes'
-    _15_MINUTES = '15minutes'
-    _30_MINUTES = '30minutes'
-    _60_MINUTES = '60minutes'
-    _1_HOURS = '60minutes'
-    _24_HOURS = 'day'
-    _1_DAYS = 'day'
 
     _1_MINUTE = 'minute'
     _3_MINUTE = '3minutes'
@@ -175,6 +114,7 @@ class CandleInterval(Enum):
     _24_HOUR = 'day'
     _1_DAY = 'day'
 
+    # Alternative names #1
     _1MINUTE = 'minute'
     _3MINUTE = '3minutes'
     _5MINUTE = '5minutes'
@@ -186,6 +126,7 @@ class CandleInterval(Enum):
     _24HOUR = 'day'
     _1DAY = 'day'
 
+    # Alternative names #2
     _1MINUTES = 'minute'
     _3MINUTES = '3minutes'
     _5MINUTES = '5minutes'
@@ -197,6 +138,46 @@ class CandleInterval(Enum):
     _24HOURS = 'day'
     _1DAYS = 'day'
 
+    # Alternative names #3
+    MINUTES_1 = 'minute'
+    MINUTES_3 = '3minutes'
+    MINUTES_5 = '5minutes'
+    MINUTES_10 = '10minutes'
+    MINUTES_15 = '15minutes'
+    MINUTES_30 = '30minutes'
+    MINUTES_60 = '60minutes'
+    HOURS_1 = '60minutes'
+    HOURS_24 = 'day'
+    DAYS_1 = 'day'
+
+    # Alternative names #4
+    MINUTE_1 = 'minute'
+    MINUTE_3 = '3minutes'
+    MINUTE_5 = '5minutes'
+    MINUTE_10 = '10minutes'
+    MINUTE_15 = '15minutes'
+    MINUTE_30 = '30minutes'
+    MINUTE_60 = '60minutes'
+    HOUR_1 = '60minutes'
+    HOUR_24 = 'day'
+    DAY_1 = 'day'
+
+    # Alternative names #5
+    MINUTE = 'minute'
+    HOUR = '60minutes'
+    DAY = 'day'
+
+    # Alternative names #5
+    _1_MINUTES = 'minute'
+    _3_MINUTES = '3minutes'
+    _5_MINUTES = '5minutes'
+    _10_MINUTES = '10minutes'
+    _15_MINUTES = '15minutes'
+    _30_MINUTES = '30minutes'
+    _60_MINUTES = '60minutes'
+    _1_HOURS = '60minutes'
+    _24_HOURS = 'day'
+    _1_DAYS = 'day'
 
 
 class StrategyMode(Enum):
