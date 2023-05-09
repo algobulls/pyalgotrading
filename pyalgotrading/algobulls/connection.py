@@ -330,7 +330,6 @@ class AlgoBullsConnection:
             instruments = [instruments]
 
         # Sanity checks - Validate config parameters
-
         assert isinstance(strategy, str), f'Argument "strategy" should be a valid string'
         assert isinstance(start, dt), _error_msg_timestamps
         assert isinstance(end, dt), _error_msg_timestamps
