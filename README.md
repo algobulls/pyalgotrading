@@ -1,7 +1,9 @@
 # pyalgotrading
+
 Official Python Package for Algorithmic Trading APIs powered by AlgoBulls!
 
 ### Features
+
 - Powered by the [AlgoBulls Platform](https://app.algobulls.com)
 - Everything related to Algorithmic Trading Strategies!
     - Create & upload strategies on the [AlgoBulls Platform](https://app.algobulls.com)
@@ -17,37 +19,40 @@ Official Python Package for Algorithmic Trading APIs powered by AlgoBulls!
 - Support for **Real Trading** (subject to approval)
 - Support for multiple brokers for Real Trading. Check list of supported brokers [here](https://app.algobulls.com/user/brokerlogin).
 - Real-time Logs for Backtesting, Paper Trading, Real Trading
-- Multiple real-time Reports available for Backtesting, Paper Trading and Real Trading: 
+- Multiple real-time Reports available for Backtesting, Paper Trading and Real Trading:
     - Profit-&-Loss report (P&L report)
     - Statistics Report
     - Order History Log for each order with state transitions & timestamps
 - Plot Candlestick charts using [plotly.py](https://github.com/plotly/plotly.py)
-    
+
 Backtesting, Paper Trading and Real Trading can be performed on the same strategy code base!
 
-
 ### Documentation
+
 You can find the docs [here](https://algobulls.github.io/pyalgotrading/).
 
+### Python
 
-### Python 
 - Python Support: `Python 3.6+`.
 - Python Requirements: See [requirements.txt](https://github.com/algobulls/pyalgotrading/blob/master/requirements.txt).
 - We recommend you to use the latest version of Python (v3.8+) to enjoy better performance benefits, especially for pandas. (For Python 3.6, the latest supported Pandas version is v0.25.3. For Python 3.8, the latest supported version is v1.0.x)
 
-
 ### Installation
-Package can be easily installed using `pip` - 
+
+Package can be easily installed using `pip` -
+
 ```
 pip install pyalgotrading
 ```
 
 ### Support / Getting Help
+
 - *Bug Reporting / New Feature Request*: Please [create a new issue](https://github.com/algobulls/pyalgotrading/issues/new) here on GitHub.
 - *Discussion Forum*: [AlgoBulls Community Forum](https://community.algobulls.com/)
 - *Additional Support*: If none of the above help, please contact [pushpak@algobulls.com](mailto:pushpak@algobulls.com).
 
 ### Contribution Guidelines
+
 Here’s how we suggest you go about proposing a change to this project:
 
 1. [Fork this project][fork] to your account.
@@ -56,16 +61,21 @@ Here’s how we suggest you go about proposing a change to this project:
 4. [Send a pull request][pr] from your fork’s branch to our `master` branch.
 
 ### Rewards
+
 If you are interested in contributing to [pyalgostrategypool](https://github.com/algobulls/pyalgostrategypool), our official pool of FREE algorithmic trading strategies, please reach out to support@algobulls.com.
 You would be provided with credits for unlimited trading access on the AlgoBulls platform.
 
 
 [fork]: https://help.github.com/articles/fork-a-repo/
+
 [branch]: https://help.github.com/articles/creating-and-deleting-branches-within-your-repository
+
 [pr]: https://help.github.com/articles/using-pull-requests/
 
 ### Changelog
+
 See [CHANGELOG.md](https://github.com/algobulls/pyalgotrading/blob/master/CHANGELOG.md).
 
 ### License
+
 See [LICENSE](https://github.com/algobulls/pyalgotrading/blob/master/LICENSE).

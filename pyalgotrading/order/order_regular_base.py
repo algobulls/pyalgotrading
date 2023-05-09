@@ -9,6 +9,7 @@ class OrderRegularBase(OrderBase):
     """
     Class for Regular Order
     """
+
     def __init__(self, instrument, order_transaction_type, order_code, order_variety, quantity, price=None, trigger_price=None):
         """
         Init method that is used while creating an object of this class
@@ -35,6 +36,7 @@ class BuyOrderRegular(OrderRegularBase):
     """
     Class for Regular Order Buy
     """
+
     def __init__(self, instrument, order_code, order_variety, quantity, price=None, trigger_price=None):
         """
         Init method that is used while creating an object of this class
@@ -47,6 +49,7 @@ class SellOrderRegular(OrderRegularBase):
     """
     Class for Regular Order Buy
     """
+
     def __init__(self, instrument, order_code, order_variety, quantity, price=None, trigger_price=None):
         """
         Init method that is used while creating an object of this class

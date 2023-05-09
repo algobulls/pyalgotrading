@@ -2,8 +2,8 @@
 Module for handling API calls to the [AlgoBulls](https://www.algobulls.com) backend.
 """
 import re
-from json import JSONDecodeError
 from datetime import datetime as dt, timezone
+from json import JSONDecodeError
 
 import requests
 
@@ -243,6 +243,23 @@ class AlgoBullsAPI:
         params = {'search': tradingsymbol, 'exchange': exchange}
         endpoint = f'v4/portfolio/searchInstrument'
         response = self._send_request(endpoint=endpoint, params=params, requires_authorization=False)
+        return response
+
+    def delete_previous_trades(self, strategy: str):
+        """
+        Delete the previous trades of given strategy
+
+        Args:
+            strategy: strategy code
+
+        Returns:
+            response: response from api
+
+        Info: ENDPOINT
+           `DELETE` v3/build/python/user/strategy/deleteAll?strategyId={strategy}
+        """
+        endpoint = f'v3/build/python/user/strategy/deleteAll?strategyId={strategy}'
+        response = self._send_request(method='delete', endpoint=endpoint)
         return response
 
     def set_strategy_config(self, strategy_code: str, strategy_config: dict, trading_type: TradingType) -> (str, dict):
