@@ -271,17 +271,32 @@ Click on each of the tabs to see the relevant code snippet.
 
 > **Backtesting**
     ```python
-    algobulls_connection.get_backtesting_report_statistics(strategy_code)
+    algobulls_connection.get_backtesting_report_statistics(
+        strategy_code,          # strategy code
+        mode='quantstats',      # package used to generate statistics
+        report='full',          # format of the report
+        html_dump=True          # save report as html file
+    )
     ```
     
 > **Paper Trading**
     ```python
-    algobulls_connection.get_papertrading_report_statistics(strategy_code)
+    algobulls_connection.get_papertrading_report_statistics(
+        strategy_code,          # strategy code
+        mode='quantstats',      # package used to generate statistics
+        report='full',          # format of the report
+        html_dump=True          # save report as html file
+)
     ```
     
 > **Real Trading**
     ```python
-    algobulls_connection.get_realtrading_report_statistics(strategy_code=strategy_code)
+    algobulls_connection.get_realtrading_report_statistics(
+        strategy_code,          # strategy code
+        mode='quantstats',      # package used to generate statistics
+        report='full',          # format of the report
+        html_dump=True          # save report as html file
+)
     ```
    
 --- 
