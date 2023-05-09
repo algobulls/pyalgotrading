@@ -9,6 +9,7 @@ class OrderBracketBase(OrderBase):
     """
     Class for Bracket Order
     """
+
     def __init__(self, instrument, order_transaction_type, order_code, order_variety, quantity, price=None, trigger_price=None, stoploss_trigger=None, target_trigger=None, trailing_stoploss_trigger=None):
         """
         Init method that is used while creating an object of this class
@@ -50,6 +51,7 @@ class BuyOrderBracket(OrderBracketBase):
     """
     Class for Bracket Order Buy
     """
+
     def __init__(self, instrument, order_code, order_variety, quantity, price=None, trigger_price=None, stoploss_trigger=None, target_trigger=None, trailing_stoploss_trigger=None):
         """
         Init method that is used while creating an object of this class
@@ -62,6 +64,7 @@ class SellOrderBracket(OrderBracketBase):
     """
     Class for Bracket Order Sell
     """
+
     def __init__(self, instrument, order_code, order_variety, quantity, price=None, trigger_price=None, stoploss_trigger=None, target_trigger=None, trailing_stoploss_trigger=None):
         """
         Init method that is used while creating an object of this class

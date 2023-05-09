@@ -6,11 +6,11 @@ You have covered the basic code structure of a strategy.
 
 ## Now...
 ---
-You can either follow this page to create a strategy, or you can pickup a ready strategy (shown below) and move to the next page. 
+You can either follow this page to create a strategy, or you can pickup a ready strategy (shown below) and move to the next page.
 
 ## Before you start...
 ---
-If you want to use a ready strategy from the [pyalgostrategypool](https://github.com/algobulls/pyalgostrategypool) package, then you can directly jump to the [Upload](upload.md) section. 
+If you want to use a ready strategy from the [pyalgostrategypool](https://github.com/algobulls/pyalgostrategypool) package, then you can directly jump to the [Upload](upload.md) section.
 
 ## Let's Start...
 ---
@@ -22,6 +22,7 @@ You will add the following code snippets into the file and then save it.
 
 ### Import statements
 ---
+
 ```python
 from pyalgotrading.strategy.strategy_base import StrategyBase
 from pyalgotrading.constants import *
@@ -29,13 +30,16 @@ from pyalgotrading.constants import *
 
 ### Create the class `StrategySMARegularOrder` and subclass it from `StrategyBase`
 ---
+
 ```python
 class StrategySMARegularOrder(StrategyBase):
 ```
+
 Now you can add the methods mentioned in the [structure](structure.md) inside the class. First you can add the `__init__` and the `initialize` methods.
 
 ### Constructor: `def __init__()`
 ---
+
 ```python
 def __init__(self, *args, **kwargs):
     super().__init__(*args, **kwargs)
@@ -49,15 +53,16 @@ def __init__(self, *args, **kwargs):
 The `init` method does the following:
 
 1. `super()` - Calls the constructor of the superclass.
-2. `self.strategy_parameters` - Catches the parameters and saves them for local use - When you will submit a testing job for your SMA strategy, 
-you will pass parameters that will be used inside the strategy. 
-For SMA, we are calculating crossover for 2 SMA timeperiod values, example 5 and 12.  These 2 parameters will be caught by `self.strategy_parameters` and stored for local use in `self.timeperiod1` and `self.timeperiod2`.
+2. `self.strategy_parameters` - Catches the parameters and saves them for local use - When you will submit a testing job for your SMA strategy,
+   you will pass parameters that will be used inside the strategy.
+   For SMA, we are calculating crossover for 2 SMA timeperiod values, example 5 and 12. These 2 parameters will be caught by `self.strategy_parameters` and stored for local use in `self.timeperiod1` and `self.timeperiod2`.
 3. `self.main_order` - Create an object that manages orders for you throughout the strategy.
 
 The `init` method is specific to Python's internal workings and it is preceded and succeeded by double underscores ( _ _ ) joined together.
 
 ### `def initialize()`
 ---
+
 ```python
 def initialize(self):
     self.main_order = {}
@@ -71,20 +76,24 @@ Now add the two static methods, `name` and `versions_supprted`.
 
 ### `def name()`
 ---
+
 ```python
 @staticmethod
 def name():
     return 'SMA Regular Order Strategy'
 ```
+
 The name should be unique in your collection of strategies.
 
 ### `def versions_supported()`
 ---
+
 ```python
 @staticmethod
 def versions_supported():
     return AlgoBullsEngineVersion.VERSION_3_2_0
 ```
+
 Mark both the above methods as `@staticmethod`.
 
 The `versions_supported` method does the following:
@@ -96,6 +105,7 @@ The `versions_supported` method does the following:
 
 ### `def strategy_select_instruments_for_entry()`
 ---
+
 ```python
 def strategy_select_instruments_for_entry(self, candle, instruments_bucket):
 
@@ -123,17 +133,20 @@ The `strategy_select_instruments_for_entry` method does the following:
     1. Value 1 - Cut upwards
     2. Value -1 - Cut downwards
     3. Value 0 - No crossover
-4. If conditions - If the crossover value is 1, then the instrument is selected for entry position, with the position as 'BUY'. If the crossover value is -1, then the instrument is selected for entry position, with the position as 'SELL'. The selected instrument is appended to the `selected_instruments_bucket`, and the associated action (BUY/SELL) is appended to the `sideband_info_bucket`.
+4. If conditions - If the crossover value is 1, then the instrument is selected for entry position, with the position as 'BUY'. If the crossover value is -1, then the instrument is selected for entry position, with the position as 'SELL'. The
+   selected instrument is appended to the `selected_instruments_bucket`, and the associated action (BUY/SELL) is appended to the `sideband_info_bucket`.
 5. `selected_instruments_bucket` and `sideband_info_bucket` - Both the lists (whether populated or empty) are returned to the platform for further actions.
 
 !!! Note
-    * SELL Entry positions are allowed only if the strategy is running for INTRADAY. DELIVERY strategies do not allow SELL as entry positions. This is taken care of in the `elif` part.
-    * The `strategy_select_instruments_for_entry` method is called once for every candle time. For Instance, if you submit a job with the candle time as 15 minutes, then this method will be called once for every 15 minute candle.
-    * The actual Entry position (BUY/SELL) is not entered here. Here, only the instrument is selected based on the crossover value with the proper action mentioned in the `sideband_info_bucket`. The Entry position will be taken in the next method below.
-    * The `sideband_info_bucket` contains a very versatile dictionary object. You may use it to pass any other additional information that you wish. 
+
+* SELL Entry positions are allowed only if the strategy is running for INTRADAY. DELIVERY strategies do not allow SELL as entry positions. This is taken care of in the `elif` part.
+* The `strategy_select_instruments_for_entry` method is called once for every candle time. For Instance, if you submit a job with the candle time as 15 minutes, then this method will be called once for every 15 minute candle.
+* The actual Entry position (BUY/SELL) is not entered here. Here, only the instrument is selected based on the crossover value with the proper action mentioned in the `sideband_info_bucket`. The Entry position will be taken in the next method below.
+* The `sideband_info_bucket` contains a very versatile dictionary object. You may use it to pass any other additional information that you wish.
 
 ### `def strategy_enter_position()`
 ---
+
 ```python
 def strategy_enter_position(self, candle, instrument, sideband_info):
     if sideband_info['action'] == 'BUY':
@@ -159,7 +172,8 @@ def strategy_enter_position(self, candle, instrument, sideband_info):
 The `strategy_enter_position` method does the following:
 
 1. If conditions - The conditions read the action from the `sideband_info` and perform the required action (BUY/SELL).
-2. `qty` - The quantity is calculated and stored here. The number of lots will be passed by you as a parameter while submitting a job. The parameter will be caught in `self.number_of_lots`. The instrument object has the 'lot size', which you can retrieve using `instrument.lot_size`. You can then use the formula as shown in the code to calculate the quantity.
+2. `qty` - The quantity is calculated and stored here. The number of lots will be passed by you as a parameter while submitting a job. The parameter will be caught in `self.number_of_lots`. The instrument object has the 'lot size', which you can
+   retrieve using `instrument.lot_size`. You can then use the formula as shown in the code to calculate the quantity.
 3. `BuyOrderRegular` and `SellOrderRegular` - These execute the required action. You need to pass the instrument, order code, order variety and the quantity values.
     * `instrument` - the instrument on which the BUY/SELL action will be performed.
     * `order_code` - whether the order is for INTRADAY or DELIVERY. Possible values are:
@@ -176,6 +190,7 @@ The `strategy_enter_position` method does the following:
 4. `self.main_order` - The main order (for that particular instrument) is now populated (BUY OR SELL) and is returned to the platform for further actions.
 
 You can also punch Bracket Orders instead of Regular Orders. A typical BUY Bracket Order will look like this:
+
 ```python
 qty = self.number_of_lots * instrument.lot_size
 ltp = self.broker.get_ltp(instrument)
@@ -193,16 +208,19 @@ self.main_order[instrument] = \
 The additional parameters are:
 
 * `price` - If you want to BUY at the market price (Last Traded Price) or LTP, then just fetch the LTP using `get_ltp` as shown in the code above. Store the value in `ltp` and pass it to `price`.
-* `stoploss_trigger`, `target_trigger` and `trailing_stoploss_trigger` - You can calculate these using the `ltp` and the values you will pass through 
-the job that you will submit. The parameters will be caught as `self.stoploss`, `self.target` and `self.trailing_stoploss`.
+* `stoploss_trigger`, `target_trigger` and `trailing_stoploss_trigger` - You can calculate these using the `ltp` and the values you will pass through
+  the job that you will submit. The parameters will be caught as `self.stoploss`, `self.target` and `self.trailing_stoploss`.
 
 !!! Note
-    * If you plan to use Bracket Order instead of Regular Orders, then create a separate Python file for it, say `strategy_sma_bracket_order.py`.
-     You can also change the class name as `StrategySMABracketOrder`. There will be changes in the entry and exit methods also.
-    * The `strategy_enter_position` method is called once for every instrument. For instance, you want to run this strategy for 5 instruments. Say that the `strategy_select_instruments_for_entry` method selects 3 instruments for ENTRY positions (BUY/SELL). Then, the `strategy_enter_position` method will be called thrice, once for each instrument respectively within the candle time frame (say, 15 minutes). 
+
+* If you plan to use Bracket Order instead of Regular Orders, then create a separate Python file for it, say `strategy_sma_bracket_order.py`.
+  You can also change the class name as `StrategySMABracketOrder`. There will be changes in the entry and exit methods also.
+* The `strategy_enter_position` method is called once for every instrument. For instance, you want to run this strategy for 5 instruments. Say that the `strategy_select_instruments_for_entry` method selects 3 instruments for ENTRY positions (
+  BUY/SELL). Then, the `strategy_enter_position` method will be called thrice, once for each instrument respectively within the candle time frame (say, 15 minutes).
 
 ### `def strategy_select_instruments_for_exit()`
 ---
+
 ```python
 def strategy_select_instruments_for_exit(self, candle, instruments_bucket):
     selected_instruments_bucket = []
@@ -221,21 +239,25 @@ The `strategy_select_instruments_for_exit` method does the following:
 
 1. `selected_instruments_bucket` and `sideband_info_bucket` - Creates 2 empty lists that will be used to pass the selected instruments and additional information about them respectively.
 2. The Loop - The loop will iterate over each instrument name passed (which are in Entry position (BUY/SELL)) and will decide whether to set an exit position or not for it.
-3. If condition - The exit steps are executed only if the instrument is holding at an ENTRY position (BUY/SELL). You can do this by checking if the `self.main_order` object is `None` or not, and proceed only if it is not `None`. 
+3. If condition - The exit steps are executed only if the instrument is holding at an ENTRY position (BUY/SELL). You can do this by checking if the `self.main_order` object is `None` or not, and proceed only if it is not `None`.
 3. `crossover_value` - The crossover value is calculated and stored here. Crossover values are interpreted as:
     1. Value 1 - Cut upwards
     2. Value -1 - Cut downwards
     3. Value 0 - No crossover
-4. If condition - If the crossover value is 1 or -1, then the instrument is selected for exit position. The selected instrument is appended to the `selected_instruments_bucket`, and the associated action (EXIT) is appended to the `sideband_info_bucket`.
+4. If condition - If the crossover value is 1 or -1, then the instrument is selected for exit position. The selected instrument is appended to the `selected_instruments_bucket`, and the associated action (EXIT) is appended to
+   the `sideband_info_bucket`.
 5. `selected_instruments_bucket` and `sideband_info_bucket` - Both the lists (whether populated or empty) are returned to the platform for further actions.
 
 !!! Note
-    * The actual Exit position (BUY/SELL) is not entered here. Here, only the instrument is selected based on the crossover value with the proper action mentioned in the `sideband_info_bucket`. The Exit position will be taken in the next method below.
-    * The `sideband_info_bucket` contains a very versatile dictionary object. You may use it to pass any other additional information that you wish.
-    * Whenever a new trading day starts, the `strategy_select_instruments_for_exit` is called first. This is very important for DELIVERY strategies. Many instruments might be holding in an Entry Position at the end of the previous trading day, and they might be eligible for exit at the start of the new trading day.  
+
+* The actual Exit position (BUY/SELL) is not entered here. Here, only the instrument is selected based on the crossover value with the proper action mentioned in the `sideband_info_bucket`. The Exit position will be taken in the next method below.
+* The `sideband_info_bucket` contains a very versatile dictionary object. You may use it to pass any other additional information that you wish.
+* Whenever a new trading day starts, the `strategy_select_instruments_for_exit` is called first. This is very important for DELIVERY strategies. Many instruments might be holding in an Entry Position at the end of the previous trading day, and they
+  might be eligible for exit at the start of the new trading day.
 
 ### `def strategy_exit_position()`
 ---
+
 ```python
 def strategy_exit_position(self, candle, instrument, sideband_info):
     if sideband_info['action'] == 'EXIT':
@@ -255,6 +277,7 @@ The `strategy_exit_position` method does the following:
 
 ### `def get_crossover_value()`
 ---
+
 ```python
 def get_crossover_value(self, instrument):
     hist_data = self.get_historical_data(instrument)
@@ -276,11 +299,12 @@ The `get_crossover_value` method does the following:
 4. Return value - return the crossover value to the caller method.
 
 !!! Note
-    * The order of values passed to the `crossover` method of the `utils` package is very important.
-    * Example: you have 2 SMA values, 5 and 12. The strategy describes that there should be an BUY Entry Position when SMA(5) cuts SMA(12) upwards (crossover value should be 1).
-    * In this case, if you mistakenly pass SMA(12) value first and SMA(5) value next to the `crossover` function, the answer you will get is -1 (Cut downwards).
-    * Though, the crossover value is correct, the strategy is expecting to BUY at crossover 1 as per the code, which will not work now.
-    * Therefore, the strategy will work correctly only if you pass SMA(5) first and then SMA(12) to the `crossover` function, thus making the order of parameters passed an important point to be aware of, while coding the strategy.
+
+* The order of values passed to the `crossover` method of the `utils` package is very important.
+* Example: you have 2 SMA values, 5 and 12. The strategy describes that there should be an BUY Entry Position when SMA(5) cuts SMA(12) upwards (crossover value should be 1).
+* In this case, if you mistakenly pass SMA(12) value first and SMA(5) value next to the `crossover` function, the answer you will get is -1 (Cut downwards).
+* Though, the crossover value is correct, the strategy is expecting to BUY at crossover 1 as per the code, which will not work now.
+* Therefore, the strategy will work correctly only if you pass SMA(5) first and then SMA(12) to the `crossover` function, thus making the order of parameters passed an important point to be aware of, while coding the strategy.
 
 ## What's Next...
 ---

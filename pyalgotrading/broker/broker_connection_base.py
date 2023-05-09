@@ -8,6 +8,7 @@ class BrokerConnectionBase:
     """
     Base class for Broker Connection
     """
+
     @abstractmethod
     def get_name(self):
         """

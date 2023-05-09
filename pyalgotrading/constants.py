@@ -102,33 +102,58 @@ class CandleInterval(Enum):
     """
     A class of Candle Intervals with their Alternate names
     """
-    # MINUTES_1 = 0
-    # MINUTES_3 = 1
-    # MINUTES_5 = 2
-    # MINUTES_10 = 3
-    # MINUTES_15 = 4
-    # MINUTES_30 = 5
-    # MINUTES_60 = 6
-    # HOURS_1 = 6
-    # HOURS_24 = 7
-    # DAYS_1 = 7
-    #
-    # # Alternative names
-    # MINUTE_1 = 0
-    # MINUTE_3 = 1
-    # MINUTE_5 = 2
-    # MINUTE_10 = 3
-    # MINUTE_15 = 4
-    # MINUTE_30 = 5
-    # MINUTE_60 = 6
-    # HOUR_1 = 6
-    # HOUR_24 = 7
-    # DAY_1 = 7
-    #
-    # MINUTE = 0
-    # HOUR = 6
-    # DAY = 7
+    # We have added multiple enums, to take care of all practical combinations in which a user may input a candle interval as a string.
+    # (Note: Before applying a user input to this enum, it is cleaned up - leading/trailing spaces removed, cases converted to caps, internal spaces converted to _.
+    # That way a user has lot of flexibility in entering the candle interval as a string)
 
+    _1_MINUTE = 'minute'
+    _1_MINUTES = 'minute'
+    _3_MINUTES = '3minutes'
+    _5_MINUTES = '5minutes'
+    _10_MINUTES = '10minutes'
+    _15_MINUTES = '15minutes'
+    _30_MINUTES = '30minutes'
+    _60_MINUTES = '60minutes'
+    _1_HOURS = '60minutes'
+    _1_DAYS = 'day'
+    _24_HOURS = 'day'
+
+    # Alternative names #1
+    _3_MINUTE = '3minutes'
+    _5_MINUTE = '5minutes'
+    _10_MINUTE = '10minutes'
+    _15_MINUTE = '15minutes'
+    _30_MINUTE = '30minutes'
+    _60_MINUTE = '60minutes'
+    _1_HOUR = '60minutes'
+    _24_HOUR = 'day'
+    _1_DAY = 'day'
+
+    # Alternative names #2
+    _1MINUTE = 'minute'
+    _3MINUTE = '3minutes'
+    _5MINUTE = '5minutes'
+    _10MINUTE = '10minutes'
+    _15MINUTE = '15minutes'
+    _30MINUTE = '30minutes'
+    _60MINUTE = '60minutes'
+    _1HOUR = '60minutes'
+    _24HOUR = 'day'
+    _1DAY = 'day'
+
+    # Alternative names #3
+    _1MINUTES = 'minute'
+    _3MINUTES = '3minutes'
+    _5MINUTES = '5minutes'
+    _10MINUTES = '10minutes'
+    _15MINUTES = '15minutes'
+    _30MINUTES = '30minutes'
+    _60MINUTES = '60minutes'
+    _1HOURS = '60minutes'
+    _24HOURS = 'day'
+    _1DAYS = 'day'
+
+    # Alternative names #4
     MINUTES_1 = 'minute'
     MINUTES_3 = '3minutes'
     MINUTES_5 = '5minutes'
@@ -140,7 +165,7 @@ class CandleInterval(Enum):
     HOURS_24 = 'day'
     DAYS_1 = 'day'
 
-    # Alternative names
+    # Alternative names #5
     MINUTE_1 = 'minute'
     MINUTE_3 = '3minutes'
     MINUTE_5 = '5minutes'
@@ -152,6 +177,7 @@ class CandleInterval(Enum):
     HOUR_24 = 'day'
     DAY_1 = 'day'
 
+    # Alternative names #6
     MINUTE = 'minute'
     HOUR = '60minutes'
     DAY = 'day'
