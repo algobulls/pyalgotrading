@@ -61,11 +61,13 @@ Once you have the access token, set it in the code as shown here:
 ```python
 algobulls_connection.set_access_token('4365817b795770ea31040a21ad29c8e78b63ad88')
 ```
+
 Replace the token you have copied with the token in the code above.
 
 ---
 #### Display all strategies in your account
 ---
+
 ```python
 all_strategies = algobulls_connection.get_all_strategies()
 all_strategies
@@ -78,8 +80,8 @@ An example of the output will be:
 
 Select the last entry of the `strategyCode` column and display it.
 ```python
-strategy_code1 = all_strategies.iloc[-1]['strategyCode']
-strategy_code1
+strategy_code = all_strategies.iloc[-1]['strategyCode']
+strategy_code
 ```
 
 ---
@@ -88,7 +90,7 @@ strategy_code1
 You can print your strategy code once to verify if this is the correct code. This step is optional.
 
 ```python
-strategy_details1 = algobulls_connection.get_strategy_details(strategy_code1)
+strategy_details1 = algobulls_connection.get_strategy_details(strategy_code)
 print(strategy_details1)
 ```
 
@@ -114,39 +116,53 @@ instrument
 ---
 #### Submit a Job
 
+Delete previous trades
+```python
+algobulls_connection.delete_previous_trades(strategy=strategy)
+```
+
+Set the **parameters** for the strategy
+```python
+parameters={
+    'timeperiod1': 5,
+    'timeperiod2': 12
+}
+```
+
 Click on each of the tabs to see the relevant code snippet.
 
 > **Backtesting**
     ```python
-    algobulls_connection.backtest(strategy_code=strategy_code1, 
-            start_timestamp=dt(year=2020, month=7, day=1, hour=9, minute=15), 
-            end_timestamp=dt(year=2020, month=7, day=7, hour=15, minute=30), 
-            instrument=instrument, 
-            lots=1,
-            strategy_parameters={
-              'timeperiod1': 5,
-              'timeperiod2': 12
-            }, 
-            candle_interval=CandleInterval.MINUTES_15)
+    algobulls_connection.backtest(
+            strategy=strategy_code,         # strategy code
+            start='2020-7-1 | 09:15',       # start date-time of strategy ('YYYY-MM-DD | HH:MM')
+            end='2020-7-7 | 15:30',         # end date-time of strategy ('YYYY-MM-DD | HH:MM')
+            instruments='NSE:SBIN',         # name of the instrument
+            lots=1,                         # number of lots per trade
+            parameters=parameters,          # parameters required for the strategy
+            candle='15 minutes'             # candle size eg : '1 Day', '1 hour', '3 minutes'
+            delete_previous_trades = True   # delete the previous trades for papertrading (default is true)
+    )
     ```
     
 > **Paper Trading**
     ```python
-    algobulls_connection.papertrade(strategy_code=strategy_code1, 
-            start_time=time(hour=9, minute=15), 
-            end_time=time(hour=23, minute=30), 
-            instrument=instrument, 
-            lots=1,
-            strategy_parameters={
-                'timeperiod1': 5,
-                'timeperiod2': 12
-            }, 
-            candle_interval=CandleInterval.MINUTES_15)
+    algobulls_connection.papertrade(
+            strategy=strategy_code,         # strategy code
+            start='09:15',                  # start time of strategy (HH:MM)     
+            end='15:30',                    # end time of strategy (HH:MM)
+            instruments='NSE:SBIN',         # name of the instrument
+            lots=1,                         # number of lots per trade
+            parameters=parameters,          # parameters required for the strategy
+            candle='15 minutes'             # candle size eg : '1 Day', '1 hour', '3 minutes'
+            delete_previous_trades = True   # delete the previous trades for papertrading (default is true)
+    )
     ```
     
 > **Real Trading**
     ```python
-    algobulls_connection.realtrade(strategy_code=strategy_code1, 
+    algobulls_connection.realtrade(
+            strategy_code=strategy_code, 
             start_time=time(hour=9, minute=15), 
             end_time=time(hour=15, minute=30), 
             instrument=instrument, 
@@ -155,7 +171,8 @@ Click on each of the tabs to see the relevant code snippet.
                'timeperiod1': 5, 
                 'timeperiod2': 12
             },
-            candle_interval=CandleInterval.MINUTES_1)
+            candle_interval=CandleInterval.MINUTES_1
+    )
     ```
 
 ---
@@ -165,17 +182,17 @@ Click on each of the tabs to see the relevant code snippet.
 
 > **Backtesting**
     ```python
-    algobulls_connection.get_backtesting_job_status(strategy_code1)
+    algobulls_connection.get_backtesting_job_status(strategy_code)
     ```
     
 > **Paper Trading**
     ```python
-    algobulls_connection.get_papertrading_job_status(strategy_code1)
+    algobulls_connection.get_papertrading_job_status(strategy_code)
     ```
     
 > **Real Trading**
     ```python
-    algobulls_connection.get_realtrading_job_status(strategy_code=strategy_code1)
+    algobulls_connection.get_realtrading_job_status(strategy_code=strategy_code)
     ```
     
 You can stop a submitted job anytime.
@@ -187,17 +204,17 @@ Click on each of the tabs to see the relevant code snippet.
 
 > **Backtesting**
     ```python
-    algobulls_connection.stop_backtesting_job(strategy_code1)
+    algobulls_connection.stop_backtesting_job(strategy_code)
     ```
     
 > **Paper Trading**
     ```python
-    algobulls_connection.stop_papertrading_job(strategy_code1)
+    algobulls_connection.stop_papertrading_job(strategy_code)
     ```
     
 > **Real Trading**
     ```python
-    algobulls_connection.stop_realtrading_job(strategy_code=strategy_code1)
+    algobulls_connection.stop_realtrading_job(strategy_code=strategy_code)
     ```
 
 You can fetch the logs in the middle of a job to monitor the progress.
@@ -209,19 +226,19 @@ Click on each of the tabs to see the relevant code snippet.
 
 > **Backtesting**
     ```python
-    logs = algobulls_connection.get_backtesting_logs(strategy_code1)
+    logs = algobulls_connection.get_backtesting_logs(strategy_code)
     print(logs)
     ```
     
 > **Paper Trading**
     ```python
-    logs = algobulls_connection.get_papertrading_logs(strategy_code1)
+    logs = algobulls_connection.get_papertrading_logs(strategy_code)
     print(logs)
     ```
     
 > **Real Trading**
     ```python
-    logs = algobulls_connection.get_realtrading_logs(strategy_code=strategy_code1)
+    logs = algobulls_connection.get_realtrading_logs(strategy_code=strategy_code)
     print(logs)
     ```
     
@@ -234,17 +251,17 @@ Click on each of the tabs to see the relevant code snippet.
 
 > **Backtesting**
     ```python
-    algobulls_connection.get_backtesting_report_pnl_table(strategy_code1, show_all_rows=True)
+    algobulls_connection.get_backtesting_report_pnl_table(strategy_code, show_all_rows=True)
     ```
     
 > **Paper Trading**
     ```python
-    algobulls_connection.get_papertrading_report_pnl_table(strategy_code1)
+    algobulls_connection.get_papertrading_report_pnl_table(strategy_code)
     ```
     
 > **Real Trading**
     ```python
-    algobulls_connection.get_realtrading_report_pnl_table(strategy_code=strategy_code1)
+    algobulls_connection.get_realtrading_report_pnl_table(strategy_code=strategy_code)
     ```
 
 ---
@@ -254,17 +271,17 @@ Click on each of the tabs to see the relevant code snippet.
 
 > **Backtesting**
     ```python
-    algobulls_connection.get_backtesting_report_statistics(strategy_code1)
+    algobulls_connection.get_backtesting_report_statistics(strategy_code)
     ```
     
 > **Paper Trading**
     ```python
-    algobulls_connection.get_papertrading_report_statistics(strategy_code1)
+    algobulls_connection.get_papertrading_report_statistics(strategy_code)
     ```
     
 > **Real Trading**
     ```python
-    algobulls_connection.get_realtrading_report_statistics(strategy_code=strategy_code1)
+    algobulls_connection.get_realtrading_report_statistics(strategy_code=strategy_code)
     ```
    
 --- 
@@ -274,13 +291,13 @@ Click on each of the tabs to see the relevant code snippet.
 
 > **Backtesting**
     ```python
-    order_history = algobulls_connection.get_backtesting_report_order_history(strategy_code1)
+    order_history = algobulls_connection.get_backtesting_report_order_history(strategy_code)
     print(order_history)
     ```
     
 > **Paper Trading**
     ```python
-    order_history = algobulls_connection.get_papertrading_report_order_history(strategy_code1)
+    order_history = algobulls_connection.get_papertrading_report_order_history(strategy_code)
     print(order_history)
     ```
 
