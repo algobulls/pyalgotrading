@@ -184,7 +184,6 @@ class AlgoBullsConnection:
         Args:
             strategy: Strategy code
         """
-
         for i in range(30):
             try:
                 response = self.api.delete_previous_trades(strategy)
@@ -355,6 +354,7 @@ class AlgoBullsConnection:
         assert isinstance(candle, CandleInterval), _error_msg_candle
         assert isinstance(delete_previous_trades, bool), 'Argument "delete_previous_trades" should be a boolean'
         assert isinstance(initial_funds_virtual, float), 'Argument "initial_funds_virtual" should be a float'
+
 
         if delete_previous_trades:
             self.delete_previous_trades(strategy)
@@ -556,7 +556,6 @@ class AlgoBullsConnection:
             mode: Intraday or delivery
             delete_previous_trades: Delete data of all previous trades
             initial_funds_virtual: virtual funds allotted before the backtesting starts
-
 
         Legacy args (will be deprecated in future release):
             'strategy_code' behaves same 'strategy'
