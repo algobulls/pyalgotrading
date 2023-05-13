@@ -256,10 +256,13 @@ class AlgoBullsAPI:
             response: response from api
 
         Info: ENDPOINT
-           `DELETE` v3/build/python/user/strategy/deleteAll?strategyId={strategy}
+           `DELETE` https://api.algobulls.com/v3/build/python/user/strategy/deleteAll?strategyId=<strategy_code>
         """
+        base_url = 'https://api.algobulls.com/'
         endpoint = f'v3/build/python/user/strategy/deleteAll?strategyId={strategy}'
-        response = self._send_request(method='delete', endpoint=endpoint)
+        url = f'{base_url}{endpoint}'
+        headers = self.headers
+        response = requests.request(method='delete', headers=headers, url=url)
         return response
 
     def set_strategy_config(self, strategy_code: str, strategy_config: dict, trading_type: TradingType) -> (str, dict):
@@ -285,7 +288,7 @@ class AlgoBullsAPI:
         print('Success.')
         return key, response
 
-    def start_strategy_algotrading(self, strategy_code: str, start_timestamp: dt, end_timestamp: dt, trading_type: TradingType, lots: int) -> dict:
+    def start_strategy_algotrading(self, strategy_code: str, start_timestamp: dt, end_timestamp: dt, trading_type: TradingType, lots: int, initial_funds_virtual: float) -> dict:
         """
         Submit Backtesting / Paper Trading / Real Trading job for strategy with code strategy_code & return the job ID.
         
@@ -295,7 +298,7 @@ class AlgoBullsAPI:
             end_timestamp: End date/time
             trading_type: Trading type
             lots: Lots
-
+            initial_funds_virtual: virtual funds before starting the strategy
         Info: ENDPOINT
             `PATCH` v4/portfolio/strategies?isPythonBuild=true
         """
@@ -317,7 +320,8 @@ class AlgoBullsAPI:
             execute_config = {
                 map_trading_type_to_date_key[trading_type]: [start_timestamp.astimezone().astimezone(timezone.utc).isoformat(), end_timestamp.astimezone().astimezone(timezone.utc).isoformat()],
                 'isLiveDataTestMode': trading_type == TradingType.PAPERTRADING,
-                'customizationsQuantity': lots
+                'customizationsQuantity': lots,
+                'initial_funds_virtual': initial_funds_virtual
             }
             json_data = {'method': 'update', 'newVal': 1, 'key': key, 'record': {'status': 0, 'lots': lots, 'executeConfig': execute_config}, 'dataIndex': 'executeConfig'}
             print(f'Submitting {trading_type.name} job...', end=' ')

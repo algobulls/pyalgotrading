@@ -184,9 +184,20 @@ class AlgoBullsConnection:
         Args:
             strategy: Strategy code
         """
-        response = self.api.delete_previous_trades(strategy)
-        if response['data'] != 'success':
-            print(f'Deletion of previous trade data for strategy "{strategy}" may not have been successful. Details: {response}')
+
+        for i in range(30):
+            try:
+                response = self.api.delete_previous_trades(strategy)
+                print(response, response.status_code)
+                if response.status_code == 200:
+                    print(f'Previous trades deleted successfully for strategy : {strategy}')
+                    break
+            except TimeoutError:
+                print('deleting previous trades ...')
+                time.sleep(1)
+                continue
+            except Exception as e:
+                print(f'There was an error while deleting previous trades of strategy {strategy}. Error : {e}')
         return response
 
     def get_job_status(self, strategy_code, trading_type):
@@ -272,7 +283,7 @@ class AlgoBullsConnection:
             print('Report not available yet. Please retry in sometime')
             # return response
 
-    def backtest(self, strategy=None, start=None, end=None, instruments=None, lots=1, parameters=None, candle=None, mode=StrategyMode.INTRADAY, delete_previous_trades=True, **kwargs):
+    def backtest(self, strategy=None, start=None, end=None, instruments=None, lots=1, parameters=None, candle=None, mode=StrategyMode.INTRADAY, delete_previous_trades=True, initial_funds_virtual=1e9, **kwargs):
         """
         Submit a backtesting job for a strategy on the AlgoBulls Platform
 
@@ -286,6 +297,7 @@ class AlgoBullsConnection:
             candle: Candle interval
             mode: Intraday or delivery
             delete_previous_trades: Delete data for previous trades
+            initial_funds_virtual: virtual funds alloted before the backtesting starts
 
         Legacy args (will be deprecated in future release):
             'strategy_code' behaves same 'strategy'
@@ -315,6 +327,7 @@ class AlgoBullsConnection:
         _error_msg_instruments = f'Argument "instruments" should be a valid instrument string or a list of valid instruments strings. You can use the \'get_instrument()\' method of AlgoBullsConnection class to search for instruments'
         _error_msg_mode = f'Argument "mode" should be a valid string or an enum of type StrategyMode. Possible string values can be: {get_valid_enum_names(StrategyMode)}'
 
+        initial_funds_virtual = float(initial_funds_virtual)
         if isinstance(start, str):
             start = dt.strptime(start, '%Y-%m-%d | %H:%M')
         if isinstance(end, str):
@@ -341,6 +354,7 @@ class AlgoBullsConnection:
         assert isinstance(mode, StrategyMode), _error_msg_mode
         assert isinstance(candle, CandleInterval), _error_msg_candle
         assert isinstance(delete_previous_trades, bool), 'Argument "delete_previous_trades" should be a boolean'
+        assert isinstance(initial_funds_virtual, float), 'Argument "initial_funds_virtual" should be a float'
 
         if delete_previous_trades:
             self.delete_previous_trades(strategy)
@@ -375,7 +389,7 @@ class AlgoBullsConnection:
         self.api.set_strategy_config(strategy_code=strategy, strategy_config=strategy_config, trading_type=TradingType.BACKTESTING)
 
         # Submit Backtesting job
-        response = self.api.start_strategy_algotrading(strategy_code=strategy, start_timestamp=start, end_timestamp=end, trading_type=TradingType.BACKTESTING, lots=lots)
+        response = self.api.start_strategy_algotrading(strategy_code=strategy, start_timestamp=start, end_timestamp=end, trading_type=TradingType.BACKTESTING, lots=lots, initial_funds_virtual=initial_funds_virtual)
 
     def get_backtesting_job_status(self, strategy_code):
         """
@@ -527,7 +541,7 @@ class AlgoBullsConnection:
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
         return self.get_report(strategy_code=strategy_code, trading_type=TradingType.BACKTESTING, report_type=TradingReportType.ORDER_HISTORY)
 
-    def papertrade(self, strategy=None, start=None, end=None, instruments=None, lots=None, parameters=None, candle=None, mode=StrategyMode.INTRADAY, delete_previous_trades=True, **kwargs):
+    def papertrade(self, strategy=None, start=None, end=None, instruments=None, lots=None, parameters=None, candle=None, mode=StrategyMode.INTRADAY, delete_previous_trades=True, initial_funds_virtual=1e9, **kwargs):
         """
         Submit a papertrade job for a strategy on the AlgoBulls Platform
 
@@ -541,6 +555,8 @@ class AlgoBullsConnection:
             candle: Candle interval
             mode: Intraday or delivery
             delete_previous_trades: Delete data of all previous trades
+            initial_funds_virtual: virtual funds allotted before the backtesting starts
+
 
         Legacy args (will be deprecated in future release):
             'strategy_code' behaves same 'strategy'
@@ -629,7 +645,7 @@ class AlgoBullsConnection:
         self.api.set_strategy_config(strategy_code=strategy, strategy_config=strategy_config, trading_type=TradingType.PAPERTRADING)
 
         # Submit Paper Trading job
-        response = self.api.start_strategy_algotrading(strategy_code=strategy, start_timestamp=start, end_timestamp=end, trading_type=TradingType.PAPERTRADING, lots=lots)
+        response = self.api.start_strategy_algotrading(strategy_code=strategy, start_timestamp=start, end_timestamp=end, trading_type=TradingType.PAPERTRADING, lots=lots, initial_funds_virtual=initial_funds_virtual)
 
     def get_papertrading_job_status(self, strategy_code):
         """
