@@ -9,6 +9,7 @@ import requests
 
 from .exceptions import AlgoBullsAPIBaseException, AlgoBullsAPIUnauthorizedError, AlgoBullsAPIInsufficientBalanceError, AlgoBullsAPIResourceNotFoundError, AlgoBullsAPIBadRequest, AlgoBullsAPIInternalServerErrorException, AlgoBullsAPIForbiddenError
 from ..constants import TradingType, TradingReportType, MESSAGE_REALTRADING_FORBIDDEN
+from ..utils.func import get_raw_response
 
 
 class AlgoBullsAPI:
@@ -46,7 +47,8 @@ class AlgoBullsAPI:
             'Authorization': f'{access_token}'
         }
 
-    def _send_request(self, method: str = 'get', endpoint: str = '', base_url: str = SERVER_ENDPOINT, params: [str, dict] = None, json_data: [str, dict] = None, requires_authorization: bool = True) -> dict:
+    def _send_request(self, method: str = 'get', endpoint: str = '', base_url: str = SERVER_ENDPOINT, params: [str, dict] = None, json_data: [str, dict] = None, requires_authorization: bool = True,
+                      raise_exception_unknown_status_code: bool = True) -> dict:
         """
         Send the request to the platform
         
@@ -63,35 +65,39 @@ class AlgoBullsAPI:
         """
         url = f'{base_url}{endpoint}'
         headers = self.headers if requires_authorization else None
-        response = requests.request(method=method, headers=headers, url=url, params=params, json=json_data)
+        r = requests.request(method=method, headers=headers, url=url, params=params, json=json_data)
 
-        try:
-            response_json = response.json()
-        except JSONDecodeError:
-            response_json = str(response)
-
-        if response.status_code == 200:
-            response_json = response.json()
-            return response_json
-        elif response.status_code == 400:
-            raise AlgoBullsAPIBadRequest(method=method, url=url, response=response_json)
-        elif response.status_code == 401:
-            raise AlgoBullsAPIUnauthorizedError(method=method, url=url, response=response_json)
-            # try:
-            #     raise AlgoBullsAPIUnauthorizedError(method=method, url=url, response=response_json)
-            # except AlgoBullsAPIUnauthorizedError as ex:
-            #     print(f'{ex.get_error_type()}. {ex.response}')
-        elif response.status_code == 402:
-            raise AlgoBullsAPIInsufficientBalanceError(method=method, url=url, response=response_json)
-        elif response.status_code == 403:
-            raise AlgoBullsAPIForbiddenError(method=method, url=url, response=response_json)
-        elif response.status_code == 404:
-            raise AlgoBullsAPIResourceNotFoundError(method=method, url=url, response=response_json)
-        elif response.status_code == 500:
-            raise AlgoBullsAPIInternalServerErrorException(method=method, url=url, response=response_json)
+        if r.status_code == 200:
+            try:
+                r_json = r.json()
+                return r_json
+            except JSONDecodeError:
+                r.raw.decode_content = True
+                return {'response': get_raw_response(r)}
+        elif r.status_code == 400:
+            r.raw.decode_content = True
+            raise AlgoBullsAPIBadRequest(method=method, url=url, response=get_raw_response(r))
+        elif r.status_code == 401:
+            r.raw.decode_content = True
+            raise AlgoBullsAPIUnauthorizedError(method=method, url=url, response=get_raw_response(r))
+        elif r.status_code == 402:
+            r.raw.decode_content = True
+            raise AlgoBullsAPIInsufficientBalanceError(method=method, url=url, response=get_raw_response(r))
+        elif r.status_code == 403:
+            r.raw.decode_content = True
+            raise AlgoBullsAPIForbiddenError(method=method, url=url, response=get_raw_response(r))
+        elif r.status_code == 404:
+            r.raw.decode_content = True
+            raise AlgoBullsAPIResourceNotFoundError(method=method, url=url, response=get_raw_response(r))
+        elif r.status_code == 500:
+            r.raw.decode_content = True
+            raise AlgoBullsAPIInternalServerErrorException(method=method, url=url, response=get_raw_response(r))
         else:
-            response.raw.decode_content = True
-            raise AlgoBullsAPIBaseException(method=method, url=url, response=response_json)
+            if raise_exception_unknown_status_code:
+                r.raw.decode_content = True
+                raise AlgoBullsAPIBaseException(method=method, url=url, response=get_raw_response(r))
+            else:
+                return r.json()
 
     def __fetch_key(self, strategy_code, trading_type):
         """
@@ -258,11 +264,8 @@ class AlgoBullsAPI:
         Info: ENDPOINT
            `DELETE` https://api.algobulls.com/v3/build/python/user/strategy/deleteAll?strategyId=<strategy_code>
         """
-        base_url = 'https://api.algobulls.com/'
         endpoint = f'v3/build/python/user/strategy/deleteAll?strategyId={strategy}'
-        url = f'{base_url}{endpoint}'
-        headers = self.headers
-        response = requests.request(method='delete', headers=headers, url=url)
+        response = self._send_request(method='delete', endpoint=endpoint)
         return response
 
     def set_strategy_config(self, strategy_code: str, strategy_config: dict, trading_type: TradingType) -> (str, dict):

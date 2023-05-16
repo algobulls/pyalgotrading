@@ -131,3 +131,7 @@ def plot_candlestick_chart(data: pd.DataFrame, plot_type: PlotType, caption: str
 def get_valid_enum_names(enum_obj):
     # returns list of names from enum_obj; does a simple cleanup - replacing '_' with spaces, striping leading/trailing spaces
     return [_.name.lower().replace('_', ' ').strip() for _ in enum_obj]
+
+
+def get_raw_response(response_obj):
+    return f'Content: {response_obj.content} | Raw: {response_obj.raw.data}'
