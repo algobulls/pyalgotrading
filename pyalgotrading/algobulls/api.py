@@ -264,7 +264,10 @@ class AlgoBullsAPI:
         Info: ENDPOINT
            `DELETE` https://api.algobulls.com/v3/build/python/user/strategy/deleteAll?strategyId=<strategy_code>
         """
+        base_url = 'https://api.algobulls.com/'
         endpoint = f'v3/build/python/user/strategy/deleteAll?strategyId={strategy}'
+        url = f'{base_url}{endpoint}'
+        headers = self.headers
         response = self._send_request(method='delete', endpoint=endpoint)
         return response
 
