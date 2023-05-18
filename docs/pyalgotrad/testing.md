@@ -22,7 +22,7 @@ The steps you will follow are:
 3. Select the SMA strategy.
 4. Optionally, print the strategy once.
 5. Select instrument(s).
-6. Submit/Run a Backtest, Paper Trade or Real Trade job.
+6. Submit/Run a Backtest or Paper Trade job.
 7. Check Job Status.
 8. Fetch Logs (even while the job is running).
 9. Fetch Reports. (PnL, Statistics, Order History)

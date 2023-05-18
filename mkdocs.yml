@@ -22,12 +22,11 @@ theme:
     scheme: default     # light mode
   language: en
 
-
 copyright: Copyright © 2020 | All Rights Reserved | AlgoBulls Technologies Private Limited
 
 # Navigation
 nav:
-  - Home: 'home.md'
+  - Home: 'index.md'
   - PyalgoTrading:
     - Index: 'pyalgotrad/index.md'
     - Tutorial:

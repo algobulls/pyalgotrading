@@ -23,7 +23,7 @@ Before starting the tutorial, ensure that you have the following setup:
     
     ---
 
-3. Run Backtest / Paper Trade / Real Trade using your strategy: Once you have uploaded your strategy, you can run backtests, paper trades, or real trades to see how your strategy performs. These can be done from the AlgoBulls platform itself.  
+3. Run Backtest / Paper Trade using your strategy: Once you have uploaded your strategy, you can run backtests and paper trades to see how your strategy performs. These can be done from the AlgoBulls platform itself.  
     
     ---
 
