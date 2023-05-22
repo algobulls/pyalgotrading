@@ -188,20 +188,6 @@ class AlgoBullsConnection:
         response = self.api.delete_previous_trades(strategy)
         print(response)
         return response
-        # for i in range(30):
-        #     try:
-        #         response = self.api.delete_previous_trades(strategy)
-        #         print(response, response.status_code)
-        #         if response.status_code == 200:
-        #             print(f'Previous trades deleted successfully for strategy : {strategy}')
-        #             break
-        #     except TimeoutError:
-        #         print('deleting previous trades ...')
-        #         time.sleep(1)
-        #         continue
-        #     except Exception as e:
-        #         print(f'There was an error while deleting previous trades of strategy {strategy}. Error : {e}')
-        # return response
 
     def get_job_status(self, strategy_code, trading_type):
         """
@@ -285,6 +271,92 @@ class AlgoBullsConnection:
         else:
             print('Report not available yet. Please retry in sometime')
             # return response
+
+    def get_pnl_report_table(self, strategy_code, trading_type):
+        """
+            Fetch Back Testing Profit & Loss details
+
+            Args:
+                strategy_code: strategy code
+                trading_type: type of trades : Backtesting, Papertrading, Realtrading
+
+            Returns:
+                Report details
+        """
+        assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
+
+        # Fetch the data
+        data = self.get_report(strategy_code=strategy_code, trading_type=trading_type, report_type=TradingReportType.PNL_TABLE)
+
+        # Post-processing: Cleanup & converting data to dataframe
+        column_rename_map = OrderedDict([
+            ('strategy.instrument.segment', 'instrument_segment'),
+            ('strategy.instrument.tradingsymbol', 'instrument_tradingsymbol'),
+            ('entry.timestamp', 'entry_timestamp'),
+            ('entry.isBuy', 'entry_transaction_type'),
+            ('entry.quantity', 'entry_quantity'),
+            ('entry.prefix', 'entry_currency'),
+            ('entry.price', 'entry_price'),
+            ('exit.timestamp', 'exit_timestamp'),
+            ('exit.isBuy', 'exit_transaction_type'),
+            ('exit.quantity', 'exit_quantity'),
+            ('exit.prefix', 'exit_currency'),
+            ('exit.price', 'exit_price'),
+            ('pnlAbsolute.value', 'pnl_absolute')
+        ])
+        if data:
+            # Generate df from json data & perform cleanups
+            _df = pd.json_normalize(data[::-1])[list(column_rename_map.keys())].rename(columns=column_rename_map)
+            _df[['entry_timestamp', 'exit_timestamp']] = _df[['entry_timestamp', 'exit_timestamp']].apply(pd.to_datetime, format="%Y-%m-%d | %H:%M", errors="coerce")
+            _df['entry_transaction_type'] = _df['entry_transaction_type'].apply(lambda _: 'BUY' if _ else 'SELL')
+            _df['exit_transaction_type'] = _df['exit_transaction_type'].apply(lambda _: 'BUY' if _ else 'SELL')
+            _df["pnl_cumulative_absolute"] = _df["pnl_absolute"].cumsum(axis=0, skipna=True)
+
+        else:
+            # No data available, send back an empty dataframe
+            _df = pd.DataFrame(columns=list(column_rename_map.values()))
+        return _df
+
+    def get_report_statistics(self, strategy_code, initial_funds, report, html_dump, pnl_df):
+        """
+            Fetch Back Testing report statistics
+
+            Args:
+                strategy_code: strategy code
+                report: format and content of the report
+                html_dump: save it as a html file
+                pnl_df: dataframe containing pnl reports
+            Returns:
+                Report details
+        """
+
+        order_report = None
+        # get pnl data and cleanup as per quantstats format
+        _returns_df = pnl_df[['entry_timestamp', 'pnl_absolute']]
+        _returns_df = _returns_df.set_index('entry_timestamp')
+        _returns_df["total_funds"] = _returns_df.pnl_absolute.cumsum() + initial_funds
+        _returns_df = _returns_df.dropna()
+
+        # Note: Quantstats has a potential bug. It cannot work with multiple entries having the same timestamp. For now, we are dropping multiple entries with the same entry_timestamp (else the quantstats code below would throw an error)
+        # Suggestion for workaround: For entries with same entry timestamps, we can slightly modify the entry timestamps by adding single-digit microseconds to make them unique
+        _returns_df = _returns_df[~_returns_df.index.duplicated(keep='first')]
+
+        # Extract the final column; note: timestamp is the index so that is available too
+        total_funds_series = _returns_df.total_funds
+
+        # select report type
+        if report == "metrics":
+            order_report = qs.reports.metrics(total_funds_series)
+        elif report == "full":
+            order_report = qs.reports.full(total_funds_series)
+
+        # save as html file
+        if html_dump:
+            all_strategies = self.get_all_strategies()
+            strategy_name = all_strategies.loc[all_strategies['strategyCode'] == strategy_code]['strategyName'].iloc[0]
+            qs.reports.html(total_funds_series, title=strategy_name, output='', download_filename=f'report_{strategy_name}_{time.time():.0f}.html')
+
+        return order_report
 
     def backtest(self, strategy=None, start=None, end=None, instruments=None, lots=1, parameters=None, candle=None, mode=StrategyMode.INTRADAY, delete_previous_trades=True, initial_funds_virtual=1e9, **kwargs):
         """
@@ -433,92 +505,6 @@ class AlgoBullsConnection:
         """
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
         return self.get_logs(strategy_code, trading_type=TradingType.BACKTESTING)
-
-    def get_pnl_report_table(self, strategy_code, trading_type):
-        """
-            Fetch Back Testing Profit & Loss details
-
-            Args:
-                strategy_code: strategy code
-                trading_type: type of trades : Backtesting, Papertrading, Realtrading
-
-            Returns:
-                Report details
-        """
-        assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
-
-        # Fetch the data
-        data = self.get_report(strategy_code=strategy_code, trading_type=trading_type, report_type=TradingReportType.PNL_TABLE)
-
-        # Post-processing: Cleanup & converting data to dataframe
-        column_rename_map = OrderedDict([
-            ('strategy.instrument.segment', 'instrument_segment'),
-            ('strategy.instrument.tradingsymbol', 'instrument_tradingsymbol'),
-            ('entry.timestamp', 'entry_timestamp'),
-            ('entry.isBuy', 'entry_transaction_type'),
-            ('entry.quantity', 'entry_quantity'),
-            ('entry.prefix', 'entry_currency'),
-            ('entry.price', 'entry_price'),
-            ('exit.timestamp', 'exit_timestamp'),
-            ('exit.isBuy', 'exit_transaction_type'),
-            ('exit.quantity', 'exit_quantity'),
-            ('exit.prefix', 'exit_currency'),
-            ('exit.price', 'exit_price'),
-            ('pnlAbsolute.value', 'pnl_absolute')
-        ])
-        if data:
-            # Generate df from json data & perform cleanups
-            _df = pd.json_normalize(data[::-1])[list(column_rename_map.keys())].rename(columns=column_rename_map)
-            _df[['entry_timestamp', 'exit_timestamp']] = _df[['entry_timestamp', 'exit_timestamp']].apply(pd.to_datetime, format="%Y-%m-%d | %H:%M", errors="coerce")
-            _df['entry_transaction_type'] = _df['entry_transaction_type'].apply(lambda _: 'BUY' if _ else 'SELL')
-            _df['exit_transaction_type'] = _df['exit_transaction_type'].apply(lambda _: 'BUY' if _ else 'SELL')
-            _df["pnl_cumulative_absolute"] = _df["pnl_absolute"].cumsum(axis=0, skipna=True)
-
-        else:
-            # No data available, send back an empty dataframe
-            _df = pd.DataFrame(columns=list(column_rename_map.values()))
-        return _df
-
-    def get_report_statistics(self, strategy_code, initial_funds, report, html_dump, pnl_df):
-        """
-            Fetch Back Testing report statistics
-
-            Args:
-                strategy_code: strategy code
-                report: format and content of the report
-                html_dump: save it as a html file
-                pnl_df: dataframe containing pnl reports
-            Returns:
-                Report details
-        """
-
-        order_report = None
-        # get pnl data and cleanup as per quantstats format
-        _returns_df = pnl_df[['entry_timestamp', 'pnl_absolute']]
-        _returns_df = _returns_df.set_index('entry_timestamp')
-        _returns_df["total_funds"] = _returns_df.pnl_absolute.cumsum() + initial_funds
-        _returns_df = _returns_df.dropna()
-
-        # Note: Quantstats has a potential bug. It cannot work with multiple entries having the same timestamp. For now, we are dropping multiple entries with the same entry_timestamp (else the quantstats code below would throw an error)
-        # Suggestion for workaround: For entries with same entry timestamps, we can slightly modify the entry timestamps by adding single-digit microseconds to make them unique
-        _returns_df = _returns_df[~_returns_df.index.duplicated(keep='first')]
-
-        # Extract the final column; note: timestamp is the index so that is available too
-        total_funds_series = _returns_df.total_funds
-
-        # select report type
-        if report == "metrics":
-            order_report = qs.reports.metrics(total_funds_series)
-        elif report == "full":
-            order_report = qs.reports.full(total_funds_series)
-
-        # save as html file
-        if html_dump:
-            all_strategies = self.get_all_strategies()
-            strategy_name = all_strategies.loc[all_strategies['strategyCode'] == strategy_code]['strategyName'].iloc[0]
-            qs.reports.html(total_funds_series, title=strategy_name, output='', download_filename=f'report_{strategy_name}_{time.time():.0f}.html')
-
-        return order_report
 
     def get_backtesting_report_pnl_table(self, strategy_code, show_all_rows=False):
         """
