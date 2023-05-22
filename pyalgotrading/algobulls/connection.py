@@ -184,9 +184,15 @@ class AlgoBullsConnection:
         Args:
             strategy: Strategy code
         """
-
-        response = self.api.delete_previous_trades(strategy)
-        print(response)
+        response = {}
+        for _ in range(30):
+            response = self.api.delete_previous_trades(strategy)
+            if response.get('data') == 'success':
+                print(response.get('message'))
+                break
+            else:
+                print(f'deleting previous trades ... attempt [{_}])\n{response}\n')
+                time.sleep(1)
         return response
 
     def get_job_status(self, strategy_code, trading_type):
