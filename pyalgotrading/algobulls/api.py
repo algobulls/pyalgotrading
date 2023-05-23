@@ -316,7 +316,7 @@ class AlgoBullsAPI:
         try:
             key = self.__get_key(strategy_code=strategy_code, trading_type=trading_type)
             map_trading_type_to_date_key = {
-                TradingType.REALTRADING: 'liveDataTime',
+                TradingType.REALTRADING: 'liveDatlsaTime',
                 TradingType.PAPERTRADING: 'backDataTime',
                 TradingType.BACKTESTING: 'backDataDate'
             }

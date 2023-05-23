@@ -28,6 +28,8 @@ class AlgoBullsConnection:
         self.api = AlgoBullsAPI(self)
         self.backtesting_pnl_data = None
         self.papertrade_pnl_data = None
+        self.realtrade_pnl_data = None
+
 
     @staticmethod
     def get_authorization_url():
@@ -762,11 +764,116 @@ class AlgoBullsConnection:
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
         return self.get_report(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING, report_type=TradingReportType.ORDER_HISTORY)
 
-    def realtrade(self, *args, **kwargs):
+    def realtrade(self, strategy=None, start=None, end=None, instruments=None, lots=None, parameters=None, candle=None, mode=StrategyMode.INTRADAY, delete_previous_trades=True, initial_funds_virtual=1e9, **kwargs):
         """
         Start a Real Trading session.
         Update: This requires an approval process which is currently on request basis.
-        """
+
+                Start a real trade job for a strategy on the AlgoBulls Platform
+
+                Args:
+                    strategy: Strategy code
+                    start: Start date/time
+                    end: End date/time
+                    instruments: Instrument key
+                    lots: Number of lots of the passed instrument to trade on
+                    parameters: Parameters
+                    candle: Candle interval
+                    mode: Intraday or delivery
+                    delete_previous_trades: Delete data of all previous trades
+                    initial_funds_virtual: virtual funds allotted before the real trading starts
+
+
+                Legacy args (will be deprecated in future release):
+                    'strategy_code' behaves same 'strategy'
+                    'start_timestamp' behaves same 'start'
+                    'end_timestamp' behaves same 'end'
+                    'instrument' behaves same 'instruments'
+                    'strategy_parameters' behaves same 'parameters'
+                    'candle_interval' behaves same 'candle'
+                    'strategy__mode' behaves same 'mode'
+
+                Returns:
+                    realtrade job submission status
+                """
+
+        # check if values received by new parameter names, else extract from old parameter names
+        strategy = strategy if strategy is not None else kwargs.get('strategy_code')
+        start = start if start is not None else kwargs.get('start_timestamp')
+        end = end if end is not None else kwargs.get('end_timestamp')
+        parameters = parameters if parameters is not None else kwargs.get('strategy_parameters')
+        candle = candle if candle is not None else kwargs.get('candle_interval')
+        instruments = instruments if instruments is not None else kwargs.get('instrument')
+        mode = mode if 'strategy_mode' not in kwargs else kwargs.get('strategy_mode')
+
+        # Sanity checks - Convert config parameters
+        _error_msg_candle = f'Argument "candle" should be a valid string or an enum of type CandleInterval. Possible string values can be: {get_valid_enum_names(CandleInterval)}'
+        _error_msg_timestamps = f'Argument "start" should be a valid time string (HH:MM) or an instance of type datetime.time'
+        _error_msg_instruments = f'Argument "instruments" should be a valid instrument string or a list of valid instruments strings. You can use the \'get_instrument()\' method of AlgoBullsConnection class to search for instruments'
+        _error_msg_mode = f'Argument "mode" should be a valid string or an enum of type StrategyMode. Possible string values can be: {get_valid_enum_names(StrategyMode)}'
+
+        if isinstance(start, str):
+            start = dt.combine(dt.today().date(), dt.strptime(start, '%H:%M').time())
+        if isinstance(end, str):
+            end = dt.combine(dt.today().date(), dt.strptime(end, '%H:%M').time())
+        if isinstance(mode, str):
+            _ = mode.upper()
+            assert _ in StrategyMode.__members__, _error_msg_candle
+            mode = StrategyMode[_]
+        if isinstance(candle, str):
+            _ = f"{'_' if candle[0].isdigit() else ''}{candle.strip().upper().replace(' ', '_')}"
+            assert _ in CandleInterval.__members__, _error_msg_candle
+            candle = CandleInterval[_]
+        if isinstance(instruments, str):
+            instruments = [instruments]
+
+        # Sanity checks - Validate config parameters
+        assert isinstance(strategy, str), f'Argument "strategy" should be a valid string'
+        assert isinstance(start, dt), _error_msg_timestamps
+        assert isinstance(end, dt), _error_msg_timestamps
+        assert isinstance(instruments, list), _error_msg_instruments
+        assert len(instruments) > 0, _error_msg_instruments
+        assert (isinstance(lots, int) and lots > 0), f'Argument "lots" should be a positive integer.'
+        assert isinstance(parameters, dict), f'Argument "parameters" should be a dict'
+        assert isinstance(mode, StrategyMode), _error_msg_mode
+        assert isinstance(candle, CandleInterval), _error_msg_candle
+
+        if delete_previous_trades:
+            self.delete_previous_trades(strategy)
+
+        # Restructuring strategy params
+        restructured_strategy_parameters = []
+        for parameter_name in parameters:
+            restructured_strategy_parameters.append({
+                'paramName': parameter_name,
+                'paramValue': parameters[parameter_name]
+            })
+
+        # generate instruments' id list
+        instrument_list = []
+        for _instrument in instruments:
+            instrument_results = self.search_instrument(_instrument.split(':')[-1])
+            for _error_msg_timestamps in instrument_results:
+                if _error_msg_timestamps["value"] == _instrument:
+                    instrument_list.append({'id': _error_msg_timestamps["id"]})
+                    break
+
+        # Setup config for Paper Trading
+        strategy_config = {
+            'instruments': {
+                'instruments': instrument_list
+            },
+            'lots': lots,
+            'userParams': restructured_strategy_parameters,
+            'candleDuration': candle.value,
+            'strategyMode': mode.value
+        }
+        self.api.set_strategy_config(strategy_code=strategy, strategy_config=strategy_config, trading_type=TradingType.REALTRADING)
+
+        self.realtrade_pnl_data = None
+        # Submit Paper Trading job
+        response = self.api.start_strategy_algotrading(strategy_code=strategy, start_timestamp=start, end_timestamp=end, trading_type=TradingType.REALTRADING, lots=lots, initial_funds_virtual=initial_funds_virtual)
+
         print(MESSAGE_REALTRADING_FORBIDDEN)
 
     def livetrade(self, *args, **kwargs):
@@ -818,31 +925,43 @@ class AlgoBullsConnection:
 
     def get_realtrading_report_pnl_table(self, strategy_code, show_all_rows=False):
         """
-        Fetch Real Trading Profit & Loss table
+        Fetch Real Trading Profit & Loss details
+
         Args:
-            strategy_code: Strategy code
+            strategy_code: strategy code
             show_all_rows: True or False
 
         Returns:
             Report details
         """
-        # assert (isinstance(broker, AlgoBullsSupportedBrokers) is True), f'Argument broker should be an enum of type {AlgoBullsSupportedBrokers.__name__}'
-        assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
-        return self.get_report(strategy_code=strategy_code, trading_type=TradingType.REALTRADING, report_type=TradingReportType.PNL_TABLE, render_as_dataframe=True, show_all_rows=show_all_rows)
+        if self.realtrade_pnl_data is None:
+            self.realtrade_pnl_data = self.get_pnl_report_table(strategy_code, TradingType.REALTRADING)
+        return self.realtrade_pnl_data
 
-    def get_realtrading_report_statistics(self, strategy_code):
+    def get_realtrading_report_statistics(self, strategy_code, initial_funds=1e9, mode='quantstats', report='metrics', html_dump=False):
         """
         Fetch Real Trading report statistics
+
         Args:
-            strategy_code: Strategy code
+            strategy_code: strategy code
+            initial_funds: initial funds allotted before papertrading
+            mode: extension used to generate statistics
+            report: format and content of the report
+            html_dump: save it as a html file
 
         Returns:
             Report details
         """
-        # assert (isinstance(broker, AlgoBullsSupportedBrokers) is True), f'Argument broker should be an enum of type {AlgoBullsSupportedBrokers.__name__}'
+
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
 
-        return self.get_report(strategy_code=strategy_code, trading_type=TradingType.REALTRADING, report_type=TradingReportType.STATS_TABLE, render_as_dataframe=True)
+        if self.realtrade_pnl_data is None:
+            self.get_realtrading_report_pnl_table(strategy_code)
+        else:
+            print('Generating Statistics for already fetched P&L data...')
+
+        order_report = self.get_report_statistics(strategy_code, initial_funds, report, html_dump, self.realtrade_pnl_data)
+        return order_report
 
     def get_realtrading_report_order_history(self, strategy_code):
         """
