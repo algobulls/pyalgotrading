@@ -30,7 +30,6 @@ class AlgoBullsConnection:
         self.papertrade_pnl_data = None
         self.realtrade_pnl_data = None
 
-
     @staticmethod
     def get_authorization_url():
         """
@@ -334,6 +333,7 @@ class AlgoBullsConnection:
                 report: format and content of the report
                 html_dump: save it as a html file
                 pnl_df: dataframe containing pnl reports
+                initial_funds: initial funds to before starting the job
             Returns:
                 Report details
         """
@@ -380,7 +380,7 @@ class AlgoBullsConnection:
             candle: Candle interval
             mode: Intraday or delivery
             delete_previous_trades: Delete data for previous trades
-            initial_funds_virtual: virtual funds alloted before the backtesting starts
+            initial_funds_virtual: virtual funds allotted before the backtesting starts
 
         Legacy args (will be deprecated in future release):
             'strategy_code' behaves same 'strategy'
@@ -579,7 +579,7 @@ class AlgoBullsConnection:
             candle: Candle interval
             mode: Intraday or delivery
             delete_previous_trades: Delete data of all previous trades
-            initial_funds_virtual: virtual funds allotted before the backtesting starts
+            initial_funds_virtual: virtual funds allotted before the paper trading starts
 
 
         Legacy args (will be deprecated in future release):
