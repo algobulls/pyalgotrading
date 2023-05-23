@@ -372,8 +372,8 @@ class AlgoBullsConnection:
 
         Args:
             strategy: Strategy code
-            start: Start date/time
-            end: End date/time
+            start: Start date-time/time
+            end: End date-time/time
             instruments: Instrument key
             lots: Number of lots of the passed instrument to trade on
             parameters: Parameters
@@ -406,15 +406,16 @@ class AlgoBullsConnection:
 
         # Sanity checks - Convert config parameters
         _error_msg_candle = f'Argument "candle" should be a valid string or an enum of type CandleInterval. Possible string values can be: {get_valid_enum_names(CandleInterval)}'
-        _error_msg_timestamps = f'Argument "start" should be a valid timestamp string (YYYY-MM-DD | HH:MM) or an instance of type datetime.datetime'
+        _error_msg_timestamps = f'Argument "start" should be a valid timestamp string ' \
+                                f'\nString Format (YYYY-MM-DD | HH:MM) or an instance of type datetime.datetime for Back Testing \nString Format (HH:MM) or an instance of type datetime.time for Real trading or Paper Trading '
         _error_msg_instruments = f'Argument "instruments" should be a valid instrument string or a list of valid instruments strings. You can use the \'get_instrument()\' method of AlgoBullsConnection class to search for instruments'
         _error_msg_mode = f'Argument "mode" should be a valid string or an enum of type StrategyMode. Possible string values can be: {get_valid_enum_names(StrategyMode)}'
 
         initial_funds_virtual = float(initial_funds_virtual)
         if isinstance(start, str):
-            start = dt.strptime(start, '%Y-%m-%d | %H:%M')
+            start = dt.strptime(start, '%Y-%m-%d | %H:%M') if trading_type is TradingType.BACKTESTING else dt.combine(dt.today().date(), dt.strptime(start, '%H:%M').time())
         if isinstance(end, str):
-            end = dt.strptime(end, '%Y-%m-%d | %H:%M')
+            end = dt.strptime(end, '%Y-%m-%d | %H:%M') if trading_type is TradingType.BACKTESTING else dt.combine(dt.today().date(), dt.strptime(end, '%H:%M').time())
         if isinstance(mode, str):
             _ = mode.upper()
             assert _ in StrategyMode.__members__, _error_msg_candle
