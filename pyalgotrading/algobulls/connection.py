@@ -610,8 +610,8 @@ class AlgoBullsConnection:
 
         Args:
             strategy: Strategy code
-            start: Start date/time
-            end: End date/time
+            start: Start time
+            end: End time
             instruments: Instrument key
             lots: Number of lots of the passed instrument to trade on
             parameters: Parameters
@@ -619,7 +619,6 @@ class AlgoBullsConnection:
             mode: Intraday or delivery
             delete_previous_trades: Delete data of all previous trades
             initial_funds_virtual: virtual funds allotted before the paper trading starts
-
 
         Legacy args (will be deprecated in future release):
             'strategy_code' behaves same 'strategy'
@@ -743,14 +742,13 @@ class AlgoBullsConnection:
 
         Args:
             strategy: Strategy code
-            start: Start date/time
-            end: End date/time
+            start: Start time
+            end: End time
             instruments: Instrument key
             lots: Number of lots of the passed instrument to trade on
             parameters: Parameters
             candle: Candle interval
             mode: Intraday or delivery
-
 
         Legacy args (will be deprecated in future release):
             'strategy_code' behaves same 'strategy'

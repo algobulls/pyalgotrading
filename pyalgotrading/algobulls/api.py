@@ -332,9 +332,6 @@ class AlgoBullsAPI:
             response = self._send_request(method='patch', endpoint=endpoint, json_data=json_data)
             print('Success.')
 
-            # cleanup
-            self.connection.pnl_data = None
-
             return response
         except (AlgoBullsAPIForbiddenError, AlgoBullsAPIInsufficientBalanceError) as ex:
             print('Fail.')
