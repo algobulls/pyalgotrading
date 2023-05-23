@@ -281,7 +281,7 @@ class AlgoBullsConnection:
 
     def get_pnl_report_table(self, strategy_code, trading_type):
         """
-            Fetch Back Testing Profit & Loss details
+            Fetch BT/PT/RT Profit & Loss details
 
             Args:
                 strategy_code: strategy code
@@ -326,7 +326,7 @@ class AlgoBullsConnection:
 
     def get_report_statistics(self, strategy_code, initial_funds, report, html_dump, pnl_df):
         """
-            Fetch Back Testing report statistics
+            Fetch BT/PT/RT report statistics
 
             Args:
                 strategy_code: strategy code
