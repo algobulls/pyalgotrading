@@ -366,9 +366,9 @@ class AlgoBullsConnection:
 
         return order_report
 
-    def backtest(self, strategy=None, start=None, end=None, instruments=None, lots=1, parameters=None, candle=None, mode=StrategyMode.INTRADAY, delete_previous_trades=True, initial_funds_virtual=1e9, **kwargs):
+    def start_job(self, strategy=None, start=None, end=None, instruments=None, lots=1, parameters=None, candle=None, mode=StrategyMode.INTRADAY, initial_funds_virtual=1e9, delete_previous_trades=True, trading_type=None, **kwargs):
         """
-        Submit a backtesting job for a strategy on the AlgoBulls Platform
+        Submit a BT/PT/RT job for a strategy on the AlgoBulls Platform
 
         Args:
             strategy: Strategy code
@@ -381,6 +381,7 @@ class AlgoBullsConnection:
             mode: Intraday or delivery
             delete_previous_trades: Delete data for previous trades
             initial_funds_virtual: virtual funds allotted before the backtesting starts
+            trading_type: type of trading : PT/BT/RT
 
         Legacy args (will be deprecated in future release):
             'strategy_code' behaves same 'strategy'
@@ -392,9 +393,8 @@ class AlgoBullsConnection:
             'strategy__mode' behaves same 'mode'
 
         Returns:
-            backtest job submission status
+            job submission status
         """
-
         # check if values received by new parameter names, else extract from old parameter names
         strategy = strategy if strategy is not None else kwargs.get('strategy_code')
         start = start if start is not None else kwargs.get('start_timestamp')
@@ -436,11 +436,8 @@ class AlgoBullsConnection:
         assert isinstance(parameters, dict), f'Argument "parameters" should be a dict'
         assert isinstance(mode, StrategyMode), _error_msg_mode
         assert isinstance(candle, CandleInterval), _error_msg_candle
-        assert isinstance(delete_previous_trades, bool), 'Argument "delete_previous_trades" should be a boolean'
         assert isinstance(initial_funds_virtual, float), 'Argument "initial_funds_virtual" should be a float'
-
-        if delete_previous_trades:
-            self.delete_previous_trades(strategy)
+        assert isinstance(delete_previous_trades, bool), 'Argument "delete_previous_trades" should be a boolean'
 
         # Restructuring strategy params
         restructured_strategy_parameters = []
@@ -459,7 +456,7 @@ class AlgoBullsConnection:
                     instrument_list.append({'id': _["id"]})
                     break
 
-        # Setup config for Backtesting
+        # Setup config for starting the job
         strategy_config = {
             'instruments': {
                 'instruments': instrument_list
@@ -469,11 +466,52 @@ class AlgoBullsConnection:
             'candleDuration': candle.value,
             'strategyMode': mode.value
         }
-        self.api.set_strategy_config(strategy_code=strategy, strategy_config=strategy_config, trading_type=TradingType.BACKTESTING)
+        self.api.set_strategy_config(strategy_code=strategy, strategy_config=strategy_config, trading_type=trading_type)
 
+        # delete previous trades
+        if delete_previous_trades and trading_type in [TradingType.BACKTESTING, TradingType.PAPERTRADING]:
+            self.delete_previous_trades(strategy)
+
+        # Submit trading job
+        response = self.api.start_strategy_algotrading(strategy_code=strategy, start_timestamp=start, end_timestamp=end, trading_type=trading_type, lots=lots, initial_funds_virtual=initial_funds_virtual)
+        return response
+
+    def backtest(self, strategy=None, start=None, end=None, instruments=None, lots=1, parameters=None, candle=None, mode=StrategyMode.INTRADAY, delete_previous_trades=True, initial_funds_virtual=1e9, **kwargs):
+        """
+        Submit a backtesting job for a strategy on the AlgoBulls Platform
+
+        Args:
+            strategy: Strategy code
+            start: Start date/time
+            end: End date/time
+            instruments: Instrument key
+            lots: Number of lots of the passed instrument to trade on
+            parameters: Parameters
+            candle: Candle interval
+            mode: Intraday or delivery
+            delete_previous_trades: Delete data for previous trades
+            initial_funds_virtual: virtual funds allotted before the backtesting starts
+
+        Legacy args (will be deprecated in future release):
+            'strategy_code' behaves same 'strategy'
+            'start_timestamp' behaves same 'start'
+            'end_timestamp' behaves same 'end'
+            'instrument' behaves same 'instruments'
+            'strategy_parameters' behaves same 'parameters'
+            'candle_interval' behaves same 'candle'
+            'strategy__mode' behaves same 'mode'
+
+        Returns:
+            backtest job submission status
+        """
+        # start backtesting job
+        response = self.start_job(
+            strategy=strategy, start=start, end=end, instrument=instruments, lots=lots, parameters=parameters, candle=candle, mode=mode,
+            initial_funds_virtual=initial_funds_virtual, delete_previous_trades=delete_previous_trades, trading_type=TradingType.BACKTESTING
+        )
+
+        # Clear previously saved pnl data, if any
         self.backtesting_pnl_data = None
-        # Submit Backtesting job
-        response = self.api.start_strategy_algotrading(strategy_code=strategy, start_timestamp=start, end_timestamp=end, trading_type=TradingType.BACKTESTING, lots=lots, initial_funds_virtual=initial_funds_virtual)
 
     def get_backtesting_job_status(self, strategy_code):
         """
@@ -595,82 +633,13 @@ class AlgoBullsConnection:
             papertrade job submission status
         """
 
-        # check if values received by new parameter names, else extract from old parameter names
-        strategy = strategy if strategy is not None else kwargs.get('strategy_code')
-        start = start if start is not None else kwargs.get('start_timestamp')
-        end = end if end is not None else kwargs.get('end_timestamp')
-        parameters = parameters if parameters is not None else kwargs.get('strategy_parameters')
-        candle = candle if candle is not None else kwargs.get('candle_interval')
-        instruments = instruments if instruments is not None else kwargs.get('instrument')
-        mode = mode if 'strategy_mode' not in kwargs else kwargs.get('strategy_mode')
-
-        # Sanity checks - Convert config parameters
-        _error_msg_candle = f'Argument "candle" should be a valid string or an enum of type CandleInterval. Possible string values can be: {get_valid_enum_names(CandleInterval)}'
-        _error_msg_timestamps = f'Argument "start" should be a valid time string (HH:MM) or an instance of type datetime.time'
-        _error_msg_instruments = f'Argument "instruments" should be a valid instrument string or a list of valid instruments strings. You can use the \'get_instrument()\' method of AlgoBullsConnection class to search for instruments'
-        _error_msg_mode = f'Argument "mode" should be a valid string or an enum of type StrategyMode. Possible string values can be: {get_valid_enum_names(StrategyMode)}'
-
-        if isinstance(start, str):
-            start = dt.combine(dt.today().date(), dt.strptime(start, '%H:%M').time())
-        if isinstance(end, str):
-            end = dt.combine(dt.today().date(), dt.strptime(end, '%H:%M').time())
-        if isinstance(mode, str):
-            _ = mode.upper()
-            assert _ in StrategyMode.__members__, _error_msg_candle
-            mode = StrategyMode[_]
-        if isinstance(candle, str):
-            _ = f"{'_' if candle[0].isdigit() else ''}{candle.strip().upper().replace(' ', '_')}"
-            assert _ in CandleInterval.__members__, _error_msg_candle
-            candle = CandleInterval[_]
-        if isinstance(instruments, str):
-            instruments = [instruments]
-
-        # Sanity checks - Validate config parameters
-        assert isinstance(strategy, str), f'Argument "strategy" should be a valid string'
-        assert isinstance(start, dt), _error_msg_timestamps
-        assert isinstance(end, dt), _error_msg_timestamps
-        assert isinstance(instruments, list), _error_msg_instruments
-        assert len(instruments) > 0, _error_msg_instruments
-        assert (isinstance(lots, int) and lots > 0), f'Argument "lots" should be a positive integer.'
-        assert isinstance(parameters, dict), f'Argument "parameters" should be a dict'
-        assert isinstance(mode, StrategyMode), _error_msg_mode
-        assert isinstance(candle, CandleInterval), _error_msg_candle
-
-        if delete_previous_trades:
-            self.delete_previous_trades(strategy)
-
-        # Restructuring strategy params
-        restructured_strategy_parameters = []
-        for parameter_name in parameters:
-            restructured_strategy_parameters.append({
-                'paramName': parameter_name,
-                'paramValue': parameters[parameter_name]
-            })
-
-        # generate instruments' id list
-        instrument_list = []
-        for _instrument in instruments:
-            instrument_results = self.search_instrument(_instrument.split(':')[-1])
-            for _error_msg_timestamps in instrument_results:
-                if _error_msg_timestamps["value"] == _instrument:
-                    instrument_list.append({'id': _error_msg_timestamps["id"]})
-                    break
-
-        # Setup config for Paper Trading
-        strategy_config = {
-            'instruments': {
-                'instruments': instrument_list
-            },
-            'lots': lots,
-            'userParams': restructured_strategy_parameters,
-            'candleDuration': candle.value,
-            'strategyMode': mode.value
-        }
-        self.api.set_strategy_config(strategy_code=strategy, strategy_config=strategy_config, trading_type=TradingType.PAPERTRADING)
-
+        # start papertrading job
+        response = self.start_job(
+            strategy=strategy, start=start, end=end, instrument=instruments, lots=lots, parameters=parameters, candle=candle, mode=mode,
+            initial_funds_virtual=initial_funds_virtual, delete_previous_trades=delete_previous_trades, trading_type=TradingType.PAPERTRADING
+        )
+        # Clear previously saved pnl data, if any
         self.papertrade_pnl_data = None
-        # Submit Paper Trading job
-        response = self.api.start_strategy_algotrading(strategy_code=strategy, start_timestamp=start, end_timestamp=end, trading_type=TradingType.PAPERTRADING, lots=lots, initial_funds_virtual=initial_funds_virtual)
 
     def get_papertrading_job_status(self, strategy_code):
         """
@@ -764,7 +733,7 @@ class AlgoBullsConnection:
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
         return self.get_report(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING, report_type=TradingReportType.ORDER_HISTORY)
 
-    def realtrade(self, strategy=None, start=None, end=None, instruments=None, lots=None, parameters=None, candle=None, mode=StrategyMode.INTRADAY, delete_previous_trades=True, initial_funds_virtual=1e9, **kwargs):
+    def realtrade(self, strategy=None, start=None, end=None, instruments=None, lots=None, parameters=None, candle=None, mode=StrategyMode.INTRADAY, **kwargs):
         """
         Start a Real Trading session.
         Update: This requires an approval process which is currently on request basis.
@@ -780,8 +749,6 @@ class AlgoBullsConnection:
             parameters: Parameters
             candle: Candle interval
             mode: Intraday or delivery
-            delete_previous_trades: Delete data of all previous trades
-            initial_funds_virtual: virtual funds allotted before the real trading starts
 
 
         Legacy args (will be deprecated in future release):
@@ -797,84 +764,11 @@ class AlgoBullsConnection:
             realtrade job submission status
         """
 
-        # check if values received by new parameter names, else extract from old parameter names
-        strategy = strategy if strategy is not None else kwargs.get('strategy_code')
-        start = start if start is not None else kwargs.get('start_timestamp')
-        end = end if end is not None else kwargs.get('end_timestamp')
-        parameters = parameters if parameters is not None else kwargs.get('strategy_parameters')
-        candle = candle if candle is not None else kwargs.get('candle_interval')
-        instruments = instruments if instruments is not None else kwargs.get('instrument')
-        mode = mode if 'strategy_mode' not in kwargs else kwargs.get('strategy_mode')
+        # start real trading job
+        response = self.start_job(strategy=strategy, start=start, end=end, instrument=instruments, lots=lots, parameters=parameters, candle=candle, mode=mode, trading_type=TradingType.REALTRADING)
 
-        # Sanity checks - Convert config parameters
-        _error_msg_candle = f'Argument "candle" should be a valid string or an enum of type CandleInterval. Possible string values can be: {get_valid_enum_names(CandleInterval)}'
-        _error_msg_timestamps = f'Argument "start" should be a valid time string (HH:MM) or an instance of type datetime.time'
-        _error_msg_instruments = f'Argument "instruments" should be a valid instrument string or a list of valid instruments strings. You can use the \'get_instrument()\' method of AlgoBullsConnection class to search for instruments'
-        _error_msg_mode = f'Argument "mode" should be a valid string or an enum of type StrategyMode. Possible string values can be: {get_valid_enum_names(StrategyMode)}'
-
-        if isinstance(start, str):
-            start = dt.combine(dt.today().date(), dt.strptime(start, '%H:%M').time())
-        if isinstance(end, str):
-            end = dt.combine(dt.today().date(), dt.strptime(end, '%H:%M').time())
-        if isinstance(mode, str):
-            _ = mode.upper()
-            assert _ in StrategyMode.__members__, _error_msg_candle
-            mode = StrategyMode[_]
-        if isinstance(candle, str):
-            _ = f"{'_' if candle[0].isdigit() else ''}{candle.strip().upper().replace(' ', '_')}"
-            assert _ in CandleInterval.__members__, _error_msg_candle
-            candle = CandleInterval[_]
-        if isinstance(instruments, str):
-            instruments = [instruments]
-
-        # Sanity checks - Validate config parameters
-        assert isinstance(strategy, str), f'Argument "strategy" should be a valid string'
-        assert isinstance(start, dt), _error_msg_timestamps
-        assert isinstance(end, dt), _error_msg_timestamps
-        assert isinstance(instruments, list), _error_msg_instruments
-        assert len(instruments) > 0, _error_msg_instruments
-        assert (isinstance(lots, int) and lots > 0), f'Argument "lots" should be a positive integer.'
-        assert isinstance(parameters, dict), f'Argument "parameters" should be a dict'
-        assert isinstance(mode, StrategyMode), _error_msg_mode
-        assert isinstance(candle, CandleInterval), _error_msg_candle
-
-        if delete_previous_trades:
-            self.delete_previous_trades(strategy)
-
-        # Restructuring strategy params
-        restructured_strategy_parameters = []
-        for parameter_name in parameters:
-            restructured_strategy_parameters.append({
-                'paramName': parameter_name,
-                'paramValue': parameters[parameter_name]
-            })
-
-        # generate instruments' id list
-        instrument_list = []
-        for _instrument in instruments:
-            instrument_results = self.search_instrument(_instrument.split(':')[-1])
-            for _error_msg_timestamps in instrument_results:
-                if _error_msg_timestamps["value"] == _instrument:
-                    instrument_list.append({'id': _error_msg_timestamps["id"]})
-                    break
-
-        # Setup config for Paper Trading
-        strategy_config = {
-            'instruments': {
-                'instruments': instrument_list
-            },
-            'lots': lots,
-            'userParams': restructured_strategy_parameters,
-            'candleDuration': candle.value,
-            'strategyMode': mode.value
-        }
-        self.api.set_strategy_config(strategy_code=strategy, strategy_config=strategy_config, trading_type=TradingType.REALTRADING)
-
+        # Clear previously saved pnl data, if any
         self.realtrade_pnl_data = None
-        # Submit Paper Trading job
-        response = self.api.start_strategy_algotrading(strategy_code=strategy, start_timestamp=start, end_timestamp=end, trading_type=TradingType.REALTRADING, lots=lots, initial_funds_virtual=initial_funds_virtual)
-
-        print(MESSAGE_REALTRADING_FORBIDDEN)
 
     def livetrade(self, *args, **kwargs):
         self.realtrade(*args, **kwargs)

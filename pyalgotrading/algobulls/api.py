@@ -291,7 +291,7 @@ class AlgoBullsAPI:
         print('Success.')
         return key, response
 
-    def start_strategy_algotrading(self, strategy_code: str, start_timestamp: dt, end_timestamp: dt, trading_type: TradingType, lots: int, initial_funds_virtual: float) -> dict:
+    def start_strategy_algotrading(self, strategy_code: str, start_timestamp: dt, end_timestamp: dt, trading_type: TradingType, lots: int, initial_funds_virtual=1e9) -> dict:
         """
         Submit Backtesting / Paper Trading / Real Trading job for strategy with code strategy_code & return the job ID.
         
@@ -305,9 +305,8 @@ class AlgoBullsAPI:
         Info: ENDPOINT
             `PATCH` v4/portfolio/strategies?isPythonBuild=true
         """
-        if trading_type == TradingType.REALTRADING:
-            return {'message': MESSAGE_REALTRADING_FORBIDDEN}
-        elif trading_type in [TradingType.PAPERTRADING, TradingType.BACKTESTING]:
+
+        if trading_type in [TradingType.PAPERTRADING, TradingType.BACKTESTING, TradingType.REALTRADING]:
             endpoint = 'v4/portfolio/strategies?isPythonBuild=true'
         else:
             raise NotImplementedError
@@ -322,10 +321,12 @@ class AlgoBullsAPI:
             _timestamp_format = "%d-%m-%YT%H:%MZ"
             execute_config = {
                 map_trading_type_to_date_key[trading_type]: [start_timestamp.astimezone().astimezone(timezone.utc).isoformat(), end_timestamp.astimezone().astimezone(timezone.utc).isoformat()],
-                'isLiveDataTestMode': trading_type == TradingType.PAPERTRADING,
+                'isLiveDataTestMode': trading_type in [TradingType.PAPERTRADING, TradingType.REALTRADING],
                 'customizationsQuantity': lots,
                 'initial_funds_virtual': initial_funds_virtual
             }
+            if trading_type is TradingType.REALTRADING:
+                del execute_config['initial_funds_virtual']
             json_data = {'method': 'update', 'newVal': 1, 'key': key, 'record': {'status': 0, 'lots': lots, 'executeConfig': execute_config}, 'dataIndex': 'executeConfig'}
             print(f'Submitting {trading_type.name} job...', end=' ')
             response = self._send_request(method='patch', endpoint=endpoint, json_data=json_data)
