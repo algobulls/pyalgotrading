@@ -456,6 +456,10 @@ class AlgoBullsConnection:
                     instrument_list.append({'id': _["id"]})
                     break
 
+        # delete previous trades
+        if delete_previous_trades and trading_type in [TradingType.BACKTESTING, TradingType.PAPERTRADING]:
+            self.delete_previous_trades(strategy)
+
         # Setup config for starting the job
         strategy_config = {
             'instruments': {
@@ -467,10 +471,6 @@ class AlgoBullsConnection:
             'strategyMode': mode.value
         }
         self.api.set_strategy_config(strategy_code=strategy, strategy_config=strategy_config, trading_type=trading_type)
-
-        # delete previous trades
-        if delete_previous_trades and trading_type in [TradingType.BACKTESTING, TradingType.PAPERTRADING]:
-            self.delete_previous_trades(strategy)
 
         # Submit trading job
         response = self.api.start_strategy_algotrading(strategy_code=strategy, start_timestamp=start, end_timestamp=end, trading_type=trading_type, lots=lots, initial_funds_virtual=initial_funds_virtual)
