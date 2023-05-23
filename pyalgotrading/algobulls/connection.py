@@ -503,27 +503,27 @@ class AlgoBullsConnection:
 
     def get_backtesting_logs(self, strategy_code):
         """
-            Fetch Back Testing logs
+        Fetch Back Testing logs
 
-            Args:
-                strategy_code: Strategy code
+        Args:
+            strategy_code: Strategy code
 
-            Returns:
-                Report details
+        Returns:
+            Report details
         """
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
         return self.get_logs(strategy_code, trading_type=TradingType.BACKTESTING)
 
     def get_backtesting_report_pnl_table(self, strategy_code, show_all_rows=False):
         """
-            Fetch Back Testing Profit & Loss details
+        Fetch Back Testing Profit & Loss details
 
-            Args:
-                strategy_code: strategy code
-                show_all_rows: True or False
+        Args:
+            strategy_code: strategy code
+            show_all_rows: True or False
 
-            Returns:
-                Report details
+        Returns:
+            Report details
         """
         if self.backtesting_pnl_data is None:
             self.backtesting_pnl_data = self.get_pnl_report_table(strategy_code, TradingType.BACKTESTING)
@@ -769,33 +769,33 @@ class AlgoBullsConnection:
         Start a Real Trading session.
         Update: This requires an approval process which is currently on request basis.
 
-                Start a real trade job for a strategy on the AlgoBulls Platform
+        Start a real trade job for a strategy on the AlgoBulls Platform
 
-                Args:
-                    strategy: Strategy code
-                    start: Start date/time
-                    end: End date/time
-                    instruments: Instrument key
-                    lots: Number of lots of the passed instrument to trade on
-                    parameters: Parameters
-                    candle: Candle interval
-                    mode: Intraday or delivery
-                    delete_previous_trades: Delete data of all previous trades
-                    initial_funds_virtual: virtual funds allotted before the real trading starts
+        Args:
+            strategy: Strategy code
+            start: Start date/time
+            end: End date/time
+            instruments: Instrument key
+            lots: Number of lots of the passed instrument to trade on
+            parameters: Parameters
+            candle: Candle interval
+            mode: Intraday or delivery
+            delete_previous_trades: Delete data of all previous trades
+            initial_funds_virtual: virtual funds allotted before the real trading starts
 
 
-                Legacy args (will be deprecated in future release):
-                    'strategy_code' behaves same 'strategy'
-                    'start_timestamp' behaves same 'start'
-                    'end_timestamp' behaves same 'end'
-                    'instrument' behaves same 'instruments'
-                    'strategy_parameters' behaves same 'parameters'
-                    'candle_interval' behaves same 'candle'
-                    'strategy__mode' behaves same 'mode'
+        Legacy args (will be deprecated in future release):
+            'strategy_code' behaves same 'strategy'
+            'start_timestamp' behaves same 'start'
+            'end_timestamp' behaves same 'end'
+            'instrument' behaves same 'instruments'
+            'strategy_parameters' behaves same 'parameters'
+            'candle_interval' behaves same 'candle'
+            'strategy__mode' behaves same 'mode'
 
-                Returns:
-                    realtrade job submission status
-                """
+        Returns:
+            realtrade job submission status
+        """
 
         # check if values received by new parameter names, else extract from old parameter names
         strategy = strategy if strategy is not None else kwargs.get('strategy_code')

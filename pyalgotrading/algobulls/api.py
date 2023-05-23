@@ -262,10 +262,9 @@ class AlgoBullsAPI:
             response: response from api
 
         Info: ENDPOINT
-           `DELETE` v3/build/python/user/strategy/deleteAll?strategyId=<strategy_code>
+           `DELETE` v3/build/python/user/strategy/deleteAll?strategyId={strategy}
         """
         endpoint = f'v3/build/python/user/strategy/deleteAll?strategyId={strategy}'
-        headers = self.headers
         response = self._send_request(method='delete', endpoint=endpoint)
         return response
 
@@ -316,7 +315,7 @@ class AlgoBullsAPI:
         try:
             key = self.__get_key(strategy_code=strategy_code, trading_type=trading_type)
             map_trading_type_to_date_key = {
-                TradingType.REALTRADING: 'liveDatlsaTime',
+                TradingType.REALTRADING: 'liveDataTime',
                 TradingType.PAPERTRADING: 'backDataTime',
                 TradingType.BACKTESTING: 'backDataDate'
             }
