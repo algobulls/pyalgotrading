@@ -366,7 +366,7 @@ class AlgoBullsConnection:
 
         return order_report
 
-    def start_job(self, strategy=None, start=None, end=None, instruments=None, lots=1, parameters=None, candle=None, mode=StrategyMode.INTRADAY, initial_funds_virtual=1e9, delete_previous_trades=True, trading_type=None, **kwargs):
+    def start_job(self, strategy=None, start=None, end=None, instruments=None, lots=1, parameters=None, candle=None, mode=StrategyMode.INTRADAY, initial_funds_virtual=1e9, delete_previous_trades=True, trading_type=None, brokerId=None, **kwargs):
         """
         Submit a BT/PT/RT job for a strategy on the AlgoBulls Platform
 
@@ -474,7 +474,7 @@ class AlgoBullsConnection:
         self.api.set_strategy_config(strategy_code=strategy, strategy_config=strategy_config, trading_type=trading_type)
 
         # Submit trading job
-        response = self.api.start_strategy_algotrading(strategy_code=strategy, start_timestamp=start, end_timestamp=end, trading_type=trading_type, lots=lots, initial_funds_virtual=initial_funds_virtual)
+        response = self.api.start_strategy_algotrading(strategy_code=strategy, start_timestamp=start, end_timestamp=end, trading_type=trading_type, lots=lots, initial_funds_virtual=initial_funds_virtual, brokerId=brokerId)
         return response
 
     def backtest(self, strategy=None, start=None, end=None, instruments=None, lots=1, parameters=None, candle=None, mode=StrategyMode.INTRADAY, delete_previous_trades=True, initial_funds_virtual=1e9, **kwargs):
@@ -733,7 +733,7 @@ class AlgoBullsConnection:
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
         return self.get_report(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING, report_type=TradingReportType.ORDER_HISTORY)
 
-    def realtrade(self, strategy=None, start=None, end=None, instruments=None, lots=None, parameters=None, candle=None, mode=StrategyMode.INTRADAY, **kwargs):
+    def realtrade(self, strategy=None, start=None, end=None, instruments=None, lots=None, parameters=None, candle=None, mode=StrategyMode.INTRADAY, brokerId=None, **kwargs):
         """
         Start a Real Trading session.
         Update: This requires an approval process which is currently on request basis.
@@ -749,6 +749,7 @@ class AlgoBullsConnection:
             parameters: Parameters
             candle: Candle interval
             mode: Intraday or delivery
+            brokerId: ID of the broker
 
         Legacy args (will be deprecated in future release):
             'strategy_code' behaves same 'strategy'
@@ -764,7 +765,7 @@ class AlgoBullsConnection:
         """
 
         # start real trading job
-        response = self.start_job(strategy=strategy, start=start, end=end, instrument=instruments, lots=lots, parameters=parameters, candle=candle, mode=mode, trading_type=TradingType.REALTRADING)
+        response = self.start_job(strategy=strategy, start=start, end=end, instrument=instruments, lots=lots, parameters=parameters, candle=candle, mode=mode, trading_type=TradingType.REALTRADING, brokerId=brokerId)
 
         # Clear previously saved pnl data, if any
         self.realtrade_pnl_data = None

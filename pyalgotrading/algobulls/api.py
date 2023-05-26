@@ -291,7 +291,7 @@ class AlgoBullsAPI:
         print('Success.')
         return key, response
 
-    def start_strategy_algotrading(self, strategy_code: str, start_timestamp: dt, end_timestamp: dt, trading_type: TradingType, lots: int, initial_funds_virtual=1e9) -> dict:
+    def start_strategy_algotrading(self, strategy_code: str, start_timestamp: dt, end_timestamp: dt, trading_type: TradingType, lots: int, initial_funds_virtual=1e9, brokerId:str=None) -> dict:
         """
         Submit Backtesting / Paper Trading / Real Trading job for strategy with code strategy_code & return the job ID.
         
@@ -325,11 +325,17 @@ class AlgoBullsAPI:
                 'customizationsQuantity': lots,
                 'initial_funds_virtual': initial_funds_virtual
             }
+            params=None
             if trading_type is TradingType.REALTRADING:
+                endpoint = 'v4/portfolio/strategies?isPythonBuild=false'
                 del execute_config['initial_funds_virtual']
+                execute_config['brokerId'] = brokerId
             json_data = {'method': 'update', 'newVal': 1, 'key': key, 'record': {'status': 0, 'lots': lots, 'executeConfig': execute_config}, 'dataIndex': 'executeConfig'}
             print(f'Submitting {trading_type.name} job...', end=' ')
-            response = self._send_request(method='patch', endpoint=endpoint, json_data=json_data)
+            print(f'\ndelete this : payload : {json_data}')
+            print(f'\ndelete this : params : {params}')
+
+            response = self._send_request(method='patch', endpoint=endpoint, json_data=json_data, params=params)
             print('Success.')
             return response
         except (AlgoBullsAPIForbiddenError, AlgoBullsAPIInsufficientBalanceError) as ex:
