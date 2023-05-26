@@ -302,6 +302,7 @@ class AlgoBullsAPI:
             trading_type: Trading type
             lots: Lots
             initial_funds_virtual: virtual funds before starting the strategy
+            brokerId: id of the broker for real trades
         Info: ENDPOINT
             `PATCH` v4/portfolio/strategies?isPythonBuild=true
         """
@@ -332,8 +333,6 @@ class AlgoBullsAPI:
                 execute_config['brokerId'] = brokerId
             json_data = {'method': 'update', 'newVal': 1, 'key': key, 'record': {'status': 0, 'lots': lots, 'executeConfig': execute_config}, 'dataIndex': 'executeConfig'}
             print(f'Submitting {trading_type.name} job...', end=' ')
-            print(f'\ndelete this : payload : {json_data}')
-            print(f'\ndelete this : params : {params}')
 
             response = self._send_request(method='patch', endpoint=endpoint, json_data=json_data, params=params)
             print('Success.')

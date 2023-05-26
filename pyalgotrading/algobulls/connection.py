@@ -382,6 +382,7 @@ class AlgoBullsConnection:
             delete_previous_trades: Delete data for previous trades
             initial_funds_virtual: virtual funds allotted before the backtesting starts
             trading_type: type of trading : PT/BT/RT
+            brokerId: ID of the broker (for real trading)
 
         Legacy args (will be deprecated in future release):
             'strategy_code' behaves same 'strategy'
