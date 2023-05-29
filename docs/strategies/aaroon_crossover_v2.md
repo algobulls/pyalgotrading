@@ -1,39 +1,26 @@
-# Aroon Crossover v2
-This is a trading strategy called "Aaroon Crossover v2" implemented in Python using the PyAlgoTrading library. The strategy is based on the Aaroon indicator crossover.
+# Aroon Crossover 
+This is a trading strategy called "Aaroon Crossover" implemented in Python using the PyAlgoTrading library. The strategy is based on the Aaroon indicator crossover.
+
+## Aroon Indicator
+In the stock market, Aroon refers to the Aroon indicator, which is a technical analysis tool used to measure the strength and direction of a trend. It consists of two lines, the Aroon-Up line and the Aroon-Down line.
+
+The Aroon-Up line measures the number of periods since the highest price within a given period, while the Aroon-Down line measures the number of periods since the lowest price within a given period. The Aroon indicator ranges from 0 to 100, with values closer to 100 indicating a strong trend and values closer to 0 indicating a weak or non-existent trend.
+
+Traders and investors use the Aroon indicator to identify potential trend reversals, assess the strength of a trend, and generate buy or sell signals. For example, when the Aroon-Up line crosses above the Aroon-Down line, it may suggest a bullish trend, while a cross below may indicate a bearish trend.
+
+It's important to note that the Aroon indicator is just one of many tools used in technical analysis, and its effectiveness can vary depending on market conditions and other factors. It is often used in conjunction with other indicators and analysis techniques to make informed trading decisions.
+
+[![aroon](images/aroon.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](images/aroon.png)
 
 ## Strategy Overview
-This strategy, called Aaroon Crossover v2, implements a crossover strategy using the Aroon indicator. It generates entry and exit signals based on the crossover of Aroon Up and Aroon Down values.
+This strategy, called Aroon Crossover v2, implements a crossover strategy using the Aroon indicator. It generates entry and exit signals based on the crossover of Aroon Up and Aroon Down values.
 
 ## Strategy Parameters
 The following parameters can be configured for the strategy:
 
-- `TIME_PERIOD` The period for which we calculate the Aaroon Value
+- `TIME_PERIOD` The period for which we calculate the Aroon Value
 
-## Initialization
-
-The `__init__` method initializes the Aroon Crossover v2 strategy. It retrieves the strategy parameters, including the time period for the Aroon indicator. The method also performs parameter validation to ensure the time period is a positive integer. The `main_order_map` variable is initialized to `None`.
-
-## Initialization of Variables
-
-The `initialize` method is called at the start of every day to initialize or re-initialize the strategy variables. In this code, it sets the `main_order_map` to an empty dictionary.
 
 ## Crossover Calculation
 
 The `get_crossover_value` method calculates the Aroon Up and Aroon Down values for a given instrument based on the historical data. It uses the `talib.AROON` function from the Talib library to calculate the values. The method then determines the crossover of Aroon Up and Aroon Down and returns the corresponding entry or exit action.
-
-## Entry Selection
-
-The `strategy_select_instruments_for_entry` method is called every candle time to select instruments for entry. It loops through the instruments provided and uses the `get_crossover_value` method to determine if an instrument meets the entry criteria. If an instrument qualifies, it is added to the `selected_instruments` list along with accompanying meta information.
-
-## Entry Execution
-
-The `strategy_enter_position` method is called for each instrument selected for entry. It places a buy or sell order for the instrument based on the entry action determined by the crossover. The method returns the order object.
-
-## Exit Selection
-
-The `strategy_select_instruments_for_exit` method is called every candle time to select instruments for exit. It loops through the instruments and checks if the main order for each instrument is complete. If a complete main order is found, it uses the `get_crossover_value` method to determine if an exit order should be placed. If an exit signal is present, the instrument is added to the `selected_instruments` list along with meta information.
-
-## Exit Execution
-
-The `strategy_exit_position` method is called for each instrument selected for exit. It exits the main order for the instrument and sets the `main_order_map` to `None`. If the exit action is valid (EXIT), the method returns `True` to indicate that the instrument has exited completely. Otherwise, it returns `False`.
-

@@ -1,6 +1,25 @@
-# Reverse RSI v2
+# Reverse RSI 
 
 This is a trading strategy called "Reverse RSI v2" implemented in Python using the PyAlgoTrading library. The strategy is based on the relative strength index indicator.
+
+## What is RSI 
+RSI stands for Relative Strength Index, and it is a popular technical indicator used in the stock market to analyze the strength and momentum of a price trend. The RSI provides insights into whether a stock is overbought or oversold and can help identify potential trend reversals.
+
+Here's a summary of RSI in the stock market:
+
+- The Relative Strength Index (RSI) is a momentum oscillator that measures the speed and change of price movements.
+- It compares the magnitude of recent gains to recent losses over a specified period, typically 14 days, and generates a value between 0 and 100.
+- The RSI is calculated using a formula that involves averaging the upward price movements (gains) and the downward price movements (losses) over the chosen period.
+- A high RSI value (typically above 70) indicates that a stock is overbought, meaning it may have experienced a significant price increase and could be due for a correction or pullback.
+- Conversely, a low RSI value (typically below 30) suggests that a stock is oversold, indicating it may have experienced a significant price decline and could be poised for a potential rebound or upward move.
+- Traders often use RSI as a tool to identify potential trend reversals, as extreme RSI readings (above 70 or below 30) can signal a potential change in the direction of the price trend.
+- Additionally, traders may look for bullish or bearish divergences between the RSI and the price chart, which can provide further indications of a potential trend reversal.
+- The RSI is just one tool among many in technical analysis, and it is often used in conjunction with other indicators and analysis techniques to make more informed trading decisions.
+
+Overall, the Relative Strength Index (RSI) is a widely used indicator in the stock market to assess the strength and momentum of price movements. It helps traders identify overbought and oversold conditions, as well as potential trend reversals, which can assist in making trading decisions.
+
+[![rsi](images/rsi.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](images/rsi.png)
+
 
 ## Strategy Overview
 The Reverse RSI v2 strategy is a trading strategy based on the Relative Strength Index (RSI) indicator. It generates entry and exit signals based on the reverse crossover of the RSI values from specified overbought and oversold levels.
@@ -12,31 +31,7 @@ The following parameters can be configured for the strategy:
  - `OVERBOUGHT_VALUE`: RSI value above which stocks are considered over-bought
  - `OVERSOLD_VALUE`:  RSI value below which stocks are considered over-sold
 
-## Initialization
-
-The `__init__` method initializes the Reverse RSI v2 strategy. It retrieves the strategy parameters, including the time period for RSI calculation, overbought value, and oversold value. The method performs parameter validation to ensure the values are positive integers. The `main_order_map` variable is initialized to `None`.
-
-## Initialization of Variables
-
-The `initialize` method is called at the start of every day to initialize or re-initialize the strategy variables. In this code, it sets the `main_order_map` to an empty dictionary.
-
-## Decision Calculation
+## Crossover Calculation
 
 The `get_crossover_value` method calculates the crossover values for the RSI indicator using historical data of the instrument. It compares the RSI values with the overbought and oversold levels to determine the entry and exit actions. The method returns the crossover values for oversold and overbought levels.
-
-## Entry Selection
-
-The `strategy_select_instruments_for_entry` method is called every candle time to select instruments for entry. It loops through the instruments provided and checks if the main order for each instrument is None. If a main order doesn't exist, it calls the `get_crossover_value` method to determine if an entry order should be placed based on the oversold and overbought crossover values. If an entry signal is present, the instrument is added to the `selected_instruments` list along with accompanying meta information indicating the action (BUY or SELL).
-
-## Entry Execution
-
-The `strategy_enter_position` method is called for each instrument selected for entry. It places a buy or sell order for the instrument based on the entry action determined by the oversold and overbought crossover values. The method returns the order object.
-
-## Exit Selection
-
-The `strategy_select_instruments_for_exit` method is called every candle time to select instruments for exit. It loops through the instruments and checks if the main order for each instrument exists. If a main order is present, it calls the `get_crossover_value` method to determine if an exit order should be placed based on the oversold and overbought crossover values. If an exit signal is present, the instrument is added to the `instruments` list along with meta information indicating the action (EXIT).
-
-## Exit Execution
-
-The `strategy_exit_position` method is called for each instrument selected for exit. It exits the main order for the instrument and sets the `main_order_map` to `None`. If the exit action is valid (EXIT), the method returns `True` to indicate that the instrument has exited completely. Otherwise, it returns `False`.
 

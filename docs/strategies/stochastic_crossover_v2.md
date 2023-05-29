@@ -2,6 +2,26 @@
 
 This is a trading strategy called "Stochastic Crossover v2" implemented in Python using the PyAlgoTrading library. The strategy is based on the Stochastic indicator crossover.
 
+# Stochastic Oscillator Indicator
+In the stock market, Stochastic refers to the Stochastic Oscillator, which is a popular technical indicator used to analyze price momentum and identify potential trend reversals. The Stochastic Oscillator compares the closing price of a security to its price range over a specific period of time. It consists of two lines, %K and %D, and generates values between 0 and 100.
+
+Here's a summary of the Stochastic Oscillator in the stock market:
+
+- The Stochastic Oscillator measures the relationship between a security's closing price and its price range over a chosen period.
+- The indicator consists of two lines: %K and %D. %K represents the current closing price relative to the price range, while %D is a smoothed average of %K.
+- The Stochastic Oscillator is bound between 0 and 100. Readings above 80 are typically considered overbought, suggesting a potential price decline or correction. Readings below 20 are often considered oversold, indicating a potential price increase or rebound.
+- Traders use the Stochastic Oscillator to identify potential trend reversals, as overbought or oversold conditions can indicate a possible change in the direction of the price trend.
+- The indicator also generates bullish or bearish divergences, where the price trend and the Stochastic lines move in opposite directions, which can signal a potential trend reversal.
+- The Stochastic Oscillator has various trading strategies associated with it, such as crossovers, overbought/oversold levels, and divergences, which traders use to make buy or sell decisions.
+- It's important to note that the Stochastic Oscillator is a lagging indicator, meaning it may not provide precise timing for trade entries or exits. Therefore, it is often used in conjunction with other indicators and analysis techniques to confirm signals and improve the accuracy of trading decisions.
+- Overall, the Stochastic Oscillator is a widely used technical indicator in the stock market that helps traders assess price momentum, identify overbought and oversold conditions, and spot potential trend reversals. By analyzing the relationship between the closing price and price range, traders can gain insights into potential buying or selling opportunities.
+
+[![stochastic_1](images/stochastic_1.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](images/stochastic_1.png)
+
+
+[![rsi](images/stochastic_2.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](images/stochastic_2.png)
+
+
 ## Strategy Overview
 
 The strategy follows a simple rule based on the Stochastic indicator crossover. When the Stochastic indicator's %K line crosses above the %D line, a buy signal is generated. Conversely, when the %K line crosses below the %D line, a sell signal is generated. The strategy aims to capture potential trend reversals.
@@ -14,23 +34,6 @@ The following parameters can be configured for the strategy:
 - `SLOWK_PERIOD` or `SMOOTH_K_PERIOD`: The period for the slow %K line of the Stochastic indicator.
 - `SLOWD_PERIOD` or `SMOOTH_D_PERIOD`: The period for the slow %D line of the Stochastic indicator.
 
-## Initialization
+## Crossover Calculation
 
-The strategy initializes the Stochastic parameters by retrieving them from the strategy parameters. It performs sanity checks to ensure that the parameters are positive integers.
-
-## Entry Decision
-
-The `strategy_select_instruments_for_entry` method is called for each candle to determine the instruments for which entry orders should be placed. It loops over the instruments in the provided bucket and checks if there are no current orders for the instrument. If no orders are present, it calculates the Stochastic crossover value for the instrument. If the crossover value is -1 or 1, indicating a sell or buy signal respectively, the instrument is added to the selected instruments bucket along with additional meta information.
-
-## Entry Order Placement
-
-The `strategy_enter_position` method is called for each selected instrument from the entry decision process. It places a buy or sell order for the instrument based on the sideband information received. The order quantity is determined by multiplying the number of lots by the instrument's lot size.
-
-## Exit Decision
-
-The `strategy_select_instruments_for_exit` method is called for each candle to determine the instruments for which exit orders should be placed. It loops over the instruments in the provided bucket and checks if there is a current order for the instrument that is complete. If a complete order is found, it calculates the Stochastic crossover value for the instrument. If the crossover value is opposite to the order's transaction type (buy or sell), an exit order is placed for the instrument.
-
-## Exit Order Placement
-
-The `strategy_exit_position` method is called for each selected instrument from the exit decision process. It exits the main order for the instrument and sets the main order to None. It returns True to indicate that the instrument has exited completely.
-
+The `get_crossover_value` method calculates the crossover values for the Slow-K and Slow-D of Stochastic indicator using historical data of the instrument. The method returns the crossover values between slow-K and slow-D.
