@@ -1,12 +1,13 @@
 # Aroon Crossover v2
-
-This strategy, called Aroon Crossover v2, implements a crossover strategy using the Aroon indicator. It generates entry and exit signals based on the crossover of Aroon Up and Aroon Down values.
+This is a trading strategy called "Aaroon Crossover v2" implemented in Python using the PyAlgoTrading library. The strategy is based on the Aaroon indicator crossover.
 
 ## Strategy Overview
-add here
+This strategy, called Aaroon Crossover v2, implements a crossover strategy using the Aroon indicator. It generates entry and exit signals based on the crossover of Aroon Up and Aroon Down values.
 
 ## Strategy Parameters
-add here
+The following parameters can be configured for the strategy:
+
+- `TIME_PERIOD` The period for which we calculate the Aaroon Value
 
 ## Initialization
 
@@ -34,5 +35,5 @@ The `strategy_select_instruments_for_exit` method is called every candle time to
 
 ## Exit Execution
 
-The `strategy_exit_position` method is called for each instrument selected for exit. It exits the main order for the instrument and sets the `main_order_map` to `None`. If the exit action is valid (EXIT_BUY or EXIT_SELL), the method returns `True` to indicate that the instrument has exited completely. Otherwise, it returns `False`.
+The `strategy_exit_position` method is called for each instrument selected for exit. It exits the main order for the instrument and sets the `main_order_map` to `None`. If the exit action is valid (EXIT), the method returns `True` to indicate that the instrument has exited completely. Otherwise, it returns `False`.
 

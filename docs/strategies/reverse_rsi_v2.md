@@ -1,6 +1,16 @@
 # Reverse RSI v2
 
+This is a trading strategy called "Reverse RSI v2" implemented in Python using the PyAlgoTrading library. The strategy is based on the relative strength index indicator.
+
+## Strategy Overview
 The Reverse RSI v2 strategy is a trading strategy based on the Relative Strength Index (RSI) indicator. It generates entry and exit signals based on the reverse crossover of the RSI values from specified overbought and oversold levels.
+
+## Strategy Parameters
+The following parameters can be configured for the strategy:
+
+ - `TIME_PERIOD`: Period (number of candles) by which RSI is calculated
+ - `OVERBOUGHT_VALUE`: RSI value above which stocks are considered over-bought
+ - `OVERSOLD_VALUE`:  RSI value below which stocks are considered over-sold
 
 ## Initialization
 

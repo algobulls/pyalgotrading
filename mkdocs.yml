@@ -50,6 +50,15 @@ nav:
           - Configure Parameters: 'python_build/python-build-config-parameters.md'
       - Features:
           - View Results: 'python_build/python-build-view-results.md'
+  - Strategies:
+      - Equity Stocks Strategies:
+          - Aaroon Crossover: 'strategies/aaroon_crossover_v2.md'
+          - Bollinger Bands: 'strategies/bollinger_bands_v2.md'
+          - EMA Crossover: 'strategies/ema_crossover_v2.md'
+          - Inverse EMA Scalping: 'strategies/inverse_ema_scalping_v2.md'
+          - Reverse RSI: 'strategies/reverse_rsi_v2.md'
+          - Stochastic Crossover: 'strategies/stochastic_crossover_v2.md'
+          - VWAP Crossover: 'strategies/vwap_crossover_v2.md'
 
 plugins:
   - search                                  # necessary for search to work

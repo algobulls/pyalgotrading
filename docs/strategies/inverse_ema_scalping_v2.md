@@ -1,6 +1,14 @@
 # Inverse EMA Scalping Regular Order Strategy v2
+This is a trading strategy called "Inverse EMA Scalping Regular Order Strategy v2" implemented in Python using the PyAlgoTrading library. The strategy is based on the exponential moving average crossover.
 
-This strategy, called Inverse EMA Scalping Regular Order Strategy v2, implements a scalping strategy using Exponential Moving Averages (EMA). It generates entry and exit signals based on the inverse crossover of two EMAs.
+## Strategy Overview
+This strategy implements a scalping strategy using Exponential Moving Averages (EMA). It generates entry and exit signals based on the inverse crossover of two EMAs.
+
+## Strategy Parameters
+The following parameters can be configured for the strategy:
+
+ - `LARGER_TIME_PERIOD`: Period (number of candles) by which large period EMA is calculated
+ - `SMALLER_TIME_PERIOD`:  Period (number of candles) by which short period EMA is calculated
 
 ## Initialization
 

@@ -10,9 +10,6 @@ The strategy follows a simple rule based on the crossover of the VWAP indicator.
 
 No specific strategy parameters are mentioned in the code. 
 
-The strategy may utilize the following parameters from the base `StrategyBase` class:
-
-- `number_of_lots`: The number of lots to be used for each trade.
 
 ## Initialization
 

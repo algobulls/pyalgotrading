@@ -1,6 +1,16 @@
 # EMA Regular Order Strategy v2
 
+This is a trading strategy called "EMA Regular Order Strategy v2" implemented in Python using the PyAlgoTrading library. The strategy is based on the exponential moving average crossover.
+
+## Strategy Overview
 This strategy, called EMA Regular Order Strategy v2, implements a crossover strategy using Exponential Moving Averages (EMA). It generates entry and exit signals based on the crossover of two EMAs.
+
+## Strategy Parameters
+The following parameters can be configured for the strategy:
+
+ - `TIMEPERIOD1`: Period (number of candles) by which EMA-1 is calculated
+ - `TIMEPERIOD2`:  Period (number of candles) by which EMA-2 is calculated
+
 
 ## Initialization
 

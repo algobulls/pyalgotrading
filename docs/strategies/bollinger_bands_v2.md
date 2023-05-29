@@ -1,6 +1,15 @@
 # Bollinger Bands v2
 
-This strategy, called Bollinger Bands v2, is an implementation of the Bollinger Bands indicator. It uses the Bollinger Bands values to generate entry and exit signals for trading instruments.
+This is a trading strategy called "Bollinger Bands v2" implemented in Python using the PyAlgoTrading library. The strategy is based on the bollinger bands indicator values.
+
+## Strategy Overview
+This strategy, called Bollinger Bands v2, is an implementation of the Bollinger Bands indicator. It uses the Bollinger Bands values to compare with previous candle's OPEN, HIGH, LOW and CLOSE values and generate entry and exit signals for trading instruments.
+
+## Strategy Parameters
+The following parameters can be configured for the strategy:
+
+ - `TIME_PERIOD`: Period (number of candles) by which Bollinger Bands are calculated
+ - `STANDARD_DEVIATION`:  Standard deviation (in percent) for upper and lower band from the signal bands
 
 ## Initialization
 
