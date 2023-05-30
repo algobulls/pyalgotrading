@@ -7,7 +7,7 @@ You will need the following to perform this tutorial:
 
     ---
 
-2. **Python 3.7+ ([Link](https://www.python.org/downloads/))** - The AlgoBulls platform can run all strategies that conform to Python 3.7 and above. 
+2. **Python 3.10 ([Link](https://www.python.org/downloads/))** - The AlgoBulls platform can run all strategies that conform to Python 3.10. 
 
     ---
 
@@ -29,7 +29,7 @@ You will need the following to perform this tutorial:
 
 !!! Tips
     * It is a good idea to set up a virtual environment first
-    * Install Python 3.7+
+    * Install Python 3.10
     * Once Python is installed, most packages are easily installed in your venv using `pip install` command
     * `pip install TA-Lib`
     * `pip install pyalgotrading`
