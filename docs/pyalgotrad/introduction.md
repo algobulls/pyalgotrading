@@ -8,6 +8,7 @@ This tutorial aims to help users practice and get familiar with the [Pyalgotradi
 ## [Prerequisites](prerequisites.md)
 
 Before starting the tutorial, ensure that you have the following setup:
+
 - An active and working [AlgoBulls](https://www.algobulls.com/) account
 - Python IDE of your choice (if you want to code your own strategy)
 - Jupyter Notebook (for points 2,3, and 4)
