@@ -1,31 +1,31 @@
 ## 1. Initial steps
 
 i. Create a new strategy file with a unique file name.
-   eg: strategy_```<developer_initials>```_futures_ema_crossover.py
+   eg: strategy_```<developer_initials>```_options_ema_crossover.py
 
-!!!Note
-    * Add the initials of your name after the word strategy in the strategy file name so that it becomes easier to identify the developer who developed the strategy and also helps with a unique strategy name.
-    * Make sure that the file name is in lowercase and that each word is separated with an underscore '_' as shown above.
+    !!!Note
+        * Add the initials of your name after the word strategy in the strategy file name so that it becomes easier to identify the developer who developed the strategy and also helps with a unique strategy name.
+        * Make sure that the file name is in lowercase and that each word is separated with an underscore '_' as shown above.
 
 ii. Add the following imports at the beginning of the file:
 
 ``` 
 from datetime import time
-import talib
+
 import clock
 from segment import *
-from strategy.core.strategy_base import StrategyBase
-from strategy.utils import is_new_candle_generated, check_order_placed_successfully, data_sanity_check, check_order_complete_status, HistoricalDataCacher
-from utils.func import check_argument, check_argument_bulk, is_nonnegative_int, is_positive_int_or_float
+from strategy.core.strategy_options_base_v2 import StrategyOptionsBaseV2, OptionsStrikeDirection, OptionsInstrumentDirection, OptionsTradingsymbolSuffix, OrderTagManager
+from strategy.utils import HistoricalDataCacher, check_order_placed_successfully, check_order_complete_status
+from utils.func import check_argument, check_argument_bulk, is_nonnegative_int, is_positive_int
 ```
 
 iii. Create a class with the same name as the file name, and make sure the first letter of each word is in uppercase and the initials should be in uppercase as well.
     eg: For the above strategy name the class name would be:
-        Strategy```<developer_initials>```FuturesEMACrossover(StrategyBase)
+        Strategy```<developer_initials>```OptionsEMACrossover(StrategyOptionsBaseV2)
 
-!!! Note
-        * If the class name includes indicator names like EMA, SMA, and VWAP the name should be in uppercase in the class name but not in the file name.
-        * Every strategy is a child class of the StrategyBase class.
+    !!! Note
+            * If the class name includes indicator names like EMA, SMA, and VWAP the name should be in uppercase in the class name but not in the file name.
+            * Every strategy class is a child class of the StrategyBase.             
 
 ---
 
@@ -40,17 +40,17 @@ In the __init__ method add the ```super().__init__(*args, **kwargs)``` and add t
 ```
 VERSION = strategy_version 
 CLIENT = client_name
-STRATEGY_TYPE = 'FUTURES'
+STRATEGY_TYPE = 'OPTIONS'
 
 self.logger.info(f'\n{"#" * 40}\nSTRATEGY VERSION: {VERSION}\n{"#" * 40}')
 self.logger.debug(f'\n{"#" * 60}\nSTRATEGY TYPE: {STRATEGY_TYPE} | CLIENT: {CLIENT}\n{"#" * 60}')
 ```
 
-* **VERSION**: This is the strategy version, the initial version is 3.3.1 as there are fixes/updates/changes in the strategy the version should be updated to 3.3.2, and so on.
+* VERSION: This is the strategy version, the initial version is 3.3.1 as and when there are fixes/updates/changes in the strategy the version should be updated to 3.3.2, and so on.
 
-* **CLIENT**: Name of the client.
+* CLIENT: Name of the client.
 
-* **STRATEGY_TYPE**: Whether the strategy is FUTURES, REGULAR, or OPTIONS.
+* STRATEGY_TYPE: Whether the strategy is a FUTURES strategy or an OPTIONS strategy.
 
 We print this information in the next line, so whenever we run the strategy this information is displayed in the logs.
 
@@ -59,10 +59,11 @@ We save the parameter string in the parameter_string variable and check if the l
 eg:
 
 ```
-parameter_string = '\n(1) FRESH_ORDER_CANDLE \n(1) START_TIME_HOURS \n(1) START_TIME_MINUTES \n(1) END_TIME_HOURS \n(1) END_TIME_MINUTES ' \
-                           '\n(1) EMA_PERIOD_ONE \n(1) EMA_PERIOD_TWO \n(1) TARGET_PERCENTAGE \n(1) STOPLOSS_PERCENTAGE \n(1) STOPLOSS_RANGE \n(1) STOPLOSS_ORDER_COUNT_ALLOWED'
+parameter_string = '\n(1) FRESH_ORDER_CANDLE \n(1) START_TIME_HOURS \n(1) START_TIME_MINUTES \n(1) END_TIME_HOURS \n(1) END_TIME_MINUTES \n(1) \n(1) STRIKES_DIRECTION_CE' 
+                    '\n(1) STRIKES_DIRECTION_PE \n(1) NO_OF_STRIKES_AWAY_CE \n(1) NO_OF_STRIKES_AWAY_PE \n(1) EMA_PERIOD_ONE \n(1) EMA_PERIOD_TWO' 
+                    '\n(1) TARGET_PERCENTAGE \n(1) STOPLOSS_PERCENTAGE \n(1) STOPLOSS_RANGE \n(1) STOPLOSS_ORDER_COUNT_ALLOWED'
 
-check_argument(self.strategy_parameters, 'extern_function', lambda x: len(x) >= 11, err_message=f'Need 11 parameters for this strategy: {parameter_string}')
+check_argument(self.strategy_parameters, 'extern_function', lambda x: len(x) >= 15, err_message=f'Need 15 parameters for this strategy: {parameter_string}')
 ```
 
 * parameter_string: This string contains all the strategy parameters as shown above.
@@ -70,11 +71,11 @@ check_argument(self.strategy_parameters, 'extern_function', lambda x: len(x) >= 
 * We check if the number of parameters matches those in the strategy YAML file.
 
     !!! Note
-            * The parameter names and the number of parameters may be different for different strategies.
+            * The parameter names and the number of parameters may change for different strategies.
 
 ii. Parameter creation:
 
-Next we assign the parameter values to the class variables of the same name as the parameters but in the lowercase format, as shown below:
+Next, we assign the parameter values to the class variables of the same name as the parameters but in the lowercase format as shown below:
 
 eg:
 ```
@@ -83,6 +84,10 @@ self.start_time_hours = self.strategy_parameters['START_TIME_HOURS']
 self.start_time_minutes = self.strategy_parameters['START_TIME_MINUTES']
 self.end_time_hours = self.strategy_parameters['END_TIME_HOURS']
 self.end_time_minutes = self.strategy_parameters['END_TIME_MINUTES']
+self.no_of_strikes_away_ce = self.strategy_parameters['NO_OF_STRIKES_AWAY_CE']
+self.no_of_strikes_away_p = self.strategy_parameters['NO_OF_STRIKES_AWAY_PE']
+self._strike_direction_ce = self.strategy_parameters['STRIKES_DIRECTION_CE']
+self._strike_direction_pe = self.strategy_parameters['STRIKES_DIRECTION_PE']
 self.ema_period_one = self.strategy_parameters['EMA_PERIOD_ONE']
 self.ema_period_two = self.strategy_parameters['EMA_PERIOD_TWO']
 self.target_percentage = self.strategy_parameters['TARGET_PERCENTAGE']
@@ -121,6 +126,39 @@ We validate each parameter's value according to the strategy requirement. The fo
 
 * is_nonnegative_int_or_float: Checks whether the value is greater than or equal to zero and is an integer or a float value.
 
+No of the strikes values are validated as follows:
+
+```
+no_of_strikes_list = [(self.no_of_strikes_away_ce, 'NO_OF_STRIKES_AWAY_CE'), (self.no_of_strikes_away_pe, 'NO_OF_STRIKES_AWAY_PE')]
+
+for no_of_strikes, text in no_of_strikes_list:
+    check_argument(no_of_strikes, 'extern_function', lambda x: 0 <= x <= 50 and isinstance(x, int), err_message=f'{text} should be an integer with possible values between 0 to 50')
+```
+
+Strike direction values are validated as follows:
+
+```
+strikes_direction_list = [(self._strike_direction_ce, 'STRIKE_DIRECTION_CE'), (self._strike_direction_pe, 'STRIKE_DIRECTION_PE')]
+
+for strike_direction, text in strikes_direction_list:
+    check_argument(strike_direction, 'extern_function', lambda x: x in [0, 1, 2] and isinstance(x, int), err_message=f'{text} should be an integer with possible values - 0: ITM or 1: ATM or 2: OTM')
+```
+
+Once all the parameters are validated we calculate the actual value of the strike direction from the strike direction values given in the strategy YAML file.
+
+We define the below dictionary for ```strike_direction```.
+
+```
+strike_direction_map = {0: OptionsStrikeDirection.ITM.value, 1: OptionsStrikeDirection.ATM.value, 2: OptionsStrikeDirection.OTM.value}
+```
+
+Then we create new variables for strike direction that save the value as ATM, ITM, and OTM based on the YAML parameter value.
+
+```
+self.strike_direction_ce = strike_direction_map[self._strike_direction_ce]
+self.strike_direction_pe = strike_direction_map[self._strike_direction_pe]
+```
+
 iv. Start time and End time creation:
 
 Add the below code to calculate the strategy start time and end time, from the start time and end time parameters in the strategy YAML file.
@@ -143,14 +181,14 @@ v. Strategy variables:
 
 We create our own strategy variables other than the strategy parameter variables which will be used throughout the strategy.
 
-
 eg:
-```self.order_tag_manager = None```  
+self.main_order = None            # We save the entry order in this variable
+self.stoploss_order = None        # We save the corresponding stoploss exit order of the entry order in this variable
 
 We initialize the variables with a None value.
 
-!!! Note
-        There could be more strategy variables required as per the strategy requirement. 
+    !!! Note
+            There could be more strategy variables required as per the strategy requirement. 
 
 ---
 
@@ -201,7 +239,7 @@ Here the ```entry_key``` tag is removed from the ```OrderTagManager```.
 
 !!! Note
 
-When the tag is removed the order objects stored in that tag are also removed but the same order objects would still be present in the order tags.
+When the tag is removed the order objects stored in that tag are also removed but the same order objects would still be present in order tags.
 
 **iv. remove_order**: 
 
@@ -219,18 +257,35 @@ The order object will be removed from all the tags ta
 
 **v. get_internals**: 
 
-* Returns the values i.e both the entry and exit orders stored inside the tags list.   
+* Returns the values i.e both the entry and exit orders stored inside the tags list.
 
 ---
 
-## 5. Entry Methods
+## 5. Child instruments calculation
+
+i. Fetch the LTP of the base instrument (instrument in the YAML).
+
+```ltp = self.broker.get_ltp(self.underlying_instrument)```
+
+ii. Get the ATM ITM and OTM lists of the child instrument based on the LTP:
+
+```self.options_instruments_set_up_local(self.underlying_instrument, tradingsymbol_suffix, ltp)```
+
+iii. Select a child instrument from the lists of ATM, ITM, and OTM based on the strike direction and no of strikes given for the child instrument. 
+
+```child_instrument = self.get_child_instrument_details(self.underlying_instrument, tradingsymbol_suffix, strike_direction, no_of_strikes)```
+
+---
+
+## 6. Entry Methods
 
 **i. strategy_select_instruments_for_entry:**
 
-* In this method we process each instrument in the instruments bucket, if there is some entry condition to be checked then we create an ```get_entry_decision``` method 
+* In this method we process each instrument in the instruments bucket, if there is some entry condition to be checked then we create a ```get_entry_decision``` method 
 that calculates the entry condition like a crossover or compares the latest value of the OHLC data or indicator data.
 
-* When the order has to be placed we add the ```instrument``` to ```selected_instruments_bucket``` and additional data related to the instrument that will be required while placing to the ```sideband_info```. This information is passed to the ```strategy_enter_position``` method
+
+* When the order has to be placed we add the ```instrument``` to ```selectd_instruments_bucket``` and additional data related to the instrument that will be required while placing to the ```sideband_info```. This information is passed to the ```strategy_enter_position``` method
 
 **ii. strategy_enter_position:**
 
@@ -238,7 +293,7 @@ that calculates the entry condition like a crossover or compares the latest valu
 
 ---
 
-## 6. Exit Methods
+## 7. Exit Methods
 
 **i. strategy_select_instruments_for_exit:**
 
@@ -248,11 +303,11 @@ that calculates the entry condition like a crossover or compares the latest valu
 
 ---
 
-## 7. Other common methods
+## 8. Other common methods
 
 There are other methods that are used in the strategy:
 
-** i. check_and_place_stoploss_order:**
+**i. check_and_place_stoploss_order:**
 
 This method is called in the ```strategy_select_instruments_for_exit``` when our entry order is open and we want to place a stoploss exit order for the same.
 
@@ -260,13 +315,21 @@ This method is called in the ```strategy_select_instruments_for_exit``` when our
 
 This method is called in the ```strategy_exit_position``` when our entry order has exited and we want to remove the order object from the ```self.main_order``` variable.
 
+**iii. options_instruments_set_up_local**
+
+This method is called in the ```strategy_select_instruments_for_entry``` to fetch the ATM, ITM, and OTM lists of the child instruments based on the LTP of the base instrument. 
+
+**iv. get_child_instrument_details**
+
+This method is called in the ```strategy_select_instruments_for_entry``` to fetch a single child instrument based on the no of strikes and strike direction.
+        
 ---
 
-## 8. Cleanup
+## 9. Cleanup
 
 i. Add comments and docstrings wherever possible to improve code readability.
 
-ii. Once the strategy is completed perform O-I-L on the strategy code and remove unwanted imports, variables, and methods before delivering the code.
+ii. Once the strategy is completed perform O-I-L on the strategy code and remove unwanted imports, variables, and methods before delivering the code.**
 
 ---
 
