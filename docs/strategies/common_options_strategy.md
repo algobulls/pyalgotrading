@@ -7,19 +7,7 @@ i. Create a new strategy file with a unique file name.
         * Add the initials of your name after the word strategy in the strategy file name so that it becomes easier to identify the developer who developed the strategy and also helps with a unique strategy name.
         * Make sure that the file name is in lowercase and that each word is separated with an underscore '_' as shown above.
 
-ii. Add the following imports at the beginning of the file:
-
-``` 
-from datetime import time
-
-import clock
-from segment import *
-from strategy.core.strategy_options_base_v2 import StrategyOptionsBaseV2, OptionsStrikeDirection, OptionsInstrumentDirection, OptionsTradingsymbolSuffix, OrderTagManager
-from strategy.utils import HistoricalDataCacher, check_order_placed_successfully, check_order_complete_status
-from utils.func import check_argument, check_argument_bulk, is_nonnegative_int, is_positive_int
-```
-
-iii. Create a class with the same name as the file name, and make sure the first letter of each word is in uppercase and the initials should be in uppercase as well.
+ii. Create a class with the same name as the file name, and make sure the first letter of each word is in uppercase and the initials should be in uppercase as well.
     eg: For the above strategy name the class name would be:
         Strategy```<developer_initials>```OptionsEMACrossover(StrategyOptionsBaseV2)
 
