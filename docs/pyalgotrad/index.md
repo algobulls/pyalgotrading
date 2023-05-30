@@ -37,7 +37,7 @@ Backtesting, Paper Trading and Real Trading can be performed on the same strateg
 ### Python 
 - Python Support: `Python 3.10+`.
 - Python Requirements: See [requirements.txt](https://github.com/algobulls/pyalgotrading/blob/master/requirements.txt).
-- We recommend you to use the latest version of Python (v3.8+) to enjoy better performance benefits, especially for pandas. (For Python 3.6, the latest supported Pandas version is v0.25.3. For Python 3.8, the latest supported version is v1.0.x)
+- We recommend you to use the latest version of Python (v3.10+) to enjoy better performance benefits, especially for pandas (v1.5.3). 
 
 ### Installation
 Package can be easily installed using `pip` - 
