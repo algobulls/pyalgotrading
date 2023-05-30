@@ -1,5 +1,5 @@
 # Aroon Crossover 
-This is a trading strategy called "Aaroon Crossover" implemented in Python using the PyAlgoTrading library. The strategy is based on the Aaroon indicator crossover.
+This is a trading strategy called "Aroon Crossover" implemented in Python using the PyAlgoTrading library. The strategy is based on the Aroon indicator crossover.
 
 ## Aroon Indicator
 In the stock market, Aroon refers to the Aroon indicator, which is a technical analysis tool used to measure the strength and direction of a trend. It consists of two lines, the Aroon-Up line and the Aroon-Down line.

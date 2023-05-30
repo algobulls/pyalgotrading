@@ -55,7 +55,7 @@ nav:
           - Regular Strategy: 'strategies/common_regular_strategy.md'
           - Options Strategy: 'strategies/common_options_strategy.md'
       - Regular Strategy Examples:
-          - Aaroon Crossover: 'strategies/aaroon_crossover.md'
+          - Aroon Crossover: 'strategies/aroon_crossover.md'
           - Bollinger Bands: 'strategies/bollinger_bands.md'
           - EMA Crossover: 'strategies/ema_crossover.md'
           - Inverse EMA Scalping: 'strategies/inverse_ema_scalping.md'
