@@ -22,17 +22,17 @@
     - Support for multiple candle intervals - 1 minute, 3 minutes, 5 minutes, 10 minutes, 15 minutes, 30 minutes, 1 hour, 1 day. 
     - Support for **MARKET**, **LIMIT**, **STOPLOSS-MARKET**, **STOPLOSS-LIMIT** orders
     - Support for **INTRADAY** and **DELIVERY** orders
-- Support for **Backtesting** and **Paper Trading**
+- Support for **Backtesting**, **Paper Trading** and **Real Trading**
 
     - Currently supported [brokers](https://app.algobulls.com/user/brokerlogin) 
-- Real-time Logs for Backtesting and Paper Trading
-- Multiple real-time Reports available for Backtesting and Paper Trading - 
+- Real-time Logs for Backtesting, Paper Trading and Real Trading
+- Multiple real-time Reports available for Backtesting, Paper Trading and Real Trading - 
     - Profit-n-Loss report (PnL report)
     - Statistics of (PnL report)
     - Order History for each order with state transitions & timestamps
 - Plot Candlestick charts using [plotly.py](https://github.com/plotly/plotly.py)
     
-Backtesting and Paper Trading can be performed on the same strategy code base!
+Backtesting, Paper Trading and Real Trading can be performed on the same strategy code base!
 
 ### Python 
 - Python Support: `Python 3.10+`.

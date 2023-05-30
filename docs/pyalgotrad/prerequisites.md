@@ -23,7 +23,7 @@ You will need the following to perform this tutorial:
 
     ---
 
-6. **Jupyter Notebook ([Link](https://jupyter.org/install))** - You will use a Jupyter Notebook to connect to the AlgoBulls platform. You will upload the strategy, test your strategy (Backtest and Paper Trade), and fetch logs using the notebook.
+6. **Jupyter Notebook ([Link](https://jupyter.org/install))** - You will use a Jupyter Notebook to connect to the AlgoBulls platform. You will upload the strategy, test your strategy (Backtesting, Paper Trading or Real Trading), and fetch logs using the notebook.
 
     ---
 
