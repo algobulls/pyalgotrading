@@ -131,6 +131,7 @@ parameters={
 
 Click on each of the tabs to see the relevant code snippet.
 
+
 > **Backtesting**
     ```python
     algobulls_connection.backtest(
@@ -140,11 +141,13 @@ Click on each of the tabs to see the relevant code snippet.
             instruments='NSE:SBIN',         # name of the instrument
             lots=1,                         # number of lots per trade
             parameters=parameters,          # parameters required for the strategy
-            candle='15 minutes'             # candle size eg : '1 Day', '1 hour', '3 minutes'
-            delete_previous_trades = True   # delete the previous trades for papertrading (default is true)
+            candle='15 minutes',            # candle size eg : '1 Day', '1 hour', '3 minutes'
+            delete_previous_trades=True,    # delete the previous trades for papertrading (default is true),
+            initial_funds_virtual=10000     # virtual funds allotted before the paper trading starts (default is 1e9)
     )
     ```
-    
+
+
 > **Paper Trading**
     ```python
     algobulls_connection.papertrade(
@@ -154,26 +157,26 @@ Click on each of the tabs to see the relevant code snippet.
             instruments='NSE:SBIN',         # name of the instrument
             lots=1,                         # number of lots per trade
             parameters=parameters,          # parameters required for the strategy
-            candle='15 minutes'             # candle size eg : '1 Day', '1 hour', '3 minutes'
-            delete_previous_trades = True   # delete the previous trades for papertrading (default is true)
+            candle='15 minutes',            # candle size eg : '1 Day', '1 hour', '3 minutes'
+            delete_previous_trades=True,    # delete the previous trades for papertrading (default is true)
+            initial_funds_virtual=10000     # virtual funds allotted before the paper trading starts (default is 1e9)
     )
     ```
-    
+
 > **Real Trading**
     ```python
     algobulls_connection.realtrade(
-            strategy_code=strategy_code, 
-            start_time=time(hour=9, minute=15), 
-            end_time=time(hour=15, minute=30), 
-            instrument=instrument, 
-            lots=1,
-            strategy_parameters={
-               'timeperiod1': 5, 
-                'timeperiod2': 12
-            },
-            candle_interval=CandleInterval.MINUTES_1
+            strategy=strategy_code,         # strategy code
+            start='09:15',                  # start time of strategy (HH:MM)     
+            end='15:30',                    # end time of strategy (HH:MM)
+            instruments='NSE:SBIN',         # name of the instrument
+            lots=1,                         # number of lots per trade
+            parameters=parameters,          # parameters required for the strategy
+            candle='15 minutes',            # candle size eg : '1 Day', '1 hour', '3 minutes'
+            brokerId=53                     # ID of the broker for real trade
     )
     ```
+
 
 ---
 #### Fetch Job Status
@@ -192,7 +195,7 @@ Click on each of the tabs to see the relevant code snippet.
     
 > **Real Trading**
     ```python
-    algobulls_connection.get_realtrading_job_status(strategy_code=strategy_code)
+    algobulls_connection.get_realtrading_job_status(strategy_code)
     ```
     
 You can stop a submitted job anytime.
@@ -214,7 +217,7 @@ Click on each of the tabs to see the relevant code snippet.
     
 > **Real Trading**
     ```python
-    algobulls_connection.stop_realtrading_job(strategy_code=strategy_code)
+    algobulls_connection.stop_realtrading_job(strategy_code)
     ```
 
 You can fetch the logs in the middle of a job to monitor the progress.
@@ -238,7 +241,7 @@ Click on each of the tabs to see the relevant code snippet.
     
 > **Real Trading**
     ```python
-    logs = algobulls_connection.get_realtrading_logs(strategy_code=strategy_code)
+    logs = algobulls_connection.get_realtrading_logs(strategy_code)
     print(logs)
     ```
     
@@ -256,12 +259,12 @@ Click on each of the tabs to see the relevant code snippet.
     
 > **Paper Trading**
     ```python
-    algobulls_connection.get_papertrading_report_pnl_table(strategy_code)
+    algobulls_connection.get_papertrading_report_pnl_table(strategy_code, show_all_rows=True)
     ```
     
 > **Real Trading**
     ```python
-    algobulls_connection.get_realtrading_report_pnl_table(strategy_code=strategy_code)
+    algobulls_connection.get_realtrading_report_pnl_table(strategy_code, show_all_rows=True)
     ```
 
 ---
@@ -286,7 +289,7 @@ Click on each of the tabs to see the relevant code snippet.
         mode='quantstats',      # package used to generate statistics
         report='full',          # format of the report
         html_dump=True          # save report as html file
-)
+    )
     ```
     
 > **Real Trading**
@@ -296,7 +299,7 @@ Click on each of the tabs to see the relevant code snippet.
         mode='quantstats',      # package used to generate statistics
         report='full',          # format of the report
         html_dump=True          # save report as html file
-)
+    )
     ```
    
 --- 
@@ -316,9 +319,15 @@ Click on each of the tabs to see the relevant code snippet.
     print(order_history)
     ```
 
+> **Real Trading**
+    ```python
+    order_history = algobulls_connection.get_realtrading_report_order_history(strategy_code)
+    print(order_history)
+    ```
+
 !!! Note
-    * Order History for Real Trading is not supported by brokers.
-    * Order History for Backtesting, Paper Trading and Real Trading is supported by the AlgoBulls Virtual Brokers.
+    - Order History for Real Trading is not supported by brokers.
+    - Order History for Backtesting, Paper Trading and Real Trading is supported by the **AlgoBulls Virtual Brokers**.
 
 ---
 ### What's Next...
