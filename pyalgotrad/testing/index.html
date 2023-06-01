@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Pushpak Dagade (pushpak@algobulls.com)" /><link rel="canonical" href="https://algobulls.github.io/pyalgotrading/pyalgotrad/testing/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Test your Strategy - pyalgotrading</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+        <link href="../../assets/_mkdocstrings.css" rel="stylesheet" />
+        <link href="../../css/timeago.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Test your Strategy";
+        var mkdocs_page_input_path = "pyalgotrad/testing.md";
+        var mkdocs_page_url = "/pyalgotrading/pyalgotrad/testing/";
+      </script>
+    
+    <script src="../../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-147658856-4', 'auto');
+        ga('send', 'pageview');
+      </script>
+    
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> pyalgotrading
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">PyalgoTrading</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../">Index</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Tutorial</a>
+    <ul class="current">
+                <li class="toctree-l2"><a class="reference internal" href="../introduction/">Introduction</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../prerequisites/">Prerequisites</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../structure/">Code Structure of a Strategy</a>
+                </li>
+                <li class="toctree-l2 current"><a class="reference internal current" href="#">Hands On</a>
+    <ul class="current">
+                <li class="toctree-l3"><a class="reference internal" href="../programexample/">Create your Strategy</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../upload/">Upload your Strategy</a>
+                </li>
+                <li class="toctree-l3 current"><a class="reference internal current" href="./">Test your Strategy</a>
+    <ul class="current">
+    <li class="toctree-l4"><a class="reference internal" href="#previously">Previously...</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#now">Now...</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#before-you-start">Before you start...</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#lets-start">Let's Start...</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#whats-next">What's Next...</a>
+    </li>
+    </ul>
+                </li>
+    </ul>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../codeguide/">Strategy Coding Guidelines</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">PythonBuild</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../python_build/">Index</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Introduction</a>
+    <ul>
+                <li class="toctree-l2"><a class="" href="../../python_build/python-build-introduction">Introduction</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../python_build/python-build-overview/">Overview</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="../../python_build/python-build-getstarted">Get Started</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Code</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../python_build/python-build-code-ready-templates/">Code Ready Templates</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../python_build/python-build-code-new/">Code New Strategy</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../python_build/python-build-config-parameters/">Configure Parameters</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Features</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../python_build/python-build-view-results/">View Results</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Strategies</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Strategy Guide</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/common_regular_strategy/">Regular Strategy</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/common_options_strategy/">Options Strategy</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Regular Strategy Examples</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/aroon_crossover/">Aroon Crossover</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/bollinger_bands/">Bollinger Bands</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/ema_crossover/">EMA Crossover</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/inverse_ema_scalping/">Inverse EMA Scalping</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/reverse_rsi/">Reverse RSI</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/stochastic_crossover/">Stochastic Crossover</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/vwap_crossover/">VWAP Crossover</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Options Strategy Examples</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/options_bear_call_ladder/">Options Bear Call Ladder</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/options_bear_put_ladder/">Options Bear Put Ladder</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/options_bull_call_ladder/">Options Bull Call Ladder</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/options_bull_put_ladder/">Options Bull Put Ladder</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/options_long_iron_butterfly/">Options Long Iron Butterfly</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/options_straddle/">Options Straddle</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/options_strangle/">Options Strangle</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">pyalgotrading</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+          <li>PyalgoTrading &raquo;</li>
+          <li>Tutorial &raquo;</li>
+          <li>Hands On &raquo;</li>
+      <li>Test your Strategy</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/algobulls/pyalgotrading/edit/master/docs/pyalgotrad/testing.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="test-your-strategy">Test your Strategy<a class="headerlink" href="#test-your-strategy" title="Permanent link">&para;</a></h1>
+<h3 id="previously"><strong>Previously...</strong><a class="headerlink" href="#previously" title="Permanent link">&para;</a></h3>
+<p>You have uploaded your strategy to the AlgoBulls platform.</p>
+<hr />
+<h3 id="now"><strong>Now...</strong><a class="headerlink" href="#now" title="Permanent link">&para;</a></h3>
+<p>Using the uploaded strategy, you can now try:
+* Backtesting
+* Paper Trading
+* Real Trading </p>
+<hr />
+<h3 id="before-you-start"><strong>Before you start...</strong><a class="headerlink" href="#before-you-start" title="Permanent link">&para;</a></h3>
+<p>Open a Jupyter Notebook.</p>
+<p>The steps you will follow are:</p>
+<ol>
+<li>Establish a connection to the AlgoBulls Platform.</li>
+<li>Display all Strategies you have in your account.</li>
+<li>Select the SMA strategy.</li>
+<li>Optionally, print the strategy once.</li>
+<li>Select instrument(s).</li>
+<li>Submit/Run a Backtest, Paper Trade or Real Trade job.</li>
+<li>Check Job Status.</li>
+<li>Fetch Logs (even while the job is running).</li>
+<li>Fetch Reports. (PnL, Statistics, Order History)</li>
+</ol>
+<hr />
+<h3 id="lets-start"><strong>Let's Start...</strong><a class="headerlink" href="#lets-start" title="Permanent link">&para;</a></h3>
+<p>Run the following code snippets into the Jupyter Notebook one by one (or all together).</p>
+<h4 id="import-statements">Import statements<a class="headerlink" href="#import-statements" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pyalgotrading.algobulls</span> <span class="kn">import</span> <span class="n">AlgoBullsConnection</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span> <span class="k">as</span> <span class="n">dt</span>
+<span class="kn">from</span> <span class="nn">pyalgotrading.constants</span> <span class="kn">import</span> <span class="o">*</span>
+</code></pre></div>
+<hr />
+<h4 id="establish-a-connection-to-the-algobulls-platform">Establish a connection to the AlgoBulls Platform<a class="headerlink" href="#establish-a-connection-to-the-algobulls-platform" title="Permanent link">&para;</a></h4>
+<p><div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span> <span class="o">=</span> <span class="n">AlgoBullsConnection</span><span class="p">()</span>
+<span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_authorization_url</span><span class="p">()</span>
+</code></pre></div>
+The output of the above step is:</p>
+<p><code>Please login to this URL with your AlgoBulls credentials and get your developer access token: https://app.algobulls.com/user/login</code></p>
+<p>You will need to log in to your AlgoBulls account and fetch the access token from:</p>
+<p>Settings -&gt; General -&gt; Developer Options</p>
+<p>(<a href="https://help.algobulls.com/member/Settings/general-settings/#developer-options">See How</a>)</p>
+<p>Once you have the access token, set it in the code as shown here:</p>
+<div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">set_access_token</span><span class="p">(</span><span class="s1">&#39;4365817b795770ea31040a21ad29c8e78b63ad88&#39;</span><span class="p">)</span>
+</code></pre></div>
+<p>Replace the token you have copied with the token in the code above.</p>
+<hr />
+<h4 id="display-all-strategies-in-your-account">Display all strategies in your account<a class="headerlink" href="#display-all-strategies-in-your-account" title="Permanent link">&para;</a></h4>
+<hr />
+<div class="highlight"><pre><span></span><code><span class="n">all_strategies</span> <span class="o">=</span> <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_all_strategies</span><span class="p">()</span>
+<span class="n">all_strategies</span>
+</code></pre></div>
+<p>An example of the output will be:
+<img alt="Output" src="../output.png" title="Sample Output" /></p>
+<h4 id="select-the-sma-strategy">Select the SMA strategy<a class="headerlink" href="#select-the-sma-strategy" title="Permanent link">&para;</a></h4>
+<p>Select the last entry of the <code>strategyCode</code> column and display it.
+<div class="highlight"><pre><span></span><code><span class="n">strategy_code</span> <span class="o">=</span> <span class="n">all_strategies</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;strategyCode&#39;</span><span class="p">]</span>
+<span class="n">strategy_code</span>
+</code></pre></div></p>
+<hr />
+<h4 id="print-your-strategy-code">Print your Strategy code<a class="headerlink" href="#print-your-strategy-code" title="Permanent link">&para;</a></h4>
+<p>You can print your strategy code once to verify if this is the correct code. This step is optional.</p>
+<div class="highlight"><pre><span></span><code><span class="n">strategy_details1</span> <span class="o">=</span> <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_strategy_details</span><span class="p">(</span><span class="n">strategy_code</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">strategy_details1</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h4 id="search-for-instruments-based-on-a-search-query">Search for instruments (based on a search query)<a class="headerlink" href="#search-for-instruments-based-on-a-search-query" title="Permanent link">&para;</a></h4>
+<p>Now display a few instruments with some keyword. The example below uses 'SBIN' as the keyword.</p>
+<div class="highlight"><pre><span></span><code><span class="n">instruments</span> <span class="o">=</span> <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">search_instrument</span><span class="p">(</span><span class="s1">&#39;SBIN&#39;</span><span class="p">)</span>
+<span class="n">instruments</span>
+</code></pre></div>
+<hr />
+<h4 id="select-an-instrument">Select an instrument<a class="headerlink" href="#select-an-instrument" title="Permanent link">&para;</a></h4>
+<p>From the output, select the instrument on which you wish to test your strategy. For this example, select the first one.
+<div class="highlight"><pre><span></span><code><span class="n">instrument</span> <span class="o">=</span> <span class="n">instruments</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;value&#39;</span><span class="p">]</span>
+<span class="n">instrument</span>
+</code></pre></div></p>
+<hr />
+<h4 id="submit-a-job">Submit a Job<a class="headerlink" href="#submit-a-job" title="Permanent link">&para;</a></h4>
+<p>Delete previous trades
+<div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">delete_previous_trades</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="n">strategy</span><span class="p">)</span>
+</code></pre></div></p>
+<p>Set the <strong>parameters</strong> for the strategy
+<div class="highlight"><pre><span></span><code><span class="n">parameters</span><span class="o">=</span><span class="p">{</span>
+    <span class="s1">&#39;timeperiod1&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+    <span class="s1">&#39;timeperiod2&#39;</span><span class="p">:</span> <span class="mi">12</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>Click on each of the tabs to see the relevant code snippet.</p>
+<blockquote>
+<p><strong>Backtesting</strong>
+    <div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">backtest</span><span class="p">(</span>
+        <span class="n">strategy</span><span class="o">=</span><span class="n">strategy_code</span><span class="p">,</span>         <span class="c1"># strategy code</span>
+        <span class="n">start</span><span class="o">=</span><span class="s1">&#39;2020-7-1 | 09:15&#39;</span><span class="p">,</span>       <span class="c1"># start date-time of strategy (&#39;YYYY-MM-DD | HH:MM&#39;)</span>
+        <span class="n">end</span><span class="o">=</span><span class="s1">&#39;2020-7-7 | 15:30&#39;</span><span class="p">,</span>         <span class="c1"># end date-time of strategy (&#39;YYYY-MM-DD | HH:MM&#39;)</span>
+        <span class="n">instruments</span><span class="o">=</span><span class="s1">&#39;NSE:SBIN&#39;</span><span class="p">,</span>         <span class="c1"># name of the instrument</span>
+        <span class="n">lots</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>                         <span class="c1"># number of lots per trade</span>
+        <span class="n">parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">,</span>          <span class="c1"># parameters required for the strategy</span>
+        <span class="n">candle</span><span class="o">=</span><span class="s1">&#39;15 minutes&#39;</span><span class="p">,</span>            <span class="c1"># candle size eg : &#39;1 Day&#39;, &#39;1 hour&#39;, &#39;3 minutes&#39;</span>
+        <span class="n">delete_previous_trades</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>    <span class="c1"># delete the previous trades for papertrading (default is true),</span>
+        <span class="n">initial_funds_virtual</span><span class="o">=</span><span class="mi">10000</span>     <span class="c1"># virtual funds allotted before the paper trading starts (default is 1e9)</span>
+<span class="p">)</span>
+</code></pre></div></p>
+<p><strong>Paper Trading</strong>
+    <div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">papertrade</span><span class="p">(</span>
+        <span class="n">strategy</span><span class="o">=</span><span class="n">strategy_code</span><span class="p">,</span>         <span class="c1"># strategy code</span>
+        <span class="n">start</span><span class="o">=</span><span class="s1">&#39;09:15&#39;</span><span class="p">,</span>                  <span class="c1"># start time of strategy (HH:MM)     </span>
+        <span class="n">end</span><span class="o">=</span><span class="s1">&#39;15:30&#39;</span><span class="p">,</span>                    <span class="c1"># end time of strategy (HH:MM)</span>
+        <span class="n">instruments</span><span class="o">=</span><span class="s1">&#39;NSE:SBIN&#39;</span><span class="p">,</span>         <span class="c1"># name of the instrument</span>
+        <span class="n">lots</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>                         <span class="c1"># number of lots per trade</span>
+        <span class="n">parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">,</span>          <span class="c1"># parameters required for the strategy</span>
+        <span class="n">candle</span><span class="o">=</span><span class="s1">&#39;15 minutes&#39;</span><span class="p">,</span>            <span class="c1"># candle size eg : &#39;1 Day&#39;, &#39;1 hour&#39;, &#39;3 minutes&#39;</span>
+        <span class="n">delete_previous_trades</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>    <span class="c1"># delete the previous trades for papertrading (default is true)</span>
+        <span class="n">initial_funds_virtual</span><span class="o">=</span><span class="mi">10000</span>     <span class="c1"># virtual funds allotted before the paper trading starts (default is 1e9)</span>
+<span class="p">)</span>
+</code></pre></div></p>
+<p><strong>Real Trading</strong>
+    <div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">realtrade</span><span class="p">(</span>
+        <span class="n">strategy</span><span class="o">=</span><span class="n">strategy_code</span><span class="p">,</span>         <span class="c1"># strategy code</span>
+        <span class="n">start</span><span class="o">=</span><span class="s1">&#39;09:15&#39;</span><span class="p">,</span>                  <span class="c1"># start time of strategy (HH:MM)     </span>
+        <span class="n">end</span><span class="o">=</span><span class="s1">&#39;15:30&#39;</span><span class="p">,</span>                    <span class="c1"># end time of strategy (HH:MM)</span>
+        <span class="n">instruments</span><span class="o">=</span><span class="s1">&#39;NSE:SBIN&#39;</span><span class="p">,</span>         <span class="c1"># name of the instrument</span>
+        <span class="n">lots</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>                         <span class="c1"># number of lots per trade</span>
+        <span class="n">parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">,</span>          <span class="c1"># parameters required for the strategy</span>
+        <span class="n">candle</span><span class="o">=</span><span class="s1">&#39;15 minutes&#39;</span><span class="p">,</span>            <span class="c1"># candle size eg : &#39;1 Day&#39;, &#39;1 hour&#39;, &#39;3 minutes&#39;</span>
+        <span class="n">brokerId</span><span class="o">=</span><span class="mi">53</span>                     <span class="c1"># ID of the broker for real trade</span>
+<span class="p">)</span>
+</code></pre></div></p>
+</blockquote>
+<hr />
+<h4 id="fetch-job-status">Fetch Job Status<a class="headerlink" href="#fetch-job-status" title="Permanent link">&para;</a></h4>
+<p>Click on each of the tabs to see the relevant code snippet.</p>
+<blockquote>
+<p><strong>Backtesting</strong>
+    <div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_backtesting_job_status</span><span class="p">(</span><span class="n">strategy_code</span><span class="p">)</span>
+</code></pre></div></p>
+<p><strong>Paper Trading</strong>
+    <div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_papertrading_job_status</span><span class="p">(</span><span class="n">strategy_code</span><span class="p">)</span>
+</code></pre></div></p>
+<p><strong>Real Trading</strong>
+    <div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_realtrading_job_status</span><span class="p">(</span><span class="n">strategy_code</span><span class="p">)</span>
+</code></pre></div></p>
+</blockquote>
+<p>You can stop a submitted job anytime.</p>
+<hr />
+<h4 id="stop-a-job">Stop a Job<a class="headerlink" href="#stop-a-job" title="Permanent link">&para;</a></h4>
+<p>Click on each of the tabs to see the relevant code snippet.</p>
+<blockquote>
+<p><strong>Backtesting</strong>
+    <div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">stop_backtesting_job</span><span class="p">(</span><span class="n">strategy_code</span><span class="p">)</span>
+</code></pre></div></p>
+<p><strong>Paper Trading</strong>
+    <div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">stop_papertrading_job</span><span class="p">(</span><span class="n">strategy_code</span><span class="p">)</span>
+</code></pre></div></p>
+<p><strong>Real Trading</strong>
+    <div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">stop_realtrading_job</span><span class="p">(</span><span class="n">strategy_code</span><span class="p">)</span>
+</code></pre></div></p>
+</blockquote>
+<p>You can fetch the logs in the middle of a job to monitor the progress.</p>
+<hr />
+<h4 id="fetch-logs-of-an-ongoingstoppedcompleted-job">Fetch logs of an ongoing/stopped/completed job<a class="headerlink" href="#fetch-logs-of-an-ongoingstoppedcompleted-job" title="Permanent link">&para;</a></h4>
+<p>Click on each of the tabs to see the relevant code snippet.</p>
+<blockquote>
+<p><strong>Backtesting</strong>
+    <div class="highlight"><pre><span></span><code><span class="n">logs</span> <span class="o">=</span> <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_backtesting_logs</span><span class="p">(</span><span class="n">strategy_code</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">logs</span><span class="p">)</span>
+</code></pre></div></p>
+<p><strong>Paper Trading</strong>
+    <div class="highlight"><pre><span></span><code><span class="n">logs</span> <span class="o">=</span> <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_papertrading_logs</span><span class="p">(</span><span class="n">strategy_code</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">logs</span><span class="p">)</span>
+</code></pre></div></p>
+<p><strong>Real Trading</strong>
+    <div class="highlight"><pre><span></span><code><span class="n">logs</span> <span class="o">=</span> <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_realtrading_logs</span><span class="p">(</span><span class="n">strategy_code</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">logs</span><span class="p">)</span>
+</code></pre></div></p>
+</blockquote>
+<p>You can fetch the PnL report, statistics and order history for a job.</p>
+<hr />
+<h4 id="fetch-pnl-reports">Fetch PnL Reports<a class="headerlink" href="#fetch-pnl-reports" title="Permanent link">&para;</a></h4>
+<p>Click on each of the tabs to see the relevant code snippet.</p>
+<blockquote>
+<p><strong>Backtesting</strong>
+    <div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_backtesting_report_pnl_table</span><span class="p">(</span><span class="n">strategy_code</span><span class="p">,</span> <span class="n">show_all_rows</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div></p>
+<p><strong>Paper Trading</strong>
+    <div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_papertrading_report_pnl_table</span><span class="p">(</span><span class="n">strategy_code</span><span class="p">,</span> <span class="n">show_all_rows</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div></p>
+<p><strong>Real Trading</strong>
+    <div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_realtrading_report_pnl_table</span><span class="p">(</span><span class="n">strategy_code</span><span class="p">,</span> <span class="n">show_all_rows</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div></p>
+</blockquote>
+<hr />
+<h4 id="fetch-report-statistics">Fetch Report Statistics<a class="headerlink" href="#fetch-report-statistics" title="Permanent link">&para;</a></h4>
+<p>Click on each of the tabs to see the relevant code snippet.</p>
+<blockquote>
+<p><strong>Backtesting</strong>
+    <div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_backtesting_report_statistics</span><span class="p">(</span>
+    <span class="n">strategy_code</span><span class="p">,</span>          <span class="c1"># strategy code</span>
+    <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;quantstats&#39;</span><span class="p">,</span>      <span class="c1"># package used to generate statistics</span>
+    <span class="n">report</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">,</span>          <span class="c1"># format of the report</span>
+    <span class="n">html_dump</span><span class="o">=</span><span class="kc">True</span>          <span class="c1"># save report as html file</span>
+<span class="p">)</span>
+</code></pre></div></p>
+<p><strong>Paper Trading</strong>
+    <div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_papertrading_report_statistics</span><span class="p">(</span>
+    <span class="n">strategy_code</span><span class="p">,</span>          <span class="c1"># strategy code</span>
+    <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;quantstats&#39;</span><span class="p">,</span>      <span class="c1"># package used to generate statistics</span>
+    <span class="n">report</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">,</span>          <span class="c1"># format of the report</span>
+    <span class="n">html_dump</span><span class="o">=</span><span class="kc">True</span>          <span class="c1"># save report as html file</span>
+<span class="p">)</span>
+</code></pre></div></p>
+<p><strong>Real Trading</strong>
+    <div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_realtrading_report_statistics</span><span class="p">(</span>
+    <span class="n">strategy_code</span><span class="p">,</span>          <span class="c1"># strategy code</span>
+    <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;quantstats&#39;</span><span class="p">,</span>      <span class="c1"># package used to generate statistics</span>
+    <span class="n">report</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">,</span>          <span class="c1"># format of the report</span>
+    <span class="n">html_dump</span><span class="o">=</span><span class="kc">True</span>          <span class="c1"># save report as html file</span>
+<span class="p">)</span>
+</code></pre></div></p>
+</blockquote>
+<hr />
+<h4 id="fetch-order-history">Fetch Order History<a class="headerlink" href="#fetch-order-history" title="Permanent link">&para;</a></h4>
+<p>Click on each of the tabs to see the relevant code snippet.</p>
+<blockquote>
+<p><strong>Backtesting</strong>
+    <div class="highlight"><pre><span></span><code><span class="n">order_history</span> <span class="o">=</span> <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_backtesting_report_order_history</span><span class="p">(</span><span class="n">strategy_code</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">order_history</span><span class="p">)</span>
+</code></pre></div></p>
+<p><strong>Paper Trading</strong>
+    <div class="highlight"><pre><span></span><code><span class="n">order_history</span> <span class="o">=</span> <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_papertrading_report_order_history</span><span class="p">(</span><span class="n">strategy_code</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">order_history</span><span class="p">)</span>
+</code></pre></div></p>
+<p><strong>Real Trading</strong>
+    <div class="highlight"><pre><span></span><code><span class="n">order_history</span> <span class="o">=</span> <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_realtrading_report_order_history</span><span class="p">(</span><span class="n">strategy_code</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">order_history</span><span class="p">)</span>
+</code></pre></div></p>
+</blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul>
+<li>Order History for Real Trading is not supported by brokers.</li>
+<li>Order History for Backtesting, Paper Trading and Real Trading is supported by the <strong>AlgoBulls Virtual Brokers</strong>.</li>
+</ul>
+</div>
+<hr />
+<h3 id="whats-next">What's Next...<a class="headerlink" href="#whats-next" title="Permanent link">&para;</a></h3>
+<p>You can now explore more by creating and uploading more complex strategies.</p>
+<p>You can also check out the <a href="../codeguide/">Strategy Coding Guidelines</a>.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../upload/" class="btn btn-neutral float-left" title="Upload your Strategy"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../codeguide/" class="btn btn-neutral float-right" title="Strategy Coding Guidelines">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>Copyright © 2020 | All Rights Reserved | AlgoBulls Technologies Private Limited</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/algobulls/pyalgotrading" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../upload/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../codeguide/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../js/timeago.min.js" defer></script>
+      <script src="../../js/timeago_mkdocs_material.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

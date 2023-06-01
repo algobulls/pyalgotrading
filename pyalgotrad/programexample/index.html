@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Pushpak Dagade (pushpak@algobulls.com)" /><link rel="canonical" href="https://algobulls.github.io/pyalgotrading/pyalgotrad/programexample/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Create your Strategy - pyalgotrading</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+        <link href="../../assets/_mkdocstrings.css" rel="stylesheet" />
+        <link href="../../css/timeago.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Create your Strategy";
+        var mkdocs_page_input_path = "pyalgotrad/programexample.md";
+        var mkdocs_page_url = "/pyalgotrading/pyalgotrad/programexample/";
+      </script>
+    
+    <script src="../../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-147658856-4', 'auto');
+        ga('send', 'pageview');
+      </script>
+    
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> pyalgotrading
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">PyalgoTrading</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../">Index</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Tutorial</a>
+    <ul class="current">
+                <li class="toctree-l2"><a class="reference internal" href="../introduction/">Introduction</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../prerequisites/">Prerequisites</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../structure/">Code Structure of a Strategy</a>
+                </li>
+                <li class="toctree-l2 current"><a class="reference internal current" href="#">Hands On</a>
+    <ul class="current">
+                <li class="toctree-l3 current"><a class="reference internal current" href="./">Create your Strategy</a>
+    <ul class="current">
+    <li class="toctree-l4"><a class="reference internal" href="#previously">Previously...</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#now">Now...</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#before-you-start">Before you start...</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#lets-start">Let's Start...</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#whats-next">What's Next...</a>
+    </li>
+    </ul>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../upload/">Upload your Strategy</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../testing/">Test your Strategy</a>
+                </li>
+    </ul>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../codeguide/">Strategy Coding Guidelines</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">PythonBuild</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../python_build/">Index</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Introduction</a>
+    <ul>
+                <li class="toctree-l2"><a class="" href="../../python_build/python-build-introduction">Introduction</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../python_build/python-build-overview/">Overview</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="../../python_build/python-build-getstarted">Get Started</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Code</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../python_build/python-build-code-ready-templates/">Code Ready Templates</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../python_build/python-build-code-new/">Code New Strategy</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../python_build/python-build-config-parameters/">Configure Parameters</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Features</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../python_build/python-build-view-results/">View Results</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Strategies</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Strategy Guide</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/common_regular_strategy/">Regular Strategy</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/common_options_strategy/">Options Strategy</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Regular Strategy Examples</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/aroon_crossover/">Aroon Crossover</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/bollinger_bands/">Bollinger Bands</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/ema_crossover/">EMA Crossover</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/inverse_ema_scalping/">Inverse EMA Scalping</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/reverse_rsi/">Reverse RSI</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/stochastic_crossover/">Stochastic Crossover</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/vwap_crossover/">VWAP Crossover</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Options Strategy Examples</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/options_bear_call_ladder/">Options Bear Call Ladder</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/options_bear_put_ladder/">Options Bear Put Ladder</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/options_bull_call_ladder/">Options Bull Call Ladder</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/options_bull_put_ladder/">Options Bull Put Ladder</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/options_long_iron_butterfly/">Options Long Iron Butterfly</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/options_straddle/">Options Straddle</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/options_strangle/">Options Strangle</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">pyalgotrading</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+          <li>PyalgoTrading &raquo;</li>
+          <li>Tutorial &raquo;</li>
+          <li>Hands On &raquo;</li>
+      <li>Create your Strategy</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/algobulls/pyalgotrading/edit/master/docs/pyalgotrad/programexample.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="create-your-strategy">Create your Strategy<a class="headerlink" href="#create-your-strategy" title="Permanent link">&para;</a></h1>
+<h3 id="previously"><strong>Previously...</strong><a class="headerlink" href="#previously" title="Permanent link">&para;</a></h3>
+<p>You have covered the basic code structure of a strategy.</p>
+<hr />
+<h3 id="now"><strong>Now...</strong><a class="headerlink" href="#now" title="Permanent link">&para;</a></h3>
+<p>You can either follow this page to create a strategy, or you can pick up a ready strategy (shown below) and move to the next page. </p>
+<hr />
+<h3 id="before-you-start"><strong>Before you start...</strong><a class="headerlink" href="#before-you-start" title="Permanent link">&para;</a></h3>
+<p>If you want to use a ready strategy from the <a href="https://github.com/algobulls/pyalgostrategypool">pyalgostrategypool</a> package, then you can directly jump to the <a href="../upload/">Upload</a> section. </p>
+<hr />
+<h3 id="lets-start"><strong>Let's Start...</strong><a class="headerlink" href="#lets-start" title="Permanent link">&para;</a></h3>
+<p>Follow the steps given below to create a new strategy of your own.</p>
+<p>Create a python file called <code>strategy_sma_regular_order.py</code>.</p>
+<p>You will add the following code snippets into the file and then save it.</p>
+<hr />
+<h4 id="import-statements">Import statements<a class="headerlink" href="#import-statements" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pyalgotrading.strategy.strategy_base</span> <span class="kn">import</span> <span class="n">StrategyBase</span>
+<span class="kn">from</span> <span class="nn">pyalgotrading.constants</span> <span class="kn">import</span> <span class="o">*</span>
+</code></pre></div>
+<hr />
+<h4 id="create-the-class-strategysmaregularorder-and-subclass-it-from-strategybase">Create the class <code>StrategySMARegularOrder</code> and subclass it from <code>StrategyBase</code><a class="headerlink" href="#create-the-class-strategysmaregularorder-and-subclass-it-from-strategybase" title="Permanent link">&para;</a></h4>
+<p><div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">StrategySMARegularOrder</span><span class="p">(</span><span class="n">StrategyBase</span><span class="p">):</span>
+</code></pre></div>
+Now you can add the methods mentioned in the <a href="../structure/">structure</a> inside the class. First you can add the <code>__init__</code> and the <code>initialize</code> methods.</p>
+<hr />
+<h4 id="constructor-def-__init__">Constructor: <code>def __init__()</code><a class="headerlink" href="#constructor-def-__init__" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;SMA Regular Order Strategy&#39;</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">timeperiod_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">strategy_parameters</span><span class="p">[</span><span class="s1">&#39;timeperiod1&#39;</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">timeperiod_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">strategy_parameters</span><span class="p">[</span><span class="s1">&#39;timeperiod2&#39;</span><span class="p">]</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">main_order</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+<p>The <code>init</code> method does the following:</p>
+<ol>
+<li><code>name</code> - variable which should store the name of your strategy</li>
+<li><code>super()</code> - Calls the constructor of the superclass.</li>
+<li><code>self.strategy_parameters</code> - Catches the parameters and saves them for local use - When you will submit a testing job for your SMA strategy, 
+you will pass parameters that will be used inside the strategy. 
+For SMA, we are calculating crossover for 2 SMA timeperiod values, example 5 and 12.  These 2 parameters will be caught by <code>self.strategy_parameters</code> and stored for local use in <code>self.timeperiod1</code> and <code>self.timeperiod2</code>.</li>
+<li><code>self.main_order</code> - Create an object that manages orders for you throughout the strategy.</li>
+</ol>
+<p>The <code>init</code> method is specific to Python's internal workings, and it is preceded and succeeded by double underscores ( _ _ ) joined together.</p>
+<hr />
+<h4 id="def-initialize"><code>def initialize()</code><a class="headerlink" href="#def-initialize" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">main_order</span> <span class="o">=</span> <span class="p">{}</span>
+</code></pre></div>
+<p>The <code>initialize</code> method sets the <code>self.main_order</code> as an empty dictionary. This method is called at the start of every trading day.</p>
+<p>For instance, say you are submitting a backtesting job for 5 previous days starting at 10:30 every day, then the <code>initialize</code> method will be called every day for 5 days at 10:30.</p>
+<p>Now add the two static methods, <code>name</code> and <code>versions_supprted</code>.</p>
+<hr />
+<h4 id="def-name-optional"><code>def name()</code> (optional)<a class="headerlink" href="#def-name-optional" title="Permanent link">&para;</a></h4>
+<p>If the <code>name</code> variable is defined in <code>__init__()</code>, this function is not needed.
+<div class="highlight"><pre><span></span><code><span class="nd">@staticmethod</span>
+<span class="k">def</span> <span class="nf">name</span><span class="p">():</span>
+    <span class="k">return</span> <span class="s1">&#39;SMA Regular Order Strategy&#39;</span>
+</code></pre></div>
+The name should be unique in your collection of strategies.</p>
+<hr />
+<h4 id="def-versions_supported-optional"><code>def versions_supported()</code> (optional)<a class="headerlink" href="#def-versions_supported-optional" title="Permanent link">&para;</a></h4>
+<p>not required it will take the latest version of AlgoBullsEngine by default
+<div class="highlight"><pre><span></span><code><span class="nd">@staticmethod</span>
+<span class="k">def</span> <span class="nf">versions_supported</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">AlgoBullsEngineVersion</span><span class="o">.</span><span class="n">VERSION_3_2_0</span>
+</code></pre></div>
+Mark both the above methods as <code>@staticmethod</code>.</p>
+<p>The <code>versions_supported</code> method does the following:</p>
+<ol>
+<li>It notifies the AlgoBulls platform that the strategy is working correctly for the platform version 3.2.0</li>
+<li>Since the platform will be constantly upgraded to incorporate new features and improve efficiency, the version may change.</li>
+<li>If the version changes, and if you submit a job for this strategy, then the AlgoBulls platform will spawn a server having version 3.2.0 for your strategy.</li>
+<li>Having this method ensures that the AlgoBulls platform always provides the correct environment for your strategy.</li>
+</ol>
+<hr />
+<h4 id="def-strategy_select_instruments_for_entry"><code>def strategy_select_instruments_for_entry()</code><a class="headerlink" href="#def-strategy_select_instruments_for_entry" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">strategy_select_instruments_for_entry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">candle</span><span class="p">,</span> <span class="n">instruments_bucket</span><span class="p">):</span>
+
+    <span class="n">instruments</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">meta</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">instrument</span> <span class="ow">in</span> <span class="n">instruments_bucket</span><span class="p">:</span>
+        <span class="n">crossover_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_crossover_value</span><span class="p">(</span><span class="n">instrument</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">crossover_value</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">instruments</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">instrument</span><span class="p">)</span>
+            <span class="n">meta</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;action&#39;</span><span class="p">:</span> <span class="s1">&#39;BUY&#39;</span><span class="p">})</span>
+        <span class="k">elif</span> <span class="n">crossover_value</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">strategy_mode</span> <span class="ow">is</span> <span class="n">StrategyMode</span><span class="o">.</span><span class="n">INTRADAY</span><span class="p">:</span>
+                <span class="n">instruments</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">instrument</span><span class="p">)</span>
+                <span class="n">meta</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;action&#39;</span><span class="p">:</span> <span class="s1">&#39;SELL&#39;</span><span class="p">})</span>
+
+    <span class="k">return</span> <span class="n">instruments</span><span class="p">,</span> <span class="n">meta</span>
+</code></pre></div>
+<p>The <code>strategy_select_instruments_for_entry</code> method does the following:</p>
+<ol>
+<li><code>instruments</code> and <code>meta</code> - Creates 2 empty lists that will be used to pass the selected instruments and additional information about them respectively.</li>
+<li>The Loop - The loop will iterate over each instrument name passed (while submitting the job) and will decide whether to set an entry position or not for it.</li>
+<li><code>crossover_value</code> - The crossover value is calculated and stored here. Crossover values are interpreted as:<ol>
+<li>Value 1 - Cut upwards</li>
+<li>Value -1 - Cut downwards</li>
+<li>Value 0 - No crossover</li>
+</ol>
+</li>
+<li>If conditions - If the crossover value is 1, then the instrument is selected for entry position, with the position as 'BUY'. If the crossover value is -1, then the instrument is selected for entry position, with the position as 'SELL'. The selected instrument is appended to the <code>instruments</code>, and the associated action (BUY/SELL) is appended to the <code>meta</code>.</li>
+<li><code>instruments</code> and <code>meta</code> - Both the lists (whether populated or empty) are returned to the platform for further actions.</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul>
+<li>SELL Entry positions are allowed only if the strategy is running for INTRADAY. DELIVERY strategies do not allow SELL as entry positions. This is taken care of in the <code>elif</code> part.</li>
+<li>The <code>strategy_select_instruments_for_entry</code> method is called once for every candle time. For Instance, if you submit a job with the candle time as 15 minutes, then this method will be called once for every 15 minute candle.</li>
+<li>The actual Entry position (BUY/SELL) is not entered here. Here, only the instrument is selected based on the crossover value with the proper action mentioned in the <code>meta</code>. The Entry position will be taken in the next method below.</li>
+<li>The <code>meta</code> contains a very versatile dictionary object. You may use it to pass any other additional information that you wish. </li>
+</ul>
+</div>
+<hr />
+<h4 id="def-strategy_enter_position"><code>def strategy_enter_position()</code><a class="headerlink" href="#def-strategy_enter_position" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">strategy_enter_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">candle</span><span class="p">,</span> <span class="n">instrument</span><span class="p">,</span> <span class="n">sideband_info</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">sideband_info</span><span class="p">[</span><span class="s1">&#39;action&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;BUY&#39;</span><span class="p">:</span>
+        <span class="n">qty</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">number_of_lots</span> <span class="o">*</span> <span class="n">instrument</span><span class="o">.</span><span class="n">lot_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">main_order</span><span class="p">[</span><span class="n">instrument</span><span class="p">]</span> <span class="o">=</span> \
+            <span class="bp">self</span><span class="o">.</span><span class="n">broker</span><span class="o">.</span><span class="n">BuyOrderRegular</span><span class="p">(</span><span class="n">instrument</span><span class="o">=</span><span class="n">instrument</span><span class="p">,</span>
+                <span class="n">order_code</span><span class="o">=</span><span class="n">BrokerOrderCodeConstants</span><span class="o">.</span><span class="n">INTRADAY</span><span class="p">,</span>
+                <span class="n">order_variety</span><span class="o">=</span><span class="n">BrokerOrderVarietyConstants</span><span class="o">.</span><span class="n">MARKET</span><span class="p">,</span>
+                <span class="n">quantity</span><span class="o">=</span><span class="n">qty</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">sideband_info</span><span class="p">[</span><span class="s1">&#39;action&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;SELL&#39;</span><span class="p">:</span>
+        <span class="n">qty</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">number_of_lots</span> <span class="o">*</span> <span class="n">instrument</span><span class="o">.</span><span class="n">lot_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">main_order</span><span class="p">[</span><span class="n">instrument</span><span class="p">]</span> <span class="o">=</span> \
+            <span class="bp">self</span><span class="o">.</span><span class="n">broker</span><span class="o">.</span><span class="n">SellOrderRegular</span><span class="p">(</span><span class="n">instrument</span><span class="o">=</span><span class="n">instrument</span><span class="p">,</span>
+                 <span class="n">order_code</span><span class="o">=</span><span class="n">BrokerOrderCodeConstants</span><span class="o">.</span><span class="n">INTRADAY</span><span class="p">,</span>
+                 <span class="n">order_variety</span><span class="o">=</span><span class="n">BrokerOrderVarietyConstants</span><span class="o">.</span><span class="n">MARKET</span><span class="p">,</span>
+                 <span class="n">quantity</span><span class="o">=</span><span class="n">qty</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">SystemExit</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Got invalid sideband_info value: </span><span class="si">{</span><span class="n">sideband_info</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">main_order</span><span class="p">[</span><span class="n">instrument</span><span class="p">]</span>
+</code></pre></div>
+<h4 id="or"><strong>or</strong><a class="headerlink" href="#or" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">strategy_enter_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">candle</span><span class="p">,</span> <span class="n">instrument</span><span class="p">,</span> <span class="n">meta</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">main_order_map</span><span class="p">[</span><span class="n">instrument</span><span class="p">]</span> <span class="o">=</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">broker</span><span class="o">.</span><span class="n">OrderRegular</span><span class="p">(</span>
+        <span class="n">intrument</span><span class="o">=</span><span class="n">instrument</span><span class="p">,</span>                           
+        <span class="n">order_transaction_type</span><span class="o">=</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;action&#39;</span><span class="p">],</span>              <span class="c1"># &#39;BUY&#39; or &#39;SELL&#39;</span>
+        <span class="n">quantity</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">number_of_lots</span> <span class="o">*</span> <span class="n">instrument</span><span class="o">.</span><span class="n">lot_size</span><span class="p">,</span> <span class="c1"># number of lots (int)</span>
+        <span class="n">price</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">trigger_price</span><span class="o">=</span><span class="kc">None</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">_</span>
+</code></pre></div>
+<p>The <code>strategy_enter_position</code> method does the following:</p>
+<ol>
+<li>If conditions - The conditions read the action from the <code>sideband_info</code> and perform the required action (BUY/SELL).</li>
+<li><code>qty</code> - The quantity is calculated and stored here. The number of lots will be passed by you as a parameter while submitting a job. The parameter will be caught in <code>self.number_of_lots</code>. The instrument object has the 'lot size', which you can retrieve using <code>instrument.lot_size</code>. You can then use the formula as shown in the code to calculate the quantity.</li>
+<li><code>OrderRegular</code>,<code>BuyOrderRegular</code> and <code>SellOrderRegular</code> - These execute the required action. You need to pass the instrument, order code, order variety and the quantity values.<ul>
+<li><code>instrument</code> - the instrument on which the BUY/SELL action will be performed.</li>
+<li><code>order_code</code> - whether the order is for INTRADAY or DELIVERY. Possible values are:<ul>
+<li><code>BrokerOrderCodeConstants.INTRADAY</code></li>
+<li><code>BrokerOrderCodeConstants.DELIVERY</code></li>
+<li><code>BrokerOrderCodeConstants.DELIVERY_T1</code></li>
+<li><code>BrokerOrderCodeConstants.DELIVERY_T2</code></li>
+</ul>
+</li>
+<li><code>order_variety</code> - the type of order variety. Possible values are:<ul>
+<li><code>BrokerOrderVarietyConstants.MARKET</code></li>
+<li><code>BrokerOrderVarietyConstants.LIMIT</code></li>
+<li><code>BrokerOrderVarietyConstants.STOPLOSS_MARKET</code></li>
+<li><code>BrokerOrderVarietyConstants.STOPLOSS_LIMIT</code></li>
+</ul>
+</li>
+<li><code>qty</code> - the quantity to BUY/SELL.</li>
+</ul>
+</li>
+<li><code>self.main_order</code> - The main order (for that particular instrument) is now populated (BUY OR SELL) and is returned to the platform for further actions.</li>
+</ol>
+<p>You can also punch Bracket Orders instead of Regular Orders. A typical BUY Bracket Order will look like this:
+<div class="highlight"><pre><span></span><code><span class="n">qty</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">number_of_lots</span> <span class="o">*</span> <span class="n">instrument</span><span class="o">.</span><span class="n">lot_size</span>
+<span class="n">ltp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">broker</span><span class="o">.</span><span class="n">get_ltp</span><span class="p">(</span><span class="n">instrument</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">main_order</span><span class="p">[</span><span class="n">instrument</span><span class="p">]</span> <span class="o">=</span> \
+            <span class="bp">self</span><span class="o">.</span><span class="n">broker</span><span class="o">.</span><span class="n">BuyOrderBracket</span><span class="p">(</span><span class="n">instrument</span><span class="o">=</span><span class="n">instrument</span><span class="p">,</span>
+                <span class="n">order_code</span><span class="o">=</span><span class="n">BrokerOrderCodeConstants</span><span class="o">.</span><span class="n">INTRADAY</span><span class="p">,</span>
+                <span class="n">order_variety</span><span class="o">=</span><span class="n">BrokerOrderVarietyConstants</span><span class="o">.</span><span class="n">LIMIT</span><span class="p">,</span>
+                <span class="n">quantity</span><span class="o">=</span><span class="n">qty</span><span class="p">,</span>
+                <span class="n">price</span><span class="o">=</span><span class="n">ltp</span><span class="p">,</span>
+                <span class="n">stoploss_trigger</span><span class="o">=</span><span class="n">ltp</span> <span class="o">-</span> <span class="p">(</span><span class="n">ltp</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">stoploss</span><span class="p">),</span>
+                <span class="n">target_trigger</span><span class="o">=</span><span class="n">ltp</span> <span class="o">+</span> <span class="p">(</span><span class="n">ltp</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">target</span><span class="p">),</span>
+                <span class="n">trailing_stoploss_trigger</span><span class="o">=</span><span class="n">ltp</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">trailing_stoploss</span><span class="p">)</span>
+</code></pre></div></p>
+<p>The additional parameters are:</p>
+<ul>
+<li><code>price</code> - If you want to BUY at the market price (Last Traded Price) or LTP, then just fetch the LTP using <code>get_ltp</code> as shown in the code above. Store the value in <code>ltp</code> and pass it to <code>price</code>.</li>
+<li><code>stoploss_trigger</code>, <code>target_trigger</code> and <code>trailing_stoploss_trigger</code> - You can calculate these using the <code>ltp</code> and the values you will pass through 
+the job that you will submit. The parameters will be caught as <code>self.stoploss</code>, <code>self.target</code> and <code>self.trailing_stoploss</code>.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul>
+<li>If you plan to use Bracket Order instead of Regular Orders, then create a separate Python file for it, say <code>strategy_sma_bracket_order.py</code>.
+ You can also change the class name as <code>StrategySMABracketOrder</code>. There will be changes in the entry and exit methods also.</li>
+<li>The <code>strategy_enter_position</code> method is called once for every instrument. For instance, you want to run this strategy for 5 instruments. Say that the <code>strategy_select_instruments_for_entry</code> method selects 3 instruments for ENTRY positions (BUY/SELL). Then, the <code>strategy_enter_position</code> method will be called thrice, once for each instrument respectively within the candle time frame (say, 15 minutes). </li>
+</ul>
+</div>
+<hr />
+<h4 id="def-strategy_select_instruments_for_exit"><code>def strategy_select_instruments_for_exit()</code><a class="headerlink" href="#def-strategy_select_instruments_for_exit" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">strategy_select_instruments_for_exit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">candle</span><span class="p">,</span> <span class="n">instruments_bucket</span><span class="p">):</span>
+    <span class="n">instruments</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">meta</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">instrument</span> <span class="ow">in</span> <span class="n">instruments_bucket</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">main_order</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">instrument</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">crossover_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_crossover_value</span><span class="p">(</span><span class="n">instrument</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">crossover_value</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                <span class="n">instruments</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">instrument</span><span class="p">)</span>
+                <span class="n">meta</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;action&#39;</span><span class="p">:</span> <span class="s1">&#39;EXIT&#39;</span><span class="p">})</span>
+    <span class="k">return</span> <span class="n">instruments</span><span class="p">,</span> <span class="n">meta</span>
+</code></pre></div>
+<p>The <code>strategy_select_instruments_for_exit</code> method does the following:</p>
+<ol>
+<li><code>instruments</code> and <code>meta</code> - Creates 2 empty lists that will be used to pass the selected instruments and additional information about them respectively.</li>
+<li>The Loop - The loop will iterate over each instrument name passed (which are in Entry position (BUY/SELL)) and will decide whether to set an exit position or not for it.</li>
+<li>If condition - The exit steps are executed only if the instrument is holding at an ENTRY position (BUY/SELL). You can do this by checking if the <code>self.main_order</code> object is <code>None</code> or not, and proceed only if it is not <code>None</code>. </li>
+<li><code>crossover_value</code> - The crossover value is calculated and stored here. Crossover values are interpreted as:<ol>
+<li>Value 1 - Cut upwards</li>
+<li>Value -1 - Cut downwards</li>
+<li>Value 0 - No crossover</li>
+</ol>
+</li>
+<li>If condition - If the crossover value is 1 or -1, then the instrument is selected for exit position. The selected instrument is appended to the <code>instruments</code>, and the associated action (EXIT) is appended to the <code>meta</code>.</li>
+<li><code>instruments</code> and <code>meta</code> - Both the lists (whether populated or empty) are returned to the platform for further actions.</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul>
+<li>The actual Exit position (BUY/SELL) is not entered here. Here, only the instrument is selected based on the crossover value with the proper action mentioned in the <code>meta</code>. The Exit position will be taken in the next method below.</li>
+<li>The <code>meta</code> contains a very versatile dictionary object. You may use it to pass any other additional information that you wish.</li>
+<li>Whenever a new trading day starts, the <code>strategy_select_instruments_for_exit</code> is called first. This is very important for DELIVERY strategies. Many instruments might be holding in an Entry Position at the end of the previous trading day, and they might be eligible for exit at the start of the new trading day.  </li>
+</ul>
+</div>
+<hr />
+<h4 id="def-strategy_exit_position"><code>def strategy_exit_position()</code><a class="headerlink" href="#def-strategy_exit_position" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">strategy_exit_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">candle</span><span class="p">,</span> <span class="n">instrument</span><span class="p">,</span> <span class="n">sideband_info</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">sideband_info</span><span class="p">[</span><span class="s1">&#39;action&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;EXIT&#39;</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">main_order</span><span class="p">[</span><span class="n">instrument</span><span class="p">]</span><span class="o">.</span><span class="n">exit_position</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">main_order</span><span class="p">[</span><span class="n">instrument</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="k">return</span> <span class="kc">False</span>
+</code></pre></div>
+<p>The <code>strategy_exit_position</code> method does the following:</p>
+<ol>
+<li>If condition - checks whether the appropriate action is set in the <code>sideband_info</code>.</li>
+<li><code>self.main_order</code> - calls <code>exit_position</code> method for the particular main order of the instrument. If the Entry Position was BUY, then the exit position is automatically taken as SELL and vice versa. The platform takes care of this automatically.</li>
+<li><code>self.main_order</code> - set it to <code>None</code>, as the order has been exited and no longer holds anything.</li>
+<li>Return values - returns <code>True</code> to the platform if the exit steps were performed, else return <code>False</code>.</li>
+</ol>
+<hr />
+<h4 id="def-get_crossover_value"><code>def get_crossover_value()</code><a class="headerlink" href="#def-get_crossover_value" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_crossover_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instrument</span><span class="p">):</span>
+    <span class="n">hist_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_historical_data</span><span class="p">(</span><span class="n">instrument</span><span class="p">)</span>
+    <span class="n">sma_x</span> <span class="o">=</span> <span class="n">talib</span><span class="o">.</span><span class="n">SMA</span><span class="p">(</span><span class="n">hist_data</span><span class="p">[</span><span class="s1">&#39;close&#39;</span><span class="p">],</span> <span class="n">timeperiod</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">timeperiod_x</span><span class="p">)</span>
+    <span class="n">sma_y</span> <span class="o">=</span> <span class="n">talib</span><span class="o">.</span><span class="n">SMA</span><span class="p">(</span><span class="n">hist_data</span><span class="p">[</span><span class="s1">&#39;close&#39;</span><span class="p">],</span> <span class="n">timeperiod</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">timeperiod_y</span><span class="p">)</span>
+    <span class="n">crossover_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">crossover</span><span class="p">(</span><span class="n">sma_x</span><span class="p">,</span> <span class="n">sma_y</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">crossover_value</span>
+</code></pre></div>
+<p>The <code>get_crossover_value</code> method does the following:</p>
+<ol>
+<li><code>hist_data</code> - The historical data for the instrument is fetched using the <code>get_historical_data</code> method and stored here. The data is in the form of a table (Pandas DataFrame) having the following columns:<ul>
+<li><code>timestamp</code> - the data and time when the data was measured</li>
+<li><code>volume</code> - the volume of that instrument</li>
+<li><code>open</code>, <code>high</code>, <code>low</code> and <code>close</code> - the OHLC values of the instrument</li>
+<li><code>oi</code> - the Open Interest of that instrument</li>
+</ul>
+</li>
+<li><code>sma_x</code> and <code>sma_y</code> - the SMA function from the <code>talib</code> package is used to calculate the Moving Average for both SMA time-periods. The candle close value is used for calculations, i.e. <code>hist_data['close']</code>.</li>
+<li><code>crossover_value</code> - calculates the crossover value using the <code>crossover</code> method from the <code>utils</code> package.</li>
+<li>Return value - return the crossover value to the caller method.</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul>
+<li>The order of values passed to the <code>crossover</code> method of the <code>utils</code> package is very important.</li>
+<li>Example: you have 2 SMA values, 5 and 12. The strategy describes that there should be an BUY Entry Position when SMA(5) cuts SMA(12) upwards (crossover value should be 1).</li>
+<li>In this case, if you mistakenly pass SMA(12) value first and SMA(5) value next to the <code>crossover</code> function, the answer you will get is -1 (Cut downwards).</li>
+<li>Though, the crossover value is correct, the strategy is expecting to BUY at crossover 1 as per the code, which will not work now.</li>
+<li>Therefore, the strategy will work correctly only if you pass SMA(5) first and then SMA(12) to the <code>crossover</code> function, thus making the order of parameters passed an important point to be aware of, while coding the strategy.</li>
+</ul>
+</div>
+<h3 id="whats-next"><strong>What's Next...</strong><a class="headerlink" href="#whats-next" title="Permanent link">&para;</a></h3>
+<hr />
+<p>Next, you upload the strategy into your AlgoBulls account.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../structure/" class="btn btn-neutral float-left" title="Code Structure of a Strategy"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../upload/" class="btn btn-neutral float-right" title="Upload your Strategy">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>Copyright © 2020 | All Rights Reserved | AlgoBulls Technologies Private Limited</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/algobulls/pyalgotrading" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../structure/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../upload/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../js/timeago.min.js" defer></script>
+      <script src="../../js/timeago_mkdocs_material.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

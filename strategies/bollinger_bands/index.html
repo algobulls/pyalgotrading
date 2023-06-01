@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Pushpak Dagade (pushpak@algobulls.com)" /><link rel="canonical" href="https://algobulls.github.io/pyalgotrading/strategies/bollinger_bands/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Bollinger Bands - pyalgotrading</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+        <link href="../../assets/_mkdocstrings.css" rel="stylesheet" />
+        <link href="../../css/timeago.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Bollinger Bands";
+        var mkdocs_page_input_path = "strategies/bollinger_bands.md";
+        var mkdocs_page_url = "/pyalgotrading/strategies/bollinger_bands/";
+      </script>
+    
+    <script src="../../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-147658856-4', 'auto');
+        ga('send', 'pageview');
+      </script>
+    
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> pyalgotrading
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">PyalgoTrading</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pyalgotrad/">Index</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Tutorial</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../pyalgotrad/introduction/">Introduction</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../pyalgotrad/prerequisites/">Prerequisites</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../pyalgotrad/structure/">Code Structure of a Strategy</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="#">Hands On</a>
+    <ul>
+                <li class="toctree-l3"><a class="reference internal" href="../../pyalgotrad/programexample/">Create your Strategy</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../../pyalgotrad/upload/">Upload your Strategy</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../../pyalgotrad/testing/">Test your Strategy</a>
+                </li>
+    </ul>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../pyalgotrad/codeguide/">Strategy Coding Guidelines</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">PythonBuild</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../python_build/">Index</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Introduction</a>
+    <ul>
+                <li class="toctree-l2"><a class="" href="../../python_build/python-build-introduction">Introduction</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../python_build/python-build-overview/">Overview</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="../../python_build/python-build-getstarted">Get Started</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Code</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../python_build/python-build-code-ready-templates/">Code Ready Templates</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../python_build/python-build-code-new/">Code New Strategy</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../python_build/python-build-config-parameters/">Configure Parameters</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Features</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../python_build/python-build-view-results/">View Results</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Strategies</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="#">Strategy Guide</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../common_regular_strategy/">Regular Strategy</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../common_options_strategy/">Options Strategy</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Regular Strategy Examples</a>
+    <ul class="current">
+                <li class="toctree-l2"><a class="reference internal" href="../aroon_crossover/">Aroon Crossover</a>
+                </li>
+                <li class="toctree-l2 current"><a class="reference internal current" href="./">Bollinger Bands</a>
+    <ul class="current">
+    <li class="toctree-l3"><a class="reference internal" href="#bollinger-bands-indicator">Bollinger Bands Indicator</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#strategy-overview">Strategy Overview</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#strategy-parameters">Strategy Parameters</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#decision-calculation">Decision Calculation</a>
+    </li>
+    </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../ema_crossover/">EMA Crossover</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../inverse_ema_scalping/">Inverse EMA Scalping</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../reverse_rsi/">Reverse RSI</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../stochastic_crossover/">Stochastic Crossover</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../vwap_crossover/">VWAP Crossover</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Options Strategy Examples</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../options_bear_call_ladder/">Options Bear Call Ladder</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../options_bear_put_ladder/">Options Bear Put Ladder</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../options_bull_call_ladder/">Options Bull Call Ladder</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../options_bull_put_ladder/">Options Bull Put Ladder</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../options_long_iron_butterfly/">Options Long Iron Butterfly</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../options_straddle/">Options Straddle</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../options_strangle/">Options Strangle</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">pyalgotrading</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+          <li>Strategies &raquo;</li>
+          <li>Regular Strategy Examples &raquo;</li>
+      <li>Bollinger Bands</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/algobulls/pyalgotrading/edit/master/docs/strategies/bollinger_bands.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="bollinger-bands">Bollinger Bands<a class="headerlink" href="#bollinger-bands" title="Permanent link">&para;</a></h1>
+<p>This is a trading strategy called "Bollinger Bands v2" implemented in Python using the PyAlgoTrading library. The strategy is based on the bollinger bands indicator values.</p>
+<h2 id="bollinger-bands-indicator">Bollinger Bands Indicator<a class="headerlink" href="#bollinger-bands-indicator" title="Permanent link">&para;</a></h2>
+<p>Bollinger Bands consists of a middle band (typically a 20-day Simple Moving Average) and two bands that represent the upper and lower price boundaries based on standard deviations. The bands adjust dynamically with market volatility.</p>
+<p>Key points about Bollinger Bands:</p>
+<ul>
+<li>The middle band is a moving average, while the upper and lower bands are calculated by adding/subtracting standard deviations from the middle band.</li>
+<li>Bollinger Bands help assess price volatility and identify potential overbought or oversold market conditions.</li>
+<li>A narrowing of the bands (Bollinger Squeeze) suggests low volatility, often followed by increased volatility and potential price breakout.</li>
+<li>Touching or exceeding the upper band may indicate an overbought market, while touching or falling below the lower band may suggest an oversold market.</li>
+<li>Price reversals can be observed when the price moves from one band to the other.</li>
+<li>The upper and lower bands can act as dynamic support and resistance levels.</li>
+<li>Bollinger Bands are used in combination with other indicators and analysis techniques to make trading decisions. They are not a standalone strategy but provide valuable insights when combined with other tools like the RSI.</li>
+</ul>
+<p><a href="../images/bollingerbands.png"><img alt="bollinger_bands" src="../images/bollingerbands.png" title="Click to Enlarge or Ctrl+Click to open in a new Tab" /></a></p>
+<h2 id="strategy-overview">Strategy Overview<a class="headerlink" href="#strategy-overview" title="Permanent link">&para;</a></h2>
+<p>This strategy, called Bollinger Bands v2, is an implementation of the Bollinger Bands indicator. It uses the Bollinger Bands values to compare with previous candle's OPEN, HIGH, LOW and CLOSE values and generate entry and exit signals for trading instruments.</p>
+<h2 id="strategy-parameters">Strategy Parameters<a class="headerlink" href="#strategy-parameters" title="Permanent link">&para;</a></h2>
+<p>The following parameters can be configured for the strategy:</p>
+<ul>
+<li><code>TIME_PERIOD</code>: Period (number of candles) by which Bollinger Bands are calculated</li>
+<li><code>STANDARD_DEVIATION</code>:  Standard deviation (in percent) for upper and lower band from the signal bands</li>
+</ul>
+<h2 id="decision-calculation">Decision Calculation<a class="headerlink" href="#decision-calculation" title="Permanent link">&para;</a></h2>
+<p>The <code>get_decision</code> method calculates the Bollinger Bands values for a given instrument based on the OHLC (Open, High, Low, Close) historical data. It uses the <code>talib.BBANDS</code> function from the Talib library to calculate the upper and lower bands. The method compares the previous candle's open, low, and close values with the upper and lower bands to determine the entry or exit action. If the conditions for a buy or sell signal are met, the corresponding action is returned.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../aroon_crossover/" class="btn btn-neutral float-left" title="Aroon Crossover"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../ema_crossover/" class="btn btn-neutral float-right" title="EMA Crossover">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>Copyright © 2020 | All Rights Reserved | AlgoBulls Technologies Private Limited</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/algobulls/pyalgotrading" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../aroon_crossover/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../ema_crossover/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../js/timeago.min.js" defer></script>
+      <script src="../../js/timeago_mkdocs_material.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

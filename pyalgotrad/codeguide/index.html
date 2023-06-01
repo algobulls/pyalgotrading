@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Pushpak Dagade (pushpak@algobulls.com)" /><link rel="canonical" href="https://algobulls.github.io/pyalgotrading/pyalgotrad/codeguide/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Strategy Coding Guidelines - pyalgotrading</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+        <link href="../../assets/_mkdocstrings.css" rel="stylesheet" />
+        <link href="../../css/timeago.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Strategy Coding Guidelines";
+        var mkdocs_page_input_path = "pyalgotrad/codeguide.md";
+        var mkdocs_page_url = "/pyalgotrading/pyalgotrad/codeguide/";
+      </script>
+    
+    <script src="../../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-147658856-4', 'auto');
+        ga('send', 'pageview');
+      </script>
+    
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> pyalgotrading
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">PyalgoTrading</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../">Index</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Tutorial</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../introduction/">Introduction</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../prerequisites/">Prerequisites</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../structure/">Code Structure of a Strategy</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="#">Hands On</a>
+    <ul>
+                <li class="toctree-l3"><a class="reference internal" href="../programexample/">Create your Strategy</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../upload/">Upload your Strategy</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../testing/">Test your Strategy</a>
+                </li>
+    </ul>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Strategy Coding Guidelines</a>
+    <ul class="current">
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">PythonBuild</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../python_build/">Index</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Introduction</a>
+    <ul>
+                <li class="toctree-l2"><a class="" href="../../python_build/python-build-introduction">Introduction</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../python_build/python-build-overview/">Overview</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="../../python_build/python-build-getstarted">Get Started</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Code</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../python_build/python-build-code-ready-templates/">Code Ready Templates</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../python_build/python-build-code-new/">Code New Strategy</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../python_build/python-build-config-parameters/">Configure Parameters</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Features</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../python_build/python-build-view-results/">View Results</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Strategies</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Strategy Guide</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/common_regular_strategy/">Regular Strategy</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/common_options_strategy/">Options Strategy</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Regular Strategy Examples</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/aroon_crossover/">Aroon Crossover</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/bollinger_bands/">Bollinger Bands</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/ema_crossover/">EMA Crossover</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/inverse_ema_scalping/">Inverse EMA Scalping</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/reverse_rsi/">Reverse RSI</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/stochastic_crossover/">Stochastic Crossover</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/vwap_crossover/">VWAP Crossover</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Options Strategy Examples</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/options_bear_call_ladder/">Options Bear Call Ladder</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/options_bear_put_ladder/">Options Bear Put Ladder</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/options_bull_call_ladder/">Options Bull Call Ladder</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/options_bull_put_ladder/">Options Bull Put Ladder</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/options_long_iron_butterfly/">Options Long Iron Butterfly</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/options_straddle/">Options Straddle</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/options_strangle/">Options Strangle</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">pyalgotrading</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+          <li>PyalgoTrading &raquo;</li>
+      <li>Strategy Coding Guidelines</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/algobulls/pyalgotrading/edit/master/docs/pyalgotrad/codeguide.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This will be a frequently updated page. Keep visiting to know what's new!</p>
+</div>
+<p>This page helps you to understand the best practices to create a good strategy.</p>
+<h2 id="list-of-guidelines">List of Guidelines<a class="headerlink" href="#list-of-guidelines" title="Permanent link">&para;</a></h2>
+<hr />
+<ol>
+<li>
+<p>The following Python packages/modules are available to you:</p>
+<table>
+<thead>
+<tr>
+<th>Package / Module</th>
+<th>Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://mrjbq7.github.io/ta-lib/install.html"><strong>TA-Lib</strong></a></td>
+<td>0.4.25</td>
+</tr>
+<tr>
+<td><a href="https://pypi.org/project/pandas/"><strong>pandas</strong></a></td>
+<td>1.5.3</td>
+</tr>
+<tr>
+<td><a href="https://pypi.org/project/numpy/"><strong>numpy</strong></a></td>
+<td>1.24.2</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>The strategy class should not import any packages/modules.</p>
+</li>
+<li>The entire strategy should be a single Python class.</li>
+</ol>
+<hr />
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul>
+<li>Pandas is available with limited functionality. Direct printing of dataframes is disabled.</li>
+<li>It is a good idea to include the version number while installing a package using <code>pip</code>.</li>
+<li>Example - <code>pip install numpy==1.24.2</code> </li>
+</ul>
+</div>
+<p>You may get the following message if the strategy fails to adhere to the guidelines.</p>
+<div class="highlight"><pre><span></span><code>Strategy breached code of conduct. Please adjust your strategy to follow guidelines and run again. Halting strategy...
+</code></pre></div>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../testing/" class="btn btn-neutral float-left" title="Test your Strategy"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../../python_build/" class="btn btn-neutral float-right" title="Index">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>Copyright © 2020 | All Rights Reserved | AlgoBulls Technologies Private Limited</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/algobulls/pyalgotrading" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../testing/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../../python_build/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../js/timeago.min.js" defer></script>
+      <script src="../../js/timeago_mkdocs_material.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

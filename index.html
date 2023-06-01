@@ -1,465 +1,263 @@
-
 <!DOCTYPE html>
-
-<html class="no-js" lang="en">
+<html class="writer-html5" lang="en" >
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width,initial-scale=1" name="viewport"/>
-<meta content="Official Python Package for Algorithmic Trading APIs powered by AlgoBulls" name="description"/>
-<meta content="Pushpak Dagade (pushpak@algobulls.com)" name="author"/>
-<link href="https://algobulls.github.io/pyalgotrading/" rel="canonical"/>
-<link href="assets/images/favicon.png" rel="shortcut icon"/>
-<meta content="mkdocs-1.1.2, mkdocs-material-7.0.3" name="generator"/>
-<title>pyalgotrading</title>
-<link href="assets/stylesheets/main.1655a90d.min.css" rel="stylesheet"/>
-<link href="assets/stylesheets/palette.7fa14f5b.min.css" rel="stylesheet"/>
-<meta content="#2094f3" name="theme-color"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&amp;display=fallback" rel="stylesheet"/>
-<style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
-<script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-147658856-4","auto"),ga("set","anonymizeIp",!0),ga("send","pageview"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){var e;this.value&&(e=document.location.pathname,ga("send","pageview",e+"?q="+this.value))}),"undefined"!=typeof location$&&location$.subscribe(function(e){ga("send","pageview",e.pathname)})})</script>
-<script async="" src="https://www.google-analytics.com/analytics.js"></script>
-</head>
-<body data-md-color-accent="blue" data-md-color-primary="blue" data-md-color-scheme="default" dir="ltr">
-<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
-<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
-<label class="md-overlay" for="__drawer"></label>
-<div data-md-component="skip">
-<a class="md-skip" href="#welcome-to-pyalgotrading-documentation">
-          Skip to content
-        </a>
-</div>
-<div data-md-component="announce">
-</div>
-<header class="md-header" data-md-component="header">
-<nav aria-label="Header" class="md-header__inner md-grid">
-<a aria-label="pyalgotrading" class="md-header__button md-logo" href="https://algobulls.github.io/pyalgotrading/" title="pyalgotrading">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"></path></svg>
-</a>
-<label class="md-header__button md-icon" for="__drawer">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"></path></svg>
-</label>
-<div class="md-header__title" data-md-component="header-title">
-<div class="md-header__ellipsis">
-<div class="md-header__topic">
-<span class="md-ellipsis">
-            pyalgotrading
-          </span>
-</div>
-<div class="md-header__topic" data-md-component="header-topic">
-<span class="md-ellipsis">
-            
-              Home
-            
-          </span>
-</div>
-</div>
-</div>
-<div class="md-header__options">
-</div>
-<label class="md-header__button md-icon" for="__search">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"></path></svg>
-</label>
-<div class="md-search" data-md-component="search" role="dialog">
-<label class="md-search__overlay" for="__search"></label>
-<div class="md-search__inner" role="search">
-<form class="md-search__form" name="search">
-<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" data-md-state="active" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
-<label class="md-search__icon md-icon" for="__search">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"></path></svg>
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
-</label>
-<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" type="reset">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"></path></svg>
-</button>
-</form>
-<div class="md-search__output">
-<div class="md-search__scrollwrap" data-md-scrollfix="">
-<div class="md-search-result" data-md-component="search-result">
-<div class="md-search-result__meta">
-            Initializing search
-          </div>
-<ol class="md-search-result__list"></ol>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="md-header__source">
-<a class="md-source" data-md-component="source" href="https://github.com/algobulls/pyalgotrading/" title="Go to repository">
-<div class="md-source__icon md-icon">
-<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"></path></svg>
-</div>
-<div class="md-source__repository">
-    GitHub
-  </div>
-</a>
-</div>
-</nav>
-</header>
-<div class="md-container" data-md-component="container">
-<main class="md-main" data-md-component="main">
-<div class="md-main__inner md-grid">
-<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
-<div class="md-sidebar__scrollwrap">
-<div class="md-sidebar__inner">
-<nav aria-label="Navigation" class="md-nav md-nav--primary" data-md-level="0">
-<label class="md-nav__title" for="__drawer">
-<a aria-label="pyalgotrading" class="md-nav__button md-logo" href="https://algobulls.github.io/pyalgotrading/" title="pyalgotrading">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"></path></svg>
-</a>
-    pyalgotrading
-  </label>
-<div class="md-nav__source">
-<a class="md-source" data-md-component="source" href="https://github.com/algobulls/pyalgotrading/" title="Go to repository">
-<div class="md-source__icon md-icon">
-<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"></path></svg>
-</div>
-<div class="md-source__repository">
-    GitHub
-  </div>
-</a>
-</div>
-<ul class="md-nav__list" data-md-scrollfix="">
-<li class="md-nav__item md-nav__item--active">
-<input class="md-nav__toggle md-toggle" data-md-toggle="toc" id="__toc" type="checkbox"/>
-<label class="md-nav__link md-nav__link--active" for="__toc">
-          Home
-          <span class="md-nav__icon md-icon"></span>
-</label>
-<a class="md-nav__link md-nav__link--active" href=".">
-        Home
-      </a>
-<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
-<label class="md-nav__title" for="__toc">
-<span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#visit-the-tutorial">
-    Visit the Tutorial
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#visit-the-api">
-    Visit the API
-  </a>
-</li>
-</ul>
-</nav>
-</li>
-<li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" id="__nav_2" type="checkbox"/>
-<label class="md-nav__link" for="__nav_2">
-        Tutorial
-        <span class="md-nav__icon md-icon"></span>
-</label>
-<nav aria-label="Tutorial" class="md-nav" data-md-level="1">
-<label class="md-nav__title" for="__nav_2">
-<span class="md-nav__icon md-icon"></span>
-          Tutorial
-        </label>
-<ul class="md-nav__list" data-md-scrollfix="">
-<li class="md-nav__item">
-<a class="md-nav__link" href="introduction/">
-        Introduction
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="prerequisites/">
-        Prerequisites
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="structure/">
-        Code Structure of a Strategy
-      </a>
-</li>
-<li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" id="__nav_2_4" type="checkbox"/>
-<label class="md-nav__link" for="__nav_2_4">
-        Hands On
-        <span class="md-nav__icon md-icon"></span>
-</label>
-<nav aria-label="Hands On" class="md-nav" data-md-level="2">
-<label class="md-nav__title" for="__nav_2_4">
-<span class="md-nav__icon md-icon"></span>
-          Hands On
-        </label>
-<ul class="md-nav__list" data-md-scrollfix="">
-<li class="md-nav__item">
-<a class="md-nav__link" href="programexample/">
-        Create your Strategy
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="upload/">
-        Upload your Strategy
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="testing/">
-        Test your Strategy
-      </a>
-</li>
-</ul>
-</nav>
-</li>
-</ul>
-</nav>
-</li>
-<li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" id="__nav_3" type="checkbox"/>
-<label class="md-nav__link" for="__nav_3">
-        API
-        <span class="md-nav__icon md-icon"></span>
-</label>
-<nav aria-label="API" class="md-nav" data-md-level="1">
-<label class="md-nav__title" for="__nav_3">
-<span class="md-nav__icon md-icon"></span>
-          API
-        </label>
-<ul class="md-nav__list" data-md-scrollfix="">
-<li class="md-nav__item">
-<a class="md-nav__link" href="package_algobulls/">
-        algobulls
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="package_broker/">
-        broker
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="package_instrument/">
-        instrument
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="package_order/">
-        order
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="package_strategy/">
-        strategy
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="package_utils/">
-        utils
-      </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="module_constants/">
-        constants
-      </a>
-</li>
-</ul>
-</nav>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="codeguide/">
-        Strategy Coding Guidelines
-      </a>
-</li>
-</ul>
-</nav>
-</div>
-</div>
-</div>
-<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
-<div class="md-sidebar__scrollwrap">
-<div class="md-sidebar__inner">
-<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
-<label class="md-nav__title" for="__toc">
-<span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#visit-the-tutorial">
-    Visit the Tutorial
-  </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#visit-the-api">
-    Visit the API
-  </a>
-</li>
-</ul>
-</nav>
-</div>
-</div>
-</div>
-<div class="md-content" data-md-component="content">
-<article class="md-content__inner md-typeset">
-<a class="md-content__button md-icon" href="https://github.com/algobulls/pyalgotrading/edit/master/docs/index.md" title="Edit this page">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
-</a>
-<h1 id="welcome-to-pyalgotrading-documentation">Welcome to <code>pyalgotrading</code> Documentation!<a class="headerlink" href="#welcome-to-pyalgotrading-documentation" title="Permanent link">¶</a></h1>
-<h3 id="visit-the-tutorial">Visit the Tutorial<a class="headerlink" href="#visit-the-tutorial" title="Permanent link">¶</a></h3>
-<ul>
-<li>Tutorial:<ul>
-<li><a href="introduction/">Introduction</a></li>
-<li><a href="prerequisites/">Prerequisites</a></li>
-<li><a href="structure/">Basic Structure of a Strategy</a></li>
-<li>Hands On:<ul>
-<li><a href="programexample/">Program Example</a></li>
-<li><a href="upload/">Upload your Strategy</a></li>
-<li><a href="testing/">Test your Strategy</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="visit-the-api">Visit the API<a class="headerlink" href="#visit-the-api" title="Permanent link">¶</a></h3>
-<ul>
-<li>Packages<ul>
-<li><a href="package_algobulls/">algobulls</a>/</li>
-<li><a href="package_broker/">broker</a>/</li>
-<li><a href="package_instrument/">instrument</a>/</li>
-<li><a href="package_order/">order</a>/</li>
-<li><a href="package_strategy/">strategy</a>/</li>
-<li><a href="package_utils/">utils</a>/</li>
-</ul>
-</li>
-<li>Modules:<ul>
-<li><a href="module_constants/">constants</a></li>
-</ul>
-</li>
-</ul>
-<h1 id="pyalgotrading">pyalgotrading<a class="headerlink" href="#pyalgotrading" title="Permanent link">¶</a></h1>
-<p>Official Python Package for Algorithmic Trading APIs powered by AlgoBulls!</p>
-<h3 id="features">Features<a class="headerlink" href="#features" title="Permanent link">¶</a></h3>
-<ul>
-<li>Powered by the <a href="https://algobulls.com">AlgoBulls Platform</a></li>
-<li>Everything related to Algorithmic Trading Strategies!<ul>
-<li>Create &amp; upload strategies on the <a href="https://algobulls.com">AlgoBulls Platform</a></li>
-<li>Free pool of Strategies are available separately at <a href="https://github.com/algobulls/pyalgostrategypool">pyalgostrategypool</a>!</li>
-<li>Support for all 150+ Technical Indicators provided by <a href="https://mrjbq7.github.io/ta-lib/index.html">TA-Lib</a></li>
-<li>Support for multiple candlesticks patterns - Japanese OHLC, Renko, Heikin-Ashi, Linebreak</li>
-<li>Support for multiple candle inntervals - 1 minute, 3 minutes, 5 minutes, 10 minutes, 15 minutes, 30 minutes, 1 hour, 1 day. </li>
-<li>Support for <strong>Regular Orders</strong> and <strong>Bracket Orders</strong></li>
-<li>Support for <strong>MARKET</strong>, <strong>LIMIT</strong>, <strong>STOPLOSS</strong>, <strong>STOPLOSS-LIMIT</strong> orders</li>
-<li>Support for <strong>INTRADAY</strong> and <strong>DELIVERY</strong> orders</li>
-</ul>
-</li>
-<li>Support for <strong>Backtesting</strong></li>
-<li>Support for <strong>Paper Trading</strong></li>
-<li>Support for <strong>Real Trading</strong></li>
-<li>Support for multiple brokers for Real Trading <ul>
-<li>Currently supported brokers - Zerodha </li>
-<li>Coming soon - AliceBlue, Mastertrust</li>
-<li>More on the way!</li>
-</ul>
-</li>
-<li>Real-time Logs for Backtesting, Paper Trading, Real Trading</li>
-<li>Multiple real-time Reports available for Backtesting, Paper Trading and Real Trading - <ul>
-<li>Profit-n-Loss report (PnL report)</li>
-<li>Statistics of (PnL report)</li>
-<li>Order History for each order with state transitions &amp; timestamps</li>
-</ul>
-</li>
-<li>Plot Candlestick charts using <a href="https://github.com/plotly/plotly.py">plotly.py</a></li>
-</ul>
-<p>Backtesting, Paper Trading and Real Trading can be performed on the same strategy code base!</p>
-<h3 id="documentation">Documentation<a class="headerlink" href="#documentation" title="Permanent link">¶</a></h3>
-<p>You can find the docs <a href="https://algobulls.github.io/pyalgotrading/">here</a>.</p>
-<h3 id="python">Python<a class="headerlink" href="#python" title="Permanent link">¶</a></h3>
-<ul>
-<li>Python Support: <code>Python 3.6+</code>.</li>
-<li>Python Requirements: See <a href="https://github.com/algobulls/pyalgotrading/blob/master/requirements.txt">requirements.txt</a>.</li>
-<li>We recommend you to use the latest version of Python (v3.8+) to enjoy better performance benefits, especially for pandas. (For Python 3.6, the latest supported Pandas version is v0.25.3. For Python 3.8, the latest supported version is v1.0.x)</li>
-</ul>
-<h3 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">¶</a></h3>
-<p>Package can be easily installed using <code>pip</code> - 
-<div class="highlight"><pre><span></span><code>pip install pyalgotrading
-</code></pre></div></p>
-<h3 id="support-getting-help">Support / Getting Help<a class="headerlink" href="#support-getting-help" title="Permanent link">¶</a></h3>
-<ul>
-<li><em>Bug Reporting / New Feature Request</em>: Please <a href="https://github.com/algobulls/pyalgotrading/issues/new">create a new issue</a> here on GitHub.</li>
-<li><em>Discussion Forum</em>: Coming Soon!</li>
-<li><em>Additional Support</em>: If none of the above help, please contact <a href="mailto:pushpak@algobulls.com">pushpak@algobulls.com</a>.</li>
-</ul>
-<h3 id="contribution-guidelines">Contribution Guidelines<a class="headerlink" href="#contribution-guidelines" title="Permanent link">¶</a></h3>
-<p>Here’s how we suggest you go about proposing a change to this project:</p>
-<ol>
-<li><a href="https://help.github.com/articles/fork-a-repo/">Fork this project</a> to your account.</li>
-<li><a href="https://help.github.com/articles/creating-and-deleting-branches-within-your-repository">Create a branch</a> for the change you intend to make.</li>
-<li>Make your changes to your fork.</li>
-<li><a href="https://help.github.com/articles/using-pull-requests/">Send a pull request</a> from your fork’s branch to our <code>master</code> branch.</li>
-</ol>
-<h3 id="changelog">Changelog<a class="headerlink" href="#changelog" title="Permanent link">¶</a></h3>
-<p>See <a href="https://github.com/algobulls/pyalgotrading/blob/master/CHANGELOG.md">CHANGELOG.md</a>.</p>
-<h3 id="license">License<a class="headerlink" href="#license" title="Permanent link">¶</a></h3>
-<p>See <a href="https://github.com/algobulls/pyalgotrading/blob/master/LICENSE">LICENSE</a>.</p>
-<hr/>
-<div class="md-source-date">
-<small>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="description" content="Official Python Package for Algorithmic Trading APIs powered by AlgoBulls" /><meta name="author" content="Pushpak Dagade (pushpak@algobulls.com)" /><link rel="canonical" href="https://algobulls.github.io/pyalgotrading/" />
+      <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>pyalgotrading</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+        <link href="assets/_mkdocstrings.css" rel="stylesheet" />
+        <link href="css/timeago.css" rel="stylesheet" />
     
-      Last update: <span class="timeago" datetime="1610292245000" locale="en"></span>
-</small>
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Home";
+        var mkdocs_page_input_path = "index.md";
+        var mkdocs_page_url = "/pyalgotrading/";
+      </script>
+    
+    <script src="js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-147658856-4', 'auto');
+        ga('send', 'pageview');
+      </script>
+    
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="." class="icon icon-home"> pyalgotrading
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
 </div>
-</article>
-</div>
-</div>
-</main>
-<footer class="md-footer">
-<nav aria-label="Footer" class="md-footer__inner md-grid">
-<a class="md-footer__link md-footer__link--next" href="introduction/" rel="next">
-<div class="md-footer__title">
-<div class="md-ellipsis">
-<span class="md-footer__direction">
-                Next
-              </span>
-              Introduction
-            </div>
-</div>
-<div class="md-footer__button md-icon">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"></path></svg>
-</div>
-</a>
-</nav>
-<div class="md-footer-meta md-typeset">
-<div class="md-footer-meta__inner md-grid">
-<div class="md-footer-copyright">
-<div class="md-footer-copyright__highlight">
-            Copyright © 2020 | All Rights Reserved | AlgoBulls Technologies Private Limited
-          </div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href=".">Home</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#pyalgotrading">Pyalgotrading</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#pythonbuild">PythonBuild</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">PyalgoTrading</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="pyalgotrad/">Index</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Tutorial</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="pyalgotrad/introduction/">Introduction</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="pyalgotrad/prerequisites/">Prerequisites</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="pyalgotrad/structure/">Code Structure of a Strategy</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="#">Hands On</a>
+    <ul>
+                <li class="toctree-l3"><a class="reference internal" href="pyalgotrad/programexample/">Create your Strategy</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="pyalgotrad/upload/">Upload your Strategy</a>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="pyalgotrad/testing/">Test your Strategy</a>
+                </li>
+    </ul>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="pyalgotrad/codeguide/">Strategy Coding Guidelines</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">PythonBuild</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="python_build/">Index</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Introduction</a>
+    <ul>
+                <li class="toctree-l2"><a class="" href="python_build/python-build-introduction">Introduction</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="python_build/python-build-overview/">Overview</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="python_build/python-build-getstarted">Get Started</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Code</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="python_build/python-build-code-ready-templates/">Code Ready Templates</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="python_build/python-build-code-new/">Code New Strategy</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="python_build/python-build-config-parameters/">Configure Parameters</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Features</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="python_build/python-build-view-results/">View Results</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Strategies</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Strategy Guide</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="strategies/common_regular_strategy/">Regular Strategy</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="strategies/common_options_strategy/">Options Strategy</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Regular Strategy Examples</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="strategies/aroon_crossover/">Aroon Crossover</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="strategies/bollinger_bands/">Bollinger Bands</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="strategies/ema_crossover/">EMA Crossover</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="strategies/inverse_ema_scalping/">Inverse EMA Scalping</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="strategies/reverse_rsi/">Reverse RSI</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="strategies/stochastic_crossover/">Stochastic Crossover</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="strategies/vwap_crossover/">VWAP Crossover</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Options Strategy Examples</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="strategies/options_bear_call_ladder/">Options Bear Call Ladder</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="strategies/options_bear_put_ladder/">Options Bear Put Ladder</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="strategies/options_bull_call_ladder/">Options Bull Call Ladder</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="strategies/options_bull_put_ladder/">Options Bull Put Ladder</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="strategies/options_long_iron_butterfly/">Options Long Iron Butterfly</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="strategies/options_straddle/">Options Straddle</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="strategies/options_strangle/">Options Strangle</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href=".">pyalgotrading</a>
         
-        Made with
-        <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
-          Material for MkDocs
-        </a>
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+      <li>Home</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/algobulls/pyalgotrading/edit/master/docs/index.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
 </div>
-<div class="md-footer-social">
-<a class="md-footer-social__link" href="https://linkedin.com/company/algobulls" rel="noopener" target="_blank" title="linkedin.com">
-<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"></path></svg>
-</a>
-<a class="md-footer-social__link" href="https://facebook.com/algobullsalgotrading" rel="noopener" target="_blank" title="facebook.com">
-<svg viewbox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z"></path></svg>
-</a>
-<a class="md-footer-social__link" href="https://github.com/algobulls/" rel="noopener" target="_blank" title="github.com">
-<svg viewbox="0 0 480 512" xmlns="http://www.w3.org/2000/svg"><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"></path></svg>
-</a>
-</div>
-</div>
-</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="home-page">Home Page<a class="headerlink" href="#home-page" title="Permanent link">&para;</a></h1>
+<hr />
+<h2 id="pyalgotrading"><a href="pyalgotrad/">Pyalgotrading</a><a class="headerlink" href="#pyalgotrading" title="Permanent link">&para;</a></h2>
+<hr />
+<p>Pyalgotrading is an official Python package that offers algorithmic trading APIs powered by <a href="https://www.algobulls.com/">AlgoBulls</a>. It provides support for creating and uploading strategies on the <a href="https://www.algobulls.com/">AlgoBulls</a> platform, as well as a pool of free strategies at <a href="https://github.com/algobulls/pyalgostrategypool">pyalgostrategypool</a>. It
+also supports over 150 technical indicators, multiple candlestick patterns and intervals, and different types of orders. Pyalgotrading allows for backtesting, paper trading, and real trading (subject to approval), and supports multiple brokers for
+real trading. Real-time logs and reports are available for all types of trading, and candlestick charts can be plotted using <a href="https://github.com/plotly/plotly.py">plotly.py</a>.</p>
+<hr />
+<h2 id="pythonbuild"><a href="python_build/">PythonBuild</a><a class="headerlink" href="#pythonbuild" title="Permanent link">&para;</a></h2>
+<hr />
+<p>The PythonBuild service is a powerful platform that offers users the flexibility to create their own trading strategies from scratch or make modifications to existing templates. It provides them with the ability to leverage the <a href="https://www.algobulls.com/">AlgoBulls</a> Core Trading Engine, an advanced trading system, and gain access to historical data for evaluating and improving the performance of their strategies.
+With PythonBuild, users have the freedom to write their trading algorithms from the ground up, allowing for complete customization and control over the logic and functionality of their strategies. Alternatively, they can modify pre-existing templates, which saves time and effort while still enabling them to tailor the strategy to their specific needs.
+One of the key advantages of the PythonBuild service is that it grants users the ability to tweak parameters, making it easy to fine-tune their strategies and observe the impact on performance in real-time. This feature empowers traders to optimize their algorithms for desired outcomes and increase the likelihood of successful trading.
+In addition to parameter tweaking, PythonBuild also provides users with the capability to view visual analytics. This feature allows for in-depth analysis and visualization of strategy performance, providing traders with valuable insights and enabling them to make data-driven decisions. By analyzing comprehensive data metrics and charts, users can identify patterns, uncover trends, and refine their strategies for enhanced profitability</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="pyalgotrad/" class="btn btn-neutral float-right" title="Index">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>Copyright © 2020 | All Rights Reserved | AlgoBulls Technologies Private Limited</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/algobulls/pyalgotrading" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+      <span><a href="pyalgotrad/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
 </div>
-<div class="md-dialog" data-md-component="dialog">
-<div class="md-dialog__inner md-typeset"></div>
-</div>
-<script id="__config" type="application/json">{"base": ".", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "assets/javascripts/workers/search.fb4a9340.min.js", "version": null}</script>
-<script src="assets/javascripts/bundle.ca5457b8.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.0-beta.2/timeago.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.0-beta.2/timeago.locales.min.js"></script>
-<script>
-            var nodes = document.querySelectorAll('.timeago');
-            var locale = nodes[0].getAttribute('locale');
-            timeago.render(nodes, locale);
-          </script>
+    <script>var base_url = '.';</script>
+    <script src="js/theme_extra.js" defer></script>
+    <script src="js/theme.js" defer></script>
+      <script src="js/timeago.min.js" defer></script>
+      <script src="js/timeago_mkdocs_material.js" defer></script>
+      <script src="search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
 </body>
 </html>
+
+<!--
+MkDocs version : 1.4.2
+Build Date UTC : 2023-06-01 11:48:08.546711+00:00
+-->

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Pushpak Dagade (pushpak@algobulls.com)" /><link rel="canonical" href="https://algobulls.github.io/pyalgotrading/pyalgotrad/upload/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Upload your Strategy - pyalgotrading</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+        <link href="../../assets/_mkdocstrings.css" rel="stylesheet" />
+        <link href="../../css/timeago.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Upload your Strategy";
+        var mkdocs_page_input_path = "pyalgotrad/upload.md";
+        var mkdocs_page_url = "/pyalgotrading/pyalgotrad/upload/";
+      </script>
+    
+    <script src="../../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-147658856-4', 'auto');
+        ga('send', 'pageview');
+      </script>
+    
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> pyalgotrading
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">PyalgoTrading</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../">Index</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Tutorial</a>
+    <ul class="current">
+                <li class="toctree-l2"><a class="reference internal" href="../introduction/">Introduction</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../prerequisites/">Prerequisites</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../structure/">Code Structure of a Strategy</a>
+                </li>
+                <li class="toctree-l2 current"><a class="reference internal current" href="#">Hands On</a>
+    <ul class="current">
+                <li class="toctree-l3"><a class="reference internal" href="../programexample/">Create your Strategy</a>
+                </li>
+                <li class="toctree-l3 current"><a class="reference internal current" href="./">Upload your Strategy</a>
+    <ul class="current">
+    <li class="toctree-l4"><a class="reference internal" href="#previously">Previously...</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#now">Now...</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#before-you-start">Before you start...</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#lets-start">Let's Start...</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#whats-next">What's Next...</a>
+    </li>
+    </ul>
+                </li>
+                <li class="toctree-l3"><a class="reference internal" href="../testing/">Test your Strategy</a>
+                </li>
+    </ul>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../codeguide/">Strategy Coding Guidelines</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">PythonBuild</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../python_build/">Index</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Introduction</a>
+    <ul>
+                <li class="toctree-l2"><a class="" href="../../python_build/python-build-introduction">Introduction</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../python_build/python-build-overview/">Overview</a>
+                </li>
+                <li class="toctree-l2"><a class="" href="../../python_build/python-build-getstarted">Get Started</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Code</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../python_build/python-build-code-ready-templates/">Code Ready Templates</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../python_build/python-build-code-new/">Code New Strategy</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../python_build/python-build-config-parameters/">Configure Parameters</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Features</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../python_build/python-build-view-results/">View Results</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Strategies</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Strategy Guide</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/common_regular_strategy/">Regular Strategy</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/common_options_strategy/">Options Strategy</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Regular Strategy Examples</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/aroon_crossover/">Aroon Crossover</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/bollinger_bands/">Bollinger Bands</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/ema_crossover/">EMA Crossover</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/inverse_ema_scalping/">Inverse EMA Scalping</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/reverse_rsi/">Reverse RSI</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/stochastic_crossover/">Stochastic Crossover</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/vwap_crossover/">VWAP Crossover</a>
+                </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Options Strategy Examples</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/options_bear_call_ladder/">Options Bear Call Ladder</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/options_bear_put_ladder/">Options Bear Put Ladder</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/options_bull_call_ladder/">Options Bull Call Ladder</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/options_bull_put_ladder/">Options Bull Put Ladder</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/options_long_iron_butterfly/">Options Long Iron Butterfly</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/options_straddle/">Options Straddle</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../strategies/options_strangle/">Options Strangle</a>
+                </li>
+    </ul>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">pyalgotrading</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+          <li>PyalgoTrading &raquo;</li>
+          <li>Tutorial &raquo;</li>
+          <li>Hands On &raquo;</li>
+      <li>Upload your Strategy</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/algobulls/pyalgotrading/edit/master/docs/pyalgotrad/upload.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="upload-your-strategy">Upload your Strategy<a class="headerlink" href="#upload-your-strategy" title="Permanent link">&para;</a></h1>
+<hr />
+<h3 id="previously">Previously...<a class="headerlink" href="#previously" title="Permanent link">&para;</a></h3>
+<p>You have created a strategy by:</p>
+<ul>
+<li>Coding the complete strategy from the <a href="../programexample/">Create</a> page.</li>
+</ul>
+<p><strong>OR</strong></p>
+<ul>
+<li>Picking up a ready strategy from the <a href="https://github.com/algobulls/pyalgostrategypool">pyalgostrategypool</a> package.</li>
+</ul>
+<hr />
+<h3 id="now">Now...<a class="headerlink" href="#now" title="Permanent link">&para;</a></h3>
+<p>You are now ready to upload your strategy into your AlgoBulls account for Backtesting, Paper Trading and/or Real Trading. </p>
+<hr />
+<h3 id="before-you-start">Before you start...<a class="headerlink" href="#before-you-start" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Make sure you have an active working AlgoBulls account ready to go!</li>
+<li>Open a Jupyter Notebook.</li>
+<li>If you have coded the strategy yourself and not used a ready strategy from the <a href="https://github.com/algobulls/pyalgostrategypool">pyalgostrategypool</a> package, then make sure your strategy file (.py) and the Jupyter Notebook <strong>are in the same folder</strong>. </li>
+</ul>
+<hr />
+<h3 id="lets-start">Let's Start...<a class="headerlink" href="#lets-start" title="Permanent link">&para;</a></h3>
+<p>Run the following code snippets into the Jupyter Notebook one by one (or all together).</p>
+<hr />
+<h4 id="import-statements">Import statements<a class="headerlink" href="#import-statements" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">inspect</span>
+<span class="kn">from</span> <span class="nn">pyalgotrading.algobulls</span> <span class="kn">import</span> <span class="n">AlgoBullsConnection</span>
+</code></pre></div>
+<hr />
+<h4 id="import-the-strategy-class">Import the strategy class<a class="headerlink" href="#import-the-strategy-class" title="Permanent link">&para;</a></h4>
+<p>Perform the below step either to import a ready strategy <strong>OR</strong> to import your own created strategy.</p>
+<blockquote>
+<p><strong>Import a ready strategy</strong>
+    <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pyalgostrategypool.strategy_ema_regular_order</span> <span class="kn">import</span> <span class="n">StrategyEMARegularOrder</span>
+</code></pre></div></p>
+<p><strong>Import your own strategy</strong>
+    <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">strategy_sma_regular_order</span> <span class="kn">import</span> <span class="n">StrategySMARegularOrder</span>
+</code></pre></div></p>
+</blockquote>
+<hr />
+<h4 id="establish-a-connection-to-the-algobulls-platform">Establish a connection to the AlgoBulls Platform<a class="headerlink" href="#establish-a-connection-to-the-algobulls-platform" title="Permanent link">&para;</a></h4>
+<p><div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span> <span class="o">=</span> <span class="n">AlgoBullsConnection</span><span class="p">()</span>
+<span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_authorization_url</span><span class="p">()</span>
+</code></pre></div>
+The output of the above step is:</p>
+<p><code>Please login to this URL with your AlgoBulls credentials and get your developer access token: https://app.algobulls.com/user/login</code></p>
+<p>You will need to log in to your AlgoBulls account and fetch the access token from:</p>
+<p>Settings -&gt; General -&gt; Developer Options</p>
+<p>(<a href="https://help.algobulls.com/member/Settings/general-settings/#developer-options">See How</a>)</p>
+<p>Once you have the access token, set it in the code as shown here:</p>
+<p><div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">set_access_token</span><span class="p">(</span><span class="s1">&#39;4365817b795770ea31040a21ad29c8e78b63ad88&#39;</span><span class="p">)</span>
+</code></pre></div>
+Replace the token you have copied with the token in the code above.</p>
+<hr />
+<h4 id="print-your-strategy-code">Print your Strategy code<a class="headerlink" href="#print-your-strategy-code" title="Permanent link">&para;</a></h4>
+<p>You can print your strategy code once to verify if this is the correct code before uploading it to the platform. This step is optional.
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">getsource</span><span class="p">(</span><span class="n">StrategySMARegularOrder</span><span class="p">))</span>
+</code></pre></div></p>
+<hr />
+<h4 id="upload-your-strategy_1">Upload your Strategy<a class="headerlink" href="#upload-your-strategy_1" title="Permanent link">&para;</a></h4>
+<p>Upload your strategy as shown in the code below.
+<div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">create_strategy</span><span class="p">(</span><span class="n">StrategySMARegularOrder</span><span class="p">)</span>
+</code></pre></div></p>
+<hr />
+<h4 id="re-upload-your-strategy-after-modifications">Re-upload your Strategy after modifications<a class="headerlink" href="#re-upload-your-strategy-after-modifications" title="Permanent link">&para;</a></h4>
+<p>If you are re-uploading your strategy after some changes, then use the <code>overwrite</code> switch as shown here.
+<div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">create_strategy</span><span class="p">(</span><span class="n">StrategySMARegularOrder</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div></p>
+<hr />
+<h3 id="whats-next">What's Next...<a class="headerlink" href="#whats-next" title="Permanent link">&para;</a></h3>
+<p>You are now ready to test your uploaded strategy and perform Backtesting, Paper Trading and/or Real Trading with it.</p>
+<hr />
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../programexample/" class="btn btn-neutral float-left" title="Create your Strategy"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../testing/" class="btn btn-neutral float-right" title="Test your Strategy">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+      <p>Copyright © 2020 | All Rights Reserved | AlgoBulls Technologies Private Limited</p>
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/algobulls/pyalgotrading" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../programexample/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../testing/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../js/timeago.min.js" defer></script>
+      <script src="../../js/timeago_mkdocs_material.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
