@@ -1,6 +1,8 @@
 # Stochastic Crossover 
 
-This is a trading strategy called "Stochastic Crossover v2" implemented in Python using the PyAlgoTrading library. The strategy is based on the Stochastic indicator crossover.
+This is a trading strategy called "Stochastic Crossover" implemented in Python using the PyAlgoTrading library. The strategy is based on the Stochastic indicator crossover.
+
+Click [here](https://github.com/algobulls/pyalgostrategypool/blob/master/pyalgostrategypool/stochastic_crossover.py) to check the strategy code.
 
 # Stochastic Oscillator Indicator
 In the stock market, Stochastic refers to the Stochastic Oscillator, which is a popular technical indicator used to analyze price momentum and identify potential trend reversals. The Stochastic Oscillator compares the closing price of a security to its price range over a specific period of time. It consists of two lines, %K and %D, and generates values between 0 and 100.

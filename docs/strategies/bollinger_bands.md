@@ -1,6 +1,8 @@
 # Bollinger Bands 
 
-This is a trading strategy called "Bollinger Bands v2" implemented in Python using the PyAlgoTrading library. The strategy is based on the bollinger bands indicator values.
+This is a trading strategy called "Bollinger Bands" implemented in Python using the PyAlgoTrading library. The strategy is based on the bollinger bands indicator values.
+
+Click [here](https://github.com/algobulls/pyalgostrategypool/blob/master/pyalgostrategypool/bollinger_bands.py) to check the strategy code.
 
 ## Bollinger Bands Indicator
 Bollinger Bands consists of a middle band (typically a 20-day Simple Moving Average) and two bands that represent the upper and lower price boundaries based on standard deviations. The bands adjust dynamically with market volatility.
@@ -18,7 +20,7 @@ Key points about Bollinger Bands:
 [![bollinger_bands](images/bollingerbands.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](images/bollingerbands.png)
 
 ## Strategy Overview
-This strategy, called Bollinger Bands v2, is an implementation of the Bollinger Bands indicator. It uses the Bollinger Bands values to compare with previous candle's OPEN, HIGH, LOW and CLOSE values and generate entry and exit signals for trading instruments.
+This strategy, called Bollinger Bands, is an implementation of the Bollinger Bands indicator. It uses the Bollinger Bands values to compare with previous candle's OPEN, HIGH, LOW and CLOSE values and generate entry and exit signals for trading instruments.
 
 ## Strategy Parameters
 The following parameters can be configured for the strategy:
