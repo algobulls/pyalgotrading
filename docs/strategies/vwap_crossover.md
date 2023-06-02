@@ -1,4 +1,4 @@
-# VWAP Crossover v2
+# VWAP Crossover 
 
 This is a trading strategy called "VWAP Crossover v2" implemented in Python using the PyAlgoTrading library. The strategy is based on the crossover of the VWAP (Volume Weighted Average Price) indicator.
 

@@ -1,4 +1,4 @@
-# Stochastic Crossover v2
+# Stochastic Crossover 
 
 This is a trading strategy called "Stochastic Crossover v2" implemented in Python using the PyAlgoTrading library. The strategy is based on the Stochastic indicator crossover.
 

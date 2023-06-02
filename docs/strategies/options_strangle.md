@@ -1,4 +1,4 @@
-## Options Strangle Template v2
+## Options Strangle Template
 
 The `StrategyOptionsStrangle` class is a strategy template for trading options strangles. It is derived from the `StrategyOptionsBaseV2` class.
 

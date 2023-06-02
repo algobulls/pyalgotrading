@@ -1,4 +1,4 @@
-## Options Bull Put Ladder Template v2
+## Options Bull Put Ladder Template 
 
 ### Bull Put ladder
 In the stock market, an options bull put ladder is a strategy that involves buying and selling put options with different strike prices to profit from a moderate bullish outlook on the underlying asset. It is a complex strategy that combines both long and short put positions.

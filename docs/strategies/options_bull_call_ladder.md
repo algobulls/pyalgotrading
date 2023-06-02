@@ -1,4 +1,4 @@
-## Options Bull Call Ladder Template v2
+## Options Bull Call Ladder Template 
 
 
 ### Bull Call Ladder

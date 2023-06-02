@@ -1,4 +1,4 @@
-## Options Bear Put Ladder Template v2
+## Options Bear Put Ladder Template 
 
 ### Description
 This is a template for the Options Bear Put Ladder strategy. The strategy involves the combination of buying and selling put options to profit from a downward price movement in the underlying asset. It utilizes multiple legs with different strike prices and transaction types to create a ladder-like structure.
