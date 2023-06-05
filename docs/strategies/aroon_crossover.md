@@ -12,7 +12,11 @@ Traders and investors use the Aroon indicator to identify potential trend revers
 
 It's important to note that the Aroon indicator is just one of many tools used in technical analysis, and its effectiveness can vary depending on market conditions and other factors. It is often used in conjunction with other indicators and analysis techniques to make informed trading decisions.
 
-[![aroon](images/aroon.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](images/aroon.png)
+| [![aroon](images/aroon.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](images/aroon.png)    |
+|: -- :|
+| <b>Fig.1 - SPY candle chart (top), Aroon Indicator for that chart (bottom)</b>|
+
+
 
 ## Strategy Overview
 This strategy, called Aroon Crossover, implements a crossover strategy using the Aroon indicator. It generates entry and exit signals based on the crossover of Aroon Up and Aroon Down values.
