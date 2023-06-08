@@ -448,6 +448,10 @@ class AlgoBullsConnection:
         assert isinstance(initial_funds_virtual, float), 'Argument "initial_funds_virtual" should be a float'
         assert isinstance(delete_previous_trades, bool), 'Argument "delete_previous_trades" should be a boolean'
 
+        if trading_type is not TradingType.BACKTESTING:
+            start = dt.combine(dt.today().date(), start.time(), tzinfo=start.tzinfo)
+            end = dt.combine(dt.today().date(), end.time(), tzinfo=end.tzinfo)
+
         # Restructuring strategy params
         restructured_strategy_parameters = []
         for parameter_name in parameters:
