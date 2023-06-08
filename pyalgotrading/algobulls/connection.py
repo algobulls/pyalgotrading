@@ -393,7 +393,7 @@ class AlgoBullsConnection:
             'instrument' behaves same 'instruments'
             'strategy_parameters' behaves same 'parameters'
             'candle_interval' behaves same 'candle'
-            'strategy__mode' behaves same 'mode'
+            'strategy_mode' behaves same 'mode'
 
         Returns:
             job submission status
@@ -513,7 +513,7 @@ class AlgoBullsConnection:
             'instrument' behaves same 'instruments'
             'strategy_parameters' behaves same 'parameters'
             'candle_interval' behaves same 'candle'
-            'strategy__mode' behaves same 'mode'
+            'strategy_mode' behaves same 'mode'
 
         Returns:
             backtest job submission status
@@ -646,7 +646,7 @@ class AlgoBullsConnection:
             'instrument' behaves same 'instruments'
             'strategy_parameters' behaves same 'parameters'
             'candle_interval' behaves same 'candle'
-            'strategy__mode' behaves same 'mode'
+            'strategy_mode' behaves same 'mode'
 
         Returns:
             papertrade job submission status
@@ -780,7 +780,7 @@ class AlgoBullsConnection:
             'instrument' behaves same 'instruments'
             'strategy_parameters' behaves same 'parameters'
             'candle_interval' behaves same 'candle'
-            'strategy__mode' behaves same 'mode'
+            'strategy_mode' behaves same 'mode'
 
         Returns:
             realtrade job submission status
