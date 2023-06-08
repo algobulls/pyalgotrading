@@ -291,7 +291,7 @@ class AlgoBullsAPI:
         print('Success.')
         return key, response
 
-    def start_strategy_algotrading(self, strategy_code: str, start_timestamp: dt, end_timestamp: dt, trading_type: TradingType, lots: int, initial_funds_virtual=1e9, brokerId:str=None) -> dict:
+    def start_strategy_algotrading(self, strategy_code: str, start_timestamp: dt, end_timestamp: dt, trading_type: TradingType, lots: int, initial_funds_virtual=1e9, broker_id: str = None, broker_details: dict = None) -> dict:
         """
         Submit Backtesting / Paper Trading / Real Trading job for strategy with code strategy_code & return the job ID.
         
@@ -302,15 +302,11 @@ class AlgoBullsAPI:
             trading_type: Trading type
             lots: Lots
             initial_funds_virtual: virtual funds before starting the strategy
-            brokerId: id of the broker for real trades
+            broker_id: id of the broker for real trades
+            broker_details: client's broking details
         Info: ENDPOINT
             `PATCH` v4/portfolio/strategies?isPythonBuild=true
         """
-
-        if trading_type in [TradingType.PAPERTRADING, TradingType.BACKTESTING, TradingType.REALTRADING]:
-            endpoint = 'v4/portfolio/strategies?isPythonBuild=true'
-        else:
-            raise NotImplementedError
 
         try:
             key = self.__get_key(strategy_code=strategy_code, trading_type=trading_type)
@@ -321,16 +317,21 @@ class AlgoBullsAPI:
             }
             _timestamp_format = "%d-%m-%YT%H:%MZ"
             execute_config = {
-                map_trading_type_to_date_key[trading_type]: [start_timestamp.astimezone().astimezone(timezone.utc).isoformat(), end_timestamp.astimezone().astimezone(timezone.utc).isoformat()],
+                map_trading_type_to_date_key[trading_type]: [start_timestamp.astimezone(timezone.utc).isoformat(), end_timestamp.astimezone(timezone.utc).isoformat()],
                 'isLiveDataTestMode': trading_type in [TradingType.PAPERTRADING, TradingType.REALTRADING],
-                'customizationsQuantity': lots,
-                'initial_funds_virtual': initial_funds_virtual
+                'customizationsQuantity': lots
             }
-            params=None
-            if trading_type is TradingType.REALTRADING:
-                endpoint = 'v4/portfolio/strategies?isPythonBuild=false'
-                del execute_config['initial_funds_virtual']
-                execute_config['brokerId'] = brokerId
+
+            params = None
+            if trading_type in [TradingType.PAPERTRADING, TradingType.BACKTESTING]:
+                endpoint = 'v4/portfolio/strategies?isPythonBuild=true&isLive=false'
+                execute_config['initialFundsVirtual'] = initial_funds_virtual
+            elif trading_type is TradingType.REALTRADING:
+                endpoint = 'v4/portfolio/strategies?isPythonBuild=true&isLive=true'
+                execute_config['brokerId'] = broker_id
+                execute_config['brokerDetails'] = broker_details
+            else:
+                raise NotImplementedError
             json_data = {'method': 'update', 'newVal': 1, 'key': key, 'record': {'status': 0, 'lots': lots, 'executeConfig': execute_config}, 'dataIndex': 'executeConfig'}
             print(f'Submitting {trading_type.name} job...', end=' ')
 
@@ -352,13 +353,7 @@ class AlgoBullsAPI:
         Info: ENDPOINT
             `POST` v4/portfolio/strategies
         """
-        if trading_type == TradingType.REALTRADING:
-            return {'message': 'Please get approval for your strategy by writing to support@algobulls.com. Once approved, you can STOP the strategy in REALTRADING mode directly from the website.'}
-        elif trading_type in [TradingType.PAPERTRADING, TradingType.BACKTESTING]:
-            endpoint = 'v4/portfolio/strategies'
-        else:
-            raise NotImplementedError
-
+        endpoint = 'v4/portfolio/strategies'
         try:
             key = self.__get_key(strategy_code=strategy_code, trading_type=trading_type)
             json_data = {'method': 'update', 'newVal': 0, 'key': key, 'record': {'status': 2}, 'dataIndex': 'executeConfig'}

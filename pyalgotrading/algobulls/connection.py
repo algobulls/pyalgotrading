@@ -11,9 +11,9 @@ import quantstats as qs
 
 from .api import AlgoBullsAPI
 from .exceptions import AlgoBullsAPIBadRequest
-from ..constants import StrategyMode, TradingType, TradingReportType, CandleInterval, MESSAGE_REALTRADING_FORBIDDEN, AlgoBullsEngineVersion
+from ..constants import StrategyMode, TradingType, TradingReportType, CandleInterval, AlgoBullsEngineVersion, TRADE_TYPE_DT_FORMAT_MAP
 from ..strategy.strategy_base import StrategyBase
-from ..utils.func import get_valid_enum_names
+from ..utils.func import get_valid_enum_names, get_datetime_with_tz
 
 
 class AlgoBullsConnection:
@@ -366,7 +366,7 @@ class AlgoBullsConnection:
 
         return order_report
 
-    def start_job(self, strategy=None, start=None, end=None, instruments=None, lots=1, parameters=None, candle=None, mode=StrategyMode.INTRADAY, initial_funds_virtual=1e9, delete_previous_trades=True, trading_type=None, brokerId=None, **kwargs):
+    def start_job(self, strategy=None, start=None, end=None, instruments=None, lots=1, parameters=None, candle=None, mode=StrategyMode.INTRADAY, initial_funds_virtual=1e9, delete_previous_trades=True, trading_type=None, broker_id=None, broking_details=None, **kwargs):
         """
         Submit a BT/PT/RT job for a strategy on the AlgoBulls Platform
 
@@ -382,7 +382,8 @@ class AlgoBullsConnection:
             delete_previous_trades: Delete data for previous trades
             initial_funds_virtual: virtual funds allotted before the backtesting starts
             trading_type: type of trading : PT/BT/RT
-            brokerId: ID of the broker (for real trading)
+            broker_id: ID of the broker
+            broking_details: details of client's broker
 
         Legacy args (will be deprecated in future release):
             'strategy_code' behaves same 'strategy'
@@ -407,16 +408,21 @@ class AlgoBullsConnection:
 
         # Sanity checks - Convert config parameters
         _error_msg_candle = f'Argument "candle" should be a valid string or an enum of type CandleInterval. Possible string values can be: {get_valid_enum_names(CandleInterval)}'
-        _error_msg_timestamps = f'Argument "start" should be a valid timestamp string ' \
-                                f'\nString Format (YYYY-MM-DD | HH:MM) or an instance of type datetime.datetime for Back Testing \nString Format (HH:MM) or an instance of type datetime.time for Real trading or Paper Trading '
+        _error_msg_timestamps = f'\nString Format (YYYY-MM-DD HH:MM z) or an instance of type datetime.datetime for Back Testing \nString Format (HH:MM z) or an instance of type datetime.time for Real trading or Paper Trading'
         _error_msg_instruments = f'Argument "instruments" should be a valid instrument string or a list of valid instruments strings. You can use the \'get_instrument()\' method of AlgoBullsConnection class to search for instruments'
         _error_msg_mode = f'Argument "mode" should be a valid string or an enum of type StrategyMode. Possible string values can be: {get_valid_enum_names(StrategyMode)}'
 
         initial_funds_virtual = float(initial_funds_virtual)
         if isinstance(start, str):
-            start = dt.strptime(start, '%Y-%m-%d | %H:%M') if trading_type is TradingType.BACKTESTING else dt.combine(dt.today().date(), dt.strptime(start, '%H:%M').time())
+            try:
+                start = get_datetime_with_tz(start, trading_type.name)
+            except ValueError as ve:
+                raise ValueError(f'Error : Invalid string timestamp format for argument "start" ({ve}).\nExpected timestamp format for {trading_type.name} is [{TRADE_TYPE_DT_FORMAT_MAP[trading_type.name][0]}]')
         if isinstance(end, str):
-            end = dt.strptime(end, '%Y-%m-%d | %H:%M') if trading_type is TradingType.BACKTESTING else dt.combine(dt.today().date(), dt.strptime(end, '%H:%M').time())
+            try:
+                end = get_datetime_with_tz(end, trading_type.name)
+            except ValueError as ve:
+                raise ValueError(f'Error : Invalid string timestamp format for argument "end" ({ve}).\nExpected timestamp format for {trading_type.name} is [{TRADE_TYPE_DT_FORMAT_MAP[trading_type.name][0]}]')
         if isinstance(mode, str):
             _ = mode.upper()
             assert _ in StrategyMode.__members__, _error_msg_candle
@@ -430,8 +436,8 @@ class AlgoBullsConnection:
 
         # Sanity checks - Validate config parameters
         assert isinstance(strategy, str), f'Argument "strategy" should be a valid string'
-        assert isinstance(start, dt), _error_msg_timestamps
-        assert isinstance(end, dt), _error_msg_timestamps
+        assert isinstance(start, dt), 'Argument "start" should be a valid timestamp string\n' + _error_msg_timestamps
+        assert isinstance(end, dt), 'Argument "end" should be a valid timestamp string\n' + _error_msg_timestamps
         assert isinstance(instruments, list), _error_msg_instruments
         assert len(instruments) > 0, _error_msg_instruments
         assert (isinstance(lots, int) and lots > 0), f'Argument "lots" should be a positive integer.'
@@ -452,7 +458,7 @@ class AlgoBullsConnection:
         # generate instruments' id list
         instrument_list = []
         for _instrument in instruments:
-            instrument_results = self.search_instrument(_instrument.split(':')[-1])
+            instrument_results = self.search_instrument(_instrument.split(':')[-1], exchange=_instrument.split(':')[0])
             for _ in instrument_results:
                 if _["value"] == _instrument:
                     instrument_list.append({'id': _["id"]})
@@ -475,7 +481,7 @@ class AlgoBullsConnection:
         self.api.set_strategy_config(strategy_code=strategy, strategy_config=strategy_config, trading_type=trading_type)
 
         # Submit trading job
-        response = self.api.start_strategy_algotrading(strategy_code=strategy, start_timestamp=start, end_timestamp=end, trading_type=trading_type, lots=lots, initial_funds_virtual=initial_funds_virtual, brokerId=brokerId)
+        response = self.api.start_strategy_algotrading(strategy_code=strategy, start_timestamp=start, end_timestamp=end, trading_type=trading_type, lots=lots, initial_funds_virtual=initial_funds_virtual, broker_id=broker_id, broker_details=broking_details)
         return response
 
     def backtest(self, strategy=None, start=None, end=None, instruments=None, lots=1, parameters=None, candle=None, mode=StrategyMode.INTRADAY, delete_previous_trades=True, initial_funds_virtual=1e9, **kwargs):
@@ -494,6 +500,10 @@ class AlgoBullsConnection:
             delete_previous_trades: Delete data for previous trades
             initial_funds_virtual: virtual funds allotted before the backtesting starts
 
+        Keyword args (required for foreign stocks):
+            broker_id: ID of the broker
+            broking_details: client's broking details
+
         Legacy args (will be deprecated in future release):
             'strategy_code' behaves same 'strategy'
             'start_timestamp' behaves same 'start'
@@ -507,9 +517,11 @@ class AlgoBullsConnection:
             backtest job submission status
         """
         # start backtesting job
+        broking_details = kwargs.get('broker_details')
+        broker_id = kwargs.get('broker_id')
         response = self.start_job(
             strategy=strategy, start=start, end=end, instrument=instruments, lots=lots, parameters=parameters, candle=candle, mode=mode,
-            initial_funds_virtual=initial_funds_virtual, delete_previous_trades=delete_previous_trades, trading_type=TradingType.BACKTESTING
+            initial_funds_virtual=initial_funds_virtual, delete_previous_trades=delete_previous_trades, trading_type=TradingType.BACKTESTING, broker_id=broker_id, broking_details=broking_details
         )
 
         # Clear previously saved pnl data, if any
@@ -621,6 +633,10 @@ class AlgoBullsConnection:
             delete_previous_trades: Delete data of all previous trades
             initial_funds_virtual: virtual funds allotted before the paper trading starts
 
+        Keyword args (required for foreign stocks):
+            broker_id: ID of the broker
+            broking_details: client's broking details
+
         Legacy args (will be deprecated in future release):
             'strategy_code' behaves same 'strategy'
             'start_timestamp' behaves same 'start'
@@ -634,10 +650,12 @@ class AlgoBullsConnection:
             papertrade job submission status
         """
 
+        broking_details = kwargs.get('broking_details')
+        broker_id = kwargs.get('broker_id')
         # start papertrading job
         response = self.start_job(
             strategy=strategy, start=start, end=end, instrument=instruments, lots=lots, parameters=parameters, candle=candle, mode=mode,
-            initial_funds_virtual=initial_funds_virtual, delete_previous_trades=delete_previous_trades, trading_type=TradingType.PAPERTRADING
+            initial_funds_virtual=initial_funds_virtual, delete_previous_trades=delete_previous_trades, trading_type=TradingType.PAPERTRADING, broker_id=broker_id, broking_details=broking_details
         )
         # Clear previously saved pnl data, if any
         self.papertrade_pnl_data = None
@@ -734,7 +752,7 @@ class AlgoBullsConnection:
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
         return self.get_report(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING, report_type=TradingReportType.ORDER_HISTORY)
 
-    def realtrade(self, strategy=None, start=None, end=None, instruments=None, lots=None, parameters=None, candle=None, mode=StrategyMode.INTRADAY, brokerId=None, **kwargs):
+    def realtrade(self, strategy=None, start=None, end=None, instruments=None, lots=None, parameters=None, candle=None, mode=StrategyMode.INTRADAY, broker_id=None, broking_details=None, **kwargs):
         """
         Start a Real Trading session.
         Update: This requires an approval process which is currently on request basis.
@@ -750,7 +768,8 @@ class AlgoBullsConnection:
             parameters: Parameters
             candle: Candle interval
             mode: Intraday or delivery
-            brokerId: ID of the broker
+            broker_id: ID of the broker
+            broking_details: client's broking details
 
         Legacy args (will be deprecated in future release):
             'strategy_code' behaves same 'strategy'
@@ -766,7 +785,7 @@ class AlgoBullsConnection:
         """
 
         # start real trading job
-        response = self.start_job(strategy=strategy, start=start, end=end, instrument=instruments, lots=lots, parameters=parameters, candle=candle, mode=mode, trading_type=TradingType.REALTRADING, brokerId=brokerId)
+        response = self.start_job(strategy=strategy, start=start, end=end, instrument=instruments, lots=lots, parameters=parameters, candle=candle, mode=mode, trading_type=TradingType.REALTRADING, brokerId=broker_id, broking_details=broking_details)
 
         # Clear previously saved pnl data, if any
         self.realtrade_pnl_data = None

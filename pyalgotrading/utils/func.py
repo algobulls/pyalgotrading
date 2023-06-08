@@ -2,8 +2,8 @@
 A module for plotting candlesticks
 """
 import pandas as pd
-
-from pyalgotrading.constants import PlotType
+from datetime import datetime as dt, timezone
+from pyalgotrading.constants import PlotType, TRADE_TYPE_DT_FORMAT_MAP
 
 
 def import_with_install(package_import_name, package_install_name=None, dependancies=()):
@@ -135,3 +135,22 @@ def get_valid_enum_names(enum_obj):
 
 def get_raw_response(response_obj):
     return f'Content: {response_obj.content} | Raw: {response_obj.raw.data}'
+
+
+def get_datetime_with_tz(time_str, trading_type):
+    """
+    Function converts the timestamp string to datetime object of suitable timezone and respective format for BT PT or RT
+
+    Args:
+        time_str: datetime in string format
+        trading_type: trading type (BT, PT, RT)
+    """
+
+    try:
+        time_str = dt.strptime(time_str, TRADE_TYPE_DT_FORMAT_MAP[trading_type][0])
+    except ValueError:
+        time_str = dt.strptime(time_str, TRADE_TYPE_DT_FORMAT_MAP[trading_type][1])
+        time_str = time_str.replace(tzinfo=timezone.utc)
+        print(f'Warning : Timezone is not given. Timezone set as UTC(+0000). Expected timestamp format is "{TRADE_TYPE_DT_FORMAT_MAP[trading_type][0]}"')
+
+    return time_str
