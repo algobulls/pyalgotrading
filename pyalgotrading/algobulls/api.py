@@ -291,7 +291,7 @@ class AlgoBullsAPI:
         print('Success.')
         return key, response
 
-    def start_strategy_algotrading(self, strategy_code: str, start_timestamp: dt, end_timestamp: dt, trading_type: TradingType, lots: int, initial_funds_virtual=1e9, broker_id: str = None, broker_details: dict = None) -> dict:
+    def start_strategy_algotrading(self, strategy_code: str, start_timestamp: dt, end_timestamp: dt, trading_type: TradingType, lots: int, initial_funds_virtual=1e9, broker_id: int = None, broker_details: dict = None) -> dict:
         """
         Submit Backtesting / Paper Trading / Real Trading job for strategy with code strategy_code & return the job ID.
         
