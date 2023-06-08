@@ -8,7 +8,7 @@ from json import JSONDecodeError
 import requests
 
 from .exceptions import AlgoBullsAPIBaseException, AlgoBullsAPIUnauthorizedError, AlgoBullsAPIInsufficientBalanceError, AlgoBullsAPIResourceNotFoundError, AlgoBullsAPIBadRequest, AlgoBullsAPIInternalServerErrorException, AlgoBullsAPIForbiddenError
-from ..constants import TradingType, TradingReportType, MESSAGE_REALTRADING_FORBIDDEN
+from ..constants import TradingType, TradingReportType
 from ..utils.func import get_raw_response
 
 

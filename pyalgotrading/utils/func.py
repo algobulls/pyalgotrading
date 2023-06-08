@@ -1,8 +1,10 @@
 """
 A module for plotting candlesticks
 """
-import pandas as pd
 from datetime import datetime as dt, timezone
+
+import pandas as pd
+
 from pyalgotrading.constants import PlotType, TRADE_TYPE_DT_FORMAT_MAP
 
 

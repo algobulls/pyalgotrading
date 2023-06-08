@@ -257,4 +257,3 @@ TRADE_TYPE_DT_FORMAT_MAP = {
     'PAPERTRADING':
         {0: '%H:%M %z', 1: '%H:%M'}
 }
-

@@ -366,7 +366,8 @@ class AlgoBullsConnection:
 
         return order_report
 
-    def start_job(self, strategy=None, start=None, end=None, instruments=None, lots=1, parameters=None, candle=None, mode=StrategyMode.INTRADAY, initial_funds_virtual=1e9, delete_previous_trades=True, trading_type=None, broker_id=None, broking_details=None, **kwargs):
+    def start_job(self, strategy=None, start=None, end=None, instruments=None, lots=1, parameters=None, candle=None, mode=StrategyMode.INTRADAY, initial_funds_virtual=1e9, delete_previous_trades=True, trading_type=None, broker_id=None,
+                  broking_details=None, **kwargs):
         """
         Submit a BT/PT/RT job for a strategy on the AlgoBulls Platform
 
@@ -481,7 +482,8 @@ class AlgoBullsConnection:
         self.api.set_strategy_config(strategy_code=strategy, strategy_config=strategy_config, trading_type=trading_type)
 
         # Submit trading job
-        response = self.api.start_strategy_algotrading(strategy_code=strategy, start_timestamp=start, end_timestamp=end, trading_type=trading_type, lots=lots, initial_funds_virtual=initial_funds_virtual, broker_id=broker_id, broker_details=broking_details)
+        response = self.api.start_strategy_algotrading(strategy_code=strategy, start_timestamp=start, end_timestamp=end, trading_type=trading_type, lots=lots, initial_funds_virtual=initial_funds_virtual, broker_id=broker_id,
+                                                       broker_details=broking_details)
         return response
 
     def backtest(self, strategy=None, start=None, end=None, instruments=None, lots=1, parameters=None, candle=None, mode=StrategyMode.INTRADAY, delete_previous_trades=True, initial_funds_virtual=1e9, **kwargs):
