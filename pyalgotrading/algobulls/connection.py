@@ -412,7 +412,7 @@ class AlgoBullsConnection:
         _error_msg_timestamps = f'\nString Format (YYYY-MM-DD HH:MM z) or an instance of type datetime.datetime for Back Testing \nString Format (HH:MM z) or an instance of type datetime.time for Real trading or Paper Trading'
         _error_msg_instruments = f'Argument "instruments" should be a valid instrument string or a list of valid instruments strings. You can use the \'get_instrument()\' method of AlgoBullsConnection class to search for instruments'
         _error_msg_mode = f'Argument "mode" should be a valid string or an enum of type StrategyMode. Possible string values can be: {get_valid_enum_names(StrategyMode)}'
-
+        _error_msg_broking_details = 'Argument "broking_details" should be a valid dict with valid keys. Expected keys "brokerName" or "brokerId" and "credentialParameters" '
         initial_funds_virtual = float(initial_funds_virtual)
         if isinstance(start, str):
             try:
@@ -447,6 +447,11 @@ class AlgoBullsConnection:
         assert isinstance(candle, CandleInterval), _error_msg_candle
         assert isinstance(initial_funds_virtual, float), 'Argument "initial_funds_virtual" should be a float'
         assert isinstance(delete_previous_trades, bool), 'Argument "delete_previous_trades" should be a boolean'
+        assert isinstance(broking_details, dict), 'Argument "broking_details" should be a dict'
+
+        if isinstance(broking_details, dict):
+            if (broking_details.get('brokerId') is None and broking_details.get('brokerName') is None) or (broking_details.get('credentialParameters') is None):
+                raise ValueError(_error_msg_mode)
 
         if trading_type is not TradingType.BACKTESTING:
             start = dt.combine(dt.today().date(), start.time(), tzinfo=start.tzinfo)
