@@ -449,7 +449,6 @@ class AlgoBullsConnection:
         assert isinstance(candle, CandleInterval), _error_msg_candle
         assert isinstance(initial_funds_virtual, float), 'Argument "initial_funds_virtual" should be a float'
         assert isinstance(delete_previous_trades, bool), 'Argument "delete_previous_trades" should be a boolean'
-        assert isinstance(broking_details, dict), 'Argument "broking_details" should be a dict'
 
         if isinstance(broking_details, dict):
             if (broking_details.get('brokerId') is None and broking_details.get('brokerName') is None) or (broking_details.get('credentialParameters') is None):
@@ -526,15 +525,15 @@ class AlgoBullsConnection:
             'candle_interval' behaves same as 'candle'
             'strategy_mode' behaves same as 'mode'
 
-        Returns:
+        Returns:=
             backtest job submission status
         """
+        broking_details = kwargs.get('broking_details')
+
         # start backtesting job
-        broking_details = kwargs.get('broker_details')
-        broker_id = kwargs.get('broker_id')
         response = self.start_job(
-            strategy=strategy, start=start, end=end, instrument=instruments, lots=lots, parameters=parameters, candle=candle, mode=mode,
-            initial_funds_virtual=initial_funds_virtual, delete_previous_trades=delete_previous_trades, trading_type=TradingType.BACKTESTING, broker_id=broker_id, broking_details=broking_details
+            strategy=strategy, start=start, end=end, instruments=instruments, lots=lots, parameters=parameters, candle=candle, mode=mode,
+            initial_funds_virtual=initial_funds_virtual, delete_previous_trades=delete_previous_trades, trading_type=TradingType.BACKTESTING, broking_details=broking_details, **kwargs
         )
 
         # Clear previously saved pnl data, if any
@@ -664,11 +663,11 @@ class AlgoBullsConnection:
         """
 
         broking_details = kwargs.get('broking_details')
-        broker_id = kwargs.get('broker_id')
+
         # start papertrading job
         response = self.start_job(
-            strategy=strategy, start=start, end=end, instrument=instruments, lots=lots, parameters=parameters, candle=candle, mode=mode,
-            initial_funds_virtual=initial_funds_virtual, delete_previous_trades=delete_previous_trades, trading_type=TradingType.PAPERTRADING, broker_id=broker_id, broking_details=broking_details
+            strategy=strategy, start=start, end=end, instruments=instruments, lots=lots, parameters=parameters, candle=candle, mode=mode,
+            initial_funds_virtual=initial_funds_virtual, delete_previous_trades=delete_previous_trades, trading_type=TradingType.PAPERTRADING, broker_id=broker_id, broking_details=broking_details, **kwargs
         )
         # Clear previously saved pnl data, if any
         self.papertrade_pnl_data = None
@@ -798,7 +797,7 @@ class AlgoBullsConnection:
         """
 
         # start real trading job
-        response = self.start_job(strategy=strategy, start=start, end=end, instrument=instruments, lots=lots, parameters=parameters, candle=candle, mode=mode, trading_type=TradingType.REALTRADING, broker_id=broker_id, broking_details=broking_details)
+        response = self.start_job(strategy=strategy, start=start, end=end, instruments=instruments, lots=lots, parameters=parameters, candle=candle, mode=mode, trading_type=TradingType.REALTRADING, broker_id=broker_id, broking_details=broking_details, **kwargs)
 
         # Clear previously saved pnl data, if any
         self.realtrade_pnl_data = None
