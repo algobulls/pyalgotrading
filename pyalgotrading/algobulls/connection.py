@@ -11,7 +11,7 @@ import quantstats as qs
 
 from .api import AlgoBullsAPI
 from .exceptions import AlgoBullsAPIBadRequest
-from ..constants import StrategyMode, TradingType, TradingReportType, CandleInterval, AlgoBullsEngineVersion, TRADE_TYPE_DT_FORMAT_MAP
+from ..constants import StrategyMode, TradingType, TradingReportType, CandleInterval, AlgoBullsEngineVersion, TRADE_TYPE_DT_FORMAT_MAP, KEY_DT, KEY_DT_ZONE
 from ..strategy.strategy_base import StrategyBase
 from ..utils.func import get_valid_enum_names, get_datetime_with_tz
 
@@ -418,12 +418,12 @@ class AlgoBullsConnection:
             try:
                 start = get_datetime_with_tz(start, trading_type.name)
             except ValueError as ve:
-                raise ValueError(f'Error : Invalid string timestamp format for argument "start" ({ve}).\nExpected timestamp format for {trading_type.name} is [{TRADE_TYPE_DT_FORMAT_MAP[trading_type.name][0]}]')
+                raise ValueError(f'Error : Invalid string timestamp format for argument "start" ({ve}).\nExpected timestamp format for {trading_type.name} is [{TRADE_TYPE_DT_FORMAT_MAP[trading_type.name][KEY_DT_ZONE]}]')
         if isinstance(end, str):
             try:
                 end = get_datetime_with_tz(end, trading_type.name)
             except ValueError as ve:
-                raise ValueError(f'Error : Invalid string timestamp format for argument "end" ({ve}).\nExpected timestamp format for {trading_type.name} is [{TRADE_TYPE_DT_FORMAT_MAP[trading_type.name][0]}]')
+                raise ValueError(f'Error : Invalid string timestamp format for argument "end" ({ve}).\nExpected timestamp format for {trading_type.name} is [{TRADE_TYPE_DT_FORMAT_MAP[trading_type.name][KEY_DT_ZONE]}]')
         if isinstance(mode, str):
             _ = mode.upper()
             assert _ in StrategyMode.__members__, _error_msg_candle

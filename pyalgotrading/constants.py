@@ -249,11 +249,14 @@ class ActionConstants(Enum):
 MESSAGE_REALTRADING_FORBIDDEN = 'Forbidden. This strategy is not approved for RT mode. Email us on support@algobulls.com to get your strategy approved. ' \
                                 'The AlgoBulls support team will guide you with the approval process. Once your strategy is approved, you can run it for RT directly from your AlgoBulls account.'
 
+KEY_DT_ZONE = 0
+KEY_DT = 1
+
 TRADE_TYPE_DT_FORMAT_MAP = {
     'BACKTESTING':
-        {0: '%Y-%m-%d %H:%M %z', 1: '%Y-%m-%d %H:%M'},
+        {KEY_DT_ZONE: '%Y-%m-%d %H:%M %z', KEY_DT: '%Y-%m-%d %H:%M'},
     'REALTRADING':
-        {0: '%H:%M %z', 1: '%H:%M'},
+        {KEY_DT_ZONE: '%H:%M %z', KEY_DT: '%H:%M'},
     'PAPERTRADING':
-        {0: '%H:%M %z', 1: '%H:%M'}
+        {KEY_DT_ZONE: '%H:%M %z', KEY_DT: '%H:%M'}
 }

@@ -5,7 +5,7 @@ from datetime import datetime as dt, timezone
 
 import pandas as pd
 
-from pyalgotrading.constants import PlotType, TRADE_TYPE_DT_FORMAT_MAP
+from pyalgotrading.constants import PlotType, TRADE_TYPE_DT_FORMAT_MAP, KEY_DT, KEY_DT_ZONE
 
 
 def import_with_install(package_import_name, package_install_name=None, dependancies=()):
@@ -141,7 +141,7 @@ def get_raw_response(response_obj):
 
 def get_datetime_with_tz(time_str, trading_type):
     """
-    Function converts the timestamp string to datetime object of suitable timezone and respective format for BT PT or RT
+    Function converts the timestamp string to datetime object of suitable timezone and respective format for BT, PT or RT
 
     Args:
         time_str: datetime in string format
@@ -149,9 +149,9 @@ def get_datetime_with_tz(time_str, trading_type):
     """
 
     try:
-        time_str = dt.strptime(time_str, TRADE_TYPE_DT_FORMAT_MAP[trading_type][0])
+        time_str = dt.strptime(time_str, TRADE_TYPE_DT_FORMAT_MAP[trading_type][KEY_DT_ZONE])
     except ValueError:
-        time_str = dt.strptime(time_str, TRADE_TYPE_DT_FORMAT_MAP[trading_type][1])
+        time_str = dt.strptime(time_str, TRADE_TYPE_DT_FORMAT_MAP[trading_type][KEY_DT])
         time_str = time_str.replace(tzinfo=timezone.utc)
         print(f'Warning : Timezone is not given. Timezone set as UTC(+0000). Expected timestamp format is "{TRADE_TYPE_DT_FORMAT_MAP[trading_type][0]}"')
 
