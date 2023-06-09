@@ -192,7 +192,7 @@ class AlgoBullsConnection:
                 print(response.get('message'))
                 break
             else:
-                print(f'deleting previous trades ... attempt [{_}])\n{response}\n')
+                print(f'Deleting previous trades... attempt [{_}])\n{response}\n')
                 time.sleep(1)
         return response
 
@@ -296,22 +296,23 @@ class AlgoBullsConnection:
         data = self.get_report(strategy_code=strategy_code, trading_type=trading_type, report_type=TradingReportType.PNL_TABLE)
 
         # Post-processing: Cleanup & converting data to dataframe
-        column_rename_map = OrderedDict([
-            ('strategy.instrument.segment', 'instrument_segment'),
-            ('strategy.instrument.tradingsymbol', 'instrument_tradingsymbol'),
-            ('entry.timestamp', 'entry_timestamp'),
-            ('entry.isBuy', 'entry_transaction_type'),
-            ('entry.quantity', 'entry_quantity'),
-            ('entry.prefix', 'entry_currency'),
-            ('entry.price', 'entry_price'),
-            ('exit.timestamp', 'exit_timestamp'),
-            ('exit.isBuy', 'exit_transaction_type'),
-            ('exit.quantity', 'exit_quantity'),
-            ('exit.prefix', 'exit_currency'),
-            ('exit.price', 'exit_price'),
-            ('pnlAbsolute.value', 'pnl_absolute')
-        ])
         if data:
+            column_rename_map = OrderedDict([
+                ('strategy.instrument.segment', 'instrument_segment'),
+                ('strategy.instrument.tradingsymbol', 'instrument_tradingsymbol'),
+                ('entry.timestamp', 'entry_timestamp'),
+                ('entry.isBuy', 'entry_transaction_type'),
+                ('entry.quantity', 'entry_quantity'),
+                ('entry.prefix', 'entry_currency'),
+                ('entry.price', 'entry_price'),
+                ('exit.timestamp', 'exit_timestamp'),
+                ('exit.isBuy', 'exit_transaction_type'),
+                ('exit.quantity', 'exit_quantity'),
+                ('exit.prefix', 'exit_currency'),
+                ('exit.price', 'exit_price'),
+                ('pnlAbsolute.value', 'pnl_absolute')
+            ])
+
             # Generate df from json data & perform cleanups
             _df = pd.json_normalize(data[::-1])[list(column_rename_map.keys())].rename(columns=column_rename_map)
             _df[['entry_timestamp', 'exit_timestamp']] = _df[['entry_timestamp', 'exit_timestamp']].apply(pd.to_datetime, format="%Y-%m-%d | %H:%M", errors="coerce")
@@ -339,6 +340,7 @@ class AlgoBullsConnection:
         """
 
         order_report = None
+
         # get pnl data and cleanup as per quantstats format
         _returns_df = pnl_df[['entry_timestamp', 'pnl_absolute']]
         _returns_df = _returns_df.set_index('entry_timestamp')
@@ -387,13 +389,13 @@ class AlgoBullsConnection:
             broking_details: details of client's broker
 
         Legacy args (will be deprecated in future release):
-            'strategy_code' behaves same 'strategy'
-            'start_timestamp' behaves same 'start'
-            'end_timestamp' behaves same 'end'
-            'instrument' behaves same 'instruments'
-            'strategy_parameters' behaves same 'parameters'
-            'candle_interval' behaves same 'candle'
-            'strategy_mode' behaves same 'mode'
+            'strategy_code' behaves same as 'strategy'
+            'start_timestamp' behaves same as 'start'
+            'end_timestamp' behaves same as 'end'
+            'instrument' behaves same as 'instruments'
+            'strategy_parameters' behaves same as 'parameters'
+            'candle_interval' behaves same as 'candle'
+            'strategy_mode' behaves same as 'mode'
 
         Returns:
             job submission status
@@ -417,13 +419,13 @@ class AlgoBullsConnection:
         if isinstance(start, str):
             try:
                 start = get_datetime_with_tz(start, trading_type.name)
-            except ValueError as ve:
-                raise ValueError(f'Error : Invalid string timestamp format for argument "start" ({ve}).\nExpected timestamp format for {trading_type.name} is [{TRADE_TYPE_DT_FORMAT_MAP[trading_type.name][KEY_DT_ZONE]}]')
+            except ValueError as ex:
+                raise ValueError(f'Error : Invalid string timestamp format for argument "start" ({ex}).\nExpected timestamp format for {trading_type.name} is [{TRADE_TYPE_DT_FORMAT_MAP[trading_type.name][KEY_DT_ZONE]}]')
         if isinstance(end, str):
             try:
                 end = get_datetime_with_tz(end, trading_type.name)
-            except ValueError as ve:
-                raise ValueError(f'Error : Invalid string timestamp format for argument "end" ({ve}).\nExpected timestamp format for {trading_type.name} is [{TRADE_TYPE_DT_FORMAT_MAP[trading_type.name][KEY_DT_ZONE]}]')
+            except ValueError as ex:
+                raise ValueError(f'Error : Invalid string timestamp format for argument "end" ({ex}).\nExpected timestamp format for {trading_type.name} is [{TRADE_TYPE_DT_FORMAT_MAP[trading_type.name][KEY_DT_ZONE]}]')
         if isinstance(mode, str):
             _ = mode.upper()
             assert _ in StrategyMode.__members__, _error_msg_candle
@@ -516,13 +518,13 @@ class AlgoBullsConnection:
             broking_details: client's broking details
 
         Legacy args (will be deprecated in future release):
-            'strategy_code' behaves same 'strategy'
-            'start_timestamp' behaves same 'start'
-            'end_timestamp' behaves same 'end'
-            'instrument' behaves same 'instruments'
-            'strategy_parameters' behaves same 'parameters'
-            'candle_interval' behaves same 'candle'
-            'strategy_mode' behaves same 'mode'
+            'strategy_code' behaves same as 'strategy'
+            'start_timestamp' behaves same as 'start'
+            'end_timestamp' behaves same as 'end'
+            'instrument' behaves same as 'instruments'
+            'strategy_parameters' behaves same as 'parameters'
+            'candle_interval' behaves same as 'candle'
+            'strategy_mode' behaves same as 'mode'
 
         Returns:
             backtest job submission status
@@ -649,13 +651,13 @@ class AlgoBullsConnection:
             broking_details: client's broking details
 
         Legacy args (will be deprecated in future release):
-            'strategy_code' behaves same 'strategy'
-            'start_timestamp' behaves same 'start'
-            'end_timestamp' behaves same 'end'
-            'instrument' behaves same 'instruments'
-            'strategy_parameters' behaves same 'parameters'
-            'candle_interval' behaves same 'candle'
-            'strategy_mode' behaves same 'mode'
+            'strategy_code' behaves same as 'strategy'
+            'start_timestamp' behaves same as 'start'
+            'end_timestamp' behaves same as 'end'
+            'instrument' behaves same as 'instruments'
+            'strategy_parameters' behaves same as 'parameters'
+            'candle_interval' behaves same as 'candle'
+            'strategy_mode' behaves same as 'mode'
 
         Returns:
             papertrade job submission status
@@ -783,13 +785,13 @@ class AlgoBullsConnection:
             broking_details: client's broking details
 
         Legacy args (will be deprecated in future release):
-            'strategy_code' behaves same 'strategy'
-            'start_timestamp' behaves same 'start'
-            'end_timestamp' behaves same 'end'
-            'instrument' behaves same 'instruments'
-            'strategy_parameters' behaves same 'parameters'
-            'candle_interval' behaves same 'candle'
-            'strategy_mode' behaves same 'mode'
+            'strategy_code' behaves same as 'strategy'
+            'start_timestamp' behaves same as 'start'
+            'end_timestamp' behaves same as 'end'
+            'instrument' behaves same as 'instruments'
+            'strategy_parameters' behaves same as 'parameters'
+            'candle_interval' behaves same as 'candle'
+            'strategy_mode' behaves same as 'mode'
 
         Returns:
             realtrade job submission status

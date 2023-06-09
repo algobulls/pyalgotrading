@@ -315,7 +315,6 @@ class AlgoBullsAPI:
                 TradingType.PAPERTRADING: 'backDataTime',
                 TradingType.BACKTESTING: 'backDataDate'
             }
-            _timestamp_format = "%d-%m-%YT%H:%MZ"
             execute_config = {
                 map_trading_type_to_date_key[trading_type]: [start_timestamp.astimezone(timezone.utc).isoformat(), end_timestamp.astimezone(timezone.utc).isoformat()],
                 'isLiveDataTestMode': trading_type in [TradingType.PAPERTRADING, TradingType.REALTRADING],
