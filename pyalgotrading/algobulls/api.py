@@ -319,7 +319,8 @@ class AlgoBullsAPI:
             execute_config = {
                 map_trading_type_to_date_key[trading_type]: [start_timestamp.astimezone(timezone.utc).isoformat(), end_timestamp.astimezone(timezone.utc).isoformat()],
                 'isLiveDataTestMode': trading_type in [TradingType.PAPERTRADING, TradingType.REALTRADING],
-                'customizationsQuantity': lots
+                'customizationsQuantity': lots,
+                'brokingDetails': broker_details
             }
 
             params = None
@@ -329,7 +330,6 @@ class AlgoBullsAPI:
             elif trading_type is TradingType.REALTRADING:
                 endpoint = 'v4/portfolio/strategies?isPythonBuild=true&isLive=true'
                 execute_config['brokerId'] = broker_id
-                execute_config['brokerDetails'] = broker_details
             else:
                 raise NotImplementedError
             json_data = {'method': 'update', 'newVal': 1, 'key': key, 'record': {'status': 0, 'lots': lots, 'executeConfig': execute_config}, 'dataIndex': 'executeConfig'}

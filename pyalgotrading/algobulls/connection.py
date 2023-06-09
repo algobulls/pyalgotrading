@@ -791,7 +791,7 @@ class AlgoBullsConnection:
         """
 
         # start real trading job
-        response = self.start_job(strategy=strategy, start=start, end=end, instrument=instruments, lots=lots, parameters=parameters, candle=candle, mode=mode, trading_type=TradingType.REALTRADING, brokerId=broker_id, broking_details=broking_details)
+        response = self.start_job(strategy=strategy, start=start, end=end, instrument=instruments, lots=lots, parameters=parameters, candle=candle, mode=mode, trading_type=TradingType.REALTRADING, broker_id=broker_id, broking_details=broking_details)
 
         # Clear previously saved pnl data, if any
         self.realtrade_pnl_data = None
