@@ -528,7 +528,6 @@ class AlgoBullsConnection:
         Returns:=
             backtest job submission status
         """
-        broking_details = kwargs.get('broking_details')
 
         # start backtesting job
         response = self.start_job(
@@ -661,8 +660,6 @@ class AlgoBullsConnection:
         Returns:
             papertrade job submission status
         """
-
-        broking_details = kwargs.get('broking_details')
 
         # start papertrading job
         response = self.start_job(
