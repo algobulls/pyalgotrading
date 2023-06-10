@@ -136,6 +136,7 @@ class AlgoBullsAPI:
             raise NotImplementedError
 
         key = response.get('key')
+
         return key
 
     def __get_key(self, strategy_code, trading_type):
@@ -202,6 +203,7 @@ class AlgoBullsAPI:
         json_data = {'strategyId': strategy_code, 'strategyName': strategy_name, 'strategyDetails': strategy_details, 'abcVersion': abc_version}
         endpoint = f'v3/build/python/user/strategy/code'
         response = self._send_request(endpoint=endpoint, method='put', json_data=json_data)
+
         return response
 
     def get_all_strategies(self) -> dict:
@@ -216,6 +218,7 @@ class AlgoBullsAPI:
         """
         endpoint = f'v3/build/python/user/strategy/code'
         response = self._send_request(endpoint=endpoint, method='options')
+
         return response
 
     def get_strategy_details(self, strategy_code: str) -> dict:
@@ -234,6 +237,7 @@ class AlgoBullsAPI:
         params = {}
         endpoint = f'v3/build/python/user/strategy/code/{strategy_code}'
         response = self._send_request(endpoint=endpoint, params=params)
+
         return response
 
     def search_instrument(self, tradingsymbol: str, exchange: str) -> dict:
@@ -253,6 +257,7 @@ class AlgoBullsAPI:
         params = {'search': tradingsymbol, 'exchange': exchange}
         endpoint = f'v4/portfolio/searchInstrument'
         response = self._send_request(endpoint=endpoint, params=params, requires_authorization=False)
+
         return response
 
     def delete_previous_trades(self, strategy: str):
@@ -270,6 +275,7 @@ class AlgoBullsAPI:
         """
         endpoint = f'v3/build/python/user/strategy/deleteAll?strategyId={strategy}'
         response = self._send_request(method='delete', endpoint=endpoint)
+
         return response
 
     def set_strategy_config(self, strategy_code: str, strategy_config: dict, trading_type: TradingType) -> (str, dict):
@@ -293,6 +299,7 @@ class AlgoBullsAPI:
         print('Setting Strategy Config...', end=' ')
         response = self._send_request(method='post', endpoint=endpoint, json_data=strategy_config)
         print('Success.')
+
         return key, response
 
     def start_strategy_algotrading(self, strategy_code: str, start_timestamp: dt, end_timestamp: dt, trading_type: TradingType, lots: int, initial_funds_virtual=1e9, broker_details: dict = None) -> dict:
@@ -338,6 +345,7 @@ class AlgoBullsAPI:
 
             response = self._send_request(method='patch', endpoint=endpoint, json_data=json_data, params=params)
             print('Success.')
+
             return response
         except (AlgoBullsAPIForbiddenErrorException, AlgoBullsAPIInsufficientBalanceErrorException) as ex:
             print('Fail.')
@@ -361,6 +369,7 @@ class AlgoBullsAPI:
             print(f'Stopping {trading_type.name} job...', end=' ')
             response = self._send_request(method='patch', endpoint=endpoint, json_data=json_data)
             print('Success.')
+
             return response
         except (AlgoBullsAPIForbiddenErrorException, AlgoBullsAPIInsufficientBalanceErrorException) as ex:
             print('Fail.')
@@ -384,6 +393,7 @@ class AlgoBullsAPI:
         params = {'key': key}
         endpoint = f'v2/user/strategy/status'
         response = self._send_request(endpoint=endpoint, params=params)
+
         return response
 
     def get_logs(self, strategy_code: str, trading_type: TradingType) -> dict:
@@ -404,6 +414,7 @@ class AlgoBullsAPI:
         key = self.__get_key(strategy_code=strategy_code, trading_type=trading_type)
         json_data = {'key': key}
         response = self._send_request(method='post', endpoint=endpoint, json_data=json_data)
+
         return response
 
     def get_reports(self, strategy_code: str, trading_type: TradingType, report_type: TradingReportType) -> dict:
@@ -435,4 +446,5 @@ class AlgoBullsAPI:
             raise NotImplementedError
 
         response = self._send_request(endpoint=endpoint, params=params)
+
         return response

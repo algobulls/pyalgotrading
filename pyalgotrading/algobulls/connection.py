@@ -125,6 +125,7 @@ class AlgoBullsConnection:
                 except KeyError:
                     response = self.api.create_strategy(strategy_name=strategy_name, strategy_details=strategy_details,
                                                         abc_version=_abc_version)
+
         return response
 
     def get_all_strategies(self, return_as_dataframe=True):
@@ -176,6 +177,7 @@ class AlgoBullsConnection:
         """
         assert isinstance(instrument, str), f'Argument "instrument" should be a string'
         response = self.api.search_instrument(instrument, exchange=exchange).get('data')
+
         return response
 
     def delete_previous_trades(self, strategy):
@@ -278,7 +280,6 @@ class AlgoBullsConnection:
             return _response
         else:
             print('Report not available yet. Please retry in sometime')
-            # return response
 
     def get_pnl_report_table(self, strategy_code, trading_type):
         """
@@ -323,6 +324,7 @@ class AlgoBullsConnection:
         else:
             # No data available, send back an empty dataframe
             _df = pd.DataFrame(columns=list(column_rename_map.values()))
+
         return _df
 
     def get_report(self, strategy_code, initial_funds, report, html_dump, pnl_df):
@@ -488,6 +490,7 @@ class AlgoBullsConnection:
 
         # Submit trading job
         response = self.api.start_strategy_algotrading(strategy_code=strategy, start_timestamp=start, end_timestamp=end, trading_type=trading_type, lots=lots, initial_funds_virtual=initial_funds_virtual, broker_details=broking_details)
+
         return response
 
     def backtest(self, strategy=None, start=None, end=None, instruments=None, lots=1, parameters=None, candle=None, mode=StrategyMode.INTRADAY, delete_previous_trades=True, initial_funds_virtual=1e9, vendor_details=None, **kwargs):
@@ -496,8 +499,8 @@ class AlgoBullsConnection:
 
         Args:
             strategy: Strategy code
-            start: Start date/time
-            end: End date/time
+            start: Start date-time/time
+            end: End date-time/time
             instruments: Instrument key
             lots: Number of lots of the passed instrument to trade on
             parameters: Parameters
@@ -551,7 +554,7 @@ class AlgoBullsConnection:
             strategy_code: Strategy Code
 
         Returns:
-            Job status
+            stop job status
         """
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
         return self.stop_job(strategy_code=strategy_code, trading_type=TradingType.BACKTESTING)
@@ -567,6 +570,7 @@ class AlgoBullsConnection:
             Report details
         """
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
+
         return self.get_logs(strategy_code, trading_type=TradingType.BACKTESTING)
 
     def get_backtesting_report_pnl_table(self, strategy_code, show_all_rows=False):
@@ -582,6 +586,7 @@ class AlgoBullsConnection:
         """
         if self.backtesting_pnl_data is None:
             self.backtesting_pnl_data = self.get_pnl_report_table(strategy_code, TradingType.BACKTESTING)
+
         return self.backtesting_pnl_data
 
     def get_backtesting_report_statistics(self, strategy_code, initial_funds=1e9, mode='quantstats', report='metrics', html_dump=False):
@@ -605,6 +610,7 @@ class AlgoBullsConnection:
             print('Generating Statistics for already fetched P&L data...')
 
         order_report = self.get_report_statistics(strategy_code, initial_funds, report, html_dump, self.backtesting_pnl_data)
+
         return order_report
 
     def get_backtesting_report_order_history(self, strategy_code):
@@ -618,6 +624,7 @@ class AlgoBullsConnection:
             Report details
         """
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
+
         return self.get_report(strategy_code=strategy_code, trading_type=TradingType.BACKTESTING, report_type=TradingReportType.ORDER_HISTORY)
 
     def papertrade(self, strategy=None, start=None, end=None, instruments=None, lots=None, parameters=None, candle=None, mode=StrategyMode.INTRADAY, delete_previous_trades=True, initial_funds_virtual=1e9, vendor_details=None, **kwargs):
@@ -626,8 +633,8 @@ class AlgoBullsConnection:
 
         Args:
             strategy: Strategy code
-            start: Start time
-            end: End time
+            start: Start date-time/time
+            end: End date-time/time
             instruments: Instrument key
             lots: Number of lots of the passed instrument to trade on
             parameters: Parameters
@@ -681,9 +688,10 @@ class AlgoBullsConnection:
             strategy_code: Strategy code
 
         Returns:
-            None
+            stop job status
         """
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
+
         return self.stop_job(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING)
 
     def get_papertrading_logs(self, strategy_code):
@@ -697,6 +705,7 @@ class AlgoBullsConnection:
             Report details
         """
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
+
         return self.get_logs(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING)
 
     def get_papertrading_report_pnl_table(self, strategy_code, show_all_rows=False):
@@ -712,6 +721,7 @@ class AlgoBullsConnection:
         """
         if self.papertrade_pnl_data is None:
             self.papertrade_pnl_data = self.get_pnl_report_table(strategy_code, TradingType.PAPERTRADING)
+
         return self.papertrade_pnl_data
 
     def get_papertrading_report_statistics(self, strategy_code, initial_funds=1e9, mode='quantstats', report='metrics', html_dump=False):
@@ -737,6 +747,7 @@ class AlgoBullsConnection:
             print('Generating Statistics for already fetched P&L data...')
 
         order_report = self.get_report_statistics(strategy_code, initial_funds, report, html_dump, self.papertrade_pnl_data)
+
         return order_report
 
     def get_papertrading_report_order_history(self, strategy_code):
@@ -750,6 +761,7 @@ class AlgoBullsConnection:
             Report details
         """
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
+
         return self.get_report(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING, report_type=TradingReportType.ORDER_HISTORY)
 
     def realtrade(self, strategy=None, start=None, end=None, instruments=None, lots=None, parameters=None, candle=None, mode=StrategyMode.INTRADAY, broking_details=None, **kwargs):
@@ -761,8 +773,8 @@ class AlgoBullsConnection:
 
         Args:
             strategy: Strategy code
-            start: Start time
-            end: End time
+            start: Start date-time/time
+            end: End date-time/time
             instruments: Instrument key
             lots: Number of lots of the passed instrument to trade on
             parameters: Parameters
@@ -814,10 +826,10 @@ class AlgoBullsConnection:
             strategy_code: Strategy code
 
         Returns:
-            None
+            stop job status
         """
-        # assert (isinstance(broker, AlgoBullsSupportedBrokers) is True), f'Argument broker should be an enum of type {AlgoBullsSupportedBrokers.__name__}'
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
+
         return self.stop_job(strategy_code=strategy_code, trading_type=TradingType.REALTRADING)
 
     def get_realtrading_logs(self, strategy_code):
@@ -830,7 +842,6 @@ class AlgoBullsConnection:
         Returns:
             Report details
         """
-        # assert (isinstance(broker, AlgoBullsSupportedBrokers) is True), f'Argument broker should be an enum of type {AlgoBullsSupportedBrokers.__name__}'
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
 
         return self.get_logs(strategy_code=strategy_code, trading_type=TradingType.REALTRADING)
@@ -848,6 +859,7 @@ class AlgoBullsConnection:
         """
         if self.realtrade_pnl_data is None:
             self.realtrade_pnl_data = self.get_pnl_report_table(strategy_code, TradingType.REALTRADING)
+
         return self.realtrade_pnl_data
 
     def get_realtrading_report_statistics(self, strategy_code, initial_funds=1e9, mode='quantstats', report='metrics', html_dump=False):
@@ -873,6 +885,7 @@ class AlgoBullsConnection:
             print('Generating Statistics for already fetched P&L data...')
 
         order_report = self.get_report_statistics(strategy_code, initial_funds, report, html_dump, self.realtrade_pnl_data)
+
         return order_report
 
     def get_realtrading_report_order_history(self, strategy_code):
