@@ -291,7 +291,7 @@ class AlgoBullsAPI:
         print('Success.')
         return key, response
 
-    def start_strategy_algotrading(self, strategy_code: str, start_timestamp: dt, end_timestamp: dt, trading_type: TradingType, lots: int, initial_funds_virtual=1e9, broker_id: int = None, broker_details: dict = None) -> dict:
+    def start_strategy_algotrading(self, strategy_code: str, start_timestamp: dt, end_timestamp: dt, trading_type: TradingType, lots: int, initial_funds_virtual=1e9, broker_details: dict = None) -> dict:
         """
         Submit Backtesting / Paper Trading / Real Trading job for strategy with code strategy_code & return the job ID.
         
@@ -302,7 +302,6 @@ class AlgoBullsAPI:
             trading_type: Trading type
             lots: Lots
             initial_funds_virtual: virtual funds before starting the strategy
-            broker_id: id of the broker for real trades
             broker_details: client's broking details
         Info: ENDPOINT
             `PATCH` v4/portfolio/strategies?isPythonBuild=true
@@ -328,7 +327,6 @@ class AlgoBullsAPI:
                 execute_config['initialFundsVirtual'] = initial_funds_virtual
             elif trading_type is TradingType.REALTRADING:
                 endpoint = 'v4/portfolio/strategies?isPythonBuild=true&isLive=true'
-                execute_config['brokerId'] = broker_id
             else:
                 raise NotImplementedError
             json_data = {'method': 'update', 'newVal': 1, 'key': key, 'record': {'status': 0, 'lots': lots, 'executeConfig': execute_config}, 'dataIndex': 'executeConfig'}
