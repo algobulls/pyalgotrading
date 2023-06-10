@@ -324,7 +324,7 @@ class AlgoBullsConnection:
             _df = pd.DataFrame(columns=list(column_rename_map.values()))
         return _df
 
-    def get_report_statistics(self, strategy_code, initial_funds, report, html_dump, pnl_df):
+    def get_report(self, strategy_code, initial_funds, report, html_dump, pnl_df):
         """
             Fetch BT/PT/RT report statistics
 
@@ -448,8 +448,8 @@ class AlgoBullsConnection:
             assert 'credentialParameters' in broking_details, f'Argument "broking_details" should be a dict with "credentialParameters" key'
 
         if trading_type is not TradingType.BACKTESTING:
-            start = dt.combine(dt.today().date(), start.time(), tzinfo=start.tzinfo)
-            end = dt.combine(dt.today().date(), end.time(), tzinfo=end.tzinfo)
+            start = dt.combine(dt.now().astimezone(start.tzinfo).date(), start.time(), tzinfo=start.tzinfo)
+            end = dt.combine(dt.now().astimezone(end.tzinfo).date(), end.time(), tzinfo=end.tzinfo)
 
         # Restructuring strategy params
         restructured_strategy_parameters = []
@@ -539,6 +539,7 @@ class AlgoBullsConnection:
             Job status
         """
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
+
         return self.get_job_status(strategy_code, TradingType.BACKTESTING)
 
     def stop_backtesting_job(self, strategy_code):
@@ -653,6 +654,7 @@ class AlgoBullsConnection:
             strategy=strategy, start=start, end=end, instruments=instruments, lots=lots, parameters=parameters, candle=candle, mode=mode,
             initial_funds_virtual=initial_funds_virtual, delete_previous_trades=delete_previous_trades, trading_type=TradingType.PAPERTRADING, broking_details=vendor_details, **kwargs
         )
+
         # Clear previously saved pnl data, if any
         self.papertrade_pnl_data = None
 
@@ -667,6 +669,7 @@ class AlgoBullsConnection:
             Job status
         """
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
+
         return self.get_job_status(strategy_code, TradingType.PAPERTRADING)
 
     def stop_papertrading_job(self, strategy_code):
@@ -798,7 +801,6 @@ class AlgoBullsConnection:
         Returns:
             Job status
         """
-        # assert (isinstance(broker, AlgoBullsSupportedBrokers) is True), f'Argument broker should be an enum of type {AlgoBullsSupportedBrokers.__name__}'
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
 
         return self.get_job_status(strategy_code, TradingType.REALTRADING)
@@ -889,9 +891,9 @@ class AlgoBullsConnection:
 
 def pandas_dataframe_all_rows():
     """
+    Enable printing of all rows in a dataframe.
 
     Returns: None
-
     """
     pd.set_option('display.max_rows', None)
     pd.set_option('display.max_columns', None)
