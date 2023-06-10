@@ -3,19 +3,20 @@ class AlgoBullsAPIBaseException(Exception):
     Base exception class for all API related exceptions
     """
 
-    def __init__(self, method, url, response):
+    def __init__(self, method, url, response, status_code):
         self.method = method
         self.url = url
         self.response = response
 
-        message = f'{self.get_error_type()} | Method: {self.method} | URL: {self.url} | Response: {self.response}'
+        message = f'{self.get_error_type()} | Method: {self.method} | URL: {self.url} | Response: {self.response} | status code: {status_code}'
+
         super().__init__(message)
 
     def get_error_type(self):
         return 'Unknown non-200 status code'
 
 
-class AlgoBullsAPIBadRequest(AlgoBullsAPIBaseException):
+class AlgoBullsAPIBadRequestException(AlgoBullsAPIBaseException):
     """
     Exception class for HTTP status code of 400 (Bad Request)
     """
@@ -24,7 +25,7 @@ class AlgoBullsAPIBadRequest(AlgoBullsAPIBaseException):
         return 'Bad Request'
 
 
-class AlgoBullsAPIUnauthorizedError(AlgoBullsAPIBaseException):
+class AlgoBullsAPIUnauthorizedErrorException(AlgoBullsAPIBaseException):
     """
     Exception class for HTTP status code of 401 (Unauthorized)
     """
@@ -33,7 +34,7 @@ class AlgoBullsAPIUnauthorizedError(AlgoBullsAPIBaseException):
         return 'Unauthorized Error'
 
 
-class AlgoBullsAPIInsufficientBalanceError(AlgoBullsAPIBaseException):
+class AlgoBullsAPIInsufficientBalanceErrorException(AlgoBullsAPIBaseException):
     """
     Exception class for HTTP status code of 402 (Insufficient Balance)
     """
@@ -42,7 +43,7 @@ class AlgoBullsAPIInsufficientBalanceError(AlgoBullsAPIBaseException):
         return 'Insufficient Balance'
 
 
-class AlgoBullsAPIForbiddenError(AlgoBullsAPIBaseException):
+class AlgoBullsAPIForbiddenErrorException(AlgoBullsAPIBaseException):
     """
     Exception class for HTTP status code of 403 (Operation not permitted)
     Use case: Trying to START or STOP a strategy when it is in intermediate state.
@@ -52,7 +53,7 @@ class AlgoBullsAPIForbiddenError(AlgoBullsAPIBaseException):
         return 'Forbidden'
 
 
-class AlgoBullsAPIResourceNotFoundError(AlgoBullsAPIBaseException):
+class AlgoBullsAPIResourceNotFoundErrorException(AlgoBullsAPIBaseException):
     """
     Exception class for HTTP status code of 404 (Resource Not Found)
     """
@@ -68,3 +69,12 @@ class AlgoBullsAPIInternalServerErrorException(AlgoBullsAPIBaseException):
 
     def get_error_type(self):
         return 'Internal Server Error'
+
+
+class AlgoBullsAPIGatewayTimeoutErrorException(AlgoBullsAPIBaseException):
+    """
+    Exception class for HTTP status code of 504 (Gateway Timeout Error)
+    """
+
+    def get_error_type(self):
+        return 'Gateway Timeout Error'

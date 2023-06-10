@@ -246,5 +246,11 @@ class ActionConstants(Enum):
     NO_ACTION = 'NO_ACTION'
 
 
-MESSAGE_REALTRADING_FORBIDDEN = 'Forbidden. This strategy is not approved for RT mode. Email us on support@algobulls.com to get your strategy approved. ' \
-                                'The AlgoBulls support team will guide you with the approval process. Once your strategy is approved, you can run it for RT directly from your AlgoBulls account.'
+KEY_DT_FORMAT_WITH_TIMEZONE = 0
+KEY_DT_FORMAT_WITHOUT_TIMEZONE = 1
+
+TRADING_TYPE_DT_FORMAT_MAP = {
+    TradingType.BACKTESTING: {KEY_DT_FORMAT_WITH_TIMEZONE: '%Y-%m-%d %H:%M %z', KEY_DT_FORMAT_WITHOUT_TIMEZONE: '%Y-%m-%d %H:%M'},
+    TradingType.PAPERTRADING: {KEY_DT_FORMAT_WITH_TIMEZONE: '%H:%M %z', KEY_DT_FORMAT_WITHOUT_TIMEZONE: '%H:%M'},
+    TradingType.REALTRADING: {KEY_DT_FORMAT_WITH_TIMEZONE: '%H:%M %z', KEY_DT_FORMAT_WITHOUT_TIMEZONE: '%H:%M'},
+}

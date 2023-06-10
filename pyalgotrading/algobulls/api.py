@@ -7,8 +7,10 @@ from json import JSONDecodeError
 
 import requests
 
-from .exceptions import AlgoBullsAPIBaseException, AlgoBullsAPIUnauthorizedError, AlgoBullsAPIInsufficientBalanceError, AlgoBullsAPIResourceNotFoundError, AlgoBullsAPIBadRequest, AlgoBullsAPIInternalServerErrorException, AlgoBullsAPIForbiddenError
-from ..constants import TradingType, TradingReportType, MESSAGE_REALTRADING_FORBIDDEN
+from .exceptions import AlgoBullsAPIBaseException, AlgoBullsAPIUnauthorizedErrorException, AlgoBullsAPIInsufficientBalanceErrorException, AlgoBullsAPIResourceNotFoundErrorException, AlgoBullsAPIBadRequestException, \
+    AlgoBullsAPIInternalServerErrorException, AlgoBullsAPIForbiddenErrorException, AlgoBullsAPIGatewayTimeoutErrorException
+from ..constants import TradingType, TradingReportType
+from ..utils.func import get_raw_response
 
 
 class AlgoBullsAPI:
@@ -46,7 +48,8 @@ class AlgoBullsAPI:
             'Authorization': f'{access_token}'
         }
 
-    def _send_request(self, method: str = 'get', endpoint: str = '', base_url: str = SERVER_ENDPOINT, params: [str, dict] = None, json_data: [str, dict] = None, requires_authorization: bool = True) -> dict:
+    def _send_request(self, method: str = 'get', endpoint: str = '', base_url: str = SERVER_ENDPOINT, params: [str, dict] = None, json_data: [str, dict] = None, requires_authorization: bool = True,
+                      raise_exception_unknown_status_code: bool = True) -> dict:
         """
         Send the request to the platform
         
@@ -63,35 +66,42 @@ class AlgoBullsAPI:
         """
         url = f'{base_url}{endpoint}'
         headers = self.headers if requires_authorization else None
-        response = requests.request(method=method, headers=headers, url=url, params=params, json=json_data)
+        r = requests.request(method=method, headers=headers, url=url, params=params, json=json_data)
 
-        try:
-            response_json = response.json()
-        except JSONDecodeError:
-            response_json = str(response)
-
-        if response.status_code == 200:
-            response_json = response.json()
-            return response_json
-        elif response.status_code == 400:
-            raise AlgoBullsAPIBadRequest(method=method, url=url, response=response_json)
-        elif response.status_code == 401:
-            raise AlgoBullsAPIUnauthorizedError(method=method, url=url, response=response_json)
-            # try:
-            #     raise AlgoBullsAPIUnauthorizedError(method=method, url=url, response=response_json)
-            # except AlgoBullsAPIUnauthorizedError as ex:
-            #     print(f'{ex.get_error_type()}. {ex.response}')
-        elif response.status_code == 402:
-            raise AlgoBullsAPIInsufficientBalanceError(method=method, url=url, response=response_json)
-        elif response.status_code == 403:
-            raise AlgoBullsAPIForbiddenError(method=method, url=url, response=response_json)
-        elif response.status_code == 404:
-            raise AlgoBullsAPIResourceNotFoundError(method=method, url=url, response=response_json)
-        elif response.status_code == 500:
-            raise AlgoBullsAPIInternalServerErrorException(method=method, url=url, response=response_json)
+        if r.status_code == 200:
+            try:
+                r_json = r.json()
+                return r_json
+            except JSONDecodeError:
+                r.raw.decode_content = True
+                return {'response': get_raw_response(r)}
+        elif r.status_code == 400:
+            r.raw.decode_content = True
+            raise AlgoBullsAPIBadRequestException(method=method, url=url, response=get_raw_response(r), status_code=400)
+        elif r.status_code == 401:
+            r.raw.decode_content = True
+            raise AlgoBullsAPIUnauthorizedErrorException(method=method, url=url, response=get_raw_response(r), status_code=401)
+        elif r.status_code == 402:
+            r.raw.decode_content = True
+            raise AlgoBullsAPIInsufficientBalanceErrorException(method=method, url=url, response=get_raw_response(r), status_code=402)
+        elif r.status_code == 403:
+            r.raw.decode_content = True
+            raise AlgoBullsAPIForbiddenErrorException(method=method, url=url, response=get_raw_response(r), status_code=403)
+        elif r.status_code == 404:
+            r.raw.decode_content = True
+            raise AlgoBullsAPIResourceNotFoundErrorException(method=method, url=url, response=get_raw_response(r), status_code=404)
+        elif r.status_code == 500:
+            r.raw.decode_content = True
+            raise AlgoBullsAPIInternalServerErrorException(method=method, url=url, response=get_raw_response(r), status_code=500)
+        elif r.status_code == 504:
+            r.raw.decode_content = True
+            raise AlgoBullsAPIGatewayTimeoutErrorException(method=method, url=url, response=get_raw_response(r), status_code=504)
         else:
-            response.raw.decode_content = True
-            raise AlgoBullsAPIBaseException(method=method, url=url, response=response_json)
+            if raise_exception_unknown_status_code:
+                r.raw.decode_content = True
+                raise AlgoBullsAPIBaseException(method=method, url=url, response=get_raw_response(r), status_code=r.status_code)
+            else:
+                return r.json()
 
     def __fetch_key(self, strategy_code, trading_type):
         """
@@ -126,6 +136,7 @@ class AlgoBullsAPI:
             raise NotImplementedError
 
         key = response.get('key')
+
         return key
 
     def __get_key(self, strategy_code, trading_type):
@@ -169,7 +180,7 @@ class AlgoBullsAPI:
             response = self._send_request(endpoint=endpoint, method='post', json_data=json_data)
             print('Success.')
             return response
-        except (AlgoBullsAPIForbiddenError, AlgoBullsAPIInsufficientBalanceError) as ex:
+        except (AlgoBullsAPIForbiddenErrorException, AlgoBullsAPIInsufficientBalanceErrorException) as ex:
             print('Fail.')
             print(f'{ex.get_error_type()}: {ex.response}')
 
@@ -192,6 +203,7 @@ class AlgoBullsAPI:
         json_data = {'strategyId': strategy_code, 'strategyName': strategy_name, 'strategyDetails': strategy_details, 'abcVersion': abc_version}
         endpoint = f'v3/build/python/user/strategy/code'
         response = self._send_request(endpoint=endpoint, method='put', json_data=json_data)
+
         return response
 
     def get_all_strategies(self) -> dict:
@@ -206,6 +218,7 @@ class AlgoBullsAPI:
         """
         endpoint = f'v3/build/python/user/strategy/code'
         response = self._send_request(endpoint=endpoint, method='options')
+
         return response
 
     def get_strategy_details(self, strategy_code: str) -> dict:
@@ -224,6 +237,7 @@ class AlgoBullsAPI:
         params = {}
         endpoint = f'v3/build/python/user/strategy/code/{strategy_code}'
         response = self._send_request(endpoint=endpoint, params=params)
+
         return response
 
     def search_instrument(self, tradingsymbol: str, exchange: str) -> dict:
@@ -243,6 +257,7 @@ class AlgoBullsAPI:
         params = {'search': tradingsymbol, 'exchange': exchange}
         endpoint = f'v4/portfolio/searchInstrument'
         response = self._send_request(endpoint=endpoint, params=params, requires_authorization=False)
+
         return response
 
     def delete_previous_trades(self, strategy: str):
@@ -260,6 +275,7 @@ class AlgoBullsAPI:
         """
         endpoint = f'v3/build/python/user/strategy/deleteAll?strategyId={strategy}'
         response = self._send_request(method='delete', endpoint=endpoint)
+
         return response
 
     def set_strategy_config(self, strategy_code: str, strategy_config: dict, trading_type: TradingType) -> (str, dict):
@@ -283,9 +299,10 @@ class AlgoBullsAPI:
         print('Setting Strategy Config...', end=' ')
         response = self._send_request(method='post', endpoint=endpoint, json_data=strategy_config)
         print('Success.')
+
         return key, response
 
-    def start_strategy_algotrading(self, strategy_code: str, start_timestamp: dt, end_timestamp: dt, trading_type: TradingType, lots: int) -> dict:
+    def start_strategy_algotrading(self, strategy_code: str, start_timestamp: dt, end_timestamp: dt, trading_type: TradingType, lots: int, initial_funds_virtual=1e9, broker_details: dict = None) -> dict:
         """
         Submit Backtesting / Paper Trading / Real Trading job for strategy with code strategy_code & return the job ID.
         
@@ -295,16 +312,11 @@ class AlgoBullsAPI:
             end_timestamp: End date/time
             trading_type: Trading type
             lots: Lots
-
+            initial_funds_virtual: virtual funds before starting the strategy
+            broker_details: client's broking details
         Info: ENDPOINT
             `PATCH` v4/portfolio/strategies?isPythonBuild=true
         """
-        if trading_type == TradingType.REALTRADING:
-            return {'message': MESSAGE_REALTRADING_FORBIDDEN}
-        elif trading_type in [TradingType.PAPERTRADING, TradingType.BACKTESTING]:
-            endpoint = 'v4/portfolio/strategies?isPythonBuild=true'
-        else:
-            raise NotImplementedError
 
         try:
             key = self.__get_key(strategy_code=strategy_code, trading_type=trading_type)
@@ -313,22 +325,29 @@ class AlgoBullsAPI:
                 TradingType.PAPERTRADING: 'backDataTime',
                 TradingType.BACKTESTING: 'backDataDate'
             }
-            _timestamp_format = "%d-%m-%YT%H:%MZ"
             execute_config = {
-                map_trading_type_to_date_key[trading_type]: [start_timestamp.astimezone().astimezone(timezone.utc).isoformat(), end_timestamp.astimezone().astimezone(timezone.utc).isoformat()],
-                'isLiveDataTestMode': trading_type == TradingType.PAPERTRADING,
-                'customizationsQuantity': lots
+                map_trading_type_to_date_key[trading_type]: [start_timestamp.astimezone(timezone.utc).isoformat(), end_timestamp.astimezone(timezone.utc).isoformat()],
+                'isLiveDataTestMode': trading_type in [TradingType.PAPERTRADING, TradingType.REALTRADING],
+                'customizationsQuantity': lots,
+                'brokingDetails': broker_details
             }
+
+            params = None
+            if trading_type in [TradingType.PAPERTRADING, TradingType.BACKTESTING]:
+                endpoint = 'v4/portfolio/strategies?isPythonBuild=true&isLive=false'
+                execute_config['initialFundsVirtual'] = initial_funds_virtual
+            elif trading_type is TradingType.REALTRADING:
+                endpoint = 'v4/portfolio/strategies?isPythonBuild=true&isLive=true'
+            else:
+                raise NotImplementedError
             json_data = {'method': 'update', 'newVal': 1, 'key': key, 'record': {'status': 0, 'lots': lots, 'executeConfig': execute_config}, 'dataIndex': 'executeConfig'}
             print(f'Submitting {trading_type.name} job...', end=' ')
-            response = self._send_request(method='patch', endpoint=endpoint, json_data=json_data)
+
+            response = self._send_request(method='patch', endpoint=endpoint, json_data=json_data, params=params)
             print('Success.')
 
-            # cleanup
-            self.connection.pnl_data = None
-
             return response
-        except (AlgoBullsAPIForbiddenError, AlgoBullsAPIInsufficientBalanceError) as ex:
+        except (AlgoBullsAPIForbiddenErrorException, AlgoBullsAPIInsufficientBalanceErrorException) as ex:
             print('Fail.')
             print(f'{ex.get_error_type()}: {ex.response}')
 
@@ -343,21 +362,16 @@ class AlgoBullsAPI:
         Info: ENDPOINT
             `POST` v4/portfolio/strategies
         """
-        if trading_type == TradingType.REALTRADING:
-            return {'message': 'Please get approval for your strategy by writing to support@algobulls.com. Once approved, you can STOP the strategy in REALTRADING mode directly from the website.'}
-        elif trading_type in [TradingType.PAPERTRADING, TradingType.BACKTESTING]:
-            endpoint = 'v4/portfolio/strategies'
-        else:
-            raise NotImplementedError
-
+        endpoint = 'v4/portfolio/strategies'
         try:
             key = self.__get_key(strategy_code=strategy_code, trading_type=trading_type)
             json_data = {'method': 'update', 'newVal': 0, 'key': key, 'record': {'status': 2}, 'dataIndex': 'executeConfig'}
             print(f'Stopping {trading_type.name} job...', end=' ')
             response = self._send_request(method='patch', endpoint=endpoint, json_data=json_data)
             print('Success.')
+
             return response
-        except (AlgoBullsAPIForbiddenError, AlgoBullsAPIInsufficientBalanceError) as ex:
+        except (AlgoBullsAPIForbiddenErrorException, AlgoBullsAPIInsufficientBalanceErrorException) as ex:
             print('Fail.')
             print(f'{ex.get_error_type()}: {ex.response}')
 
@@ -379,6 +393,7 @@ class AlgoBullsAPI:
         params = {'key': key}
         endpoint = f'v2/user/strategy/status'
         response = self._send_request(endpoint=endpoint, params=params)
+
         return response
 
     def get_logs(self, strategy_code: str, trading_type: TradingType) -> dict:
@@ -399,6 +414,7 @@ class AlgoBullsAPI:
         key = self.__get_key(strategy_code=strategy_code, trading_type=trading_type)
         json_data = {'key': key}
         response = self._send_request(method='post', endpoint=endpoint, json_data=json_data)
+
         return response
 
     def get_reports(self, strategy_code: str, trading_type: TradingType, report_type: TradingReportType) -> dict:
@@ -430,4 +446,5 @@ class AlgoBullsAPI:
             raise NotImplementedError
 
         response = self._send_request(endpoint=endpoint, params=params)
+
         return response
