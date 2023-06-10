@@ -5,7 +5,7 @@ from datetime import datetime as dt, timezone
 
 import pandas as pd
 
-from pyalgotrading.constants import PlotType, TRADE_TYPE_DT_FORMAT_MAP, KEY_DT, KEY_DT_ZONE
+from pyalgotrading.constants import PlotType, TRADING_TYPE_DT_FORMAT_MAP, KEY_DT_FORMAT_WITHOUT_TIMEZONE, KEY_DT_FORMAT_WITH_TIMEZONE
 
 
 def import_with_install(package_import_name, package_install_name=None, dependancies=()):
@@ -139,20 +139,20 @@ def get_raw_response(response_obj):
     return f'Content: {response_obj.content} | Raw: {response_obj.raw.data}'
 
 
-def get_datetime_with_tz(time_str, trading_type):
+def get_datetime_with_tz(timestamp_str, trading_type):
     """
-    Function converts the timestamp string to datetime object of suitable timezone and respective format for BT, PT or RT
+    Function converts the timestamp/time string to datetime object with timezone for BT, PT or RT for their respective formats
 
     Args:
-        time_str: datetime in string format
+        timestamp_str: datetime in string format for BT, time in string format for PT, RT
         trading_type: trading type (BT, PT, RT)
     """
 
     try:
-        time_str = dt.strptime(time_str, TRADE_TYPE_DT_FORMAT_MAP[trading_type][KEY_DT_ZONE])
+        timestamp_str = dt.strptime(timestamp_str, TRADING_TYPE_DT_FORMAT_MAP[trading_type][KEY_DT_FORMAT_WITH_TIMEZONE])
     except ValueError:
-        time_str = dt.strptime(time_str, TRADE_TYPE_DT_FORMAT_MAP[trading_type][KEY_DT])
-        time_str = time_str.replace(tzinfo=timezone.utc)
-        print(f'Warning : Timezone is not given. Timezone set as UTC(+0000). Expected timestamp format is "{TRADE_TYPE_DT_FORMAT_MAP[trading_type][0]}"')
+        timestamp_str = dt.strptime(timestamp_str, TRADING_TYPE_DT_FORMAT_MAP[trading_type][KEY_DT_FORMAT_WITHOUT_TIMEZONE])
+        timestamp_str = timestamp_str.replace(tzinfo=timezone.utc)
+        print(f'Warning: Timezone info not provided. Expected timestamp format is "{TRADING_TYPE_DT_FORMAT_MAP[trading_type][KEY_DT_FORMAT_WITH_TIMEZONE]}", received time "{timestamp_str}". Assuming timezone as UTC(+0000)...')
 
-    return time_str
+    return timestamp_str

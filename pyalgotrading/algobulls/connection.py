@@ -11,7 +11,7 @@ import quantstats as qs
 
 from .api import AlgoBullsAPI
 from .exceptions import AlgoBullsAPIBadRequest
-from ..constants import StrategyMode, TradingType, TradingReportType, CandleInterval, AlgoBullsEngineVersion, TRADE_TYPE_DT_FORMAT_MAP, KEY_DT_ZONE
+from ..constants import StrategyMode, TradingType, TradingReportType, CandleInterval, AlgoBullsEngineVersion, TRADING_TYPE_DT_FORMAT_MAP, KEY_DT_FORMAT_WITH_TIMEZONE
 from ..strategy.strategy_base import StrategyBase
 from ..utils.func import get_valid_enum_names, get_datetime_with_tz
 
@@ -412,18 +412,18 @@ class AlgoBullsConnection:
         _error_msg_timestamps = f'\nString Format (YYYY-MM-DD HH:MM z) or an instance of type datetime.datetime for Back Testing \nString Format (HH:MM z) or an instance of type datetime.time for Real trading or Paper Trading'
         _error_msg_instruments = f'Argument "instruments" should be a valid instrument string or a list of valid instruments strings. You can use the \'get_instrument()\' method of AlgoBullsConnection class to search for instruments'
         _error_msg_mode = f'Argument "mode" should be a valid string or an enum of type StrategyMode. Possible string values can be: {get_valid_enum_names(StrategyMode)}'
-        _error_msg_broking_details = 'Argument "broking_details" should be a valid dict with valid keys. Expected keys "brokerName" or "brokerId" and "credentialParameters" '
+        _error_msg_broking_details = 'Argument "broking_details" should be a valid dict with valid keys. Expected keys "brokerName" and "credentialParameters" '
         initial_funds_virtual = float(initial_funds_virtual)
         if isinstance(start, str):
             try:
                 start = get_datetime_with_tz(start, trading_type.name)
             except ValueError as ex:
-                raise ValueError(f'Error : Invalid string timestamp format for argument "start" ({ex}).\nExpected timestamp format for {trading_type.name} is [{TRADE_TYPE_DT_FORMAT_MAP[trading_type.name][KEY_DT_ZONE]}]')
+                raise ValueError(f'Error: Invalid string timestamp format for argument "start" ({ex}).\nExpected timestamp format for {trading_type.name} is [{TRADING_TYPE_DT_FORMAT_MAP[trading_type.name][KEY_DT_FORMAT_WITH_TIMEZONE]}]')
         if isinstance(end, str):
             try:
                 end = get_datetime_with_tz(end, trading_type.name)
             except ValueError as ex:
-                raise ValueError(f'Error : Invalid string timestamp format for argument "end" ({ex}).\nExpected timestamp format for {trading_type.name} is [{TRADE_TYPE_DT_FORMAT_MAP[trading_type.name][KEY_DT_ZONE]}]')
+                raise ValueError(f'Error: Invalid string timestamp format for argument "end" ({ex}).\nExpected timestamp format for {trading_type.name} is [{TRADING_TYPE_DT_FORMAT_MAP[trading_type.name][KEY_DT_FORMAT_WITH_TIMEZONE]}]')
         if isinstance(mode, str):
             _ = mode.upper()
             assert _ in StrategyMode.__members__, _error_msg_candle
@@ -448,9 +448,10 @@ class AlgoBullsConnection:
         assert isinstance(initial_funds_virtual, float), 'Argument "initial_funds_virtual" should be a float'
         assert isinstance(delete_previous_trades, bool), 'Argument "delete_previous_trades" should be a boolean'
 
-        if isinstance(broking_details, dict):
-            if (broking_details.get('brokerId') is None and broking_details.get('brokerName') is None) or (broking_details.get('credentialParameters') is None):
-                raise ValueError(_error_msg_mode)
+        if broking_details is not None:
+            assert isinstance(broking_details, dict), f'Argument "broking_details" should be a dict'
+            assert 'brokerName' in broking_details, f'Argument "broking_details" should be a dict with "brokerName" key'
+            assert 'credentialParameters' in broking_details, f'Argument "broking_details" should be a dict with "credentialParameters" key'
 
         if trading_type is not TradingType.BACKTESTING:
             start = dt.combine(dt.today().date(), start.time(), tzinfo=start.tzinfo)
@@ -467,7 +468,8 @@ class AlgoBullsConnection:
         # generate instruments' id list
         instrument_list = []
         for _instrument in instruments:
-            instrument_results = self.search_instrument(_instrument.split(':')[-1], exchange=_instrument.split(':')[0])
+            exchange, tradingsymbol = _instrument.split(':')
+            instrument_results = self.search_instrument(tradingsymbol, exchange=exchange)
             for _ in instrument_results:
                 if _["value"] == _instrument:
                     instrument_list.append({'id': _["id"]})
