@@ -10,7 +10,7 @@ import pandas as pd
 import quantstats as qs
 
 from .api import AlgoBullsAPI
-from .exceptions import AlgoBullsAPIBadRequest
+from .exceptions import AlgoBullsAPIBadRequestException, AlgoBullsAPIGatewayTimeoutErrorException
 from ..constants import StrategyMode, TradingType, TradingReportType, CandleInterval, AlgoBullsEngineVersion, TRADING_TYPE_DT_FORMAT_MAP, KEY_DT_FORMAT_WITH_TIMEZONE
 from ..strategy.strategy_base import StrategyBase
 from ..utils.func import get_valid_enum_names, get_datetime_with_tz
@@ -160,7 +160,7 @@ class AlgoBullsConnection:
             response = self.api.get_strategy_details(strategy_code)
             strategy_code = response['data']
             return strategy_code
-        except AlgoBullsAPIBadRequest:
+        except AlgoBullsAPIBadRequestException:
             print(f'ERROR: No strategy found with ID: {strategy_code}')
 
     def search_instrument(self, instrument, exchange='NSE'):
@@ -187,13 +187,14 @@ class AlgoBullsConnection:
         """
         response = {}
         for _ in range(30):
-            response = self.api.delete_previous_trades(strategy)
-            if response.get('data') == 'success':
+            try:
+                response = self.api.delete_previous_trades(strategy)
                 print(response.get('message'))
                 break
-            else:
-                print(f'Deleting previous trades... attempt [{_}])\n{response}\n')
+            except AlgoBullsAPIGatewayTimeoutErrorException as ex:
+                print(f'Deleting previous trades... in process... (attempt {_})\n{ex}')
                 time.sleep(1)
+
         return response
 
     def get_job_status(self, strategy_code, trading_type):

@@ -7,7 +7,8 @@ from json import JSONDecodeError
 
 import requests
 
-from .exceptions import AlgoBullsAPIBaseException, AlgoBullsAPIUnauthorizedError, AlgoBullsAPIInsufficientBalanceError, AlgoBullsAPIResourceNotFoundError, AlgoBullsAPIBadRequest, AlgoBullsAPIInternalServerErrorException, AlgoBullsAPIForbiddenError
+from .exceptions import AlgoBullsAPIBaseException, AlgoBullsAPIUnauthorizedErrorException, AlgoBullsAPIInsufficientBalanceErrorException, AlgoBullsAPIResourceNotFoundErrorException, AlgoBullsAPIBadRequestException, \
+    AlgoBullsAPIInternalServerErrorException, AlgoBullsAPIForbiddenErrorException, AlgoBullsAPIGatewayTimeoutErrorException
 from ..constants import TradingType, TradingReportType
 from ..utils.func import get_raw_response
 
@@ -76,26 +77,29 @@ class AlgoBullsAPI:
                 return {'response': get_raw_response(r)}
         elif r.status_code == 400:
             r.raw.decode_content = True
-            raise AlgoBullsAPIBadRequest(method=method, url=url, response=get_raw_response(r))
+            raise AlgoBullsAPIBadRequestException(method=method, url=url, response=get_raw_response(r), status_code=400)
         elif r.status_code == 401:
             r.raw.decode_content = True
-            raise AlgoBullsAPIUnauthorizedError(method=method, url=url, response=get_raw_response(r))
+            raise AlgoBullsAPIUnauthorizedErrorException(method=method, url=url, response=get_raw_response(r), status_code=401)
         elif r.status_code == 402:
             r.raw.decode_content = True
-            raise AlgoBullsAPIInsufficientBalanceError(method=method, url=url, response=get_raw_response(r))
+            raise AlgoBullsAPIInsufficientBalanceErrorException(method=method, url=url, response=get_raw_response(r), status_code=402)
         elif r.status_code == 403:
             r.raw.decode_content = True
-            raise AlgoBullsAPIForbiddenError(method=method, url=url, response=get_raw_response(r))
+            raise AlgoBullsAPIForbiddenErrorException(method=method, url=url, response=get_raw_response(r), status_code=403)
         elif r.status_code == 404:
             r.raw.decode_content = True
-            raise AlgoBullsAPIResourceNotFoundError(method=method, url=url, response=get_raw_response(r))
+            raise AlgoBullsAPIResourceNotFoundErrorException(method=method, url=url, response=get_raw_response(r), status_code=404)
         elif r.status_code == 500:
             r.raw.decode_content = True
-            raise AlgoBullsAPIInternalServerErrorException(method=method, url=url, response=get_raw_response(r))
+            raise AlgoBullsAPIInternalServerErrorException(method=method, url=url, response=get_raw_response(r), status_code=500)
+        elif r.status_code == 504:
+            r.raw.decode_content = True
+            raise AlgoBullsAPIGatewayTimeoutErrorException(method=method, url=url, response=get_raw_response(r), status_code=504)
         else:
             if raise_exception_unknown_status_code:
                 r.raw.decode_content = True
-                raise AlgoBullsAPIBaseException(method=method, url=url, response=get_raw_response(r))
+                raise AlgoBullsAPIBaseException(method=method, url=url, response=get_raw_response(r), status_code=r.status_code)
             else:
                 return r.json()
 
@@ -175,7 +179,7 @@ class AlgoBullsAPI:
             response = self._send_request(endpoint=endpoint, method='post', json_data=json_data)
             print('Success.')
             return response
-        except (AlgoBullsAPIForbiddenError, AlgoBullsAPIInsufficientBalanceError) as ex:
+        except (AlgoBullsAPIForbiddenErrorException, AlgoBullsAPIInsufficientBalanceErrorException) as ex:
             print('Fail.')
             print(f'{ex.get_error_type()}: {ex.response}')
 
@@ -335,7 +339,7 @@ class AlgoBullsAPI:
             response = self._send_request(method='patch', endpoint=endpoint, json_data=json_data, params=params)
             print('Success.')
             return response
-        except (AlgoBullsAPIForbiddenError, AlgoBullsAPIInsufficientBalanceError) as ex:
+        except (AlgoBullsAPIForbiddenErrorException, AlgoBullsAPIInsufficientBalanceErrorException) as ex:
             print('Fail.')
             print(f'{ex.get_error_type()}: {ex.response}')
 
@@ -358,7 +362,7 @@ class AlgoBullsAPI:
             response = self._send_request(method='patch', endpoint=endpoint, json_data=json_data)
             print('Success.')
             return response
-        except (AlgoBullsAPIForbiddenError, AlgoBullsAPIInsufficientBalanceError) as ex:
+        except (AlgoBullsAPIForbiddenErrorException, AlgoBullsAPIInsufficientBalanceErrorException) as ex:
             print('Fail.')
             print(f'{ex.get_error_type()}: {ex.response}')
 
