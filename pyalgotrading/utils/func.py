@@ -139,20 +139,25 @@ def get_raw_response(response_obj):
     return f'Content: {response_obj.content} | Raw: {response_obj.raw.data}'
 
 
-def get_datetime_with_tz(timestamp_str, trading_type):
+def get_datetime_with_tz(timestamp_str, trading_type, label=''):
     """
     Function converts the timestamp/time string to datetime object with timezone for BT, PT or RT for their respective formats
 
     Args:
         timestamp_str: datetime in string format for BT, time in string format for PT, RT
         trading_type: trading type (BT, PT, RT)
+        label: name of the parameter
     """
 
     try:
         timestamp_str = dt.strptime(timestamp_str, TRADING_TYPE_DT_FORMAT_MAP[trading_type][KEY_DT_FORMAT_WITH_TIMEZONE])
     except ValueError:
-        timestamp_str = dt.strptime(timestamp_str, TRADING_TYPE_DT_FORMAT_MAP[trading_type][KEY_DT_FORMAT_WITHOUT_TIMEZONE])
-        timestamp_str = timestamp_str.replace(tzinfo=timezone.utc)
-        print(f'Warning: Timezone info not provided. Expected timestamp format is "{TRADING_TYPE_DT_FORMAT_MAP[trading_type][KEY_DT_FORMAT_WITH_TIMEZONE]}", received time "{timestamp_str}". Assuming timezone as UTC(+0000)...')
+        try:
+            timestamp_str = dt.strptime(timestamp_str, TRADING_TYPE_DT_FORMAT_MAP[trading_type][KEY_DT_FORMAT_WITHOUT_TIMEZONE])
+            timestamp_str = timestamp_str.replace(tzinfo=timezone.utc)
+            print(f'Warning: Timezone info not provided. Expected timestamp format is "{TRADING_TYPE_DT_FORMAT_MAP[trading_type][KEY_DT_FORMAT_WITH_TIMEZONE]}", received time "{timestamp_str}". Assuming timezone as UTC(+0000)...')
+        except ValueError as ex:
+            raise ValueError(f'Error: Invalid string timestamp format for argument "{label}".\nExpected timestamp format for {trading_type.name} is "{TRADING_TYPE_DT_FORMAT_MAP[trading_type][KEY_DT_FORMAT_WITH_TIMEZONE]}". Received "{timestamp_str}" instead.')
 
     return timestamp_str
+

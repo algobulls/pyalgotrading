@@ -415,15 +415,9 @@ class AlgoBullsConnection:
         _error_msg_broking_details = 'Argument "broking_details" should be a valid dict with valid keys. Expected keys "brokerName" and "credentialParameters" '
         initial_funds_virtual = float(initial_funds_virtual)
         if isinstance(start, str):
-            try:
-                start = get_datetime_with_tz(start, trading_type.name)
-            except ValueError as ex:
-                raise ValueError(f'Error: Invalid string timestamp format for argument "start" ({ex}).\nExpected timestamp format for {trading_type.name} is [{TRADING_TYPE_DT_FORMAT_MAP[trading_type.name][KEY_DT_FORMAT_WITH_TIMEZONE]}]')
+            start = get_datetime_with_tz(start, trading_type)
         if isinstance(end, str):
-            try:
-                end = get_datetime_with_tz(end, trading_type.name)
-            except ValueError as ex:
-                raise ValueError(f'Error: Invalid string timestamp format for argument "end" ({ex}).\nExpected timestamp format for {trading_type.name} is [{TRADING_TYPE_DT_FORMAT_MAP[trading_type.name][KEY_DT_FORMAT_WITH_TIMEZONE]}]')
+            end = get_datetime_with_tz(end, trading_type)
         if isinstance(mode, str):
             _ = mode.upper()
             assert _ in StrategyMode.__members__, _error_msg_candle
