@@ -11,7 +11,7 @@ import quantstats as qs
 
 from .api import AlgoBullsAPI
 from .exceptions import AlgoBullsAPIBadRequest
-from ..constants import StrategyMode, TradingType, TradingReportType, CandleInterval, AlgoBullsEngineVersion, TRADE_TYPE_DT_FORMAT_MAP, KEY_DT, KEY_DT_ZONE
+from ..constants import StrategyMode, TradingType, TradingReportType, CandleInterval, AlgoBullsEngineVersion, TRADE_TYPE_DT_FORMAT_MAP, KEY_DT_ZONE
 from ..strategy.strategy_base import StrategyBase
 from ..utils.func import get_valid_enum_names, get_datetime_with_tz
 
@@ -296,23 +296,22 @@ class AlgoBullsConnection:
         data = self.get_report(strategy_code=strategy_code, trading_type=trading_type, report_type=TradingReportType.PNL_TABLE)
 
         # Post-processing: Cleanup & converting data to dataframe
+        column_rename_map = OrderedDict([
+            ('strategy.instrument.segment', 'instrument_segment'),
+            ('strategy.instrument.tradingsymbol', 'instrument_tradingsymbol'),
+            ('entry.timestamp', 'entry_timestamp'),
+            ('entry.isBuy', 'entry_transaction_type'),
+            ('entry.quantity', 'entry_quantity'),
+            ('entry.prefix', 'entry_currency'),
+            ('entry.price', 'entry_price'),
+            ('exit.timestamp', 'exit_timestamp'),
+            ('exit.isBuy', 'exit_transaction_type'),
+            ('exit.quantity', 'exit_quantity'),
+            ('exit.prefix', 'exit_currency'),
+            ('exit.price', 'exit_price'),
+            ('pnlAbsolute.value', 'pnl_absolute')
+        ])
         if data:
-            column_rename_map = OrderedDict([
-                ('strategy.instrument.segment', 'instrument_segment'),
-                ('strategy.instrument.tradingsymbol', 'instrument_tradingsymbol'),
-                ('entry.timestamp', 'entry_timestamp'),
-                ('entry.isBuy', 'entry_transaction_type'),
-                ('entry.quantity', 'entry_quantity'),
-                ('entry.prefix', 'entry_currency'),
-                ('entry.price', 'entry_price'),
-                ('exit.timestamp', 'exit_timestamp'),
-                ('exit.isBuy', 'exit_transaction_type'),
-                ('exit.quantity', 'exit_quantity'),
-                ('exit.prefix', 'exit_currency'),
-                ('exit.price', 'exit_price'),
-                ('pnlAbsolute.value', 'pnl_absolute')
-            ])
-
             # Generate df from json data & perform cleanups
             _df = pd.json_normalize(data[::-1])[list(column_rename_map.keys())].rename(columns=column_rename_map)
             _df[['entry_timestamp', 'exit_timestamp']] = _df[['entry_timestamp', 'exit_timestamp']].apply(pd.to_datetime, format="%Y-%m-%d | %H:%M", errors="coerce")
@@ -532,7 +531,7 @@ class AlgoBullsConnection:
         # start backtesting job
         response = self.start_job(
             strategy=strategy, start=start, end=end, instruments=instruments, lots=lots, parameters=parameters, candle=candle, mode=mode,
-            initial_funds_virtual=initial_funds_virtual, delete_previous_trades=delete_previous_trades, trading_type=TradingType.BACKTESTING, broking_details=broking_details, **kwargs
+            initial_funds_virtual=initial_funds_virtual, delete_previous_trades=delete_previous_trades, trading_type=TradingType.BACKTESTING, **kwargs
         )
 
         # Clear previously saved pnl data, if any
@@ -664,7 +663,7 @@ class AlgoBullsConnection:
         # start papertrading job
         response = self.start_job(
             strategy=strategy, start=start, end=end, instruments=instruments, lots=lots, parameters=parameters, candle=candle, mode=mode,
-            initial_funds_virtual=initial_funds_virtual, delete_previous_trades=delete_previous_trades, trading_type=TradingType.PAPERTRADING, broker_id=broker_id, broking_details=broking_details, **kwargs
+            initial_funds_virtual=initial_funds_virtual, delete_previous_trades=delete_previous_trades, trading_type=TradingType.PAPERTRADING, **kwargs
         )
         # Clear previously saved pnl data, if any
         self.papertrade_pnl_data = None
