@@ -11,7 +11,7 @@ import quantstats as qs
 
 from .api import AlgoBullsAPI
 from .exceptions import AlgoBullsAPIBadRequestException, AlgoBullsAPIGatewayTimeoutErrorException
-from ..constants import StrategyMode, TradingType, TradingReportType, CandleInterval, AlgoBullsEngineVersion, TRADING_TYPE_DT_FORMAT_MAP, KEY_DT_FORMAT_WITH_TIMEZONE
+from ..constants import StrategyMode, TradingType, TradingReportType, CandleInterval, AlgoBullsEngineVersion
 from ..strategy.strategy_base import StrategyBase
 from ..utils.func import get_valid_enum_names, get_datetime_with_tz
 
@@ -327,7 +327,7 @@ class AlgoBullsConnection:
 
         return _df
 
-    def get_report(self, strategy_code, initial_funds, report, html_dump, pnl_df):
+    def get_report_statistics(self, strategy_code, initial_funds, report, html_dump, pnl_df):
         """
             Fetch BT/PT/RT report statistics
 
