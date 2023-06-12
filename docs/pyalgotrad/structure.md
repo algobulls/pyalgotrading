@@ -48,6 +48,14 @@ You have the following utility function to be used in this strategy :
 1. `get_crossover_value()` - A utility method available which calculates the crossover value. 
 
 ---
+
+!!! Links
+    - **[Strategy Structure (regular)](../strategies/common_regular_strategy.md)**
+    - **[Strategy Structure (options)](../strategies/common_options_strategy.md)**
+    - **[List of Strategies](../strategies/index.md)**
+
+
+---
 #### Flowchart
 
 Once you create your own strategy or use a ready strategy from the [pyalgostrategypool](https://github.com/algobulls/pyalgostrategypool) package, this is how it works internally on the AlgoBulls Core Trading Engine.

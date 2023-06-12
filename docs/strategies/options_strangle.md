@@ -2,7 +2,10 @@
 
 The `StrategyOptionsStrangle` class is a strategy template for trading options strangles. It is derived from the `StrategyOptionsBaseV2` class.
 
-Click [here](https://github.com/algobulls/pyalgostrategypool/blob/master/pyalgostrategypool/options_strangle.py) to check the strategy code.
+!!! Links
+    - **[Strategy Code (.py)](https://github.com/algobulls/pyalgostrategypool/blob/master/pyalgostrategypool/options_strangle.py)**
+    - **[Strategy Structure (common methods used in an options strategy)](common_options_strategy.md)**
+    - **[Strategy Design (workflow of a strategy)](../pyalgotrad/structure.md)**
 
 ### Strangle Options
 - In the stock market, an options strangle is a strategy where an investor simultaneously buys or sells a call option and a put option on the same underlying asset but with different strike prices and the same expiration date. The purpose of this strategy is to profit from significant price volatility in the underlying asset.

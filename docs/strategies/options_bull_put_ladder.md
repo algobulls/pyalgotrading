@@ -1,6 +1,9 @@
 ## Options Bull Put Ladder Template 
 
-Click [here](https://github.com/algobulls/pyalgostrategypool/blob/master/pyalgostrategypool/options_bull_put_ladder.py) to check the strategy code.
+!!! Links
+    - **[Strategy Code (.py)](https://github.com/algobulls/pyalgostrategypool/blob/master/pyalgostrategypool/options_bull_put_ladder.py)**
+    - **[Strategy Structure (common methods used in an options strategy)](common_options_strategy.md)**
+    - **[Strategy Design (workflow of a strategy)](../pyalgotrad/structure.md)**
 
 ### Bull Put ladder
 - In the stock market, an options bull put ladder is a strategy that involves buying and selling put options with different strike prices to profit from a moderate bullish outlook on the underlying asset. It is a complex strategy that combines both long and short put positions.

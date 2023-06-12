@@ -1,7 +1,10 @@
 # Inverse EMA Scalping Regular Order Strategy 
 This is a trading strategy called "Inverse EMA Scalping Regular Order Strategy" implemented in Python using the PyAlgoTrading library. The strategy is based on the exponential moving average crossover.
 
-Click [here](https://github.com/algobulls/pyalgostrategypool/blob/master/pyalgostrategypool/inverse_ema_scalping.py) to check the strategy code.
+!!! Links
+    - **[Strategy Code (.py)](https://github.com/algobulls/pyalgostrategypool/blob/master/pyalgostrategypool/inverse_ema_scalping.py)**
+    - **[Strategy Structure (common methods used in a regular strategy)](common_regular_strategy.md)**
+    - **[Strategy Design (workflow of a strategy)](../pyalgotrad/structure.md)**
 
 ## What is Inverse EMA 
 Inverse EMA, also known as Reverse Exponential Moving Average (REMA), is a variation of the Exponential Moving Average (EMA) in the stock market. While the EMA gives more weight to recent price data, the Inverse EMA assigns more weight to older data points.

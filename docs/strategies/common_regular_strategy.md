@@ -1,3 +1,8 @@
+!!! Links
+    - **[List of Strategies](index.md)**
+    - **[Strategy Design (workflow of a strategy)](../pyalgotrad/structure.md)**
+
+
 ## 1. Initial steps
 
 i. Create a new strategy file with a unique file name.

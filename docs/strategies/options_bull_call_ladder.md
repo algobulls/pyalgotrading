@@ -1,6 +1,9 @@
 ## Options Bull Call Ladder Template 
 
-Click [here](https://github.com/algobulls/pyalgostrategypool/blob/master/pyalgostrategypool/options_bull_call_ladder.py) to check the strategy code.
+!!! Links
+    - **[Strategy Code (.py)](https://github.com/algobulls/pyalgostrategypool/blob/master/pyalgostrategypool/options_bull_call_ladder.py)**
+    - **[Strategy Structure (common methods used in an options strategy)](common_options_strategy.md)**
+    - **[Strategy Design (workflow of a strategy)](../pyalgotrad/structure.md)**
 
 ### Bull Call Ladder
 
