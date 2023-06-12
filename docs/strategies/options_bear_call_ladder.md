@@ -1,4 +1,4 @@
-## Strategy Options Bear Call Ladder
+## Options Bear Call Ladder
 
 This class implements the Options Bear Call Ladder strategy.
 

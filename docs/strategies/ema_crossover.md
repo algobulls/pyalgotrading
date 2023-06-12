@@ -1,4 +1,4 @@
-# EMA Regular Order Strategy 
+# EMA Crossover
 
 This is a trading strategy called "EMA Regular Order Strategy" implemented in Python using the PyAlgoTrading library. The strategy is based on the exponential moving average crossover.
 

@@ -1,4 +1,4 @@
-## Options Long Iron Butterfly Template
+## Options Long Iron Butterfly
 
 This is a template for implementing the Options Long Iron Butterfly strategy in Python.
 

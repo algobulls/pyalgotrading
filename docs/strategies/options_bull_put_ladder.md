@@ -1,4 +1,4 @@
-## Options Bull Put Ladder Template 
+## Options Bull Put Ladder  
 
 !!! Links
     - **[Strategy Code (.py)](https://github.com/algobulls/pyalgostrategypool/blob/master/pyalgostrategypool/options_bull_put_ladder.py)**

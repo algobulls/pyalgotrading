@@ -1,4 +1,4 @@
-## Options Straddle Template
+## Options Straddle 
 
 This class represents the implementation of a options straddle trading strategy.
 

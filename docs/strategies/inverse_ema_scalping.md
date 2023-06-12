@@ -1,4 +1,4 @@
-# Inverse EMA Scalping Regular Order Strategy 
+# Inverse EMA Scalping 
 This is a trading strategy called "Inverse EMA Scalping Regular Order Strategy" implemented in Python using the PyAlgoTrading library. The strategy is based on the exponential moving average crossover.
 
 !!! Links
