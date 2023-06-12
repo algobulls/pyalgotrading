@@ -3,9 +3,9 @@
 This is a trading strategy called "VWAP Crossover" implemented in Python using the PyAlgoTrading library. The strategy is based on the crossover of the VWAP (Volume Weighted Average Price) indicator.
 
 !!! Links
-    - **[Strategy Code (.py)](https://github.com/algobulls/pyalgostrategypool/blob/master/pyalgostrategypool/vwap_crossover.py)**
-    - **[Strategy Structure (common methods used in a regular strategy)](common_regular_strategy.md)**
-    - **[Strategy Design (workflow of a strategy)](../pyalgotrad/structure.md)**
+    - **[Strategy Code (.py)](https://github.com/algobulls/pyalgostrategypool/blob/master/pyalgostrategypool/vwap_crossover.py){target=_blank}**
+    - **[Strategy Structure (common methods used in a regular strategy)](common_regular_strategy.md){target=_blank}**
+    - **[Strategy Design (workflow of a strategy)](../pyalgotrad/structure.md){target=_blank}**
 
 ## VWAP indicator
 In the stock market, VWAP stands for Volume-Weighted Average Price. VWAP is a trading indicator that calculates the average price at which a particular stock or security has traded throughout the day, taking into account both the price and the volume of each trade.

@@ -1,3 +1,5 @@
+# Options Strategy Structure
+
 !!! Links
     - **[List of Strategies](index.md)**
     - **[Strategy Design (workflow of a strategy)](../pyalgotrad/structure.md)**

@@ -3,9 +3,9 @@
 This is a template for implementing the Options Long Iron Butterfly strategy in Python.
 
 !!! Links
-    - **[Strategy Code (.py)](https://github.com/algobulls/pyalgostrategypool/blob/master/pyalgostrategypool/options_long_iron_butterfly.py)**
-    - **[Strategy Structure (common methods used in an options strategy)](common_options_strategy.md)**
-    - **[Strategy Design (workflow of a strategy)](../pyalgotrad/structure.md)**
+    - **[Strategy Code (.py)](https://github.com/algobulls/pyalgostrategypool/blob/master/pyalgostrategypool/options_long_iron_butterfly.py){target=_blank}**
+    - **[Strategy Structure (common methods used in an options strategy)](common_options_strategy.md){target=_blank}**
+    - **[Strategy Design (workflow of a strategy)](../pyalgotrad/structure.md){target=_blank}**
 
 ### Long Iron Butterfly
 - In the stock market, an options long iron butterfly is a complex strategy that involves buying two options with the same expiration date but different strike prices. It combines elements of both a bullish and bearish strategy and is designed to profit from low volatility in the underlying asset.
