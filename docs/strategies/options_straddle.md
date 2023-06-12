@@ -1,6 +1,6 @@
 ## Options Straddle 
 
-This class represents the implementation of a options straddle trading strategy.
+This class represents the implementation of an options straddle trading strategy.
 
 !!! Links
     - **[Strategy Code (.py)](https://github.com/algobulls/pyalgostrategypool/blob/master/pyalgostrategypool/options_straddle.py){target=_blank}**

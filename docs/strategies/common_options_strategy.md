@@ -199,7 +199,7 @@ Create a reference for ```OrderTagManager``` as shown below:
 
 ## 4. OrderTagManager
 
-The ```self.order_tag_manager``` is used to store/remove the entry/exit orders. The ```self.order_tag_manager``` has following methods:
+The ```self.order_tag_manager``` is used to store/remove the entry/exit orders. The ```self.order_tag_manager``` has the following methods:
 
 **i. add_order**: 
 
@@ -251,7 +251,7 @@ The order object will be removed from all the tags ta
 
 **v. get_internals**: 
 
-* Returns the values i.e both the entry and exit orders stored inside the tags list.
+* Returns the values i.e. both the entry and exit orders stored inside the tags list.
 
 ---
 
@@ -303,11 +303,11 @@ There are other methods that are used in the strategy:
 
 **i. check_and_place_stoploss_order:**
 
-This method is called in the ```strategy_select_instruments_for_exit``` when our entry order is open and we want to place a stoploss exit order for the same.
+This method is called in the ```strategy_select_instruments_for_exit``` when our entry order is open, and we want to place a stoploss exit order for the same.
 
 **ii. set_all_none:**
 
-This method is called in the ```strategy_exit_position``` when our entry order has exited and we want to remove the order object from the ```self.main_order``` variable.
+This method is called in the ```strategy_exit_position``` when our entry order has exited, and we want to remove the order object from the ```self.main_order``` variable.
 
 **iii. options_instruments_set_up_local**
 
