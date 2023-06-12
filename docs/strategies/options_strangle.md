@@ -5,15 +5,15 @@ The `StrategyOptionsStrangle` class is a strategy template for trading options s
 Click [here](https://github.com/algobulls/pyalgostrategypool/blob/master/pyalgostrategypool/options_strangle.py) to check the strategy code.
 
 ### Strangle Options
-In the stock market, an options strangle is a strategy where an investor simultaneously buys or sells a call option and a put option on the same underlying asset but with different strike prices and the same expiration date. The purpose of this strategy is to profit from significant price volatility in the underlying asset.
+- In the stock market, an options strangle is a strategy where an investor simultaneously buys or sells a call option and a put option on the same underlying asset but with different strike prices and the same expiration date. The purpose of this strategy is to profit from significant price volatility in the underlying asset.
 
-Unlike an options straddle, which involves purchasing options at the same strike price, an options strangle involves selecting different strike prices. Typically, the investor buys an out-of-the-money call option (with a strike price above the current market price) and an out-of-the-money put option (with a strike price below the current market price).
+- Unlike an options straddle, which involves purchasing options at the same strike price, an options strangle involves selecting different strike prices. Typically, the investor buys an out-of-the-money call option (with a strike price above the current market price) and an out-of-the-money put option (with a strike price below the current market price).
 
-The strategy aims to benefit from a significant price movement in either direction. If the price of the underlying asset moves significantly upwards, the call option can generate profits. Conversely, if the price moves significantly downwards, the put option can generate profits. The investor is essentially betting on increased price volatility rather than predicting the direction of the price movement.
+- The strategy aims to benefit from a significant price movement in either direction. If the price of the underlying asset moves significantly upwards, the call option can generate profits. Conversely, if the price moves significantly downwards, the put option can generate profits. The investor is essentially betting on increased price volatility rather than predicting the direction of the price movement.
 
-Options strangles are commonly used when traders anticipate a substantial price movement but are unsure about the direction. This strategy allows for potential profits in either an upward or downward market scenario. However, it's important to note that options strangles can involve higher risks, as the underlying asset's price must move significantly to offset the cost of purchasing both options.
+- Options strangles are commonly used when traders anticipate a substantial price movement but are unsure about the direction. This strategy allows for potential profits in either an upward or downward market scenario. However, it's important to note that options strangles can involve higher risks, as the underlying asset's price must move significantly to offset the cost of purchasing both options.
 
-Traders employing options strangles should carefully consider factors such as the expected price volatility, the expiration date, and the costs associated with purchasing the options. Implementing risk management techniques and monitoring market conditions are essential when utilizing an options strangle strategy.
+- Traders employing options strangles should carefully consider factors such as the expected price volatility, the expiration date, and the costs associated with purchasing the options. Implementing risk management techniques and monitoring market conditions are essential when utilizing an options strangle strategy.
 
 ### Parameters
 
