@@ -32,8 +32,11 @@ This strategy, called EMA Regular Order Strategy, implements a crossover strateg
 ## Strategy Parameters
 The following parameters can be configured for the strategy:
 
- - `TIMEPERIOD1`: Period (number of candles) by which EMA-1 is calculated
- - `TIMEPERIOD2`:  Period (number of candles) by which EMA-2 is calculated
+| Name              |  Default Value  | Expected Value                                                    | Description                                              |
+|:------------------|:---------------:|:------------------------------------------------------------------|:---------------------------------------------------------|
+| **TIME_PERIOD1**  |      None       | greater than 0                                                    | Period (number of candles) by which EMA-1 is calculated  |
+| **TIME_PERIOD2**  |      None       | greater than 0                                                    | Period (number of candles) by which EMA-2 is calculated  |
+
 
 ## Crossover Calculation
 

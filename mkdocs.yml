@@ -52,10 +52,10 @@ nav:
           - View Results: 'python_build/python-build-view-results.md'
   - Strategies:
       - Index: 'strategies/index.md'
-      - Strategy Guide:
+      - General Strategy Guide:
           - Regular Strategy: 'strategies/common_regular_strategy.md'
           - Options Strategy: 'strategies/common_options_strategy.md'
-      - Regular Strategy Examples:
+      - Regular Strategy Guide:
           - Aroon Crossover: 'strategies/aroon_crossover.md'
           - Bollinger Bands: 'strategies/bollinger_bands.md'
           - EMA Crossover: 'strategies/ema_crossover.md'
@@ -63,7 +63,7 @@ nav:
           - Reverse RSI: 'strategies/reverse_rsi.md'
           - Stochastic Crossover: 'strategies/stochastic_crossover.md'
           - VWAP Crossover: 'strategies/vwap_crossover.md'
-      - Options Strategy Examples:
+      - Options Strategy Guide:
           - Options Bear Call Ladder: 'strategies/options_bear_call_ladder.md'
           - Options Bear Put Ladder: 'strategies/options_bear_put_ladder.md'
           - Options Bull Call Ladder: 'strategies/options_bull_call_ladder.md'
@@ -106,3 +106,4 @@ markdown_extensions:
       permalink: true
   - pymdownx.tabbed
   - pymdownx.superfences
+  - attr_list

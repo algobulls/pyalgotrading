@@ -33,9 +33,12 @@ The Reverse RSI strategy is a trading strategy based on the Relative Strength In
 ## Strategy Parameters
 The following parameters can be configured for the strategy:
 
- - `TIME_PERIOD`: Period (number of candles) by which RSI is calculated
- - `OVERBOUGHT_VALUE`: RSI value above which stocks are considered over-bought
- - `OVERSOLD_VALUE`:  RSI value below which stocks are considered over-sold
+| Name                 |  Default Value  | Expected Value                                                    | Description                                              |
+|:---------------------|:---------------:|:------------------------------------------------------------------|:---------------------------------------------------------|
+| **TIME_PERIOD**      |      None       | greater than 0                                                    | Period (number of candles) by which RSI is calculated    |
+| **OVERBOUGHT_VALUE** |      None       | greater than 0                                                    | RSI value above which stocks are considered over-bought  |
+| **OVERSOLD_VALUE**   |      None       | greater than 0                                                    | RSI value below which stocks are considered over-sold    |
+
 
 ## Crossover Calculation
 

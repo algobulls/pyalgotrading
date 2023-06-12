@@ -26,8 +26,11 @@ This strategy implements a scalping strategy using Exponential Moving Averages (
 ## Strategy Parameters
 The following parameters can be configured for the strategy:
 
- - `LARGER_TIME_PERIOD`: Period (number of candles) by which large period EMA is calculated
- - `SMALLER_TIME_PERIOD`:  Period (number of candles) by which short period EMA is calculated
+| Name                    |  Default Value  | Expected Value                                                    | Description                                                        |
+|:------------------------|:---------------:|:------------------------------------------------------------------|:-------------------------------------------------------------------|
+| **LARGER_TIME_PERIOD**  |      None       | greater than 0                                                    | Period (number of candles) by which large period EMA is calculated |
+| **SMALLER_TIME_PERIOD** |      None       | greater than 0                                                    | Period (number of candles) by which short period EMA is calculated |
+
 
 ## Crossover Calculation
 

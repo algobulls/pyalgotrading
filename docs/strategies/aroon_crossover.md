@@ -13,7 +13,7 @@ This is a trading strategy called "Aroon Crossover" implemented in Python using 
 
 - Traders and investors use the Aroon indicator to identify potential trend reversals, assess the strength of a trend, and generate buy or sell signals. For example, when the Aroon-Up line crosses above the Aroon-Down line, it may suggest a bullish trend, while a cross below may indicate a bearish trend.
 
-- It's important to note that the Aroon indicator is just one of many tools used in technical analysis, and its effectiveness can vary depending on market conditions and other factors. It is often used in conjunction with other indicators and analysis techniques to make informed trading decisions.
+- It is important to note that the Aroon indicator is just one of many tools used in technical analysis, and its effectiveness can vary depending on market conditions and other factors. It is often used in conjunction with other indicators and analysis techniques to make informed trading decisions.
 
 | [![aroon](images/aroon.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](images/aroon.png)    |
 |: -- :|
@@ -27,7 +27,9 @@ This strategy, called Aroon Crossover, implements a crossover strategy using the
 ## Strategy Parameters
 The following parameters can be configured for the strategy:
 
-- `TIME_PERIOD` The period for which we calculate the Aroon Value.
+| Name            |  Default Value  | Expected Value                                                    | Description                                       |
+|:----------------|:---------------:|:------------------------------------------------------------------|:--------------------------------------------------|
+| **TIME_PERIOD** |      None       | greater than 0                                                    | The period for which we calculate the Aroon Value |
 
 
 ## Crossover Calculation

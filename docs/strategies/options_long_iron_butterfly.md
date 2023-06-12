@@ -32,6 +32,26 @@ This is a template for implementing the Options Long Iron Butterfly strategy in 
 
 The strategy accepts the following parameters:
 
+
+| Name                                | Default Value | Expected Value     | Description                                                        |
+|:------------------------------------|:-------------:|:-------------------|:-------------------------------------------------------------------|
+| **LEG_ONE_TRANSACTION_TYPE**        |       1       | 1 or 2             | Transaction type for leg one. [BUY: 1, SELL: 2]                    |
+| **LEG_ONE_TRADING_SYMBOL_SUFFIX**   |       1       | 1 or 2             | Trading symbol suffix for leg one. [CE: 1,  PE: 2]                 |
+| **LEG_ONE_STRIKE_DIRECTION**        |       1       | 0, 1 or 2          | Strike direction for leg one. [ITM: 0, ATM: 1,  OTM: 2]            |
+| **LEG_ONE_NUMBER_OF_STRIKES**       |       0       | greater than 0     | Number of strikes for leg one.                                     |
+| **LEG_TWO_TRANSACTION_TYPE**        |       1       | 1 or 2             | Transaction type for leg one. [BUY: 1, SELL: 2]                    |
+| **LEG_TWO_TRADING_SYMBOL_SUFFIX**   |       2       | 1 or 2             | Trading symbol suffix for leg one. [CE: 1,  PE: 2]                 |
+| **LEG_TWO_STRIKE_DIRECTION**        |       1       | 0, 1 or 2          | Strike direction for leg one. [ITM: 0, ATM: 1,  OTM: 2]            |
+| **LEG_TWO_NUMBER_OF_STRIKES**       |       0       | greater than 0     | Number of strikes for leg one.                                     |
+| **LEG_THREE_TRANSACTION_TYPE**      |       2       | 1 or 2             | Transaction type for leg one. [BUY: 1, SELL: 2]                    |
+| **LEG_THREE_TRADING_SYMBOL_SUFFIX** |       2       | 1 or 2             | Trading symbol suffix for leg one. [CE: 1,  PE: 2]                 |
+| **LEG_THREE_STRIKE_DIRECTION**      |       1       | 0, 1 or 2          | Strike direction for leg one. [ITM: 0, ATM: 1,  OTM: 2]            |
+| **LEG_THREE_NUMBER_OF_STRIKES**     |       2       | greater than 0     | Number of strikes for leg one.                                     |
+| **LEG_FOUR_TRANSACTION_TYPE**       |       2       | 1 or 2             | Transaction type for leg one. [BUY: 1, SELL: 2]                    |
+| **LEG_FOUR_TRADING_SYMBOL_SUFFIX**  |       2       | 1 or 2             | Trading symbol suffix for leg one. [CE: 1,  PE: 2]                 |
+| **LEG_FOUR_STRIKE_DIRECTION**       |       2       | 0, 1 or 2          | Strike direction for leg one. [ITM: 0, ATM: 1,  OTM: 2]            |
+| **LEG_FOUR_NUMBER_OF_STRIKES**      |       2       | greater than 0     | Number of strikes for leg one.                                     |
+
 - `LEG_ONE_TRANSACTION_TYPE`: Transaction type for leg one (BUY: 1 | SELL: 2)
 - `LEG_ONE_TRADING_SYMBOL_SUFFIX`: Trading symbol suffix for leg one (CE: 1 | PE: 2)
 - `LEG_ONE_STRIKE_DIRECTION`: Strike direction for leg one (ITM: 0 | ATM: 1 | OTM: 2)

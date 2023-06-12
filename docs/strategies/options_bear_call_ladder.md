@@ -28,19 +28,19 @@ This class implements the Options Bear Call Ladder strategy.
 
 ### Parameters
 
-- `LEG_ONE_TRANSACTION_TYPE` (int, default: 1): Transaction type for leg one. BUY: 1 | SELL: 2.
-- `LEG_ONE_TRADING_SYMBOL_SUFFIX` (int, default: 1): Trading symbol suffix for leg one. CE: 1 | PE: 2.
-- `LEG_ONE_STRIKE_DIRECTION` (int, default: 1): Strike direction for leg one. ITM: 0 | ATM: 1 | OTM: 2.
-- `LEG_ONE_NUMBER_OF_STRIKES` (int, default: 0): Number of strikes for leg one.
-
-- `LEG_TWO_TRANSACTION_TYPE` (int, default: 1): Transaction type for leg two. BUY: 1 | SELL: 2.
-- `LEG_TWO_TRADING_SYMBOL_SUFFIX` (int, default: 1): Trading symbol suffix for leg two. CE: 1 | PE: 2.
-- `LEG_TWO_STRIKE_DIRECTION` (int, default: 2): Strike direction for leg two. ITM: 0 | ATM: 1 | OTM: 2.
-- `LEG_TWO_NUMBER_OF_STRIKES` (int, default: 2): Number of strikes for leg two.
-
-- `LEG_THREE_TRANSACTION_TYPE` (int, default: 2): Transaction type for leg three. BUY: 1 | SELL: 2.
-- `LEG_THREE_TRADING_SYMBOL_SUFFIX` (int, default: 1): Trading symbol suffix for leg three. CE: 1 | PE: 2.
-- `LEG_THREE_STRIKE_DIRECTION` (int, default: 0): Strike direction for leg three. ITM: 0 | ATM: 1 | OTM: 2.
-- `LEG_THREE_NUMBER_OF_STRIKES` (int, default: 2): Number of strikes for leg three.
+| Name                                | Default Value  | Expected Value     | Description                                                        |
+|:------------------------------------|:--------------:|:-------------------|:-------------------------------------------------------------------|
+| **LEG_ONE_TRANSACTION_TYPE**        |       1        | 1 or 2             | Transaction type for leg one. [BUY: 1, SELL: 2]                    |
+| **LEG_ONE_TRADING_SYMBOL_SUFFIX**   |       1        | 1 or 2             | Trading symbol suffix for leg one. [CE: 1,  PE: 2]                 |
+| **LEG_ONE_STRIKE_DIRECTION**        |       1        | 0, 1 or 2          | Strike direction for leg one. [ITM: 0, ATM: 1,  OTM: 2]            |
+| **LEG_ONE_NUMBER_OF_STRIKES**       |       0        | greater than 0     | Number of strikes for leg one.                                     |
+| **LEG_TWO_TRANSACTION_TYPE**        |       1        | 1 or 2             | Transaction type for leg one. [BUY: 1, SELL: 2]                    |
+| **LEG_TWO_TRADING_SYMBOL_SUFFIX**   |       1        | 1 or 2             | Trading symbol suffix for leg one. [CE: 1,  PE: 2]                 |
+| **LEG_TWO_STRIKE_DIRECTION**        |       2        | 0, 1 or 2          | Strike direction for leg one. [ITM: 0, ATM: 1,  OTM: 2]            |
+| **LEG_TWO_NUMBER_OF_STRIKES**       |       2        | greater than 0     | Number of strikes for leg one.                                     |
+| **LEG_THREE_TRANSACTION_TYPE**      |       2        | 1 or 2             | Transaction type for leg one. [BUY: 1, SELL: 2]                    |
+| **LEG_THREE_TRADING_SYMBOL_SUFFIX** |       1        | 1 or 2             | Trading symbol suffix for leg one. [CE: 1,  PE: 2]                 |
+| **LEG_THREE_STRIKE_DIRECTION**      |       0        | 0, 1 or 2          | Strike direction for leg one. [ITM: 0, ATM: 1,  OTM: 2]            |
+| **LEG_THREE_NUMBER_OF_STRIKES**     |       2        | greater than 0     | Number of strikes for leg one.                                     |
 
 

@@ -3,9 +3,9 @@
 This is a trading strategy called "Bollinger Bands" implemented in Python using the PyAlgoTrading library. The strategy is based on the bollinger bands indicator values.
 
 !!! Links
-    - **[Strategy Code (.py)](https://github.com/algobulls/pyalgostrategypool/blob/master/pyalgostrategypool/bollinger_bands.py)**
-    - **[Strategy Structure (common methods used in a regular strategy)](common_regular_strategy.md)**
-    - **[Strategy Design (workflow of a strategy)](../pyalgotrad/structure.md)**
+    - **[Strategy Code (.py)](https://github.com/algobulls/pyalgostrategypool/blob/master/pyalgostrategypool/bollinger_bands.py){target=_blank}**
+    - **[Strategy Structure (common methods used in a regular strategy)](common_regular_strategy.md){target=_blank}**
+    - **[Strategy Design (workflow of a strategy)](../pyalgotrad/structure.md){target=_blank}**
 
 ## Bollinger Bands Indicator
 Bollinger Bands consists of a middle band (typically a 20-day Simple Moving Average) and two bands that represent the upper and lower price boundaries based on standard deviations. The bands adjust dynamically with market volatility.
@@ -29,8 +29,10 @@ This strategy, called Bollinger Bands, is an implementation of the Bollinger Ban
 ## Strategy Parameters
 The following parameters can be configured for the strategy:
 
- - `TIME_PERIOD`: Period (number of candles) by which Bollinger Bands are calculated
- - `STANDARD_DEVIATION`:  Standard deviation (in percent) for upper and lower band from the signal bands
+| Name                   |  Default Value  | Expected Value   | Description                                                                    |
+|:-----------------------|:---------------:|:-----------------|:-------------------------------------------------------------------------------|
+| **TIME_PERIOD**        |      None       | greater than 0   | Period (number of candles) by which Bollinger Bands are calculated             |
+| **STANDARD_DEVIATION** |      None       | between 0 to 10  | Standard deviation (in percent) for upper and lower band from the signal bands |
 
 ## Decision Calculation
 

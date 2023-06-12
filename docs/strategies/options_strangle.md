@@ -22,14 +22,15 @@ The `StrategyOptionsStrangle` class is a strategy template for trading options s
 
 The following parameters can be set in the Parameters Configuration Pane:
 
-- `LEG_ONE_TRANSACTION_TYPE`: The transaction type for the first leg (BUY: 1 | SELL: 2).
-- `LEG_ONE_TRADING_SYMBOL_SUFFIX`: The trading symbol suffix for the first leg (CE: 1 | PE: 2).
-- `LEG_ONE_STRIKE_DIRECTION`: The strike direction for the first leg (ITM: 0 | ATM: 1 | OTM: 2).
-- `LEG_ONE_NUMBER_OF_STRIKES`: The number of strikes for the first leg.
-
-- `LEG_TWO_TRANSACTION_TYPE`: The transaction type for the second leg (BUY: 1 | SELL: 2).
-- `LEG_TWO_TRADING_SYMBOL_SUFFIX`: The trading symbol suffix for the second leg (CE: 1 | PE: 2).
-- `LEG_TWO_STRIKE_DIRECTION`: The strike direction for the second leg (ITM: 0 | ATM: 1 | OTM: 2).
-- `LEG_TWO_NUMBER_OF_STRIKES`: The number of strikes for the second leg.
+| Name                                | Default Value | Expected Value     | Description                                                        |
+|:------------------------------------|:-------------:|:-------------------|:-------------------------------------------------------------------|
+| **_leg_one_transaction_type**       |       2       | 1 or 2             | Transaction type for leg one. [BUY: 1, SELL: 2]                    |
+| **_leg_one_tradingsymbol_suffix**   |       1       | 1 or 2             | Trading symbol suffix for leg one. [CE: 1,  PE: 2]                 |
+| **_leg_one_strike_direction**       |       2       | 0, 1 or 2          | Strike direction for leg one. [ITM: 0, ATM: 1,  OTM: 2]            |
+| **_leg_one_number_of_strikes**      |       2       | greater than 0     | Number of strikes for leg one.                                     |
+| **_leg_two_transaction_type**       |       2       | 1 or 2             | Transaction type for leg one. [BUY: 1, SELL: 2]                    |
+| **_leg_two_tradingsymbol_suffix**   |       2       | 1 or 2             | Trading symbol suffix for leg one. [CE: 1,  PE: 2]                 |
+| **_leg_two_strike_direction**       |       2       | 0, 1 or 2          | Strike direction for leg one. [ITM: 0, ATM: 1,  OTM: 2]            |
+| **_leg_two_number_of_strikes**      |       2       | greater than 0     | Number of strikes for leg one.                                     |
 
 

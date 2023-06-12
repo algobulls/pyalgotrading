@@ -39,9 +39,11 @@ The strategy follows a simple rule based on the Stochastic indicator crossover. 
 
 The following parameters can be configured for the strategy:
 
-- `FASTK_PERIOD` or `PERIOD`: The period for the fast %K line of the Stochastic indicator.
-- `SLOWK_PERIOD` or `SMOOTH_K_PERIOD`: The period for the slow %K line of the Stochastic indicator.
-- `SLOWD_PERIOD` or `SMOOTH_D_PERIOD`: The period for the slow %D line of the Stochastic indicator.
+| Name                                    |  Default Value  | Expected Value                                                    | Description                                                   |
+|:----------------------------------------|:---------------:|:------------------------------------------------------------------|:--------------------------------------------------------------|
+| **FASTK_PERIOD** or **PERIOD**          |      None       | greater than 0                                                    | The period for the fast %K line of the Stochastic indicator.  |
+| **SLOWK_PERIOD** or **SMOOTH_K_PERIOD** |      None       | greater than 0                                                    | The period for the slow %K line of the Stochastic indicator.  |
+| **SLOWD_PERIOD** or **SMOOTH_D_PERIOD** |      None       | greater than 0                                                    | The period for the slow %D line of the Stochastic indicator.  |
 
 ## Crossover Calculation
 
