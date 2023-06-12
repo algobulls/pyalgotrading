@@ -19,8 +19,9 @@ Here's a summary of Exponential Moving Averages:
 - EMAs are often used in conjunction with other technical indicators, such as the Moving Average Convergence Divergence (MACD), to generate trading signals.
 - Traders and investors use Exponential Moving Averages to smooth out price fluctuations, identify trend reversals, and determine potential support and resistance levels. They provide a visual representation of the average price over a specific period, with greater weight given to recent prices.
 
-[![ema](images/ema.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](images/ema.png)
-
+| [![ema](images/ema.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](images/ema.png) |
+|: -- :|
+| <b>Fig.1 - IBM candle chart (top) with EMA (green) and SMA (red) lines </b>|
 
 ## Strategy Overview
 This strategy, called EMA Regular Order Strategy, implements a crossover strategy using Exponential Moving Averages (EMA). It generates entry and exit signals based on the crossover of two EMAs.

@@ -20,8 +20,9 @@ Here's a summary of RSI in the stock market:
 
 Overall, the Relative Strength Index (RSI) is a widely used indicator in the stock market to assess the strength and momentum of price movements. It helps traders identify overbought and oversold conditions, as well as potential trend reversals, which can assist in making trading decisions.
 
-[![rsi](images/rsi.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](images/rsi.png)
-
+| [![rsi](images/rsi.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](images/rsi.png) |
+|: -- :|
+| <b>Fig.1 - MCD candle chart (top) and RSI plot (bottom) </b>|
 
 ## Strategy Overview
 The Reverse RSI strategy is a trading strategy based on the Relative Strength Index (RSI) indicator. It generates entry and exit signals based on the reverse crossover of the RSI values from specified overbought and oversold levels.

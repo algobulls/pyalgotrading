@@ -19,7 +19,9 @@ Here's a summary of VWAP in the stock market:
 - It's important to note that VWAP is a lagging indicator since it is based on historical data. Therefore, it is often used in combination with other indicators and analysis techniques to validate trade signals and make informed trading decisions.
 - Overall, VWAP is a widely used indicator in the stock market that provides a volume-weighted average price, serving as a benchmark for evaluating trade execution quality and as a reference point for trading decisions. By considering both price and volume, VWAP offers insights into market dynamics and helps traders assess their performance relative to the average market price.
 
-[![rsi](images/vwap.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](images/vwap.png)
+| [![rsi](images/vwap.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](images/vwap.png) |
+|: -- :|
+| <b>Fig.1 - IBM candle chart (top) with VWAP line  (Blue), Volume chart with SMA line</b>|
 
 ## Strategy Overview
 

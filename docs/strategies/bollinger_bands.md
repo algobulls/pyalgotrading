@@ -17,8 +17,9 @@ Key points about Bollinger Bands:
 - The upper and lower bands can act as dynamic support and resistance levels.
 - Bollinger Bands are used in combination with other indicators and analysis techniques to make trading decisions. They are not a standalone strategy but provide valuable insights when combined with other tools like the RSI.
 
-[![bollinger_bands](images/bollingerbands.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](images/bollingerbands.png)
-
+| [![bollinger_bands](images/bollingerbands.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](images/bollingerbands.png) |
+|: -- :|
+| <b>Fig.1 - SPY candle chart (top) with Bollinger Bands (purple), 20 day standard deviation graph (bottom)</b>|
 ## Strategy Overview
 This strategy, called Bollinger Bands, is an implementation of the Bollinger Bands indicator. It uses the Bollinger Bands values to compare with previous candle's OPEN, HIGH, LOW and CLOSE values and generate entry and exit signals for trading instruments.
 

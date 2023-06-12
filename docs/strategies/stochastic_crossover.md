@@ -18,10 +18,14 @@ Here's a summary of the Stochastic Oscillator in the stock market:
 - It's important to note that the Stochastic Oscillator is a lagging indicator, meaning it may not provide precise timing for trade entries or exits. Therefore, it is often used in conjunction with other indicators and analysis techniques to confirm signals and improve the accuracy of trading decisions.
 - Overall, the Stochastic Oscillator is a widely used technical indicator in the stock market that helps traders assess price momentum, identify overbought and oversold conditions, and spot potential trend reversals. By analyzing the relationship between the closing price and price range, traders can gain insights into potential buying or selling opportunities.
 
-[![stochastic_1](images/stochastic_1.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](images/stochastic_1.png)
+| [![stochastic_1](images/stochastic_1.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](images/stochastic_1.png) |
+|: -- :|
+| <b>Fig.1 - IBM candle chart (top) with Stochastic Fast (bottom) </b>|
 
 
-[![rsi](images/stochastic_2.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](images/stochastic_2.png)
+| [![rsi](images/stochastic_2.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](images/stochastic_2.png) |
+|: -- :|
+| <b>Fig.2 - QQQQ candle chart (top) with Stochastic Fast (bottom 1), Stochastic Slow (bottom 2) and Full Stochastic (bottom 3)</b>|
 
 
 ## Strategy Overview
