@@ -10,7 +10,7 @@ This is a trading strategy called "Reverse RSI" implemented in Python using the 
 ## Relative Strength Index
 RSI stands for Relative Strength Index, and it is a popular technical indicator used in the stock market to analyze the strength and momentum of a price trend. The RSI provides insights into whether a stock is overbought or oversold and can help identify potential trend reversals.
 
-Here's a summary of RSI in the stock market:
+Here is a summary of RSI in the stock market:
 
 - The Relative Strength Index (RSI) is a momentum oscillator that measures the speed and change of price movements.
 - It compares the magnitude of recent gains to recent losses over a specified period, typically 14 days, and generates a value between 0 and 100.

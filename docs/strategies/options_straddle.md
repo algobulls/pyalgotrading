@@ -14,7 +14,7 @@ This class represents the implementation of an options straddle trading strategy
 
 - This strategy is often employed when traders anticipate an upcoming event or announcement that could cause significant market volatility, such as earnings reports or regulatory decisions. The goal is to take advantage of the resulting price movement, regardless of whether it is upward or downward.
 
-- It's important to note that options straddles can be risky as they require significant price movements to be profitable. If the price remains relatively stable, the trader may experience losses due to the cost of purchasing the options. Therefore, careful consideration of market conditions and risk management is crucial when implementing an options straddle strategy.
+- It is important to note that options straddles can be risky as they require significant price movements to be profitable. If the price remains relatively stable, the trader may experience losses due to the cost of purchasing the options. Therefore, careful consideration of market conditions and risk management is crucial when implementing an options straddle strategy.
 
 #### Parameters
 

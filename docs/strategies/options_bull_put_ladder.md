@@ -22,7 +22,7 @@
 
 - The bull put ladder is a moderately bullish strategy that aims to benefit from both time decay and the potential for a moderate increase in the price of the underlying asset. Traders implementing this strategy should carefully consider factors such as the strike prices, premium costs, and expiration date to assess their risk-reward profile.
 
-- It's important to note that options trading involves risks, and traders should have a thorough understanding of the strategy and associated risks before employing it in the stock market.
+- It is important to note that options trading involves risks, and traders should have a thorough understanding of the strategy and associated risks before employing it in the stock market.
 
 
 ### Initialization

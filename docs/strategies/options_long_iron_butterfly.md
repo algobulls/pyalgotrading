@@ -25,7 +25,7 @@ This is a template for implementing the Options Long Iron Butterfly strategy in 
 
 - The long iron butterfly is commonly used when traders anticipate low volatility in the underlying asset. It is a neutral strategy that seeks to benefit from the passage of time and a decrease in implied volatility. Traders implementing this strategy should carefully analyze factors such as the strike prices, premium costs, and expiration date to determine their risk-reward profile.
 
-- It's important to note that options trading involves risks, and traders should have a thorough understanding of the strategy and associated risks before employing it in the stock market.
+- It is important to note that options trading involves risks, and traders should have a thorough understanding of the strategy and associated risks before employing it in the stock market.
 
 
 ### Strategy Parameters

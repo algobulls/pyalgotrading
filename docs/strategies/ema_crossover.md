@@ -10,7 +10,7 @@ This is a trading strategy called "EMA Regular Order Strategy" implemented in Py
 ## EMA indicator
 Exponential Moving Averages (EMAs) are a popular technical analysis tool used in the stock market. They are similar to Simple Moving Averages (SMAs), but they place greater emphasis on recent price data.
 
-Here's a summary of Exponential Moving Averages:
+Here is a summary of Exponential Moving Averages:
 
 - An Exponential Moving Average is a type of moving average that assigns more weight to recent prices, making it more responsive to current market conditions.
 - Unlike the SMA, which gives equal weight to all data points, the EMA assigns exponentially decreasing weights to older data points.

@@ -9,7 +9,7 @@ This is a trading strategy called "Inverse EMA Scalping Regular Order Strategy" 
 ## What is Inverse EMA 
 Inverse EMA, also known as Reverse Exponential Moving Average (REMA), is a variation of the Exponential Moving Average (EMA) in the stock market. While the EMA gives more weight to recent price data, the Inverse EMA assigns more weight to older data points.
 
-Here's a summary of Inverse EMA:
+Here is a summary of Inverse EMA:
 
 - Inverse EMA is calculated by applying the EMA formula in reverse, giving greater weight to older data points and less weight to recent prices.
 - Instead of smoothing out price fluctuations like the EMA, the Inverse EMA amplifies them, making it more responsive to historical data.

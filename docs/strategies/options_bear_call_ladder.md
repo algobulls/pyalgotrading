@@ -23,7 +23,7 @@ This class implements the Options Bear Call Ladder strategy.
 
 - Traders implementing the bear call ladder strategy should carefully consider factors such as the strike prices, premium costs, and expiration date to assess their risk-reward profile. It's important to note that options trading involves risks, and traders should have a thorough understanding of the strategy and associated risks before employing it in the stock market.
 
-- Please be aware that options trading can be complex and involves significant risks. It's always recommended to consult with a qualified financial advisor or broker before engaging in options trading activities.
+- Please be aware that options trading can be complex and involves significant risks. It is always recommended to consult with a qualified financial advisor or broker before engaging in options trading activities.
 
 
 ### Parameters

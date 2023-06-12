@@ -14,7 +14,7 @@ The `StrategyOptionsStrangle` class is a strategy template for trading options s
 
 - The strategy aims to benefit from a significant price movement in either direction. If the price of the underlying asset moves significantly upwards, the call option can generate profits. Conversely, if the price moves significantly downwards, the put option can generate profits. The investor is essentially betting on increased price volatility rather than predicting the direction of the price movement.
 
-- Options strangles are commonly used when traders anticipate a substantial price movement but are unsure about the direction. This strategy allows for potential profits in either an upward or downward market scenario. However, it's important to note that options strangles can involve higher risks, as the underlying asset's price must move significantly to offset the cost of purchasing both options.
+- Options strangles are commonly used when traders anticipate a substantial price movement but are unsure about the direction. This strategy allows for potential profits in either an upward or downward market scenario. However, it is important to note that options strangles can involve higher risks, as the underlying asset's price must move significantly to offset the cost of purchasing both options.
 
 - Traders employing options strangles should carefully consider factors such as the expected price volatility, the expiration date, and the costs associated with purchasing the options. Implementing risk management techniques and monitoring market conditions are essential when utilizing an options strangle strategy.
 
