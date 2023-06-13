@@ -1,4 +1,4 @@
-# Regular Strategy Structure
+# Options Strategy Structure
 
 !!! Links
     - **[List of Strategies](index.md)**
