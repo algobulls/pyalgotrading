@@ -56,7 +56,7 @@
                 <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
                 </li>
               </ul>
-              <p class="caption"><span class="caption-text">PyalgoTrading</span></p>
+              <p class="caption"><span class="caption-text">Pyalgotrading</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../../pyalgotrad/">Index</a>
                   </li>
@@ -83,7 +83,7 @@
                   <li class="toctree-l1"><a class="reference internal" href="../../pyalgotrad/codeguide/">Strategy Coding Guidelines</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">PythonBuild</span></p>
+              <p class="caption"><span class="caption-text">Python Build</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../../python_build/">Index</a>
                   </li>
@@ -116,7 +116,9 @@
               </ul>
               <p class="caption"><span class="caption-text">Strategies</span></p>
               <ul class="current">
-                  <li class="toctree-l1"><a class="reference internal" href="#">Strategy Guide</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../">Index</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">General Strategy Guide</a>
     <ul>
                 <li class="toctree-l2"><a class="reference internal" href="../common_regular_strategy/">Regular Strategy</a>
                 </li>
@@ -124,7 +126,7 @@
                 </li>
     </ul>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Regular Strategy Examples</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Regular Strategy Guide</a>
     <ul class="current">
                 <li class="toctree-l2 current"><a class="reference internal current" href="./">Aroon Crossover</a>
     <ul class="current">
@@ -152,7 +154,7 @@
                 </li>
     </ul>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="#">Options Strategy Examples</a>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Options Strategy Guide</a>
     <ul>
                 <li class="toctree-l2"><a class="reference internal" href="../options_bear_call_ladder/">Options Bear Call Ladder</a>
                 </li>
@@ -186,7 +188,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
           <li>Strategies &raquo;</li>
-          <li>Regular Strategy Examples &raquo;</li>
+          <li>Regular Strategy Guide &raquo;</li>
       <li>Aroon Crossover</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/algobulls/pyalgotrading/edit/master/docs/strategies/aroon_crossover.md" class="icon icon-github"> Edit on GitHub</a>
@@ -199,19 +201,63 @@
               
                 <h1 id="aroon-crossover">Aroon Crossover<a class="headerlink" href="#aroon-crossover" title="Permanent link">&para;</a></h1>
 <p>This is a trading strategy called "Aroon Crossover" implemented in Python using the PyAlgoTrading library. The strategy is based on the Aroon indicator crossover.</p>
+<div class="admonition links">
+<p class="admonition-title">Links</p>
+<ul>
+<li><strong><a href="https://github.com/algobulls/pyalgostrategypool/blob/master/pyalgostrategypool/aroon_crossover.py" target="_blank">Strategy Code (.py)</a></strong></li>
+<li><strong><a href="../common_regular_strategy/" target="_blank">Strategy Structure (common methods used in a regular strategy)</a></strong></li>
+<li><strong><a href="../../pyalgotrad/structure/" target="_blank">Strategy Design (workflow of a strategy)</a></strong></li>
+</ul>
+</div>
 <h2 id="aroon-indicator">Aroon Indicator<a class="headerlink" href="#aroon-indicator" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
 <p>In the stock market, Aroon refers to the Aroon indicator, which is a technical analysis tool used to measure the strength and direction of a trend. It consists of two lines, the Aroon-Up line and the Aroon-Down line.</p>
+</li>
+<li>
 <p>The Aroon-Up line measures the number of periods since the highest price within a given period, while the Aroon-Down line measures the number of periods since the lowest price within a given period. The Aroon indicator ranges from 0 to 100, with values closer to 100 indicating a strong trend and values closer to 0 indicating a weak or non-existent trend.</p>
+</li>
+<li>
 <p>Traders and investors use the Aroon indicator to identify potential trend reversals, assess the strength of a trend, and generate buy or sell signals. For example, when the Aroon-Up line crosses above the Aroon-Down line, it may suggest a bullish trend, while a cross below may indicate a bearish trend.</p>
-<p>It's important to note that the Aroon indicator is just one of many tools used in technical analysis, and its effectiveness can vary depending on market conditions and other factors. It is often used in conjunction with other indicators and analysis techniques to make informed trading decisions.</p>
-<p><a href="../images/aroon.png"><img alt="aroon" src="../images/aroon.png" title="Click to Enlarge or Ctrl+Click to open in a new Tab" /></a></p>
+</li>
+<li>
+<p>It is important to note that the Aroon indicator is just one of many tools used in technical analysis, and its effectiveness can vary depending on market conditions and other factors. It is often used in conjunction with other indicators and analysis techniques to make informed trading decisions.</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center"><a href="../images/aroon.png"><img alt="aroon" src="../images/aroon.png" title="Click to Enlarge or Ctrl+Click to open in a new Tab" /></a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><b>Fig.1 - SPY candle chart (top), Aroon Indicator for that chart (bottom)</b></td>
+</tr>
+</tbody>
+</table>
 <h2 id="strategy-overview">Strategy Overview<a class="headerlink" href="#strategy-overview" title="Permanent link">&para;</a></h2>
-<p>This strategy, called Aroon Crossover v2, implements a crossover strategy using the Aroon indicator. It generates entry and exit signals based on the crossover of Aroon Up and Aroon Down values.</p>
+<p>This strategy, called Aroon Crossover, implements a crossover strategy using the Aroon indicator. It generates entry and exit signals based on the crossover of Aroon Up and Aroon Down values.</p>
 <h2 id="strategy-parameters">Strategy Parameters<a class="headerlink" href="#strategy-parameters" title="Permanent link">&para;</a></h2>
 <p>The following parameters can be configured for the strategy:</p>
-<ul>
-<li><code>TIME_PERIOD</code> The period for which we calculate the Aroon Value</li>
-</ul>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="center">Default Value</th>
+<th align="left">Expected Value</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><strong>TIME_PERIOD</strong></td>
+<td align="center">None</td>
+<td align="left">greater than 0</td>
+<td align="left">The period for which we calculate the Aroon Value</td>
+</tr>
+</tbody>
+</table>
 <h2 id="crossover-calculation">Crossover Calculation<a class="headerlink" href="#crossover-calculation" title="Permanent link">&para;</a></h2>
 <p>The <code>get_crossover_value</code> method calculates the Aroon Up and Aroon Down values for a given instrument based on the historical data. It uses the <code>talib.AROON</code> function from the Talib library to calculate the values. The method then determines the crossover of Aroon Up and Aroon Down and returns the corresponding entry or exit action.</p>
               

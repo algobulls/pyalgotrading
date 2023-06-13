@@ -56,7 +56,7 @@
                 <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
                 </li>
               </ul>
-              <p class="caption"><span class="caption-text">PyalgoTrading</span></p>
+              <p class="caption"><span class="caption-text">Pyalgotrading</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../../pyalgotrad/">Index</a>
                   </li>
@@ -83,7 +83,7 @@
                   <li class="toctree-l1"><a class="reference internal" href="../../pyalgotrad/codeguide/">Strategy Coding Guidelines</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">PythonBuild</span></p>
+              <p class="caption"><span class="caption-text">Python Build</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../../python_build/">Index</a>
                   </li>
@@ -116,7 +116,9 @@
               </ul>
               <p class="caption"><span class="caption-text">Strategies</span></p>
               <ul class="current">
-                  <li class="toctree-l1"><a class="reference internal" href="#">Strategy Guide</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../">Index</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">General Strategy Guide</a>
     <ul>
                 <li class="toctree-l2"><a class="reference internal" href="../common_regular_strategy/">Regular Strategy</a>
                 </li>
@@ -124,7 +126,7 @@
                 </li>
     </ul>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="#">Regular Strategy Examples</a>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Regular Strategy Guide</a>
     <ul>
                 <li class="toctree-l2"><a class="reference internal" href="../aroon_crossover/">Aroon Crossover</a>
                 </li>
@@ -142,7 +144,7 @@
                 </li>
     </ul>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Options Strategy Examples</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Options Strategy Guide</a>
     <ul class="current">
                 <li class="toctree-l2"><a class="reference internal" href="../options_bear_call_ladder/">Options Bear Call Ladder</a>
                 </li>
@@ -184,7 +186,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
           <li>Strategies &raquo;</li>
-          <li>Options Strategy Examples &raquo;</li>
+          <li>Options Strategy Guide &raquo;</li>
       <li>Options Straddle</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/algobulls/pyalgotrading/edit/master/docs/strategies/options_straddle.md" class="icon icon-github"> Edit on GitHub</a>
@@ -195,28 +197,92 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h2 id="class-strategyoptionsstraddle">Class: StrategyOptionsStraddle<a class="headerlink" href="#class-strategyoptionsstraddle" title="Permanent link">&para;</a></h2>
-<p>This class represents the implementation of a options straddle trading strategy.</p>
-<h3 id="straddle-options">Straddle Options<a class="headerlink" href="#straddle-options" title="Permanent link">&para;</a></h3>
-<p>In the stock market, an options straddle is a strategy where an investor simultaneously purchases a call option and a put option with the same strike price and expiration date on a particular underlying asset, such as a stock. The purpose of this strategy is to profit from significant price movements in the underlying asset, regardless of whether the price goes up or down.</p>
-<p>By using an options straddle, the investor is essentially betting on volatility rather than the direction of the price movement. If the price of the underlying asset experiences a substantial increase or decrease, either the call or put option will generate profits, offsetting any losses from the other option. The potential for profit is highest when there is a significant price swing, while the risk is limited to the cost of purchasing the options.</p>
-<p>This strategy is often employed when traders anticipate an upcoming event or announcement that could cause significant market volatility, such as earnings reports or regulatory decisions. The goal is to take advantage of the resulting price movement, regardless of whether it is upward or downward.</p>
-<p>It's important to note that options straddles can be risky as they require significant price movements to be profitable. If the price remains relatively stable, the trader may experience losses due to the cost of purchasing the options. Therefore, careful consideration of market conditions and risk management is crucial when implementing an options straddle strategy.</p>
-<h4 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h4>
+                <h2 id="options-straddle">Options Straddle<a class="headerlink" href="#options-straddle" title="Permanent link">&para;</a></h2>
+<p>This class represents the implementation of an options straddle trading strategy.</p>
+<div class="admonition links">
+<p class="admonition-title">Links</p>
 <ul>
-<li><code>_leg_one_transaction_type</code>: Specifies the transaction type for leg one (BUY: 1 | SELL: 2).</li>
-<li><code>_leg_one_tradingsymbol_suffix</code>: Specifies the tradingsymbol suffix for leg one (CE: 1 | PE: 2).</li>
-<li><code>_leg_one_strike_direction</code>: Specifies the strike direction for leg one (ITM: 0 | ATM: 1 | OTM: 2).</li>
-<li>
-<p><code>_leg_one_number_of_strikes</code>: Specifies the number of strikes for leg one.</p>
-</li>
-<li>
-<p><code>_leg_two_transaction_type</code>: Specifies the transaction type for leg two (BUY: 1 | SELL: 2).</p>
-</li>
-<li><code>_leg_two_tradingsymbol_suffix</code>: Specifies the tradingsymbol suffix for leg two (CE: 1 | PE: 2).</li>
-<li><code>_leg_two_strike_direction</code>: Specifies the strike direction for leg two (ITM: 0 | ATM: 1 | OTM: 2).</li>
-<li><code>_leg_two_number_of_strikes</code>: Specifies the number of strikes for leg two.</li>
+<li><strong><a href="https://github.com/algobulls/pyalgostrategypool/blob/master/pyalgostrategypool/options_straddle.py" target="_blank">Strategy Code (.py)</a></strong></li>
+<li><strong><a href="../common_options_strategy/" target="_blank">Strategy Structure (common methods used in an options strategy)</a></strong></li>
+<li><strong><a href="../../pyalgotrad/structure/" target="_blank">Strategy Design (workflow of a strategy)</a></strong></li>
 </ul>
+</div>
+<h3 id="straddle-options">Straddle Options<a class="headerlink" href="#straddle-options" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>In the stock market, an options straddle is a strategy where an investor simultaneously purchases a call option and a put option with the same strike price and expiration date on a particular underlying asset, such as a stock. The purpose of this strategy is to profit from significant price movements in the underlying asset, regardless of whether the price goes up or down.</p>
+</li>
+<li>
+<p>By using an options straddle, the investor is essentially betting on volatility rather than the direction of the price movement. If the price of the underlying asset experiences a substantial increase or decrease, either the call or put option will generate profits, offsetting any losses from the other option. The potential for profit is highest when there is a significant price swing, while the risk is limited to the cost of purchasing the options.</p>
+</li>
+<li>
+<p>This strategy is often employed when traders anticipate an upcoming event or announcement that could cause significant market volatility, such as earnings reports or regulatory decisions. The goal is to take advantage of the resulting price movement, regardless of whether it is upward or downward.</p>
+</li>
+<li>
+<p>It is important to note that options straddles can be risky as they require significant price movements to be profitable. If the price remains relatively stable, the trader may experience losses due to the cost of purchasing the options. Therefore, careful consideration of market conditions and risk management is crucial when implementing an options straddle strategy.</p>
+</li>
+</ul>
+<h4 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="center">Default Value</th>
+<th align="left">Expected Value</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><strong>_leg_one_transaction_type</strong></td>
+<td align="center">2</td>
+<td align="left">1 or 2</td>
+<td align="left">Transaction type for leg one. [BUY: 1, SELL: 2]</td>
+</tr>
+<tr>
+<td align="left"><strong>_leg_one_tradingsymbol_suffix</strong></td>
+<td align="center">1</td>
+<td align="left">1 or 2</td>
+<td align="left">Trading symbol suffix for leg one. [CE: 1,  PE: 2]</td>
+</tr>
+<tr>
+<td align="left"><strong>_leg_one_strike_direction</strong></td>
+<td align="center">1</td>
+<td align="left">0, 1 or 2</td>
+<td align="left">Strike direction for leg one. [ITM: 0, ATM: 1,  OTM: 2]</td>
+</tr>
+<tr>
+<td align="left"><strong>_leg_one_number_of_strikes</strong></td>
+<td align="center">0</td>
+<td align="left">greater than 0</td>
+<td align="left">Number of strikes for leg one.</td>
+</tr>
+<tr>
+<td align="left"><strong>_leg_two_transaction_type</strong></td>
+<td align="center">2</td>
+<td align="left">1 or 2</td>
+<td align="left">Transaction type for leg one. [BUY: 1, SELL: 2]</td>
+</tr>
+<tr>
+<td align="left"><strong>_leg_two_tradingsymbol_suffix</strong></td>
+<td align="center">2</td>
+<td align="left">1 or 2</td>
+<td align="left">Trading symbol suffix for leg one. [CE: 1,  PE: 2]</td>
+</tr>
+<tr>
+<td align="left"><strong>_leg_two_strike_direction</strong></td>
+<td align="center">1</td>
+<td align="left">0, 1 or 2</td>
+<td align="left">Strike direction for leg one. [ITM: 0, ATM: 1,  OTM: 2]</td>
+</tr>
+<tr>
+<td align="left"><strong>_leg_two_number_of_strikes</strong></td>
+<td align="center">0</td>
+<td align="left">greater than 0</td>
+<td align="left">Number of strikes for leg one.</td>
+</tr>
+</tbody>
+</table>
               
             </div>
           </div><footer>

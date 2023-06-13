@@ -56,7 +56,7 @@
                 <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
                 </li>
               </ul>
-              <p class="caption"><span class="caption-text">PyalgoTrading</span></p>
+              <p class="caption"><span class="caption-text">Pyalgotrading</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../../pyalgotrad/">Index</a>
                   </li>
@@ -83,7 +83,7 @@
                   <li class="toctree-l1"><a class="reference internal" href="../../pyalgotrad/codeguide/">Strategy Coding Guidelines</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">PythonBuild</span></p>
+              <p class="caption"><span class="caption-text">Python Build</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../../python_build/">Index</a>
                   </li>
@@ -116,7 +116,9 @@
               </ul>
               <p class="caption"><span class="caption-text">Strategies</span></p>
               <ul class="current">
-                  <li class="toctree-l1"><a class="reference internal" href="#">Strategy Guide</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../">Index</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">General Strategy Guide</a>
     <ul>
                 <li class="toctree-l2"><a class="reference internal" href="../common_regular_strategy/">Regular Strategy</a>
                 </li>
@@ -124,7 +126,7 @@
                 </li>
     </ul>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Regular Strategy Examples</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Regular Strategy Guide</a>
     <ul class="current">
                 <li class="toctree-l2"><a class="reference internal" href="../aroon_crossover/">Aroon Crossover</a>
                 </li>
@@ -152,7 +154,7 @@
                 </li>
     </ul>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="#">Options Strategy Examples</a>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Options Strategy Guide</a>
     <ul>
                 <li class="toctree-l2"><a class="reference internal" href="../options_bear_call_ladder/">Options Bear Call Ladder</a>
                 </li>
@@ -186,7 +188,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
           <li>Strategies &raquo;</li>
-          <li>Regular Strategy Examples &raquo;</li>
+          <li>Regular Strategy Guide &raquo;</li>
       <li>VWAP Crossover</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/algobulls/pyalgotrading/edit/master/docs/strategies/vwap_crossover.md" class="icon icon-github"> Edit on GitHub</a>
@@ -197,11 +199,19 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="vwap-crossover-v2">VWAP Crossover v2<a class="headerlink" href="#vwap-crossover-v2" title="Permanent link">&para;</a></h1>
-<p>This is a trading strategy called "VWAP Crossover v2" implemented in Python using the PyAlgoTrading library. The strategy is based on the crossover of the VWAP (Volume Weighted Average Price) indicator.</p>
+                <h1 id="vwap-crossover">VWAP Crossover<a class="headerlink" href="#vwap-crossover" title="Permanent link">&para;</a></h1>
+<p>This is a trading strategy called "VWAP Crossover" implemented in Python using the PyAlgoTrading library. The strategy is based on the crossover of the VWAP (Volume Weighted Average Price) indicator.</p>
+<div class="admonition links">
+<p class="admonition-title">Links</p>
+<ul>
+<li><strong><a href="https://github.com/algobulls/pyalgostrategypool/blob/master/pyalgostrategypool/vwap_crossover.py" target="_blank">Strategy Code (.py)</a></strong></li>
+<li><strong><a href="../common_regular_strategy/" target="_blank">Strategy Structure (common methods used in a regular strategy)</a></strong></li>
+<li><strong><a href="../../pyalgotrad/structure/" target="_blank">Strategy Design (workflow of a strategy)</a></strong></li>
+</ul>
+</div>
 <h2 id="vwap-indicator">VWAP indicator<a class="headerlink" href="#vwap-indicator" title="Permanent link">&para;</a></h2>
 <p>In the stock market, VWAP stands for Volume-Weighted Average Price. VWAP is a trading indicator that calculates the average price at which a particular stock or security has traded throughout the day, taking into account both the price and the volume of each trade.</p>
-<p>Here's a summary of VWAP in the stock market:</p>
+<p>Here is a summary of VWAP in the stock market:</p>
 <ul>
 <li>VWAP is calculated by multiplying the price of each trade by the corresponding volume and then summing up these values over a specific time period. The total value is divided by the cumulative volume to obtain the average price.</li>
 <li>The volume-weighted aspect of VWAP gives more weight to trades with higher volume, reflecting the significance of larger trades in the overall average price calculation.</li>
@@ -210,10 +220,21 @@
 <li>VWAP is commonly used by institutional traders who execute large orders as it helps them minimize market impact and avoid unfavorable executions. By comparing their execution price to VWAP, they can assess their performance and adjust their trading strategies accordingly.</li>
 <li>In addition to being used as a benchmark, VWAP is also employed as a trading strategy. Some traders use VWAP as a reference point for making buy or sell decisions. For example, if the current price is above VWAP, it may be considered bullish, while a price below VWAP could be seen as bearish.</li>
 <li>VWAP is often displayed as a line on intraday price charts, allowing traders to visually compare the current price to the average price. It can provide insights into the market's overall sentiment and potential support or resistance levels.</li>
-<li>It's important to note that VWAP is a lagging indicator since it is based on historical data. Therefore, it is often used in combination with other indicators and analysis techniques to validate trade signals and make informed trading decisions.</li>
+<li>It is important to note that VWAP is a lagging indicator since it is based on historical data. Therefore, it is often used in combination with other indicators and analysis techniques to validate trade signals and make informed trading decisions.</li>
 <li>Overall, VWAP is a widely used indicator in the stock market that provides a volume-weighted average price, serving as a benchmark for evaluating trade execution quality and as a reference point for trading decisions. By considering both price and volume, VWAP offers insights into market dynamics and helps traders assess their performance relative to the average market price.</li>
 </ul>
-<p><a href="../images/vwap.png"><img alt="rsi" src="../images/vwap.png" title="Click to Enlarge or Ctrl+Click to open in a new Tab" /></a></p>
+<table>
+<thead>
+<tr>
+<th align="center"><a href="../images/vwap.png"><img alt="rsi" src="../images/vwap.png" title="Click to Enlarge or Ctrl+Click to open in a new Tab" /></a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><b>Fig.1 - IBM candle chart (top) with VWAP line  (Blue), Volume chart with SMA line</b></td>
+</tr>
+</tbody>
+</table>
 <h2 id="strategy-overview">Strategy Overview<a class="headerlink" href="#strategy-overview" title="Permanent link">&para;</a></h2>
 <p>The strategy follows a simple rule based on the crossover of the VWAP indicator. When the price crosses above the VWAP, a buy signal is generated, and when the price crosses below the VWAP, a sell signal is generated. The strategy aims to capture potential trend reversals based on the VWAP.</p>
 <h2 id="strategy-parameters">Strategy Parameters<a class="headerlink" href="#strategy-parameters" title="Permanent link">&para;</a></h2>

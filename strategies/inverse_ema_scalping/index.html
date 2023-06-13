@@ -56,7 +56,7 @@
                 <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
                 </li>
               </ul>
-              <p class="caption"><span class="caption-text">PyalgoTrading</span></p>
+              <p class="caption"><span class="caption-text">Pyalgotrading</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../../pyalgotrad/">Index</a>
                   </li>
@@ -83,7 +83,7 @@
                   <li class="toctree-l1"><a class="reference internal" href="../../pyalgotrad/codeguide/">Strategy Coding Guidelines</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">PythonBuild</span></p>
+              <p class="caption"><span class="caption-text">Python Build</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../../python_build/">Index</a>
                   </li>
@@ -116,7 +116,9 @@
               </ul>
               <p class="caption"><span class="caption-text">Strategies</span></p>
               <ul class="current">
-                  <li class="toctree-l1"><a class="reference internal" href="#">Strategy Guide</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../">Index</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">General Strategy Guide</a>
     <ul>
                 <li class="toctree-l2"><a class="reference internal" href="../common_regular_strategy/">Regular Strategy</a>
                 </li>
@@ -124,7 +126,7 @@
                 </li>
     </ul>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Regular Strategy Examples</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Regular Strategy Guide</a>
     <ul class="current">
                 <li class="toctree-l2"><a class="reference internal" href="../aroon_crossover/">Aroon Crossover</a>
                 </li>
@@ -152,7 +154,7 @@
                 </li>
     </ul>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="#">Options Strategy Examples</a>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Options Strategy Guide</a>
     <ul>
                 <li class="toctree-l2"><a class="reference internal" href="../options_bear_call_ladder/">Options Bear Call Ladder</a>
                 </li>
@@ -186,7 +188,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
           <li>Strategies &raquo;</li>
-          <li>Regular Strategy Examples &raquo;</li>
+          <li>Regular Strategy Guide &raquo;</li>
       <li>Inverse EMA Scalping</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/algobulls/pyalgotrading/edit/master/docs/strategies/inverse_ema_scalping.md" class="icon icon-github"> Edit on GitHub</a>
@@ -197,11 +199,19 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="inverse-ema-scalping-regular-order-strategy">Inverse EMA Scalping Regular Order Strategy<a class="headerlink" href="#inverse-ema-scalping-regular-order-strategy" title="Permanent link">&para;</a></h1>
-<p>This is a trading strategy called "Inverse EMA Scalping Regular Order Strategy v2" implemented in Python using the PyAlgoTrading library. The strategy is based on the exponential moving average crossover.</p>
+                <h1 id="inverse-ema-scalping">Inverse EMA Scalping<a class="headerlink" href="#inverse-ema-scalping" title="Permanent link">&para;</a></h1>
+<p>This is a trading strategy called "Inverse EMA Scalping Regular Order Strategy" implemented in Python using the PyAlgoTrading library. The strategy is based on the exponential moving average crossover.</p>
+<div class="admonition links">
+<p class="admonition-title">Links</p>
+<ul>
+<li><strong><a href="https://github.com/algobulls/pyalgostrategypool/blob/master/pyalgostrategypool/inverse_ema_scalping.py" target="_blank">Strategy Code (.py)</a></strong></li>
+<li><strong><a href="../common_regular_strategy/" target="_blank">Strategy Structure (common methods used in a regular strategy)</a></strong></li>
+<li><strong><a href="../../pyalgotrad/structure/" target="_blank">Strategy Design (workflow of a strategy)</a></strong></li>
+</ul>
+</div>
 <h2 id="what-is-inverse-ema">What is Inverse EMA<a class="headerlink" href="#what-is-inverse-ema" title="Permanent link">&para;</a></h2>
 <p>Inverse EMA, also known as Reverse Exponential Moving Average (REMA), is a variation of the Exponential Moving Average (EMA) in the stock market. While the EMA gives more weight to recent price data, the Inverse EMA assigns more weight to older data points.</p>
-<p>Here's a summary of Inverse EMA:</p>
+<p>Here is a summary of Inverse EMA:</p>
 <ul>
 <li>Inverse EMA is calculated by applying the EMA formula in reverse, giving greater weight to older data points and less weight to recent prices.</li>
 <li>Instead of smoothing out price fluctuations like the EMA, the Inverse EMA amplifies them, making it more responsive to historical data.</li>
@@ -215,10 +225,30 @@
 <p>This strategy implements a scalping strategy using Exponential Moving Averages (EMA). It generates entry and exit signals based on the inverse crossover of two EMAs.</p>
 <h2 id="strategy-parameters">Strategy Parameters<a class="headerlink" href="#strategy-parameters" title="Permanent link">&para;</a></h2>
 <p>The following parameters can be configured for the strategy:</p>
-<ul>
-<li><code>LARGER_TIME_PERIOD</code>: Period (number of candles) by which large period EMA is calculated</li>
-<li><code>SMALLER_TIME_PERIOD</code>:  Period (number of candles) by which short period EMA is calculated</li>
-</ul>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="center">Default Value</th>
+<th align="left">Expected Value</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><strong>LARGER_TIME_PERIOD</strong></td>
+<td align="center">None</td>
+<td align="left">greater than 0</td>
+<td align="left">Period (number of candles) by which large period EMA is calculated</td>
+</tr>
+<tr>
+<td align="left"><strong>SMALLER_TIME_PERIOD</strong></td>
+<td align="center">None</td>
+<td align="left">greater than 0</td>
+<td align="left">Period (number of candles) by which short period EMA is calculated</td>
+</tr>
+</tbody>
+</table>
 <h2 id="crossover-calculation">Crossover Calculation<a class="headerlink" href="#crossover-calculation" title="Permanent link">&para;</a></h2>
 <p>The <code>get_crossover_value</code> method calculates the crossover value based on the inverse crossover of the two EMAs of the closing prices. It uses the <code>talib.EMA</code> function from the Talib library to calculate the EMAs. The method then determines the inverse crossover between the two EMAs and returns the corresponding value (-1, 0, or 1).</p>
               

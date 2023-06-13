@@ -56,7 +56,7 @@
                 <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
                 </li>
               </ul>
-              <p class="caption"><span class="caption-text">PyalgoTrading</span></p>
+              <p class="caption"><span class="caption-text">Pyalgotrading</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../../pyalgotrad/">Index</a>
                   </li>
@@ -83,7 +83,7 @@
                   <li class="toctree-l1"><a class="reference internal" href="../../pyalgotrad/codeguide/">Strategy Coding Guidelines</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">PythonBuild</span></p>
+              <p class="caption"><span class="caption-text">Python Build</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../../python_build/">Index</a>
                   </li>
@@ -116,7 +116,9 @@
               </ul>
               <p class="caption"><span class="caption-text">Strategies</span></p>
               <ul class="current">
-                  <li class="toctree-l1"><a class="reference internal" href="#">Strategy Guide</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../">Index</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">General Strategy Guide</a>
     <ul>
                 <li class="toctree-l2"><a class="reference internal" href="../common_regular_strategy/">Regular Strategy</a>
                 </li>
@@ -124,7 +126,7 @@
                 </li>
     </ul>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="#">Regular Strategy Examples</a>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Regular Strategy Guide</a>
     <ul>
                 <li class="toctree-l2"><a class="reference internal" href="../aroon_crossover/">Aroon Crossover</a>
                 </li>
@@ -142,7 +144,7 @@
                 </li>
     </ul>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Options Strategy Examples</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Options Strategy Guide</a>
     <ul class="current">
                 <li class="toctree-l2"><a class="reference internal" href="../options_bear_call_ladder/">Options Bear Call Ladder</a>
                 </li>
@@ -182,7 +184,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
           <li>Strategies &raquo;</li>
-          <li>Options Strategy Examples &raquo;</li>
+          <li>Options Strategy Guide &raquo;</li>
       <li>Options Strangle</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/algobulls/pyalgotrading/edit/master/docs/strategies/options_strangle.md" class="icon icon-github"> Edit on GitHub</a>
@@ -193,30 +195,96 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h2 id="options-strangle-template-v2">Options Strangle Template v2<a class="headerlink" href="#options-strangle-template-v2" title="Permanent link">&para;</a></h2>
+                <h2 id="options-strangle">Options Strangle<a class="headerlink" href="#options-strangle" title="Permanent link">&para;</a></h2>
 <p>The <code>StrategyOptionsStrangle</code> class is a strategy template for trading options strangles. It is derived from the <code>StrategyOptionsBaseV2</code> class.</p>
+<div class="admonition links">
+<p class="admonition-title">Links</p>
+<ul>
+<li><strong><a href="https://github.com/algobulls/pyalgostrategypool/blob/master/pyalgostrategypool/options_strangle.py" target="_blank">Strategy Code (.py)</a></strong></li>
+<li><strong><a href="../common_options_strategy/" target="_blank">Strategy Structure (common methods used in an options strategy)</a></strong></li>
+<li><strong><a href="../../pyalgotrad/structure/" target="_blank">Strategy Design (workflow of a strategy)</a></strong></li>
+</ul>
+</div>
 <h3 id="strangle-options">Strangle Options<a class="headerlink" href="#strangle-options" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
 <p>In the stock market, an options strangle is a strategy where an investor simultaneously buys or sells a call option and a put option on the same underlying asset but with different strike prices and the same expiration date. The purpose of this strategy is to profit from significant price volatility in the underlying asset.</p>
+</li>
+<li>
 <p>Unlike an options straddle, which involves purchasing options at the same strike price, an options strangle involves selecting different strike prices. Typically, the investor buys an out-of-the-money call option (with a strike price above the current market price) and an out-of-the-money put option (with a strike price below the current market price).</p>
+</li>
+<li>
 <p>The strategy aims to benefit from a significant price movement in either direction. If the price of the underlying asset moves significantly upwards, the call option can generate profits. Conversely, if the price moves significantly downwards, the put option can generate profits. The investor is essentially betting on increased price volatility rather than predicting the direction of the price movement.</p>
-<p>Options strangles are commonly used when traders anticipate a substantial price movement but are unsure about the direction. This strategy allows for potential profits in either an upward or downward market scenario. However, it's important to note that options strangles can involve higher risks, as the underlying asset's price must move significantly to offset the cost of purchasing both options.</p>
+</li>
+<li>
+<p>Options strangles are commonly used when traders anticipate a substantial price movement but are unsure about the direction. This strategy allows for potential profits in either an upward or downward market scenario. However, it is important to note that options strangles can involve higher risks, as the underlying asset's price must move significantly to offset the cost of purchasing both options.</p>
+</li>
+<li>
 <p>Traders employing options strangles should carefully consider factors such as the expected price volatility, the expiration date, and the costs associated with purchasing the options. Implementing risk management techniques and monitoring market conditions are essential when utilizing an options strangle strategy.</p>
+</li>
+</ul>
 <h3 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h3>
 <p>The following parameters can be set in the Parameters Configuration Pane:</p>
-<ul>
-<li><code>LEG_ONE_TRANSACTION_TYPE</code>: The transaction type for the first leg (BUY: 1 | SELL: 2).</li>
-<li><code>LEG_ONE_TRADING_SYMBOL_SUFFIX</code>: The trading symbol suffix for the first leg (CE: 1 | PE: 2).</li>
-<li><code>LEG_ONE_STRIKE_DIRECTION</code>: The strike direction for the first leg (ITM: 0 | ATM: 1 | OTM: 2).</li>
-<li>
-<p><code>LEG_ONE_NUMBER_OF_STRIKES</code>: The number of strikes for the first leg.</p>
-</li>
-<li>
-<p><code>LEG_TWO_TRANSACTION_TYPE</code>: The transaction type for the second leg (BUY: 1 | SELL: 2).</p>
-</li>
-<li><code>LEG_TWO_TRADING_SYMBOL_SUFFIX</code>: The trading symbol suffix for the second leg (CE: 1 | PE: 2).</li>
-<li><code>LEG_TWO_STRIKE_DIRECTION</code>: The strike direction for the second leg (ITM: 0 | ATM: 1 | OTM: 2).</li>
-<li><code>LEG_TWO_NUMBER_OF_STRIKES</code>: The number of strikes for the second leg.</li>
-</ul>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="center">Default Value</th>
+<th align="left">Expected Value</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><strong>_leg_one_transaction_type</strong></td>
+<td align="center">2</td>
+<td align="left">1 or 2</td>
+<td align="left">Transaction type for leg one. [BUY: 1, SELL: 2]</td>
+</tr>
+<tr>
+<td align="left"><strong>_leg_one_tradingsymbol_suffix</strong></td>
+<td align="center">1</td>
+<td align="left">1 or 2</td>
+<td align="left">Trading symbol suffix for leg one. [CE: 1,  PE: 2]</td>
+</tr>
+<tr>
+<td align="left"><strong>_leg_one_strike_direction</strong></td>
+<td align="center">2</td>
+<td align="left">0, 1 or 2</td>
+<td align="left">Strike direction for leg one. [ITM: 0, ATM: 1,  OTM: 2]</td>
+</tr>
+<tr>
+<td align="left"><strong>_leg_one_number_of_strikes</strong></td>
+<td align="center">2</td>
+<td align="left">greater than 0</td>
+<td align="left">Number of strikes for leg one.</td>
+</tr>
+<tr>
+<td align="left"><strong>_leg_two_transaction_type</strong></td>
+<td align="center">2</td>
+<td align="left">1 or 2</td>
+<td align="left">Transaction type for leg one. [BUY: 1, SELL: 2]</td>
+</tr>
+<tr>
+<td align="left"><strong>_leg_two_tradingsymbol_suffix</strong></td>
+<td align="center">2</td>
+<td align="left">1 or 2</td>
+<td align="left">Trading symbol suffix for leg one. [CE: 1,  PE: 2]</td>
+</tr>
+<tr>
+<td align="left"><strong>_leg_two_strike_direction</strong></td>
+<td align="center">2</td>
+<td align="left">0, 1 or 2</td>
+<td align="left">Strike direction for leg one. [ITM: 0, ATM: 1,  OTM: 2]</td>
+</tr>
+<tr>
+<td align="left"><strong>_leg_two_number_of_strikes</strong></td>
+<td align="center">2</td>
+<td align="left">greater than 0</td>
+<td align="left">Number of strikes for leg one.</td>
+</tr>
+</tbody>
+</table>
               
             </div>
           </div><footer>

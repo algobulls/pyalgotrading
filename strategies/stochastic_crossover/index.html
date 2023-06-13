@@ -56,7 +56,7 @@
                 <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
                 </li>
               </ul>
-              <p class="caption"><span class="caption-text">PyalgoTrading</span></p>
+              <p class="caption"><span class="caption-text">Pyalgotrading</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../../pyalgotrad/">Index</a>
                   </li>
@@ -83,7 +83,7 @@
                   <li class="toctree-l1"><a class="reference internal" href="../../pyalgotrad/codeguide/">Strategy Coding Guidelines</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">PythonBuild</span></p>
+              <p class="caption"><span class="caption-text">Python Build</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../../python_build/">Index</a>
                   </li>
@@ -116,7 +116,9 @@
               </ul>
               <p class="caption"><span class="caption-text">Strategies</span></p>
               <ul class="current">
-                  <li class="toctree-l1"><a class="reference internal" href="#">Strategy Guide</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../">Index</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">General Strategy Guide</a>
     <ul>
                 <li class="toctree-l2"><a class="reference internal" href="../common_regular_strategy/">Regular Strategy</a>
                 </li>
@@ -124,7 +126,7 @@
                 </li>
     </ul>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Regular Strategy Examples</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Regular Strategy Guide</a>
     <ul class="current">
                 <li class="toctree-l2"><a class="reference internal" href="../aroon_crossover/">Aroon Crossover</a>
                 </li>
@@ -144,7 +146,7 @@
                 </li>
     </ul>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="#">Options Strategy Examples</a>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Options Strategy Guide</a>
     <ul>
                 <li class="toctree-l2"><a class="reference internal" href="../options_bear_call_ladder/">Options Bear Call Ladder</a>
                 </li>
@@ -178,7 +180,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
           <li>Strategies &raquo;</li>
-          <li>Regular Strategy Examples &raquo;</li>
+          <li>Regular Strategy Guide &raquo;</li>
       <li>Stochastic Crossover</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/algobulls/pyalgotrading/edit/master/docs/strategies/stochastic_crossover.md" class="icon icon-github"> Edit on GitHub</a>
@@ -189,11 +191,19 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="stochastic-crossover-v2">Stochastic Crossover v2<a class="headerlink" href="#stochastic-crossover-v2" title="Permanent link">&para;</a></h1>
-<p>This is a trading strategy called "Stochastic Crossover v2" implemented in Python using the PyAlgoTrading library. The strategy is based on the Stochastic indicator crossover.</p>
+                <h1 id="stochastic-crossover">Stochastic Crossover<a class="headerlink" href="#stochastic-crossover" title="Permanent link">&para;</a></h1>
+<p>This is a trading strategy called "Stochastic Crossover" implemented in Python using the PyAlgoTrading library. The strategy is based on the Stochastic indicator crossover.</p>
+<div class="admonition links">
+<p class="admonition-title">Links</p>
+<ul>
+<li><strong><a href="https://github.com/algobulls/pyalgostrategypool/blob/master/pyalgostrategypool/stochastic_crossover.py" target="_blank">Strategy Code (.py)</a></strong></li>
+<li><strong><a href="../common_regular_strategy/" target="_blank">Strategy Structure (common methods used in a regular strategy)</a></strong></li>
+<li><strong><a href="../../pyalgotrad/structure/" target="_blank">Strategy Design (workflow of a strategy)</a></strong></li>
+</ul>
+</div>
 <h1 id="stochastic-oscillator-indicator">Stochastic Oscillator Indicator<a class="headerlink" href="#stochastic-oscillator-indicator" title="Permanent link">&para;</a></h1>
 <p>In the stock market, Stochastic refers to the Stochastic Oscillator, which is a popular technical indicator used to analyze price momentum and identify potential trend reversals. The Stochastic Oscillator compares the closing price of a security to its price range over a specific period of time. It consists of two lines, %K and %D, and generates values between 0 and 100.</p>
-<p>Here's a summary of the Stochastic Oscillator in the stock market:</p>
+<p>Here is a summary of the Stochastic Oscillator in the stock market:</p>
 <ul>
 <li>The Stochastic Oscillator measures the relationship between a security's closing price and its price range over a chosen period.</li>
 <li>The indicator consists of two lines: %K and %D. %K represents the current closing price relative to the price range, while %D is a smoothed average of %K.</li>
@@ -201,20 +211,67 @@
 <li>Traders use the Stochastic Oscillator to identify potential trend reversals, as overbought or oversold conditions can indicate a possible change in the direction of the price trend.</li>
 <li>The indicator also generates bullish or bearish divergences, where the price trend and the Stochastic lines move in opposite directions, which can signal a potential trend reversal.</li>
 <li>The Stochastic Oscillator has various trading strategies associated with it, such as crossovers, overbought/oversold levels, and divergences, which traders use to make buy or sell decisions.</li>
-<li>It's important to note that the Stochastic Oscillator is a lagging indicator, meaning it may not provide precise timing for trade entries or exits. Therefore, it is often used in conjunction with other indicators and analysis techniques to confirm signals and improve the accuracy of trading decisions.</li>
+<li>It is important to note that the Stochastic Oscillator is a lagging indicator, meaning it may not provide precise timing for trade entries or exits. Therefore, it is often used in conjunction with other indicators and analysis techniques to confirm signals and improve the accuracy of trading decisions.</li>
 <li>Overall, the Stochastic Oscillator is a widely used technical indicator in the stock market that helps traders assess price momentum, identify overbought and oversold conditions, and spot potential trend reversals. By analyzing the relationship between the closing price and price range, traders can gain insights into potential buying or selling opportunities.</li>
 </ul>
-<p><a href="../images/stochastic_1.png"><img alt="stochastic_1" src="../images/stochastic_1.png" title="Click to Enlarge or Ctrl+Click to open in a new Tab" /></a></p>
-<p><a href="../images/stochastic_2.png"><img alt="rsi" src="../images/stochastic_2.png" title="Click to Enlarge or Ctrl+Click to open in a new Tab" /></a></p>
+<table>
+<thead>
+<tr>
+<th align="center"><a href="../images/stochastic_1.png"><img alt="stochastic_1" src="../images/stochastic_1.png" title="Click to Enlarge or Ctrl+Click to open in a new Tab" /></a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><b>Fig.1 - IBM candle chart (top) with Stochastic Fast (bottom) </b></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th align="center"><a href="../images/stochastic_2.png"><img alt="rsi" src="../images/stochastic_2.png" title="Click to Enlarge or Ctrl+Click to open in a new Tab" /></a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><b>Fig.2 - QQQQ candle chart (top) with Stochastic Fast (bottom 1), Stochastic Slow (bottom 2) and Full Stochastic (bottom 3)</b></td>
+</tr>
+</tbody>
+</table>
 <h2 id="strategy-overview">Strategy Overview<a class="headerlink" href="#strategy-overview" title="Permanent link">&para;</a></h2>
 <p>The strategy follows a simple rule based on the Stochastic indicator crossover. When the Stochastic indicator's %K line crosses above the %D line, a buy signal is generated. Conversely, when the %K line crosses below the %D line, a sell signal is generated. The strategy aims to capture potential trend reversals.</p>
 <h2 id="strategy-parameters">Strategy Parameters<a class="headerlink" href="#strategy-parameters" title="Permanent link">&para;</a></h2>
 <p>The following parameters can be configured for the strategy:</p>
-<ul>
-<li><code>FASTK_PERIOD</code> or <code>PERIOD</code>: The period for the fast %K line of the Stochastic indicator.</li>
-<li><code>SLOWK_PERIOD</code> or <code>SMOOTH_K_PERIOD</code>: The period for the slow %K line of the Stochastic indicator.</li>
-<li><code>SLOWD_PERIOD</code> or <code>SMOOTH_D_PERIOD</code>: The period for the slow %D line of the Stochastic indicator.</li>
-</ul>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="center">Default Value</th>
+<th align="left">Expected Value</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><strong>FASTK_PERIOD</strong> or <strong>PERIOD</strong></td>
+<td align="center">None</td>
+<td align="left">greater than 0</td>
+<td align="left">The period for the fast %K line of the Stochastic indicator.</td>
+</tr>
+<tr>
+<td align="left"><strong>SLOWK_PERIOD</strong> or <strong>SMOOTH_K_PERIOD</strong></td>
+<td align="center">None</td>
+<td align="left">greater than 0</td>
+<td align="left">The period for the slow %K line of the Stochastic indicator.</td>
+</tr>
+<tr>
+<td align="left"><strong>SLOWD_PERIOD</strong> or <strong>SMOOTH_D_PERIOD</strong></td>
+<td align="center">None</td>
+<td align="left">greater than 0</td>
+<td align="left">The period for the slow %D line of the Stochastic indicator.</td>
+</tr>
+</tbody>
+</table>
 <h2 id="crossover-calculation">Crossover Calculation<a class="headerlink" href="#crossover-calculation" title="Permanent link">&para;</a></h2>
 <p>The <code>get_crossover_value</code> method calculates the crossover values for the Slow-K and Slow-D of Stochastic indicator using historical data of the instrument. The method returns the crossover values between slow-K and slow-D.</p>
               

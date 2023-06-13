@@ -56,7 +56,7 @@
                 <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
                 </li>
               </ul>
-              <p class="caption"><span class="caption-text">PyalgoTrading</span></p>
+              <p class="caption"><span class="caption-text">Pyalgotrading</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../../pyalgotrad/">Index</a>
                   </li>
@@ -83,7 +83,7 @@
                   <li class="toctree-l1"><a class="reference internal" href="../../pyalgotrad/codeguide/">Strategy Coding Guidelines</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">PythonBuild</span></p>
+              <p class="caption"><span class="caption-text">Python Build</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../../python_build/">Index</a>
                   </li>
@@ -116,17 +116,35 @@
               </ul>
               <p class="caption"><span class="caption-text">Strategies</span></p>
               <ul class="current">
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Strategy Guide</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../">Index</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">General Strategy Guide</a>
     <ul class="current">
                 <li class="toctree-l2 current"><a class="reference internal current" href="./">Regular Strategy</a>
     <ul class="current">
+    <li class="toctree-l3"><a class="reference internal" href="#1-initial-steps">1. Initial steps</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#2-init-method">2. Init method</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#3-initialize-method">3. Initialize method</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#4-ordertagmanager">4. OrderTagManager</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#5-entry-methods">5. Entry Methods</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#6-exit-methods">6. Exit Methods</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#7-other-common-methods">7. Other common methods</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#8-cleanup">8. Cleanup</a>
+    </li>
     </ul>
                 </li>
                 <li class="toctree-l2"><a class="reference internal" href="../common_options_strategy/">Options Strategy</a>
                 </li>
     </ul>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="#">Regular Strategy Examples</a>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Regular Strategy Guide</a>
     <ul>
                 <li class="toctree-l2"><a class="reference internal" href="../aroon_crossover/">Aroon Crossover</a>
                 </li>
@@ -144,7 +162,7 @@
                 </li>
     </ul>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="#">Options Strategy Examples</a>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Options Strategy Guide</a>
     <ul>
                 <li class="toctree-l2"><a class="reference internal" href="../options_bear_call_ladder/">Options Bear Call Ladder</a>
                 </li>
@@ -178,7 +196,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
           <li>Strategies &raquo;</li>
-          <li>Strategy Guide &raquo;</li>
+          <li>General Strategy Guide &raquo;</li>
       <li>Regular Strategy</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/algobulls/pyalgotrading/edit/master/docs/strategies/common_regular_strategy.md" class="icon icon-github"> Edit on GitHub</a>
@@ -189,7 +207,15 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h2 id="1-initial-steps">1. Initial steps<a class="headerlink" href="#1-initial-steps" title="Permanent link">&para;</a></h2>
+                <h1 id="options-strategy-structure">Options Strategy Structure<a class="headerlink" href="#options-strategy-structure" title="Permanent link">&para;</a></h1>
+<div class="admonition links">
+<p class="admonition-title">Links</p>
+<ul>
+<li><strong><a href="../">List of Strategies</a></strong></li>
+<li><strong><a href="../../pyalgotrad/structure/">Strategy Design (workflow of a strategy)</a></strong></li>
+</ul>
+</div>
+<h2 id="1-initial-steps">1. Initial steps<a class="headerlink" href="#1-initial-steps" title="Permanent link">&para;</a></h2>
 <p>i. Create a new strategy file with a unique file name.
    eg: strategy_<code>&lt;developer_initials&gt;</code>_futures_ema_crossover.py</p>
 <div class="admonition note">
@@ -335,7 +361,7 @@ Create a reference for <code>OrderTagManager</code> as shown below:</p>
 <p><code>self.order_tag_manager = OrderTagManager</code> </p>
 <hr />
 <h2 id="4-ordertagmanager">4. OrderTagManager<a class="headerlink" href="#4-ordertagmanager" title="Permanent link">&para;</a></h2>
-<p>The <code>self.order_tag_manager</code> is used to store/remove the entry/exit orders. The <code>self.order_tag_manager</code> has following methods:</p>
+<p>The <code>self.order_tag_manager</code> is used to store/remove the entry/exit orders. The <code>self.order_tag_manager</code> has the following methods:</p>
 <p><strong>i. add_order</strong>: </p>
 <ul>
 <li>Stores the order object for the given tags.</li>
@@ -374,7 +400,7 @@ Create a reference for <code>OrderTagManager</code> as shown below:</p>
 <p>The order object will be removed from all the tags ta</p>
 <p><strong>v. get_internals</strong>: </p>
 <ul>
-<li>Returns the values i.e both the entry and exit orders stored inside the tags list.   </li>
+<li>Returns the values i.e. both the entry and exit orders stored inside the tags list.   </li>
 </ul>
 <hr />
 <h2 id="5-entry-methods">5. Entry Methods<a class="headerlink" href="#5-entry-methods" title="Permanent link">&para;</a></h2>
@@ -407,9 +433,9 @@ that calculates the entry condition like a crossover or compares the latest valu
 <h2 id="7-other-common-methods">7. Other common methods<a class="headerlink" href="#7-other-common-methods" title="Permanent link">&para;</a></h2>
 <p>There are other methods that are used in the strategy:</p>
 <p><strong> i. check_and_place_stoploss_order:</strong></p>
-<p>This method is called in the <code>strategy_select_instruments_for_exit</code> when our entry order is open and we want to place a stoploss exit order for the same.</p>
+<p>This method is called in the <code>strategy_select_instruments_for_exit</code> when our entry order is open, and we want to place a stoploss exit order for the same.</p>
 <p><strong>ii. set_all_none:</strong></p>
-<p>This method is called in the <code>strategy_exit_position</code> when our entry order has exited and we want to remove the order object from the <code>self.main_order</code> variable.</p>
+<p>This method is called in the <code>strategy_exit_position</code> when our entry order has exited, and we want to remove the order object from the <code>self.main_order</code> variable.</p>
 <hr />
 <h2 id="8-cleanup">8. Cleanup<a class="headerlink" href="#8-cleanup" title="Permanent link">&para;</a></h2>
 <p>i. Add comments and docstrings wherever possible to improve code readability.</p>
@@ -421,7 +447,7 @@ You can even access them <a href="https://algobulls.github.io/pyalgotrading/">he
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../../python_build/python-build-view-results/" class="btn btn-neutral float-left" title="View Results"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../" class="btn btn-neutral float-left" title="Index"><span class="icon icon-circle-arrow-left"></span> Previous</a>
         <a href="../common_options_strategy/" class="btn btn-neutral float-right" title="Options Strategy">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
@@ -450,7 +476,7 @@ You can even access them <a href="https://algobulls.github.io/pyalgotrading/">he
         </span>
     
     
-      <span><a href="../../python_build/python-build-view-results/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
       <span><a href="../common_options_strategy/" style="color: #fcfcfc">Next &raquo;</a></span>

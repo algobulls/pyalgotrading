@@ -56,7 +56,7 @@
                 <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
                 </li>
               </ul>
-              <p class="caption"><span class="caption-text">PyalgoTrading</span></p>
+              <p class="caption"><span class="caption-text">Pyalgotrading</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../../pyalgotrad/">Index</a>
                   </li>
@@ -83,7 +83,7 @@
                   <li class="toctree-l1"><a class="reference internal" href="../../pyalgotrad/codeguide/">Strategy Coding Guidelines</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">PythonBuild</span></p>
+              <p class="caption"><span class="caption-text">Python Build</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../../python_build/">Index</a>
                   </li>
@@ -116,7 +116,9 @@
               </ul>
               <p class="caption"><span class="caption-text">Strategies</span></p>
               <ul class="current">
-                  <li class="toctree-l1"><a class="reference internal" href="#">Strategy Guide</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../">Index</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">General Strategy Guide</a>
     <ul>
                 <li class="toctree-l2"><a class="reference internal" href="../common_regular_strategy/">Regular Strategy</a>
                 </li>
@@ -124,7 +126,7 @@
                 </li>
     </ul>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Regular Strategy Examples</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Regular Strategy Guide</a>
     <ul class="current">
                 <li class="toctree-l2"><a class="reference internal" href="../aroon_crossover/">Aroon Crossover</a>
                 </li>
@@ -136,7 +138,7 @@
                 </li>
                 <li class="toctree-l2 current"><a class="reference internal current" href="./">Reverse RSI</a>
     <ul class="current">
-    <li class="toctree-l3"><a class="reference internal" href="#what-is-rsi">What is RSI</a>
+    <li class="toctree-l3"><a class="reference internal" href="#relative-strength-index">Relative Strength Index</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#strategy-overview">Strategy Overview</a>
     </li>
@@ -152,7 +154,7 @@
                 </li>
     </ul>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="#">Options Strategy Examples</a>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Options Strategy Guide</a>
     <ul>
                 <li class="toctree-l2"><a class="reference internal" href="../options_bear_call_ladder/">Options Bear Call Ladder</a>
                 </li>
@@ -186,7 +188,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
           <li>Strategies &raquo;</li>
-          <li>Regular Strategy Examples &raquo;</li>
+          <li>Regular Strategy Guide &raquo;</li>
       <li>Reverse RSI</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/algobulls/pyalgotrading/edit/master/docs/strategies/reverse_rsi.md" class="icon icon-github"> Edit on GitHub</a>
@@ -198,10 +200,18 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="reverse-rsi">Reverse RSI<a class="headerlink" href="#reverse-rsi" title="Permanent link">&para;</a></h1>
-<p>This is a trading strategy called "Reverse RSI v2" implemented in Python using the PyAlgoTrading library. The strategy is based on the relative strength index indicator.</p>
-<h2 id="what-is-rsi">What is RSI<a class="headerlink" href="#what-is-rsi" title="Permanent link">&para;</a></h2>
+<p>This is a trading strategy called "Reverse RSI" implemented in Python using the PyAlgoTrading library. The strategy is based on the relative strength index indicator.</p>
+<div class="admonition links">
+<p class="admonition-title">Links</p>
+<ul>
+<li><strong><a href="https://github.com/algobulls/pyalgostrategypool/blob/master/pyalgostrategypool/reverse_rsi_crossover.py" target="_blank">Strategy Code (.py)</a></strong></li>
+<li><strong><a href="../common_regular_strategy/" target="_blank">Strategy Structure (common methods used in a regular strategy)</a></strong></li>
+<li><strong><a href="../../pyalgotrad/structure/" target="_blank">Strategy Design (workflow of a strategy)</a></strong></li>
+</ul>
+</div>
+<h2 id="relative-strength-index">Relative Strength Index<a class="headerlink" href="#relative-strength-index" title="Permanent link">&para;</a></h2>
 <p>RSI stands for Relative Strength Index, and it is a popular technical indicator used in the stock market to analyze the strength and momentum of a price trend. The RSI provides insights into whether a stock is overbought or oversold and can help identify potential trend reversals.</p>
-<p>Here's a summary of RSI in the stock market:</p>
+<p>Here is a summary of RSI in the stock market:</p>
 <ul>
 <li>The Relative Strength Index (RSI) is a momentum oscillator that measures the speed and change of price movements.</li>
 <li>It compares the magnitude of recent gains to recent losses over a specified period, typically 14 days, and generates a value between 0 and 100.</li>
@@ -213,16 +223,52 @@
 <li>The RSI is just one tool among many in technical analysis, and it is often used in conjunction with other indicators and analysis techniques to make more informed trading decisions.</li>
 </ul>
 <p>Overall, the Relative Strength Index (RSI) is a widely used indicator in the stock market to assess the strength and momentum of price movements. It helps traders identify overbought and oversold conditions, as well as potential trend reversals, which can assist in making trading decisions.</p>
-<p><a href="../images/rsi.png"><img alt="rsi" src="../images/rsi.png" title="Click to Enlarge or Ctrl+Click to open in a new Tab" /></a></p>
+<table>
+<thead>
+<tr>
+<th align="center"><a href="../images/rsi.png"><img alt="rsi" src="../images/rsi.png" title="Click to Enlarge or Ctrl+Click to open in a new Tab" /></a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><b>Fig.1 - MCD candle chart (top) and RSI plot (bottom) </b></td>
+</tr>
+</tbody>
+</table>
 <h2 id="strategy-overview">Strategy Overview<a class="headerlink" href="#strategy-overview" title="Permanent link">&para;</a></h2>
-<p>The Reverse RSI v2 strategy is a trading strategy based on the Relative Strength Index (RSI) indicator. It generates entry and exit signals based on the reverse crossover of the RSI values from specified overbought and oversold levels.</p>
+<p>The Reverse RSI strategy is a trading strategy based on the Relative Strength Index (RSI) indicator. It generates entry and exit signals based on the reverse crossover of the RSI values from specified overbought and oversold levels.</p>
 <h2 id="strategy-parameters">Strategy Parameters<a class="headerlink" href="#strategy-parameters" title="Permanent link">&para;</a></h2>
 <p>The following parameters can be configured for the strategy:</p>
-<ul>
-<li><code>TIME_PERIOD</code>: Period (number of candles) by which RSI is calculated</li>
-<li><code>OVERBOUGHT_VALUE</code>: RSI value above which stocks are considered over-bought</li>
-<li><code>OVERSOLD_VALUE</code>:  RSI value below which stocks are considered over-sold</li>
-</ul>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="center">Default Value</th>
+<th align="left">Expected Value</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><strong>TIME_PERIOD</strong></td>
+<td align="center">None</td>
+<td align="left">greater than 0</td>
+<td align="left">Period (number of candles) by which RSI is calculated</td>
+</tr>
+<tr>
+<td align="left"><strong>OVERBOUGHT_VALUE</strong></td>
+<td align="center">None</td>
+<td align="left">greater than 0</td>
+<td align="left">RSI value above which stocks are considered over-bought</td>
+</tr>
+<tr>
+<td align="left"><strong>OVERSOLD_VALUE</strong></td>
+<td align="center">None</td>
+<td align="left">greater than 0</td>
+<td align="left">RSI value below which stocks are considered over-sold</td>
+</tr>
+</tbody>
+</table>
 <h2 id="crossover-calculation">Crossover Calculation<a class="headerlink" href="#crossover-calculation" title="Permanent link">&para;</a></h2>
 <p>The <code>get_crossover_value</code> method calculates the crossover values for the RSI indicator using historical data of the instrument. It compares the RSI values with the overbought and oversold levels to determine the entry and exit actions. The method returns the crossover values for oversold and overbought levels.</p>
               

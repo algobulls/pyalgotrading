@@ -56,7 +56,7 @@
                 <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
                 </li>
               </ul>
-              <p class="caption"><span class="caption-text">PyalgoTrading</span></p>
+              <p class="caption"><span class="caption-text">Pyalgotrading</span></p>
               <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="../">Index</a>
                   </li>
@@ -95,7 +95,7 @@
                   <li class="toctree-l1"><a class="reference internal" href="../codeguide/">Strategy Coding Guidelines</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">PythonBuild</span></p>
+              <p class="caption"><span class="caption-text">Python Build</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../../python_build/">Index</a>
                   </li>
@@ -128,7 +128,9 @@
               </ul>
               <p class="caption"><span class="caption-text">Strategies</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="#">Strategy Guide</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../../strategies/">Index</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">General Strategy Guide</a>
     <ul>
                 <li class="toctree-l2"><a class="reference internal" href="../../strategies/common_regular_strategy/">Regular Strategy</a>
                 </li>
@@ -136,7 +138,7 @@
                 </li>
     </ul>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="#">Regular Strategy Examples</a>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Regular Strategy Guide</a>
     <ul>
                 <li class="toctree-l2"><a class="reference internal" href="../../strategies/aroon_crossover/">Aroon Crossover</a>
                 </li>
@@ -154,7 +156,7 @@
                 </li>
     </ul>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="#">Options Strategy Examples</a>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Options Strategy Guide</a>
     <ul>
                 <li class="toctree-l2"><a class="reference internal" href="../../strategies/options_bear_call_ladder/">Options Bear Call Ladder</a>
                 </li>
@@ -187,7 +189,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
-          <li>PyalgoTrading &raquo;</li>
+          <li>Pyalgotrading &raquo;</li>
           <li>Tutorial &raquo;</li>
           <li>Hands On &raquo;</li>
       <li>Test your Strategy</li>
@@ -283,49 +285,68 @@ The output of the above step is:</p>
 <div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">delete_previous_trades</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="n">strategy</span><span class="p">)</span>
 </code></pre></div></p>
 <p>Set the <strong>parameters</strong> for the strategy
-<div class="highlight"><pre><span></span><code><span class="n">parameters</span><span class="o">=</span><span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">&#39;timeperiod1&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
     <span class="s1">&#39;timeperiod2&#39;</span><span class="p">:</span> <span class="mi">12</span>
 <span class="p">}</span>
 </code></pre></div></p>
+<div class="highlight"><pre><span></span><code><span class="n">vendor_details</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;brokerName&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;VENDOR_NAME&gt;&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;credentialParameters&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;api_key&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;API_KEY&gt;&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;secret_key&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;SECRET_KEY&gt;&#39;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">broking_details</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;brokerName&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;BROKER_NAME&gt;&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;credentialParameters&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;user_id&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;USER_ID&gt;&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;api_key&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;API_KEY&gt;&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;password&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;PASSWORD&gt;&#39;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 <p>Click on each of the tabs to see the relevant code snippet.</p>
 <blockquote>
 <p><strong>Backtesting</strong>
     <div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">backtest</span><span class="p">(</span>
         <span class="n">strategy</span><span class="o">=</span><span class="n">strategy_code</span><span class="p">,</span>         <span class="c1"># strategy code</span>
-        <span class="n">start</span><span class="o">=</span><span class="s1">&#39;2020-7-1 | 09:15&#39;</span><span class="p">,</span>       <span class="c1"># start date-time of strategy (&#39;YYYY-MM-DD | HH:MM&#39;)</span>
-        <span class="n">end</span><span class="o">=</span><span class="s1">&#39;2020-7-7 | 15:30&#39;</span><span class="p">,</span>         <span class="c1"># end date-time of strategy (&#39;YYYY-MM-DD | HH:MM&#39;)</span>
+        <span class="n">start</span><span class="o">=</span><span class="s1">&#39;2020-7-1 09:15 +0530&#39;</span><span class="p">,</span>   <span class="c1"># start date-time of strategy (&#39;YYYY-MM-DD HH:MM z&#39;)</span>
+        <span class="n">end</span><span class="o">=</span><span class="s1">&#39;2020-7-7 15:30 +0530&#39;</span><span class="p">,</span>     <span class="c1"># end date-time of strategy (&#39;YYYY-MM-DD HH:MM z&#39;)</span>
         <span class="n">instruments</span><span class="o">=</span><span class="s1">&#39;NSE:SBIN&#39;</span><span class="p">,</span>         <span class="c1"># name of the instrument</span>
         <span class="n">lots</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>                         <span class="c1"># number of lots per trade</span>
         <span class="n">parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">,</span>          <span class="c1"># parameters required for the strategy</span>
         <span class="n">candle</span><span class="o">=</span><span class="s1">&#39;15 minutes&#39;</span><span class="p">,</span>            <span class="c1"># candle size eg : &#39;1 Day&#39;, &#39;1 hour&#39;, &#39;3 minutes&#39;</span>
         <span class="n">delete_previous_trades</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>    <span class="c1"># delete the previous trades for papertrading (default is true),</span>
-        <span class="n">initial_funds_virtual</span><span class="o">=</span><span class="mi">10000</span>     <span class="c1"># virtual funds allotted before the paper trading starts (default is 1e9)</span>
+        <span class="n">initial_funds_virtual</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span>    <span class="c1"># virtual funds allotted before the paper trading starts (default is 1e9)</span>
+        <span class="n">vendor_details</span><span class="o">=</span><span class="n">vendor_details</span>   <span class="c1"># vendor&#39;s details for authentication and verification </span>
 <span class="p">)</span>
 </code></pre></div></p>
 <p><strong>Paper Trading</strong>
     <div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">papertrade</span><span class="p">(</span>
         <span class="n">strategy</span><span class="o">=</span><span class="n">strategy_code</span><span class="p">,</span>         <span class="c1"># strategy code</span>
-        <span class="n">start</span><span class="o">=</span><span class="s1">&#39;09:15&#39;</span><span class="p">,</span>                  <span class="c1"># start time of strategy (HH:MM)     </span>
-        <span class="n">end</span><span class="o">=</span><span class="s1">&#39;15:30&#39;</span><span class="p">,</span>                    <span class="c1"># end time of strategy (HH:MM)</span>
+        <span class="n">start</span><span class="o">=</span><span class="s1">&#39;09:15 +0530&#39;</span><span class="p">,</span>            <span class="c1"># start time of strategy (HH:MM z)     </span>
+        <span class="n">end</span><span class="o">=</span><span class="s1">&#39;15:30 +0530&#39;</span><span class="p">,</span>              <span class="c1"># end time of strategy (HH:MM z)</span>
         <span class="n">instruments</span><span class="o">=</span><span class="s1">&#39;NSE:SBIN&#39;</span><span class="p">,</span>         <span class="c1"># name of the instrument</span>
         <span class="n">lots</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>                         <span class="c1"># number of lots per trade</span>
         <span class="n">parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">,</span>          <span class="c1"># parameters required for the strategy</span>
         <span class="n">candle</span><span class="o">=</span><span class="s1">&#39;15 minutes&#39;</span><span class="p">,</span>            <span class="c1"># candle size eg : &#39;1 Day&#39;, &#39;1 hour&#39;, &#39;3 minutes&#39;</span>
         <span class="n">delete_previous_trades</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>    <span class="c1"># delete the previous trades for papertrading (default is true)</span>
-        <span class="n">initial_funds_virtual</span><span class="o">=</span><span class="mi">10000</span>     <span class="c1"># virtual funds allotted before the paper trading starts (default is 1e9)</span>
+        <span class="n">initial_funds_virtual</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span>    <span class="c1"># virtual funds allotted before the paper trading starts (default is 1e9)</span>
+        <span class="n">vendor_details</span><span class="o">=</span><span class="n">vendor_details</span>   <span class="c1"># vendor&#39;s details for authentication and verification </span>
 <span class="p">)</span>
 </code></pre></div></p>
 <p><strong>Real Trading</strong>
     <div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">realtrade</span><span class="p">(</span>
-        <span class="n">strategy</span><span class="o">=</span><span class="n">strategy_code</span><span class="p">,</span>         <span class="c1"># strategy code</span>
-        <span class="n">start</span><span class="o">=</span><span class="s1">&#39;09:15&#39;</span><span class="p">,</span>                  <span class="c1"># start time of strategy (HH:MM)     </span>
-        <span class="n">end</span><span class="o">=</span><span class="s1">&#39;15:30&#39;</span><span class="p">,</span>                    <span class="c1"># end time of strategy (HH:MM)</span>
-        <span class="n">instruments</span><span class="o">=</span><span class="s1">&#39;NSE:SBIN&#39;</span><span class="p">,</span>         <span class="c1"># name of the instrument</span>
-        <span class="n">lots</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>                         <span class="c1"># number of lots per trade</span>
-        <span class="n">parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">,</span>          <span class="c1"># parameters required for the strategy</span>
-        <span class="n">candle</span><span class="o">=</span><span class="s1">&#39;15 minutes&#39;</span><span class="p">,</span>            <span class="c1"># candle size eg : &#39;1 Day&#39;, &#39;1 hour&#39;, &#39;3 minutes&#39;</span>
-        <span class="n">brokerId</span><span class="o">=</span><span class="mi">53</span>                     <span class="c1"># ID of the broker for real trade</span>
+        <span class="n">strategy</span><span class="o">=</span><span class="n">strategy_code</span><span class="p">,</span>          <span class="c1"># strategy code</span>
+        <span class="n">start</span><span class="o">=</span><span class="s1">&#39;09:15 +0530&#39;</span><span class="p">,</span>             <span class="c1"># start time of strategy (HH:MM z)     </span>
+        <span class="n">end</span><span class="o">=</span><span class="s1">&#39;15:30 +0530&#39;</span><span class="p">,</span>               <span class="c1"># end time of strategy (HH:MM z)</span>
+        <span class="n">instruments</span><span class="o">=</span><span class="s1">&#39;NSE:SBIN&#39;</span><span class="p">,</span>          <span class="c1"># name of the instrument</span>
+        <span class="n">lots</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>                          <span class="c1"># number of lots per trade</span>
+        <span class="n">parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">,</span>           <span class="c1"># parameters required for the strategy</span>
+        <span class="n">candle</span><span class="o">=</span><span class="s1">&#39;15 minutes&#39;</span><span class="p">,</span>             <span class="c1"># candle size eg : &#39;1 Day&#39;, &#39;1 hour&#39;, &#39;3 minutes&#39;</span>
+        <span class="n">broking_details</span><span class="o">=</span><span class="n">broking_details</span>  <span class="c1"># broker&#39;s details for authentication and verification </span>
 <span class="p">)</span>
 </code></pre></div></p>
 </blockquote>

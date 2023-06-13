@@ -56,7 +56,7 @@
                 <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
                 </li>
               </ul>
-              <p class="caption"><span class="caption-text">PyalgoTrading</span></p>
+              <p class="caption"><span class="caption-text">Pyalgotrading</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../../pyalgotrad/">Index</a>
                   </li>
@@ -83,7 +83,7 @@
                   <li class="toctree-l1"><a class="reference internal" href="../../pyalgotrad/codeguide/">Strategy Coding Guidelines</a>
                   </li>
               </ul>
-              <p class="caption"><span class="caption-text">PythonBuild</span></p>
+              <p class="caption"><span class="caption-text">Python Build</span></p>
               <ul>
                   <li class="toctree-l1"><a class="reference internal" href="../../python_build/">Index</a>
                   </li>
@@ -116,7 +116,9 @@
               </ul>
               <p class="caption"><span class="caption-text">Strategies</span></p>
               <ul class="current">
-                  <li class="toctree-l1"><a class="reference internal" href="#">Strategy Guide</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../">Index</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="#">General Strategy Guide</a>
     <ul>
                 <li class="toctree-l2"><a class="reference internal" href="../common_regular_strategy/">Regular Strategy</a>
                 </li>
@@ -124,7 +126,7 @@
                 </li>
     </ul>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Regular Strategy Examples</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Regular Strategy Guide</a>
     <ul class="current">
                 <li class="toctree-l2"><a class="reference internal" href="../aroon_crossover/">Aroon Crossover</a>
                 </li>
@@ -152,7 +154,7 @@
                 </li>
     </ul>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="#">Options Strategy Examples</a>
+                  <li class="toctree-l1"><a class="reference internal" href="#">Options Strategy Guide</a>
     <ul>
                 <li class="toctree-l2"><a class="reference internal" href="../options_bear_call_ladder/">Options Bear Call Ladder</a>
                 </li>
@@ -186,7 +188,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
           <li>Strategies &raquo;</li>
-          <li>Regular Strategy Examples &raquo;</li>
+          <li>Regular Strategy Guide &raquo;</li>
       <li>EMA Crossover</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/algobulls/pyalgotrading/edit/master/docs/strategies/ema_crossover.md" class="icon icon-github"> Edit on GitHub</a>
@@ -197,11 +199,19 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="ema-regular-order-strategy">EMA Regular Order Strategy<a class="headerlink" href="#ema-regular-order-strategy" title="Permanent link">&para;</a></h1>
-<p>This is a trading strategy called "EMA Regular Order Strategy v2" implemented in Python using the PyAlgoTrading library. The strategy is based on the exponential moving average crossover.</p>
+                <h1 id="ema-crossover">EMA Crossover<a class="headerlink" href="#ema-crossover" title="Permanent link">&para;</a></h1>
+<p>This is a trading strategy called "EMA Regular Order Strategy" implemented in Python using the PyAlgoTrading library. The strategy is based on the exponential moving average crossover.</p>
+<div class="admonition links">
+<p class="admonition-title">Links</p>
+<ul>
+<li><strong><a href="https://github.com/algobulls/pyalgostrategypool/blob/master/pyalgostrategypool/ema_crossover.py" target="_blank">Strategy Code (.py)</a></strong></li>
+<li><strong><a href="../common_regular_strategy/" target="_blank">Strategy Structure (common methods used in a regular strategy)</a></strong></li>
+<li><strong><a href="../../pyalgotrad/structure/" target="_blank">Strategy Design (workflow of a strategy)</a></strong></li>
+</ul>
+</div>
 <h2 id="ema-indicator">EMA indicator<a class="headerlink" href="#ema-indicator" title="Permanent link">&para;</a></h2>
 <p>Exponential Moving Averages (EMAs) are a popular technical analysis tool used in the stock market. They are similar to Simple Moving Averages (SMAs), but they place greater emphasis on recent price data.</p>
-<p>Here's a summary of Exponential Moving Averages:</p>
+<p>Here is a summary of Exponential Moving Averages:</p>
 <ul>
 <li>An Exponential Moving Average is a type of moving average that assigns more weight to recent prices, making it more responsive to current market conditions.</li>
 <li>Unlike the SMA, which gives equal weight to all data points, the EMA assigns exponentially decreasing weights to older data points.</li>
@@ -213,15 +223,46 @@
 <li>EMAs are often used in conjunction with other technical indicators, such as the Moving Average Convergence Divergence (MACD), to generate trading signals.</li>
 <li>Traders and investors use Exponential Moving Averages to smooth out price fluctuations, identify trend reversals, and determine potential support and resistance levels. They provide a visual representation of the average price over a specific period, with greater weight given to recent prices.</li>
 </ul>
-<p><a href="../images/ema.png"><img alt="ema" src="../images/ema.png" title="Click to Enlarge or Ctrl+Click to open in a new Tab" /></a></p>
+<table>
+<thead>
+<tr>
+<th align="center"><a href="../images/ema.png"><img alt="ema" src="../images/ema.png" title="Click to Enlarge or Ctrl+Click to open in a new Tab" /></a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><b>Fig.1 - IBM candle chart (top) with EMA (green) and SMA (red) lines </b></td>
+</tr>
+</tbody>
+</table>
 <h2 id="strategy-overview">Strategy Overview<a class="headerlink" href="#strategy-overview" title="Permanent link">&para;</a></h2>
-<p>This strategy, called EMA Regular Order Strategy v2, implements a crossover strategy using Exponential Moving Averages (EMA). It generates entry and exit signals based on the crossover of two EMAs.</p>
+<p>This strategy, called EMA Regular Order Strategy, implements a crossover strategy using Exponential Moving Averages (EMA). It generates entry and exit signals based on the crossover of two EMAs.</p>
 <h2 id="strategy-parameters">Strategy Parameters<a class="headerlink" href="#strategy-parameters" title="Permanent link">&para;</a></h2>
 <p>The following parameters can be configured for the strategy:</p>
-<ul>
-<li><code>TIMEPERIOD1</code>: Period (number of candles) by which EMA-1 is calculated</li>
-<li><code>TIMEPERIOD2</code>:  Period (number of candles) by which EMA-2 is calculated</li>
-</ul>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="center">Default Value</th>
+<th align="left">Expected Value</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><strong>TIME_PERIOD1</strong></td>
+<td align="center">None</td>
+<td align="left">greater than 0</td>
+<td align="left">Period (number of candles) by which EMA-1 is calculated</td>
+</tr>
+<tr>
+<td align="left"><strong>TIME_PERIOD2</strong></td>
+<td align="center">None</td>
+<td align="left">greater than 0</td>
+<td align="left">Period (number of candles) by which EMA-2 is calculated</td>
+</tr>
+</tbody>
+</table>
 <h2 id="crossover-calculation">Crossover Calculation<a class="headerlink" href="#crossover-calculation" title="Permanent link">&para;</a></h2>
 <p>The <code>get_crossover_value</code> method calculates the crossover value based on the two EMAs of the closing prices. It uses the <code>talib.EMA</code> function from the Talib library to calculate the EMAs. The method then determines the crossover between the two EMAs and returns the corresponding value (-1, 0, or 1).</p>
               
