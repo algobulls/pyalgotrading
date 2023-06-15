@@ -180,6 +180,7 @@ class AlgoBullsConnection:
         Returns:
             A list of matching instruments
         """
+
         assert isinstance(instrument, str), f'Argument "instrument" should be a string'
         response = self.api.search_instrument(instrument, exchange=exchange).get('data')
 
@@ -290,9 +291,9 @@ class AlgoBullsConnection:
             return _response
         else:
             print('Report not available yet. Please retry in sometime')
+            return None
 
     def get_pnl_report_table(self, strategy_code, trading_type, location):
-
         """
             Fetch BT/PT/RT Profit & Loss details
 
@@ -329,7 +330,7 @@ class AlgoBullsConnection:
         if data:
             # Generate df from json data & perform cleanups
             _df = pd.json_normalize(data[::-1])[list(column_rename_map.keys())].rename(columns=column_rename_map)
-            _df[['entry_timestamp', 'exit_timestamp']] = _df[['entry_timestamp', 'exit_timestamp']].apply(pd.to_datetime, format="%Y-%m-%d | %H:%M", errors="coerce")
+            _df[['entry_timestamp', 'exit_timestamp']] = _df[['entry_timestamp', 'exit_timestamp']].apply(pd.to_datetime, format="%Y-%m-%d | %H:%M %z", errors="coerce")
             _df['entry_transaction_type'] = _df['entry_transaction_type'].apply(lambda _: 'BUY' if _ else 'SELL')
             _df['exit_transaction_type'] = _df['exit_transaction_type'].apply(lambda _: 'BUY' if _ else 'SELL')
             _df["pnl_cumulative_absolute"] = _df["pnl_absolute"].cumsum(axis=0, skipna=True)
@@ -609,7 +610,7 @@ class AlgoBullsConnection:
 
         return self.get_logs(strategy_code, trading_type=TradingType.BACKTESTING)
 
-    def get_backtesting_report_pnl_table(self, strategy_code, location=None, show_all_rows=False):
+    def get_backtesting_report_pnl_table(self, strategy_code, location=None, show_all_rows=False, force_fetch=False):
         """
         Fetch Back Testing Profit & Loss details
 
@@ -617,13 +618,13 @@ class AlgoBullsConnection:
             strategy_code: strategy code
             location: Location of Exchange
             show_all_rows: True or False
-
+            force_fetch: Forcefully fetch PnL data
 
         Returns:
             Report details
         """
 
-        if self.backtesting_pnl_data is None or location is not None:
+        if self.backtesting_pnl_data is None or location is not None or force_fetch:
             if location is not None or self.backtest_exchange_map.get(strategy_code) is not None:
                 location = self.backtest_exchange_map[strategy_code] if location is None else location
             else:
@@ -758,21 +759,21 @@ class AlgoBullsConnection:
 
         return self.get_logs(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING)
 
-    def get_papertrading_report_pnl_table(self, strategy_code, location=None, show_all_rows=False):
+    def get_papertrading_report_pnl_table(self, strategy_code, location=None, show_all_rows=False, force_fetch=False):
         """
         Fetch Paper Trading Profit & Loss details
 
         Args:
             strategy_code: strategy code
             location: Location of the exchange
-
             show_all_rows: True or False
+            force_fetch: Forcefully fetch PnL data
 
         Returns:
             Report details
         """
 
-        if self.papertrade_pnl_data is None or location is not None:
+        if self.papertrade_pnl_data is None or location is not None or force_fetch:
             if location is not None or self.papertrade_exchange_map.get(strategy_code) is not None:
                 location = self.papertrade_exchange_map[strategy_code] if location is None else location
             else:
@@ -908,7 +909,7 @@ class AlgoBullsConnection:
 
         return self.get_logs(strategy_code=strategy_code, trading_type=TradingType.REALTRADING)
 
-    def get_realtrading_report_pnl_table(self, strategy_code, location=None, show_all_rows=False):
+    def get_realtrading_report_pnl_table(self, strategy_code, location=None, show_all_rows=False, force_fetch=False):
         """
         Fetch Real Trading Profit & Loss details
 
@@ -916,19 +917,20 @@ class AlgoBullsConnection:
             strategy_code: strategy code
             location: Location of the Exchange
             show_all_rows: True or False
+            force_fetch: Forcefully fetch PnL data
 
         Returns:
             Report details
         """
 
-        if self.realtrade_pnl_data is None or location is not None:
+        if self.realtrade_pnl_data is None or location is not None or force_fetch:
             if location is not None or self.realtrade_exchange_map.get(strategy_code) is not None:
                 location = self.realtrade_exchange_map[strategy_code] if location is None else location
             else:
                 location = 'en-IN'
             self.realtrade_pnl_data = self.get_pnl_report_table(strategy_code, TradingType.REALTRADING, location)
 
-        return self.papertrade_pnl_data
+        return self.realtrade_pnl_data
 
     def get_realtrading_report_statistics(self, strategy_code, initial_funds=1e9, mode='quantstats', report='metrics', html_dump=False):
         """

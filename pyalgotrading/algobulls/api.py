@@ -1,6 +1,7 @@
 """
 Module for handling API calls to the [AlgoBulls](https://www.algobulls.com) backend.
 """
+import json
 import re
 from datetime import datetime as dt, timezone
 from json import JSONDecodeError
@@ -451,9 +452,9 @@ class AlgoBullsAPI:
 
         key = self.__get_key(strategy_code=strategy_code, trading_type=trading_type)
         if report_type is TradingReportType.PNL_TABLE:
-            endpoint = 'v3/book/pl/data'
-            _filter = {"tradingType": trading_type.value}
-            params = {'pageSize': 0, 'isPythonBuild': "true", 'strategyId': strategy_code, "location": location, "filters": _filter}
+            _filter = json.dumps({"tradingType": trading_type.value})
+            endpoint = f'v3/book/pl/data?location={location}&filters={_filter}'
+            params = {'pageSize': 0, 'isPythonBuild': "true", 'strategyId': strategy_code}
 
         elif report_type is TradingReportType.ORDER_HISTORY:
             endpoint = 'v2/user/strategy/orderhistory'
