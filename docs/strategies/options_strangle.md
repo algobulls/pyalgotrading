@@ -18,6 +18,7 @@ The `StrategyOptionsStrangle` class is a strategy template for trading options s
 
 - Traders employing options strangles should carefully consider factors such as the expected price volatility, the expiration date, and the costs associated with purchasing the options. Implementing risk management techniques and monitoring market conditions are essential when utilizing an options strangle strategy.
 
+
 ### Parameters
 
 The following parameters can be set in the Parameters Configuration Pane:
@@ -32,5 +33,6 @@ The following parameters can be set in the Parameters Configuration Pane:
 | **_leg_two_tradingsymbol_suffix**   |       2       | 1 or 2             | Trading symbol suffix for leg one. [CE: 1,  PE: 2]                 |
 | **_leg_two_strike_direction**       |       2       | 0, 1 or 2          | Strike direction for leg one. [ITM: 0, ATM: 1,  OTM: 2]            |
 | **_leg_two_number_of_strikes**      |       2       | greater than 0     | Number of strikes for leg one.                                     |
+
 
 

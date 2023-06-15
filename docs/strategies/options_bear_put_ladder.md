@@ -43,6 +43,3 @@ This is a template for the Options Bear Put Ladder strategy. The strategy involv
 | **LEG_THREE_STRIKE_DIRECTION**      |       0       | 0, 1 or 2          | Strike direction for leg one. [ITM: 0, ATM: 1,  OTM: 2]            |
 | **LEG_THREE_NUMBER_OF_STRIKES**     |       2       | greater than 0     | Number of strikes for leg one.                                     |
 
-
-
-

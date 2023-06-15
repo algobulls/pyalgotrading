@@ -29,6 +29,7 @@ Here is a summary of Exponential Moving Averages:
 ## Strategy Overview
 This strategy, called EMA Regular Order Strategy, implements a crossover strategy using Exponential Moving Averages (EMA). It generates entry and exit signals based on the crossover of two EMAs.
 
+
 ## Strategy Parameters
 The following parameters can be configured for the strategy:
 

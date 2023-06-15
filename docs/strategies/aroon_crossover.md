@@ -24,12 +24,14 @@ This is a trading strategy called "Aroon Crossover" implemented in Python using 
 ## Strategy Overview
 This strategy, called Aroon Crossover, implements a crossover strategy using the Aroon indicator. It generates entry and exit signals based on the crossover of Aroon Up and Aroon Down values.
 
+
 ## Strategy Parameters
 The following parameters can be configured for the strategy:
 
 | Name            |  Default Value  | Expected Value                                                    | Description                                       |
 |:----------------|:---------------:|:------------------------------------------------------------------|:--------------------------------------------------|
 | **TIME_PERIOD** |      None       | greater than 0                                                    | The period for which we calculate the Aroon Value |
+
 
 
 ## Crossover Calculation

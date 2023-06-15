@@ -26,6 +26,7 @@ This class implements the Options Bear Call Ladder strategy.
 - Please be aware that options trading can be complex and involves significant risks. It is always recommended to consult with a qualified financial advisor or broker before engaging in options trading activities.
 
 
+
 ### Parameters
 
 | Name                                | Default Value  | Expected Value     | Description                                                        |
@@ -42,5 +43,6 @@ This class implements the Options Bear Call Ladder strategy.
 | **LEG_THREE_TRADING_SYMBOL_SUFFIX** |       1        | 1 or 2             | Trading symbol suffix for leg one. [CE: 1,  PE: 2]                 |
 | **LEG_THREE_STRIKE_DIRECTION**      |       0        | 0, 1 or 2          | Strike direction for leg one. [ITM: 0, ATM: 1,  OTM: 2]            |
 | **LEG_THREE_NUMBER_OF_STRIKES**     |       2        | greater than 0     | Number of strikes for leg one.                                     |
+
 
 

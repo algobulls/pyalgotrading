@@ -12,6 +12,7 @@ RSI stands for Relative Strength Index, and it is a popular technical indicator 
 
 Here is a summary of RSI in the stock market:
 
+
 - The Relative Strength Index (RSI) is a momentum oscillator that measures the speed and change of price movements.
 - It compares the magnitude of recent gains to recent losses over a specified period, typically 14 days, and generates a value between 0 and 100.
 - The RSI is calculated using a formula that involves averaging the upward price movements (gains) and the downward price movements (losses) over the chosen period.
@@ -30,6 +31,7 @@ Overall, the Relative Strength Index (RSI) is a widely used indicator in the sto
 ## Strategy Overview
 The Reverse RSI strategy is a trading strategy based on the Relative Strength Index (RSI) indicator. It generates entry and exit signals based on the reverse crossover of the RSI values from specified overbought and oversold levels.
 
+
 ## Strategy Parameters
 The following parameters can be configured for the strategy:
 
@@ -38,6 +40,7 @@ The following parameters can be configured for the strategy:
 | **TIME_PERIOD**      |      None       | greater than 0                                                    | Period (number of candles) by which RSI is calculated    |
 | **OVERBOUGHT_VALUE** |      None       | greater than 0                                                    | RSI value above which stocks are considered over-bought  |
 | **OVERSOLD_VALUE**   |      None       | greater than 0                                                    | RSI value below which stocks are considered over-sold    |
+
 
 
 ## Crossover Calculation

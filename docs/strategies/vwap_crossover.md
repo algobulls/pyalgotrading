@@ -7,6 +7,7 @@ This is a trading strategy called "VWAP Crossover" implemented in Python using t
     - **[Strategy Structure (common methods used in a regular strategy)](common_regular_strategy.md){target=_blank}**
     - **[Strategy Design (workflow of a strategy)](../pyalgotrad/structure.md){target=_blank}**
 
+
 ## VWAP indicator
 In the stock market, VWAP stands for Volume-Weighted Average Price. VWAP is a trading indicator that calculates the average price at which a particular stock or security has traded throughout the day, taking into account both the price and the volume of each trade.
 
@@ -25,6 +26,7 @@ Here is a summary of VWAP in the stock market:
 | [![rsi](images/vwap.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](images/vwap.png) |
 |: -- :|
 | <b>Fig.1 - IBM candle chart (top) with VWAP line  (Blue), Volume chart with SMA line</b>|
+
 
 ## Strategy Overview
 

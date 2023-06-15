@@ -30,3 +30,4 @@ This class represents the implementation of an options straddle trading strategy
 | **_leg_two_strike_direction**       |       1       | 0, 1 or 2          | Strike direction for leg one. [ITM: 0, ATM: 1,  OTM: 2]            |
 | **_leg_two_number_of_strikes**      |       0       | greater than 0     | Number of strikes for leg one.                                     |
 
+

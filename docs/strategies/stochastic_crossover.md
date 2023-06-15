@@ -7,10 +7,12 @@ This is a trading strategy called "Stochastic Crossover" implemented in Python u
     - **[Strategy Structure (common methods used in a regular strategy)](common_regular_strategy.md){target=_blank}**
     - **[Strategy Design (workflow of a strategy)](../pyalgotrad/structure.md){target=_blank}**
 
+
 # Stochastic Oscillator Indicator
 In the stock market, Stochastic refers to the Stochastic Oscillator, which is a popular technical indicator used to analyze price momentum and identify potential trend reversals. The Stochastic Oscillator compares the closing price of a security to its price range over a specific period of time. It consists of two lines, %K and %D, and generates values between 0 and 100.
 
 Here is a summary of the Stochastic Oscillator in the stock market:
+
 
 - The Stochastic Oscillator measures the relationship between a security's closing price and its price range over a chosen period.
 - The indicator consists of two lines: %K and %D. %K represents the current closing price relative to the price range, while %D is a smoothed average of %K.
@@ -31,6 +33,7 @@ Here is a summary of the Stochastic Oscillator in the stock market:
 | <b>Fig.2 - QQQQ candle chart (top) with Stochastic Fast (bottom 1), Stochastic Slow (bottom 2) and Full Stochastic (bottom 3)</b>|
 
 
+
 ## Strategy Overview
 
 The strategy follows a simple rule based on the Stochastic indicator crossover. When the Stochastic indicator's %K line crosses above the %D line, a buy signal is generated. Conversely, when the %K line crosses below the %D line, a sell signal is generated. The strategy aims to capture potential trend reversals.
@@ -44,6 +47,7 @@ The following parameters can be configured for the strategy:
 | **FASTK_PERIOD** or **PERIOD**          |      None       | greater than 0                                                    | The period for the fast %K line of the Stochastic indicator.  |
 | **SLOWK_PERIOD** or **SMOOTH_K_PERIOD** |      None       | greater than 0                                                    | The period for the slow %K line of the Stochastic indicator.  |
 | **SLOWD_PERIOD** or **SMOOTH_D_PERIOD** |      None       | greater than 0                                                    | The period for the slow %D line of the Stochastic indicator.  |
+
 
 ## Crossover Calculation
 

@@ -7,6 +7,7 @@ This is a trading strategy called "Bollinger Bands" implemented in Python using 
     - **[Strategy Structure (common methods used in a regular strategy)](common_regular_strategy.md){target=_blank}**
     - **[Strategy Design (workflow of a strategy)](../pyalgotrad/structure.md){target=_blank}**
 
+
 ## Bollinger Bands Indicator
 Bollinger Bands consists of a middle band (typically a 20-day Simple Moving Average) and two bands that represent the upper and lower price boundaries based on standard deviations. The bands adjust dynamically with market volatility.
 
@@ -26,6 +27,7 @@ Key points about Bollinger Bands:
 ## Strategy Overview
 This strategy, called Bollinger Bands, is an implementation of the Bollinger Bands indicator. It uses the Bollinger Bands values to compare with previous candle's OPEN, HIGH, LOW and CLOSE values and generate entry and exit signals for trading instruments.
 
+
 ## Strategy Parameters
 The following parameters can be configured for the strategy:
 
@@ -33,6 +35,7 @@ The following parameters can be configured for the strategy:
 |:-----------------------|:---------------:|:-----------------|:-------------------------------------------------------------------------------|
 | **TIME_PERIOD**        |      None       | greater than 0   | Period (number of candles) by which Bollinger Bands are calculated             |
 | **STANDARD_DEVIATION** |      None       | between 0 to 10  | Standard deviation (in percent) for upper and lower band from the signal bands |
+
 
 ## Decision Calculation
 

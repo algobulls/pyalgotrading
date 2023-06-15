@@ -123,7 +123,8 @@ algobulls_connection.delete_previous_trades(strategy=strategy)
 
 Set the **parameters** for the strategy
 ```python
-parameters = {
+
+parameters={
     'timeperiod1': 5,
     'timeperiod2': 12
 }

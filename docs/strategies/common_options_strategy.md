@@ -4,6 +4,7 @@
     - **[List of Strategies](index.md)**
     - **[Strategy Design (workflow of a strategy)](../pyalgotrad/structure.md)**
 
+
 ## 1. Initial steps
 
 i. Create a new strategy file with a unique file name.
@@ -253,6 +254,7 @@ The order object will be removed from all the tags ta
 
 * Returns the values i.e. both the entry and exit orders stored inside the tags list.
 
+
 ---
 
 ## 5. Child instruments calculation
@@ -308,6 +310,7 @@ This method is called in the ```strategy_select_instruments_for_exit``` when our
 **ii. set_all_none:**
 
 This method is called in the ```strategy_exit_position``` when our entry order has exited, and we want to remove the order object from the ```self.main_order``` variable.
+
 
 **iii. options_instruments_set_up_local**
 

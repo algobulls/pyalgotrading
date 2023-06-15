@@ -52,24 +52,4 @@ The strategy accepts the following parameters:
 | **LEG_FOUR_STRIKE_DIRECTION**       |       2       | 0, 1 or 2          | Strike direction for leg one. [ITM: 0, ATM: 1,  OTM: 2]            |
 | **LEG_FOUR_NUMBER_OF_STRIKES**      |       2       | greater than 0     | Number of strikes for leg one.                                     |
 
-- `LEG_ONE_TRANSACTION_TYPE`: Transaction type for leg one (BUY: 1 | SELL: 2)
-- `LEG_ONE_TRADING_SYMBOL_SUFFIX`: Trading symbol suffix for leg one (CE: 1 | PE: 2)
-- `LEG_ONE_STRIKE_DIRECTION`: Strike direction for leg one (ITM: 0 | ATM: 1 | OTM: 2)
-- `LEG_ONE_NUMBER_OF_STRIKES`: Number of strikes for leg one
-
-- `LEG_TWO_TRANSACTION_TYPE`: Transaction type for leg two (BUY: 1 | SELL: 2)
-- `LEG_TWO_TRADING_SYMBOL_SUFFIX`: Trading symbol suffix for leg two (CE: 1 | PE: 2)
-- `LEG_TWO_STRIKE_DIRECTION`: Strike direction for leg two (ITM: 0 | ATM: 1 | OTM: 2)
-- `LEG_TWO_NUMBER_OF_STRIKES`: Number of strikes for leg two
-
-- `LEG_THREE_TRANSACTION_TYPE`: Transaction type for leg three (BUY: 1 | SELL: 2)
-- `LEG_THREE_TRADING_SYMBOL_SUFFIX`: Trading symbol suffix for leg three (CE: 1 | PE: 2)
-- `LEG_THREE_STRIKE_DIRECTION`: Strike direction for leg three (ITM: 0 | ATM: 1 | OTM: 2)
-- `LEG_THREE_NUMBER_OF_STRIKES`: Number of strikes for leg three
-
-- `LEG_FOUR_TRANSACTION_TYPE`: Transaction type for leg four (BUY: 1 | SELL: 2)
-- `LEG_FOUR_TRADING_SYMBOL_SUFFIX`: Trading symbol suffix for leg four (CE: 1 | PE: 2)
-- `LEG_FOUR_STRIKE_DIRECTION`: Strike direction for leg four (ITM: 0 | ATM: 1 | OTM: 2)
-- `LEG_FOUR_NUMBER_OF_STRIKES`: Number of strikes for leg four
-
 
