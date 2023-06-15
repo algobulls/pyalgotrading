@@ -311,7 +311,6 @@ class AlgoBullsAPI:
         return key, response
 
     def start_strategy_algotrading(self, strategy_code: str, start_timestamp: dt, end_timestamp: dt, trading_type: TradingType, lots: int, initial_funds_virtual=1e9, broker_details: dict = None, location: str = 'en-IN') -> dict:
-
         """
         Submit Backtesting / Paper Trading / Real Trading job for strategy with code strategy_code & return the job ID.
         
@@ -453,7 +452,7 @@ class AlgoBullsAPI:
         key = self.__get_key(strategy_code=strategy_code, trading_type=trading_type)
         if report_type is TradingReportType.PNL_TABLE:
             endpoint = 'v3/book/pl/data'
-            _filter = {"tradingType": trading_type}
+            _filter = {"tradingType": trading_type.value}
             params = {'pageSize': 0, 'isPythonBuild': "true", 'strategyId': strategy_code, "location": location, "filters": _filter}
 
         elif report_type is TradingReportType.ORDER_HISTORY:
