@@ -34,7 +34,6 @@ class AlgoBullsConnection:
         self.papertrade_exchange_map = {}
         self.realtrade_exchange_map = {}
 
-
     @staticmethod
     def get_authorization_url():
         """
