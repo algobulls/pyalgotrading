@@ -303,6 +303,7 @@ class AlgoBullsAPI:
         return key, response
 
     def start_strategy_algotrading(self, strategy_code: str, start_timestamp: dt, end_timestamp: dt, trading_type: TradingType, lots: int, initial_funds_virtual=1e9, broker_details: dict = None, location: str = 'en-IN') -> dict:
+
         """
         Submit Backtesting / Paper Trading / Real Trading job for strategy with code strategy_code & return the job ID.
         
@@ -315,6 +316,7 @@ class AlgoBullsAPI:
             initial_funds_virtual: Virtual funds before starting the strategy
             broker_details: Client's broking details
             location: Location of the exchange
+
         Info: ENDPOINT
             `PATCH` v4/portfolio/strategies?isPythonBuild=true
         """

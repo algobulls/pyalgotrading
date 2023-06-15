@@ -12,6 +12,7 @@ import quantstats as qs
 from .api import AlgoBullsAPI
 from .exceptions import AlgoBullsAPIBadRequestException, AlgoBullsAPIGatewayTimeoutErrorException
 from ..constants import StrategyMode, TradingType, TradingReportType, CandleInterval, AlgoBullsEngineVersion, SEGMENT_COUNTRY_MAP
+
 from ..strategy.strategy_base import StrategyBase
 from ..utils.func import get_valid_enum_names, get_datetime_with_tz
 
@@ -33,6 +34,7 @@ class AlgoBullsConnection:
         self.backtest_exchange_map = {}
         self.papertrade_exchange_map = {}
         self.realtrade_exchange_map = {}
+
 
     @staticmethod
     def get_authorization_url():
@@ -286,6 +288,7 @@ class AlgoBullsConnection:
             print('Report not available yet. Please retry in sometime')
 
     def get_pnl_report_table(self, strategy_code, trading_type, location):
+
         """
             Fetch BT/PT/RT Profit & Loss details
 
@@ -293,6 +296,7 @@ class AlgoBullsConnection:
                 strategy_code: strategy code
                 trading_type: type of trades : Backtesting, Papertrading, Realtrading
                 location: Location of the exchange
+
             Returns:
                 Report details
         """
@@ -406,6 +410,7 @@ class AlgoBullsConnection:
             job submission status
             location of the instruments
         """
+        
         # check if values received by new parameter names, else extract from old parameter names
         strategy = strategy if strategy is not None else kwargs.get('strategy_code')
         start = start if start is not None else kwargs.get('start_timestamp')
@@ -545,6 +550,7 @@ class AlgoBullsConnection:
 
         # start backtesting job
         response, location = self.start_job(
+
             strategy=strategy, start=start, end=end, instruments=instruments, lots=lots, parameters=parameters, candle=candle, mode=mode,
             initial_funds_virtual=initial_funds_virtual, delete_previous_trades=delete_previous_trades, trading_type=TradingType.BACKTESTING, broking_details=vendor_details, **kwargs
         )
@@ -552,6 +558,7 @@ class AlgoBullsConnection:
         # Clear previously saved pnl data, if any
         self.backtesting_pnl_data = None
         self.backtest_exchange_map[strategy] = location
+
 
     def get_backtesting_job_status(self, strategy_code):
         """
@@ -743,11 +750,13 @@ class AlgoBullsConnection:
         Args:
             strategy_code: strategy code
             location: Location of the exchange
+
             show_all_rows: True or False
 
         Returns:
             Report details
         """
+
         if self.papertrade_pnl_data is None or location is not None:
             if location is not None or self.papertrade_exchange_map.get(strategy_code) is not None:
                 location = self.papertrade_exchange_map[strategy_code] if location is None else location
@@ -892,6 +901,7 @@ class AlgoBullsConnection:
         Returns:
             Report details
         """
+
         if self.realtrade_pnl_data is None or location is not None:
             if location is not None or self.realtrade_exchange_map.get(strategy_code) is not None:
                 location = self.realtrade_exchange_map[strategy_code] if location is None else location

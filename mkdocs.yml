@@ -12,43 +12,67 @@ site_url: https://algobulls.github.io/pyalgotrading/
 repo_url: https://github.com/algobulls/pyalgotrading
 
 theme:
-  name: material
+  name: readthedocs
   # favicon: 'imgs/favicon.svg'
   # logo: 'imgs/site_logo_white.svg'
   palette:
     primary: blue
     accent: blue
-    #    scheme: slate       # dark mode
+#    scheme: slate       # dark mode
     scheme: default     # light mode
   language: en
-
 
 copyright: Copyright © 2020 | All Rights Reserved | AlgoBulls Technologies Private Limited
 
 # Navigation
 nav:
   - Home: 'index.md'
-  - Tutorial:
-      - 'Introduction': 'introduction.md'
-      - 'Prerequisites': 'prerequisites.md'
-      - 'Code Structure of a Strategy': 'structure.md'
-      - 'Hands On':
-          - 'Create your Strategy': 'programexample.md'
-          - 'Upload your Strategy': 'upload.md'
-          - 'Test your Strategy': 'testing.md'
-  - API:
-      - 'algobulls': 'package_algobulls.md'
-      - 'broker': 'package_broker.md'
-      - 'instrument': 'package_instrument.md'
-      - 'order': 'package_order.md'
-      - 'strategy': 'package_strategy.md'
-      - 'utils': 'package_utils.md'
-      - 'constants': 'module_constants.md'
-  - Strategy Coding Guidelines: 'codeguide.md'
-
+  - PyalgoTrading:
+    - Index: 'pyalgotrad/index.md'
+    - Tutorial:
+        - 'Introduction': 'pyalgotrad/introduction.md'
+        - 'Prerequisites': 'pyalgotrad/prerequisites.md'
+        - 'Code Structure of a Strategy': 'pyalgotrad/structure.md'
+        - 'Hands On':
+          - 'Create your Strategy': 'pyalgotrad/programexample.md'
+          - 'Upload your Strategy': 'pyalgotrad/upload.md'
+          - 'Test your Strategy': 'pyalgotrad/testing.md'
+    - Strategy Coding Guidelines: 'pyalgotrad/codeguide.md'
+  - PythonBuild:
+      - Index: 'python_build/index.md'
+      - Introduction:
+        - Introduction: 'python_build/python-build-introduction'
+        - Overview: 'python_build/python-build-overview.md'
+        - Get Started: 'python_build/python-build-getstarted'
+      - Code:
+          - Code Ready Templates: 'python_build/python-build-code-ready-templates.md'
+          - Code New Strategy: 'python_build/python-build-code-new.md'
+          - Configure Parameters: 'python_build/python-build-config-parameters.md'
+      - Features:
+          - View Results: 'python_build/python-build-view-results.md'
+  - Strategies:
+      - Strategy Guide:
+          - Regular Strategy: 'strategies/common_regular_strategy.md'
+          - Options Strategy: 'strategies/common_options_strategy.md'
+      - Regular Strategy Examples:
+          - Aroon Crossover: 'strategies/aroon_crossover.md'
+          - Bollinger Bands: 'strategies/bollinger_bands.md'
+          - EMA Crossover: 'strategies/ema_crossover.md'
+          - Inverse EMA Scalping: 'strategies/inverse_ema_scalping.md'
+          - Reverse RSI: 'strategies/reverse_rsi.md'
+          - Stochastic Crossover: 'strategies/stochastic_crossover.md'
+          - VWAP Crossover: 'strategies/vwap_crossover.md'
+      - Options Strategy Examples:
+          - Options Bear Call Ladder: 'strategies/options_bear_call_ladder.md'
+          - Options Bear Put Ladder: 'strategies/options_bear_put_ladder.md'
+          - Options Bull Call Ladder: 'strategies/options_bull_call_ladder.md'
+          - Options Bull Put Ladder: 'strategies/options_bull_put_ladder.md'
+          - Options Long Iron Butterfly: 'strategies/options_long_iron_butterfly.md'
+          - Options Straddle: 'strategies/options_straddle.md'
+          - Options Strangle: 'strategies/options_strangle.md'
 plugins:
   - search                                  # necessary for search to work
-  - git-revision-date-localized: # When enabled, the respective 'Last Updated' date is automatically added at the bottom of each page. Docs: https://squidfunk.github.io/mkdocs-material/plugins/revision-date/
+  - git-revision-date-localized:            # When enabled, the respective 'Last Updated' date is automatically added at the bottom of each page. Docs: https://squidfunk.github.io/mkdocs-material/plugins/revision-date/
       type: timeago
   - mkdocstrings:
       default_handler: python
@@ -77,7 +101,7 @@ extra:
 markdown_extensions:
   - admonition              # Add note, tip, question, warning, error, etc. Docs: https://squidfunk.github.io/mkdocs-material/extensions/admonition/
   - codehilite
-  - toc: # Docs: https://squidfunk.github.io/mkdocs-material/extensions/permalinks/
+  - toc:                    # Docs: https://squidfunk.github.io/mkdocs-material/extensions/permalinks/
       permalink: true
   - pymdownx.tabbed
   - pymdownx.superfences
