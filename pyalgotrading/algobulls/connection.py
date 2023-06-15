@@ -193,6 +193,7 @@ class AlgoBullsConnection:
         Args:
             strategy: Strategy code
         """
+        
         response = {}
         for _ in range(30):
             try:
@@ -216,6 +217,7 @@ class AlgoBullsConnection:
         Returns:
             Job status
         """
+        
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
         assert isinstance(trading_type, TradingType), f'Argument "trading_type" should be an enum of type {TradingType.__name__}'
 
@@ -233,6 +235,7 @@ class AlgoBullsConnection:
         Returns:
             Job status
         """
+        
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
         assert isinstance(trading_type, TradingType), f'Argument "trading_type" should be an enum of type {TradingType.__name__}'
 
@@ -249,6 +252,7 @@ class AlgoBullsConnection:
         Returns:
             Execution logs
         """
+        
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
         assert isinstance(trading_type, TradingType), f'Argument "trading_type" should be an enum of type {TradingType.__name__}'
 
@@ -269,6 +273,7 @@ class AlgoBullsConnection:
         Returns:
             report details
         """
+        
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
         assert isinstance(trading_type, TradingType), f'Argument "trading_type" should be an enum of type {TradingType.__name__}'
         assert isinstance(report_type, TradingReportType), f'Argument "report_type" should be an enum of type {TradingReportType.__name__}'
@@ -300,6 +305,7 @@ class AlgoBullsConnection:
             Returns:
                 Report details
         """
+        
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
 
         # Fetch the data
@@ -555,10 +561,9 @@ class AlgoBullsConnection:
             initial_funds_virtual=initial_funds_virtual, delete_previous_trades=delete_previous_trades, trading_type=TradingType.BACKTESTING, broking_details=vendor_details, **kwargs
         )
 
-        # Clear previously saved pnl data, if any
+        # Update previously saved pnl data and exchange location
         self.backtesting_pnl_data = None
         self.backtest_exchange_map[strategy] = location
-
 
     def get_backtesting_job_status(self, strategy_code):
         """
@@ -570,6 +575,7 @@ class AlgoBullsConnection:
         Returns:
             Job status
         """
+
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
 
         return self.get_job_status(strategy_code, TradingType.BACKTESTING)
@@ -584,7 +590,9 @@ class AlgoBullsConnection:
         Returns:
             stop job status
         """
+
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
+
         return self.stop_job(strategy_code=strategy_code, trading_type=TradingType.BACKTESTING)
 
     def get_backtesting_logs(self, strategy_code):
@@ -597,6 +605,7 @@ class AlgoBullsConnection:
         Returns:
             Report details
         """
+
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
 
         return self.get_logs(strategy_code, trading_type=TradingType.BACKTESTING)
@@ -614,6 +623,7 @@ class AlgoBullsConnection:
         Returns:
             Report details
         """
+
         if self.backtesting_pnl_data is None or location is not None:
             if location is not None or self.backtest_exchange_map.get(strategy_code) is not None:
                 location = self.backtest_exchange_map[strategy_code] if location is None else location
@@ -637,7 +647,9 @@ class AlgoBullsConnection:
         Returns:
             Report details
         """
+
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
+
         if self.backtesting_pnl_data is None:
             self.get_backtesting_report_pnl_table(strategy_code)
         else:
@@ -657,6 +669,7 @@ class AlgoBullsConnection:
         Returns:
             Report details
         """
+
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
 
         return self.get_report(strategy_code=strategy_code, trading_type=TradingType.BACKTESTING, report_type=TradingReportType.ORDER_HISTORY)
@@ -697,7 +710,7 @@ class AlgoBullsConnection:
             initial_funds_virtual=initial_funds_virtual, delete_previous_trades=delete_previous_trades, trading_type=TradingType.PAPERTRADING, broking_details=vendor_details, **kwargs
         )
 
-        # Clear previously saved pnl data, if any
+        # Update previously saved pnl data and exchange location
         self.papertrade_pnl_data = None
         self.papertrade_exchange_map[strategy] = location
 
@@ -711,6 +724,7 @@ class AlgoBullsConnection:
         Returns:
             Job status
         """
+
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
 
         return self.get_job_status(strategy_code, TradingType.PAPERTRADING)
@@ -725,6 +739,7 @@ class AlgoBullsConnection:
         Returns:
             stop job status
         """
+
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
 
         return self.stop_job(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING)
@@ -739,6 +754,7 @@ class AlgoBullsConnection:
         Returns:
             Report details
         """
+
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
 
         return self.get_logs(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING)
@@ -802,6 +818,7 @@ class AlgoBullsConnection:
         Returns:
             Report details
         """
+
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
 
         return self.get_report(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING, report_type=TradingReportType.ORDER_HISTORY)
@@ -840,7 +857,7 @@ class AlgoBullsConnection:
         # start real trading job
         response, location = self.start_job(strategy=strategy, start=start, end=end, instruments=instruments, lots=lots, parameters=parameters, candle=candle, mode=mode, trading_type=TradingType.REALTRADING, broking_details=broking_details, **kwargs)
 
-        # Clear previously saved pnl data, if any
+        # Update previously saved pnl data and exchange location
         self.realtrade_pnl_data = None
         self.realtrade_exchange_map[strategy] = location
 
@@ -857,6 +874,7 @@ class AlgoBullsConnection:
         Returns:
             Job status
         """
+
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
 
         return self.get_job_status(strategy_code, TradingType.REALTRADING)
@@ -871,6 +889,7 @@ class AlgoBullsConnection:
         Returns:
             stop job status
         """
+
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
 
         return self.stop_job(strategy_code=strategy_code, trading_type=TradingType.REALTRADING)
@@ -885,6 +904,7 @@ class AlgoBullsConnection:
         Returns:
             Report details
         """
+
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
 
         return self.get_logs(strategy_code=strategy_code, trading_type=TradingType.REALTRADING)
@@ -958,6 +978,7 @@ def pandas_dataframe_all_rows():
 
     Returns: None
     """
+
     pd.set_option('display.max_rows', None)
     pd.set_option('display.max_columns', None)
     pd.set_option('display.width', None)
