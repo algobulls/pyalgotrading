@@ -12,7 +12,6 @@ import quantstats as qs
 from .api import AlgoBullsAPI
 from .exceptions import AlgoBullsAPIBadRequestException, AlgoBullsAPIGatewayTimeoutErrorException
 from ..constants import StrategyMode, TradingType, TradingReportType, CandleInterval, AlgoBullsEngineVersion, SEGMENT_COUNTRY_MAP
-
 from ..strategy.strategy_base import StrategyBase
 from ..utils.func import get_valid_enum_names, get_datetime_with_tz
 
@@ -193,7 +192,7 @@ class AlgoBullsConnection:
         Args:
             strategy: Strategy code
         """
-        
+
         response = {}
         for _ in range(30):
             try:
@@ -217,7 +216,7 @@ class AlgoBullsConnection:
         Returns:
             Job status
         """
-        
+
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
         assert isinstance(trading_type, TradingType), f'Argument "trading_type" should be an enum of type {TradingType.__name__}'
 
@@ -235,7 +234,7 @@ class AlgoBullsConnection:
         Returns:
             Job status
         """
-        
+
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
         assert isinstance(trading_type, TradingType), f'Argument "trading_type" should be an enum of type {TradingType.__name__}'
 
@@ -252,7 +251,7 @@ class AlgoBullsConnection:
         Returns:
             Execution logs
         """
-        
+
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
         assert isinstance(trading_type, TradingType), f'Argument "trading_type" should be an enum of type {TradingType.__name__}'
 
@@ -273,7 +272,7 @@ class AlgoBullsConnection:
         Returns:
             report details
         """
-        
+
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
         assert isinstance(trading_type, TradingType), f'Argument "trading_type" should be an enum of type {TradingType.__name__}'
         assert isinstance(report_type, TradingReportType), f'Argument "report_type" should be an enum of type {TradingReportType.__name__}'
@@ -305,7 +304,7 @@ class AlgoBullsConnection:
             Returns:
                 Report details
         """
-        
+
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
 
         # Fetch the data
@@ -416,7 +415,7 @@ class AlgoBullsConnection:
             job submission status
             location of the instruments
         """
-        
+
         # check if values received by new parameter names, else extract from old parameter names
         strategy = strategy if strategy is not None else kwargs.get('strategy_code')
         start = start if start is not None else kwargs.get('start_timestamp')
