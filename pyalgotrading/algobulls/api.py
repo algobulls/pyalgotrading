@@ -302,7 +302,7 @@ class AlgoBullsAPI:
 
         return key, response
 
-    def start_strategy_algotrading(self, strategy_code: str, start_timestamp: dt, end_timestamp: dt, trading_type: TradingType, lots: int, initial_funds_virtual=1e9, broker_details: dict = None) -> dict:
+    def start_strategy_algotrading(self, strategy_code: str, start_timestamp: dt, end_timestamp: dt, trading_type: TradingType, lots: int, initial_funds_virtual=1e9, broker_details: dict = None, location: str = 'en-IN') -> dict:
         """
         Submit Backtesting / Paper Trading / Real Trading job for strategy with code strategy_code & return the job ID.
         
@@ -312,8 +312,9 @@ class AlgoBullsAPI:
             end_timestamp: End date/time
             trading_type: Trading type
             lots: Lots
-            initial_funds_virtual: virtual funds before starting the strategy
-            broker_details: client's broking details
+            initial_funds_virtual: Virtual funds before starting the strategy
+            broker_details: Client's broking details
+            location: Location of the exchange
         Info: ENDPOINT
             `PATCH` v4/portfolio/strategies?isPythonBuild=true
         """
@@ -334,10 +335,10 @@ class AlgoBullsAPI:
 
             params = None
             if trading_type in [TradingType.PAPERTRADING, TradingType.BACKTESTING]:
-                endpoint = 'v4/portfolio/strategies?isPythonBuild=true&isLive=false'
+                endpoint = f'v4/portfolio/strategies?isPythonBuild=true&isLive=false&location={location}'
                 execute_config['initialFundsVirtual'] = initial_funds_virtual
             elif trading_type is TradingType.REALTRADING:
-                endpoint = 'v4/portfolio/strategies?isPythonBuild=true&isLive=true'
+                endpoint = f'v4/portfolio/strategies?isPythonBuild=true&isLive=true&location={location}'
             else:
                 raise NotImplementedError
             json_data = {'method': 'update', 'newVal': 1, 'key': key, 'record': {'status': 0, 'lots': lots, 'executeConfig': execute_config}, 'dataIndex': 'executeConfig'}
@@ -417,7 +418,7 @@ class AlgoBullsAPI:
 
         return response
 
-    def get_reports(self, strategy_code: str, trading_type: TradingType, report_type: TradingReportType) -> dict:
+    def get_reports(self, strategy_code: str, trading_type: TradingType, report_type: TradingReportType, location='en-IN') -> dict:
         """
         Fetch report for a strategy
 
@@ -425,6 +426,7 @@ class AlgoBullsAPI:
             strategy_code: Strategy code
             trading_type: Value of TradingType Enum
             report_type: Value of TradingReportType Enum
+            location: Location of the exchange
 
         Returns:
             Report data
@@ -437,7 +439,8 @@ class AlgoBullsAPI:
         key = self.__get_key(strategy_code=strategy_code, trading_type=trading_type)
         if report_type is TradingReportType.PNL_TABLE:
             endpoint = 'v3/book/pl/data'
-            params = {'pageSize': 0, 'isPythonBuild': "true", 'strategyId': strategy_code}
+            _filter = {"tradingType": trading_type}
+            params = {'pageSize': 0, 'isPythonBuild': "true", 'strategyId': strategy_code, "location": location, "filters": _filter}
 
         elif report_type is TradingReportType.ORDER_HISTORY:
             endpoint = 'v2/user/strategy/orderhistory'

@@ -11,7 +11,7 @@ import quantstats as qs
 
 from .api import AlgoBullsAPI
 from .exceptions import AlgoBullsAPIBadRequestException, AlgoBullsAPIGatewayTimeoutErrorException
-from ..constants import StrategyMode, TradingType, TradingReportType, CandleInterval, AlgoBullsEngineVersion
+from ..constants import StrategyMode, TradingType, TradingReportType, CandleInterval, AlgoBullsEngineVersion, SEGMENT_COUNTRY_MAP
 from ..strategy.strategy_base import StrategyBase
 from ..utils.func import get_valid_enum_names, get_datetime_with_tz
 
@@ -29,6 +29,11 @@ class AlgoBullsConnection:
         self.backtesting_pnl_data = None
         self.papertrade_pnl_data = None
         self.realtrade_pnl_data = None
+
+        self.backtest_exchange_map = {}
+        self.papertrade_exchange_map = {}
+        self.realtrade_exchange_map = {}
+
 
     @staticmethod
     def get_authorization_url():
@@ -248,7 +253,7 @@ class AlgoBullsConnection:
 
         return self.api.get_logs(strategy_code=strategy_code, trading_type=trading_type).get('data')
 
-    def get_report(self, strategy_code, trading_type, report_type, render_as_dataframe=False, show_all_rows=False):
+    def get_report(self, strategy_code, trading_type, report_type, render_as_dataframe=False, show_all_rows=False, location=None):
         """
         Fetch report for a strategy
 
@@ -258,6 +263,7 @@ class AlgoBullsConnection:
             report_type: Value of TradingReportType Enum
             render_as_dataframe: True or False
             show_all_rows: True or False
+            location: Location of the Exchange
 
         Returns:
             report details
@@ -268,8 +274,7 @@ class AlgoBullsConnection:
         assert isinstance(render_as_dataframe, bool), f'Argument "render_as_dataframe" should be a bool'
         assert isinstance(show_all_rows, bool), f'Argument "show_all_rows" should be a bool'
         # assert (broker is None or isinstance(broker, AlgoBullsSupportedBrokers) is True), f'Argument broker should be None or an enum of type {AlgoBullsSupportedBrokers.__name__}'
-
-        response = self.api.get_reports(strategy_code=strategy_code, trading_type=trading_type, report_type=report_type)
+        response = self.api.get_reports(strategy_code=strategy_code, trading_type=trading_type, report_type=report_type, location=location)
         if response.get('data'):
             if render_as_dataframe:
                 if show_all_rows:
@@ -281,21 +286,21 @@ class AlgoBullsConnection:
         else:
             print('Report not available yet. Please retry in sometime')
 
-    def get_pnl_report_table(self, strategy_code, trading_type):
+    def get_pnl_report_table(self, strategy_code, trading_type, location):
         """
             Fetch BT/PT/RT Profit & Loss details
 
             Args:
                 strategy_code: strategy code
                 trading_type: type of trades : Backtesting, Papertrading, Realtrading
-
+                location: Location of the exchange
             Returns:
                 Report details
         """
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
 
         # Fetch the data
-        data = self.get_report(strategy_code=strategy_code, trading_type=trading_type, report_type=TradingReportType.PNL_TABLE)
+        data = self.get_report(strategy_code=strategy_code, trading_type=trading_type, report_type=TradingReportType.PNL_TABLE, location=location)
 
         # Post-processing: Cleanup & converting data to dataframe
         column_rename_map = OrderedDict([
@@ -400,6 +405,7 @@ class AlgoBullsConnection:
 
         Returns:
             job submission status
+            location of the instruments
         """
         # check if values received by new parameter names, else extract from old parameter names
         strategy = strategy if strategy is not None else kwargs.get('strategy_code')
@@ -416,6 +422,7 @@ class AlgoBullsConnection:
         _error_msg_instruments = f'Argument "instruments" should be a valid instrument string or a list of valid instruments strings. You can use the \'get_instrument()\' method of AlgoBullsConnection class to search for instruments'
         _error_msg_mode = f'Argument "mode" should be a valid string or an enum of type StrategyMode. Possible string values can be: {get_valid_enum_names(StrategyMode)}'
         _error_msg_broking_details = 'Argument "broking_details" should be a valid dict with valid keys. Expected keys "brokerName" and "credentialParameters" '
+
         initial_funds_virtual = float(initial_funds_virtual)
         if isinstance(start, str):
             start = get_datetime_with_tz(start, trading_type)
@@ -462,10 +469,23 @@ class AlgoBullsConnection:
                 'paramValue': parameters[parameter_name]
             })
 
+        # get exchange location
+        exchange = 'NSE'
+        location = SEGMENT_COUNTRY_MAP[exchange]
+
+        if len(instruments[0].split(':')) == 2:
+            exchange = instruments[0].split(':')[0]
+            if SEGMENT_COUNTRY_MAP.get(exchange) is not None:
+                location = SEGMENT_COUNTRY_MAP.get(exchange)
+            else:
+                print(f'Warning: Valid exchange not given, assuming exchange as "NSE_EQ".\n Possible exchange values include: {SEGMENT_COUNTRY_MAP.keys()}')
+        else:
+            print('Warning: Valid exchange not given, assuming exchange as "NSE_EQ".\n Expected format for giving an instrument "<EXCHANGE>:<TRADING_SYMBOL>"')
+
         # generate instruments' id list
         instrument_list = []
         for _instrument in instruments:
-            exchange, tradingsymbol = _instrument.split(':')
+            tradingsymbol = _instrument.split(':')[-1]
             instrument_results = self.search_instrument(tradingsymbol, exchange=exchange)
             for _ in instrument_results:
                 if _["value"] == _instrument:
@@ -489,9 +509,10 @@ class AlgoBullsConnection:
         self.api.set_strategy_config(strategy_code=strategy, strategy_config=strategy_config, trading_type=trading_type)
 
         # Submit trading job
-        response = self.api.start_strategy_algotrading(strategy_code=strategy, start_timestamp=start, end_timestamp=end, trading_type=trading_type, lots=lots, initial_funds_virtual=initial_funds_virtual, broker_details=broking_details)
+        response = self.api.start_strategy_algotrading(strategy_code=strategy, start_timestamp=start, end_timestamp=end, trading_type=trading_type,
+                                                       lots=lots, initial_funds_virtual=initial_funds_virtual, broker_details=broking_details, location=location)
 
-        return response
+        return response, location
 
     def backtest(self, strategy=None, start=None, end=None, instruments=None, lots=1, parameters=None, candle=None, mode=StrategyMode.INTRADAY, delete_previous_trades=True, initial_funds_virtual=1e9, vendor_details=None, **kwargs):
         """
@@ -524,13 +545,14 @@ class AlgoBullsConnection:
         """
 
         # start backtesting job
-        response = self.start_job(
+        response, location = self.start_job(
             strategy=strategy, start=start, end=end, instruments=instruments, lots=lots, parameters=parameters, candle=candle, mode=mode,
             initial_funds_virtual=initial_funds_virtual, delete_previous_trades=delete_previous_trades, trading_type=TradingType.BACKTESTING, broking_details=vendor_details, **kwargs
         )
 
         # Clear previously saved pnl data, if any
         self.backtesting_pnl_data = None
+        self.backtest_exchange_map[strategy] = location
 
     def get_backtesting_job_status(self, strategy_code):
         """
@@ -573,19 +595,25 @@ class AlgoBullsConnection:
 
         return self.get_logs(strategy_code, trading_type=TradingType.BACKTESTING)
 
-    def get_backtesting_report_pnl_table(self, strategy_code, show_all_rows=False):
+    def get_backtesting_report_pnl_table(self, strategy_code, location=None, show_all_rows=False):
         """
         Fetch Back Testing Profit & Loss details
 
         Args:
             strategy_code: strategy code
+            location: Location of Exchange
             show_all_rows: True or False
+
 
         Returns:
             Report details
         """
-        if self.backtesting_pnl_data is None:
-            self.backtesting_pnl_data = self.get_pnl_report_table(strategy_code, TradingType.BACKTESTING)
+        if self.backtesting_pnl_data is None or location is not None:
+            if location is not None or self.backtest_exchange_map.get(strategy_code) is not None:
+                location = self.backtest_exchange_map[strategy_code] if location is None else location
+            else:
+                location = 'en-IN'
+            self.backtesting_pnl_data = self.get_pnl_report_table(strategy_code, TradingType.BACKTESTING, location)
 
         return self.backtesting_pnl_data
 
@@ -658,13 +686,14 @@ class AlgoBullsConnection:
         """
 
         # start papertrading job
-        response = self.start_job(
+        response, location = self.start_job(
             strategy=strategy, start=start, end=end, instruments=instruments, lots=lots, parameters=parameters, candle=candle, mode=mode,
             initial_funds_virtual=initial_funds_virtual, delete_previous_trades=delete_previous_trades, trading_type=TradingType.PAPERTRADING, broking_details=vendor_details, **kwargs
         )
 
         # Clear previously saved pnl data, if any
         self.papertrade_pnl_data = None
+        self.papertrade_exchange_map[strategy] = location
 
     def get_papertrading_job_status(self, strategy_code):
         """
@@ -708,19 +737,24 @@ class AlgoBullsConnection:
 
         return self.get_logs(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING)
 
-    def get_papertrading_report_pnl_table(self, strategy_code, show_all_rows=False):
+    def get_papertrading_report_pnl_table(self, strategy_code, location=None, show_all_rows=False):
         """
         Fetch Paper Trading Profit & Loss details
 
         Args:
             strategy_code: strategy code
+            location: Location of the exchange
             show_all_rows: True or False
 
         Returns:
             Report details
         """
-        if self.papertrade_pnl_data is None:
-            self.papertrade_pnl_data = self.get_pnl_report_table(strategy_code, TradingType.PAPERTRADING)
+        if self.papertrade_pnl_data is None or location is not None:
+            if location is not None or self.papertrade_exchange_map.get(strategy_code) is not None:
+                location = self.papertrade_exchange_map[strategy_code] if location is None else location
+            else:
+                location = 'en-IN'
+            self.papertrade_pnl_data = self.get_pnl_report_table(strategy_code, TradingType.PAPERTRADING, location)
 
         return self.papertrade_pnl_data
 
@@ -796,10 +830,11 @@ class AlgoBullsConnection:
         """
 
         # start real trading job
-        response = self.start_job(strategy=strategy, start=start, end=end, instruments=instruments, lots=lots, parameters=parameters, candle=candle, mode=mode, trading_type=TradingType.REALTRADING, broking_details=broking_details, **kwargs)
+        response, location = self.start_job(strategy=strategy, start=start, end=end, instruments=instruments, lots=lots, parameters=parameters, candle=candle, mode=mode, trading_type=TradingType.REALTRADING, broking_details=broking_details, **kwargs)
 
         # Clear previously saved pnl data, if any
         self.realtrade_pnl_data = None
+        self.realtrade_exchange_map[strategy] = location
 
     def livetrade(self, *args, **kwargs):
         self.realtrade(*args, **kwargs)
@@ -846,21 +881,26 @@ class AlgoBullsConnection:
 
         return self.get_logs(strategy_code=strategy_code, trading_type=TradingType.REALTRADING)
 
-    def get_realtrading_report_pnl_table(self, strategy_code, show_all_rows=False):
+    def get_realtrading_report_pnl_table(self, strategy_code, location=None, show_all_rows=False):
         """
         Fetch Real Trading Profit & Loss details
 
         Args:
             strategy_code: strategy code
+            location: Location of the Exchange
             show_all_rows: True or False
 
         Returns:
             Report details
         """
-        if self.realtrade_pnl_data is None:
-            self.realtrade_pnl_data = self.get_pnl_report_table(strategy_code, TradingType.REALTRADING)
+        if self.realtrade_pnl_data is None or location is not None:
+            if location is not None or self.realtrade_exchange_map.get(strategy_code) is not None:
+                location = self.realtrade_exchange_map[strategy_code] if location is None else location
+            else:
+                location = 'en-IN'
+            self.realtrade_pnl_data = self.get_pnl_report_table(strategy_code, TradingType.REALTRADING, location)
 
-        return self.realtrade_pnl_data
+        return self.papertrade_pnl_data
 
     def get_realtrading_report_statistics(self, strategy_code, initial_funds=1e9, mode='quantstats', report='metrics', html_dump=False):
         """
