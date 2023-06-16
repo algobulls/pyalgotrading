@@ -246,6 +246,15 @@ class ActionConstants(Enum):
     NO_ACTION = 'NO_ACTION'
 
 
+class Locale(Enum):
+    """
+    A class of locale
+    """
+    DEFAULT = 'en-US'
+    INDIA = 'en-IN'
+    USA = 'en-US'
+
+
 KEY_DT_FORMAT_WITH_TIMEZONE = 0
 KEY_DT_FORMAT_WITHOUT_TIMEZONE = 1
 
@@ -254,3 +263,11 @@ TRADING_TYPE_DT_FORMAT_MAP = {
     TradingType.PAPERTRADING: {KEY_DT_FORMAT_WITH_TIMEZONE: '%H:%M %z', KEY_DT_FORMAT_WITHOUT_TIMEZONE: '%H:%M'},
     TradingType.REALTRADING: {KEY_DT_FORMAT_WITH_TIMEZONE: '%H:%M %z', KEY_DT_FORMAT_WITHOUT_TIMEZONE: '%H:%M'},
 }
+
+EXCHANGE_LOCALE_MAP = {
+    'NSE': Locale.INDIA.value,
+    'BSE': Locale.INDIA.value,
+    'NASDAQ': Locale.USA.value,
+    'NYSE': Locale.USA.value,
+}
+
