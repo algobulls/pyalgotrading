@@ -484,8 +484,8 @@ class AlgoBullsConnection:
         location = SEGMENT_COUNTRY_MAP[_exch]
         _ = instruments[0].split(':')
         if len(_) == 2:
-            _exch = _[0]
-            if SEGMENT_COUNTRY_MAP.get(_exch) is not None:
+            if SEGMENT_COUNTRY_MAP.get(_[0]) is not None:
+                _exch = _[0]
                 location = SEGMENT_COUNTRY_MAP.get(_exch)
             else:
                 print(f'Warning: Valid exchange not given, assuming exchange as "NSE_EQ".\n Possible exchange values include: {SEGMENT_COUNTRY_MAP.keys()}')
