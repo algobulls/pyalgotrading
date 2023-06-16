@@ -309,7 +309,7 @@ class AlgoBullsAPI:
 
         return key, response
 
-    def start_strategy_algotrading(self, strategy_code: str, start_timestamp: dt, end_timestamp: dt, trading_type: TradingType, lots: int, initial_funds_virtual=1e9, broker_details: dict = None, location: str = 'en-IN') -> dict:
+    def start_strategy_algotrading(self, strategy_code: str, start_timestamp: dt, end_timestamp: dt, trading_type: TradingType, lots: int, location: str, initial_funds_virtual=1e9, broker_details: dict = None) -> dict:
         """
         Submit Backtesting / Paper Trading / Real Trading job for strategy with code strategy_code & return the job ID.
         
@@ -319,9 +319,9 @@ class AlgoBullsAPI:
             end_timestamp: End date/time
             trading_type: Trading type
             lots: Lots
+            location: Location of the exchange
             initial_funds_virtual: Virtual funds before starting the strategy
             broker_details: Client's broking details
-            location: Location of the exchange
 
         Info: ENDPOINT
             `PATCH` v4/portfolio/strategies?isPythonBuild=true
@@ -429,7 +429,7 @@ class AlgoBullsAPI:
 
         return response
 
-    def get_reports(self, strategy_code: str, trading_type: TradingType, report_type: TradingReportType, location='en-IN') -> dict:
+    def get_reports(self, strategy_code: str, trading_type: TradingType, report_type: TradingReportType, location: str) -> dict:
         """
         Fetch report for a strategy
 

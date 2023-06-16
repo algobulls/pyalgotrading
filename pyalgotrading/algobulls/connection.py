@@ -488,7 +488,7 @@ class AlgoBullsConnection:
             location = EXCHANGE_LOCALE_MAP[_[0]]
         else:
             print('Warning: Valid exchange not given, assuming exchange as "NSE_EQ".\n Expected format for giving an instrument "<EXCHANGE>:<TRADING_SYMBOL>"\nPossible exchange values include: {EXCHANGE_LOCALE_MAP.keys()}')
-            location = EXCHANGE_LOCALE_MAP[Locale.DEFAULT]
+            location = EXCHANGE_LOCALE_MAP[Locale.DEFAULT.value]
             
         # generate instruments' id list
         instrument_list = []
