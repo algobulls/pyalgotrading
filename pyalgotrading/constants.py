@@ -265,7 +265,6 @@ TRADING_TYPE_DT_FORMAT_MAP = {
 }
 
 EXCHANGE_LOCALE_MAP = {
-    'DEFAULT': Locale.DEFAULT.value,
     'NSE': Locale.INDIA.value,
     'BSE': Locale.INDIA.value,
     'NASDAQ': Locale.USA.value,
