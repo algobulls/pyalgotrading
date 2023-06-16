@@ -362,6 +362,7 @@ class AlgoBullsConnection:
 
         # get pnl data and cleanup as per quantstats format
         _returns_df = pnl_df[['entry_timestamp', 'pnl_absolute']]
+        _returns_df['entry_timestamp'] = _returns_df['entry_timestamp'].dt.tz_convert(None).dt.to_pydatetime()
         _returns_df = _returns_df.set_index('entry_timestamp')
         _returns_df["total_funds"] = _returns_df.pnl_absolute.cumsum() + initial_funds
         _returns_df = _returns_df.dropna()
@@ -520,7 +521,7 @@ class AlgoBullsConnection:
         response = self.api.start_strategy_algotrading(strategy_code=strategy, start_timestamp=start, end_timestamp=end, trading_type=trading_type,
                                                        lots=lots, initial_funds_virtual=initial_funds_virtual, broker_details=broking_details, location=location)
 
-        self.strategy_locale_map[trading_type.name][strategy] = location
+        self.strategy_locale_map[trading_type][strategy] = location
         return response
 
     def backtest(self, strategy=None, start=None, end=None, instruments=None, lots=1, parameters=None, candle=None, mode=StrategyMode.INTRADAY, delete_previous_trades=True, initial_funds_virtual=1e9, vendor_details=None, **kwargs):
