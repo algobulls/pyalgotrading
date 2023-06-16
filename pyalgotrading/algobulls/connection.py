@@ -11,7 +11,7 @@ import quantstats as qs
 
 from .api import AlgoBullsAPI
 from .exceptions import AlgoBullsAPIBadRequestException, AlgoBullsAPIGatewayTimeoutErrorException
-from ..constants import StrategyMode, TradingType, TradingReportType, CandleInterval, AlgoBullsEngineVersion, SEGMENT_COUNTRY_MAP
+from ..constants import StrategyMode, TradingType, TradingReportType, CandleInterval, AlgoBullsEngineVersion, EXCHANGE_LOCALE_MAP, Locale
 from ..strategy.strategy_base import StrategyBase
 from ..utils.func import get_valid_enum_names, get_datetime_with_tz
 
@@ -31,9 +31,9 @@ class AlgoBullsConnection:
         self.realtrade_pnl_data = None
 
         self.strategy_country_code_map = {
-            'BACKTESTING': {},
-            'PAPERTRADING': {},
-            'REALTRADING': {},
+            TradingType.BACKTESTING: {},
+            TradingType.PAPERTRADING: {},
+            TradingType.REALTRADING: {},
         }
 
     @staticmethod
@@ -308,6 +308,8 @@ class AlgoBullsConnection:
 
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
 
+        if location is None:
+            location = self.strategy_country_code_map[trading_type].get(strategy_code, Locale.DEFAULT.value)
         # Fetch the data
         data = self.get_report(strategy_code=strategy_code, trading_type=trading_type, report_type=TradingReportType.PNL_TABLE, location=location)
 
@@ -480,23 +482,20 @@ class AlgoBullsConnection:
             })
 
         # get exchange location
-        _exch = 'NSE'
-        location = SEGMENT_COUNTRY_MAP[_exch]
         _ = instruments[0].split(':')
-        if len(_) == 2:
-            if SEGMENT_COUNTRY_MAP.get(_[0]) is not None:
-                _exch = _[0]
-                location = SEGMENT_COUNTRY_MAP.get(_exch)
-            else:
-                print(f'Warning: Valid exchange not given, assuming exchange as "NSE_EQ".\n Possible exchange values include: {SEGMENT_COUNTRY_MAP.keys()}')
+        if len(_) == 2 and EXCHANGE_LOCALE_MAP.get(_[0]) is not None:
+            exchange = _[0]
+            location = EXCHANGE_LOCALE_MAP[exchange]
         else:
-            print('Warning: Valid exchange not given, assuming exchange as "NSE_EQ".\n Expected format for giving an instrument "<EXCHANGE>:<TRADING_SYMBOL>"')
-
+            print('Warning: Valid exchange not given, assuming exchange as "NSE_EQ".\n Expected format for giving an instrument "<EXCHANGE>:<TRADING_SYMBOL>"\nPossible exchange values include: {EXCHANGE_LOCALE_MAP.keys()}')
+            exchange = 'NSE'
+            location = EXCHANGE_LOCALE_MAP[exchange]
+            
         # generate instruments' id list
         instrument_list = []
         for _instrument in instruments:
             _trade_sym = _instrument.split(':')[-1]
-            instrument_results = self.search_instrument(instrument=_trade_sym, exchange=_exch)
+            instrument_results = self.search_instrument(instrument=_trade_sym, exchange=exchange)
             for _ in instrument_results:
                 if _["value"] == _instrument:
                     instrument_list.append({'id': _["id"]})
@@ -624,8 +623,6 @@ class AlgoBullsConnection:
         """
 
         if self.backtesting_pnl_data is None or location is not None or force_fetch:
-            if location is None:
-                location = self.strategy_country_code_map['BACKTESTING'].get(strategy_code) if self.strategy_country_code_map['BACKTESTING'].get(strategy_code) is not None else 'en-IN'
             self.backtesting_pnl_data = self.get_pnl_report_table(strategy_code, TradingType.BACKTESTING, location)
 
         return self.backtesting_pnl_data
@@ -770,8 +767,6 @@ class AlgoBullsConnection:
         """
 
         if self.papertrade_pnl_data is None or location is not None or force_fetch:
-            if location is None:
-                location = self.strategy_country_code_map['PAPERTRADING'].get(strategy_code) if self.strategy_country_code_map['PAPERTRADING'].get(strategy_code) is not None else 'en-IN'
             self.papertrade_pnl_data = self.get_pnl_report_table(strategy_code, TradingType.PAPERTRADING, location)
 
         return self.papertrade_pnl_data
@@ -917,8 +912,6 @@ class AlgoBullsConnection:
         """
 
         if self.realtrade_pnl_data is None or location is not None or force_fetch:
-            if location is None:
-                location = self.strategy_country_code_map['REALTRADING'].get(strategy_code) if self.strategy_country_code_map['REALTRADING'].get(strategy_code) is not None else 'en-IN'
             self.realtrade_pnl_data = self.get_pnl_report_table(strategy_code, TradingType.REALTRADING, location)
 
         return self.realtrade_pnl_data

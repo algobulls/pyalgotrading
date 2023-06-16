@@ -246,10 +246,11 @@ class ActionConstants(Enum):
     NO_ACTION = 'NO_ACTION'
 
 
-class CountryCodes(Enum):
+class Locale(Enum):
     """
-    A class of Country Codes
+    A class of locale
     """
+    DEFAULT = 'en-US'
     INDIA = 'en-IN'
     USA = 'en-US'
 
@@ -263,11 +264,11 @@ TRADING_TYPE_DT_FORMAT_MAP = {
     TradingType.REALTRADING: {KEY_DT_FORMAT_WITH_TIMEZONE: '%H:%M %z', KEY_DT_FORMAT_WITHOUT_TIMEZONE: '%H:%M'},
 }
 
-
-EXCHANGE_COUNTRY_MAP = {
-    'NSE': CountryCodes.INDIA.value,
-    'BSE': CountryCodes.INDIA.value,
-    'NASDAQ': CountryCodes.USA.value,
-    'NYSE': CountryCodes.USA.value
+EXCHANGE_LOCALE_MAP = {
+    'DEFAULT': Locale.DEFAULT.value,
+    'NSE': Locale.INDIA.value,
+    'BSE': Locale.INDIA.value,
+    'NASDAQ': Locale.USA.value,
+    'NYSE': Locale.USA.value,
 }
 
