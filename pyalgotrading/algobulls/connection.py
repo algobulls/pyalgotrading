@@ -484,18 +484,16 @@ class AlgoBullsConnection:
         # get exchange location
         _ = instruments[0].split(':')
         if len(_) == 2 and EXCHANGE_LOCALE_MAP.get(_[0]) is not None:
-            exchange = _[0]
-            location = EXCHANGE_LOCALE_MAP[exchange]
+            location = EXCHANGE_LOCALE_MAP[_[0]]
         else:
             print('Warning: Valid exchange not given, assuming exchange as "NSE_EQ".\n Expected format for giving an instrument "<EXCHANGE>:<TRADING_SYMBOL>"\nPossible exchange values include: {EXCHANGE_LOCALE_MAP.keys()}')
-            exchange = 'NSE'
-            location = EXCHANGE_LOCALE_MAP[exchange]
+            location = EXCHANGE_LOCALE_MAP[Locale.DEFAULT]
             
         # generate instruments' id list
         instrument_list = []
         for _instrument in instruments:
-            _trade_sym = _instrument.split(':')[-1]
-            instrument_results = self.search_instrument(instrument=_trade_sym, exchange=exchange)
+            exchange, trading_symbol = _instrument.split(':')[-1]
+            instrument_results = self.search_instrument(instrument=trading_symbol, exchange=exchange)
             for _ in instrument_results:
                 if _["value"] == _instrument:
                     instrument_list.append({'id': _["id"]})
