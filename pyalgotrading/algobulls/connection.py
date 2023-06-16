@@ -482,9 +482,9 @@ class AlgoBullsConnection:
         # get exchange location
         _exch = 'NSE'
         location = SEGMENT_COUNTRY_MAP[_exch]
-
-        if len(instruments[0].split(':')) == 2:
-            _exch = instruments[0].split(':')[0]
+        _ = instruments[0].split(':')
+        if len(_) == 2:
+            _exch = _[0]
             if SEGMENT_COUNTRY_MAP.get(_exch) is not None:
                 location = SEGMENT_COUNTRY_MAP.get(_exch)
             else:
