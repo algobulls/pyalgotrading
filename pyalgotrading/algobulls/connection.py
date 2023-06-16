@@ -30,7 +30,7 @@ class AlgoBullsConnection:
         self.papertrade_pnl_data = None
         self.realtrade_pnl_data = None
 
-        self.strategy_country_code_map = {
+        self.strategy_locale_map = {
             TradingType.BACKTESTING: {},
             TradingType.PAPERTRADING: {},
             TradingType.REALTRADING: {},
@@ -309,7 +309,7 @@ class AlgoBullsConnection:
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
 
         if location is None:
-            location = self.strategy_country_code_map[trading_type].get(strategy_code, Locale.DEFAULT.value)
+            location = self.strategy_locale_map[trading_type].get(strategy_code, Locale.DEFAULT.value)
         # Fetch the data
         data = self.get_report(strategy_code=strategy_code, trading_type=trading_type, report_type=TradingReportType.PNL_TABLE, location=location)
 
@@ -521,7 +521,7 @@ class AlgoBullsConnection:
         response = self.api.start_strategy_algotrading(strategy_code=strategy, start_timestamp=start, end_timestamp=end, trading_type=trading_type,
                                                        lots=lots, initial_funds_virtual=initial_funds_virtual, broker_details=broking_details, location=location)
 
-        self.strategy_country_code_map[trading_type.name][strategy] = location
+        self.strategy_locale_map[trading_type.name][strategy] = location
         return response
 
     def backtest(self, strategy=None, start=None, end=None, instruments=None, lots=1, parameters=None, candle=None, mode=StrategyMode.INTRADAY, delete_previous_trades=True, initial_funds_virtual=1e9, vendor_details=None, **kwargs):
