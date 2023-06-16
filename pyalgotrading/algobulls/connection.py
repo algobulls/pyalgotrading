@@ -480,13 +480,13 @@ class AlgoBullsConnection:
             })
 
         # get exchange location
-        exchange = 'NSE'
-        location = SEGMENT_COUNTRY_MAP[exchange]
+        _exch = 'NSE'
+        location = SEGMENT_COUNTRY_MAP[_exch]
 
         if len(instruments[0].split(':')) == 2:
-            exchange = instruments[0].split(':')[0]
-            if SEGMENT_COUNTRY_MAP.get(exchange) is not None:
-                location = SEGMENT_COUNTRY_MAP.get(exchange)
+            _exch = instruments[0].split(':')[0]
+            if SEGMENT_COUNTRY_MAP.get(_exch) is not None:
+                location = SEGMENT_COUNTRY_MAP.get(_exch)
             else:
                 print(f'Warning: Valid exchange not given, assuming exchange as "NSE_EQ".\n Possible exchange values include: {SEGMENT_COUNTRY_MAP.keys()}')
         else:
@@ -495,8 +495,8 @@ class AlgoBullsConnection:
         # generate instruments' id list
         instrument_list = []
         for _instrument in instruments:
-            tradingsymbol = _instrument.split(':')[-1]
-            instrument_results = self.search_instrument(tradingsymbol, exchange=exchange)
+            _trade_sym = _instrument.split(':')[-1]
+            instrument_results = self.search_instrument(_trade_sym, exchange=_exch)
             for _ in instrument_results:
                 if _["value"] == _instrument:
                     instrument_list.append({'id': _["id"]})
