@@ -20,8 +20,6 @@ class AlgoBullsAPI:
     """
     SERVER_ENDPOINT = 'https://api.algobulls.com/'
 
-    # SERVER_ENDPOINT = 'http://127.0.0.1:8000/'
-
     def __init__(self, connection):
         """
         Init method that is used while creating an object of this class
