@@ -496,7 +496,7 @@ class AlgoBullsConnection:
         instrument_list = []
         for _instrument in instruments:
             _trade_sym = _instrument.split(':')[-1]
-            instrument_results = self.search_instrument(_trade_sym, exchange=_exch)
+            instrument_results = self.search_instrument(instrument=_trade_sym, exchange=_exch)
             for _ in instrument_results:
                 if _["value"] == _instrument:
                     instrument_list.append({'id': _["id"]})
@@ -551,7 +551,7 @@ class AlgoBullsConnection:
             'candle_interval' behaves same as 'candle'
             'strategy_mode' behaves same as 'mode'
 
-        Returns:=
+        Returns:
             backtest job submission status
         """
 
