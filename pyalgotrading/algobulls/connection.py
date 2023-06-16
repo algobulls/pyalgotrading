@@ -310,6 +310,7 @@ class AlgoBullsConnection:
 
         if location is None:
             location = self.strategy_locale_map[trading_type].get(strategy_code, Locale.DEFAULT.value)
+
         # Fetch the data
         data = self.get_report(strategy_code=strategy_code, trading_type=trading_type, report_type=TradingReportType.PNL_TABLE, location=location)
 
@@ -492,7 +493,7 @@ class AlgoBullsConnection:
         # generate instruments' id list
         instrument_list = []
         for _instrument in instruments:
-            exchange, trading_symbol = _instrument.split(':')[-1]
+            exchange, trading_symbol = _instrument.split(':')
             instrument_results = self.search_instrument(instrument=trading_symbol, exchange=exchange)
             for _ in instrument_results:
                 if _["value"] == _instrument:
