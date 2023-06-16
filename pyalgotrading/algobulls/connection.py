@@ -30,9 +30,11 @@ class AlgoBullsConnection:
         self.papertrade_pnl_data = None
         self.realtrade_pnl_data = None
 
-        self.backtest_exchange_map = {}
-        self.papertrade_exchange_map = {}
-        self.realtrade_exchange_map = {}
+        self.strategy_country_code_map = {
+            'BACKTESTING': {},
+            'PAPERTRADING': {},
+            'REALTRADING': {},
+        }
 
     @staticmethod
     def get_authorization_url():
@@ -290,7 +292,6 @@ class AlgoBullsConnection:
             return _response
         else:
             print('Report not available yet. Please retry in sometime')
-            return None
 
     def get_pnl_report_table(self, strategy_code, trading_type, location):
         """
@@ -521,7 +522,8 @@ class AlgoBullsConnection:
         response = self.api.start_strategy_algotrading(strategy_code=strategy, start_timestamp=start, end_timestamp=end, trading_type=trading_type,
                                                        lots=lots, initial_funds_virtual=initial_funds_virtual, broker_details=broking_details, location=location)
 
-        return response, location
+        self.strategy_country_code_map[trading_type.name][strategy] = location
+        return response
 
     def backtest(self, strategy=None, start=None, end=None, instruments=None, lots=1, parameters=None, candle=None, mode=StrategyMode.INTRADAY, delete_previous_trades=True, initial_funds_virtual=1e9, vendor_details=None, **kwargs):
         """
@@ -554,15 +556,13 @@ class AlgoBullsConnection:
         """
 
         # start backtesting job
-        response, location = self.start_job(
-
+        response = self.start_job(
             strategy=strategy, start=start, end=end, instruments=instruments, lots=lots, parameters=parameters, candle=candle, mode=mode,
             initial_funds_virtual=initial_funds_virtual, delete_previous_trades=delete_previous_trades, trading_type=TradingType.BACKTESTING, broking_details=vendor_details, **kwargs
         )
 
         # Update previously saved pnl data and exchange location
         self.backtesting_pnl_data = None
-        self.backtest_exchange_map[strategy] = location
 
     def get_backtesting_job_status(self, strategy_code):
         """
@@ -624,10 +624,8 @@ class AlgoBullsConnection:
         """
 
         if self.backtesting_pnl_data is None or location is not None or force_fetch:
-            if location is not None or self.backtest_exchange_map.get(strategy_code) is not None:
-                location = self.backtest_exchange_map[strategy_code] if location is None else location
-            else:
-                location = 'en-IN'
+            if location is None:
+                location = self.strategy_country_code_map['BACKTESTING'].get(strategy_code) if self.strategy_country_code_map['BACKTESTING'].get(strategy_code) is not None else 'en-IN'
             self.backtesting_pnl_data = self.get_pnl_report_table(strategy_code, TradingType.BACKTESTING, location)
 
         return self.backtesting_pnl_data
@@ -704,14 +702,13 @@ class AlgoBullsConnection:
         """
 
         # start papertrading job
-        response, location = self.start_job(
+        response = self.start_job(
             strategy=strategy, start=start, end=end, instruments=instruments, lots=lots, parameters=parameters, candle=candle, mode=mode,
             initial_funds_virtual=initial_funds_virtual, delete_previous_trades=delete_previous_trades, trading_type=TradingType.PAPERTRADING, broking_details=vendor_details, **kwargs
         )
 
         # Update previously saved pnl data and exchange location
         self.papertrade_pnl_data = None
-        self.papertrade_exchange_map[strategy] = location
 
     def get_papertrading_job_status(self, strategy_code):
         """
@@ -773,10 +770,8 @@ class AlgoBullsConnection:
         """
 
         if self.papertrade_pnl_data is None or location is not None or force_fetch:
-            if location is not None or self.papertrade_exchange_map.get(strategy_code) is not None:
-                location = self.papertrade_exchange_map[strategy_code] if location is None else location
-            else:
-                location = 'en-IN'
+            if location is None:
+                location = self.strategy_country_code_map['PAPERTRADING'].get(strategy_code) if self.strategy_country_code_map['PAPERTRADING'].get(strategy_code) is not None else 'en-IN'
             self.papertrade_pnl_data = self.get_pnl_report_table(strategy_code, TradingType.PAPERTRADING, location)
 
         return self.papertrade_pnl_data
@@ -827,7 +822,7 @@ class AlgoBullsConnection:
         Start a Real Trading session.
         Update: This requires an approval process which is currently on request basis.
 
-        Start a real trade job for a strategy on the AlgoBulls Platform
+        Start a realtrading job for a strategy on the AlgoBulls Platform
 
         Args:
             strategy: Strategy code
@@ -853,12 +848,11 @@ class AlgoBullsConnection:
             realtrade job submission status
         """
 
-        # start real trading job
-        response, location = self.start_job(strategy=strategy, start=start, end=end, instruments=instruments, lots=lots, parameters=parameters, candle=candle, mode=mode, trading_type=TradingType.REALTRADING, broking_details=broking_details, **kwargs)
+        # start realtrading job
+        response = self.start_job(strategy=strategy, start=start, end=end, instruments=instruments, lots=lots, parameters=parameters, candle=candle, mode=mode, trading_type=TradingType.REALTRADING, broking_details=broking_details, **kwargs)
 
         # Update previously saved pnl data and exchange location
         self.realtrade_pnl_data = None
-        self.realtrade_exchange_map[strategy] = location
 
     def livetrade(self, *args, **kwargs):
         self.realtrade(*args, **kwargs)
@@ -923,10 +917,8 @@ class AlgoBullsConnection:
         """
 
         if self.realtrade_pnl_data is None or location is not None or force_fetch:
-            if location is not None or self.realtrade_exchange_map.get(strategy_code) is not None:
-                location = self.realtrade_exchange_map[strategy_code] if location is None else location
-            else:
-                location = 'en-IN'
+            if location is None:
+                location = self.strategy_country_code_map['REALTRADING'].get(strategy_code) if self.strategy_country_code_map['REALTRADING'].get(strategy_code) is not None else 'en-IN'
             self.realtrade_pnl_data = self.get_pnl_report_table(strategy_code, TradingType.REALTRADING, location)
 
         return self.realtrade_pnl_data
@@ -937,7 +929,7 @@ class AlgoBullsConnection:
 
         Args:
             strategy_code: strategy code
-            initial_funds: initial funds allotted before papertrading
+            initial_funds: initial funds allotted before realtrading
             mode: extension used to generate statistics
             report: format and content of the report
             html_dump: save it as a html file
