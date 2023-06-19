@@ -1,11 +1,16 @@
-# EMA Regular Order Strategy 
+# EMA Crossover
 
-This is a trading strategy called "EMA Regular Order Strategy v2" implemented in Python using the PyAlgoTrading library. The strategy is based on the exponential moving average crossover.
+This is a trading strategy called "EMA Regular Order Strategy" implemented in Python using the PyAlgoTrading library. The strategy is based on the exponential moving average crossover.
+
+!!! Links
+    - **[Strategy Code (.py)](https://github.com/algobulls/pyalgostrategypool/blob/master/pyalgostrategypool/ema_crossover.py){target=_blank}**
+    - **[Strategy Structure (common methods used in a regular strategy)](common_regular_strategy.md){target=_blank}**
+    - **[Strategy Design (workflow of a strategy)](../pyalgotrad/structure.md){target=_blank}**
 
 ## EMA indicator
 Exponential Moving Averages (EMAs) are a popular technical analysis tool used in the stock market. They are similar to Simple Moving Averages (SMAs), but they place greater emphasis on recent price data.
 
-Here's a summary of Exponential Moving Averages:
+Here is a summary of Exponential Moving Averages:
 
 - An Exponential Moving Average is a type of moving average that assigns more weight to recent prices, making it more responsive to current market conditions.
 - Unlike the SMA, which gives equal weight to all data points, the EMA assigns exponentially decreasing weights to older data points.
@@ -17,17 +22,22 @@ Here's a summary of Exponential Moving Averages:
 - EMAs are often used in conjunction with other technical indicators, such as the Moving Average Convergence Divergence (MACD), to generate trading signals.
 - Traders and investors use Exponential Moving Averages to smooth out price fluctuations, identify trend reversals, and determine potential support and resistance levels. They provide a visual representation of the average price over a specific period, with greater weight given to recent prices.
 
-[![ema](images/ema.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](images/ema.png)
-
+| [![ema](images/ema.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](images/ema.png) |
+|: -- :|
+| <b>Fig.1 - IBM candle chart (top) with EMA (green) and SMA (red) lines </b>|
 
 ## Strategy Overview
-This strategy, called EMA Regular Order Strategy v2, implements a crossover strategy using Exponential Moving Averages (EMA). It generates entry and exit signals based on the crossover of two EMAs.
+This strategy, called EMA Regular Order Strategy, implements a crossover strategy using Exponential Moving Averages (EMA). It generates entry and exit signals based on the crossover of two EMAs.
+
 
 ## Strategy Parameters
 The following parameters can be configured for the strategy:
 
- - `TIMEPERIOD1`: Period (number of candles) by which EMA-1 is calculated
- - `TIMEPERIOD2`:  Period (number of candles) by which EMA-2 is calculated
+| Name              |  Default Value  | Expected Value                                                    | Description                                              |
+|:------------------|:---------------:|:------------------------------------------------------------------|:---------------------------------------------------------|
+| **TIME_PERIOD1**  |      None       | greater than 0                                                    | Period (number of candles) by which EMA-1 is calculated  |
+| **TIME_PERIOD2**  |      None       | greater than 0                                                    | Period (number of candles) by which EMA-2 is calculated  |
+
 
 ## Crossover Calculation
 

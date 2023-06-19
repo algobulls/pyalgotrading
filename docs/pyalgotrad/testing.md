@@ -123,9 +123,31 @@ algobulls_connection.delete_previous_trades(strategy=strategy)
 
 Set the **parameters** for the strategy
 ```python
+
 parameters={
     'timeperiod1': 5,
     'timeperiod2': 12
+}
+```
+
+```python
+vendor_details = {
+    'brokerName': '<VENDOR_NAME>',
+    'credentialParameters': {
+        'api_key': '<API_KEY>',
+        'secret_key': '<SECRET_KEY>'
+    }
+}
+```
+
+```python
+broking_details = {
+    'brokerName': '<BROKER_NAME>',
+    'credentialParameters': {
+        'user_id': '<USER_ID>',
+        'api_key': '<API_KEY>',
+        'password': '<PASSWORD>'
+    }
 }
 ```
 
@@ -136,14 +158,15 @@ Click on each of the tabs to see the relevant code snippet.
     ```python
     algobulls_connection.backtest(
             strategy=strategy_code,         # strategy code
-            start='2020-7-1 | 09:15',       # start date-time of strategy ('YYYY-MM-DD | HH:MM')
-            end='2020-7-7 | 15:30',         # end date-time of strategy ('YYYY-MM-DD | HH:MM')
+            start='2020-7-1 09:15 +0530',   # start date-time of strategy ('YYYY-MM-DD HH:MM z')
+            end='2020-7-7 15:30 +0530',     # end date-time of strategy ('YYYY-MM-DD HH:MM z')
             instruments='NSE:SBIN',         # name of the instrument
             lots=1,                         # number of lots per trade
             parameters=parameters,          # parameters required for the strategy
             candle='15 minutes',            # candle size eg : '1 Day', '1 hour', '3 minutes'
             delete_previous_trades=True,    # delete the previous trades for papertrading (default is true),
-            initial_funds_virtual=10000     # virtual funds allotted before the paper trading starts (default is 1e9)
+            initial_funds_virtual=10000,    # virtual funds allotted before the paper trading starts (default is 1e9)
+            vendor_details=vendor_details   # vendor's details for authentication and verification 
     )
     ```
 
@@ -152,28 +175,29 @@ Click on each of the tabs to see the relevant code snippet.
     ```python
     algobulls_connection.papertrade(
             strategy=strategy_code,         # strategy code
-            start='09:15',                  # start time of strategy (HH:MM)     
-            end='15:30',                    # end time of strategy (HH:MM)
+            start='09:15 +0530',            # start time of strategy (HH:MM z)     
+            end='15:30 +0530',              # end time of strategy (HH:MM z)
             instruments='NSE:SBIN',         # name of the instrument
             lots=1,                         # number of lots per trade
             parameters=parameters,          # parameters required for the strategy
             candle='15 minutes',            # candle size eg : '1 Day', '1 hour', '3 minutes'
             delete_previous_trades=True,    # delete the previous trades for papertrading (default is true)
-            initial_funds_virtual=10000     # virtual funds allotted before the paper trading starts (default is 1e9)
+            initial_funds_virtual=10000,    # virtual funds allotted before the paper trading starts (default is 1e9)
+            vendor_details=vendor_details   # vendor's details for authentication and verification 
     )
     ```
 
 > **Real Trading**
     ```python
     algobulls_connection.realtrade(
-            strategy=strategy_code,         # strategy code
-            start='09:15',                  # start time of strategy (HH:MM)     
-            end='15:30',                    # end time of strategy (HH:MM)
-            instruments='NSE:SBIN',         # name of the instrument
-            lots=1,                         # number of lots per trade
-            parameters=parameters,          # parameters required for the strategy
-            candle='15 minutes',            # candle size eg : '1 Day', '1 hour', '3 minutes'
-            brokerId=53                     # ID of the broker for real trade
+            strategy=strategy_code,          # strategy code
+            start='09:15 +0530',             # start time of strategy (HH:MM z)     
+            end='15:30 +0530',               # end time of strategy (HH:MM z)
+            instruments='NSE:SBIN',          # name of the instrument
+            lots=1,                          # number of lots per trade
+            parameters=parameters,           # parameters required for the strategy
+            candle='15 minutes',             # candle size eg : '1 Day', '1 hour', '3 minutes'
+            broking_details=broking_details  # broker's details for authentication and verification 
     )
     ```
 

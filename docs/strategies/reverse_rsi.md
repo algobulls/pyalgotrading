@@ -1,11 +1,17 @@
 # Reverse RSI 
 
-This is a trading strategy called "Reverse RSI v2" implemented in Python using the PyAlgoTrading library. The strategy is based on the relative strength index indicator.
+This is a trading strategy called "Reverse RSI" implemented in Python using the PyAlgoTrading library. The strategy is based on the relative strength index indicator.
 
-## What is RSI 
+!!! Links
+    - **[Strategy Code (.py)](https://github.com/algobulls/pyalgostrategypool/blob/master/pyalgostrategypool/reverse_rsi_crossover.py){target=_blank}**
+    - **[Strategy Structure (common methods used in a regular strategy)](common_regular_strategy.md){target=_blank}**
+    - **[Strategy Design (workflow of a strategy)](../pyalgotrad/structure.md){target=_blank}**
+
+## Relative Strength Index
 RSI stands for Relative Strength Index, and it is a popular technical indicator used in the stock market to analyze the strength and momentum of a price trend. The RSI provides insights into whether a stock is overbought or oversold and can help identify potential trend reversals.
 
-Here's a summary of RSI in the stock market:
+Here is a summary of RSI in the stock market:
+
 
 - The Relative Strength Index (RSI) is a momentum oscillator that measures the speed and change of price movements.
 - It compares the magnitude of recent gains to recent losses over a specified period, typically 14 days, and generates a value between 0 and 100.
@@ -18,18 +24,24 @@ Here's a summary of RSI in the stock market:
 
 Overall, the Relative Strength Index (RSI) is a widely used indicator in the stock market to assess the strength and momentum of price movements. It helps traders identify overbought and oversold conditions, as well as potential trend reversals, which can assist in making trading decisions.
 
-[![rsi](images/rsi.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](images/rsi.png)
-
+| [![rsi](images/rsi.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](images/rsi.png) |
+|: -- :|
+| <b>Fig.1 - MCD candle chart (top) and RSI plot (bottom) </b>|
 
 ## Strategy Overview
-The Reverse RSI v2 strategy is a trading strategy based on the Relative Strength Index (RSI) indicator. It generates entry and exit signals based on the reverse crossover of the RSI values from specified overbought and oversold levels.
+The Reverse RSI strategy is a trading strategy based on the Relative Strength Index (RSI) indicator. It generates entry and exit signals based on the reverse crossover of the RSI values from specified overbought and oversold levels.
+
 
 ## Strategy Parameters
 The following parameters can be configured for the strategy:
 
- - `TIME_PERIOD`: Period (number of candles) by which RSI is calculated
- - `OVERBOUGHT_VALUE`: RSI value above which stocks are considered over-bought
- - `OVERSOLD_VALUE`:  RSI value below which stocks are considered over-sold
+| Name                 |  Default Value  | Expected Value                                                    | Description                                              |
+|:---------------------|:---------------:|:------------------------------------------------------------------|:---------------------------------------------------------|
+| **TIME_PERIOD**      |      None       | greater than 0                                                    | Period (number of candles) by which RSI is calculated    |
+| **OVERBOUGHT_VALUE** |      None       | greater than 0                                                    | RSI value above which stocks are considered over-bought  |
+| **OVERSOLD_VALUE**   |      None       | greater than 0                                                    | RSI value below which stocks are considered over-sold    |
+
+
 
 ## Crossover Calculation
 
