@@ -710,6 +710,7 @@ class AlgoBullsConnection:
         Returns:
             papertrade job submission status
         """
+
         saved_params = self.saved_params.get(strategy) or {}
 
         # start papertrading job
