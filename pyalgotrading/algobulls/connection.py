@@ -37,8 +37,6 @@ class AlgoBullsConnection:
         self.papertrade_pnl_data = None
         self.realtrade_pnl_data = None
 
-
-
     @staticmethod
     def get_authorization_url():
         """
@@ -365,7 +363,7 @@ class AlgoBullsConnection:
 
         # get pnl data and cleanup as per quantstats format
         _returns_df = pnl_df[['entry_timestamp', 'pnl_absolute']]
-        _returns_df['entry_timestamp'] = _returns_df['entry_timestamp'].dt.tz_localize(None)            # Note: Quantstats has a bug. It doesn't accept the df index, which is set below, with timezone. Hence, we have to drop the timezone info
+        _returns_df['entry_timestamp'] = _returns_df['entry_timestamp'].dt.tz_localize(None)  # Note: Quantstats has a bug. It doesn't accept the df index, which is set below, with timezone. Hence, we have to drop the timezone info
         _returns_df = _returns_df.set_index('entry_timestamp')
         _returns_df["total_funds"] = _returns_df.pnl_absolute.cumsum() + initial_funds
         _returns_df = _returns_df.dropna()
