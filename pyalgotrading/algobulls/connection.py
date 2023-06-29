@@ -26,15 +26,16 @@ class AlgoBullsConnection:
         Init method that is used while creating an object of this class
         """
         self.api = AlgoBullsAPI(self)
-        self.backtesting_pnl_data = None
-        self.papertrade_pnl_data = None
-        self.realtrade_pnl_data = None
-
+        self.saved_params = {}
         self.strategy_locale_map = {
             TradingType.BACKTESTING: {},
             TradingType.PAPERTRADING: {},
             TradingType.REALTRADING: {},
         }
+
+        self.backtesting_pnl_data = None
+        self.papertrade_pnl_data = None
+        self.realtrade_pnl_data = None
 
     @staticmethod
     def get_authorization_url():
@@ -293,7 +294,7 @@ class AlgoBullsConnection:
         else:
             print('Report not available yet. Please retry in sometime')
 
-    def get_pnl_report_table(self, strategy_code, trading_type, location):
+    def get_pnl_report_table(self, strategy_code, trading_type, location, broker_commission_percentage=0, broker_commission_price=None):
         """
             Fetch BT/PT/RT Profit & Loss details
 
@@ -301,6 +302,8 @@ class AlgoBullsConnection:
                 strategy_code: strategy code
                 trading_type: type of trades : Backtesting, Papertrading, Realtrading
                 location: Location of the exchange
+                broker_commission_percentage: Percentage of broker commission per trade
+                broker_commission_price: Broker fee per trade
 
             Returns:
                 Report details
@@ -338,9 +341,16 @@ class AlgoBullsConnection:
             _df['exit_transaction_type'] = _df['exit_transaction_type'].apply(lambda _: 'BUY' if _ else 'SELL')
             _df["pnl_cumulative_absolute"] = _df["pnl_absolute"].cumsum(axis=0, skipna=True)
 
+            # add brokerage
+            _df['brokerage'] = ((_df['entry_price'] * _df['entry_quantity']) + (_df['exit_price'] * _df['exit_quantity'])) * (broker_commission_percentage / 100)
+            if broker_commission_price is not None:
+                _df["brokerage"].loc[_df["brokerage"] > broker_commission_price] = broker_commission_price
+            _df['net_pnl'] = _df['pnl_absolute'] - _df['brokerage']
+
         else:
             # No data available, send back an empty dataframe
             _df = pd.DataFrame(columns=list(column_rename_map.values()))
+            _df['net_pnl'] = None
 
         return _df
 
@@ -361,8 +371,8 @@ class AlgoBullsConnection:
         order_report = None
 
         # get pnl data and cleanup as per quantstats format
-        _returns_df = pnl_df[['entry_timestamp', 'pnl_absolute']]
-        _returns_df['entry_timestamp'] = _returns_df['entry_timestamp'].dt.tz_localize(None)            # Note: Quantstats has a bug. It doesn't accept the df index, which is set below, with timezone. Hence we have to drop the timezone info
+        _returns_df = pnl_df[['entry_timestamp', 'net_pnl']]
+        _returns_df['entry_timestamp'] = _returns_df['entry_timestamp'].dt.tz_localize(None)            # Note: Quantstats has a bug. It doesn't accept the df index, which is set below, with timezone. Hence, we have to drop the timezone info
         _returns_df = _returns_df.set_index('entry_timestamp')
         _returns_df["total_funds"] = _returns_df.pnl_absolute.cumsum() + initial_funds
         _returns_df = _returns_df.dropna()
@@ -388,7 +398,7 @@ class AlgoBullsConnection:
 
         return order_report
 
-    def start_job(self, strategy=None, start=None, end=None, instruments=None, lots=1, parameters=None, candle=None, mode=StrategyMode.INTRADAY, initial_funds_virtual=1e9, delete_previous_trades=True, trading_type=None, broking_details=None,
+    def start_job(self, strategy=None, start=None, end=None, instruments=None, lots=None, parameters=None, candle=None, mode=None, initial_funds_virtual=None, delete_previous_trades=True, trading_type=None, broking_details=None,
                   **kwargs):
         """
         Submit a BT/PT/RT job for a strategy on the AlgoBulls Platform
@@ -420,15 +430,19 @@ class AlgoBullsConnection:
             job submission status
             location of the instruments
         """
+        # check if values received by new parameter names, else extract from old parameter names, else extract from saved parameters
+        saved_params = kwargs.get('saved_params')
 
-        # check if values received by new parameter names, else extract from old parameter names
-        strategy = strategy if strategy is not None else kwargs.get('strategy_code')
-        start = start if start is not None else kwargs.get('start_timestamp')
-        end = end if end is not None else kwargs.get('end_timestamp')
-        parameters = parameters if parameters is not None else kwargs.get('strategy_parameters')
-        candle = candle if candle is not None else kwargs.get('candle_interval')
-        instruments = instruments if instruments is not None else kwargs.get('instrument')
-        mode = mode if 'strategy_mode' not in kwargs else kwargs.get('strategy_mode')
+        strategy = strategy or kwargs.get('strategy_code')
+        start = start or kwargs.get('start_timestamp')
+        end = end or kwargs.get('end_timestamp')
+        parameters = parameters or kwargs.get('strategy_parameters') or saved_params.get('parameters') or saved_params.get('strategy_parameters')
+        candle = candle or kwargs.get('candle_interval') or saved_params.get('candle') or saved_params.get('candle_interval')
+        instruments = instruments or kwargs.get('instrument') or saved_params.get('instruments') or saved_params.get('instrument')
+        mode = mode or kwargs.get('strategy_mode') or saved_params.get('mode') or saved_params.get('strategy_mode') or StrategyMode.INTRADAY
+        lots = lots or saved_params.get('lots')
+        initial_funds_virtual = initial_funds_virtual or saved_params.get('initial_funds_virtual') or 1e9
+        broking_details = broking_details or saved_params.get('vendor_details')
 
         # Sanity checks - Convert config parameters
         _error_msg_candle = f'Argument "candle" should be a valid string or an enum of type CandleInterval. Possible string values can be: {get_valid_enum_names(CandleInterval)}'
@@ -490,7 +504,7 @@ class AlgoBullsConnection:
         else:
             print('Warning: Valid exchange not given, assuming exchange as "NSE_EQ".\n Expected format for giving an instrument "<EXCHANGE>:<TRADING_SYMBOL>"\nPossible exchange values include: {EXCHANGE_LOCALE_MAP.keys()}')
             location = EXCHANGE_LOCALE_MAP[Locale.DEFAULT.value]
-            
+
         # generate instruments' id list
         instrument_list = []
         for _instrument in instruments:
@@ -501,9 +515,13 @@ class AlgoBullsConnection:
                     instrument_list.append({'id': _["id"]})
                     break
 
-        # delete previous trades
-        if delete_previous_trades and trading_type in [TradingType.BACKTESTING, TradingType.PAPERTRADING]:
-            self.delete_previous_trades(strategy)
+        # save BT/PT parameters
+        if trading_type in [TradingType.BACKTESTING, TradingType.PAPERTRADING]:
+            self.saved_params[strategy] = {'parameters': parameters, 'candle': candle, 'instruments': instruments, 'mode': mode, 'lots': lots, 'initial_funds_virtual': initial_funds_virtual, 'vendor_details': broking_details}
+
+            # delete previous trades
+            if delete_previous_trades:
+                self.delete_previous_trades(strategy)
 
         # Setup config for starting the job
         strategy_config = {
@@ -524,7 +542,7 @@ class AlgoBullsConnection:
         self.strategy_locale_map[trading_type][strategy] = location
         return response
 
-    def backtest(self, strategy=None, start=None, end=None, instruments=None, lots=1, parameters=None, candle=None, mode=StrategyMode.INTRADAY, delete_previous_trades=True, initial_funds_virtual=1e9, vendor_details=None, **kwargs):
+    def backtest(self, strategy=None, start=None, end=None, instruments=None, lots=None, parameters=None, candle=None, mode=None, delete_previous_trades=True, initial_funds_virtual=None, vendor_details=None, **kwargs):
         """
         Submit a backtesting job for a strategy on the AlgoBulls Platform
 
@@ -554,10 +572,12 @@ class AlgoBullsConnection:
             backtest job submission status
         """
 
+        saved_params = self.saved_params.get(strategy) or {}
+
         # start backtesting job
         response = self.start_job(
             strategy=strategy, start=start, end=end, instruments=instruments, lots=lots, parameters=parameters, candle=candle, mode=mode,
-            initial_funds_virtual=initial_funds_virtual, delete_previous_trades=delete_previous_trades, trading_type=TradingType.BACKTESTING, broking_details=vendor_details, **kwargs
+            initial_funds_virtual=initial_funds_virtual, delete_previous_trades=delete_previous_trades, trading_type=TradingType.BACKTESTING, broking_details=vendor_details, saved_params=saved_params, **kwargs
         )
 
         # Update previously saved pnl data and exchange location
@@ -608,7 +628,7 @@ class AlgoBullsConnection:
 
         return self.get_logs(strategy_code, trading_type=TradingType.BACKTESTING)
 
-    def get_backtesting_report_pnl_table(self, strategy_code, location=None, show_all_rows=False, force_fetch=False):
+    def get_backtesting_report_pnl_table(self, strategy_code, location=None, show_all_rows=False, force_fetch=False, broker_commission_percentage=0, broker_commission_price=None):
         """
         Fetch Back Testing Profit & Loss details
 
@@ -617,13 +637,15 @@ class AlgoBullsConnection:
             location: Location of Exchange
             show_all_rows: True or False
             force_fetch: Forcefully fetch PnL data
+            broker_commission_percentage: Percentage of broker commission per trade
+            broker_commission_price: Broker fee per trade
 
         Returns:
             Report details
         """
 
         if self.backtesting_pnl_data is None or location is not None or force_fetch:
-            self.backtesting_pnl_data = self.get_pnl_report_table(strategy_code, TradingType.BACKTESTING, location)
+            self.backtesting_pnl_data = self.get_pnl_report_table(strategy_code, TradingType.BACKTESTING, location, broker_commission_percentage, broker_commission_price)
 
         return self.backtesting_pnl_data
 
@@ -668,7 +690,7 @@ class AlgoBullsConnection:
 
         return self.get_report(strategy_code=strategy_code, trading_type=TradingType.BACKTESTING, report_type=TradingReportType.ORDER_HISTORY)
 
-    def papertrade(self, strategy=None, start=None, end=None, instruments=None, lots=None, parameters=None, candle=None, mode=StrategyMode.INTRADAY, delete_previous_trades=True, initial_funds_virtual=1e9, vendor_details=None, **kwargs):
+    def papertrade(self, strategy=None, start=None, end=None, instruments=None, lots=None, parameters=None, candle=None, mode=None, delete_previous_trades=True, initial_funds_virtual=None, vendor_details=None, **kwargs):
         """
         Submit a papertrade job for a strategy on the AlgoBulls Platform
 
@@ -698,10 +720,12 @@ class AlgoBullsConnection:
             papertrade job submission status
         """
 
+        saved_params = self.saved_params.get(strategy) or {}
+
         # start papertrading job
         response = self.start_job(
             strategy=strategy, start=start, end=end, instruments=instruments, lots=lots, parameters=parameters, candle=candle, mode=mode,
-            initial_funds_virtual=initial_funds_virtual, delete_previous_trades=delete_previous_trades, trading_type=TradingType.PAPERTRADING, broking_details=vendor_details, **kwargs
+            initial_funds_virtual=initial_funds_virtual, delete_previous_trades=delete_previous_trades, trading_type=TradingType.PAPERTRADING, broking_details=vendor_details, saved_params=saved_params, **kwargs
         )
 
         # Update previously saved pnl data and exchange location
@@ -752,7 +776,7 @@ class AlgoBullsConnection:
 
         return self.get_logs(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING)
 
-    def get_papertrading_report_pnl_table(self, strategy_code, location=None, show_all_rows=False, force_fetch=False):
+    def get_papertrading_report_pnl_table(self, strategy_code, location=None, show_all_rows=False, force_fetch=False, broker_commission_percentage=0, broker_commission_price=None):
         """
         Fetch Paper Trading Profit & Loss details
 
@@ -761,13 +785,15 @@ class AlgoBullsConnection:
             location: Location of the exchange
             show_all_rows: True or False
             force_fetch: Forcefully fetch PnL data
+            broker_commission_percentage: Percentage of broker commission per trade
+            broker_commission_price: Broker fee per trade
 
         Returns:
             Report details
         """
 
         if self.papertrade_pnl_data is None or location is not None or force_fetch:
-            self.papertrade_pnl_data = self.get_pnl_report_table(strategy_code, TradingType.PAPERTRADING, location)
+            self.papertrade_pnl_data = self.get_pnl_report_table(strategy_code, TradingType.PAPERTRADING, location, broker_commission_percentage, broker_commission_price)
 
         return self.papertrade_pnl_data
 
@@ -897,7 +923,7 @@ class AlgoBullsConnection:
 
         return self.get_logs(strategy_code=strategy_code, trading_type=TradingType.REALTRADING)
 
-    def get_realtrading_report_pnl_table(self, strategy_code, location=None, show_all_rows=False, force_fetch=False):
+    def get_realtrading_report_pnl_table(self, strategy_code, location=None, show_all_rows=False, force_fetch=False, broker_commission_percentage=0, broker_commission_price=None):
         """
         Fetch Real Trading Profit & Loss details
 
@@ -906,13 +932,15 @@ class AlgoBullsConnection:
             location: Location of the Exchange
             show_all_rows: True or False
             force_fetch: Forcefully fetch PnL data
+            broker_commission_percentage: Percentage of broker commission per trade
+            broker_commission_price: Broker fee per trade
 
         Returns:
             Report details
         """
 
         if self.realtrade_pnl_data is None or location is not None or force_fetch:
-            self.realtrade_pnl_data = self.get_pnl_report_table(strategy_code, TradingType.REALTRADING, location)
+            self.realtrade_pnl_data = self.get_pnl_report_table(strategy_code, TradingType.REALTRADING, location, broker_commission_percentage, broker_commission_price)
 
         return self.realtrade_pnl_data
 
