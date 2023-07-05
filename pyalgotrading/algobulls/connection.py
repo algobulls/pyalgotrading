@@ -327,11 +327,13 @@ class AlgoBullsConnection:
             ('entry.quantity', 'entry_quantity'),
             ('entry.prefix', 'entry_currency'),
             ('entry.price', 'entry_price'),
+            ('entry.variety', 'entry_variety'),
             ('exit.timestamp', 'exit_timestamp'),
             ('exit.isBuy', 'exit_transaction_type'),
             ('exit.quantity', 'exit_quantity'),
             ('exit.prefix', 'exit_currency'),
             ('exit.price', 'exit_price'),
+            ('exit.variety', 'exit_variety'),
             ('pnlAbsolute.value', 'pnl_absolute')
         ])
         if data:
