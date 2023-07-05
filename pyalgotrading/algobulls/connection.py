@@ -643,6 +643,7 @@ class AlgoBullsConnection:
             force_fetch: Forcefully fetch PnL data
             broker_commission_percentage: Percentage of broker commission per trade
             broker_commission_price: Broker fee per trade
+            slippage_percent: Slippage percentage value
 
         Returns:
             Report details
@@ -780,7 +781,7 @@ class AlgoBullsConnection:
 
         return self.get_logs(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING)
 
-    def get_papertrading_report_pnl_table(self, strategy_code, location=None, show_all_rows=False, force_fetch=False, broker_commission_percentage=0, broker_commission_price=None):
+    def get_papertrading_report_pnl_table(self, strategy_code, location=None, show_all_rows=False, force_fetch=False, broker_commission_percentage=0, broker_commission_price=None, slippage_percent=None):
         """
         Fetch Paper Trading Profit & Loss details
 
@@ -791,13 +792,14 @@ class AlgoBullsConnection:
             force_fetch: Forcefully fetch PnL data
             broker_commission_percentage: Percentage of broker commission per trade
             broker_commission_price: Broker fee per trade
+            slippage_percent: Slippage percentage value
 
         Returns:
             Report details
         """
 
         if self.papertrade_pnl_data is None or location is not None or force_fetch:
-            self.papertrade_pnl_data = self.get_pnl_report_table(strategy_code, TradingType.PAPERTRADING, location, broker_commission_percentage, broker_commission_price)
+            self.papertrade_pnl_data = self.get_pnl_report_table(strategy_code, TradingType.PAPERTRADING, location, broker_commission_percentage, broker_commission_price, slippage_percent)
 
         return self.papertrade_pnl_data
 
