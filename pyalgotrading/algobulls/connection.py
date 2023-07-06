@@ -13,7 +13,7 @@ from .api import AlgoBullsAPI
 from .exceptions import AlgoBullsAPIBadRequestException, AlgoBullsAPIGatewayTimeoutErrorException
 from ..constants import StrategyMode, TradingType, TradingReportType, CandleInterval, AlgoBullsEngineVersion, EXCHANGE_LOCALE_MAP, Locale
 from ..strategy.strategy_base import StrategyBase
-from ..utils.func import get_valid_enum_names, get_datetime_with_tz
+from ..utils.func import get_valid_enum_names, get_datetime_with_tz, slippage
 
 
 class AlgoBullsConnection:
@@ -293,7 +293,7 @@ class AlgoBullsConnection:
         else:
             print('Report not available yet. Please retry in sometime')
 
-    def get_pnl_report_table(self, strategy_code, trading_type, location):
+    def get_pnl_report_table(self, strategy_code, trading_type, location, slippage_percent=None):
         """
             Fetch BT/PT/RT Profit & Loss details
 
@@ -301,6 +301,7 @@ class AlgoBullsConnection:
                 strategy_code: strategy code
                 trading_type: type of trades : Backtesting, Papertrading, Realtrading
                 location: Location of the exchange
+                slippage_percent: percentage of slippage per order
 
             Returns:
                 Report details
@@ -338,6 +339,11 @@ class AlgoBullsConnection:
             _df['exit_transaction_type'] = _df['exit_transaction_type'].apply(lambda _: 'BUY' if _ else 'SELL')
             _df["pnl_cumulative_absolute"] = _df["pnl_absolute"].cumsum(axis=0, skipna=True)
 
+            # add slippage here
+            if slippage_percent:
+                _df[['entry_price', 'exit_price']] = _df.apply(
+                    lambda row: (slippage(row.entry_price, row.entry_variety, row.entry_transaction_type, slippage_percent), slippage(row.exit_price, row.exit_variety, row.exit_transaction_type, slippage_percent)), axis=1, result_type='expand')
+                _df['pnl_absolute'] = _df['exit_price'] - _df['entry_price']
         else:
             # No data available, send back an empty dataframe
             _df = pd.DataFrame(columns=list(column_rename_map.values()))
@@ -608,7 +614,7 @@ class AlgoBullsConnection:
 
         return self.get_logs(strategy_code, trading_type=TradingType.BACKTESTING)
 
-    def get_backtesting_report_pnl_table(self, strategy_code, location=None, show_all_rows=False, force_fetch=False):
+    def get_backtesting_report_pnl_table(self, strategy_code, location=None, show_all_rows=False, force_fetch=False, slippage_percent=None):
         """
         Fetch Back Testing Profit & Loss details
 
@@ -617,13 +623,14 @@ class AlgoBullsConnection:
             location: Location of Exchange
             show_all_rows: True or False
             force_fetch: Forcefully fetch PnL data
+            slippage_percent: Slippage percentage value
 
         Returns:
             Report details
         """
 
         if self.backtesting_pnl_data is None or location is not None or force_fetch:
-            self.backtesting_pnl_data = self.get_pnl_report_table(strategy_code, TradingType.BACKTESTING, location)
+            self.backtesting_pnl_data = self.get_pnl_report_table(strategy_code, TradingType.BACKTESTING, location, slippage_percent)
 
         return self.backtesting_pnl_data
 
@@ -752,7 +759,7 @@ class AlgoBullsConnection:
 
         return self.get_logs(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING)
 
-    def get_papertrading_report_pnl_table(self, strategy_code, location=None, show_all_rows=False, force_fetch=False):
+    def get_papertrading_report_pnl_table(self, strategy_code, location=None, show_all_rows=False, force_fetch=False, slippage_percent=None):
         """
         Fetch Paper Trading Profit & Loss details
 
@@ -761,13 +768,14 @@ class AlgoBullsConnection:
             location: Location of the exchange
             show_all_rows: True or False
             force_fetch: Forcefully fetch PnL data
+            slippage_percent: Slippage percentage value
 
         Returns:
             Report details
         """
 
         if self.papertrade_pnl_data is None or location is not None or force_fetch:
-            self.papertrade_pnl_data = self.get_pnl_report_table(strategy_code, TradingType.PAPERTRADING, location)
+            self.papertrade_pnl_data = self.get_pnl_report_table(strategy_code, TradingType.PAPERTRADING, location, slippage_percent)
 
         return self.papertrade_pnl_data
 

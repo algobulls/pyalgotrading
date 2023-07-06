@@ -2,7 +2,7 @@
 A module for plotting candlesticks
 """
 from datetime import datetime as dt, timezone
-
+import random
 import pandas as pd
 
 from pyalgotrading.constants import PlotType, TRADING_TYPE_DT_FORMAT_MAP, KEY_DT_FORMAT_WITHOUT_TIMEZONE, KEY_DT_FORMAT_WITH_TIMEZONE
@@ -161,3 +161,13 @@ def get_datetime_with_tz(timestamp_str, trading_type, label=''):
 
     return timestamp_str
 
+
+def slippage(price, variety, transaction_type, slip_percent=1):
+    slip_percent = slip_percent / 100
+    if variety in ['MARKET', 'STOPLOSS_MARKET']:
+        return price*(1 + random.choice([1, 0, -1]) * slip_percent)
+    else:
+        if transaction_type == 'BUY':
+            return price*(1 + random.choice([0, -5]) * slip_percent)
+        else:
+            return price*(1 + random.choice([5, 0]) * slip_percent)
