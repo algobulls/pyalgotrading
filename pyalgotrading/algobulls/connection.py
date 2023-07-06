@@ -343,8 +343,6 @@ class AlgoBullsConnection:
             _df['entry_transaction_type'] = _df['entry_transaction_type'].apply(lambda _: 'BUY' if _ else 'SELL')
             _df['exit_transaction_type'] = _df['exit_transaction_type'].apply(lambda _: 'BUY' if _ else 'SELL')
             _df["pnl_cumulative_absolute"] = _df["pnl_absolute"].cumsum(axis=0, skipna=True)
-
-            # add slippage
             if slippage_percent:
                 _df[['entry_price_with_slip', 'exit_price_with_slip']] = _df.apply(
                     lambda row: (slippage(row.entry_price, row.entry_variety, row.entry_transaction_type, slippage_percent), slippage(row.exit_price, row.exit_variety, row.exit_transaction_type, slippage_percent)), axis=1, result_type='expand')
