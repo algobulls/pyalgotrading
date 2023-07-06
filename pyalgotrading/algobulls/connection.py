@@ -13,7 +13,7 @@ from .api import AlgoBullsAPI
 from .exceptions import AlgoBullsAPIBadRequestException, AlgoBullsAPIGatewayTimeoutErrorException
 from ..constants import StrategyMode, TradingType, TradingReportType, CandleInterval, AlgoBullsEngineVersion, EXCHANGE_LOCALE_MAP, Locale
 from ..strategy.strategy_base import StrategyBase
-from ..utils.func import get_valid_enum_names, get_datetime_with_tz, slippage
+from ..utils.func import get_valid_enum_names, get_datetime_with_tz
 
 
 class AlgoBullsConnection:
@@ -294,7 +294,7 @@ class AlgoBullsConnection:
         else:
             print('Report not available yet. Please retry in sometime')
 
-    def get_pnl_report_table(self, strategy_code, trading_type, location, broker_commission_percentage=0, broker_commission_price=None, slippage_percent=None):
+    def get_pnl_report_table(self, strategy_code, trading_type, location, broker_commission_percentage=0, broker_commission_price=None):
         """
             Fetch BT/PT/RT Profit & Loss details
 
@@ -304,7 +304,6 @@ class AlgoBullsConnection:
                 location: Location of the exchange
                 broker_commission_percentage: Percentage of broker commission per trade
                 broker_commission_price: Broker fee per trade
-                slippage_percent: percentage of slippage per order
 
             Returns:
                 Report details
@@ -341,9 +340,6 @@ class AlgoBullsConnection:
             _df['entry_transaction_type'] = _df['entry_transaction_type'].apply(lambda _: 'BUY' if _ else 'SELL')
             _df['exit_transaction_type'] = _df['exit_transaction_type'].apply(lambda _: 'BUY' if _ else 'SELL')
             _df["pnl_cumulative_absolute"] = _df["pnl_absolute"].cumsum(axis=0, skipna=True)
-            if slippage_percent:
-                _df[['entry_price_with_slip', 'exit_price_with_slip']] = _df.apply(
-                    lambda row: (slippage(row.entry_price, row.entry_variety, row.entry_transaction_type, slippage_percent), slippage(row.exit_price, row.exit_variety, row.exit_transaction_type, slippage_percent)), axis=1, result_type='expand')
 
             # add brokerage
             _df['brokerage'] = ((_df['entry_price'] * _df['entry_quantity']) + (_df['exit_price'] * _df['exit_quantity'])) * (broker_commission_percentage / 100)
@@ -632,7 +628,7 @@ class AlgoBullsConnection:
 
         return self.get_logs(strategy_code, trading_type=TradingType.BACKTESTING)
 
-    def get_backtesting_report_pnl_table(self, strategy_code, location=None, show_all_rows=False, force_fetch=False, broker_commission_percentage=0, broker_commission_price=None, slippage_percent=None):
+    def get_backtesting_report_pnl_table(self, strategy_code, location=None, show_all_rows=False, force_fetch=False, broker_commission_percentage=0, broker_commission_price=None):
         """
         Fetch Back Testing Profit & Loss details
 
@@ -650,7 +646,7 @@ class AlgoBullsConnection:
         """
 
         if self.backtesting_pnl_data is None or location is not None or force_fetch:
-            self.backtesting_pnl_data = self.get_pnl_report_table(strategy_code, TradingType.BACKTESTING, location, broker_commission_percentage, broker_commission_price, slippage_percent)
+            self.backtesting_pnl_data = self.get_pnl_report_table(strategy_code, TradingType.BACKTESTING, location, broker_commission_percentage, broker_commission_price)
 
         return self.backtesting_pnl_data
 
