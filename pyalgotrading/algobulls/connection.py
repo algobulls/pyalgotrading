@@ -4,8 +4,10 @@ Module for AlgoBulls connection
 import inspect
 import time
 from collections import OrderedDict
-from datetime import datetime as dt
+from datetime import datetime as dt, timedelta
 
+from tqdm.auto import tqdm
+import re
 import pandas as pd
 import quantstats as qs
 
@@ -257,7 +259,55 @@ class AlgoBullsConnection:
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
         assert isinstance(trading_type, TradingType), f'Argument "trading_type" should be an enum of type {TradingType.__name__}'
 
-        return self.api.get_logs(strategy_code=strategy_code, trading_type=trading_type).get('data')
+        all_logs = []
+        initialNextToken = None
+        initialPreviousToken = None
+        # while self.get_job_status(strategy_code, trading_type).get("message") != "STOPPED":
+        for i in range(200):
+            response = self.api.get_logs(strategy_code=strategy_code, trading_type=trading_type, initialNextToken=initialNextToken)
+            logs = response.get('data')
+
+            # todo: discuss how to fetch start and end datetime for logs
+            # fetch the start and end datetime here
+            start = '2023-05-01 09:00:00'
+            start_dt = dt.strptime(start, '%Y-%m-%d %H:%M:%S')
+            end = '2023-05-07 14:00:00'
+            end_dt = dt.strptime(end, '%Y-%m-%d %H:%M:%S')
+            candle = '300'  # seconds
+            delta = timedelta(minutes=5)
+
+            # create a map of datetime and its position
+            _dt_list = []
+            _ = 0
+            while start_dt < end_dt:
+                _dt_list.append((start_dt, _))
+                start_dt += delta
+                _ += 1
+            _dt_list.append((end_dt, _))
+            dt_dict = dict(_dt_list)
+
+            pbar = tqdm(desc='strategy completion', total=len(_dt_list))
+            if logs is not None:
+                for log in logs:
+
+                    # regex to find the date in logs
+                    res = re.findall(r'\[(.*?)\]', log)
+                    print(res)
+
+                    if res[0] in ['BT', 'PT', 'RT']:
+                        curr_dt = dt.strptime(res[1].split(',')[0], '%Y-%m-%d %H:%M:%S')
+                        _pos = dt_dict.get(curr_dt)
+                        update_value = _pos - pbar.n
+                        pbar.update(update_value)
+                        print(curr_dt)
+
+                    print('\n-----\n')
+                    print(log)
+                all_logs.extend(logs)
+                initialNextToken = response.get('initialNextToken')
+                time.sleep(2)
+
+        return all_logs
 
     def get_report(self, strategy_code, trading_type, report_type, render_as_dataframe=False, show_all_rows=False, location=None):
         """
