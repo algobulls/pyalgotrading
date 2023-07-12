@@ -519,7 +519,7 @@ class AlgoBullsConnection:
             _end[trading_type.name] = end
 
         # save BT/PT/RT parameters
-        self.saved_params = {'strategy': strategy, 'start': _start, 'end': _end, 'parameters': parameters, 'candle': candle, 'instruments': instruments, 'mode': mode, 'lots': lots, 'initial_funds_virtual': initial_funds_virtual, 'vendor_details': broking_details}
+        self.saved_params = {'strategy': strategy, 'start': _start, 'end': _end, 'parameters': parameters, 'candle': candle.value, 'instruments': instruments, 'mode': mode, 'lots': lots, 'initial_funds_virtual': initial_funds_virtual, 'vendor_details': broking_details}
 
         # log the saved parameters
         _print_params = self.saved_params
