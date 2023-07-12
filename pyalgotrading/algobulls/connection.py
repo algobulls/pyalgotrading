@@ -27,15 +27,16 @@ class AlgoBullsConnection:
         """
         self.api = AlgoBullsAPI(self)
         self.saved_params = {}
+
+        self.backtesting_pnl_data = None
+        self.papertrade_pnl_data = None
+        self.realtrade_pnl_data = None
+
         self.strategy_locale_map = {
             TradingType.BACKTESTING: {},
             TradingType.PAPERTRADING: {},
             TradingType.REALTRADING: {},
         }
-
-        self.backtesting_pnl_data = None
-        self.papertrade_pnl_data = None
-        self.realtrade_pnl_data = None
 
     @staticmethod
     def get_authorization_url():
