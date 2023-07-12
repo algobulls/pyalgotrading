@@ -262,51 +262,45 @@ class AlgoBullsConnection:
         all_logs = []
         initialNextToken = None
         initialPreviousToken = None
-        # while self.get_job_status(strategy_code, trading_type).get("message") != "STOPPED":
-        for i in range(200):
+
+        start = params.get('start')
+        start_dt = dt.strptime(start, '%Y-%m-%d %H:%M %z').replace(tzinfo=None)
+        end = params.get('end')
+        end_dt = dt.strptime(end, '%Y-%m-%d %H:%M %z').replace(tzinfo=None)
+
+        print(f'START: {start_dt}')
+        print(f'END: {end_dt}')
+
+        total_seconds = (end_dt - start_dt).total_seconds()
+        pbar = tqdm(desc='strategy completion', total=total_seconds, position=0, leave=True)
+
+        while True:
             response = self.api.get_logs(strategy_code=strategy_code, trading_type=trading_type, initialNextToken=initialNextToken)
+            # print(response)
             logs = response.get('data')
+            # print(type(logs), logs)
+            # print(type(logs[0]), logs[0])
+            if logs == []:
+                if self.get_job_status(strategy_code, trading_type)["message"] == 'STOPPED':
+                    break
+                time.sleep(3)
+                continue
 
-            # todo: discuss how to fetch start and end datetime for logs
-            # fetch the start and end datetime here
-            start = '2023-05-01 09:00:00'
-            start_dt = dt.strptime(start, '%Y-%m-%d %H:%M:%S')
-            end = '2023-05-07 14:00:00'
-            end_dt = dt.strptime(end, '%Y-%m-%d %H:%M:%S')
-            candle = '300'  # seconds
-            delta = timedelta(minutes=5)
-
-            # create a map of datetime and its position
-            _dt_list = []
-            _ = 0
-            while start_dt < end_dt:
-                _dt_list.append((start_dt, _))
-                start_dt += delta
-                _ += 1
-            _dt_list.append((end_dt, _))
-            dt_dict = dict(_dt_list)
-
-            pbar = tqdm(desc='strategy completion', total=len(_dt_list))
             if logs is not None:
+                curr_dt = start_dt
                 for log in logs:
-
-                    # regex to find the date in logs
                     res = re.findall(r'\[(.*?)\]', log)
-                    print(res)
+                    # tqdm.write(log)
 
                     if res[0] in ['BT', 'PT', 'RT']:
                         curr_dt = dt.strptime(res[1].split(',')[0], '%Y-%m-%d %H:%M:%S')
-                        _pos = dt_dict.get(curr_dt)
+                        _pos = (curr_dt - start_dt).total_seconds()
                         update_value = _pos - pbar.n
                         pbar.update(update_value)
-                        print(curr_dt)
 
-                    print('\n-----\n')
-                    print(log)
                 all_logs.extend(logs)
                 initialNextToken = response.get('initialNextToken')
-                time.sleep(2)
-
+                time.sleep(1)
         return all_logs
 
     def get_report(self, strategy_code, trading_type, report_type, render_as_dataframe=False, show_all_rows=False, location=None):
