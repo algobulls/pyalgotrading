@@ -520,7 +520,16 @@ class AlgoBullsConnection:
 
         # save BT/PT/RT parameters
         self.saved_params = {'strategy': strategy, 'start': _start, 'end': _end, 'parameters': parameters, 'candle': candle, 'instruments': instruments, 'mode': mode, 'lots': lots, 'initial_funds_virtual': initial_funds_virtual, 'vendor_details': broking_details}
-        print(self.saved_params)
+
+        # log the saved parameters
+        _print_params = self.saved_params
+        del _print_params['start']
+        del _print_params['end']
+        print(f'start: {_start[trading_type.name]}')
+        print(f'end: {_end[trading_type.name]}')
+        print("\n".join("{}:\t{}".format(k, v) for k, v in _print_params.items()))
+        print('-'*20, '\n')
+
         # delete previous trades
         if trading_type in [TradingType.BACKTESTING, TradingType.PAPERTRADING] and delete_previous_trades:
             self.delete_previous_trades(strategy)
