@@ -422,6 +422,7 @@ class AlgoBullsConnection:
             location of the instruments
         """
         # check if values received by new parameter names, else extract from old parameter names, else extract from saved parameters
+
         saved_params = self.saved_params
         _start = saved_params.get('start')
         _end = saved_params.get('end')
@@ -518,8 +519,8 @@ class AlgoBullsConnection:
             _end[trading_type.name] = end
 
         # save BT/PT/RT parameters
-        self.saved_params[strategy] = {'strategy': strategy, 'start': _start, 'end': _end, 'parameters': parameters, 'candle': candle, 'instruments': instruments, 'mode': mode, 'lots': lots, 'initial_funds_virtual': initial_funds_virtual, 'vendor_details': broking_details}
-
+        self.saved_params = {'strategy': strategy, 'start': _start, 'end': _end, 'parameters': parameters, 'candle': candle, 'instruments': instruments, 'mode': mode, 'lots': lots, 'initial_funds_virtual': initial_funds_virtual, 'vendor_details': broking_details}
+        print(self.saved_params)
         # delete previous trades
         if trading_type in [TradingType.BACKTESTING, TradingType.PAPERTRADING] and delete_previous_trades:
             self.delete_previous_trades(strategy)
