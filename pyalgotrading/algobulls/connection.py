@@ -428,8 +428,8 @@ class AlgoBullsConnection:
         _start = saved_params.get('start')
         _end = saved_params.get('end')
         strategy = strategy or kwargs.get('strategy_code') or saved_params.get('strategy')
-        start = start or kwargs.get('start_timestamp') or _start.get(trading_type.name)
-        end = end or kwargs.get('end_timestamp') or _end.get(trading_type.name)
+        start = start or kwargs.get('start_timestamp') or _start.get(trading_type)
+        end = end or kwargs.get('end_timestamp') or _end.get(trading_type)
         parameters = parameters or kwargs.get('strategy_parameters') or saved_params.get('parameters')
         candle = candle or kwargs.get('candle_interval') or saved_params.get('candle')
         instruments = instruments or kwargs.get('instrument') or saved_params.get('instruments')
@@ -480,8 +480,17 @@ class AlgoBullsConnection:
             assert 'credentialParameters' in broking_details, f'Argument "broking_details" should be a dict with "credentialParameters" key'
 
         if trading_type is not TradingType.BACKTESTING:
+            _start[TradingType.REALTRADING] = start
+            _start[TradingType.PAPERTRADING] = start
+            _end[TradingType.REALTRADING] = end
+            _end[TradingType.PAPERTRADING] = end
+
             start = dt.combine(dt.now().astimezone(start.tzinfo).date(), start.time(), tzinfo=start.tzinfo)
             end = dt.combine(dt.now().astimezone(end.tzinfo).date(), end.time(), tzinfo=end.tzinfo)
+
+        else:
+            _start[TradingType.BACKTESTING] = start
+            _end[TradingType.BACKTESTING] = end
 
         # Restructuring strategy params
         restructured_strategy_parameters = []
@@ -508,16 +517,6 @@ class AlgoBullsConnection:
                 if _["value"] == _instrument:
                     instrument_list.append({'id': _["id"]})
                     break
-
-        # save start and end time (same for PT and RT)
-        if trading_type in [TradingType.REALTRADING, TradingType.PAPERTRADING]:
-            _start[TradingType.REALTRADING.name] = start
-            _start[TradingType.PAPERTRADING.name] = start
-            _end[TradingType.REALTRADING.name] = end
-            _end[TradingType.PAPERTRADING.name] = end
-        else:
-            _start[trading_type.name] = start
-            _end[trading_type.name] = end
 
         # save BT/PT/RT parameters
         self.saved_params = {'strategy': strategy, 'start': _start, 'end': _end, 'parameters': parameters, 'candle': candle.value, 'instruments': instruments, 'mode': mode, 'lots': lots, 'initial_funds_virtual': initial_funds_virtual, 'vendor_details': broking_details}
