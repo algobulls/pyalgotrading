@@ -26,7 +26,7 @@ class AlgoBullsConnection:
         Init method that is used while creating an object of this class
         """
         self.api = AlgoBullsAPI(self)
-        self.saved_params = {}
+        self.saved_params = {'start': {}, 'end': {}}
         self.strategy_locale_map = {
             TradingType.BACKTESTING: {},
             TradingType.PAPERTRADING: {},
@@ -422,15 +422,16 @@ class AlgoBullsConnection:
             location of the instruments
         """
         # check if values received by new parameter names, else extract from old parameter names, else extract from saved parameters
-        saved_params = kwargs.get('saved_params')
-
-        strategy = strategy or kwargs.get('strategy_code')
-        start = start or kwargs.get('start_timestamp')
-        end = end or kwargs.get('end_timestamp')
-        parameters = parameters or kwargs.get('strategy_parameters') or saved_params.get('parameters') or saved_params.get('strategy_parameters')
-        candle = candle or kwargs.get('candle_interval') or saved_params.get('candle') or saved_params.get('candle_interval')
-        instruments = instruments or kwargs.get('instrument') or saved_params.get('instruments') or saved_params.get('instrument')
-        mode = mode or kwargs.get('strategy_mode') or saved_params.get('mode') or saved_params.get('strategy_mode') or StrategyMode.INTRADAY
+        saved_params = self.saved_params
+        _start = saved_params.get('start')
+        _end = saved_params.get('end')
+        strategy = strategy or kwargs.get('strategy_code') or saved_params.get('strategy')
+        start = start or kwargs.get('start_timestamp') or _start.get(trading_type.name)
+        end = end or kwargs.get('end_timestamp') or _end.get(trading_type.name)
+        parameters = parameters or kwargs.get('strategy_parameters') or saved_params.get('parameters')
+        candle = candle or kwargs.get('candle_interval') or saved_params.get('candle')
+        instruments = instruments or kwargs.get('instrument') or saved_params.get('instruments')
+        mode = mode or kwargs.get('strategy_mode') or saved_params.get('mode') or StrategyMode.INTRADAY
         lots = lots or saved_params.get('lots')
         initial_funds_virtual = initial_funds_virtual or saved_params.get('initial_funds_virtual') or 1e9
         broking_details = broking_details or saved_params.get('vendor_details')
@@ -506,13 +507,22 @@ class AlgoBullsConnection:
                     instrument_list.append({'id': _["id"]})
                     break
 
-        # save BT/PT parameters
-        if trading_type in [TradingType.BACKTESTING, TradingType.PAPERTRADING]:
-            self.saved_params[strategy] = {'parameters': parameters, 'candle': candle, 'instruments': instruments, 'mode': mode, 'lots': lots, 'initial_funds_virtual': initial_funds_virtual, 'vendor_details': broking_details}
+        # save start and end time (same for PT and RT)
+        if trading_type in [TradingType.REALTRADING, TradingType.PAPERTRADING]:
+            _start[TradingType.REALTRADING.name] = start
+            _start[TradingType.PAPERTRADING.name] = start
+            _end[TradingType.REALTRADING.name] = end
+            _end[TradingType.PAPERTRADING.name] = end
+        else:
+            _start[trading_type.name] = start
+            _end[trading_type.name] = end
 
-            # delete previous trades
-            if delete_previous_trades:
-                self.delete_previous_trades(strategy)
+        # save BT/PT/RT parameters
+        self.saved_params[strategy] = {'strategy': strategy, 'start': _start, 'end': _end, 'parameters': parameters, 'candle': candle, 'instruments': instruments, 'mode': mode, 'lots': lots, 'initial_funds_virtual': initial_funds_virtual, 'vendor_details': broking_details}
+
+        # delete previous trades
+        if trading_type in [TradingType.BACKTESTING, TradingType.PAPERTRADING] and delete_previous_trades:
+            self.delete_previous_trades(strategy)
 
         # Setup config for starting the job
         strategy_config = {
@@ -563,12 +573,10 @@ class AlgoBullsConnection:
             backtest job submission status
         """
 
-        saved_params = self.saved_params.get(strategy) or {}
-
         # start backtesting job
         response = self.start_job(
             strategy=strategy, start=start, end=end, instruments=instruments, lots=lots, parameters=parameters, candle=candle, mode=mode,
-            initial_funds_virtual=initial_funds_virtual, delete_previous_trades=delete_previous_trades, trading_type=TradingType.BACKTESTING, broking_details=vendor_details, saved_params=saved_params, **kwargs
+            initial_funds_virtual=initial_funds_virtual, delete_previous_trades=delete_previous_trades, trading_type=TradingType.BACKTESTING, broking_details=vendor_details, **kwargs
         )
 
         # Update previously saved pnl data and exchange location
@@ -709,12 +717,10 @@ class AlgoBullsConnection:
             papertrade job submission status
         """
 
-        saved_params = self.saved_params.get(strategy) or {}
-
         # start papertrading job
         response = self.start_job(
             strategy=strategy, start=start, end=end, instruments=instruments, lots=lots, parameters=parameters, candle=candle, mode=mode,
-            initial_funds_virtual=initial_funds_virtual, delete_previous_trades=delete_previous_trades, trading_type=TradingType.PAPERTRADING, broking_details=vendor_details, saved_params=saved_params, **kwargs
+            initial_funds_virtual=initial_funds_virtual, delete_previous_trades=delete_previous_trades, trading_type=TradingType.PAPERTRADING, broking_details=vendor_details, **kwargs
         )
 
         # Update previously saved pnl data and exchange location
