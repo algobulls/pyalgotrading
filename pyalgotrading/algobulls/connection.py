@@ -26,7 +26,6 @@ class AlgoBullsConnection:
         Init method that is used while creating an object of this class
         """
         self.api = AlgoBullsAPI(self)
-
         self.backtesting_pnl_data = None
         self.papertrade_pnl_data = None
         self.realtrade_pnl_data = None
@@ -534,7 +533,7 @@ class AlgoBullsConnection:
         self.strategy_locale_map[trading_type][strategy] = location
         return response
 
-    def backtest(self, strategy=None, start=None, end=None, instruments=None, lots=None, parameters=None, candle=None, mode=None, delete_previous_trades=True, initial_funds_virtual=None, vendor_details=None, **kwargs):
+    def backtest(self, strategy=None, start=None, end=None, instruments=None, lots=1, parameters=None, candle=None, mode=StrategyMode.INTRADAY, delete_previous_trades=True, initial_funds_virtual=1e9, vendor_details=None, **kwargs):
         """
         Submit a backtesting job for a strategy on the AlgoBulls Platform
 
@@ -564,12 +563,10 @@ class AlgoBullsConnection:
             backtest job submission status
         """
 
-        saved_params = self.saved_params.get(strategy) or {}
-
         # start backtesting job
         response = self.start_job(
             strategy=strategy, start=start, end=end, instruments=instruments, lots=lots, parameters=parameters, candle=candle, mode=mode,
-            initial_funds_virtual=initial_funds_virtual, delete_previous_trades=delete_previous_trades, trading_type=TradingType.BACKTESTING, broking_details=vendor_details, saved_params=saved_params, **kwargs
+            initial_funds_virtual=initial_funds_virtual, delete_previous_trades=delete_previous_trades, trading_type=TradingType.BACKTESTING, broking_details=vendor_details, **kwargs
         )
 
         # Update previously saved pnl data and exchange location
@@ -631,7 +628,6 @@ class AlgoBullsConnection:
             force_fetch: Forcefully fetch PnL data
             broker_commission_percentage: Percentage of broker commission per trade
             broker_commission_price: Broker fee per trade
-            slippage_percent: Slippage percentage value
 
         Returns:
             Report details
@@ -683,7 +679,7 @@ class AlgoBullsConnection:
 
         return self.get_report(strategy_code=strategy_code, trading_type=TradingType.BACKTESTING, report_type=TradingReportType.ORDER_HISTORY)
 
-    def papertrade(self, strategy=None, start=None, end=None, instruments=None, lots=None, parameters=None, candle=None, mode=None, delete_previous_trades=True, initial_funds_virtual=None, vendor_details=None, **kwargs):
+    def papertrade(self, strategy=None, start=None, end=None, instruments=None, lots=1, parameters=None, candle=None, mode=StrategyMode.INTRADAY, delete_previous_trades=True, initial_funds_virtual=1e9, vendor_details=None, **kwargs):
         """
         Submit a papertrade job for a strategy on the AlgoBulls Platform
 
@@ -713,12 +709,10 @@ class AlgoBullsConnection:
             papertrade job submission status
         """
 
-        saved_params = self.saved_params.get(strategy) or {}
-
         # start papertrading job
         response = self.start_job(
             strategy=strategy, start=start, end=end, instruments=instruments, lots=lots, parameters=parameters, candle=candle, mode=mode,
-            initial_funds_virtual=initial_funds_virtual, delete_previous_trades=delete_previous_trades, trading_type=TradingType.PAPERTRADING, broking_details=vendor_details, saved_params=saved_params, **kwargs
+            initial_funds_virtual=initial_funds_virtual, delete_previous_trades=delete_previous_trades, trading_type=TradingType.PAPERTRADING, broking_details=vendor_details, **kwargs
         )
 
         # Update previously saved pnl data and exchange location
@@ -769,7 +763,7 @@ class AlgoBullsConnection:
 
         return self.get_logs(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING)
 
-    def get_papertrading_report_pnl_table(self, strategy_code, location=None, show_all_rows=False, force_fetch=False, broker_commission_percentage=0, broker_commission_price=None, slippage_percent=None):
+    def get_papertrading_report_pnl_table(self, strategy_code, location=None, show_all_rows=False, force_fetch=False, broker_commission_percentage=0, broker_commission_price=None):
         """
         Fetch Paper Trading Profit & Loss details
 
@@ -780,14 +774,13 @@ class AlgoBullsConnection:
             force_fetch: Forcefully fetch PnL data
             broker_commission_percentage: Percentage of broker commission per trade
             broker_commission_price: Broker fee per trade
-            slippage_percent: Slippage percentage value
 
         Returns:
             Report details
         """
 
         if self.papertrade_pnl_data is None or location is not None or force_fetch:
-            self.papertrade_pnl_data = self.get_pnl_report_table(strategy_code, TradingType.PAPERTRADING, location, broker_commission_percentage, broker_commission_price, slippage_percent)
+            self.papertrade_pnl_data = self.get_pnl_report_table(strategy_code, TradingType.PAPERTRADING, location, broker_commission_percentage, broker_commission_price)
 
         return self.papertrade_pnl_data
 
