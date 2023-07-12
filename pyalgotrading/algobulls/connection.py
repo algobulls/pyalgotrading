@@ -2,6 +2,7 @@
 Module for AlgoBulls connection
 """
 import inspect
+import pprint
 import time
 from collections import OrderedDict
 from datetime import datetime as dt
@@ -523,12 +524,9 @@ class AlgoBullsConnection:
 
         # log the saved parameters
         _print_params = self.saved_params
-        del _print_params['start']
-        del _print_params['end']
-        print(f'start: {_start[trading_type.name]}')
-        print(f'end: {_end[trading_type.name]}')
-        print("\n".join("{}:\t{}".format(k, v) for k, v in _print_params.items()))
-        print('-'*20, '\n')
+        _print_params['start'] = _start[trading_type]
+        _print_params['end'] = _end[trading_type]
+        pprint.pprint(_print_params)
 
         # delete previous trades
         if trading_type in [TradingType.BACKTESTING, TradingType.PAPERTRADING] and delete_previous_trades:
