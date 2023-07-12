@@ -26,7 +26,6 @@ class AlgoBullsConnection:
         Init method that is used while creating an object of this class
         """
         self.api = AlgoBullsAPI(self)
-        self.saved_params = {}
 
         self.backtesting_pnl_data = None
         self.papertrade_pnl_data = None
@@ -399,7 +398,7 @@ class AlgoBullsConnection:
 
         return order_report
 
-    def start_job(self, strategy=None, start=None, end=None, instruments=None, lots=None, parameters=None, candle=None, mode=None, initial_funds_virtual=None, delete_previous_trades=True, trading_type=None, broking_details=None,
+    def start_job(self, strategy=None, start=None, end=None, instruments=None, lots=1, parameters=None, candle=None, mode=StrategyMode.INTRADAY, initial_funds_virtual=1e9, delete_previous_trades=True, trading_type=None, broking_details=None,
                   **kwargs):
         """
         Submit a BT/PT/RT job for a strategy on the AlgoBulls Platform
@@ -431,19 +430,15 @@ class AlgoBullsConnection:
             job submission status
             location of the instruments
         """
-        # check if values received by new parameter names, else extract from old parameter names, else extract from saved parameters
-        saved_params = kwargs.get('saved_params')
 
-        strategy = strategy or kwargs.get('strategy_code')
-        start = start or kwargs.get('start_timestamp')
-        end = end or kwargs.get('end_timestamp')
-        parameters = parameters or kwargs.get('strategy_parameters') or saved_params.get('parameters') or saved_params.get('strategy_parameters')
-        candle = candle or kwargs.get('candle_interval') or saved_params.get('candle') or saved_params.get('candle_interval')
-        instruments = instruments or kwargs.get('instrument') or saved_params.get('instruments') or saved_params.get('instrument')
-        mode = mode or kwargs.get('strategy_mode') or saved_params.get('mode') or saved_params.get('strategy_mode') or StrategyMode.INTRADAY
-        lots = lots or saved_params.get('lots')
-        initial_funds_virtual = initial_funds_virtual or saved_params.get('initial_funds_virtual') or 1e9
-        broking_details = broking_details or saved_params.get('vendor_details')
+        # check if values received by new parameter names, else extract from old parameter names
+        strategy = strategy if strategy is not None else kwargs.get('strategy_code')
+        start = start if start is not None else kwargs.get('start_timestamp')
+        end = end if end is not None else kwargs.get('end_timestamp')
+        parameters = parameters if parameters is not None else kwargs.get('strategy_parameters')
+        candle = candle if candle is not None else kwargs.get('candle_interval')
+        instruments = instruments if instruments is not None else kwargs.get('instrument')
+        mode = mode if 'strategy_mode' not in kwargs else kwargs.get('strategy_mode')
 
         # Sanity checks - Convert config parameters
         _error_msg_candle = f'Argument "candle" should be a valid string or an enum of type CandleInterval. Possible string values can be: {get_valid_enum_names(CandleInterval)}'
@@ -516,13 +511,9 @@ class AlgoBullsConnection:
                     instrument_list.append({'id': _["id"]})
                     break
 
-        # save BT/PT parameters
-        if trading_type in [TradingType.BACKTESTING, TradingType.PAPERTRADING]:
-            self.saved_params[strategy] = {'parameters': parameters, 'candle': candle, 'instruments': instruments, 'mode': mode, 'lots': lots, 'initial_funds_virtual': initial_funds_virtual, 'vendor_details': broking_details}
-
-            # delete previous trades
-            if delete_previous_trades:
-                self.delete_previous_trades(strategy)
+        # delete previous trades
+        if delete_previous_trades and trading_type in [TradingType.BACKTESTING, TradingType.PAPERTRADING]:
+            self.delete_previous_trades(strategy)
 
         # Setup config for starting the job
         strategy_config = {
