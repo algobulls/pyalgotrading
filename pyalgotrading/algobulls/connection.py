@@ -519,8 +519,8 @@ class AlgoBullsConnection:
                     break
 
         # save BT/PT/RT parameters
-        self.saved_parameters = {'strategy': strategy, 'start': start_timestamp_map, 'end': end_timestamp_map, 'parameters': parameters, 'candle': candle.value, 'instruments': instruments, 'mode': mode, 'lots': lots, 'initial_funds_virtual': initial_funds_virtual,
-                             'vendor_details': broking_details}
+        self.saved_parameters = {'strategy': strategy, 'start': start_timestamp_map, 'end': end_timestamp_map, 'parameters': parameters, 'candle': candle.value, 'instruments': instruments, 'mode': mode, 'lots': lots,
+                                 'initial_funds_virtual': initial_funds_virtual, 'vendor_details': broking_details}
 
         # log the saved parameters
         _print_params = self.saved_parameters
@@ -871,7 +871,8 @@ class AlgoBullsConnection:
         """
 
         # start realtrading job
-        response = self.start_job(strategy=strategy, start_timestamp=start, end_timestamp=end, instruments=instruments, lots=lots, parameters=parameters, candle=candle, mode=mode, trading_type=TradingType.REALTRADING, broking_details=broking_details, **kwargs)
+        response = self.start_job(strategy=strategy, start_timestamp=start, end_timestamp=end, instruments=instruments, lots=lots, parameters=parameters, candle=candle, mode=mode, trading_type=TradingType.REALTRADING, broking_details=broking_details,
+                                  **kwargs)
 
         # Update previously saved pnl data and exchange location
         self.realtrade_pnl_data = None
