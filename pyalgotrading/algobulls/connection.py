@@ -390,15 +390,15 @@ class AlgoBullsConnection:
 
         return order_report
 
-    def start_job(self, strategy=None, start=None, end=None, instruments=None, lots=None, parameters=None, candle=None, mode=None, initial_funds_virtual=None, delete_previous_trades=True, trading_type=None, broking_details=None,
+    def start_job(self, strategy=None, start_timestamp=None, end_timestamp=None, instruments=None, lots=None, parameters=None, candle=None, mode=None, initial_funds_virtual=None, delete_previous_trades=True, trading_type=None, broking_details=None,
                   **kwargs):
         """
         Submit a BT/PT/RT job for a strategy on the AlgoBulls Platform
 
         Args:
             strategy: Strategy code
-            start: Start date-time/time
-            end: End date-time/time
+            start_timestamp: Start date-time/time
+            end_timestamp: End date-time/time
             instruments: Instrument key
             lots: Number of lots of the passed instrument to trade on
             parameters: Parameters
@@ -422,14 +422,14 @@ class AlgoBullsConnection:
             job submission status
             location of the instruments
         """
-        # check if values received by new parameter names, else extract from old parameter names, else extract from saved parameters
 
+        # check if values received by new parameter names, else extract from old parameter names, else extract from saved parameters
         saved_params = self.saved_parameters
-        _start = saved_params.get('start')
-        _end = saved_params.get('end')
+        start_timestamp_map = saved_params.get('start')
+        end_timestamp_map = saved_params.get('end')
         strategy = strategy or kwargs.get('strategy_code') or saved_params.get('strategy')
-        start = start or kwargs.get('start_timestamp') or _start.get(trading_type)
-        end = end or kwargs.get('end_timestamp') or _end.get(trading_type)
+        start_timestamp = start_timestamp or kwargs.get('start_timestamp') or start_timestamp_map.get(trading_type)
+        end_timestamp = end_timestamp or kwargs.get('end_timestamp') or end_timestamp_map.get(trading_type)
         parameters = parameters or kwargs.get('strategy_parameters') or saved_params.get('parameters')
         candle = candle or kwargs.get('candle_interval') or saved_params.get('candle')
         instruments = instruments or kwargs.get('instrument') or saved_params.get('instruments')
@@ -446,10 +446,10 @@ class AlgoBullsConnection:
         _error_msg_broking_details = 'Argument "broking_details" should be a valid dict with valid keys. Expected keys "brokerName" and "credentialParameters" '
 
         initial_funds_virtual = float(initial_funds_virtual)
-        if isinstance(start, str):
-            start = get_datetime_with_tz(start, trading_type)
-        if isinstance(end, str):
-            end = get_datetime_with_tz(end, trading_type)
+        if isinstance(start_timestamp, str):
+            start_timestamp = get_datetime_with_tz(start_timestamp, trading_type)
+        if isinstance(end_timestamp, str):
+            end_timestamp = get_datetime_with_tz(end_timestamp, trading_type)
         if isinstance(mode, str):
             _ = mode.upper()
             assert _ in StrategyMode.__members__, _error_msg_candle
@@ -463,8 +463,8 @@ class AlgoBullsConnection:
 
         # Sanity checks - Validate config parameters
         assert isinstance(strategy, str), f'Argument "strategy" should be a valid string'
-        assert isinstance(start, dt), 'Argument "start" should be a valid timestamp string\n' + _error_msg_timestamps
-        assert isinstance(end, dt), 'Argument "end" should be a valid timestamp string\n' + _error_msg_timestamps
+        assert isinstance(start_timestamp, dt), 'Argument "start" should be a valid timestamp string\n' + _error_msg_timestamps
+        assert isinstance(end_timestamp, dt), 'Argument "end" should be a valid timestamp string\n' + _error_msg_timestamps
         assert isinstance(instruments, list), _error_msg_instruments
         assert len(instruments) > 0, _error_msg_instruments
         assert (isinstance(lots, int) and lots > 0), f'Argument "lots" should be a positive integer.'
@@ -480,17 +480,17 @@ class AlgoBullsConnection:
             assert 'credentialParameters' in broking_details, f'Argument "broking_details" should be a dict with "credentialParameters" key'
 
         if trading_type is not TradingType.BACKTESTING:
-            _start[TradingType.REALTRADING] = start
-            _start[TradingType.PAPERTRADING] = start
-            _end[TradingType.REALTRADING] = end
-            _end[TradingType.PAPERTRADING] = end
+            start_timestamp_map[TradingType.REALTRADING] = start_timestamp
+            start_timestamp_map[TradingType.PAPERTRADING] = start_timestamp
+            end_timestamp_map[TradingType.REALTRADING] = end_timestamp
+            end_timestamp_map[TradingType.PAPERTRADING] = end_timestamp
 
-            start = dt.combine(dt.now().astimezone(start.tzinfo).date(), start.time(), tzinfo=start.tzinfo)
-            end = dt.combine(dt.now().astimezone(end.tzinfo).date(), end.time(), tzinfo=end.tzinfo)
+            start_timestamp = dt.combine(dt.now().astimezone(start_timestamp.tzinfo).date(), start_timestamp.time(), tzinfo=start_timestamp.tzinfo)
+            end_timestamp = dt.combine(dt.now().astimezone(end_timestamp.tzinfo).date(), end_timestamp.time(), tzinfo=end_timestamp.tzinfo)
 
         else:
-            _start[TradingType.BACKTESTING] = start
-            _end[TradingType.BACKTESTING] = end
+            start_timestamp_map[TradingType.BACKTESTING] = start_timestamp
+            end_timestamp_map[TradingType.BACKTESTING] = end_timestamp
 
         # Restructuring strategy params
         restructured_strategy_parameters = []
@@ -519,13 +519,13 @@ class AlgoBullsConnection:
                     break
 
         # save BT/PT/RT parameters
-        self.saved_parameters = {'strategy': strategy, 'start': _start, 'end': _end, 'parameters': parameters, 'candle': candle.value, 'instruments': instruments, 'mode': mode, 'lots': lots, 'initial_funds_virtual': initial_funds_virtual,
+        self.saved_parameters = {'strategy': strategy, 'start': start_timestamp_map, 'end': end_timestamp_map, 'parameters': parameters, 'candle': candle.value, 'instruments': instruments, 'mode': mode, 'lots': lots, 'initial_funds_virtual': initial_funds_virtual,
                              'vendor_details': broking_details}
 
         # log the saved parameters
         _print_params = self.saved_parameters
-        _print_params['start'] = _start[trading_type]
-        _print_params['end'] = _end[trading_type]
+        _print_params['start'] = start_timestamp_map[trading_type]
+        _print_params['end'] = end_timestamp_map[trading_type]
         pprint.pprint(_print_params)
 
         # delete previous trades
@@ -545,7 +545,7 @@ class AlgoBullsConnection:
         self.api.set_strategy_config(strategy_code=strategy, strategy_config=strategy_config, trading_type=trading_type)
 
         # Submit trading job
-        response = self.api.start_strategy_algotrading(strategy_code=strategy, start_timestamp=start, end_timestamp=end, trading_type=trading_type,
+        response = self.api.start_strategy_algotrading(strategy_code=strategy, start_timestamp=start_timestamp, end_timestamp=end_timestamp, trading_type=trading_type,
                                                        lots=lots, initial_funds_virtual=initial_funds_virtual, broker_details=broking_details, location=location)
 
         self.strategy_locale_map[trading_type][strategy] = location
@@ -583,7 +583,7 @@ class AlgoBullsConnection:
 
         # start backtesting job
         response = self.start_job(
-            strategy=strategy, start=start, end=end, instruments=instruments, lots=lots, parameters=parameters, candle=candle, mode=mode,
+            strategy=strategy, start_timestamp=start, end_timestamp=end, instruments=instruments, lots=lots, parameters=parameters, candle=candle, mode=mode,
             initial_funds_virtual=initial_funds_virtual, delete_previous_trades=delete_previous_trades, trading_type=TradingType.BACKTESTING, broking_details=vendor_details, **kwargs
         )
 
@@ -727,7 +727,7 @@ class AlgoBullsConnection:
 
         # start papertrading job
         response = self.start_job(
-            strategy=strategy, start=start, end=end, instruments=instruments, lots=lots, parameters=parameters, candle=candle, mode=mode,
+            strategy=strategy, start_timestamp=start, end_timestamp=end, instruments=instruments, lots=lots, parameters=parameters, candle=candle, mode=mode,
             initial_funds_virtual=initial_funds_virtual, delete_previous_trades=delete_previous_trades, trading_type=TradingType.PAPERTRADING, broking_details=vendor_details, **kwargs
         )
 
@@ -839,7 +839,7 @@ class AlgoBullsConnection:
 
         return self.get_report(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING, report_type=TradingReportType.ORDER_HISTORY)
 
-    def realtrade(self, strategy=None, start=None, end=None, instruments=None, lots=None, parameters=None, candle=None, mode=StrategyMode.INTRADAY, broking_details=None, **kwargs):
+    def realtrade(self, strategy=None, start=None, end=None, instruments=None, lots=None, parameters=None, candle=None, mode=None, broking_details=None, **kwargs):
         """
         Start a Real Trading session.
         Update: This requires an approval process which is currently on request basis.
@@ -871,7 +871,7 @@ class AlgoBullsConnection:
         """
 
         # start realtrading job
-        response = self.start_job(strategy=strategy, start=start, end=end, instruments=instruments, lots=lots, parameters=parameters, candle=candle, mode=mode, trading_type=TradingType.REALTRADING, broking_details=broking_details, **kwargs)
+        response = self.start_job(strategy=strategy, start_timestamp=start, end_timestamp=end, instruments=instruments, lots=lots, parameters=parameters, candle=candle, mode=mode, trading_type=TradingType.REALTRADING, broking_details=broking_details, **kwargs)
 
         # Update previously saved pnl data and exchange location
         self.realtrade_pnl_data = None
