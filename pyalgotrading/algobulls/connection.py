@@ -319,14 +319,14 @@ class AlgoBullsConnection:
                 logs = response.get('data')
 
                 # if logs are empty we wait
-                if logs is not None:
+                if logs is None:
                     # if status is stopped we break the while loop
                     if self.get_job_status(strategy_code, trading_type)["message"] == 'STOPPED':
                         break
                     time.sleep(5)
                     continue
 
-                if logs is not None:
+                else:
                     for log in logs:
                         try:
 
