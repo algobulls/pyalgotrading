@@ -271,7 +271,7 @@ class AlgoBullsConnection:
 
         response = self.api.stop_strategy_algotrading(strategy_code=strategy_code, trading_type=trading_type)
 
-    def get_logs(self, strategy_code, trading_type, show_progress_bar=True):
+    def get_logs(self, strategy_code, trading_type, show_progress_bar=True, display_logs=True):
         """
         Fetch logs for a strategy
 
@@ -279,6 +279,7 @@ class AlgoBullsConnection:
             strategy_code: strategy code
             trading_type: trading type
             show_progress_bar: display progress bar for logs/strategy completion
+            display_logs: display the updated logs along with progress bar
 
         Returns:
             Execution logs
@@ -332,7 +333,8 @@ class AlgoBullsConnection:
 
                             # extract terms inside square brackets
                             res = re.findall(r'\[(.*?)\]', log)
-                            tqdm.write(log)
+                            if display_logs:
+                                tqdm.write(log)
 
                             # extract datetime from logs
                             if res[0] in ['BT', 'PT', 'RT']:
