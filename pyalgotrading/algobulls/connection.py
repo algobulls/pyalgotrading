@@ -9,6 +9,7 @@ from datetime import datetime as dt
 
 import pandas as pd
 import quantstats as qs
+from tabulate import tabulate
 
 from .api import AlgoBullsAPI
 from .exceptions import AlgoBullsAPIBadRequestException, AlgoBullsAPIGatewayTimeoutErrorException
@@ -157,6 +158,24 @@ class AlgoBullsConnection:
             return pd.DataFrame(_) if return_as_dataframe else _
         else:
             return response
+
+    def get_strategy_name(self, strategy_code):
+        """
+        Fetch the name of the strategy using strategy-code
+
+        Args:
+            strategy_code: strategy code
+
+        Returns:
+            name of the strategy
+        """
+        strategy_name = None
+        try:
+            all_strategies_df = self.get_all_strategies()
+            strategy_name = all_strategies_df.loc[all_strategies_df['strategyCode'] == 'c903da8c49a245e685911fa20f3d9314']['strategyName'][0]
+        except Exception as e:
+            print(f'Error while fetching strategy name of strategy code {strategy_code}. Error: {e}')
+        return strategy_name
 
     def get_strategy_details(self, strategy_code):
         """
@@ -396,11 +415,13 @@ class AlgoBullsConnection:
         return order_report
 
     def print_strategy_config(self, trading_type):
-        from tabulate import tabulate
         _ = self.saved_parameters
 
+        strategy_name = self.get_strategy_name(_['strategy_code'])
+
         tabulated_data = [
-            ['Strategy Code', _['strategy_code']],
+            # ['Strategy Code', _['strategy_code']],    # not required as of now
+            ['Strategy Name', strategy_name],
             ['Trading Type', trading_type.name],
             ['Instrument(s)', pprint.pformat(_['instruments'])],
             ['Quantity/Lots', _['lots']],
@@ -420,7 +441,7 @@ class AlgoBullsConnection:
             tabulated_data.insert(0, ["Vendor Name", _['vendor_details']['brokerName']])
 
         _msg = tabulate(tabulated_data, headers=['Config', 'Value'], tablefmt="fancy_grid")
-        print(f"\nStarting the strategy '{_['strategy_code']}' in {trading_type.name} mode...\n_msg\n")
+        print(f"\nStarting the strategy '{strategy_name}' in {trading_type.name} mode...\n{_msg}\n")
 
     def start_job(self, strategy_code=None, start_timestamp=None, end_timestamp=None, instruments=None, lots=None, strategy_parameters=None, candle_interval=None, strategy_mode=None, initial_funds_virtual=None, delete_previous_trades=True,
                   trading_type=None, broking_details=None, **kwargs):
@@ -561,7 +582,7 @@ class AlgoBullsConnection:
             'strategy_mode': strategy_mode,
             'lots': lots,
             'initial_funds_virtual': initial_funds_virtual,
-            'vendor_details': broking_details   # Note: key name is saved as vendor_details for logging purpose
+            'vendor_details': broking_details  # Note: key name is saved as vendor_details for logging purpose
         }
 
         self.print_strategy_config(trading_type)
@@ -909,7 +930,8 @@ class AlgoBullsConnection:
         """
 
         # start realtrading job
-        response = self.start_job(strategy_code=strategy, start_timestamp=start, end_timestamp=end, instruments=instruments, lots=lots, strategy_parameters=parameters, candle_interval=candle, strategy_mode=mode, trading_type=TradingType.REALTRADING, broking_details=broking_details,
+        response = self.start_job(strategy_code=strategy, start_timestamp=start, end_timestamp=end, instruments=instruments, lots=lots, strategy_parameters=parameters, candle_interval=candle, strategy_mode=mode, trading_type=TradingType.REALTRADING,
+                                  broking_details=broking_details,
                                   **kwargs)
 
         # Update previously saved pnl data and exchange location
