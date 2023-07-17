@@ -390,20 +390,20 @@ class AlgoBullsConnection:
 
         return order_report
 
-    def start_job(self, strategy=None, start_timestamp=None, end_timestamp=None, instruments=None, lots=None, parameters=None, candle=None, mode=None, initial_funds_virtual=None, delete_previous_trades=True, trading_type=None, broking_details=None,
-                  **kwargs):
+    def start_job(self, strategy_code=None, start_timestamp=None, end_timestamp=None, instruments=None, lots=None, strategy_parameters=None, candle_interval=None, strategy_mode=None, initial_funds_virtual=None, delete_previous_trades=True,
+                  trading_type=None, broking_details=None, **kwargs):
         """
         Submit a BT/PT/RT job for a strategy on the AlgoBulls Platform
 
         Args:
-            strategy: Strategy code
+            strategy_code: Strategy code
             start_timestamp: Start date-time/time
             end_timestamp: End date-time/time
             instruments: Instrument key
             lots: Number of lots of the passed instrument to trade on
-            parameters: Parameters
-            candle: Candle interval
-            mode: Intraday or delivery
+            strategy_parameters: Parameters
+            candle_interval: Candle interval
+            strategy_mode: Intraday or delivery
             delete_previous_trades: Delete data for previous trades
             initial_funds_virtual: virtual funds allotted before the backtesting starts
             trading_type: type of trading : PT/BT/RT
@@ -427,13 +427,13 @@ class AlgoBullsConnection:
         saved_params = self.saved_parameters
         start_timestamp_map = saved_params.get('start_timestamp_map')
         end_timestamp_map = saved_params.get('end_timestamp_map')
-        strategy = strategy or kwargs.get('strategy_code') or saved_params.get('strategy')
+        strategy_code = strategy_code or kwargs.get('strategy_code') or saved_params.get('strategy')
         start_timestamp = start_timestamp or kwargs.get('start_timestamp') or start_timestamp_map.get(trading_type)
         end_timestamp = end_timestamp or kwargs.get('end_timestamp') or end_timestamp_map.get(trading_type)
-        parameters = parameters or kwargs.get('strategy_parameters') or saved_params.get('parameters')
-        candle = candle or kwargs.get('candle_interval') or saved_params.get('candle')
+        strategy_parameters = strategy_parameters or kwargs.get('strategy_parameters') or saved_params.get('parameters')
+        candle_interval = candle_interval or kwargs.get('candle_interval') or saved_params.get('candle')
         instruments = instruments or kwargs.get('instrument') or saved_params.get('instruments')
-        mode = mode or kwargs.get('strategy_mode') or saved_params.get('mode') or StrategyMode.INTRADAY
+        strategy_mode = strategy_mode or kwargs.get('strategy_mode') or saved_params.get('mode') or StrategyMode.INTRADAY
         lots = lots or saved_params.get('lots')
         initial_funds_virtual = initial_funds_virtual or saved_params.get('initial_funds_virtual') or 1e9
         broking_details = broking_details or saved_params.get('vendor_details')
@@ -450,27 +450,27 @@ class AlgoBullsConnection:
             start_timestamp = get_datetime_with_tz(start_timestamp, trading_type)
         if isinstance(end_timestamp, str):
             end_timestamp = get_datetime_with_tz(end_timestamp, trading_type)
-        if isinstance(mode, str):
-            _ = mode.upper()
+        if isinstance(strategy_mode, str):
+            _ = strategy_mode.upper()
             assert _ in StrategyMode.__members__, _error_msg_candle
-            mode = StrategyMode[_]
-        if isinstance(candle, str):
-            _ = f"{'_' if candle[0].isdigit() else ''}{candle.strip().upper().replace(' ', '_')}"
+            strategy_mode = StrategyMode[_]
+        if isinstance(candle_interval, str):
+            _ = f"{'_' if candle_interval[0].isdigit() else ''}{candle_interval.strip().upper().replace(' ', '_')}"
             assert _ in CandleInterval.__members__, _error_msg_candle
-            candle = CandleInterval[_]
+            candle_interval = CandleInterval[_]
         if isinstance(instruments, str):
             instruments = [instruments]
 
         # Sanity checks - Validate config parameters
-        assert isinstance(strategy, str), f'Argument "strategy" should be a valid string'
+        assert isinstance(strategy_code, str), f'Argument "strategy" should be a valid string'
         assert isinstance(start_timestamp, dt), 'Argument "start" should be a valid timestamp string\n' + _error_msg_timestamps
         assert isinstance(end_timestamp, dt), 'Argument "end" should be a valid timestamp string\n' + _error_msg_timestamps
         assert isinstance(instruments, list), _error_msg_instruments
         assert len(instruments) > 0, _error_msg_instruments
         assert (isinstance(lots, int) and lots > 0), f'Argument "lots" should be a positive integer.'
-        assert isinstance(parameters, dict), f'Argument "parameters" should be a dict'
-        assert isinstance(mode, StrategyMode), _error_msg_mode
-        assert isinstance(candle, CandleInterval), _error_msg_candle
+        assert isinstance(strategy_parameters, dict), f'Argument "parameters" should be a dict'
+        assert isinstance(strategy_mode, StrategyMode), _error_msg_mode
+        assert isinstance(candle_interval, CandleInterval), _error_msg_candle
         assert isinstance(initial_funds_virtual, float), 'Argument "initial_funds_virtual" should be a float'
         assert isinstance(delete_previous_trades, bool), 'Argument "delete_previous_trades" should be a boolean'
 
@@ -494,10 +494,10 @@ class AlgoBullsConnection:
 
         # Restructuring strategy params
         restructured_strategy_parameters = []
-        for parameter_name in parameters:
+        for parameter_name in strategy_parameters:
             restructured_strategy_parameters.append({
                 'paramName': parameter_name,
-                'paramValue': parameters[parameter_name]
+                'paramValue': strategy_parameters[parameter_name]
             })
 
         # get exchange location
@@ -519,18 +519,18 @@ class AlgoBullsConnection:
                     break
 
         # save BT/PT/RT parameters
-        self.saved_parameters = {'strategy': strategy, 'start_timestamp_map': start_timestamp_map, 'end_timestamp_map': end_timestamp_map, 'parameters': parameters, 'candle': candle.value, 'instruments': instruments, 'mode': mode, 'lots': lots,
-                                 'initial_funds_virtual': initial_funds_virtual, 'vendor_details': broking_details}
+        self.saved_parameters = {'strategy': strategy_code, 'start_timestamp_map': start_timestamp_map, 'end_timestamp_map': end_timestamp_map, 'parameters': strategy_parameters, 'candle': candle_interval.value, 'instruments': instruments,
+                                 'mode': strategy_mode.value, 'lots': lots, 'initial_funds_virtual': initial_funds_virtual, 'vendor_details': broking_details}
 
         # log the saved parameters
-        _print_params = self.saved_parameters
-        _print_params['start'] = start_timestamp_map[trading_type]
-        _print_params['end'] = end_timestamp_map[trading_type]
-        pprint.pprint(_print_params)
+        _ = self.saved_parameters
+        _['start'] = start_timestamp_map[trading_type]
+        _['end'] = end_timestamp_map[trading_type]
+        pprint.pprint(_)
 
         # delete previous trades
         if delete_previous_trades and trading_type in [TradingType.BACKTESTING, TradingType.PAPERTRADING]:
-            self.delete_previous_trades(strategy)
+            self.delete_previous_trades(strategy_code)
 
         # Setup config for starting the job
         strategy_config = {
@@ -539,16 +539,16 @@ class AlgoBullsConnection:
             },
             'lots': lots,
             'userParams': restructured_strategy_parameters,
-            'candleDuration': candle.value,
-            'strategyMode': mode.value
+            'candleDuration': candle_interval.value,
+            'strategyMode': strategy_mode.value
         }
-        self.api.set_strategy_config(strategy_code=strategy, strategy_config=strategy_config, trading_type=trading_type)
+        self.api.set_strategy_config(strategy_code=strategy_code, strategy_config=strategy_config, trading_type=trading_type)
 
         # Submit trading job
-        response = self.api.start_strategy_algotrading(strategy_code=strategy, start_timestamp=start_timestamp, end_timestamp=end_timestamp, trading_type=trading_type,
+        response = self.api.start_strategy_algotrading(strategy_code=strategy_code, start_timestamp=start_timestamp, end_timestamp=end_timestamp, trading_type=trading_type,
                                                        lots=lots, initial_funds_virtual=initial_funds_virtual, broker_details=broking_details, location=location)
 
-        self.strategy_locale_map[trading_type][strategy] = location
+        self.strategy_locale_map[trading_type][strategy_code] = location
         return response
 
     def backtest(self, strategy=None, start=None, end=None, instruments=None, lots=None, parameters=None, candle=None, mode=None, delete_previous_trades=True, initial_funds_virtual=None, vendor_details=None, **kwargs):
@@ -583,7 +583,7 @@ class AlgoBullsConnection:
 
         # start backtesting job
         response = self.start_job(
-            strategy=strategy, start_timestamp=start, end_timestamp=end, instruments=instruments, lots=lots, parameters=parameters, candle=candle, mode=mode,
+            strategy_code=strategy, start_timestamp=start, end_timestamp=end, instruments=instruments, lots=lots, strategy_parameters=parameters, candle_interval=candle, strategy_mode=mode,
             initial_funds_virtual=initial_funds_virtual, delete_previous_trades=delete_previous_trades, trading_type=TradingType.BACKTESTING, broking_details=vendor_details, **kwargs
         )
 
@@ -727,7 +727,7 @@ class AlgoBullsConnection:
 
         # start papertrading job
         response = self.start_job(
-            strategy=strategy, start_timestamp=start, end_timestamp=end, instruments=instruments, lots=lots, parameters=parameters, candle=candle, mode=mode,
+            strategy_code=strategy, start_timestamp=start, end_timestamp=end, instruments=instruments, lots=lots, strategy_parameters=parameters, candle_interval=candle, strategy_mode=mode,
             initial_funds_virtual=initial_funds_virtual, delete_previous_trades=delete_previous_trades, trading_type=TradingType.PAPERTRADING, broking_details=vendor_details, **kwargs
         )
 
@@ -871,7 +871,7 @@ class AlgoBullsConnection:
         """
 
         # start realtrading job
-        response = self.start_job(strategy=strategy, start_timestamp=start, end_timestamp=end, instruments=instruments, lots=lots, parameters=parameters, candle=candle, mode=mode, trading_type=TradingType.REALTRADING, broking_details=broking_details,
+        response = self.start_job(strategy_code=strategy, start_timestamp=start, end_timestamp=end, instruments=instruments, lots=lots, strategy_parameters=parameters, candle_interval=candle, strategy_mode=mode, trading_type=TradingType.REALTRADING, broking_details=broking_details,
                                   **kwargs)
 
         # Update previously saved pnl data and exchange location
