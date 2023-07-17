@@ -547,8 +547,16 @@ class AlgoBullsConnection:
 
         # save BT/PT/RT parameters
         self.saved_parameters = {
-            'strategy': strategy_code, 'start_timestamp_map': start_timestamp_map, 'end_timestamp_map': end_timestamp_map, 'strategy_parameters': strategy_parameters, 'candle_interval': candle_interval, 'instruments': instruments,
-            'strategy_mode': strategy_mode, 'lots': lots, 'initial_funds_virtual': initial_funds_virtual, 'vendor_details': broking_details
+            'strategy': strategy_code,
+            'start_timestamp_map': start_timestamp_map,
+            'end_timestamp_map': end_timestamp_map,
+            'strategy_parameters': strategy_parameters,
+            'candle_interval': candle_interval,
+            'instruments': instruments,
+            'strategy_mode': strategy_mode,
+            'lots': lots,
+            'initial_funds_virtual': initial_funds_virtual,
+            'vendor_details': broking_details   # Note: key name is saved as vendor_details for logging purpose
         }
 
         self.print_strategy_config(trading_type)
