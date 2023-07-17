@@ -407,7 +407,7 @@ Candle: {_['candle_interval']}
 Instrument(s): {pprint.pformat(_['instruments'])}
 Mode: {_['strategy_mode']}
 Lots: {_['lots']}
-        """
+"""
 
         if trading_type in [TradingType.BACKTESTING, TradingType.PAPERTRADING]:
             _msg += f"Initial Funds (Virtual): {_['initial_funds_virtual']}"
@@ -455,13 +455,13 @@ Lots: {_['lots']}
         saved_params = self.saved_parameters
         start_timestamp_map = saved_params.get('start_timestamp_map')
         end_timestamp_map = saved_params.get('end_timestamp_map')
-        strategy_code = strategy_code or kwargs.get('strategy_code') or saved_params.get('strategy')
+        strategy_code = strategy_code or kwargs.get('strategy_code') or saved_params.get('strategy_code')
         start_timestamp = start_timestamp or kwargs.get('start_timestamp') or start_timestamp_map.get(trading_type)
         end_timestamp = end_timestamp or kwargs.get('end_timestamp') or end_timestamp_map.get(trading_type)
-        strategy_parameters = strategy_parameters or kwargs.get('strategy_parameters') or saved_params.get('parameters')
-        candle_interval = candle_interval or kwargs.get('candle_interval') or saved_params.get('candle')
+        strategy_parameters = strategy_parameters or kwargs.get('strategy_parameters') or saved_params.get('strategy_parameters')
+        candle_interval = candle_interval or kwargs.get('candle_interval') or saved_params.get('candle_interval')
         instruments = instruments or kwargs.get('instrument') or saved_params.get('instruments')
-        strategy_mode = strategy_mode or kwargs.get('strategy_mode') or saved_params.get('mode') or StrategyMode.INTRADAY
+        strategy_mode = strategy_mode or kwargs.get('strategy_mode') or saved_params.get('strategy_mode') or StrategyMode.INTRADAY
         lots = lots or saved_params.get('lots')
         initial_funds_virtual = initial_funds_virtual or saved_params.get('initial_funds_virtual') or 1e9
         broking_details = broking_details or saved_params.get('vendor_details')
