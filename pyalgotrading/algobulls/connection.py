@@ -396,26 +396,31 @@ class AlgoBullsConnection:
         return order_report
 
     def print_strategy_config(self, trading_type):
+        from tabulate import tabulate
         _ = self.saved_parameters
-        _msg = f"""
-Executing strategy \'{_['strategy_code']}\' in '{trading_type.name}' with the following parameters:
 
-Start Timestamp: {_['start_timestamp_map'][trading_type]}
-End Timestamp: {_['end_timestamp_map'][trading_type]}
-Parameters: {pprint.pformat(_['strategy_parameters'])}
-Candle: {_['candle_interval'].value}
-Instrument(s): {pprint.pformat(_['instruments'])}
-Mode: {_['strategy_mode'].name}
-Lots: {_['lots']}
-"""
+        tabulated_data = [
+            ['Strategy Code', _['strategy_code']],
+            ['Trading Type', trading_type],
+            ['Instrument(s)', pprint.pformat(_['instruments'])],
+            ['Quantity/Lots', _['lots']],
+            ['Start Timestamp', _['start_timestamp_map'][trading_type]],
+            ['End Timestamp', _['end_timestamp_map'][trading_type]],
+            ['Parameters', pprint.pformat(_['strategy_parameters'])],
+            ['Candle', _['candle_interval'].value],
+            ['Mode', _['strategy_mode'].name],
+        ]
 
         if trading_type in [TradingType.BACKTESTING, TradingType.PAPERTRADING]:
-            _msg += f"Initial Funds (Virtual): {_['initial_funds_virtual']}"
+            tabulated_data.append(['Initial Funds (Virtual)', _['initial_funds_virtual']])
         elif trading_type in [TradingType.REALTRADING]:
-            _msg += f"\nBroker Details: {_['vendor_details']}"      # Note, key is still 'vendor_details' even for broking purpose
+            tabulated_data.insert(0, ["Broker Name", _['vendor_details']['brokerName']])  # Note, key is still 'vendor_details' even for broking purpose
 
         if _.get('vendor_details') is not None:
-            _msg += f"\nVendor Details: {_['vendor_details']}"
+            tabulated_data.insert(0, ["Vendor Name", _['vendor_details']['brokerName']])
+
+        _msg = tabulate(tabulated_data, headers=['Config', 'Value'], tablefmt="fancy_grid")
+
         print(_msg)
 
     def start_job(self, strategy_code=None, start_timestamp=None, end_timestamp=None, instruments=None, lots=None, strategy_parameters=None, candle_interval=None, strategy_mode=None, initial_funds_virtual=None, delete_previous_trades=True,
