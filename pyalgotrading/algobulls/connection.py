@@ -425,8 +425,8 @@ class AlgoBullsConnection:
 
         # check if values received by new parameter names, else extract from old parameter names, else extract from saved parameters
         saved_params = self.saved_parameters
-        start_timestamp_map = saved_params.get('start')
-        end_timestamp_map = saved_params.get('end')
+        start_timestamp_map = saved_params.get('start_timestamp_map')
+        end_timestamp_map = saved_params.get('end_timestamp_map')
         strategy = strategy or kwargs.get('strategy_code') or saved_params.get('strategy')
         start_timestamp = start_timestamp or kwargs.get('start_timestamp') or start_timestamp_map.get(trading_type)
         end_timestamp = end_timestamp or kwargs.get('end_timestamp') or end_timestamp_map.get(trading_type)
@@ -519,7 +519,7 @@ class AlgoBullsConnection:
                     break
 
         # save BT/PT/RT parameters
-        self.saved_parameters = {'strategy': strategy, 'start': start_timestamp_map, 'end': end_timestamp_map, 'parameters': parameters, 'candle': candle.value, 'instruments': instruments, 'mode': mode, 'lots': lots,
+        self.saved_parameters = {'strategy': strategy, 'start_timestamp_map': start_timestamp_map, 'end_timestamp_map': end_timestamp_map, 'parameters': parameters, 'candle': candle.value, 'instruments': instruments, 'mode': mode, 'lots': lots,
                                  'initial_funds_virtual': initial_funds_virtual, 'vendor_details': broking_details}
 
         # log the saved parameters
@@ -529,7 +529,7 @@ class AlgoBullsConnection:
         pprint.pprint(_print_params)
 
         # delete previous trades
-        if trading_type in [TradingType.BACKTESTING, TradingType.PAPERTRADING] and delete_previous_trades:
+        if delete_previous_trades and trading_type in [TradingType.BACKTESTING, TradingType.PAPERTRADING]:
             self.delete_previous_trades(strategy)
 
         # Setup config for starting the job
