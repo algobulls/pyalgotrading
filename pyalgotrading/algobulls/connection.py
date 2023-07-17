@@ -271,13 +271,14 @@ class AlgoBullsConnection:
 
         response = self.api.stop_strategy_algotrading(strategy_code=strategy_code, trading_type=trading_type)
 
-    def get_logs(self, strategy_code, trading_type):
+    def get_logs(self, strategy_code, trading_type, show_progress_bar=True):
         """
         Fetch logs for a strategy
 
         Args:
             strategy_code: strategy code
             trading_type: trading type
+            show_progress_bar: display progress bar for logs/strategy completion
 
         Returns:
             Execution logs
@@ -287,47 +288,62 @@ class AlgoBullsConnection:
         assert isinstance(trading_type, TradingType), f'Argument "trading_type" should be an enum of type {TradingType.__name__}'
 
         all_logs = []
-        initialNextToken = None
+        initial_next_token = None
         initialPreviousToken = None
 
-        start = params.get('start')
-        start_dt = dt.strptime(start, '%Y-%m-%d %H:%M %z').replace(tzinfo=None)
-        end = params.get('end')
-        end_dt = dt.strptime(end, '%Y-%m-%d %H:%M %z').replace(tzinfo=None)
+        start_timestamp_map = self.saved_parameters.get('start_timestamp_map')
+        end_timestamp_map = self.saved_parameters.get('end_timestamp_map')
 
-        print(f'START: {start_dt}')
-        print(f'END: {end_dt}')
+        if show_progress_bar and start_timestamp_map.get(trading_type) and end_timestamp_map.get(trading_type):
+            start_dt = start_timestamp_map.get(trading_type).replace(tzinfo=None)
+            end_dt = end_timestamp_map.get(trading_type).replace(tzinfo=None)
 
-        total_seconds = (end_dt - start_dt).total_seconds()
-        pbar = tqdm(desc='strategy completion', total=total_seconds, position=0, leave=True)
+            total_seconds = (end_dt - start_dt).total_seconds()
+            status = 'STARTING'
 
-        while True:
-            response = self.api.get_logs(strategy_code=strategy_code, trading_type=trading_type, initialNextToken=initialNextToken)
-            # print(response)
-            logs = response.get('data')
-            # print(type(logs), logs)
-            # print(type(logs[0]), logs[0])
-            if logs == []:
-                if self.get_job_status(strategy_code, trading_type)["message"] == 'STOPPED':
-                    break
-                time.sleep(3)
-                continue
+            while True:
+                response = self.api.get_logs(strategy_code=strategy_code, trading_type=trading_type, log_type='automated', initial_next_token=initial_next_token)
+                logs = response.get('data')
 
-            if logs is not None:
-                curr_dt = start_dt
-                for log in logs:
-                    res = re.findall(r'\[(.*?)\]', log)
-                    # tqdm.write(log)
+                # if logs are in starting phase, we wait until it changes
+                if status == 'STARTING':
+                    status = self.get_job_status(strategy_code, trading_type)["message"]
+                    time.sleep(5)
+                    continue
 
-                    if res[0] in ['BT', 'PT', 'RT']:
-                        curr_dt = dt.strptime(res[1].split(',')[0], '%Y-%m-%d %H:%M:%S')
-                        _pos = (curr_dt - start_dt).total_seconds()
-                        update_value = _pos - pbar.n
-                        pbar.update(update_value)
+                # if logs get in started phase, we initialize the tqdm object for progress tracking
+                if status == 'STARTED':
+                    pbar = tqdm(desc='strategy completion', total=total_seconds, position=0, leave=True)
+                    status = 'IN_PROCESS'
 
-                all_logs.extend(logs)
-                initialNextToken = response.get('initialNextToken')
-                time.sleep(1)
+                # if logs are empty we wait
+                if logs == []:
+                    # if status is stopped we break the while loop
+                    if self.get_job_status(strategy_code, trading_type)["message"] == 'STOPPED':
+                        break
+                    time.sleep(5)
+                    continue
+
+                if logs is not None:
+                    for log in logs:
+
+                        # extract terms inside square brackets
+                        res = re.findall(r'\[(.*?)\]', log)
+                        tqdm.write(log)
+
+                        # extract datetime from logs
+                        if res[0] in ['BT', 'PT', 'RT']:
+                            curr_dt = dt.strptime(res[1].split(',')[0], '%Y-%m-%d %H:%M:%S')
+                            _pos = (curr_dt - start_dt).total_seconds()
+                            update_value = _pos - pbar.n
+                            pbar.update(update_value)
+
+                    # extend the logs list
+                    all_logs.extend(logs)
+                    initial_next_token = response.get('initialNextToken')
+                    time.sleep(5)
+
+        all_logs = self.api.get_logs(strategy_code=strategy_code, trading_type=trading_type, log_type='manual')
         return all_logs
 
     def get_report(self, strategy_code, trading_type, report_type, render_as_dataframe=False, show_all_rows=False, location=None):
