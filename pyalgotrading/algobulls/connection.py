@@ -171,10 +171,11 @@ class AlgoBullsConnection:
         """
         strategy_name = None
         try:
+            # TODO: Currently fetching strategy name over API everytime. Will be optimized in future to avoid repeated API calls.
             all_strategies_df = self.get_all_strategies()
-            strategy_name = all_strategies_df.loc[all_strategies_df['strategyCode'] == 'c903da8c49a245e685911fa20f3d9314']['strategyName'][0]
-        except Exception as e:
-            print(f'Error while fetching strategy name of strategy code {strategy_code}. Error: {e}')
+            strategy_name = all_strategies_df.loc[all_strategies_df['strategyCode'] == strategy_code]['strategyName'][0]
+        except Exception as ex:
+            print(f'Error while fetching strategy name of strategy code {strategy_code}. Error: {ex}')
         return strategy_name
 
     def get_strategy_details(self, strategy_code):
@@ -416,12 +417,11 @@ class AlgoBullsConnection:
 
     def print_strategy_config(self, trading_type):
         _ = self.saved_parameters
-
         strategy_name = self.get_strategy_name(_['strategy_code'])
 
-        tabulated_data = [
-            # ['Strategy Code', _['strategy_code']],    # not required as of now
+        data = [
             ['Strategy Name', strategy_name],
+            # ['Strategy Code', _['strategy_code']],    # not required as of now
             ['Trading Type', trading_type.name],
             ['Instrument(s)', pprint.pformat(_['instruments'])],
             ['Quantity/Lots', _['lots']],
@@ -433,14 +433,14 @@ class AlgoBullsConnection:
         ]
 
         if trading_type in [TradingType.BACKTESTING, TradingType.PAPERTRADING]:
-            tabulated_data.append(['Initial Funds (Virtual)', _['initial_funds_virtual']])
+            data.append(['Initial Funds (Virtual)', _['initial_funds_virtual']])
         elif trading_type in [TradingType.REALTRADING]:
-            tabulated_data.insert(0, ["Broker Name", _['vendor_details']['brokerName']])  # Note, key is still 'vendor_details' even for broking purpose
+            data.insert(0, ["Broker Name", _['vendor_details']['brokerName']])  # Note, key is still 'vendor_details' even for broking purpose
 
         if _.get('vendor_details') is not None:
-            tabulated_data.insert(0, ["Vendor Name", _['vendor_details']['brokerName']])
+            data.insert(0, ["Vendor Name", _['vendor_details']['brokerName']])
 
-        _msg = tabulate(tabulated_data, headers=['Config', 'Value'], tablefmt="fancy_grid")
+        _msg = tabulate(data, headers=['Config', 'Value'], tablefmt="fancy_grid")
         print(f"\nStarting the strategy '{strategy_name}' in {trading_type.name} mode...\n{_msg}\n")
 
     def start_job(self, strategy_code=None, start_timestamp=None, end_timestamp=None, instruments=None, lots=None, strategy_parameters=None, candle_interval=None, strategy_mode=None, initial_funds_virtual=None, delete_previous_trades=True,
