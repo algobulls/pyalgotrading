@@ -286,24 +286,23 @@ class AlgoBullsConnection:
 
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
         assert isinstance(trading_type, TradingType), f'Argument "trading_type" should be an enum of type {TradingType.__name__}'
+        assert isinstance(show_progress_bar, bool), f'Argument "show_progress_bar" should be a boolean'
 
-        all_logs = []
-        initial_next_token = None
-        initialPreviousToken = None
-
+        # TODO: to extract timestamp from a different source which will be independent of whether save parameters are present in the object
         start_timestamp_map = self.saved_parameters.get('start_timestamp_map')
         end_timestamp_map = self.saved_parameters.get('end_timestamp_map')
 
+        # logging with progress bar
         if show_progress_bar and start_timestamp_map.get(trading_type) and end_timestamp_map.get(trading_type):
             start_dt = start_timestamp_map.get(trading_type).replace(tzinfo=None)
             end_dt = end_timestamp_map.get(trading_type).replace(tzinfo=None)
 
             total_seconds = (end_dt - start_dt).total_seconds()
             status = 'STARTING'
+            initial_next_token = None
+            error_counter = 0
 
             while True:
-                response = self.api.get_logs(strategy_code=strategy_code, trading_type=trading_type, log_type='automated', initial_next_token=initial_next_token)
-                logs = response.get('data')
 
                 # if logs are in starting phase, we wait until it changes
                 if status == 'STARTING':
@@ -316,8 +315,11 @@ class AlgoBullsConnection:
                     pbar = tqdm(desc='strategy completion', total=total_seconds, position=0, leave=True)
                     status = 'IN_PROCESS'
 
+                response = self.api.get_logs(strategy_code=strategy_code, trading_type=trading_type, log_type='partial', initial_next_token=initial_next_token)
+                logs = response.get('data')
+
                 # if logs are empty we wait
-                if logs == []:
+                if logs is not None:
                     # if status is stopped we break the while loop
                     if self.get_job_status(strategy_code, trading_type)["message"] == 'STOPPED':
                         break
@@ -326,24 +328,32 @@ class AlgoBullsConnection:
 
                 if logs is not None:
                     for log in logs:
+                        try:
 
-                        # extract terms inside square brackets
-                        res = re.findall(r'\[(.*?)\]', log)
-                        tqdm.write(log)
+                            # extract terms inside square brackets
+                            res = re.findall(r'\[(.*?)\]', log)
+                            tqdm.write(log)
 
-                        # extract datetime from logs
-                        if res[0] in ['BT', 'PT', 'RT']:
-                            curr_dt = dt.strptime(res[1].split(',')[0], '%Y-%m-%d %H:%M:%S')
-                            _pos = (curr_dt - start_dt).total_seconds()
-                            update_value = _pos - pbar.n
-                            pbar.update(update_value)
+                            # extract datetime from logs
+                            if res[0] in ['BT', 'PT', 'RT']:
+                                curr_dt = dt.strptime(res[1].split(',')[0], '%Y-%m-%d %H:%M:%S')
+                                total_completion = (curr_dt - start_dt).total_seconds()
+                                update_value = total_completion - pbar.n
+                                pbar.update(update_value)
 
-                    # extend the logs list
-                    all_logs.extend(logs)
+                        except Exception as ex:
+                            tqdm.write(f'WARNING: faced an error while updating logs process. Error: {ex}')
+                            tqdm.write(logs)
+                            error_counter += 1
+
+                        # avoid infinite loop in case of error
+                        if error_counter > 5:
+                            break
+
                     initial_next_token = response.get('initialNextToken')
                     time.sleep(5)
 
-        all_logs = self.api.get_logs(strategy_code=strategy_code, trading_type=trading_type, log_type='manual')
+        all_logs = self.api.get_logs(strategy_code=strategy_code, trading_type=trading_type, log_type='full')
         return all_logs
 
     def get_report(self, strategy_code, trading_type, report_type, render_as_dataframe=False, show_all_rows=False, location=None):

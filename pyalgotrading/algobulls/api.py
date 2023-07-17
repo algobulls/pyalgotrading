@@ -426,7 +426,7 @@ class AlgoBullsAPI:
         key = self.__get_key(strategy_code=strategy_code, trading_type=trading_type)
         params = None
 
-        if log_type == 'automated':
+        if log_type == 'partial':
             endpoint = 'v4/user/strategy/logs'
             json_data = {'key': key, 'nextToken': initial_next_token, 'limit': 20, 'direction': 'forward', 'reverse': False, 'type': 'userLogs'}
             params = {'isPythonBuild': True, 'isLive': trading_type == TradingType.REALTRADING}
