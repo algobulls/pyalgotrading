@@ -27,7 +27,7 @@ class AlgoBullsConnection:
         Init method that is used while creating an object of this class
         """
         self.api = AlgoBullsAPI(self)
-        self.saved_parameters = {'start': {}, 'end': {}}
+        self.saved_parameters = {'start_timestamp_map': {}, 'end_timestamp_map': {}}
         self.strategy_locale_map = {
             TradingType.BACKTESTING: {},
             TradingType.PAPERTRADING: {},
