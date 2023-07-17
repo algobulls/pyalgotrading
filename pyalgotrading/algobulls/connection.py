@@ -27,7 +27,12 @@ class AlgoBullsConnection:
         Init method that is used while creating an object of this class
         """
         self.api = AlgoBullsAPI(self)
-        self.saved_parameters = {'start_timestamp_map': {}, 'end_timestamp_map': {}}
+
+        self.saved_parameters = {
+            'start_timestamp_map': {},
+            'end_timestamp_map': {}
+        }
+
         self.strategy_locale_map = {
             TradingType.BACKTESTING: {},
             TradingType.PAPERTRADING: {},
@@ -390,6 +395,28 @@ class AlgoBullsConnection:
 
         return order_report
 
+    def print_strategy_config(self, trading_type):
+        _ = self.saved_parameters
+        _msg = f"""
+            Executing strategy \'{_['strategy_code']}\' in '{trading_type.name}' with the following parameters:
+            
+            Start Timestamp: {_['start_timestamp_map'][trading_type]}
+            End Timestamp: {_['end_timestamp_map'][trading_type]}
+            Parameters: {pprint.pformat(_['strategy_parameters'])}
+            Candle: {_['candle_interval']}
+            Instrument(s): {pprint.pformat(_['instruments'])}
+            Mode: {_['strategy_mode']}
+            Lots: {_['lots']}
+        """
+
+        if trading_type in [TradingType.BACKTESTING, TradingType.PAPERTRADING]:
+            _msg += f"\nInitial Funds (Virtual): {_['initial_funds_virtual']}"
+        elif trading_type in [TradingType.REALTRADING]:
+            _msg += f"\nBroker Details: {_['vendor_details']}"      # Note, key is still 'vendor_details' even for broking purpose
+
+        if _.get('vendor_details') is not None:
+            _msg += f"\nVendor Details: {_['vendor_details']}"
+
     def start_job(self, strategy_code=None, start_timestamp=None, end_timestamp=None, instruments=None, lots=None, strategy_parameters=None, candle_interval=None, strategy_mode=None, initial_funds_virtual=None, delete_previous_trades=True,
                   trading_type=None, broking_details=None, **kwargs):
         """
@@ -519,14 +546,12 @@ class AlgoBullsConnection:
                     break
 
         # save BT/PT/RT parameters
-        self.saved_parameters = {'strategy': strategy_code, 'start_timestamp_map': start_timestamp_map, 'end_timestamp_map': end_timestamp_map, 'parameters': strategy_parameters, 'candle': candle_interval.value, 'instruments': instruments,
-                                 'mode': strategy_mode.value, 'lots': lots, 'initial_funds_virtual': initial_funds_virtual, 'vendor_details': broking_details}
+        self.saved_parameters = {
+            'strategy': strategy_code, 'start_timestamp_map': start_timestamp_map, 'end_timestamp_map': end_timestamp_map, 'strategy_parameters': strategy_parameters, 'candle_interval': candle_interval, 'instruments': instruments,
+            'strategy_mode': strategy_mode, 'lots': lots, 'initial_funds_virtual': initial_funds_virtual, 'vendor_details': broking_details
+        }
 
-        # log the saved parameters
-        _ = self.saved_parameters
-        _['start'] = start_timestamp_map[trading_type]
-        _['end'] = end_timestamp_map[trading_type]
-        pprint.pprint(_)
+        self.print_strategy_config(trading_type)
 
         # delete previous trades
         if delete_previous_trades and trading_type in [TradingType.BACKTESTING, TradingType.PAPERTRADING]:
