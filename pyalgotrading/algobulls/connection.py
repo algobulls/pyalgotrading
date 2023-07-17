@@ -398,19 +398,19 @@ class AlgoBullsConnection:
     def print_strategy_config(self, trading_type):
         _ = self.saved_parameters
         _msg = f"""
-            Executing strategy \'{_['strategy_code']}\' in '{trading_type.name}' with the following parameters:
-            
-            Start Timestamp: {_['start_timestamp_map'][trading_type]}
-            End Timestamp: {_['end_timestamp_map'][trading_type]}
-            Parameters: {pprint.pformat(_['strategy_parameters'])}
-            Candle: {_['candle_interval']}
-            Instrument(s): {pprint.pformat(_['instruments'])}
-            Mode: {_['strategy_mode']}
-            Lots: {_['lots']}
+Executing strategy \'{_['strategy_code']}\' in '{trading_type.name}' with the following parameters:
+
+Start Timestamp: {_['start_timestamp_map'][trading_type]}
+End Timestamp: {_['end_timestamp_map'][trading_type]}
+Parameters: {pprint.pformat(_['strategy_parameters'])}
+Candle: {_['candle_interval']}
+Instrument(s): {pprint.pformat(_['instruments'])}
+Mode: {_['strategy_mode']}
+Lots: {_['lots']}
         """
 
         if trading_type in [TradingType.BACKTESTING, TradingType.PAPERTRADING]:
-            _msg += f"\nInitial Funds (Virtual): {_['initial_funds_virtual']}"
+            _msg += f"Initial Funds (Virtual): {_['initial_funds_virtual']}"
         elif trading_type in [TradingType.REALTRADING]:
             _msg += f"\nBroker Details: {_['vendor_details']}"      # Note, key is still 'vendor_details' even for broking purpose
 
