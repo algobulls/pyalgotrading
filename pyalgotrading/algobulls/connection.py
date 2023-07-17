@@ -401,7 +401,7 @@ class AlgoBullsConnection:
 
         tabulated_data = [
             ['Strategy Code', _['strategy_code']],
-            ['Trading Type', trading_type],
+            ['Trading Type', trading_type.name],
             ['Instrument(s)', pprint.pformat(_['instruments'])],
             ['Quantity/Lots', _['lots']],
             ['Start Timestamp', _['start_timestamp_map'][trading_type]],
@@ -420,8 +420,7 @@ class AlgoBullsConnection:
             tabulated_data.insert(0, ["Vendor Name", _['vendor_details']['brokerName']])
 
         _msg = tabulate(tabulated_data, headers=['Config', 'Value'], tablefmt="fancy_grid")
-
-        print(_msg)
+        print(f"\nStarting the strategy '{_['strategy_code']}' in {trading_type.name} mode...\n_msg\n")
 
     def start_job(self, strategy_code=None, start_timestamp=None, end_timestamp=None, instruments=None, lots=None, strategy_parameters=None, candle_interval=None, strategy_mode=None, initial_funds_virtual=None, delete_previous_trades=True,
                   trading_type=None, broking_details=None, **kwargs):
@@ -513,13 +512,13 @@ class AlgoBullsConnection:
             assert 'credentialParameters' in broking_details, f'Argument "broking_details" should be a dict with "credentialParameters" key'
 
         if trading_type is not TradingType.BACKTESTING:
+            start_timestamp = dt.combine(dt.now().astimezone(start_timestamp.tzinfo).date(), start_timestamp.time(), tzinfo=start_timestamp.tzinfo)
+            end_timestamp = dt.combine(dt.now().astimezone(end_timestamp.tzinfo).date(), end_timestamp.time(), tzinfo=end_timestamp.tzinfo)
+
             start_timestamp_map[TradingType.REALTRADING] = start_timestamp
             start_timestamp_map[TradingType.PAPERTRADING] = start_timestamp
             end_timestamp_map[TradingType.REALTRADING] = end_timestamp
             end_timestamp_map[TradingType.PAPERTRADING] = end_timestamp
-
-            start_timestamp = dt.combine(dt.now().astimezone(start_timestamp.tzinfo).date(), start_timestamp.time(), tzinfo=start_timestamp.tzinfo)
-            end_timestamp = dt.combine(dt.now().astimezone(end_timestamp.tzinfo).date(), end_timestamp.time(), tzinfo=end_timestamp.tzinfo)
 
         else:
             start_timestamp_map[TradingType.BACKTESTING] = start_timestamp
