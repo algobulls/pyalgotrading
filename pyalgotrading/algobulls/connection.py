@@ -403,7 +403,7 @@ Executing strategy \'{_['strategy_code']}\' in '{trading_type.name}' with the fo
 Start Timestamp: {_['start_timestamp_map'][trading_type]}
 End Timestamp: {_['end_timestamp_map'][trading_type]}
 Parameters: {pprint.pformat(_['strategy_parameters'])}
-Candle: {_['candle_interval'].name}
+Candle: {_['candle_interval'].value}
 Instrument(s): {pprint.pformat(_['instruments'])}
 Mode: {_['strategy_mode'].name}
 Lots: {_['lots']}
