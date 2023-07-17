@@ -416,6 +416,7 @@ class AlgoBullsConnection:
 
         if _.get('vendor_details') is not None:
             _msg += f"\nVendor Details: {_['vendor_details']}"
+        print(_msg)
 
     def start_job(self, strategy_code=None, start_timestamp=None, end_timestamp=None, instruments=None, lots=None, strategy_parameters=None, candle_interval=None, strategy_mode=None, initial_funds_virtual=None, delete_previous_trades=True,
                   trading_type=None, broking_details=None, **kwargs):
