@@ -27,7 +27,7 @@ class AlgoBullsConnection:
         Init method that is used while creating an object of this class
         """
         self.api = AlgoBullsAPI(self)
-        self.saved_params = {'start': {}, 'end': {}}
+        self.saved_parameters = {'start': {}, 'end': {}}
         self.strategy_locale_map = {
             TradingType.BACKTESTING: {},
             TradingType.PAPERTRADING: {},
@@ -424,7 +424,7 @@ class AlgoBullsConnection:
         """
         # check if values received by new parameter names, else extract from old parameter names, else extract from saved parameters
 
-        saved_params = self.saved_params
+        saved_params = self.saved_parameters
         _start = saved_params.get('start')
         _end = saved_params.get('end')
         strategy = strategy or kwargs.get('strategy_code') or saved_params.get('strategy')
@@ -519,11 +519,11 @@ class AlgoBullsConnection:
                     break
 
         # save BT/PT/RT parameters
-        self.saved_params = {'strategy': strategy, 'start': _start, 'end': _end, 'parameters': parameters, 'candle': candle.value, 'instruments': instruments, 'mode': mode, 'lots': lots, 'initial_funds_virtual': initial_funds_virtual,
+        self.saved_parameters = {'strategy': strategy, 'start': _start, 'end': _end, 'parameters': parameters, 'candle': candle.value, 'instruments': instruments, 'mode': mode, 'lots': lots, 'initial_funds_virtual': initial_funds_virtual,
                              'vendor_details': broking_details}
 
         # log the saved parameters
-        _print_params = self.saved_params
+        _print_params = self.saved_parameters
         _print_params['start'] = _start[trading_type]
         _print_params['end'] = _end[trading_type]
         pprint.pprint(_print_params)
