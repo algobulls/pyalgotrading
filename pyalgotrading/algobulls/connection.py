@@ -3,15 +3,15 @@ Module for AlgoBulls connection
 """
 import inspect
 import pprint
+import re
 import time
 from collections import OrderedDict
-from datetime import datetime as dt, timedelta
+from datetime import datetime as dt
 
-from tqdm.auto import tqdm
-import re
 import pandas as pd
 import quantstats as qs
 from tabulate import tabulate
+from tqdm.auto import tqdm
 
 from .api import AlgoBullsAPI
 from .exceptions import AlgoBullsAPIBadRequestException, AlgoBullsAPIGatewayTimeoutErrorException
