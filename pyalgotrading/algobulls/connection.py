@@ -292,60 +292,86 @@ class AlgoBullsConnection:
         # TODO: to extract timestamp from a different source which will be independent of whether save parameters are present in the object
         start_timestamp_map = self.saved_parameters.get('start_timestamp_map')
         end_timestamp_map = self.saved_parameters.get('end_timestamp_map')
+        all_logs = ''
 
         # logging with progress bar
         if show_progress_bar and start_timestamp_map.get(trading_type) and end_timestamp_map.get(trading_type):
-            start_dt = start_timestamp_map.get(trading_type).replace(tzinfo=None)
-            end_dt = end_timestamp_map.get(trading_type).replace(tzinfo=None)
-
-            total_seconds = (end_dt - start_dt).total_seconds()
-            status = 'STARTING'
+            tqdm_progress_bar = None
             initial_next_token = None
             error_counter = 0
+            status = None
 
+            start_timestamp = start_timestamp_map.get(trading_type).replace(tzinfo=None)
+            end_timestamp = end_timestamp_map.get(trading_type).replace(tzinfo=None)
+            total_seconds = (end_timestamp - start_timestamp).total_seconds()
+
+            count_starting_status = 0
             while True:
 
                 # if logs are in starting phase, we wait until it changes
-                if status == 'STARTING':
+                if status is None or status == 'STARTING':
                     status = self.get_job_status(strategy_code, trading_type)["message"]
                     time.sleep(5)
+                    if status == 'STARTING':
+                        count_starting_status += 1
+                        print('\r', end=f'Looking for a dedicated virtual server to execute your strategy... ({count_starting_status})')
                     continue
 
                 # if logs get in started phase, we initialize the tqdm object for progress tracking
-                if status == 'STARTED':
-                    pbar = tqdm(desc='strategy completion', total=total_seconds, position=0, leave=True)
+                if tqdm_progress_bar is None and status == 'STARTED':
+                    tqdm_progress_bar = tqdm(desc='Execution Progress', total=total_seconds, position=0, leave=True)
                     status = 'IN_PROCESS'
 
                 response = self.api.get_logs(strategy_code=strategy_code, trading_type=trading_type, log_type='partial', initial_next_token=initial_next_token)
                 logs = response.get('data')
+                if type(logs) is list:
+                    all_logs += '\n'.join(logs) + '\n'
 
                 # if logs are empty we wait
-                if logs is None:
+                if not logs:
+                    status = self.get_job_status(strategy_code, trading_type)["message"]
+
                     # if status is stopped we break the while loop
-                    if self.get_job_status(strategy_code, trading_type)["message"] == 'STOPPED':
+                    if status == 'STOPPED':
+                        tqdm.write('Got status as STOPPED, strategy execution completed !!')
+                        if tqdm_progress_bar is not None:
+                            tqdm_progress_bar.close()
                         break
-                    time.sleep(5)
-                    continue
+
+                    # if status is stopping we stop the progress bar if created
+                    elif status == 'STOPPING':
+                        tqdm.write('Got status as STOPPING, strategy execution almost completed...')
+                        if tqdm_progress_bar is not None:
+                            tqdm_progress_bar.close()
+                        time.sleep(5)
+
+                    # show user if logs are not fetched
+                    else:
+                        tqdm.write(f'Warning: got no data, current status is {status}...')
+                        time.sleep(5)
+                        continue
 
                 else:
-                    for log in logs:
+                    # print the logs below progressbar
+                    if display_logs:
+                        tqdm.write('\n'.join(logs))
+
+                    # iterate in reverse order
+                    for log in logs[::-1]:
                         try:
 
-                            # extract terms inside square brackets
-                            res = re.findall(r'\[(.*?)\]', log)
-                            if display_logs:
-                                tqdm.write(log)
+                            # extract log terms inside square brackets
+                            _ = re.findall(r'\[(.*?)\]', log)
 
                             # extract datetime from logs
-                            if res[0] in ['BT', 'PT', 'RT']:
-                                curr_dt = dt.strptime(res[1].split(',')[0], '%Y-%m-%d %H:%M:%S')
-                                total_completion = (curr_dt - start_dt).total_seconds()
-                                update_value = total_completion - pbar.n
-                                pbar.update(update_value)
+                            if tqdm_progress_bar is not None and _[0] in ['BT', 'PT', 'RT']:
+                                current_timestamp = dt.strptime(_[1].split(',')[0], '%Y-%m-%d %H:%M:%S')
+                                total_completion = (current_timestamp - start_timestamp).total_seconds()
+                                tqdm_progress_bar.update(total_completion - tqdm_progress_bar.n)
+                                break
 
                         except Exception as ex:
                             tqdm.write(f'WARNING: faced an error while updating logs process. Error: {ex}')
-                            tqdm.write(logs)
                             error_counter += 1
 
                         # avoid infinite loop in case of error
@@ -353,9 +379,8 @@ class AlgoBullsConnection:
                             break
 
                     initial_next_token = response.get('initialNextToken')
-                    time.sleep(5)
-
-        all_logs = self.api.get_logs(strategy_code=strategy_code, trading_type=trading_type, log_type='full')
+        else:
+            all_logs = self.api.get_logs(strategy_code=strategy_code, trading_type=trading_type, log_type='full').get('data')
         return all_logs
 
     def get_report(self, strategy_code, trading_type, report_type, render_as_dataframe=False, show_all_rows=False, location=None):
