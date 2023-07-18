@@ -333,21 +333,21 @@ class AlgoBullsConnection:
 
                     # if status is stopped we break the while loop
                     if status == 'STOPPED':
-                        tqdm.write('Got status as STOPPED, strategy execution completed !!')
+                        tqdm.write('INFO: Got status as STOPPED, strategy execution completed !!!')
                         if tqdm_progress_bar is not None:
                             tqdm_progress_bar.close()
                         break
 
                     # if status is stopping we stop the progress bar if created
                     elif status == 'STOPPING':
-                        tqdm.write('Got status as STOPPING, strategy execution almost completed...')
+                        tqdm.write('INFO: Got status as STOPPING, strategy execution almost completed...')
                         if tqdm_progress_bar is not None:
                             tqdm_progress_bar.close()
                         time.sleep(5)
 
                     # show user if logs are not fetched
                     else:
-                        tqdm.write(f'Warning: got no data, current status is {status}...')
+                        tqdm.write(f'WARNING: got no data, current status is {status}...')
                         time.sleep(5)
                         continue
 
