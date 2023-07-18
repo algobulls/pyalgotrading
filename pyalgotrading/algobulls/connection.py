@@ -776,12 +776,14 @@ class AlgoBullsConnection:
 
         return self.stop_job(strategy_code=strategy_code, trading_type=TradingType.BACKTESTING)
 
-    def get_backtesting_logs(self, strategy_code):
+    def get_backtesting_logs(self, strategy_code, show_progress_bar=True, display_logs=True):
         """
         Fetch Back Testing logs
 
         Args:
             strategy_code: Strategy code
+            show_progress_bar: display progress bar of strategy execution
+            display_logs: display logs while showing progress bar
 
         Returns:
             Report details
@@ -789,7 +791,7 @@ class AlgoBullsConnection:
 
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
 
-        return self.get_logs(strategy_code, trading_type=TradingType.BACKTESTING)
+        return self.get_logs(strategy_code, trading_type=TradingType.BACKTESTING, show_progress_bar=show_progress_bar, display_logs=display_logs)
 
     def get_backtesting_report_pnl_table(self, strategy_code, location=None, show_all_rows=False, force_fetch=False):
         """
@@ -920,12 +922,14 @@ class AlgoBullsConnection:
 
         return self.stop_job(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING)
 
-    def get_papertrading_logs(self, strategy_code):
+    def get_papertrading_logs(self, strategy_code, show_progress_bar=True, display_logs=True):
         """
         Fetch Paper Trading logs
 
         Args:
             strategy_code: Strategy code
+            show_progress_bar: display progress bar of strategy execution
+            display_logs: display logs while showing progress bar
 
         Returns:
             Report details
@@ -933,7 +937,7 @@ class AlgoBullsConnection:
 
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
 
-        return self.get_logs(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING)
+        return self.get_logs(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING, show_progress_bar=show_progress_bar, display_logs=display_logs)
 
     def get_papertrading_report_pnl_table(self, strategy_code, location=None, show_all_rows=False, force_fetch=False):
         """
@@ -1067,12 +1071,14 @@ class AlgoBullsConnection:
 
         return self.stop_job(strategy_code=strategy_code, trading_type=TradingType.REALTRADING)
 
-    def get_realtrading_logs(self, strategy_code):
+    def get_realtrading_logs(self, strategy_code, show_progress_bar=True, display_logs=True):
         """
         Fetch Real Trading logs
 
         Args:
             strategy_code: Strategy code
+            show_progress_bar: display progress bar of strategy execution
+            display_logs: display logs while showing progress bar
 
         Returns:
             Report details
@@ -1080,7 +1086,7 @@ class AlgoBullsConnection:
 
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
 
-        return self.get_logs(strategy_code=strategy_code, trading_type=TradingType.REALTRADING)
+        return self.get_logs(strategy_code=strategy_code, trading_type=TradingType.REALTRADING, show_progress_bar=show_progress_bar, display_logs=display_logs)
 
     def get_realtrading_report_pnl_table(self, strategy_code, location=None, show_all_rows=False, force_fetch=False):
         """

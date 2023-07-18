@@ -414,7 +414,7 @@ class AlgoBullsAPI:
         Args:
             strategy_code: Strategy code
             trading_type: Trading type
-            log_type: type of logs, 'automated' or 'manual' requests
+            log_type: type of logs, 'partial' or 'full' requests
             initial_next_token: Token of next logs for v4 logs
 
         Returns:
