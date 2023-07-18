@@ -319,7 +319,7 @@ class AlgoBullsConnection:
 
                 # if logs get in started phase, we initialize the tqdm object for progress tracking
                 if tqdm_progress_bar is None and status == 'STARTED':
-                    tqdm_progress_bar = tqdm(desc='Execution Progress', total=total_seconds, position=0, leave=True)
+                    tqdm_progress_bar = tqdm(desc='Execution Progress', total=total_seconds, position=0, leave=True, bar_format='{l_bar}{bar}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}]')
                     status = 'IN_PROCESS'
 
                 response = self.api.get_logs(strategy_code=strategy_code, trading_type=trading_type, log_type='partial', initial_next_token=initial_next_token)
