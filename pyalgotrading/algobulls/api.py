@@ -324,7 +324,7 @@ class AlgoBullsAPI:
             broker_details: Client's broking details
 
         Info: ENDPOINT
-            `PATCH` v4/portfolio/strategies?isPythonBuild=true
+            `PATCH` v5/portfolio/strategies?isPythonBuild=true
         """
 
         try:
@@ -338,15 +338,16 @@ class AlgoBullsAPI:
                 map_trading_type_to_date_key[trading_type]: [start_timestamp.astimezone(timezone.utc).isoformat(), end_timestamp.astimezone(timezone.utc).isoformat()],
                 'isLiveDataTestMode': trading_type in [TradingType.PAPERTRADING, TradingType.REALTRADING],
                 'customizationsQuantity': lots,
-                'brokingDetails': broker_details
+                'brokingDetails': broker_details,
+                'mode': trading_type.name
             }
 
             params = None
             if trading_type in [TradingType.PAPERTRADING, TradingType.BACKTESTING]:
-                endpoint = f'v4/portfolio/strategies?isPythonBuild=true&isLive=false&location={location}'
+                endpoint = f'v5/portfolio/strategies?isPythonBuild=true&isLive=false&location={location}'
                 execute_config['initialFundsVirtual'] = initial_funds_virtual
             elif trading_type is TradingType.REALTRADING:
-                endpoint = f'v4/portfolio/strategies?isPythonBuild=true&isLive=true&location={location}'
+                endpoint = f'v5/portfolio/strategies?isPythonBuild=true&isLive=true&location={location}'
             else:
                 raise NotImplementedError
             json_data = {'method': 'update', 'newVal': 1, 'key': key, 'record': {'status': 0, 'lots': lots, 'executeConfig': execute_config}, 'dataIndex': 'executeConfig'}
@@ -369,10 +370,10 @@ class AlgoBullsAPI:
             trading_type: Trading type
         
         Info: ENDPOINT
-            `POST` v4/portfolio/strategies
+            `POST` v5/portfolio/strategies
         """
 
-        endpoint = 'v4/portfolio/strategies'
+        endpoint = 'v5/portfolio/strategies'
         try:
             key = self.__get_key(strategy_code=strategy_code, trading_type=trading_type)
             json_data = {'method': 'update', 'newVal': 0, 'key': key, 'record': {'status': 2}, 'dataIndex': 'executeConfig'}

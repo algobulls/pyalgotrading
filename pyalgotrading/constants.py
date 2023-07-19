@@ -263,7 +263,6 @@ class ExecutionStatus(Enum):
     STARTED = 'STARTED'
     STOPPING = 'STOPPING'
     STOPPED = 'STOPPED'
-    IN_PROCESS = 'IN_PROCESS'
 
 
 KEY_DT_FORMAT_WITH_TIMEZONE = 0
