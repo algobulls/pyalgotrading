@@ -15,7 +15,7 @@ from tqdm.auto import tqdm
 
 from .api import AlgoBullsAPI
 from .exceptions import AlgoBullsAPIBadRequestException, AlgoBullsAPIGatewayTimeoutErrorException
-from ..constants import StrategyMode, TradingType, TradingReportType, CandleInterval, AlgoBullsEngineVersion, EXCHANGE_LOCALE_MAP, Locale
+from ..constants import StrategyMode, TradingType, TradingReportType, CandleInterval, AlgoBullsEngineVersion, EXCHANGE_LOCALE_MAP, Locale, ExecutionStatus
 from ..strategy.strategy_base import StrategyBase
 from ..utils.func import get_valid_enum_names, get_datetime_with_tz
 
@@ -310,18 +310,18 @@ class AlgoBullsConnection:
             while True:
 
                 # if logs are in starting phase, we wait until it changes
-                if status is None or status == 'STARTING':
+                if status is None or status == ExecutionStatus.STARTING.value:
                     status = self.get_job_status(strategy_code, trading_type)["message"]
                     time.sleep(5)
-                    if status == 'STARTING':
+                    if status == ExecutionStatus.STARTING.value:
                         count_starting_status += 1
                         print('\r', end=f'Looking for a dedicated virtual server to execute your strategy... ({count_starting_status})')
                     continue
 
                 # if logs get in started phase, we initialize the tqdm object for progress tracking
-                if tqdm_progress_bar is None and status == 'STARTED':
+                if tqdm_progress_bar is None and status == ExecutionStatus.STARTED.value:
                     tqdm_progress_bar = tqdm(desc='Execution Progress', total=total_seconds, position=0, leave=True, bar_format='{l_bar}{bar}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}]')
-                    status = 'IN_PROCESS'
+                    status = ExecutionStatus.IN_PROCESS
 
                 response = self.api.get_logs(strategy_code=strategy_code, trading_type=trading_type, log_type='partial', initial_next_token=initial_next_token)
                 logs = response.get('data')
@@ -333,18 +333,11 @@ class AlgoBullsConnection:
                     status = self.get_job_status(strategy_code, trading_type)["message"]
 
                     # if status is stopped we break the while loop
-                    if status == 'STOPPED':
-                        tqdm.write('INFO: Got status as STOPPED, strategy execution completed !!!')
+                    if status in [ExecutionStatus.STOPPED.value, ExecutionStatus.STOPPING.value]:
+                        tqdm.write(f'INFO: Got status as {status}, strategy execution completed.')
                         if tqdm_progress_bar is not None:
                             tqdm_progress_bar.close()
                         break
-
-                    # if status is stopping we stop the progress bar if created
-                    elif status == 'STOPPING':
-                        tqdm.write('INFO: Got status as STOPPING, strategy execution almost completed...')
-                        if tqdm_progress_bar is not None:
-                            tqdm_progress_bar.close()
-                        time.sleep(5)
 
                     # continue if logs are not fetched
                     else:

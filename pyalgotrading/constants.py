@@ -255,6 +255,17 @@ class Locale(Enum):
     USA = 'en-US'
 
 
+class ExecutionStatus(Enum):
+    """
+    A class of status values of execution
+    """
+    STARTING = 'STARTING'
+    STARTED = 'STARTED'
+    STOPPING = 'STOPPING'
+    STOPPED = 'STOPPED'
+    IN_PROCESS = 'IN_PROCESS'
+
+
 KEY_DT_FORMAT_WITH_TIMEZONE = 0
 KEY_DT_FORMAT_WITHOUT_TIMEZONE = 1
 
