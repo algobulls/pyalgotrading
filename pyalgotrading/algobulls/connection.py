@@ -333,7 +333,7 @@ class AlgoBullsConnection:
 
                     # if status is stopped we break the while loop
                     if status in [ExecutionStatus.STOPPED.value, ExecutionStatus.STOPPING.value]:
-                        tqdm.write(f'INFO: Got status as {status}, strategy execution completed.')
+                        # tqdm.write(f'INFO: Got status as {status}, strategy execution completed.')    # for debug
                         if tqdm_progress_bar is not None:
                             tqdm_progress_bar.close()
                         break
