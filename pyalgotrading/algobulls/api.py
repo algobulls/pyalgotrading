@@ -324,7 +324,7 @@ class AlgoBullsAPI:
             broker_details: Client's broking details
 
         Info: ENDPOINT
-            `PATCH` v4/portfolio/strategies?isPythonBuild=true
+            `PATCH` v5/portfolio/strategies?isPythonBuild=true
         """
 
         try:
@@ -338,15 +338,16 @@ class AlgoBullsAPI:
                 map_trading_type_to_date_key[trading_type]: [start_timestamp.astimezone(timezone.utc).isoformat(), end_timestamp.astimezone(timezone.utc).isoformat()],
                 'isLiveDataTestMode': trading_type in [TradingType.PAPERTRADING, TradingType.REALTRADING],
                 'customizationsQuantity': lots,
-                'brokingDetails': broker_details
+                'brokingDetails': broker_details,
+                'mode': trading_type.name
             }
 
             params = None
             if trading_type in [TradingType.PAPERTRADING, TradingType.BACKTESTING]:
-                endpoint = f'v4/portfolio/strategies?isPythonBuild=true&isLive=false&location={location}'
+                endpoint = f'v5/portfolio/strategies?isPythonBuild=true&isLive=false&location={location}'
                 execute_config['initialFundsVirtual'] = initial_funds_virtual
             elif trading_type is TradingType.REALTRADING:
-                endpoint = f'v4/portfolio/strategies?isPythonBuild=true&isLive=true&location={location}'
+                endpoint = f'v5/portfolio/strategies?isPythonBuild=true&isLive=true&location={location}'
             else:
                 raise NotImplementedError
             json_data = {'method': 'update', 'newVal': 1, 'key': key, 'record': {'status': 0, 'lots': lots, 'executeConfig': execute_config}, 'dataIndex': 'executeConfig'}
@@ -369,10 +370,10 @@ class AlgoBullsAPI:
             trading_type: Trading type
         
         Info: ENDPOINT
-            `POST` v4/portfolio/strategies
+            `POST` v5/portfolio/strategies
         """
 
-        endpoint = 'v4/portfolio/strategies'
+        endpoint = 'v5/portfolio/strategies'
         try:
             key = self.__get_key(strategy_code=strategy_code, trading_type=trading_type)
             json_data = {'method': 'update', 'newVal': 0, 'key': key, 'record': {'status': 2}, 'dataIndex': 'executeConfig'}
@@ -407,25 +408,35 @@ class AlgoBullsAPI:
 
         return response
 
-    def get_logs(self, strategy_code: str, trading_type: TradingType) -> dict:
+    def get_logs(self, strategy_code: str, trading_type: TradingType, log_type: str, initial_next_token: str = None) -> dict:
         """
         Fetch logs for a strategy
-        
+
         Args:
             strategy_code: Strategy code
             trading_type: Trading type
-        
+            log_type: type of logs, 'partial' or 'full' requests
+            initial_next_token: Token of next logs for v4 logs
+
         Returns:
             Execution logs
-            
+
         Info: ENDPOINT
             `POST`: v2/user/strategy/logs
         """
-
-        endpoint = 'v2/user/strategy/logs'
         key = self.__get_key(strategy_code=strategy_code, trading_type=trading_type)
-        json_data = {'key': key}
-        response = self._send_request(method='post', endpoint=endpoint, json_data=json_data)
+        params = None
+
+        if log_type == 'partial':
+            endpoint = 'v4/user/strategy/logs'
+            json_data = {'key': key, 'nextToken': initial_next_token, 'limit': 1000, 'direction': 'forward', 'reverse': False, 'type': 'userLogs'}
+            params = {'isPythonBuild': True, 'isLive': trading_type == TradingType.REALTRADING}
+
+        else:
+            endpoint = 'v2/user/strategy/logs'
+            json_data = {'key': key}
+
+        response = self._send_request(method='post', endpoint=endpoint, json_data=json_data, params=params)
 
         return response
 
