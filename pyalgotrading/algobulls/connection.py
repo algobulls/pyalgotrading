@@ -175,7 +175,8 @@ class AlgoBullsConnection:
         try:
             # TODO: Currently fetching strategy name over API everytime. Will be optimized in future to avoid repeated API calls.
             all_strategies_df = self.get_all_strategies()
-            strategy_name = all_strategies_df.loc[all_strategies_df['strategyCode'] == strategy_code]['strategyName'][0]
+            strategy_name = all_strategies_df.loc[all_strategies_df['strategyCode'] == strategy_code].iloc[0]['strategyName']
+
         except Exception as ex:
             print(f'Error while fetching strategy name of strategy code {strategy_code}. Error: {ex}')
         return strategy_name
