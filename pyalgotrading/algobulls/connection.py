@@ -271,15 +271,15 @@ class AlgoBullsConnection:
 
         response = self.api.stop_strategy_algotrading(strategy_code=strategy_code, trading_type=trading_type)
 
-    def get_logs(self, strategy_code, trading_type, show_progress_bar=True, display_logs=True):
+    def get_logs(self, strategy_code, trading_type, auto_update=True, display_logs_in_auto_update_mode=False):
         """
         Fetch logs for a strategy
 
         Args:
             strategy_code: strategy code
             trading_type: trading type
-            show_progress_bar: display progress bar for logs/strategy completion
-            display_logs: display the updated logs along with progress bar
+            auto_update: If True, logs will be continuously fetched until strategy execution is complete. A progress bar will show the live status of strategy execution
+            display_logs_in_auto_update_mode: Applicable only if auto_update is True; display the logs as they are fetched
 
         Returns:
             Execution logs
@@ -287,7 +287,7 @@ class AlgoBullsConnection:
 
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
         assert isinstance(trading_type, TradingType), f'Argument "trading_type" should be an enum of type {TradingType.__name__}'
-        assert isinstance(show_progress_bar, bool), f'Argument "show_progress_bar" should be a boolean'
+        assert isinstance(auto_update, bool), f'Argument "show_progress_bar" should be a boolean'
 
         # TODO: to extract timestamp from a different source which will be independent of whether save parameters are present in the object
         start_timestamp_map = self.saved_parameters.get('start_timestamp_map')
@@ -295,7 +295,7 @@ class AlgoBullsConnection:
         all_logs = ''
 
         # logging with progress bar
-        if show_progress_bar and start_timestamp_map.get(trading_type) and end_timestamp_map.get(trading_type):
+        if auto_update and start_timestamp_map.get(trading_type) and end_timestamp_map.get(trading_type):
             tqdm_progress_bar = None
             initial_next_token = None
             error_counter = 0
@@ -345,15 +345,15 @@ class AlgoBullsConnection:
                             tqdm_progress_bar.close()
                         time.sleep(5)
 
-                    # show user if logs are not fetched
+                    # continue if logs are not fetched
                     else:
-                        tqdm.write(f'WARNING: got no data, current status is {status}...')
+                        # tqdm.write(f'WARNING: got no data, current status is {status}...')      # for debug
                         time.sleep(5)
                         continue
 
                 else:
                     # print the logs below progressbar
-                    if display_logs:
+                    if display_logs_in_auto_update_mode:
                         tqdm.write('\n'.join(logs))
 
                     # iterate in reverse order
@@ -776,14 +776,14 @@ class AlgoBullsConnection:
 
         return self.stop_job(strategy_code=strategy_code, trading_type=TradingType.BACKTESTING)
 
-    def get_backtesting_logs(self, strategy_code, show_progress_bar=True, display_logs=True):
+    def get_backtesting_logs(self, strategy_code, auto_update=True, display_logs_in_auto_update_mode=True):
         """
         Fetch Back Testing logs
 
         Args:
             strategy_code: Strategy code
-            show_progress_bar: display progress bar of strategy execution
-            display_logs: display logs while showing progress bar
+            auto_update: If True, logs will be continuously fetched until strategy execution is complete. A progress bar will show the live status of strategy execution
+            display_logs_in_auto_update_mode: Applicable only if auto_update is True; display the logs as they are fetched
 
         Returns:
             Report details
@@ -791,7 +791,7 @@ class AlgoBullsConnection:
 
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
 
-        return self.get_logs(strategy_code, trading_type=TradingType.BACKTESTING, show_progress_bar=show_progress_bar, display_logs=display_logs)
+        return self.get_logs(strategy_code, trading_type=TradingType.BACKTESTING, auto_update=auto_update, display_logs_in_auto_update_mode=display_logs_in_auto_update_mode)
 
     def get_backtesting_report_pnl_table(self, strategy_code, location=None, show_all_rows=False, force_fetch=False):
         """
@@ -922,14 +922,14 @@ class AlgoBullsConnection:
 
         return self.stop_job(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING)
 
-    def get_papertrading_logs(self, strategy_code, show_progress_bar=True, display_logs=True):
+    def get_papertrading_logs(self, strategy_code, auto_update=True, display_logs_in_auto_update_mode=True):
         """
         Fetch Paper Trading logs
 
         Args:
             strategy_code: Strategy code
-            show_progress_bar: display progress bar of strategy execution
-            display_logs: display logs while showing progress bar
+            auto_update: If True, logs will be continuously fetched until strategy execution is complete. A progress bar will show the live status of strategy execution
+            display_logs_in_auto_update_mode: Applicable only if auto_update is True; display the logs as they are fetched
 
         Returns:
             Report details
@@ -937,7 +937,7 @@ class AlgoBullsConnection:
 
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
 
-        return self.get_logs(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING, show_progress_bar=show_progress_bar, display_logs=display_logs)
+        return self.get_logs(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING, auto_update=auto_update, display_logs_in_auto_update_mode=display_logs_in_auto_update_mode)
 
     def get_papertrading_report_pnl_table(self, strategy_code, location=None, show_all_rows=False, force_fetch=False):
         """
@@ -1071,14 +1071,14 @@ class AlgoBullsConnection:
 
         return self.stop_job(strategy_code=strategy_code, trading_type=TradingType.REALTRADING)
 
-    def get_realtrading_logs(self, strategy_code, show_progress_bar=True, display_logs=True):
+    def get_realtrading_logs(self, strategy_code, auto_update=True, display_logs_in_auto_update_mode=True):
         """
         Fetch Real Trading logs
 
         Args:
             strategy_code: Strategy code
-            show_progress_bar: display progress bar of strategy execution
-            display_logs: display logs while showing progress bar
+            auto_update: If True, logs will be continuously fetched until strategy execution is complete. A progress bar will show the live status of strategy execution
+            display_logs_in_auto_update_mode: Applicable only if auto_update is True; display the logs as they are fetched
 
         Returns:
             Report details
@@ -1086,7 +1086,7 @@ class AlgoBullsConnection:
 
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
 
-        return self.get_logs(strategy_code=strategy_code, trading_type=TradingType.REALTRADING, show_progress_bar=show_progress_bar, display_logs=display_logs)
+        return self.get_logs(strategy_code=strategy_code, trading_type=TradingType.REALTRADING, auto_update=auto_update, display_logs_in_auto_update_mode=display_logs_in_auto_update_mode)
 
     def get_realtrading_report_pnl_table(self, strategy_code, location=None, show_all_rows=False, force_fetch=False):
         """
