@@ -915,7 +915,7 @@ class AlgoBullsConnection:
 
         return self.stop_job(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING)
 
-    def get_papertrading_logs(self, strategy_code, auto_update=True, display_logs_in_auto_update_mode=False):
+    def get_papertrading_logs(self, strategy_code, auto_update=False, display_logs_in_auto_update_mode=False):
         """
         Fetch Paper Trading logs
 
@@ -1064,7 +1064,7 @@ class AlgoBullsConnection:
 
         return self.stop_job(strategy_code=strategy_code, trading_type=TradingType.REALTRADING)
 
-    def get_realtrading_logs(self, strategy_code, auto_update=True, display_logs_in_auto_update_mode=False):
+    def get_realtrading_logs(self, strategy_code, auto_update=False, display_logs_in_auto_update_mode=False):
         """
         Fetch Real Trading logs
 
