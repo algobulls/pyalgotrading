@@ -462,8 +462,8 @@ class AlgoBullsAPI:
         key = self.__get_key(strategy_code=strategy_code, trading_type=trading_type)
         if report_type is TradingReportType.PNL_TABLE:
             _filter = json.dumps({"tradingType": trading_type.value})
-            endpoint = f'v3/book/pl/data'
-            params = {'pageSize': 0, 'isPythonBuild': "true", 'strategyId': strategy_code, 'isLive': trading_type is TradingType.REALTRADING, 'location': location, 'filters': _filter}
+            endpoint = f'v4/book/pl/data'
+            params = {'pageSize': 0, 'isPythonBuild': "true", 'strategyId': strategy_code, 'isLive': trading_type is TradingType.REALTRADING, 'country': location, 'filters': _filter}
         elif report_type is TradingReportType.ORDER_HISTORY:
             endpoint = 'v2/user/strategy/orderhistory'
             params = {'key': key}

@@ -255,6 +255,15 @@ class Locale(Enum):
     USA = 'en-US'
 
 
+class Country(Enum):
+    """
+    A class of countries
+    """
+    DEFAULT = 'USA'
+    INDIA = 'India'
+    USA = 'USA'
+
+
 class ExecutionStatus(Enum):
     """
     A class of status values of execution
@@ -272,6 +281,13 @@ TRADING_TYPE_DT_FORMAT_MAP = {
     TradingType.BACKTESTING: {KEY_DT_FORMAT_WITH_TIMEZONE: '%Y-%m-%d %H:%M %z', KEY_DT_FORMAT_WITHOUT_TIMEZONE: '%Y-%m-%d %H:%M'},
     TradingType.PAPERTRADING: {KEY_DT_FORMAT_WITH_TIMEZONE: '%H:%M %z', KEY_DT_FORMAT_WITHOUT_TIMEZONE: '%H:%M'},
     TradingType.REALTRADING: {KEY_DT_FORMAT_WITH_TIMEZONE: '%H:%M %z', KEY_DT_FORMAT_WITHOUT_TIMEZONE: '%H:%M'},
+}
+
+EXCHANGE_COUNTRY_MAP = {
+    'NSE': Country.INDIA.value,
+    'BSE': Country.INDIA.value,
+    'NASDAQ': Country.USA.value,
+    'NYSE': Country.USA.value,
 }
 
 EXCHANGE_LOCALE_MAP = {
