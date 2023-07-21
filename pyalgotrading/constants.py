@@ -289,4 +289,3 @@ EXCHANGE_LOCALE_MAP = {
     'NASDAQ': Locale.USA.value,
     'NYSE': Locale.USA.value,
 }
-
