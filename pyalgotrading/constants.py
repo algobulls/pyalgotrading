@@ -283,13 +283,6 @@ TRADING_TYPE_DT_FORMAT_MAP = {
     TradingType.REALTRADING: {KEY_DT_FORMAT_WITH_TIMEZONE: '%H:%M %z', KEY_DT_FORMAT_WITHOUT_TIMEZONE: '%H:%M'},
 }
 
-EXCHANGE_COUNTRY_MAP = {
-    'NSE': Country.INDIA.value,
-    'BSE': Country.INDIA.value,
-    'NASDAQ': Country.USA.value,
-    'NYSE': Country.USA.value,
-}
-
 EXCHANGE_LOCALE_MAP = {
     'NSE': Locale.INDIA.value,
     'BSE': Locale.INDIA.value,
