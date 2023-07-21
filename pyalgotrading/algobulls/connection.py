@@ -386,7 +386,7 @@ class AlgoBullsConnection:
             report_type: Value of TradingReportType Enum
             render_as_dataframe: True or False
             show_all_rows: True or False
-            country: Location of the Exchange
+            country: Country of the Exchange
 
         Returns:
             report details
@@ -398,7 +398,7 @@ class AlgoBullsConnection:
         assert isinstance(render_as_dataframe, bool), f'Argument "render_as_dataframe" should be a bool'
         assert isinstance(show_all_rows, bool), f'Argument "show_all_rows" should be a bool'
         # assert (broker is None or isinstance(broker, AlgoBullsSupportedBrokers) is True), f'Argument broker should be None or an enum of type {AlgoBullsSupportedBrokers.__name__}'
-        response = self.api.get_reports(strategy_code=strategy_code, trading_type=trading_type, report_type=report_type, location=country)
+        response = self.api.get_reports(strategy_code=strategy_code, trading_type=trading_type, report_type=report_type, country=country)
         if response.get('data'):
             if render_as_dataframe:
                 if show_all_rows:
@@ -417,7 +417,7 @@ class AlgoBullsConnection:
             Args:
                 strategy_code: strategy code
                 trading_type: type of trades : Backtesting, Papertrading, Realtrading
-                country: Location of the exchange
+                country: Country of the exchange
 
             Returns:
                 Report details
@@ -791,7 +791,7 @@ class AlgoBullsConnection:
 
         Args:
             strategy_code: strategy code
-            country: Location of Exchange
+            country: Country of Exchange
             show_all_rows: True or False
             force_fetch: Forcefully fetch PnL data
 
@@ -937,7 +937,7 @@ class AlgoBullsConnection:
 
         Args:
             strategy_code: strategy code
-            country: Location of the exchange
+            country: Country of the exchange
             show_all_rows: True or False
             force_fetch: Forcefully fetch PnL data
 
@@ -1086,7 +1086,7 @@ class AlgoBullsConnection:
 
         Args:
             strategy_code: strategy code
-            country: Location of the Exchange
+            country: Country of the Exchange
             show_all_rows: True or False
             force_fetch: Forcefully fetch PnL data
 
