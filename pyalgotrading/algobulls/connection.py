@@ -386,7 +386,7 @@ class AlgoBullsConnection:
             report_type: Value of TradingReportType Enum
             render_as_dataframe: True or False
             show_all_rows: True or False
-            country: Country of the Exchange
+            country: country of the Exchange
 
         Returns:
             report details
@@ -417,7 +417,7 @@ class AlgoBullsConnection:
             Args:
                 strategy_code: strategy code
                 trading_type: type of trades : Backtesting, Papertrading, Realtrading
-                country: Country of the exchange
+                country: country of the exchange
 
             Returns:
                 Report details
@@ -791,7 +791,7 @@ class AlgoBullsConnection:
 
         Args:
             strategy_code: strategy code
-            country: Country of Exchange
+            country: country of Exchange
             show_all_rows: True or False
             force_fetch: Forcefully fetch PnL data
 
@@ -937,7 +937,7 @@ class AlgoBullsConnection:
 
         Args:
             strategy_code: strategy code
-            country: Country of the exchange
+            country: country of the exchange
             show_all_rows: True or False
             force_fetch: Forcefully fetch PnL data
 
@@ -1086,7 +1086,7 @@ class AlgoBullsConnection:
 
         Args:
             strategy_code: strategy code
-            country: Country of the Exchange
+            country: country of the Exchange
             show_all_rows: True or False
             force_fetch: Forcefully fetch PnL data
 
