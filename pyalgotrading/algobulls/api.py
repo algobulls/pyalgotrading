@@ -440,7 +440,7 @@ class AlgoBullsAPI:
 
         return response
 
-    def get_reports(self, strategy_code: str, trading_type: TradingType, report_type: TradingReportType, location: str) -> dict:
+    def get_reports(self, strategy_code: str, trading_type: TradingType, report_type: TradingReportType, country: str) -> dict:
         """
         Fetch report for a strategy
 
@@ -448,7 +448,7 @@ class AlgoBullsAPI:
             strategy_code: Strategy code
             trading_type: Value of TradingType Enum
             report_type: Value of TradingReportType Enum
-            location: Location of the exchange
+            country: Country of the exchange
 
         Returns:
             Report data
@@ -462,8 +462,8 @@ class AlgoBullsAPI:
         key = self.__get_key(strategy_code=strategy_code, trading_type=trading_type)
         if report_type is TradingReportType.PNL_TABLE:
             _filter = json.dumps({"tradingType": trading_type.value})
-            endpoint = f'v3/book/pl/data'
-            params = {'pageSize': 0, 'isPythonBuild': "true", 'strategyId': strategy_code, 'isLive': trading_type is TradingType.REALTRADING, 'location': location, 'filters': _filter}
+            endpoint = f'v4/book/pl/data'
+            params = {'pageSize': 0, 'isPythonBuild': "true", 'strategyId': strategy_code, 'isLive': trading_type is TradingType.REALTRADING, 'country': country, 'filters': _filter}
         elif report_type is TradingReportType.ORDER_HISTORY:
             endpoint = 'v2/user/strategy/orderhistory'
             params = {'key': key}

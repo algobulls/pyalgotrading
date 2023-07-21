@@ -255,6 +255,15 @@ class Locale(Enum):
     USA = 'en-US'
 
 
+class Country(Enum):
+    """
+    A class of countries
+    """
+    DEFAULT = 'USA'
+    INDIA = 'India'
+    USA = 'USA'
+
+
 class ExecutionStatus(Enum):
     """
     A class of status values of execution
@@ -280,4 +289,3 @@ EXCHANGE_LOCALE_MAP = {
     'NASDAQ': Locale.USA.value,
     'NYSE': Locale.USA.value,
 }
-
