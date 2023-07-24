@@ -81,6 +81,31 @@ class AlgoBullsConnection:
         assert isinstance(access_token, str), f'Argument "access_token" should be a string'
         self.api.set_access_token(access_token)
 
+    def set_generative_ai_keys(self, api_key, secret_key, token_key):
+        """
+        Set the API keys of the generative AI took used
+
+        Args:
+            api_key: api key name
+            # todo: learn about different generative AIs and how many and what keys are required ?
+                #  also confirm with backend the format of API keys to be received
+        """
+
+        return 'SUCCESS' or 'FAILURE'
+
+    def generate_strategy(self):
+        input_prompt = str(input())
+
+        # call the api
+
+        return  # strategy in strings
+
+    def save_latest_generated_strategy(self):
+        pass
+
+    def view_recent_chat_history(self):
+        pass
+
     def create_strategy(self, strategy, overwrite=False, strategy_code=None, abc_version=None):
         """
         Method to upload new strategy.
