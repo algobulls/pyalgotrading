@@ -15,7 +15,7 @@ from tqdm.auto import tqdm
 
 from .api import AlgoBullsAPI
 from .exceptions import AlgoBullsAPIBadRequestException, AlgoBullsAPIGatewayTimeoutErrorException
-from ..constants import StrategyMode, TradingType, TradingReportType, CandleInterval, AlgoBullsEngineVersion, Country, ExecutionStatus, EXCHANGE_LOCALE_MAP, Locale
+from ..constants import StrategyMode, TradingType, TradingReportType, CandleInterval, AlgoBullsEngineVersion, Country, ExecutionStatus, EXCHANGE_LOCALE_MAP, Locale, CandleIntervalSecondsMap
 from ..strategy.strategy_base import StrategyBase
 from ..utils.func import get_valid_enum_names, get_datetime_with_tz
 
@@ -293,6 +293,9 @@ class AlgoBullsConnection:
         # TODO: to extract timestamp from a different source which will be independent of whether save parameters are present in the object
         start_timestamp_map = self.saved_parameters.get('start_timestamp_map')
         end_timestamp_map = self.saved_parameters.get('end_timestamp_map')
+        candle_interval = self.saved_parameters.get('candle_interval')
+        candle_interval_seconds = CandleIntervalSecondsMap[candle_interval.value]
+
         all_logs = ''
 
         # logging with progress bar
@@ -305,6 +308,8 @@ class AlgoBullsConnection:
             start_timestamp = start_timestamp_map.get(trading_type).replace(tzinfo=None)
             end_timestamp = end_timestamp_map.get(trading_type).replace(tzinfo=None)
             total_seconds = (end_timestamp - start_timestamp).total_seconds()
+
+            _sleep_time = 5 if trading_type is TradingType.BACKTESTING else candle_interval_seconds
 
             count_starting_status = 0
             while True:
@@ -341,7 +346,7 @@ class AlgoBullsConnection:
                     # continue if logs are not fetched
                     else:
                         # tqdm.write(f'WARNING: got no data, current status is {status}...')      # for debug
-                        time.sleep(5)
+                        time.sleep(_sleep_time)
                         continue
 
                 else:
