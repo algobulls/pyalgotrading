@@ -362,8 +362,12 @@ class AlgoBullsConnection:
                             _ = re.findall(r'\[(.*?)\]', log)
 
                             # extract datetime from logs
-                            if tqdm_progress_bar is not None and _[0] in ['BT', 'PT', 'RT']:
-                                current_timestamp = dt.strptime(_[1].split(',')[0], '%Y-%m-%d %H:%M:%S')
+                            if tqdm_progress_bar is not None:
+                                if trading_type is not TradingType.REALTRADING and _[0] in ['BT', 'PT']:
+                                    current_timestamp = dt.strptime(_[1].split(',')[0], '%Y-%m-%d %H:%M:%S')
+                                else:
+                                    current_timestamp = dt.strptime(_[0].split(',')[0], '%Y-%m-%d %H:%M:%S')
+
                                 total_completion = (current_timestamp - start_timestamp).total_seconds()
                                 tqdm_progress_bar.update(total_completion - tqdm_progress_bar.n)
                                 break

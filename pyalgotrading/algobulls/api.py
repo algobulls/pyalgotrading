@@ -430,7 +430,7 @@ class AlgoBullsAPI:
         if log_type == 'partial':
             endpoint = 'v4/user/strategy/logs'
             json_data = {'key': key, 'nextToken': initial_next_token, 'limit': 1000, 'direction': 'forward', 'reverse': False, 'type': 'userLogs'}
-            params = {'isPythonBuild': True, 'isLive': trading_type == TradingType.REALTRADING}
+            params = {'isPythonBuild': True, 'isLive': 'true' if trading_type is TradingType.REALTRADING else 'false'}
 
         else:
             endpoint = 'v2/user/strategy/logs'
