@@ -377,7 +377,7 @@ class AlgoBullsConnection:
                             error_counter += 1
 
                         # avoid infinite loop in case of error
-                        if error_counter > 5:
+                        if error_counter > 15:
                             break
 
                     initial_next_token = response.get('initialNextToken')
