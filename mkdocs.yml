@@ -29,15 +29,23 @@ nav:
   - Home: 'index.md'
   - Pyalgotrading:
     - Index: 'pyalgotrad/index.md'
-    - Tutorial:
-        - 'Introduction': 'pyalgotrad/introduction.md'
-        - 'Prerequisites': 'pyalgotrad/prerequisites.md'
-        - 'Code Structure of a Strategy': 'pyalgotrad/structure.md'
-        - 'Hands On':
-          - 'Create your Strategy': 'pyalgotrad/programexample.md'
-          - 'Upload your Strategy': 'pyalgotrad/upload.md'
-          - 'Test your Strategy': 'pyalgotrad/testing.md'
-    - Strategy Coding Guidelines: 'pyalgotrad/codeguide.md'
+    - Comprehensive Guide to pyalgotrading:
+        - Guide: 'pyalgotrad/pyalgotrading_comprehensive_guide.md'
+    - Setup your workspace:
+#        - AlgoBulls Account: 'pyalgotrad/algobulls_account.md'
+        - Prerequisites: 'pyalgotrad/prerequisites.md'
+        - Python Packages: 'pyalgotrad/python_packages.md'
+    - Strategy Creation and Execution:
+          - Code Structure of Strategy: 'pyalgotrad/structure.md'
+          - Create your Strategy:
+            - Normal Strategy: 'strategies/common_regular_strategy.md'
+            - Options Strategy: 'strategies/common_options_strategy.md'
+          - Upload your Strategy: 'pyalgotrad/upload.md'
+          - Select your Strategy: 'pyalgotrad/select.md'
+          - Execute your Strategy: 'pyalgotrad/testing.md'
+    - Analytics:
+      - Analytics in pyalgotrading: 'analytics/pyalgotrading_analytics.md'
+      - Analytics in AlgoBulls Platform: 'analytics/algobulls_analytics.md'
   - Python Build:
       - Index: 'python_build/index.md'
       - Introduction:
@@ -55,7 +63,7 @@ nav:
       - General Strategy Guide:
           - Regular Strategy: 'strategies/common_regular_strategy.md'
           - Options Strategy: 'strategies/common_options_strategy.md'
-      - Regular Strategy Guide:
+      - Regular Strategies:
           - Aroon Crossover: 'strategies/aroon_crossover.md'
           - Bollinger Bands: 'strategies/bollinger_bands.md'
           - EMA Crossover: 'strategies/ema_crossover.md'
@@ -63,7 +71,7 @@ nav:
           - Reverse RSI: 'strategies/reverse_rsi.md'
           - Stochastic Crossover: 'strategies/stochastic_crossover.md'
           - VWAP Crossover: 'strategies/vwap_crossover.md'
-      - Options Strategy Guide:
+      - Options Strategies:
           - Options Bear Call Ladder: 'strategies/options_bear_call_ladder.md'
           - Options Bear Put Ladder: 'strategies/options_bear_put_ladder.md'
           - Options Bull Call Ladder: 'strategies/options_bull_call_ladder.md'

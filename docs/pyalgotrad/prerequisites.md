@@ -7,7 +7,7 @@ You will need the following to perform this tutorial:
 
     ---
 
-2. **Python 3.10 ([Link](https://www.python.org/downloads/))** - The AlgoBulls platform can run all strategies that conform to Python 3.10. 
+2. **Python 3.10 ([Link](https://www.python.org/downloads/))** - The pyalgotrading platform can run all strategies that conform to Python 3.10. 
 
     ---
 
@@ -15,15 +15,7 @@ You will need the following to perform this tutorial:
 
     ---
 
-4. **TA-Lib Package ([Link](https://mrjbq7.github.io/ta-lib/install.html))** - This package encompasses all Technical Indicators used in Technical Analysis by strategists. You will need this package to compute Moving Average (SMA) for the example.
-
-    ---
-
-5. **pyalgotrading Package ([Link](https://pypi.org/project/pyalgotrading/))** - This package has all the necessary classes to create strategies. For the SMA strategy, you will subclass your class from the StrategyBase class which is present in this package.
-
-    ---
-
-6. **Jupyter Notebook ([Link](https://jupyter.org/install))** - You will use a Jupyter Notebook to connect to the AlgoBulls platform. You will upload the strategy, test your strategy (Backtesting, Paper Trading or Real Trading), and fetch logs using the notebook.
+4. **Jupyter Notebook ([Link](https://jupyter.org/install))** - You will use a Jupyter Notebook to connect to the AlgoBulls platform. You will upload the strategy, test your strategy (Backtesting, Paper Trading or Real Trading), and fetch logs using the notebook.
 
     ---
 

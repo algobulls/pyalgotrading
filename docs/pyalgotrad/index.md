@@ -4,13 +4,17 @@
 
 ### Visit the Tutorial
 - Tutorial:
-    - [Introduction](introduction.md)
-    - [Prerequisites](prerequisites.md)
-    - [Basic Structure of a Strategy](structure.md)
-    - Hands On:
-        - [Program Example](programexample.md)
-        - [Upload your Strategy](upload.md)
-        - [Test your Strategy](testing.md)
+    - [Pyalgotrading Comprehensive Guide](pyalgotrading_comprehensive_guide.md)
+    - Setup your workspace
+      - [Prerequisites](prerequisites.md)
+      - [Requirements](python_packages.md)
+    
+    - Strategy Execution and Creation:
+        - [Basic Structure of a Strategy](structure.md)
+        - Create your Strategy
+          - [Normal Strategy](../strategies/common_regular_strategy.md)
+          - [Options Strategy](../strategies/common_options_strategy.md)
+        - [Execute and Test your Strategy](testing.md)
 
 ### Features
 - Powered by the [AlgoBulls Platform](https://algobulls.com)
