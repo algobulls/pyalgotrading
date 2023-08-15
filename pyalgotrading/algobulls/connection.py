@@ -90,15 +90,54 @@ class AlgoBullsConnection:
             # todo: learn about different generative AIs and how many and what keys are required ?
                 #  also confirm with backend the format of API keys to be received
         """
-
+        assert isinstance(api_key, str), f'Argument "api_key" should be a string'
+        self.api.openai_key = api_key
         return 'SUCCESS' or 'FAILURE'
 
-    def generate_strategy(self):
-        input_prompt = str(input())
+    def start_chat(self, chat_gpt_model):
+        while True:
+            user_prompt = str(input())
+            if user_prompt.lower() == 'exit':
+                print("Thanks for the chat")
+                return
 
-        # call the api
+            response = self.api.get_genai(user_prompt, chat_gpt_model)
+            while response['status_code'] == 504:
+                response = self.api.get_genai_response()
 
-        return  # strategy in strings
+            print(f"GenAI: {response['message']}")
+
+    def continue_from_previous_session(self, page_no):
+        """
+        display previous sessions
+        Returns:
+
+        """
+        customer_genai_sessions = self.api.get_genai_sessions(page_no)
+        for i, session in enumerate(customer_genai_sessions):
+            print(f"Session {i}: ID: {session['id']}, Started: {session['last_user_prompt']}")
+
+        if len(customer_genai_sessions) < 20:
+            print("End")
+        else:
+            print(f"Type 'next' to view the next 20 sessions.")
+
+        user_input = input("Enter session number or 'next': ")
+        if user_input.lower() == "next" and len(customer_genai_sessions) > 20:
+            self.continue_from_previous_session(page_no=page_no + 1)
+        elif user_input.isdigit() and 1 <= int(user_input) <= len(customer_genai_sessions):
+            selected_session_index = page_no + int(user_input) - 1
+            selected_session_id = customer_genai_sessions[selected_session_index]["id"]
+            self.api.genai_api_key = selected_session_id
+
+    def initiate_chat(self, start_fresh=None, chat_gpt_model=None):
+        if start_fresh:
+            # reset session
+            self.api.genai_api_key = None
+        elif start_fresh is not None:
+            self.continue_from_previous_session(page_no=1)
+
+        self.start_chat(chat_gpt_model)
 
     def save_latest_generated_strategy(self):
         pass

@@ -30,6 +30,8 @@ class AlgoBullsAPI:
         self.__key_papertrading = {}  # strategy-cstc_id mapping
         self.__key_realtrading = {}  # strategy-cstc_id mapping
         self.pattern = re.compile(r'(?<!^)(?=[A-Z])')
+        self.genai_api_key = None
+        self.genai_session_id = None
 
     def __convert(self, _dict):
         # Helps convert _dict keys from camelcase to snakecase
@@ -470,6 +472,50 @@ class AlgoBullsAPI:
         else:
             raise NotImplementedError
 
+        response = self._send_request(endpoint=endpoint, params=params)
+
+        return response
+
+    def get_genai(self, user_prompt: str, session_id: int, chat_gpt_model: str = ''):
+        """
+        Fetch GenAI response.
+
+        Args:
+           user_prompt: User question
+           session_id: Session id of the GenAI session
+           chat_gpt_model: Chat gpt model name
+        Returns:
+           GenAI response
+
+        Info: ENDPOINT
+           `GET` v1/build/python/genai              Get GenAI response
+        """
+        endpoint = 'v1/build/python/genai'
+        params = {"userPrompt": user_prompt, 'sessionId': self.genai_session_id, 'openaiApiKey': self.genai_api_key, 'chat_gpt_model': chat_gpt_model}
+        response = self._send_request(endpoint=endpoint, params=params)
+
+        return response
+
+    def get_genai_response(self):
+        """
+        Fetch GenAI response.
+
+        Args:
+        Returns:
+           GenAI response for current session. Last active session is used when session_id is None.
+
+        Info: ENDPOINT
+           `GET` v1/build/python/genai/response     Pooling API to get response in case of timeout
+        """
+        endpoint = 'v1/build/python/genai/response'
+        params = {'sessionId': self.genai_session_id}
+        response = self._send_request(endpoint=endpoint, params=params)
+
+        return response
+
+    def get_genai_sessions(self, page_no):
+        endpoint = 'v1/build/python/genai/sessions'
+        params = {'sessionId': self.genai_session_id}
         response = self._send_request(endpoint=endpoint, params=params)
 
         return response
