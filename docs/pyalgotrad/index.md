@@ -5,6 +5,7 @@
 ### Visit the Tutorial
 - Tutorial:
     - [Pyalgotrading Comprehensive Guide](pyalgotrading_comprehensive_guide.md)
+    - [Introduction](introduction.md)
     - Setup your workspace
       - [Prerequisites](prerequisites.md)
       - [Requirements](requirements.md)

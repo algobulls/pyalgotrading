@@ -31,7 +31,8 @@ nav:
     - Index: 'pyalgotrad/index.md'
     - Comprehensive Guide to pyalgotrading:
         - Guide: 'pyalgotrad/pyalgotrading_comprehensive_guide.md'
-    - Setup your workspace:
+    - Introduction: 'pyalgotrad/introduction.md'
+    - Setup your Workspace:
         - Prerequisites: 'pyalgotrad/prerequisites.md'
         - Python Packages: 'pyalgotrad/python_packages.md'
     - Strategy Creation and Execution:
