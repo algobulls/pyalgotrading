@@ -49,7 +49,7 @@
     - This visualization helps strategists understand the most significant loss-making episodes in the strategy's run. 
     - It shows the magnitude and duration of these drawdowns, providing insights into the strategy's risk and potential vulnerabilities.
        ![worst 5 drawdown plot](../analytics/analytics_imgs/worst_5_drawdown_plot.png)
-       ![worst 5 drawdown plot](../analytics/analytics_imgs/worst_5_drawdown.png)
+       ![worst 5 drawdown plot](../analytics/analytics_imgs/worst_5_drawdowns.png)
 
 - ### Underwater Plot:
     - The **Underwater Plot** visually narrates our strategy's performance concerning its past peaks. 
