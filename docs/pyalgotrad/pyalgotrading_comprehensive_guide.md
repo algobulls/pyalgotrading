@@ -23,7 +23,7 @@ Pyalgotrading's strength lies in its ability to integrate seamlessly with real-t
 By joining the thriving Pyalgotrading community, you tap into a rich network of traders and developers. This community serves as a platform for collaboration, where you can seek guidance, share valuable insights, and collectively refine your trading strategies. The synergy of diverse perspectives helps you approach trading challenges from various angles, fostering growth and improvement.
 
 <p align="center">
-  <img src="../imgs/algotrading_basic_4.png" alt="algo trading basic image"/>
+  <img src="../imgs/analytics_mascot.svg" alt="algo trading basic image"/>
 </p>
 
 In the pursuit of successful trading, Pyalgotrading equips you with advanced visual tools for strategy analytics. By harnessing these tools, you gain a deeper understanding of your strategies' performance. You can effectively manage risks and fine-tune your strategies to optimize their potential for success. These visualization tools facilitate data-driven decision-making and provide a clearer perspective on the intricacies of your trading activities.
@@ -33,11 +33,9 @@ In summary, Pyalgotrading is more than a mere library; it's your comprehensive g
 ## Pros and Cons of PyAlgoTrading
 
 In the exciting world of algorithmic trading, PyAlgoTrading stands as a formidable tool, offering a range of benefits and considerations for traders and developers. Let's dive into the pros and cons of this versatile library to help you make an informed decision.
-
 <p align="center">
-  <img src="../imgs/pros_n_cons.png" alt="algo trading basic image", width="400px"/>
+  <img src="../imgs/pros_n_cons.svg" alt="algo trading basic image", width="400px"/>
 </p>
-
 
 ### Pros of PyAlgoTrading:
 
@@ -68,8 +66,6 @@ To embark on your journey with Pyalgotrading, the first step is installing the l
     pip install quantstats==0.0.59
     pip install pandas==1.5.3
     ```
-
-
 
 The first line installs the Pyalgotrading library, while the subsequent lines install compatible versions of quantstats and pandas libraries. These are important dependencies that contribute to the functionality and analytical capabilities of Pyalgotrading.
 
