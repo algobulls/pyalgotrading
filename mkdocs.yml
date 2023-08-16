@@ -39,16 +39,16 @@ nav:
         - Prerequisites: 'pyalgotrad/prerequisites.md'
         - Python Packages: 'pyalgotrad/python_packages.md'
     - Strategy Creation and Execution:
-          - Code Structure of Strategy: 'pyalgotrad/structure.md'
+          - Code Structure of Strategy: 'pyalgotrad/strategy_guides/structure.md'
           - Create your Strategy:
-            - Regular Strategy: 'strategies/common_regular_strategy.md'
-            - Options Strategy: 'strategies/common_options_strategy.md'
+            - Regular Strategy: 'pyalgotrad/strategy_guides/common_regular_strategy.md'
+            - Options Strategy: 'pyalgotrad/strategy_guides/common_options_strategy.md'
           - Upload your Strategy: 'pyalgotrad/upload.md'
           - Select your Strategy: 'pyalgotrad/select.md'
           - Execute your Strategy: 'pyalgotrad/testing.md'
     - Analytics:
-      - Analytics in pyalgotrading: 'analytics/pyalgotrading_analytics.md'
-      - Analytics in AlgoBulls Platform: 'python_build/python-build-view-results.md'
+      - Analytics in pyalgotrading: 'pyalgotrad/pyalgotrading_analytics.md'
+      - Analytics in AlgoBulls Platform: 'pyalgotrad/python-build-view-results.md'
   - Python Build:
       - Index: 'python_build/index.md'
       - Introduction:
@@ -57,13 +57,15 @@ nav:
       - Setup your Workspace:
         - Get Started: 'python_build/python-build-getstarted'
       - Strategy Creation and Execution:
-          - Code Structure of Strategy: 'pyalgotrad/structure.md'
+          - Code Structure of Strategy: 'python_build/strategy_guides/structure.md'
           - Create your Strategy:
             - Code Ready Templates: 'python_build/python-build-code-ready-templates.md'
             - Code New Strategy: 'python_build/python-build-code-new.md'
+            - Regular Strategy: 'python_build/strategy_guides/common_regular_strategy.md'
+            - Options Strategy: 'python_build/strategy_guides/common_options_strategy.md'
           - Configure and Execute your Strategy: 'python_build/python-build-config-parameters.md'
       - Analytics:
-          - Analytics in pyalgotrading: 'analytics/pyalgotrading_analytics.md'
+          - Analytics in pyalgotrading: 'python_build/pyalgotrading_analytics.md'
           - Analytics in AlgoBulls Platform: 'python_build/python-build-view-results.md'
   - Strategies:
       - Index: 'strategies/index.md'

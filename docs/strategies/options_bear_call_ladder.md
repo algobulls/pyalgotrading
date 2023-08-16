@@ -4,7 +4,7 @@ This class implements the Options Bear Call Ladder strategy.
 
 !!! Links
     - **[Strategy Code (.py)](https://github.com/algobulls/pyalgostrategypool/blob/master/pyalgostrategypool/options_bear_call_ladder.py){target=_blank}**
-    - **[Strategy Structure (common methods used in an options strategy)](common_options_strategy.md){target=_blank}**
+    - **[Strategy Structure (common methods used in an options strategy)](strategy_guides/common_options_strategy.md){target=_blank}**
     - **[Strategy Design (workflow of a strategy)](../pyalgotrad/structure.md){target=_blank}**
 
 ### Bear Call Ladder

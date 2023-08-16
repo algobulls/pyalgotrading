@@ -4,7 +4,7 @@ The `StrategyOptionsStrangle` class is a strategy template for trading options s
 
 !!! Links
     - **[Strategy Code (.py)](https://github.com/algobulls/pyalgostrategypool/blob/master/pyalgostrategypool/options_strangle.py){target=_blank}**
-    - **[Strategy Structure (common methods used in an options strategy)](common_options_strategy.md){target=_blank}**
+    - **[Strategy Structure (common methods used in an options strategy)](strategy_guides/common_options_strategy.md){target=_blank}**
     - **[Strategy Design (workflow of a strategy)](../pyalgotrad/structure.md){target=_blank}**
 
 ### Strangle Options

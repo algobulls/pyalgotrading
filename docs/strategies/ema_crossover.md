@@ -4,7 +4,7 @@ This is a trading strategy called "EMA Regular Order Strategy" implemented in Py
 
 !!! Links
     - **[Strategy Code (.py)](https://github.com/algobulls/pyalgostrategypool/blob/master/pyalgostrategypool/ema_crossover.py){target=_blank}**
-    - **[Strategy Structure (common methods used in a regular strategy)](common_regular_strategy.md){target=_blank}**
+    - **[Strategy Structure (common methods used in a regular strategy)](strategy_guides/common_regular_strategy.md){target=_blank}**
     - **[Strategy Design (workflow of a strategy)](../pyalgotrad/structure.md){target=_blank}**
 
 ## EMA indicator

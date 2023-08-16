@@ -3,7 +3,7 @@ This is a trading strategy called "Inverse EMA Scalping Regular Order Strategy" 
 
 !!! Links
     - **[Strategy Code (.py)](https://github.com/algobulls/pyalgostrategypool/blob/master/pyalgostrategypool/inverse_ema_scalping.py){target=_blank}**
-    - **[Strategy Structure (common methods used in a regular strategy)](common_regular_strategy.md){target=_blank}**
+    - **[Strategy Structure (common methods used in a regular strategy)](strategy_guides/common_regular_strategy.md){target=_blank}**
     - **[Strategy Design (workflow of a strategy)](../pyalgotrad/structure.md){target=_blank}**
 
 ## What is Inverse EMA 
