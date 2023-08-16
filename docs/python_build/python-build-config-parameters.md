@@ -34,25 +34,25 @@ In Paper Trading you only need to add the start and end time.
 
 [![pythonbuild](imgs_v2/python_build_papertesting.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs_v2/python_build_papertesting.png)
 
+[//]: # (**Step 3**)
+
+[//]: # (Once you scroll below, you will see the P&L tracker. Switch the P&L tracker ON and enter your desired profit and risk appetite. To keep things simple, you can also leave it turned off.)
+
+[//]: # ([![pythonbuild]&#40;imgs/python_build_pnl.png "Click to Enlarge or Ctrl+Click to open in a new Tab"&#41;]&#40;imgs_v2/python_build_pnl.png&#41;)
+
 **Step 3**
 
-Once you scroll below, you will see the P&L tracker. Switch the P&L tracker ON and enter your desired profit and risk appetite. To keep things simple, you can also leave it turned off.
-
-[![pythonbuild](imgs/python_build_pnl.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs_v2/python_build_pnl.png)
-
-**Step 4**
-
-In the Configuration section, you can check the parameters added or modified by you.
+In the **Strategy Configuration** section, you can check the parameters added or modified by you.
  
-**Step 5**
+**Step 4**
 
 To begin testing the strategy, click on Execute.
 
 [![pythonbuild](imgs_v2/python_build_terms_check.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs_v2/python_build_terms_check.png)
 
-**Step 6**
+**Step 5**
 
-Go to the **Results** section to see how the strategy has performed.
+Go to the **Analytics** section to see the returns and performance of strategy visualized.
 
 !!! note "Note:" 
 
@@ -62,9 +62,25 @@ Go to the **Results** section to see how the strategy has performed.
 
 [![pythonbuild](imgs_v2/python_build_stats.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs_v2/python_build_stats.png)
 
-[![pythonbuild](imgs_v2/python_build_pnl_book.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs_v2/python_build_pnl_book.png)
+[![pythonbuild](imgs_v2/python_build_cummulative_return_plot.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs_v2/python_build_cummulative_return_plot.png)
 
-[![pythonbuild](imgs_v2/python_build_user_log.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs_v2/python_build_user_log.png)
+[![pythonbuild](imgs_v2/python_build_pnl_bar_chart.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs_v2/python_build_pnl_bar_chart.png)
+
+[![pythonbuild](imgs_v2/python_build_eoy_monthly_returns_histogram.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs_v2/python_build_eoy_monthly_returns_histogram.png)
+
+[![pythonbuild](imgs_v2/python_build_monthly_returns_heatmap.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs_v2/python_build_monthly_returns_heatmap.png)
+
+[![pythonbuild](imgs_v2/python_build_daily_returns.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs_v2/python_build_daily_returns.png)
+
+[![pythonbuild](imgs_v2/python_build_underwater_drawdown.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs_v2/python_build_daily_returns.png)
+
+[![pythonbuild](imgs_v2/python_build_roi_volume_trades_heatmap.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs_v2/python_build_roi_volume_trades_heatmap.png)
+
+[![pythonbuild](imgs_v2/pnl_history.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs_v2/pnl_history.png)
+
+Go to the **Logs** section to see the step by step execution of strategy in logs.
+
+[![pythonbuild](imgs_v2/python_build_user_logs.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs_v2/python_build_user_logs.png)
 
 [![pythonbuild](imgs_v2/python_build_order_history.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs_v2/python_build_order_history.png)
 

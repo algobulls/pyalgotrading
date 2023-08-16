@@ -253,7 +253,7 @@ Click on each of the tabs to see the relevant code snippet.
 
 > **Backtesting**
     ```python
-    logs = algobulls_connection.get_backtesting_logs(strategy_code)
+    logs = algobulls_connection.get_backtesting_logs(strategy_code, auto_update=True, display_logs_in_auto_update_mode=True)
     print(logs)
     ```
     
