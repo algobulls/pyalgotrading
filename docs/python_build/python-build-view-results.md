@@ -11,37 +11,37 @@ Only Premium developer plans users will be able to view the strategy analytics v
 
 i. Stats: In this section you can see the **total returns, sharpe ratio, sortino ratio, volatility, Max Drawdown, Total wins or Loses, Total short or long trades, hit ratio, number of trades, average trades per day, max profit, max loss, average profit per winning trade, average loss per losing trade**.
 
-[![pythonbuild](imgs_v2/python_build_stats.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs/python_build_stats.png)
+[![pythonbuild](../python_build/imgs_v2/python_build_stats.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](../python_build/imgs_v2/python_build_stats.png)
 
 ii. Cummulative Returns:
 
-[![pythonbuild](imgs_v2/python_build_cummulative_return_plot.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs_v2/python_build_cummulative_return_plot.png)
+[![pythonbuild](../python_build/imgs_v2/python_build_cummulative_return_plot.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](../python_build/imgs_v2/python_build_cummulative_return_plot.png)
 
 
 iii. P&L (Currency or %):  The trade by trade P&L in Currency or Percentage.
 
-[![pythonbuild](imgs_v2/python_build_pnl_bar_chart.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs_v2/python_build_pnl_bar_chart.png)
+[![pythonbuild](../python_build/imgs_v2/python_build_pnl_bar_chart.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](../python_build/imgs_v2/python_build_pnl_bar_chart.png)
 
 iv. End of Year Returns Plot (%):
 
-[![pythonbuild](imgs_v2/python_build_eoy_returns.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs/python_build_eoy_returns.png)
+[![pythonbuild](../python_build/imgs_v2/python_build_eoy_returns.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](../python_build/imgs_v2/python_build_eoy_returns.png)
 
 
 v. Monthly Returns Histogram (%):
 
-[![pythonbuild](imgs_v2/python_build_monthly_returns_histogram.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs/python_build_pnl_percent.png)
+[![pythonbuild](../python_build/imgs_v2/python_build_monthly_returns_histogram.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](../python_build/imgs_v2/python_build_monthly_returns_histogram.png)
 
 vi. Monthly Returns Heatmap (%):
 
-[![pythonbuild](imgs_v2/python_build_monthly_returns_heatmap.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs_v2/python_build_monthly_returns_heatmap.png)
+[![pythonbuild](../python_build/imgs_v2/python_build_monthly_returns_heatmap.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](../python_build/imgs_v2/python_build_monthly_returns_heatmap.png)
 
 vii. Daily Returns (%):
 
-[![pythonbuild](imgs_v2/python_build_daily_returns.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs_v2/python_build_daily_returns.png)
+[![pythonbuild](../python_build/imgs_v2/python_build_daily_returns.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](../python_build/imgs_v2/python_build_daily_returns.png)
 
 viii. Underwater Drawdown Plot (%):
 
-[![pythonbuild](imgs_v2/python_build_underwater_drawdown.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs_v2/python_build_daily_returns.png)
+[![pythonbuild](../python_build/imgs_v2/python_build_underwater_drawdown.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](../python_build/imgs_v2/python_build_underwater_drawdown.png)
 
 
 [//]: # (iv. ROI &#40;INR&#41;: Cumulative P&L of all the trades.)
