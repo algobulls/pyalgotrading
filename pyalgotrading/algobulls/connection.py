@@ -19,6 +19,8 @@ from ..constants import StrategyMode, TradingType, TradingReportType, CandleInte
 from ..strategy.strategy_base import StrategyBase
 from ..utils.func import get_valid_enum_names, get_datetime_with_tz
 
+GENAI_RESPONSE_POOLING_LIMIT = 20
+
 
 class AlgoBullsConnection:
     """
@@ -94,48 +96,57 @@ class AlgoBullsConnection:
         self.api.openai_key = api_key
         return 'SUCCESS' or 'FAILURE'
 
+    def get_genai_response_pooling(self, no_of_tries, user_prompt, chat_gpt_model):
+        if no_of_tries < GENAI_RESPONSE_POOLING_LIMIT:
+            try:
+                if no_of_tries > 1:
+                    response = self.api.get_genai_response(user_prompt, chat_gpt_model)
+                else:
+                    response = self.api.handle_genai_response_timeout()
+
+            except AlgoBullsAPIGatewayTimeoutErrorException:
+                response = self.get_genai_response_pooling(no_of_tries + 1)
+        else:
+            response = {'message': 'Somthing went wrong please try again'}
+        return response
+
     def start_chat(self, chat_gpt_model):
         while True:
             user_prompt = str(input())
             if user_prompt.lower() == 'exit':
                 print("Thanks for the chat")
                 return
-
-            response = self.api.get_genai(user_prompt, chat_gpt_model)
-            while response['status_code'] == 504:
-                response = self.api.get_genai_response()
-
+            response = self.get_genai_response_pooling(1, user_prompt, chat_gpt_model)
             print(f"GenAI: {response['message']}")
 
-    def continue_from_previous_session(self, page_no):
+    def continue_from_previous_sessions(self):
         """
         display previous sessions
         Returns:
 
         """
-        customer_genai_sessions = self.api.get_genai_sessions(page_no)
+        customer_genai_sessions = self.api.get_genai_sessions()
         for i, session in enumerate(customer_genai_sessions):
-            print(f"Session {i}: ID: {session['id']}, Started: {session['last_user_prompt']}")
+            print(f"Session {i}: Started: {session['timestamp_created']}, Title: {session['first_user_prompt']}")
 
-        if len(customer_genai_sessions) < 20:
-            print("End")
-        else:
-            print(f"Type 'next' to view the next 20 sessions.")
-
-        user_input = input("Enter session number or 'next': ")
-        if user_input.lower() == "next" and len(customer_genai_sessions) > 20:
-            self.continue_from_previous_session(page_no=page_no + 1)
-        elif user_input.isdigit() and 1 <= int(user_input) <= len(customer_genai_sessions):
-            selected_session_index = page_no + int(user_input) - 1
-            selected_session_id = customer_genai_sessions[selected_session_index]["id"]
-            self.api.genai_api_key = selected_session_id
+        while True:
+            user_input = int(input("Enter session number"))
+            if not isinstance(user_input, int):
+                print('Argument "user_input" should be a int')
+            elif 1 <= int(user_input) <= len(customer_genai_sessions):
+                selected_session_index = int(user_input) - 1
+                selected_session_id = customer_genai_sessions[selected_session_index]["id"]
+                self.api.genai_session_id = selected_session_id
+                break
+            else:
+                print("Please select a valid session number.")
 
     def initiate_chat(self, start_fresh=None, chat_gpt_model=None):
         if start_fresh:
             # reset session
-            self.api.genai_api_key = None
+            self.api.genai_session_id = None
         elif start_fresh is not None:
-            self.continue_from_previous_session(page_no=1)
+            self.continue_from_previous_sessions()
 
         self.start_chat(chat_gpt_model)
 

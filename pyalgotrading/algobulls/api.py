@@ -13,6 +13,8 @@ from .exceptions import AlgoBullsAPIBaseException, AlgoBullsAPIUnauthorizedError
 from ..constants import TradingType, TradingReportType
 from ..utils.func import get_raw_response
 
+GENAI_SESSION_SIZE = 100
+
 
 class AlgoBullsAPI:
     """
@@ -476,13 +478,12 @@ class AlgoBullsAPI:
 
         return response
 
-    def get_genai(self, user_prompt: str, session_id: int, chat_gpt_model: str = ''):
+    def get_genai_response(self, user_prompt: str, chat_gpt_model: str = ''):
         """
         Fetch GenAI response.
 
         Args:
            user_prompt: User question
-           session_id: Session id of the GenAI session
            chat_gpt_model: Chat gpt model name
         Returns:
            GenAI response
@@ -491,12 +492,13 @@ class AlgoBullsAPI:
            `GET` v1/build/python/genai              Get GenAI response
         """
         endpoint = 'v1/build/python/genai'
-        params = {"userPrompt": user_prompt, 'sessionId': self.genai_session_id, 'openaiApiKey': self.genai_api_key, 'chat_gpt_model': chat_gpt_model}
+        params = {"userPrompt": user_prompt, 'sessionId': self.genai_session_id, 'openaiApiKey': self.genai_api_key, 'chatGPTModel': chat_gpt_model}
         response = self._send_request(endpoint=endpoint, params=params)
-
+        if self.genai_session_id is None and 'session_id' in response:
+            self.genai_session_id = response['session_id']
         return response
 
-    def get_genai_response(self):
+    def handle_genai_response_timeout(self):
         """
         Fetch GenAI response.
 
@@ -513,9 +515,9 @@ class AlgoBullsAPI:
 
         return response
 
-    def get_genai_sessions(self, page_no):
+    def get_genai_sessions(self):
         endpoint = 'v1/build/python/genai/sessions'
-        params = {'sessionId': self.genai_session_id}
+        params = {'sessionId': self.genai_session_id, 'pageSize': GENAI_SESSION_SIZE}
         response = self._send_request(endpoint=endpoint, params=params)
 
         return response
