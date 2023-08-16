@@ -32,7 +32,6 @@ nav:
     - Comprehensive Guide to pyalgotrading:
         - Guide: 'pyalgotrad/pyalgotrading_comprehensive_guide.md'
     - Setup your workspace:
-#        - AlgoBulls Account: 'pyalgotrad/algobulls_account.md'
         - Prerequisites: 'pyalgotrad/prerequisites.md'
         - Python Packages: 'pyalgotrad/python_packages.md'
     - Strategy Creation and Execution:

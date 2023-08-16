@@ -74,13 +74,12 @@ To embark on your journey with Pyalgotrading, the first step is installing the l
 The first line installs the Pyalgotrading library, while the subsequent lines install compatible versions of quantstats and pandas libraries. These are important dependencies that contribute to the functionality and analytical capabilities of Pyalgotrading.
 
 ### Documentation:
-
 To fully unleash the potential of Pyalgotrading, dive into its comprehensive documentation. This documentation serves as your roadmap, offering detailed insights into the library's features, functions, and capabilities. The documentation is your go-to resource for understanding how to effectively harness the power of Pyalgotrading. It includes:
 
-- **Comprehensive Guides**: Step-by-step guides that walk you through various aspects of strategy development, deployment, integration, and analysis.
-- **Tutorials**: Practical tutorials that demonstrate real-world scenarios and use cases, helping you grasp the practical application of the library's features.
-- **API Reference**: A detailed reference guide that provides information about each function, method, and module available in Pyalgotrading.
-- **Code Examples**: Real code snippets and examples that showcase how to implement specific strategies, functions, and techniques using Pyalgotrading.
+- **[Comprehensive Guides](pyalgotrading_comprehensive_guide.md)**: Step-by-step guides that walk you through various aspects of strategy development, deployment, integration, and analysis.
+- **[Test with pyalgotrading ](testing.md)**: A detailed reference guide that provides information about each function, method, and module available in Pyalgotrading.
+- **[Code Examples](../strategies/index.md)**: Real code snippets and examples that showcase how to implement specific strategies, functions, and techniques using Pyalgotrading.
+- **[Python Cookbook for AlgoTrading](https://github.com/PacktPublishing/Python-Algorithmic-Trading-Cookbook)**: A python cook book for Algotrading, explaining in depth about the strategy creation and execution using python.
 
 #### **Example Strategy:**
 
