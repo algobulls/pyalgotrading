@@ -2,7 +2,7 @@
 
 ---
 
-[![pythonbuild](imgs/python_build_dashboard.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs/python_build_dashboard.png)
+[![pythonbuild](imgs_v2/python_build_dashboard.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs_v2/python_build_dashboard.png)
 
 **Running Strategies:** This section shows how many strategies are currently active and running in your account. 
 
@@ -22,12 +22,12 @@
 
 **Ready Templates:** Ready-to-use templates that you can modify and test.
 
-[![pythonbuild](imgs/python_build_ready_templates.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs/python_build_ready_templates.png)
+[![pythonbuild](imgs_v2/python_build_ready_templates.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs_v2/python_build_ready_templates.png)
 
 **My Coded Strategies:** Strategies that have been coded and saved by you are displayed here. This includes new and modified strategies developed by you.
 
-[![pythonbuild](imgs/python_build_my_strategies.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs/python_build_my_strategies.png)
+[![pythonbuild](imgs_v2/python_build_my_strategies.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs_v2/python_build_my_strategies.png)
 
 **Quick Help:** Resources to help you code better.
 
-[![pythonbuild](imgs/python_build_help.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs/python_build_help.png)
+[![pythonbuild](imgs_v2/python_build_help.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs_v2/python_build_help.png)

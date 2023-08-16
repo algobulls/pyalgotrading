@@ -51,13 +51,18 @@ nav:
       - Introduction:
         - Introduction: 'python_build/python-build-introduction'
         - Overview: 'python_build/python-build-overview.md'
+      - Setup your Workspace:
         - Get Started: 'python_build/python-build-getstarted'
-      - Code:
-          - Code Ready Templates: 'python_build/python-build-code-ready-templates.md'
-          - Code New Strategy: 'python_build/python-build-code-new.md'
-          - Configure Parameters: 'python_build/python-build-config-parameters.md'
-      - Features:
+      - Strategy Creation and Execution:
+          - Code Structure of Strategy: 'pyalgotrad/structure.md'
+          - Create your Strategy:
+            - Code Ready Templates: 'python_build/python-build-code-ready-templates.md'
+            - Code New Strategy: 'python_build/python-build-code-new.md'
+          - Configure and Execute your Strategy: 'python_build/python-build-config-parameters.md'
+      - Analytics:
           - View Results: 'python_build/python-build-view-results.md'
+          - Analytics in pyalgotrading: 'analytics/pyalgotrading_analytics.md'
+          - Analytics in AlgoBulls Platform: 'analytics/algobulls_analytics.md'
   - Strategies:
       - Index: 'strategies/index.md'
       - General Strategy Guide:

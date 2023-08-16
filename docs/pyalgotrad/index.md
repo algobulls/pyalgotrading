@@ -7,7 +7,7 @@
     - [Pyalgotrading Comprehensive Guide](pyalgotrading_comprehensive_guide.md)
     - Setup your workspace
       - [Prerequisites](prerequisites.md)
-      - [Requirements](python_packages.md)
+      - [Requirements](requirements.md)
     
     - Strategy Execution and Creation:
         - [Basic Structure of a Strategy](structure.md)

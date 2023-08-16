@@ -8,4 +8,4 @@ Now you can code your own strategy easily using our Python Build service! Begin 
 
 Go to **Build Strategy** in the sidebar navigation and select **[Python Build](https://app.algobulls.com/build/python)** to know more.
 
-[![pythonbuild](imgs/python_build_select.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs/python_build_select.png)
+[![pythonbuild](imgs_v2/python_build_select.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs_v2/python_build_select.png)

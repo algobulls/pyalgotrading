@@ -1,4 +1,4 @@
-# Python Packages and Requirements
+# Requirements
 
 ---
 
