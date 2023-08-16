@@ -52,10 +52,10 @@ nav:
   - Python Build:
       - Index: 'python_build/index.md'
       - Introduction:
-        - Introduction: 'python_build/python-build-introduction'
+        - Introduction: 'python_build/python-build-introduction.md'
         - Overview: 'python_build/python-build-overview.md'
       - Setup your Workspace:
-        - Get Started: 'python_build/python-build-getstarted'
+        - Get Started: 'python_build/python-build-getstarted.md'
       - Strategy Creation and Execution:
           - Code Structure of Strategy: 'python_build/strategy_guides/structure.md'
           - Create your Strategy:
