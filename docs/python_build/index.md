@@ -12,8 +12,8 @@
 - #### Strategy Creation and Execution:
     - [Basic Structure of a Strategy](../pyalgotrad/structure.md)
     - Create your Strategy
-      - [Code Ready Templates](python-build-code-ready-templates.md)
-      - [Code New Strategy](python-build-code-new.md)
+        - [Code Ready Templates](python-build-code-ready-templates.md)
+        - [Code New Strategy](python-build-code-new.md)
     - [Configure and Execute your Strategy](python-build-config-parameters.md)
 
 - #### Analytics:

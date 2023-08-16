@@ -85,12 +85,12 @@ print(all_strategies_df)
 
 ---
 #### Search your Strategy
-- ##### Search your strategy using `strategy name`. Make sure you have the strategy with given name in your AlgoBulls Account.
+-  Search your strategy using `strategy name`. Make sure you have the strategy with given name in your AlgoBulls Account.
      ```python
          strategy_name = 'Exponential Moving Averages Crossover'
          strategy_code, strategy_name = all_strategies_df.loc[all_strategies_df['strategyName'] == strategy_name].iloc[0]        
      ```
-- ##### Search your strategy using `strategy code`. Make sure you have the strategy with given code in your AlgoBulls Account.
+-  Search your strategy using `strategy code`. Make sure you have the strategy with given code in your AlgoBulls Account.
      ```python
      strategy_code = 'afd6214c5db94dbeae7502e861fa4ffc'
      strategycode, strategyname = all_strategies_df.loc[all_strategies_df['strategyCode'] == strategy_code].iloc[0]

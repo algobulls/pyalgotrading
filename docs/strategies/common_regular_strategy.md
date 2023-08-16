@@ -195,8 +195,7 @@ eg:
 Here the ```entry_key``` tag is removed from the ```OrderTagManager```.
 
 !!! Note
-
-When the tag is removed the order objects stored in that tag are also removed but the same order objects would still be present in the order tags.
+    When the tag is removed the order objects stored in that tag are also removed but the same order objects would still be present in the order tags.
 
 **iv. remove_order**: 
 
@@ -209,8 +208,7 @@ eg:
 Here the ```main_order``` order object is removed from the ```OrderTagManager```.
 
 !!! Note
-
-The order object will be removed from all the tags ta
+    The order object will be removed from all the tags ta
 
 **v. get_internals**: 
 
