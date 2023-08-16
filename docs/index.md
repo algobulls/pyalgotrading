@@ -4,9 +4,9 @@
 ## AlgoBulls:
 
 ---
-Welcome to AlgoBulls, the AI-backed trading platform that unlocks new dimensions in algorithmic trading. With two dynamic platforms – PyAlgoTrading and PythonBuild – we're here to amplify your trading experience.  
+Welcome to AlgoBulls, the AI-backed trading platform that unlocks new dimensions in algorithmic trading. With two dynamic platforms – **pyalgotrading** and **Python Build** – we're here to amplify your trading experience.  
 AlgoBulls isn't just about platforms; it's about community. Share, learn, and collaborate with traders and developers. Code your strategies or explore ours – AlgoBulls is where innovation meets trading expertise.
-### [Pyalgotrading](pyalgotrad/index.md)
+### [pyalgotrading](pyalgotrad/index.md)
 
 ---
 Pyalgotrading is an official Python package that offers algorithmic trading APIs powered by [AlgoBulls](https://www.algobulls.com/). It provides support for creating and uploading strategies on the [AlgoBulls](https://www.algobulls.com/) platform, as well as a pool of free strategies at [pyalgostrategypool](https://github.com/algobulls/pyalgostrategypool). It
