@@ -61,13 +61,13 @@ viii. Underwater Drawdown Plot (%):
 
 ix. P&L Book: View detailed trade by trade report. Premium users can analyse this data in the form of heatmaps for Gross Profit & Loss, Trading Volume & Total number of Trades.
 
-[![pythonbuild](imgs_v2/python_build_roi_volume_trades_heatmap.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs_v2/python_build_roi_volume_trades_heatmap.png)
+[![pythonbuild](../python_build/imgs_v2/python_build_roi_volume_trades_heatmap.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](../python_build/imgs_v2/python_build_roi_volume_trades_heatmap.png)
 
 x. User Log:  Real time logs from strategy execution are displayed in this section. Use these logs to debug your strategy’s behaviour and performance.
 
-[![pythonbuild](imgs_v2/python_build_user_logs.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs/python_build_user_log.png)
+[![pythonbuild](../python_build/imgs_v2/python_build_user_logs.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](../python_build/imgs_v2/python_build_user_logs.png)
 
 xi. Order History: View the order state transition for every order placed by your strategy in depth. 
 
-[![pythonbuild](imgs_v2/python_build_order_history.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs/python_build_order_history.png)
+[![pythonbuild](../python_build/imgs_v2/python_build_order_history.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](../python_build/imgs_v2/python_build_order_history.png)
 
