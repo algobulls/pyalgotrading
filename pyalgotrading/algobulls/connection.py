@@ -83,19 +83,17 @@ class AlgoBullsConnection:
         assert isinstance(access_token, str), f'Argument "access_token" should be a string'
         self.api.set_access_token(access_token)
 
-    def set_generative_ai_keys(self, api_key, secret_key, token_key):
+    def set_generative_ai_keys(self, genai_api_key):
         """
         Set the API keys of the generative AI took used
 
         Args:
-            api_key: api key name
-            # todo: learn about different generative AIs and how many and what keys are required ?
-                #  also confirm with backend the format of API keys to be received
+            genai_api_key: GenAI API key
         """
-        assert isinstance(api_key, str), f'Argument "api_key" should be a string'
-        self.api.openai_key = api_key
+        assert isinstance(genai_api_key, str), f'Argument "api_key" should be a string'
+        self.api.genai_api_key = genai_api_key
 
-    def get_genai_response_pooling(self, no_of_tries, user_prompt, chat_gpt_model):
+    def get_genai_response_pooling(self, no_of_tries, user_prompt=None, chat_gpt_model=None):
         if no_of_tries < GENAI_RESPONSE_POOLING_LIMIT:
             try:
                 if no_of_tries > 1:
@@ -106,7 +104,7 @@ class AlgoBullsConnection:
             except AlgoBullsAPIGatewayTimeoutErrorException:
                 response = self.get_genai_response_pooling(no_of_tries + 1)
         else:
-            response = {'message': 'Somthing went wrong please try again'}
+            response = {"message": "Somthing went wrong please try again"}
         return response
 
     def display_genai_sessions(self):
@@ -116,12 +114,16 @@ class AlgoBullsConnection:
             available sessions
         """
         customer_genai_sessions = self.api.get_genai_sessions()
-        for i, session in enumerate(customer_genai_sessions):
-            print(f"Session {i + 1}: Started: {session['timestamp_created']}, Title: {session['first_user_prompt']}")
+        df = pd.DataFrame(customer_genai_sessions)
+        df.index += 1
+
+        if customer_genai_sessions:
+            df.drop(columns=["id"], inplace=True)
+        print(tabulate(df, headers=["id", "Timestamp Created", "Title"], tablefmt="pretty"))
+
         return customer_genai_sessions
 
     def continue_from_previous_sessions(self):
-
         customer_genai_sessions = self.display_genai_sessions()
         while True:
             user_input = int(input("Enter session number"))
@@ -135,17 +137,20 @@ class AlgoBullsConnection:
             else:
                 print("Please select a valid session number.")
 
-    def get_session_history(self, session_id):
+    def display_session_chat_history(self, session_id):
         if not self.api.genai_sessions_map:
             self.api.get_genai_sessions()
 
         customer_genai_session_history = self.api.get_genai_session_history(session_id)
-        for chat in customer_genai_session_history:
-            print(f"User: {chat['user_prompt']}")
-            print(f"GenAI: {chat['genai_response']}")
+        if customer_genai_session_history:
+            for chat in customer_genai_session_history:
+                print(f"User:\n{chat['user_prompt']}", end="\n\n")
+                print(f"GenAI:\n{chat['genai_response']}", end=f"\n\n{'-' * 50}\n\n")
+        else:
+            print(f"No available chat history for session id: {session_id}")
 
     def start_chat(self, start_fresh=None, session_id=None, chat_gpt_model=None):
-
+        assert self.api.genai_api_key, f"Please set your GenAI key using set_generative_ai_keys()"
         # This will set the session_id
         if start_fresh:
             # reset session
@@ -154,20 +159,22 @@ class AlgoBullsConnection:
             if session_id:
                 if self.api.genai_sessions_map is not None:
                     self.api.get_genai_sessions()
-                assert session_id in self.api.genai_sessions_map, f'Please selecta valid session id.'
+                assert session_id in self.api.genai_sessions_map, f"Please selecta valid session id."
                 self.api.genai_session_id = self.api.genai_sessions_map[session_id - 1][0]
             else:
                 self.continue_from_previous_sessions()
 
-        print("Session Start")
+        print("Session Start", end="\n\n")
         while True:
-            user_prompt = str(input())
-            if user_prompt.lower() == 'exit':
-                print("Session End")
-                return
+            print("Enter 'Exit' to exit the session.")
+            user_prompt = str(input("Enter query: "))
+            if user_prompt:
+                if user_prompt.lower() == "exit":
+                    print("Session End")
+                    return
 
-            response = self.get_genai_response_pooling(1, user_prompt, chat_gpt_model)
-            print(f"GenAI: {response['message']}")
+                response = self.get_genai_response_pooling(1, user_prompt, chat_gpt_model)
+                print(f"GenAI: {response['message']}", end="\n\n")
 
     def create_strategy(self, strategy, overwrite=False, strategy_code=None, abc_version=None):
         """

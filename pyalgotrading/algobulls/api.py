@@ -21,7 +21,8 @@ class AlgoBullsAPI:
     """
     AlgoBulls API
     """
-    SERVER_ENDPOINT = 'https://api.algobulls.com/'
+    SERVER_ENDPOINT = 'http://localhost:7003/'
+    # SERVER_ENDPOINT = 'https://api.algobulls.com/'
 
     def __init__(self, connection):
         """
@@ -525,11 +526,11 @@ class AlgoBullsAPI:
         response = self._send_request(endpoint=endpoint, params=params)
         self.genai_sessions_map = response['data']
 
-        return response
+        return response['data']
 
     def get_genai_session_history(self, session_id):
         endpoint = 'v1/build/python/genai/session/history'
-        params = {'session_id': self.genai_sessions_map[session_id - 1], 'pageSize': GENAI_SESSION_HISTORY_SIZE}
+        params = {'sessionId': self.genai_sessions_map[session_id - 1]['id'], 'pageSize': GENAI_SESSION_HISTORY_SIZE}
         response = self._send_request(endpoint=endpoint, params=params)
 
-        return response
+        return response['data']
