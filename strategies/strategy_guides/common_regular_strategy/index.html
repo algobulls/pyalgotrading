@@ -1,0 +1,1972 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Official Python Package for Algorithmic Trading APIs powered by AlgoBulls">
+      
+      
+        <meta name="author" content="Pushpak Dagade (pushpak@algobulls.com)">
+      
+      
+        <link rel="canonical" href="https://algobulls.github.io/pyalgotrading/strategies/strategy_guides/common_regular_strategy/">
+      
+      
+        <link rel="prev" href="../../../gen_ai_guide/">
+      
+      
+        <link rel="next" href="../common_options_strategy/">
+      
+      <link rel="icon" href="https://algobulls.com/img/favicon.svg">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.6">
+    
+    
+      
+        <title>Regular Strategy - pyalgotrading</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ded33207.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.a0c5b2b5.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../../css/timeago.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#regular-strategy-structure" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="pyalgotrading" class="md-header__button md-logo" aria-label="pyalgotrading" data-md-component="logo">
+      
+  <img src="../../../algobulls_logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            pyalgotrading
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Regular Strategy
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/algobulls/pyalgotrading" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="pyalgotrading" class="md-nav__button md-logo" aria-label="pyalgotrading" data-md-component="logo">
+      
+  <img src="../../../algobulls_logo.svg" alt="logo">
+
+    </a>
+    pyalgotrading
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/algobulls/pyalgotrading" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          Pyalgotrading
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Pyalgotrading
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pyalgotrad/" class="md-nav__link">
+        Index
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+          Comprehensive Guide to pyalgotrading
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Comprehensive Guide to pyalgotrading
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pyalgotrad/pyalgotrading_comprehensive_guide/" class="md-nav__link">
+        Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pyalgotrad/introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+          Setup your Workspace
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Setup your Workspace
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pyalgotrad/prerequisites/" class="md-nav__link">
+        Prerequisites
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pyalgotrad/python_packages/" class="md-nav__link">
+        Python Packages
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+          Strategy Creation and Execution
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Strategy Creation and Execution
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pyalgotrad/strategy_guides/structure/" class="md-nav__link">
+        Code Structure of Strategy
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5_2" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_5_2" id="__nav_2_5_2_label" tabindex="0">
+          Create your Strategy
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_5_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_5_2">
+          <span class="md-nav__icon md-icon"></span>
+          Create your Strategy
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pyalgotrad/strategy_guides/common_regular_strategy/" class="md-nav__link">
+        Regular Strategy
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pyalgotrad/strategy_guides/common_options_strategy/" class="md-nav__link">
+        Options Strategy
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pyalgotrad/upload/" class="md-nav__link">
+        Upload your Strategy
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pyalgotrad/select/" class="md-nav__link">
+        Select your Strategy
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pyalgotrad/testing/" class="md-nav__link">
+        Execute your Strategy
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
+          Analytics
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_6">
+          <span class="md-nav__icon md-icon"></span>
+          Analytics
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pyalgotrad/pyalgotrading_analytics/" class="md-nav__link">
+        Analytics in pyalgotrading
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pyalgotrad/python-build-view-results/" class="md-nav__link">
+        Analytics in AlgoBulls Platform
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          Python Build
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Python Build
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python_build/" class="md-nav__link">
+        Index
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+          Introduction
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          Introduction
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python_build/python-build-introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python_build/python-build-overview/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+          Setup your Workspace
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3_3">
+          <span class="md-nav__icon md-icon"></span>
+          Setup your Workspace
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python_build/python-build-getstarted/" class="md-nav__link">
+        Get Started
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+          Strategy Creation and Execution
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3_4">
+          <span class="md-nav__icon md-icon"></span>
+          Strategy Creation and Execution
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python_build/strategy_guides/structure/" class="md-nav__link">
+        Code Structure of Strategy
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_2" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_4_2" id="__nav_3_4_2_label" tabindex="0">
+          Create your Strategy
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          Create your Strategy
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python_build/python-build-code-ready-templates/" class="md-nav__link">
+        Code Ready Templates
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python_build/python-build-code-new/" class="md-nav__link">
+        Code New Strategy
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python_build/strategy_guides/common_regular_strategy/" class="md-nav__link">
+        Regular Strategy
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python_build/strategy_guides/common_options_strategy/" class="md-nav__link">
+        Options Strategy
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python_build/python-build-config-parameters/" class="md-nav__link">
+        Configure and Execute your Strategy
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+          Analytics
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3_5">
+          <span class="md-nav__icon md-icon"></span>
+          Analytics
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python_build/pyalgotrading_analytics/" class="md-nav__link">
+        Analytics in pyalgotrading
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../python_build/python-build-view-results/" class="md-nav__link">
+        Analytics in AlgoBulls Platform
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          Strategies
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Strategies
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        Index
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+          General Strategy Guide
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          General Strategy Guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../structure/" class="md-nav__link">
+        Code Structure of Strategy
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../gen_ai_guide/" class="md-nav__link">
+        Using Generative AI
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Regular Strategy
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Regular Strategy
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-initial-steps" class="md-nav__link">
+    1. Initial steps
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-init-method" class="md-nav__link">
+    2. Init method
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-initialize-method" class="md-nav__link">
+    3. Initialize method
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-ordertagmanager" class="md-nav__link">
+    4. OrderTagManager
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-entry-methods" class="md-nav__link">
+    5. Entry Methods
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-exit-methods" class="md-nav__link">
+    6. Exit Methods
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-other-common-methods" class="md-nav__link">
+    7. Other common methods
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-cleanup" class="md-nav__link">
+    8. Cleanup
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../common_options_strategy/" class="md-nav__link">
+        Options Strategy
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+          Regular Strategies
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_3">
+          <span class="md-nav__icon md-icon"></span>
+          Regular Strategies
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../aroon_crossover/" class="md-nav__link">
+        Aroon Crossover
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bollinger_bands/" class="md-nav__link">
+        Bollinger Bands
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ema_crossover/" class="md-nav__link">
+        EMA Crossover
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../inverse_ema_scalping/" class="md-nav__link">
+        Inverse EMA Scalping
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reverse_rsi/" class="md-nav__link">
+        Reverse RSI
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../stochastic_crossover/" class="md-nav__link">
+        Stochastic Crossover
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../vwap_crossover/" class="md-nav__link">
+        VWAP Crossover
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+          Options Strategies
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_4">
+          <span class="md-nav__icon md-icon"></span>
+          Options Strategies
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../options_bear_call_ladder/" class="md-nav__link">
+        Options Bear Call Ladder
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../options_bear_put_ladder/" class="md-nav__link">
+        Options Bear Put Ladder
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../options_bull_call_ladder/" class="md-nav__link">
+        Options Bull Call Ladder
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../options_bull_put_ladder/" class="md-nav__link">
+        Options Bull Put Ladder
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../options_long_iron_butterfly/" class="md-nav__link">
+        Options Long Iron Butterfly
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../options_straddle/" class="md-nav__link">
+        Options Straddle
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../options_strangle/" class="md-nav__link">
+        Options Strangle
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          Brokers
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Brokers
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../broker_alpaca_guide/" class="md-nav__link">
+        Alpaca
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-initial-steps" class="md-nav__link">
+    1. Initial steps
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-init-method" class="md-nav__link">
+    2. Init method
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-initialize-method" class="md-nav__link">
+    3. Initialize method
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-ordertagmanager" class="md-nav__link">
+    4. OrderTagManager
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-entry-methods" class="md-nav__link">
+    5. Entry Methods
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-exit-methods" class="md-nav__link">
+    6. Exit Methods
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-other-common-methods" class="md-nav__link">
+    7. Other common methods
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-cleanup" class="md-nav__link">
+    8. Cleanup
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="regular-strategy-structure">Regular Strategy Structure<a class="headerlink" href="#regular-strategy-structure" title="Permanent link">&para;</a></h1>
+<div class="admonition links">
+<p class="admonition-title">Links</p>
+<ul>
+<li><strong><a href="index.md">List of Strategies</a></strong></li>
+<li><strong><a href="../pyalgotrad/structure.md">Strategy Design (workflow of a strategy)</a></strong></li>
+</ul>
+</div>
+<h2 id="1-initial-steps">1. Initial steps<a class="headerlink" href="#1-initial-steps" title="Permanent link">&para;</a></h2>
+<p>i. Create a new strategy file with a unique file name.
+   eg: strategy_<code>&lt;developer_initials&gt;</code>_futures_ema_crossover.py</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul>
+<li>Add the initials of your name after the word strategy in the strategy file name so that it becomes easier to identify the developer who developed the strategy and also helps with a unique strategy name.</li>
+<li>Make sure that the file name is in lowercase and that each word is separated with an underscore '_' as shown above.</li>
+</ul>
+</div>
+<p>ii. Create a class with the same name as the file name, and make sure the first letter of each word is in uppercase and the initials should be in uppercase as well.
+    eg: For the above strategy name the class name would be:
+        Strategy<code>&lt;developer_initials&gt;</code>FuturesEMACrossover(StrategyBase)</p>
+<div class="admonition note">
+<p class="admonition-title">Note<ul>
+<li>If the class name includes indicator names like EMA, SMA, and VWAP the name should be in uppercase in the class name but not in the file name.</li>
+<li>Every strategy is a child class of the StrategyBase class.</li>
+</ul>
+</p>
+</div>
+<hr />
+<h2 id="2-init-method">2. Init method<a class="headerlink" href="#2-init-method" title="Permanent link">&para;</a></h2>
+<p>This method gets called only once when the strategy is started.</p>
+<p>i. Strategy info:</p>
+<p>In the <strong>init</strong> method add the <code>super().__init__(*args, **kwargs)</code> and add the below lines.</p>
+<div class="highlight"><pre><span></span><code>VERSION = strategy_version 
+CLIENT = client_name
+STRATEGY_TYPE = &#39;FUTURES&#39;
+
+self.logger.info(f&#39;\n{&quot;#&quot; * 40}\nSTRATEGY VERSION: {VERSION}\n{&quot;#&quot; * 40}&#39;)
+self.logger.debug(f&#39;\n{&quot;#&quot; * 60}\nSTRATEGY TYPE: {STRATEGY_TYPE} | CLIENT: {CLIENT}\n{&quot;#&quot; * 60}&#39;)
+</code></pre></div>
+<ul>
+<li>
+<p><strong>VERSION</strong>: This is the strategy version, the initial version is 3.3.1 as there are fixes/updates/changes in the strategy the version should be updated to 3.3.2, and so on.</p>
+</li>
+<li>
+<p><strong>CLIENT</strong>: Name of the client.</p>
+</li>
+<li>
+<p><strong>STRATEGY_TYPE</strong>: Whether the strategy is FUTURES, REGULAR, or OPTIONS.</p>
+</li>
+</ul>
+<p>We print this information in the next line, so whenever we run the strategy this information is displayed in the logs.</p>
+<p>We save the parameter string in the parameter_string variable and check if the length of the parameter_string matches the number of parameters in the strategy's YAML file.</p>
+<p>eg:</p>
+<div class="highlight"><pre><span></span><code>parameter_string = &#39;\n(1) FRESH_ORDER_CANDLE \n(1) START_TIME_HOURS \n(1) START_TIME_MINUTES \n(1) END_TIME_HOURS \n(1) END_TIME_MINUTES &#39; \
+                           &#39;\n(1) EMA_PERIOD_ONE \n(1) EMA_PERIOD_TWO \n(1) TARGET_PERCENTAGE \n(1) STOPLOSS_PERCENTAGE \n(1) STOPLOSS_RANGE \n(1) STOPLOSS_ORDER_COUNT_ALLOWED&#39;
+
+check_argument(self.strategy_parameters, &#39;extern_function&#39;, lambda x: len(x) &gt;= 11, err_message=f&#39;Need 11 parameters for this strategy: {parameter_string}&#39;)
+</code></pre></div>
+<ul>
+<li>
+<p>parameter_string: This string contains all the strategy parameters as shown above.</p>
+</li>
+<li>
+<p>We check if the number of parameters matches those in the strategy YAML file.</p>
+<div class="admonition note">
+<p class="admonition-title">Note<ul>
+<li>The parameter names and the number of parameters may be different for different strategies.</li>
+</ul>
+</p>
+</div>
+</li>
+</ul>
+<p>ii. Parameter creation:</p>
+<p>Next we assign the parameter values to the class variables of the same name as the parameters but in the lowercase format, as shown below:</p>
+<p>eg:
+<div class="highlight"><pre><span></span><code>self.fresh_order_candle = self.strategy_parameters[&#39;FRESH_ORDER_CANDLE&#39;]
+self.start_time_hours = self.strategy_parameters[&#39;START_TIME_HOURS&#39;]
+self.start_time_minutes = self.strategy_parameters[&#39;START_TIME_MINUTES&#39;]
+self.end_time_hours = self.strategy_parameters[&#39;END_TIME_HOURS&#39;]
+self.end_time_minutes = self.strategy_parameters[&#39;END_TIME_MINUTES&#39;]
+self.ema_period_one = self.strategy_parameters[&#39;EMA_PERIOD_ONE&#39;]
+self.ema_period_two = self.strategy_parameters[&#39;EMA_PERIOD_TWO&#39;]
+self.target_percentage = self.strategy_parameters[&#39;TARGET_PERCENTAGE&#39;]
+self.stoploss_percentage = self.strategy_parameters[&#39;STOPLOSS_PERCENTAGE&#39;]
+self.stoploss_range = self.strategy_parameters[&#39;STOPLOSS_RANGE&#39;]
+self.stoploss_order_count_allowed = self.strategy_parameters[&#39;STOPLOSS_ORDER_COUNT_ALLOWED&#39;]
+</code></pre></div></p>
+<p>iii. Parameter validation</p>
+<p>We validate each parameter's value according to the strategy requirement. The following methods can be used to validate the parameter values:</p>
+<ul>
+<li>
+<p>check_argument: Checks a single parameter passed in it.</p>
+<p>Syntax:
+    check_argument(value to be checked, 'extern_function', validating condition or method, error_message)</p>
+<div class="codehilite"><pre><span></span><code><span class="n">eg</span><span class="o">:</span><span class="w"> </span>
+<span class="n">check_argument</span><span class="o">(</span><span class="n">self</span><span class="o">.</span><span class="na">strategy_parameters</span><span class="o">,</span><span class="w"> </span><span class="s1">&#39;extern_function&#39;</span><span class="o">,</span><span class="w"> </span><span class="n">lambda</span><span class="w"> </span><span class="n">x</span><span class="o">:</span><span class="w"> </span><span class="n">len</span><span class="o">(</span><span class="n">x</span><span class="o">)</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">11</span><span class="o">,</span><span class="w"> </span><span class="n">err_message</span><span class="o">=</span><span class="n">f</span><span class="s1">&#39;Need 11 parameters for this strategy: {parameter_string}&#39;</span><span class="o">)</span>
+</code></pre></div>
+
+</li>
+<li>
+<p>check_argument_bulk: Checks multiple parameters passed in a list </p>
+<p>Syntax:
+    check_argument_bulk(list of values to be checked, 'extern_function', validating condition or method, error_message)</p>
+<div class="codehilite"><pre><span></span><code><span class="n">eg</span><span class="o">:</span><span class="w"> </span>
+<span class="n">is_nonnegative_int_arg_list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="n">self</span><span class="o">.</span><span class="na">start_time_hours</span><span class="o">,</span><span class="w"> </span><span class="n">self</span><span class="o">.</span><span class="na">start_time_minutes</span><span class="o">,</span><span class="w"> </span><span class="n">self</span><span class="o">.</span><span class="na">end_time_hours</span><span class="o">,</span><span class="w"> </span><span class="n">self</span><span class="o">.</span><span class="na">end_time_minutes</span><span class="o">]</span>
+<span class="n">check_argument_bulk</span><span class="o">(</span><span class="n">is_nonnegative_int_arg_list</span><span class="o">,</span><span class="w"> </span><span class="s1">&#39;extern_function&#39;</span><span class="o">,</span><span class="w"> </span><span class="n">is_nonnegative_int</span><span class="o">,</span><span class="w"> </span><span class="s1">&#39;Value should be &gt;=0&#39;</span><span class="o">)</span>
+</code></pre></div>
+
+</li>
+<li>
+<p>is_nonnegative_int: Checks whether the value is greater than or equal to zero.</p>
+</li>
+<li>
+<p>is_positive_int_or_float: Checks whether the value is greater than zero and is an integer or a float value.</p>
+</li>
+<li>
+<p>is_positive_int: Checks whether the value is greater than zero and is an integer value.</p>
+</li>
+<li>
+<p>is_nonnegative_int_or_float: Checks whether the value is greater than or equal to zero and is an integer or a float value.</p>
+</li>
+</ul>
+<p>iv. Start time and End time creation:</p>
+<p>Add the below code to calculate the strategy start time and end time, from the start time and end time parameters in the strategy YAML file.</p>
+<div class="highlight"><pre><span></span><code>try:
+    self.candle_start_time = time(hour=self.start_time_hours, minute=self.start_time_minutes)
+except ValueError:
+    self.logger.fatal(&#39;Error converting start hours and minutes... EXITING&#39;)
+    raise SystemExit
+
+try:
+    self.candle_end_time = time(hour=self.end_time_hours, minute=self.end_time_minutes)
+except ValueError:
+    self.logger.fatal(&#39;Error converting end time hours and minutes... EXITING&#39;)
+    raise SystemExit
+</code></pre></div>
+<p>v. Strategy variables:</p>
+<p>We create our own strategy variables other than the strategy parameter variables which will be used throughout the strategy.</p>
+<p>eg:
+<code>self.order_tag_manager = None</code>  </p>
+<p>We initialize the variables with a None value.</p>
+<div class="admonition note">
+<p class="admonition-title">Note<p>There could be more strategy variables required as per the strategy requirement. </p>
+</p>
+</div>
+<hr />
+<h2 id="3-initialize-method">3. Initialize method<a class="headerlink" href="#3-initialize-method" title="Permanent link">&para;</a></h2>
+<p>Unlike the <code>init method</code>, this method gets called every day at the beginning of the day once the strategy is started.</p>
+<p>Here the strategy variables that were initialized as None are again defined as dictionaries/lists except for the <code>self.order_tag_manager</code>. 
+Create a reference for <code>OrderTagManager</code> as shown below:</p>
+<p><code>self.order_tag_manager = OrderTagManager</code> </p>
+<hr />
+<h2 id="4-ordertagmanager">4. OrderTagManager<a class="headerlink" href="#4-ordertagmanager" title="Permanent link">&para;</a></h2>
+<p>The <code>self.order_tag_manager</code> is used to store/remove the entry/exit orders. The <code>self.order_tag_manager</code> has the following methods:</p>
+<p><strong>i. add_order</strong>: </p>
+<ul>
+<li>Stores the order object for the given tags.</li>
+</ul>
+<p>eg:</p>
+<p><code>self.order_tag_manager.add_order(_order, tags=[base_inst_str, entry_key])</code></p>
+<p>Here the <code>_order</code> is the order object stored inside the <code>OrderTagManager</code> for the tags <code>base_inst_str</code> and <code>entry_key</code>.</p>
+<p><strong>ii. get_orders</strong>: </p>
+<ul>
+<li>Retrieve the order(s) for the given tags.</li>
+</ul>
+<p>eg:</p>
+<p><code>self.order_tag_manager.get_orders(tags=[base_inst_str, BrokerExistingOrderPositionConstants.ENTER, entry_key], ignore_errors=True)</code></p>
+<p>Here the order object retrieved from the <code>OrderTagManager</code> for the tags <code>base_inst_str, BrokerExistingOrderPositionConstants.ENTER</code> and <code>entry_key</code></p>
+<p><strong>iii. remove_tags</strong>: </p>
+<ul>
+<li>Removes the tags stored in the <code>OrderTagManager</code> along with the orders related stored in that tag</li>
+</ul>
+<p>eg:</p>
+<p><code>self.order_tag_manager.remove_tags(tags=entry_key)</code></p>
+<p>Here the <code>entry_key</code> tag is removed from the <code>OrderTagManager</code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When the tag is removed the order objects stored in that tag are also removed but the same order objects would still be present in the order tags.</p>
+</div>
+<p><strong>iv. remove_order</strong>: </p>
+<ul>
+<li>Remove the order(s) from the <code>OrderTagManager</code> for the given tag(s).</li>
+</ul>
+<p>eg:</p>
+<p><code>self.order_tag_manager.remove_order(main_order)</code></p>
+<p>Here the <code>main_order</code> order object is removed from the <code>OrderTagManager</code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The order object will be removed from all the tags ta</p>
+</div>
+<p><strong>v. get_internals</strong>: </p>
+<ul>
+<li>Returns the values i.e. both the entry and exit orders stored inside the tags list.   </li>
+</ul>
+<hr />
+<h2 id="5-entry-methods">5. Entry Methods<a class="headerlink" href="#5-entry-methods" title="Permanent link">&para;</a></h2>
+<p><strong>i. strategy_select_instruments_for_entry:</strong></p>
+<ul>
+<li>
+<p>In this method we process each instrument in the instruments bucket, if there is some entry condition to be checked then we create an <code>get_entry_decision</code> method 
+that calculates the entry condition like a crossover or compares the latest value of the OHLC data or indicator data.</p>
+</li>
+<li>
+<p>When the order has to be placed we add the <code>instrument</code> to <code>selected_instruments_bucket</code> and additional data related to the instrument that will be required while placing to the <code>sideband_info</code>. This information is passed to the <code>strategy_enter_position</code> method</p>
+</li>
+</ul>
+<p><strong>ii. strategy_enter_position:</strong></p>
+<ul>
+<li>Here is where we actually place the entry order for which we calculate the quantity for the order to be placed. If the order is placed successfully we save the order in a class variable such that we can access the order object via the variable in the exit methods.</li>
+</ul>
+<hr />
+<h2 id="6-exit-methods">6. Exit Methods<a class="headerlink" href="#6-exit-methods" title="Permanent link">&para;</a></h2>
+<p><strong>i. strategy_select_instruments_for_exit:</strong></p>
+<ul>
+<li>
+<p>This method is called before the entry methods because in the case of delivery strategy we want to resume and exit previous day orders before we can place new entry orders.</p>
+</li>
+<li>
+<p>Here we place stoploss exit orders, target exit orders, and check for exit conditions for the open entry orders.</p>
+</li>
+</ul>
+<hr />
+<h2 id="7-other-common-methods">7. Other common methods<a class="headerlink" href="#7-other-common-methods" title="Permanent link">&para;</a></h2>
+<p>There are other methods that are used in the strategy:</p>
+<p><strong> i. check_and_place_stoploss_order:</strong></p>
+<p>This method is called in the <code>strategy_select_instruments_for_exit</code> when our entry order is open, and we want to place a stoploss exit order for the same.</p>
+<p><strong>ii. set_all_none:</strong></p>
+<p>This method is called in the <code>strategy_exit_position</code> when our entry order has exited, and we want to remove the order object from the <code>self.main_order</code> variable.</p>
+<hr />
+<h2 id="8-cleanup">8. Cleanup<a class="headerlink" href="#8-cleanup" title="Permanent link">&para;</a></h2>
+<p>i. Add comments and docstrings wherever possible to improve code readability.</p>
+<p>ii. Once the strategy is completed perform O-I-L on the strategy code and remove unwanted imports, variables, and methods before delivering the code.</p>
+<hr />
+<p>To know more about a strategy from our given template, simply <strong>check the first line of comment</strong> in the code of that specific strategy.
+You can even access them <a href="https://algobulls.github.io/pyalgotrading/">here</a> in <code>Strategies</code> Section</p>
+
+  <hr>
+<div class="md-source-file">
+  <small>
+    
+      Last update:
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-08-16T15:28:20+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-08-16</span>
+      
+    
+  </small>
+</div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © 2020 | All Rights Reserved | AlgoBulls Technologies Private Limited
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://linkedin.com/company/algobulls" target="_blank" rel="noopener" title="linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://facebook.com/algobullsalgotrading" target="_blank" rel="noopener" title="facebook.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/algobulls/" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.51198bba.min.js"></script>
+      
+        <script src="../../../js/timeago.min.js"></script>
+      
+        <script src="../../../js/timeago_mkdocs_material.js"></script>
+      
+    
+  </body>
+</html>

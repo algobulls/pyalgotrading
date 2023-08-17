@@ -2,177 +2,267 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://algobulls.github.io/pyalgotrading/</loc>
-         <lastmod>2023-06-13</lastmod>
+         <lastmod>2023-08-17</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://algobulls.github.io/pyalgotrading/broker_alpaca_guide/</loc>
+         <lastmod>2023-08-17</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://algobulls.github.io/pyalgotrading/gen_ai_guide/</loc>
+         <lastmod>2023-08-17</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://algobulls.github.io/pyalgotrading/analytics/pyalgotrading_analytics/</loc>
+         <lastmod>2023-08-17</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://algobulls.github.io/pyalgotrading/analytics/python-build-view-results/</loc>
+         <lastmod>2023-08-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://algobulls.github.io/pyalgotrading/pyalgotrad/</loc>
-         <lastmod>2023-06-13</lastmod>
+         <lastmod>2023-08-17</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://algobulls.github.io/pyalgotrading/pyalgotrad/algobulls_dev_key/</loc>
+         <lastmod>2023-08-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://algobulls.github.io/pyalgotrading/pyalgotrad/codeguide/</loc>
-         <lastmod>2023-06-13</lastmod>
+         <lastmod>2023-08-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://algobulls.github.io/pyalgotrading/pyalgotrad/introduction/</loc>
-         <lastmod>2023-06-13</lastmod>
+         <lastmod>2023-08-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://algobulls.github.io/pyalgotrading/pyalgotrad/prerequisites/</loc>
-         <lastmod>2023-06-13</lastmod>
+         <lastmod>2023-08-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://algobulls.github.io/pyalgotrading/pyalgotrad/programexample/</loc>
-         <lastmod>2023-06-13</lastmod>
+         <lastmod>2023-08-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://algobulls.github.io/pyalgotrading/pyalgotrad/structure/</loc>
-         <lastmod>2023-06-13</lastmod>
+         <loc>https://algobulls.github.io/pyalgotrading/pyalgotrad/pyalgotrading_analytics/</loc>
+         <lastmod>2023-08-17</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://algobulls.github.io/pyalgotrading/pyalgotrad/pyalgotrading_comprehensive_guide/</loc>
+         <lastmod>2023-08-17</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://algobulls.github.io/pyalgotrading/pyalgotrad/python-build-view-results/</loc>
+         <lastmod>2023-08-17</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://algobulls.github.io/pyalgotrading/pyalgotrad/python_packages/</loc>
+         <lastmod>2023-08-17</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://algobulls.github.io/pyalgotrading/pyalgotrad/requirements/</loc>
+         <lastmod>2023-08-17</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://algobulls.github.io/pyalgotrading/pyalgotrad/select/</loc>
+         <lastmod>2023-08-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://algobulls.github.io/pyalgotrading/pyalgotrad/testing/</loc>
-         <lastmod>2023-06-13</lastmod>
+         <lastmod>2023-08-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://algobulls.github.io/pyalgotrading/pyalgotrad/upload/</loc>
-         <lastmod>2023-06-13</lastmod>
+         <lastmod>2023-08-17</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://algobulls.github.io/pyalgotrading/pyalgotrad/strategy_guides/common_options_strategy/</loc>
+         <lastmod>2023-08-17</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://algobulls.github.io/pyalgotrading/pyalgotrad/strategy_guides/common_regular_strategy/</loc>
+         <lastmod>2023-08-17</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://algobulls.github.io/pyalgotrading/pyalgotrad/strategy_guides/structure/</loc>
+         <lastmod>2023-08-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://algobulls.github.io/pyalgotrading/python_build/</loc>
-         <lastmod>2023-06-13</lastmod>
+         <lastmod>2023-08-17</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://algobulls.github.io/pyalgotrading/python_build/pyalgotrading_analytics/</loc>
+         <lastmod>2023-08-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://algobulls.github.io/pyalgotrading/python_build/python-build-code-new/</loc>
-         <lastmod>2023-06-13</lastmod>
+         <lastmod>2023-08-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://algobulls.github.io/pyalgotrading/python_build/python-build-code-ready-templates/</loc>
-         <lastmod>2023-06-13</lastmod>
+         <lastmod>2023-08-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://algobulls.github.io/pyalgotrading/python_build/python-build-config-parameters/</loc>
-         <lastmod>2023-06-13</lastmod>
+         <lastmod>2023-08-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://algobulls.github.io/pyalgotrading/python_build/python-build-getstarted/</loc>
-         <lastmod>2023-06-13</lastmod>
+         <lastmod>2023-08-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://algobulls.github.io/pyalgotrading/python_build/python-build-introduction/</loc>
-         <lastmod>2023-06-13</lastmod>
+         <lastmod>2023-08-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://algobulls.github.io/pyalgotrading/python_build/python-build-overview/</loc>
-         <lastmod>2023-06-13</lastmod>
+         <lastmod>2023-08-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://algobulls.github.io/pyalgotrading/python_build/python-build-view-results/</loc>
-         <lastmod>2023-06-13</lastmod>
+         <lastmod>2023-08-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://algobulls.github.io/pyalgotrading/python_build/python-build/</loc>
-         <lastmod>2023-06-13</lastmod>
+         <lastmod>2023-08-17</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://algobulls.github.io/pyalgotrading/python_build/strategy_guides/common_options_strategy/</loc>
+         <lastmod>2023-08-17</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://algobulls.github.io/pyalgotrading/python_build/strategy_guides/common_regular_strategy/</loc>
+         <lastmod>2023-08-17</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://algobulls.github.io/pyalgotrading/python_build/strategy_guides/structure/</loc>
+         <lastmod>2023-08-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://algobulls.github.io/pyalgotrading/strategies/</loc>
-         <lastmod>2023-06-13</lastmod>
+         <lastmod>2023-08-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://algobulls.github.io/pyalgotrading/strategies/aroon_crossover/</loc>
-         <lastmod>2023-06-13</lastmod>
+         <lastmod>2023-08-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://algobulls.github.io/pyalgotrading/strategies/bollinger_bands/</loc>
-         <lastmod>2023-06-13</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://algobulls.github.io/pyalgotrading/strategies/common_options_strategy/</loc>
-         <lastmod>2023-06-13</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://algobulls.github.io/pyalgotrading/strategies/common_regular_strategy/</loc>
-         <lastmod>2023-06-13</lastmod>
+         <lastmod>2023-08-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://algobulls.github.io/pyalgotrading/strategies/ema_crossover/</loc>
-         <lastmod>2023-06-13</lastmod>
+         <lastmod>2023-08-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://algobulls.github.io/pyalgotrading/strategies/inverse_ema_scalping/</loc>
-         <lastmod>2023-06-13</lastmod>
+         <lastmod>2023-08-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://algobulls.github.io/pyalgotrading/strategies/options_bear_call_ladder/</loc>
-         <lastmod>2023-06-13</lastmod>
+         <lastmod>2023-08-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://algobulls.github.io/pyalgotrading/strategies/options_bear_put_ladder/</loc>
-         <lastmod>2023-06-13</lastmod>
+         <lastmod>2023-08-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://algobulls.github.io/pyalgotrading/strategies/options_bull_call_ladder/</loc>
-         <lastmod>2023-06-13</lastmod>
+         <lastmod>2023-08-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://algobulls.github.io/pyalgotrading/strategies/options_bull_put_ladder/</loc>
-         <lastmod>2023-06-13</lastmod>
+         <lastmod>2023-08-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://algobulls.github.io/pyalgotrading/strategies/options_long_iron_butterfly/</loc>
-         <lastmod>2023-06-13</lastmod>
+         <lastmod>2023-08-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://algobulls.github.io/pyalgotrading/strategies/options_straddle/</loc>
-         <lastmod>2023-06-13</lastmod>
+         <lastmod>2023-08-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://algobulls.github.io/pyalgotrading/strategies/options_strangle/</loc>
-         <lastmod>2023-06-13</lastmod>
+         <lastmod>2023-08-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://algobulls.github.io/pyalgotrading/strategies/reverse_rsi/</loc>
-         <lastmod>2023-06-13</lastmod>
+         <lastmod>2023-08-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://algobulls.github.io/pyalgotrading/strategies/stochastic_crossover/</loc>
-         <lastmod>2023-06-13</lastmod>
+         <lastmod>2023-08-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://algobulls.github.io/pyalgotrading/strategies/vwap_crossover/</loc>
-         <lastmod>2023-06-13</lastmod>
+         <lastmod>2023-08-17</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://algobulls.github.io/pyalgotrading/strategies/strategy_guides/common_options_strategy/</loc>
+         <lastmod>2023-08-17</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://algobulls.github.io/pyalgotrading/strategies/strategy_guides/common_regular_strategy/</loc>
+         <lastmod>2023-08-17</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://algobulls.github.io/pyalgotrading/strategies/strategy_guides/structure/</loc>
+         <lastmod>2023-08-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
