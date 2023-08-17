@@ -70,6 +70,7 @@ nav:
   - Strategies:
       - Index: 'strategies/index.md'
       - General Strategy Guide:
+          - Using Generative AI: 'gen_ai_guide.md'
           - Regular Strategy: 'strategies/common_regular_strategy.md'
           - Options Strategy: 'strategies/common_options_strategy.md'
       - Regular Strategies:
@@ -88,6 +89,8 @@ nav:
           - Options Long Iron Butterfly: 'strategies/options_long_iron_butterfly.md'
           - Options Straddle: 'strategies/options_straddle.md'
           - Options Strangle: 'strategies/options_strangle.md'
+  - Brokers:
+      - Alpaca: 'broker_alpaca_guide.md'
 plugins:
   - search                                  # necessary for search to work
   - git-revision-date-localized:            # When enabled, the respective 'Last Updated' date is automatically added at the bottom of each page. Docs: https://squidfunk.github.io/mkdocs-material/plugins/revision-date/
