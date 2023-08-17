@@ -14,6 +14,7 @@ from ..constants import TradingType, TradingReportType
 from ..utils.func import get_raw_response
 
 GENAI_SESSION_SIZE = 100
+GENAI_SESSION_HISTORY_SIZE = 100
 
 
 class AlgoBullsAPI:
@@ -34,6 +35,7 @@ class AlgoBullsAPI:
         self.pattern = re.compile(r'(?<!^)(?=[A-Z])')
         self.genai_api_key = None
         self.genai_session_id = None
+        self.genai_sessions_map = None
 
     def __convert(self, _dict):
         # Helps convert _dict keys from camelcase to snakecase
@@ -510,14 +512,24 @@ class AlgoBullsAPI:
            `GET` v1/build/python/genai/response     Pooling API to get response in case of timeout
         """
         endpoint = 'v1/build/python/genai/response'
-        params = {'sessionId': self.genai_session_id}
+        params = {'session_id': self.genai_session_id}
         response = self._send_request(endpoint=endpoint, params=params)
+        if self.genai_session_id is None and 'session_id' in response:
+            self.genai_session_id = response['session_id']
 
         return response
 
     def get_genai_sessions(self):
         endpoint = 'v1/build/python/genai/sessions'
-        params = {'sessionId': self.genai_session_id, 'pageSize': GENAI_SESSION_SIZE}
+        params = {'session_id': self.genai_session_id, 'pageSize': GENAI_SESSION_SIZE}
+        response = self._send_request(endpoint=endpoint, params=params)
+        self.genai_sessions_map = response['data']
+
+        return response
+
+    def get_genai_session_history(self, session_id):
+        endpoint = 'v1/build/python/genai/session/history'
+        params = {'session_id': self.genai_sessions_map[session_id - 1], 'pageSize': GENAI_SESSION_HISTORY_SIZE}
         response = self._send_request(endpoint=endpoint, params=params)
 
         return response

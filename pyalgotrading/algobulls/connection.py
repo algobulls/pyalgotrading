@@ -94,15 +94,14 @@ class AlgoBullsConnection:
         """
         assert isinstance(api_key, str), f'Argument "api_key" should be a string'
         self.api.openai_key = api_key
-        return 'SUCCESS' or 'FAILURE'
 
     def get_genai_response_pooling(self, no_of_tries, user_prompt, chat_gpt_model):
         if no_of_tries < GENAI_RESPONSE_POOLING_LIMIT:
             try:
                 if no_of_tries > 1:
-                    response = self.api.get_genai_response(user_prompt, chat_gpt_model)
-                else:
                     response = self.api.handle_genai_response_timeout()
+                else:
+                    response = self.api.get_genai_response(user_prompt, chat_gpt_model)
 
             except AlgoBullsAPIGatewayTimeoutErrorException:
                 response = self.get_genai_response_pooling(no_of_tries + 1)
@@ -110,51 +109,65 @@ class AlgoBullsConnection:
             response = {'message': 'Somthing went wrong please try again'}
         return response
 
-    def start_chat(self, chat_gpt_model):
-        while True:
-            user_prompt = str(input())
-            if user_prompt.lower() == 'exit':
-                print("Thanks for the chat")
-                return
-            response = self.get_genai_response_pooling(1, user_prompt, chat_gpt_model)
-            print(f"GenAI: {response['message']}")
-
-    def continue_from_previous_sessions(self):
+    def display_genai_sessions(self):
         """
         display previous sessions
         Returns:
-
+            available sessions
         """
         customer_genai_sessions = self.api.get_genai_sessions()
         for i, session in enumerate(customer_genai_sessions):
-            print(f"Session {i}: Started: {session['timestamp_created']}, Title: {session['first_user_prompt']}")
+            print(f"Session {i + 1}: Started: {session['timestamp_created']}, Title: {session['first_user_prompt']}")
+        return customer_genai_sessions
 
+    def continue_from_previous_sessions(self):
+
+        customer_genai_sessions = self.display_genai_sessions()
         while True:
             user_input = int(input("Enter session number"))
             if not isinstance(user_input, int):
                 print('Argument "user_input" should be a int')
             elif 1 <= int(user_input) <= len(customer_genai_sessions):
                 selected_session_index = int(user_input) - 1
-                selected_session_id = customer_genai_sessions[selected_session_index]["id"]
+                selected_session_id = customer_genai_sessions[selected_session_index][0]
                 self.api.genai_session_id = selected_session_id
                 break
             else:
                 print("Please select a valid session number.")
 
-    def initiate_chat(self, start_fresh=None, chat_gpt_model=None):
+    def get_session_history(self, session_id):
+        if not self.api.genai_sessions_map:
+            self.api.get_genai_sessions()
+
+        customer_genai_session_history = self.api.get_genai_session_history(session_id)
+        for chat in customer_genai_session_history:
+            print(f"User: {chat['user_prompt']}")
+            print(f"GenAI: {chat['genai_response']}")
+
+    def start_chat(self, start_fresh=None, session_id=None, chat_gpt_model=None):
+
+        # This will set the session_id
         if start_fresh:
             # reset session
             self.api.genai_session_id = None
         elif start_fresh is not None:
-            self.continue_from_previous_sessions()
+            if session_id:
+                if self.api.genai_sessions_map is not None:
+                    self.api.get_genai_sessions()
+                assert session_id in self.api.genai_sessions_map, f'Please selecta valid session id.'
+                self.api.genai_session_id = self.api.genai_sessions_map[session_id - 1][0]
+            else:
+                self.continue_from_previous_sessions()
 
-        self.start_chat(chat_gpt_model)
+        print("Session Start")
+        while True:
+            user_prompt = str(input())
+            if user_prompt.lower() == 'exit':
+                print("Session End")
+                return
 
-    def save_latest_generated_strategy(self):
-        pass
-
-    def view_recent_chat_history(self):
-        pass
+            response = self.get_genai_response_pooling(1, user_prompt, chat_gpt_model)
+            print(f"GenAI: {response['message']}")
 
     def create_strategy(self, strategy, overwrite=False, strategy_code=None, abc_version=None):
         """
