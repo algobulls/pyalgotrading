@@ -14,8 +14,8 @@ repo_url: https://github.com/algobulls/pyalgotrading
 
 theme:
   name: material
-  favicon: 'imgs/favicon.svg'
-  logo: 'imgs/site_logo_white.svg'
+  favicon: 'https://algobulls.com/img/favicon.svg'
+  logo: 'algobulls_logo.svg'
   palette:
     primary: blue
     accent: blue
