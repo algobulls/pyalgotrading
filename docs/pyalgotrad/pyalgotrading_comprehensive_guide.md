@@ -72,10 +72,10 @@ The first line installs the **pyalgotrading** library, while the subsequent line
 ### Documentation:
 To fully unleash the potential of **pyalgotrading**, dive into its comprehensive documentation. This documentation serves as your roadmap, offering detailed insights into the library's features, functions, and capabilities. The documentation is your go-to resource for understanding how to effectively harness the power of **pyalgotrading**. It includes:
 
-- **[Comprehensive Guides](**pyalgotrading**_comprehensive_guide.md)**: Step-by-step guides that walk you through various aspects of strategy development, deployment, integration, and analysis.
-- **[Test with **pyalgotrading** ](testing.md)**: A detailed reference guide that provides information about each function, method, and module available in **pyalgotrading**.
-- **[Code Examples](../strategies/index.md)**: Real code snippets and examples that showcase how to implement specific strategies, functions, and techniques using **pyalgotrading**.
-- **[Python Cookbook for AlgoTrading](https://github.com/PacktPublishing/Python-Algorithmic-Trading-Cookbook)**: A python cook book for Algotrading, explaining in depth about the strategy creation and execution using python.
+- **[Comprehensive Guides](**pyalgotrading**_comprehensive_guide.md){target=_blank}**: Step-by-step guides that walk you through various aspects of strategy development, deployment, integration, and analysis.
+- **[Test with pyalgotrading](testing.md){target=_blank}**: A detailed reference guide that provides information about each function, method, and module available in **pyalgotrading**.
+- **[Code Examples](../strategies/index.md){target=_blank}**: Real code snippets and examples that showcase how to implement specific strategies, functions, and techniques using **pyalgotrading**.
+- **[Python Cookbook for AlgoTrading](https://github.com/PacktPublishing/Python-Algorithmic-Trading-Cookbook){target=_blank}**: A python cook book for Algotrading, explaining in depth about the strategy creation and execution using python.
 
 #### **Example Strategy:**
 

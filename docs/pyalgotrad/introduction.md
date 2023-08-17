@@ -16,30 +16,30 @@ Before starting the tutorial, ensure that you have the following setup:
 ---
 
 ## Features
-- Powered by the [AlgoBulls Platform](https://algobulls.com)
+- Powered by the [AlgoBulls Platform](https://algobulls.com){target=_blank}
 - Everything related to Algorithmic Trading Strategies!
-    - Create & upload strategies on the [AlgoBulls Platform](https://algobulls.com)
-    - Free pool of Strategies are available separately at [pyalgostrategypool](https://github.com/algobulls/pyalgostrategypool)!
-    - Support for all 150+ Technical Indicators provided by [TA-Lib](https://pypi.org/project/TA-Lib/)
+    - Create & upload strategies on the [AlgoBulls Platform](https://algobulls.com){target=_blank}
+    - Free pool of Strategies are available separately at [pyalgostrategypool](https://github.com/algobulls/pyalgostrategypool){target=_blank}!
+    - Support for all 150+ Technical Indicators provided by [TA-Lib](https://pypi.org/project/TA-Lib/){target=_blank}
     - Support for multiple candlesticks patterns - Japanese OHLC, Renko, Heikin-Ashi, Linebreak
     - Support for multiple candle intervals - 1 minute, 3 minutes, 5 minutes, 10 minutes, 15 minutes, 30 minutes, 1 hour, 1 day. 
     - Support for **MARKET**, **LIMIT**, **STOPLOSS-MARKET**, **STOPLOSS-LIMIT** orders
     - Support for **INTRADAY** and **DELIVERY** orders
 - Support for **Backtesting**, **Paper Trading** and **Real Trading**
 
-    - Currently supported [brokers](https://app.algobulls.com/user/brokerlogin) 
+    - Currently supported [brokers](https://app.algobulls.com/user/brokerlogin){target=_blank} 
 - Real-time Logs for Backtesting, Paper Trading and Real Trading
 - Multiple real-time Reports available for Backtesting, Paper Trading and Real Trading - 
     - Profit-n-Loss report (PnL report)
     - Statistics of (PnL report)
     - Order History for each order with state transitions & timestamps
-- Plot Candlestick charts using [plotly.py](https://github.com/plotly/plotly.py)
+- Plot Candlestick charts using [plotly.py](https://github.com/plotly/plotly.py){target=_blank}
     
 Backtesting, Paper Trading and Real Trading can be performed on the same strategy code base!
 
 ### Python 
 - Python Support: `Python 3.10+`.
-- Python Requirements: See [requirements.txt](https://github.com/algobulls/pyalgotrading/blob/master/requirements.txt).
+- Python Requirements: See [requirements.txt](https://github.com/algobulls/pyalgotrading/blob/master/requirements.txt){target=_blank}.
 - We recommend you to use the latest version of Python (v3.10+) to enjoy better performance benefits, especially for pandas (v1.5.3). 
 
 ### Installation
@@ -49,9 +49,9 @@ pip install pyalgotrading
 ```
 
 ## Support / Getting Help
-- *Bug Reporting / New Feature Request*: Please [create a new issue](https://github.com/algobulls/pyalgotrading/issues/new) here on GitHub.
-- *Discussion Forum*: Discuss with our developers on this [forum](https://community.algobulls.com/c/github/pyalgotrading/42)
-- *Additional Support*: If none of the above help, please contact [pushpak@algobulls.com](mailto:pushpak@algobulls.com).
+- *Bug Reporting / New Feature Request*: Please [create a new issue](https://github.com/algobulls/pyalgotrading/issues/new){target=_blank} here on GitHub.
+- *Discussion Forum*: Discuss with our developers on this [forum](https://community.algobulls.com/c/github/pyalgotrading/42){target=_blank}
+- *Additional Support*: If none of the above help, please contact [pushpak@algobulls.com](mailto:pushpak@algobulls.com){target=_blank}.
 
 
 ---

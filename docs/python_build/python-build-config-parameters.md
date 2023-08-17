@@ -6,7 +6,7 @@
 
 You can configure the strategy’s parameters by clicking on the settings symbol in the top right corner of the code editor. In this section you can view a strategy’s parameters or edit these parameters too.
 
-To know more about the parameters, [click here](https://help.algobulls.com/member/tweak.html).
+To know more about the parameters, [click here](https://help.algobulls.com/member/tweak.html){target=_blank}.
 
 [![pythonbuild](imgs_v2/python_build_edit_configuration.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs_v2/python_build_edit_configuration.png)
 
@@ -88,5 +88,6 @@ You can **rename** a strategy by clicking the edit symbol besides the strategy n
 
 [![pythonbuild](imgs_v2/python_build_strategy_rename.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs_v2/python_build_strategy_rename.png)
 
-!!! note "Note:" 
-    The Analytics & Graph sections are only visible to premium plan users. If you are using a free plan, switch to a [premium developer plan now](https://app.algobulls.com/wallet/checkout?packageType=PackageCombo&plan=5&type=buy-new-plan).
+[//]: # (!!! note "Note:" )
+
+[//]: # (    The Analytics & Graph sections are only visible to premium plan users. If you are using a free plan, switch to a [premium developer plan now]&#40;https://app.algobulls.com/wallet/checkout?packageType=PackageCombo&plan=5&type=buy-new-plan&#41;.)

@@ -12,7 +12,7 @@ ChatGPT can assist in generating code for algorithmic trading strategies. It can
 
 To get your chat GPT API keys, you can watch the video given below
 
-[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/EQQjdwdVQ-M/0.jpg)](https://youtu.be/EQQjdwdVQ-M?t=22)
+[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/EQQjdwdVQ-M/0.jpg)](https://youtu.be/EQQjdwdVQ-M?t=22){target=_blank}
 
 [//]: # (## Writing Query to Create Strategy in Python Build)
 

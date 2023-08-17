@@ -2,7 +2,7 @@
 
 ---
 
-To start developing your own strategy, you must first activate a plan from the **[Plans & Wallet](https://app.algobulls.com/wallet)** section. Select the **[Developers](https://app.algobulls.com/wallet?category=Developers)** option in the **Explore Plans** section and select a plan of your choice. There is currently one developer plans available:
+To start developing your own strategy, you must first activate a plan from the **[Plans & Wallet](https://app.algobulls.com/wallet){target=_blank}** section. Select the **[Developers](https://app.algobulls.com/pricing?section=Developers){target=_blank}** option in the **Explore Plans** section and select a plan of your choice. There is currently one developer plans available:
 
 [![pythonbuild](imgs_v2/python_build_plans.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs_v2/python_build_plans.png)
 

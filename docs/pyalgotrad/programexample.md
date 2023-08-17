@@ -12,7 +12,7 @@ You can either follow this page to create a strategy, or you can pick up a ready
 ---
 ### **Before you start...**
 
-If you want to use a ready strategy from the [pyalgostrategypool](https://github.com/algobulls/pyalgostrategypool) package, then you can directly jump to the [Upload](upload.md) section. 
+If you want to use a ready strategy from the [pyalgostrategypool](https://github.com/algobulls/pyalgostrategypool){target=_blank} package, then you can directly jump to the [Upload](upload.md) section. 
 
 ---
 ### **Let's Start...**

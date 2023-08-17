@@ -5,7 +5,7 @@
 
 Now you can code your own strategy easily using our Python Build service! Begin coding your own strategy from scratch, or modify some of our ready-made templates to suit your needs. Get access to our state-of-the-art AlgoBulls Core Trading Engine, which automatically leverages our infra so that you can access the latest historical data to gauge the performance of your strategies. Tweak the various parameters of your strategy to choose the ideal instrument, indicator values, and profit loss percentages as per your needs! View the performance of your strategy using our visual analytics feature and continue to tweak till you are satisfied with the performance. Get your strategy approved for live Trading from our experts and deploy it on 30+ supported brokers without coding any broker integration logic.
 
-Go to **Build Strategy** in the sidebar navigation and select **[Python Build](https://app.algobulls.com/build/python)** to know more.
+Go to **Build Strategy** in the sidebar navigation and select **[Python Build](https://app.algobulls.com/build/python){target=_blank}** to know more.
 
 [![pythonbuild](imgs_v2/python_build_select.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs/python_build_select.png)
 
@@ -45,7 +45,7 @@ Go to **Build Strategy** in the sidebar navigation and select **[Python Build](h
 ## 3. How to get started with Python Build?
 ---
 
-To start developing your own strategy, you must first activate a plan from the **[Plans & Wallet](https://app.algobulls.com/wallet)** section. Select the **[Developers](https://app.algobulls.com/wallet?category=Developers)** option in the **Explore Plans** section and select a plan of your choice. There are currently two developer plans available:
+To start developing your own strategy, you must first activate a plan from the **[Plans & Wallet](https://app.algobulls.com/wallet){target=_blank}** section. Select the **[Developers](https://app.algobulls.com/wallet?category=Developers)** option in the **Explore Plans** section and select a plan of your choice. There are currently two developer plans available:
 
 [![pythonbuild](imgs_v2/python_build_plans.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs/python_build_plans.png)
 
