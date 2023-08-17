@@ -50,9 +50,9 @@ You have the following utility function to be used in this strategy :
 ---
 
 !!! Links
-    - **[Strategy Structure (regular)](../strategies/common_regular_strategy.md)**
-    - **[Strategy Structure (options)](../strategies/common_options_strategy.md)**
-    - **[List of Strategies](../strategies/index.md)**
+    - **[Strategy Structure (regular)](../../strategies/strategy_guides/common_regular_strategy.md)**
+    - **[Strategy Structure (options)](../../strategies/strategy_guides/common_options_strategy.md)**
+    - **[List of Strategies](../../strategies/index.md)**
 
 
 ---
@@ -67,4 +67,4 @@ Once you create your own strategy or use a ready strategy from the [pyalgostrate
 ---
 ### **What's Next...**
 
-Next, you code the actual strategy taken as an example in this tutorial. Alternatively, you can pick up a ready strategy and directly [upload](upload.md) it.
+Checkout the strategy guides for building a [Regular Strategy](common_regular_strategy.md) or [Options Strategy](common_options_strategy.md)

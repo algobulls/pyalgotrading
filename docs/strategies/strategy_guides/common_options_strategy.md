@@ -9,17 +9,17 @@
 i. Create a new strategy file with a unique file name.
    eg: strategy_```<developer_initials>```_options_ema_crossover.py
 
-    !!!Note
-        * Add the initials of your name after the word strategy in the strategy file name so that it becomes easier to identify the developer who developed the strategy and also helps with a unique strategy name.
-        * Make sure that the file name is in lowercase and that each word is separated with an underscore '_' as shown above.
+!!!Note
+    * Add the initials of your name after the word strategy in the strategy file name so that it becomes easier to identify the developer who developed the strategy and also helps with a unique strategy name.
+    * Make sure that the file name is in lowercase and that each word is separated with an underscore '_' as shown above.
 
 ii. Create a class with the same name as the file name, and make sure the first letter of each word is in uppercase and the initials should be in uppercase as well.
     eg: For the above strategy name the class name would be:
         Strategy```<developer_initials>```OptionsEMACrossover(StrategyOptionsBaseV2)
 
-    !!! Note
-            * If the class name includes indicator names like EMA, SMA, and VWAP the name should be in uppercase in the class name but not in the file name.
-            * Every strategy class is a child class of the StrategyBase.             
+!!! Note
+        * If the class name includes indicator names like EMA, SMA, and VWAP the name should be in uppercase in the class name but not in the file name.
+        * Every strategy class is a child class of the StrategyBase.             
 
 ---
 

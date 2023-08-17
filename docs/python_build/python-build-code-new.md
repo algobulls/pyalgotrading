@@ -5,7 +5,7 @@ If you want to create your own strategy, click on the **+ Sign** in the **Code N
 
 [![pythonbuild](imgs_v2/python_build_new_strategy.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs_v2/python_build_new_strategy.png)
 
-A new blank code editor will open, allowing you to start coding your new strategy. You can check out the basic building blocks of a strategy [here](https://algobulls.github.io/pyalgotrading/structure/) to help you with your code structure. After you've finished coding, click **Save** to save this strategy in the **My Coded Strategies** section.
+A new blank code editor will open, allowing you to start coding your new strategy. You can check out the basic building blocks of a strategy [here](strategy_guides/structure.md) to help you with your code structure. After you've finished coding, click **Save** to save this strategy in the **My Coded Strategies** section.
 
 [![pythonbuild](imgs_v2/python_build_code_new_strategy.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs_v2/python_build_code_new_strategy.png)
 
