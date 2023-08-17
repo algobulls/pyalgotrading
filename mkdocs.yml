@@ -1,6 +1,7 @@
 # Reference:
 # mkdocs - https://www.mkdocs.org/user-guide/configuration/
 # mkdocs material theme - https://squidfunk.github.io/mkdocs-material/getting-started/#configuration
+# yaml-language-server: $schema=https://squidfunk.github.io/mkdocs-material/schema.json
 
 # Project Information
 site_name: pyalgotrading
@@ -12,9 +13,9 @@ site_url: https://algobulls.github.io/pyalgotrading/
 repo_url: https://github.com/algobulls/pyalgotrading
 
 theme:
-  name: readthedocs
-  # favicon: 'imgs/favicon.svg'
-  # logo: 'imgs/site_logo_white.svg'
+  name: material
+  favicon: 'imgs/favicon.svg'
+  logo: 'imgs/site_logo_white.svg'
   palette:
     primary: blue
     accent: blue
