@@ -18,7 +18,7 @@
         <link rel="prev" href="../introduction/">
       
       
-        <link rel="next" href="../python_packages/">
+        <link rel="next" href="../strategy_guides/structure/">
       
       <link rel="icon" href="https://algobulls.com/img/favicon.svg">
       <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.6">
@@ -378,24 +378,62 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Prerequisites
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         Prerequisites
       </a>
       
-    </li>
-  
+        
 
-            
-          
-            
-              
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
   
-    <li class="md-nav__item">
-      <a href="../python_packages/" class="md-nav__link">
-        Python Packages
-      </a>
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#algobulls-account" class="md-nav__link">
+    AlgoBulls Account
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#python-310" class="md-nav__link">
+    Python 3.10+
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pyalgotrading-package" class="md-nav__link">
+    Pyalgotrading Package
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#jupyter-notebook" class="md-nav__link">
+    Jupyter Notebook
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1473,6 +1511,42 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#algobulls-account" class="md-nav__link">
+    AlgoBulls Account
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#python-310" class="md-nav__link">
+    Python 3.10+
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pyalgotrading-package" class="md-nav__link">
+    Pyalgotrading Package
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#jupyter-notebook" class="md-nav__link">
+    Jupyter Notebook
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1494,41 +1568,70 @@
 <p>You will need the following to perform this tutorial:</p>
 <ol>
 <li>
-<p><strong>AlgoBulls Account (<a href="https://www.algobulls.com/" target="_blank">Link</a>)</strong> - You will need this account to upload and test your strategies. The account needs to be setup with the proper risk management values and a bound broker before any trades can be executed. Make sure the account is properly setup or contact <a href="mailto:support@algobulls.com">AlgoBulls Support</a> for any help.</p>
-<hr />
-</li>
-<li>
-<p><strong>Python 3.10 (<a href="https://www.python.org/downloads/" target="_blank">Link</a>)</strong> - The pyalgotrading platform can run all strategies that conform to Python 3.10. </p>
-<hr />
-</li>
-<li>
-<p><strong>A Python IDE of your choice, like Pycharm (<a href="https://www.jetbrains.com/pycharm/download/" target="_blank">Link</a>)</strong> - As mentioned in the [Introduction], this tutorial will demonstrate the pyalgotrading package by implementing the Simple Moving Average Crossover Strategy for Regular Orders. You will make this strategy as a separate python file, and the PyCharm Community Edition IDE is enough for this purpose. If you are already using a Python IDE of your choice, you may skip this step. </p>
-<hr />
-</li>
-<li>
-<p><strong>Jupyter Notebook (<a href="https://jupyter.org/install" target="_blank">Link</a>)</strong> - You will use a Jupyter Notebook to connect to the AlgoBulls platform. You will upload the strategy, test your strategy (Backtesting, Paper Trading or Real Trading), and fetch logs using the notebook.</p>
-<hr />
-</li>
-</ol>
-<div class="admonition tips">
-<p class="admonition-title">Tips</p>
+<h3 id="algobulls-account"><strong><a href="https://www.algobulls.com/" target="_blank">AlgoBulls Account</a></strong><a class="headerlink" href="#algobulls-account" title="Permanent link">&para;</a></h3>
+<p>You will need this account to upload and test your strategies. You can create your account for FREE on <a href="https://app.algobulls.com/user/register" target="_blank">algobulls website</a>, to access the features and developer key you need to follow the below steps.</p>
 <ul>
-<li>It is a good idea to set up a virtual environment first</li>
-<li>Install Python 3.10</li>
+<li><strong>Step 1</strong>: Activate the <a href="https://app.algobulls.com/pricing?section=Developers" target="_blank">Advanced Developer Plan</a> from the <strong>Pricing</strong> menu
+    <a href="../imgs/purchase_plan.png"><img alt="purchase plan" src="../imgs/purchase_plan.png" /></a></li>
+<li><strong>Step 2</strong>: Get the <a href="https://app.algobulls.com/settings?query=eyJpc0xpdmUiOiJ0cnVlIn0%3D&amp;section=developerOptions" target="_blank">Developer Key</a> from the <strong>Settings</strong> section
+    <a href="../imgs/developer_key.png"><img alt="developer key" src="../imgs/developer_key.png" /></a></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Please Note</p>
+<p>For security reasons, the <strong>developer key</strong> will get reset everytime you log out from your AlgoBulls account.</p>
+</div>
+<p>Once you get the developer key, you can access the AlgoBulls platform using <code>pyalgotrading</code> functions.   </p>
+<hr />
+</li>
+<li>
+<h3 id="python-310"><strong><a href="https://www.python.org/downloads/" target="_blank">Python 3.10+</a></strong><a class="headerlink" href="#python-310" title="Permanent link">&para;</a></h3>
+<p>The pyalgotrading platform can run all strategies that conform to Python 3.8 or higher. We recommend Python 3.10 or higher. </p>
+<div class="admonition tip">
+<p class="admonition-title">Python Tips</p>
+<ul>
+<li>It is a good idea to set up a virtual environment first while installing Python 3.10.</li>
 <li>Once Python is installed, most packages are easily installed in your venv using <code>pip install</code> command</li>
-<li><code>pip install TA-Lib</code></li>
-<li><code>pip install pyalgotrading</code></li>
-<li><code>pip install jupyterlab</code></li>
 </ul>
 </div>
 <hr />
+</li>
+<li>
+<h3 id="pyalgotrading-package"><strong><a href="https://pypi.org/project/pyalgotrading/" target="_blank">Pyalgotrading Package</a></strong><a class="headerlink" href="#pyalgotrading-package" title="Permanent link">&para;</a></h3>
+<p>You just need to install <code>pyalgotrading</code> and you are all set to create &amp; execute your fully automated trading strategies. You can install the <code>pyalgotrading</code> packages using the command given below.
+    <div class="highlight"><pre><span></span><code>pip install pyalgotrading
+</code></pre></div></p>
+<hr />
+</li>
+<li>
+<h3 id="jupyter-notebook"><strong><a href="https://jupyter.org/install" target="_blank">Jupyter Notebook</a></strong><a class="headerlink" href="#jupyter-notebook" title="Permanent link">&para;</a></h3>
+<p>You will use a Jupyter Notebook to connect to the AlgoBulls platform. You will upload the strategy, test your strategy (Backtesting, Paper Trading or Real Trading), and fetch logs using the notebook.<br />
+       Install the jupyter notebook using the following command.<br />
+       <div class="highlight"><pre><span></span><code>pip install jupyter
+</code></pre></div></p>
+<div class="admonition tip">
+<p class="admonition-title">Pro Tip</p>
+<p>You don't really need Jupyter Notebook in case you are an experienced pyalgotrading user. You can directly integrate it in your application.</p>
+</div>
+<hr />
+</li>
+</ol>
+<div class="admonition tip">
+<p class="admonition-title">Enhancing Productivity</p>
+<ul>
+<li>For boosting your productivity in building strategies and executing them using pyalgotrading, you can make use of python IDEs of your choice, like<ul>
+<li><strong><a href="https://www.jetbrains.com/pycharm/download/" target="_blank">Pycharm</a></strong></li>
+<li><strong><a href="https://code.visualstudio.com/" target="_blank">VS Code</a></strong></li>
+</ul>
+</li>
+</ul>
+</div>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-08-17T13:32:07+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-08-17</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-08-18T11:05:47+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-08-18</span>
       
     
   </small>
@@ -1543,6 +1646,8 @@
             </div>
           
           
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
         </div>
         
       </main>
@@ -1611,7 +1716,7 @@
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
       <script src="../../assets/javascripts/bundle.51198bba.min.js"></script>

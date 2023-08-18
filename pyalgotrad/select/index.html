@@ -375,20 +375,6 @@
 
             
           
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../python_packages/" class="md-nav__link">
-        Python Packages
-      </a>
-    </li>
-  
-
-            
-          
         </ul>
       </nav>
     </li>
@@ -1678,7 +1664,7 @@
 <h3 id="previously">Previously...<a class="headerlink" href="#previously" title="Permanent link">&para;</a></h3>
 <p>You have uploaded or saved a strategy by:</p>
 <ul>
-<li>Your strategy is already <a href="pyalgotrad/upload.md">uploaded</a> on the AlgoBulls account and you want to search or select it</li>
+<li>Your strategy is already <a href="../upload/">uploaded</a> on the AlgoBulls account and you want to search or select it</li>
 </ul>
 <p><strong>OR</strong></p>
 <ul>
@@ -1692,7 +1678,7 @@
 <ul>
 <li>Make sure you have an active working AlgoBulls account ready to go!</li>
 <li>Open a Jupyter Notebook.</li>
-<li>If you have coded the strategy yourself and not used a ready strategy from the <a href="https://github.com/algobulls/pyalgostrategypool">pyalgostrategypool</a> package, then make sure your strategy file (.py) and the Jupyter Notebook <strong>are in the same folder</strong>. </li>
+<li>If you have coded the strategy yourself and not used a ready strategy from the <a href="https://github.com/algobulls/pyalgostrategypool" target="_blank">pyalgostrategypool</a> package, then make sure your strategy file (.py) and the Jupyter Notebook <strong>are in the same folder</strong>. </li>
 </ul>
 <hr />
 <h3 id="lets-start">Let's Start...<a class="headerlink" href="#lets-start" title="Permanent link">&para;</a></h3>
@@ -1705,14 +1691,18 @@
 <hr />
 <h4 id="import-the-strategy-class">Import the strategy class<a class="headerlink" href="#import-the-strategy-class" title="Permanent link">&para;</a></h4>
 <p>Perform the below step either to import a ready strategy <strong>OR</strong> to import your own created strategy.</p>
-<blockquote>
+<ul>
+<li>
 <p><strong>Import a ready strategy</strong>
-    <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pyalgostrategypool.strategy_ema_regular_order</span> <span class="kn">import</span> <span class="n">StrategyEMARegularOrder</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pyalgostrategypool.strategy_ema_regular_order</span> <span class="kn">import</span> <span class="n">StrategyEMARegularOrder</span>
 </code></pre></div></p>
+</li>
+<li>
 <p><strong>Import your own strategy</strong>
-    <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">strategy_sma_regular_order</span> <span class="kn">import</span> <span class="n">StrategySMARegularOrder</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">strategy_sma_regular_order</span> <span class="kn">import</span> <span class="n">StrategySMARegularOrder</span>
 </code></pre></div></p>
-</blockquote>
+</li>
+</ul>
 <hr />
 <h4 id="establish-a-connection-to-the-algobulls-platform">Establish a connection to the AlgoBulls Platform<a class="headerlink" href="#establish-a-connection-to-the-algobulls-platform" title="Permanent link">&para;</a></h4>
 <p><div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span> <span class="o">=</span> <span class="n">AlgoBullsConnection</span><span class="p">()</span>
@@ -1720,9 +1710,11 @@
 </code></pre></div>
 The output of the above step is:</p>
 <p><code>Please login to this URL with your AlgoBulls credentials and get your developer access token: https://app.algobulls.com/user/login</code></p>
-<p>You will need to log in to your AlgoBulls account and fetch the access token from:</p>
-<p>Settings -&gt; General -&gt; Developer Options</p>
-<p>(<a href="https://help.algobulls.com/member/Settings/general-settings/#developer-options">See How</a>)</p>
+<div class="admonition info">
+<p class="admonition-title">Get Developer Key</p>
+<p>You will need to log in to your AlgoBulls account and fetch the access token from:  (<a href="https://algobulls.github.io/pyalgotrading/pyalgotrad/prerequisites/#algobulls-account]{target=_blank}">See How</a>)<br />
+<strong>Settings</strong> -&gt; <strong>General</strong> -&gt; <strong>Developer Options</strong>  </p>
+</div>
 <p>Once you have the access token, set it in the code as shown here:</p>
 <p><div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">set_access_token</span><span class="p">(</span><span class="s1">&#39;4365817b795770ea31040a21ad29c8e78b63ad88&#39;</span><span class="p">)</span>
 </code></pre></div>
@@ -1755,7 +1747,7 @@ Replace the token you have copied with the token in the code above.</p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-08-16T08:42:58+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-08-16</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-08-18T12:21:03+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-08-18</span>
       
     
   </small>
@@ -1770,6 +1762,8 @@ Replace the token you have copied with the token in the code above.</p>
             </div>
           
           
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
         </div>
         
       </main>
@@ -1838,7 +1832,7 @@ Replace the token you have copied with the token in the code above.</p>
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
       <script src="../../assets/javascripts/bundle.51198bba.min.js"></script>
