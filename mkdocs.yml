@@ -14,6 +14,10 @@ repo_url: https://github.com/algobulls/pyalgotrading
 
 theme:
   name: material
+  features:
+    - content.code.copy
+    - content.tabs.link
+
   favicon: 'https://algobulls.com/img/favicon.svg'
   logo: 'algobulls_logo.svg'
   palette:
@@ -125,6 +129,7 @@ markdown_extensions:
   - codehilite
   - toc:                    # Docs: https://squidfunk.github.io/mkdocs-material/extensions/permalinks/
       permalink: true
-  - pymdownx.tabbed
-  - pymdownx.superfences
   - attr_list
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true

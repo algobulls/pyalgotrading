@@ -35,18 +35,15 @@ from pyalgotrading.algobulls import AlgoBullsConnection
 ```
 
 ---
-#### Import the strategy class
-Perform the below step either to import a ready strategy **OR** to import your own created strategy.
+- **Import a ready strategy**
+```python
+from pyalgostrategypool.strategy_ema_regular_order import StrategyEMARegularOrder
+```
 
-> **Import a ready strategy**
-    ```python
-    from pyalgostrategypool.strategy_ema_regular_order import StrategyEMARegularOrder
-    ```
-
-> **Import your own strategy**
-    ```python
-    from strategy_sma_regular_order import StrategySMARegularOrder
-    ```
+- **Import your own strategy**
+```python
+from strategy_sma_regular_order import StrategySMARegularOrder
+```
 
 ---
 #### Establish a connection to the AlgoBulls Platform
@@ -59,12 +56,10 @@ The output of the above step is:
 
 `Please login to this URL with your AlgoBulls credentials and get your developer access token: https://app.algobulls.com/user/login`
 
-You will need to log in to your AlgoBulls account and fetch the access token from:
-
-Settings -> General -> Developer Options
-
-([See How](https://algobulls.github.io/pyalgotrading/pyalgotrad/prerequisites/#algobulls-account]{target=_blank}))
-
+!!! info "Get Developer Key"
+    You will need to log in to your AlgoBulls account and fetch the access token from:  ([See How](https://algobulls.github.io/pyalgotrading/pyalgotrad/prerequisites/#algobulls-account]{target=_blank}))  
+    **Settings** -> **General** -> **Developer Options**  
+  
 Once you have the access token, set it in the code as shown here:
 
 ```python

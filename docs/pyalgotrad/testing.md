@@ -50,11 +50,10 @@ The output of the above step is:
 
 `Please login to this URL with your AlgoBulls credentials and get your developer access token: https://app.algobulls.com/user/login`
 
-You will need to log in to your AlgoBulls account and fetch the access token from:
-
-Settings -> General -> Developer Options
-
-([See How](https://algobulls.github.io/pyalgotrading/pyalgotrad/prerequisites/#algobulls-account]{target=_blank}))
+!!! info "Get Developer Key"
+    You will need to log in to your AlgoBulls account and fetch the access token from:  ([See How](https://algobulls.github.io/pyalgotrading/pyalgotrad/prerequisites/#algobulls-account]{target=_blank}))  
+    **Settings** -> **General** -> **Developer Options**  
+    
 
 Once you have the access token, set it in the code as shown here:
 
@@ -153,8 +152,7 @@ broking_details = {
 
 Click on each of the tabs to see the relevant code snippet.
 
-
-> **Backtesting**
+=== "**Backtesting**"
     ```python
     algobulls_connection.backtest(
             strategy=strategy_code,         # strategy code
@@ -171,7 +169,7 @@ Click on each of the tabs to see the relevant code snippet.
     ```
 
 
-> **Paper Trading**
+=== "**Paper Trading**"
     ```python
     algobulls_connection.papertrade(
             strategy=strategy_code,         # strategy code
@@ -187,7 +185,7 @@ Click on each of the tabs to see the relevant code snippet.
     )
     ```
 
-> **Real Trading**
+=== "**Real Trading**"
     ```python
     algobulls_connection.realtrade(
             strategy=strategy_code,          # strategy code
@@ -206,18 +204,19 @@ Click on each of the tabs to see the relevant code snippet.
 #### Fetch Job Status
 
 Click on each of the tabs to see the relevant code snippet.
-There are 4 stages of your strategy execution : **STARTING**, **STARTED**, **STOPPING** and **STOPPED**
-> **Backtesting**
+There are 4 stages of your strategy execution : **STARTING**, **STARTED**, **STOPPING** and **STOPPED**  
+
+=== "**Backtesting**"
     ```python
     algobulls_connection.get_backtesting_job_status(strategy_code)
     ```
     
-> **Paper Trading**
+=== "**Paper Trading**"
     ```python
     algobulls_connection.get_papertrading_job_status(strategy_code)
     ```
     
-> **Real Trading**
+=== "**Real Trading**"
     ```python
     algobulls_connection.get_realtrading_job_status(strategy_code)
     ```
@@ -227,19 +226,19 @@ You can stop a submitted job anytime.
 ---
 #### Stop a Job
 
-Click on each of the tabs to see the relevant code snippet.
+Click on each of the tabs to see the relevant code snippet.  
 
-> **Backtesting**
+=== "**Backtesting**"
     ```python
     algobulls_connection.stop_backtesting_job(strategy_code)
     ```
     
-> **Paper Trading**
+=== "**Paper Trading**"
     ```python
     algobulls_connection.stop_papertrading_job(strategy_code)
     ```
     
-> **Real Trading**
+=== "**Real Trading**"
     ```python
     algobulls_connection.stop_realtrading_job(strategy_code)
     ```
@@ -247,11 +246,16 @@ Click on each of the tabs to see the relevant code snippet.
 You can fetch the logs in the middle of a job to monitor the progress.
 
 ---
-#### Fetch logs of an ongoing/stopped/completed job
+#### Fetch logs
 
-Click on each of the tabs to see the relevant code snippet.
+!!! Tip "Logging Tip"
+    - There are 2 variations when fetching logs:  
+        - Progressive Logs (`auto_update` = True):  will show progress bar and update the latest logs as the strategy is executed
+        - Complete Logs (`auto_update` = False): will fetch logs only till the point where strategy is currently executing.(It wont update the latest logs, unless called manually again)
 
-> **Backtesting**
+Click on each of the tabs to see the relevant code snippet.  
+
+=== "**Backtesting**"
     ```python
     logs = algobulls_connection.get_backtesting_logs(
                 strategy_code,                              # strategy code 
@@ -261,7 +265,7 @@ Click on each of the tabs to see the relevant code snippet.
     print(logs)
     ```
     
-> **Paper Trading**
+=== "**Paper Trading**"
     ```python
     logs = algobulls_connection.get_papertrading_logs(
                 strategy_code,                              # strategy code 
@@ -271,7 +275,7 @@ Click on each of the tabs to see the relevant code snippet.
     print(logs)
     ```
     
-> **Real Trading**
+=== "**Real Trading**"
     ```python
     logs = algobulls_connection.get_realtrading_logs(
                 strategy_code,                              # strategy code 
@@ -288,7 +292,10 @@ You can fetch the PnL report, statistics and order history for a job.
 
 Click on each of the tabs to see the relevant code snippet.
 
-> **Backtesting**
+!!! Warning "Please Note"
+     Make sure that  strategy's execution **status** is at **STOPPED** stage before generating **PnL reports**
+
+=== "**Backtesting**"
     ```python
     algobulls_connection.get_backtesting_report_pnl_table(
             strategy_code,              # strategy code
@@ -298,7 +305,7 @@ Click on each of the tabs to see the relevant code snippet.
     )
     ```
     
-> **Paper Trading**
+=== "**Paper Trading**"
     ```python
     algobulls_connection.get_papertrading_report_pnl_table(
             strategy_code,              # strategy code
@@ -308,7 +315,7 @@ Click on each of the tabs to see the relevant code snippet.
     )
     ```
     
-> **Real Trading**
+=== "**Real Trading**"
     ```python
     algobulls_connection.get_realtrading_report_pnl_table(
             strategy_code,              # strategy code
@@ -323,7 +330,10 @@ Click on each of the tabs to see the relevant code snippet.
 
 Click on each of the tabs to see the relevant code snippet.
 
-> **Backtesting**
+!!! Tip "Analytics Tips"
+    You can view your analytics on the python build page as well, simply log inside your AlgoBulls Account, and look for your Strategy in **Python Build** -> **My Coded Strategies**
+
+=== "**Backtesting**"
     ```python
     algobulls_connection.get_backtesting_report_statistics(
         strategy_code,          # strategy code
@@ -333,7 +343,7 @@ Click on each of the tabs to see the relevant code snippet.
     )
     ```
     
-> **Paper Trading**
+=== "**Paper Trading**"
     ```python
     algobulls_connection.get_papertrading_report_statistics(
         strategy_code,          # strategy code
@@ -343,7 +353,7 @@ Click on each of the tabs to see the relevant code snippet.
     )
     ```
     
-> **Real Trading**
+=== "**Real Trading**"
     ```python
     algobulls_connection.get_realtrading_report_statistics(
         strategy_code,          # strategy code
@@ -358,19 +368,19 @@ Click on each of the tabs to see the relevant code snippet.
 
 Click on each of the tabs to see the relevant code snippet.
 
-> **Backtesting**
+=== "**Backtesting**"
     ```python
     order_history = algobulls_connection.get_backtesting_report_order_history(strategy_code)
     print(order_history)
     ```
     
-> **Paper Trading**
+=== "**Paper Trading**"
     ```python
     order_history = algobulls_connection.get_papertrading_report_order_history(strategy_code)
     print(order_history)
     ```
 
-> **Real Trading**
+=== "**Real Trading**"
     ```python
     order_history = algobulls_connection.get_realtrading_report_order_history(strategy_code)
     print(order_history)
