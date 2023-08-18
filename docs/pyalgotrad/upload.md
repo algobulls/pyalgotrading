@@ -9,7 +9,7 @@ You have created a strategy by:
 
 **OR**
 
-* Picking up a ready strategy from the [pyalgostrategypool](https://github.com/algobulls/pyalgostrategypool) package.
+* Picking up a ready strategy from the [pyalgostrategypool](https://github.com/algobulls/pyalgostrategypool){target=_blank} package.
 
 ---
 ### Now...
@@ -19,7 +19,7 @@ You are now ready to upload your strategy into your AlgoBulls account for Backte
 ### Before you start...
 * Make sure you have an active working AlgoBulls account ready to go!
 * Open a Jupyter Notebook.
-* If you have coded the strategy yourself and not used a ready strategy from the [pyalgostrategypool](https://github.com/algobulls/pyalgostrategypool) package, then make sure your strategy file (.py) and the Jupyter Notebook **are in the same folder**. 
+* If you have coded the strategy yourself and not used a ready strategy from the [pyalgostrategypool](https://github.com/algobulls/pyalgostrategypool){target=_blank} package, then make sure your strategy file (.py) and the Jupyter Notebook **are in the same folder**. 
 
 ---
 ### Let's Start...
@@ -63,7 +63,7 @@ You will need to log in to your AlgoBulls account and fetch the access token fro
 
 Settings -> General -> Developer Options
 
-([See How](https://help.algobulls.com/member/Settings/general-settings/#developer-options))
+([See How](https://algobulls.github.io/pyalgotrading/pyalgotrad/prerequisites/#algobulls-account]{target=_blank}))
 
 Once you have the access token, set it in the code as shown here:
 

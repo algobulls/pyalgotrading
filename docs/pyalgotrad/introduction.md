@@ -9,7 +9,7 @@ This tutorial aims to help users practice and get familiar with the [Pyalgotradi
 
 Before starting the tutorial, ensure that you have the following setup:
 
-- An active and working [AlgoBulls](https://www.algobulls.com/) account
+- An active and working [AlgoBulls](https://www.algobulls.com/){target=_blank} account
 - Python IDE of your choice (if you want to code your own strategy)
 - Jupyter Notebook (for points 2,3, and 4)
 
@@ -61,7 +61,7 @@ pip install pyalgotrading
 
     ---
 
-2. Upload your strategy to the [AlgoBulls](https://www.algobulls.com/) platform: After coding your strategy, you will need to upload it to the [AlgoBulls](https://www.algobulls.com/) platform. This can be done by creating a new strategy on the platform and then uploading your strategy file.  
+2. Upload your strategy to the [AlgoBulls](https://www.algobulls.com/){target=_blank} platform: After coding your strategy, you will need to upload it to the [AlgoBulls](https://www.algobulls.com/) platform. This can be done by creating a new strategy on the platform and then uploading your strategy file.  
     
     ---
 
@@ -77,7 +77,7 @@ pip install pyalgotrading
     
     ---
 
-6. Reach out to [AlgoBulls Support](mailto:support@algobulls.com) for any queries: If you face any issues during the tutorial, you can reach out to the [AlgoBulls Support](mailto:support@algobulls.com)(mailto:support@algobulls.com) team for help.  
+6. Reach out to [AlgoBulls Support](mailto:support@algobulls.com){target=_blank} for any queries: If you face any issues during the tutorial, you can reach out to the [AlgoBulls Support](mailto:support@algobulls.com)(mailto:support@algobulls.com) team for help.  
 
 ---
 
@@ -90,17 +90,17 @@ In conclusion, this tutorial helps users get started with the Pyalgotrading pack
 ## Contribution Guidelines
 Here’s how we suggest you go about proposing a change to this project:
 
-1. [Fork this project][fork] to your account.
-2. [Create a branch][branch] for the change you intend to make.
+1. [Fork this project][fork]{target=_blank} to your account.
+2. [Create a branch][branch]{target=_blank} for the change you intend to make.
 3. Make your changes to your fork.
-4. [Send a pull request][pr] from your fork’s branch to our `master` branch.
+4. [Send a pull request][pr]{target=_blank} from your fork’s branch to our `master` branch.
 
 [fork]: https://help.github.com/articles/fork-a-repo/
 [branch]: https://help.github.com/articles/creating-and-deleting-branches-within-your-repository
 [pr]: https://help.github.com/articles/using-pull-requests/
 
 ### Changelog
-See [CHANGELOG.md](https://github.com/algobulls/pyalgotrading/blob/master/CHANGELOG.md).
+See [CHANGELOG.md](https://github.com/algobulls/pyalgotrading/blob/master/CHANGELOG.md){target=_blank}.
 
 ### License
-See [LICENSE](https://github.com/algobulls/pyalgotrading/blob/master/LICENSE).
+See [LICENSE](https://github.com/algobulls/pyalgotrading/blob/master/LICENSE){target=_blank}.

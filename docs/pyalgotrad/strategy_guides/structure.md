@@ -59,7 +59,7 @@ You have the following utility function to be used in this strategy :
 
 #### Flowchart
 
-Once you create your own strategy or use a ready strategy from the [pyalgostrategypool](https://github.com/algobulls/pyalgostrategypool) package, this is how it works internally on the AlgoBulls Core Trading Engine.
+Once you create your own strategy or use a ready strategy from the [pyalgostrategypool](https://github.com/algobulls/pyalgostrategypool){target=_blank} package, this is how it works internally on the AlgoBulls Core Trading Engine.
 
 ![Flowchart](flowchart.png "How does a Strategy work")
 

@@ -54,7 +54,7 @@ You will need to log in to your AlgoBulls account and fetch the access token fro
 
 Settings -> General -> Developer Options
 
-([See How](https://help.algobulls.com/member/Settings/general-settings/#developer-options))
+([See How](https://algobulls.github.io/pyalgotrading/pyalgotrad/prerequisites/#algobulls-account]{target=_blank}))
 
 Once you have the access token, set it in the code as shown here:
 
@@ -206,7 +206,7 @@ Click on each of the tabs to see the relevant code snippet.
 #### Fetch Job Status
 
 Click on each of the tabs to see the relevant code snippet.
-
+There are 4 stages of your strategy execution : **STARTING**, **STARTED**, **STOPPING** and **STOPPED**
 > **Backtesting**
     ```python
     algobulls_connection.get_backtesting_job_status(strategy_code)
@@ -253,19 +253,31 @@ Click on each of the tabs to see the relevant code snippet.
 
 > **Backtesting**
     ```python
-    logs = algobulls_connection.get_backtesting_logs(strategy_code, auto_update=True, display_logs_in_auto_update_mode=True)
+    logs = algobulls_connection.get_backtesting_logs(
+                strategy_code,                              # strategy code 
+                auto_update=True,                           # (default=True)update the logs and show your strategy progress. If False, will only fetch logs from start to the current stage of execution
+                display_logs_in_auto_update_mode=True       # only if auto_update is also True, will print logs as the progress is tracked
+            )
     print(logs)
     ```
     
 > **Paper Trading**
     ```python
-    logs = algobulls_connection.get_papertrading_logs(strategy_code)
+    logs = algobulls_connection.get_papertrading_logs(
+                strategy_code,                              # strategy code 
+                auto_update=True,                           # (default=True)update the logs and show your strategy progress. If False, will only fetch logs from start to the current stage of execution
+                display_logs_in_auto_update_mode=True       # only if auto_update is also True, will print logs as the progress is tracked
+            )
     print(logs)
     ```
     
 > **Real Trading**
     ```python
-    logs = algobulls_connection.get_realtrading_logs(strategy_code)
+    logs = algobulls_connection.get_realtrading_logs(
+                strategy_code,                              # strategy code 
+                auto_update=True,                           # (default=True)update the logs and show your strategy progress. If False, will only fetch logs from start to the current stage of execution
+                display_logs_in_auto_update_mode=True       # only if auto_update is also True, will print logs as the progress is tracked
+            )
     print(logs)
     ```
     
@@ -278,17 +290,32 @@ Click on each of the tabs to see the relevant code snippet.
 
 > **Backtesting**
     ```python
-    algobulls_connection.get_backtesting_report_pnl_table(strategy_code, show_all_rows=True)
+    algobulls_connection.get_backtesting_report_pnl_table(
+            strategy_code,              # strategy code
+            show_all_rows=True,         # default=True         
+            force_fetch=True,           # pnl data is saved locally once fetched, to update the locally fetched data, make this parameter True
+            country='USA',              # country of the exchange that was used while starting the job ('India' or 'USA')
+    )
     ```
     
 > **Paper Trading**
     ```python
-    algobulls_connection.get_papertrading_report_pnl_table(strategy_code, show_all_rows=True)
+    algobulls_connection.get_papertrading_report_pnl_table(
+            strategy_code,              # strategy code
+            show_all_rows=True,         # default=True         
+            force_fetch=True,           # pnl data is saved locally once fetched, to update the locally fetched data, make this parameter True
+            country='USA',              # country of the exchange that was used while starting the job ('India' or 'USA')
+    )
     ```
     
 > **Real Trading**
     ```python
-    algobulls_connection.get_realtrading_report_pnl_table(strategy_code, show_all_rows=True)
+    algobulls_connection.get_realtrading_report_pnl_table(
+            strategy_code,              # strategy code
+            show_all_rows=True,         # default=True         
+            force_fetch=True,           # pnl data is saved locally once fetched, to update the locally fetched data, make this parameter True
+            country='USA',              # country of the exchange that was used while starting the job ('India' or 'USA')
+    )
     ```
 
 ---

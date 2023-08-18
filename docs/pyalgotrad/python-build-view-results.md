@@ -44,22 +44,6 @@ The trade by trade P&L in Currency or Percentage.
 
 [![pythonbuild](../python_build/imgs_v2/python_build_underwater_drawdown.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](../python_build/imgs_v2/python_build_underwater_drawdown.png)
 
-
-[//]: # (iv. ROI &#40;INR&#41;: Cumulative P&L of all the trades.)
-
-[//]: # ()
-[//]: # ([![pythonbuild]&#40;imgs/python_build_roi_inr.png "Click to Enlarge or Ctrl+Click to open in a new Tab"&#41;]&#40;imgs/python_build_roi_inr.png&#41;)
-
-[//]: # (**v. ROI%:** You will be able to view the ROI in percentage here.)
-
-[//]: # ()
-[//]: # (![pythonbuild]&#40;imgs/python_build_roi_percent.png&#41;)
-
-[//]: # ([**iv. The Graph Tool**]&#40;https://help.algobulls.com/member/strategy-card.html#6-graph-tool&#41;)
-
-[//]: # ()
-[//]: # ([![pythonbuild]&#40;imgs/python_build_graph_tool_2.png "Click to Enlarge or Ctrl+Click to open in a new Tab"&#41;]&#40;&#41;)
-
 #### P&L Book
 View detailed trade by trade report. Premium users can analyse this data in the form of heatmaps for Gross Profit & Loss, Trading Volume & Total number of Trades.
 

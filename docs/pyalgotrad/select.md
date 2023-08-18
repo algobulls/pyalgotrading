@@ -6,7 +6,7 @@
 You have uploaded or saved a strategy by:
 
 [//]: # (* Coding the complete strategy from the [Normal Strategy Guide]&#40;strategies/common_normal_strategy.md&#41; or [Options Strategy Guide]&#40;strategies/common_options_strategy.md&#41; page.)
-* Your strategy is already [uploaded](pyalgotrad/upload.md) on the AlgoBulls account and you want to search or select it
+* Your strategy is already [uploaded](upload.md) on the AlgoBulls account and you want to search or select it
     
 **OR**
 
@@ -22,7 +22,7 @@ You are now ready to select or import your strategy from your AlgoBulls account 
 ### Before you start...
 * Make sure you have an active working AlgoBulls account ready to go!
 * Open a Jupyter Notebook.
-* If you have coded the strategy yourself and not used a ready strategy from the [pyalgostrategypool](https://github.com/algobulls/pyalgostrategypool) package, then make sure your strategy file (.py) and the Jupyter Notebook **are in the same folder**. 
+* If you have coded the strategy yourself and not used a ready strategy from the [pyalgostrategypool](https://github.com/algobulls/pyalgostrategypool){target=_blank} package, then make sure your strategy file (.py) and the Jupyter Notebook **are in the same folder**. 
 
 ---
 ### Let's Start...
@@ -66,7 +66,7 @@ You will need to log in to your AlgoBulls account and fetch the access token fro
 
 Settings -> General -> Developer Options
 
-([See How](https://help.algobulls.com/member/Settings/general-settings/#developer-options))
+([See How](https://algobulls.github.io/pyalgotrading/pyalgotrad/prerequisites/#algobulls-account]{target=_blank}))
 
 Once you have the access token, set it in the code as shown here:
 

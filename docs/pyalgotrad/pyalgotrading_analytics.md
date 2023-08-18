@@ -63,5 +63,3 @@
     - This visual tool helps spot trends and patterns, aiding in identifying strong and weak performance periods.
        ![monthly returns heatmap](../analytics/analytics_imgs/monthly_returns_heatmap.png)
 
-[//]: # (- ### Return Quantiles)
-

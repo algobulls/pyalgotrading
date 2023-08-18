@@ -328,4 +328,4 @@ ii. Once the strategy is completed perform O-I-L on the strategy code and remove
 ---
 
 To know more about a strategy from our given template, simply **check the first line of comment** in the code of that specific strategy.
-You can even access them [here](https://algobulls.github.io/pyalgotrading/) in `Strategies` Section
+You can even access them [here](https://algobulls.github.io/pyalgotrading/){target=_blank} in `Strategies` Section

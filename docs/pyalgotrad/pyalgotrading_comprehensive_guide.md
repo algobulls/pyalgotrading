@@ -62,9 +62,7 @@ To embark on your journey with **pyalgotrading**, the first step is installing t
 1. Open your terminal or command prompt.
 2. Type the following command and press Enter:
     ```
-    pip install **pyalgotrading**
-    pip install quantstats==0.0.59
-    pip install pandas==1.5.3
+    pip install pyalgotrading
     ```
 
 The first line installs the **pyalgotrading** library, while the subsequent lines install compatible versions of quantstats and pandas libraries. These are important dependencies that contribute to the functionality and analytical capabilities of **pyalgotrading**.
