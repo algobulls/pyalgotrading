@@ -2,16 +2,11 @@
 
 ---
 
-This tutorial aims to help users practice and get familiar with the [Pyalgotrading](https://github.com/algobulls/pyalgotrading/) package, which is a Python-based algorithmic trading library. It allows you to create and execute your trading strategies on various financial instruments such as equities, futures, options, and more. To follow this tutorial, you will need to have an active and working [AlgoBulls](https://www.algobulls.com/) account, which is a platform for creating and testing trading strategies.
+This documentation aims to help users practice and get familiar with the [Pyalgotrading](https://github.com/algobulls/pyalgotrading/) package, which is a Python-based algorithmic trading library. It allows you to create and execute your trading strategies on various financial instruments such as equities, futures, options, and more. To start developing with pyalgotrading, you will need to have an active and working [AlgoBulls](https://www.algobulls.com/) account, which is a platform for creating and testing trading strategies.
 
----
-## [Prerequisites](prerequisites.md)
 
-Before starting the tutorial, ensure that you have the following setup:
-
-- An active and working [AlgoBulls](https://www.algobulls.com/){target=_blank} account
-- Python IDE of your choice (if you want to code your own strategy)
-- Jupyter Notebook (for points 2,3, and 4)
+!!! Note "Prerequisites"
+    Before starting with development, make sure you have set your work-space and have all the prerequisites ready as given [here](prerequisites.md)
 
 ---
 
@@ -61,7 +56,7 @@ pip install pyalgotrading
 
     ---
 
-2. Upload your strategy to the [AlgoBulls](https://www.algobulls.com/){target=_blank} platform: After coding your strategy, you will need to upload it to the [AlgoBulls](https://www.algobulls.com/) platform. This can be done by creating a new strategy on the platform and then uploading your strategy file.  
+2. Upload your strategy to the [AlgoBulls](https://www.algobulls.com/){target=_blank} platform: After coding your strategy, you will need to upload it to the [AlgoBulls](https://www.algobulls.com/){target=_blank} platform. This can be done by creating a new strategy on the platform and then uploading your strategy file.  
     
     ---
 
@@ -73,17 +68,17 @@ pip install pyalgotrading
     
     ---
 
-5. Check out the basic [structure](structure.md) of a strategy: Before coding your strategy, you can refer to the basic structure of a strategy provided by the Pyalgotrading package. This will give you an idea of the methods involved in the trading strategy and their flow.  
+5. Check out the basic [structure](strategy_guides/structure.md) of a strategy: Before coding your strategy, you can refer to the basic structure of a strategy provided by the Pyalgotrading package. This will give you an idea of the methods involved in the trading strategy and their flow.  
     
     ---
 
-6. Reach out to [AlgoBulls Support](mailto:support@algobulls.com){target=_blank} for any queries: If you face any issues during the tutorial, you can reach out to the [AlgoBulls Support](mailto:support@algobulls.com)(mailto:support@algobulls.com) team for help.  
+6. Reach out to [AlgoBulls Support](mailto:support@algobulls.com){target=_blank} for any queries: If you face any issues during the tutorial, you can reach out to the [AlgoBulls Support](mailto:support@algobulls.com)(mailto:support@algobulls.com){target=_blank} team for help.  
 
 ---
 
 ## Conclusion
 
-In conclusion, this tutorial helps users get started with the Pyalgotrading package and create their own trading strategies. It also provides information on how to upload, run and monitor the strategies on the [AlgoBulls](https://www.algobulls.com/) platform. The tutorial aims to equip users with the necessary skills to create effective trading strategies using the Pyalgotrading package.
+In conclusion, this documentation helps users get started with the Pyalgotrading package and create their own trading strategies. It also provides information on how to upload, run and monitor the strategies on the [AlgoBulls](https://www.algobulls.com/){target=_blank} platform. The tutorial aims to equip users with the necessary skills to create effective trading strategies using the Pyalgotrading package.
 
 ---
 

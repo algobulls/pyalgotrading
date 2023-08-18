@@ -1,8 +1,7 @@
 # Regular Strategy Structure
 
 !!! Links
-    - **[List of Strategies](index.md)**
-    - **[Strategy Design (workflow of a strategy)](../pyalgotrad/structure.md)**
+    - **[Code Structure of Strategy (workflow of a strategy)](structure.md)**
 
 
 ## 1. Initial steps

@@ -1,8 +1,7 @@
 # Regular Strategy Structure
 
 !!! Links
-    - **[List of Strategies](../../strategies/index.md)**
-    - **[Strategy Design (workflow of a strategy)](../strategy_guides/structure.md)**
+    - **[Code Structure of Strategy (workflow of a strategy)](structure.md)**
 
 
 ## 1. Initial steps

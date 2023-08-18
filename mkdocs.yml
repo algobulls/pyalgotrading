@@ -36,12 +36,9 @@ copyright: Copyright © 2020 | All Rights Reserved | AlgoBulls Technologies Priv
 nav:
   - Home: 'index.md'
   - Pyalgotrading:
-    - Index: 'pyalgotrad/index.md'
-    - Comprehensive Guide to pyalgotrading:
-        - Guide: 'pyalgotrad/pyalgotrading_comprehensive_guide.md'
+    - Comprehensive Guide to pyalgotrading: 'pyalgotrad/pyalgotrading_comprehensive_guide.md'
     - Introduction: 'pyalgotrad/introduction.md'
-    - Setup your Workspace:
-        - Prerequisites: 'pyalgotrad/prerequisites.md'
+    - Setup your Workspace: 'pyalgotrad/prerequisites.md'
     - Strategy Creation and Execution:
           - Code Structure of Strategy: 'pyalgotrad/strategy_guides/structure.md'
           - Create your Strategy:
@@ -54,12 +51,10 @@ nav:
       - Analytics in pyalgotrading: 'pyalgotrad/pyalgotrading_analytics.md'
       - Analytics in AlgoBulls Platform: 'pyalgotrad/python-build-view-results.md'
   - Python Build:
-      - Index: 'python_build/index.md'
-      - Introduction:
-        - Introduction: 'python_build/python-build-introduction.md'
-        - Overview: 'python_build/python-build-overview.md'
-      - Setup your Workspace:
-        - Get Started: 'python_build/python-build-getstarted.md'
+      - Introduction: 'python_build/python-build-overview.md'
+#        - Introduction: 'python_build/python-build-introduction.md'
+#        - Overview: 'python_build/python-build-overview.md'
+      - Setup your Workspace:  'python_build/python-build-getstarted.md'
       - Strategy Creation and Execution:
           - Code Structure of Strategy: 'python_build/strategy_guides/structure.md'
           - Create your Strategy:
@@ -72,7 +67,6 @@ nav:
           - Analytics in pyalgotrading: 'python_build/pyalgotrading_analytics.md'
           - Analytics in AlgoBulls Platform: 'python_build/python-build-view-results.md'
   - Strategies:
-      - Index: 'strategies/index.md'
       - General Strategy Guide:
           - Code Structure of Strategy: 'strategies/strategy_guides/structure.md'
           - Using Generative AI: 'gen_ai_guide.md'

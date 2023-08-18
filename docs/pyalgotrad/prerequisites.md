@@ -1,7 +1,7 @@
 # Prerequisites
 
 ---
-You will need the following to perform this tutorial:
+You will need the following to start with pyalgotrading
 
 1. ### **[AlgoBulls Account](https://www.algobulls.com/){target=_blank}**
     You will need this account to upload and test your strategies. You can create your account for FREE on [algobulls website](https://app.algobulls.com/user/register){target=_blank}, to access the features and developer key you need to follow the below steps.
