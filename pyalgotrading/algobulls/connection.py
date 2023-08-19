@@ -87,11 +87,28 @@ class AlgoBullsConnection:
 
         Args:
             genai_api_key: GenAI API key
+
+        Returns:
+            None
         """
         assert isinstance(genai_api_key, str), f'Argument "api_key" should be a string'
         self.api.set_genai_api_key(genai_api_key)
 
     def get_genai_response_pooling(self, no_of_tries, user_prompt=None, chat_gpt_model=None):
+        """
+        Method to get GenAI response
+
+        During first execution get_genai_response API is fired and for next consecutive calls handle_genai_response_timeout API is fired
+        till we get a response other than AlgoBullsAPIGatewayTimeoutErrorException or GENAI_RESPONSE_POOLING_LIMIT is reached.
+
+        Args:
+            no_of_tries: No of times this function is called recursively
+            user_prompt: User question
+            chat_gpt_model: OpenAI chat model name
+
+        Returns:
+            GenAI response
+        """
         if no_of_tries < GENAI_RESPONSE_POOLING_LIMIT:
             try:
                 if no_of_tries > 1:
@@ -107,7 +124,7 @@ class AlgoBullsConnection:
 
     def display_genai_sessions(self):
         """
-        display previous sessions
+        Display previous sessions
         Returns:
             available sessions
         """
@@ -122,6 +139,12 @@ class AlgoBullsConnection:
         return customer_genai_sessions
 
     def continue_from_previous_sessions(self):
+        """
+        Let user select from displayed sessions
+
+        Returns:
+            None
+        """
         customer_genai_sessions = self.display_genai_sessions()
         while True:
             user_input = int(input("Enter session number"))
@@ -136,6 +159,15 @@ class AlgoBullsConnection:
                 print("Please select a valid session number.")
 
     def display_session_chat_history(self, session_id):
+        """
+        Display Chat history for given session
+
+        Args:
+            session_id: session id
+
+        Returns:
+            None
+        """
         if not self.api.genai_sessions_map:
             self.api.get_genai_sessions()
 
@@ -148,6 +180,26 @@ class AlgoBullsConnection:
             print(f"No available chat history for session id: {session_id}")
 
     def start_chat(self, start_fresh=None, session_id=None, chat_gpt_model=None):
+        """
+        Start chat with GenAI
+
+        If start_fresh is True -
+            New session is started
+        If start_fresh is False -
+            If session_id is None
+                All available sessions are displayed and user is can select from available sessions.
+            If session_id is given
+                Session linked with given session id is used
+
+        Args:
+            start_fresh: strategy name
+            session_id: strategy python code
+            chat_gpt_model: OpenAI chat model name
+
+        Returns:
+            None
+        """
+
         response = self.api.get_genai_api_key_status()
         assert response['key_available'], f"Please set your GenAI key using set_generative_ai_keys()"
 
@@ -187,6 +239,23 @@ class AlgoBullsConnection:
                 print(f"\nGenAI: {response['message']}", end=f"\n\n{'-' * 50}\n\n")
 
     def save_last_generated_strategy(self, strategy_name=None, strategy_code=None):
+        """
+        Method to save last generated genai response as strategy
+
+        User can either pass strategy code as a parameter our use last saved genai response to save strategy.
+
+        All strategies are unique by name, per customer.
+        If customer tries to upload strategy with the same name as an already existing strategy
+            - AlgoBullsAPIBadRequest Exception will be thrown. No change would be done in the backend database.
+
+        Args:
+            strategy_name: strategy name
+            strategy_code: strategy python code
+
+        Returns:
+            Dictionary containing strategy name, strategy_id and cstc_id
+        """
+
         if self.recent_genai_response or strategy_code:
             strategy_name = strategy_name or f'GenAI Strategy-{time.time():.0f}'
             strategy_details = strategy_code or self.recent_genai_response

@@ -22,6 +22,7 @@ class AlgoBullsAPI:
     AlgoBulls API
     """
     SERVER_ENDPOINT = 'http://localhost:7003/'
+
     # SERVER_ENDPOINT = 'https://api.algobulls.com/'
 
     def __init__(self, connection):
@@ -484,12 +485,37 @@ class AlgoBullsAPI:
         return response
 
     def set_genai_api_key(self, genai_api_key):
+        """
+        Set GenAI Api key
+
+        This API is used to set GenAI API key.
+
+        Args:
+            genai_api_key: GenAI api key
+        Returns:
+            response
+
+        Info: ENDPOINT
+           `GET` v1/build/python/genai/key
+        """
         endpoint = 'v1/build/python/genai/key'
         json_data = {"openaiApiKey": genai_api_key}
         response = self._send_request(method='post', endpoint=endpoint, json_data=json_data)
         return response
 
     def get_genai_api_key_status(self):
+        """
+        Gen GenAI Api key status
+
+        This API is used to check if user has set GenAI API key.
+
+        Args:
+        Returns:
+            response
+
+        Info: ENDPOINT
+           `GET` v1/build/python/genai/key
+        """
         endpoint = f'v1/build/python/genai/key'
         response = self._send_request(endpoint=endpoint)
         return response
@@ -547,6 +573,16 @@ class AlgoBullsAPI:
         return response
 
     def get_genai_sessions(self):
+        """
+        Fetch GenAI sessions.
+
+        Args:
+        Returns:
+           GenAI sessions for the customer.
+
+        Info: ENDPOINT
+           `GET` v1/build/python/genai/sessions
+        """
         endpoint = 'v1/build/python/genai/sessions'
         params = {'session_id': self.genai_session_id, 'pageSize': GENAI_SESSION_SIZE}
         response = self._send_request(endpoint=endpoint, params=params)
@@ -555,6 +591,16 @@ class AlgoBullsAPI:
         return response['data']
 
     def get_genai_session_history(self, session_id):
+        """
+        Fetch GenAI session history.
+
+        Args:
+        Returns:
+           GenAI session history for the customer.
+
+        Info: ENDPOINT
+           `GET` v1/build/python/genai/session/history
+        """
         endpoint = 'v1/build/python/genai/session/history'
         params = {'sessionId': self.genai_sessions_map[session_id - 1]['id'], 'pageSize': GENAI_SESSION_HISTORY_SIZE}
         response = self._send_request(endpoint=endpoint, params=params)
