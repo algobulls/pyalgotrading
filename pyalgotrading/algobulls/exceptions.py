@@ -62,6 +62,15 @@ class AlgoBullsAPIResourceNotFoundErrorException(AlgoBullsAPIBaseException):
         return 'Resource Not Found'
 
 
+class AlgoBullsAPITooManyRequestsException(AlgoBullsAPIBaseException):
+    """
+    Exception class for HTTP status code of 429 (Too Many Requests)
+    """
+
+    def get_error_type(self):
+        return 'Too Many Requests'
+
+
 class AlgoBullsAPIInternalServerErrorException(AlgoBullsAPIBaseException):
     """
     Exception class for HTTP status code of 500 (Internal Server Error)

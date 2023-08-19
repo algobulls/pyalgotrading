@@ -91,7 +91,7 @@ class AlgoBullsConnection:
             genai_api_key: GenAI API key
         """
         assert isinstance(genai_api_key, str), f'Argument "api_key" should be a string'
-        self.api.genai_api_key = genai_api_key
+        self.api.set_genai_api_key(genai_api_key)
 
     def get_genai_response_pooling(self, no_of_tries, user_prompt=None, chat_gpt_model=None):
         if no_of_tries < GENAI_RESPONSE_POOLING_LIMIT:
@@ -150,8 +150,10 @@ class AlgoBullsConnection:
             print(f"No available chat history for session id: {session_id}")
 
     def start_chat(self, start_fresh=None, session_id=None, chat_gpt_model=None):
-        assert self.api.genai_api_key, f"Please set your GenAI key using set_generative_ai_keys()"
-        # This will set the session_id
+        response = self.api.get_genai_api_key_status()
+        assert response['key_available'], f"Please set your GenAI key using set_generative_ai_keys()"
+
+        # This will reset the session_id
         if start_fresh:
             # reset session
             self.api.genai_session_id = None
@@ -173,8 +175,39 @@ class AlgoBullsConnection:
                     print("Session End")
                     return
 
+                print("Please wait your request is being precessed.")
                 response = self.get_genai_response_pooling(1, user_prompt, chat_gpt_model)
+                if not response:
+                    break
+
+                self.recent_genai_response = response['message']
                 print(f"GenAI: {response['message']}", end="\n\n")
+
+    def save_last_generated_strategy(self, strategy_code=None, strategy_name=None):
+        if self.recent_genai_response or strategy_code:
+            strategy_name = strategy_name or f'GenAI Strategy-{time.time():.0f}'
+            strategy_details = strategy_code or self.recent_genai_response
+
+            pattern = r"```python\n(.*?)\n```\n"
+            code_matches = re.findall(pattern, strategy_details, re.DOTALL)
+
+            if not code_matches:
+                print(strategy_details)
+                print("Do you want to save the following strategy? (Yes/No)")
+
+                while True:
+                    user_response = input().lower()
+                    if user_response == 'yes':
+                        break
+                    elif user_response == 'no':
+                        return
+            else:
+                strategy_details = code_matches[0]
+
+            response = self.api.create_strategy(strategy_name=strategy_name, strategy_details=strategy_details, abc_version='3.3.3')
+            return response
+        else:
+            print("Please generate a GenAI strategy")
 
     def create_strategy(self, strategy, overwrite=False, strategy_code=None, abc_version=None):
         """

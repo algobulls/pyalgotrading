@@ -9,7 +9,7 @@ from json import JSONDecodeError
 import requests
 
 from .exceptions import AlgoBullsAPIBaseException, AlgoBullsAPIUnauthorizedErrorException, AlgoBullsAPIInsufficientBalanceErrorException, AlgoBullsAPIResourceNotFoundErrorException, AlgoBullsAPIBadRequestException, \
-    AlgoBullsAPIInternalServerErrorException, AlgoBullsAPIForbiddenErrorException, AlgoBullsAPIGatewayTimeoutErrorException
+    AlgoBullsAPIInternalServerErrorException, AlgoBullsAPIForbiddenErrorException, AlgoBullsAPIGatewayTimeoutErrorException, AlgoBullsAPITooManyRequestsException
 from ..constants import TradingType, TradingReportType
 from ..utils.func import get_raw_response
 
@@ -34,7 +34,6 @@ class AlgoBullsAPI:
         self.__key_papertrading = {}  # strategy-cstc_id mapping
         self.__key_realtrading = {}  # strategy-cstc_id mapping
         self.pattern = re.compile(r'(?<!^)(?=[A-Z])')
-        self.genai_api_key = None
         self.genai_session_id = None
         self.genai_sessions_map = None
 
@@ -98,6 +97,9 @@ class AlgoBullsAPI:
         elif r.status_code == 404:
             r.raw.decode_content = True
             raise AlgoBullsAPIResourceNotFoundErrorException(method=method, url=url, response=get_raw_response(r), status_code=404)
+        elif r.status_code == 429:
+            r.raw.decode_content = True
+            raise AlgoBullsAPITooManyRequestsException(method=method, url=url, response=get_raw_response(r), status_code=429)
         elif r.status_code == 500:
             r.raw.decode_content = True
             raise AlgoBullsAPIInternalServerErrorException(method=method, url=url, response=get_raw_response(r), status_code=500)
@@ -481,6 +483,17 @@ class AlgoBullsAPI:
 
         return response
 
+    def set_genai_api_key(self, genai_api_key):
+        endpoint = 'v1/build/python/genai/key'
+        json_data = {"openaiApiKey": genai_api_key}
+        response = self._send_request(method='post', endpoint=endpoint, json_data=json_data)
+        return response
+
+    def get_genai_api_key_status(self):
+        endpoint = f'v1/build/python/genai/key'
+        response = self._send_request(endpoint=endpoint)
+        return response
+
     def get_genai_response(self, user_prompt: str, chat_gpt_model: str = ''):
         """
         Fetch GenAI response.
@@ -495,10 +508,17 @@ class AlgoBullsAPI:
            `GET` v1/build/python/genai              Get GenAI response
         """
         endpoint = 'v1/build/python/genai'
-        params = {"userPrompt": user_prompt, 'sessionId': self.genai_session_id, 'openaiApiKey': self.genai_api_key, 'chatGPTModel': chat_gpt_model}
-        response = self._send_request(endpoint=endpoint, params=params)
-        if self.genai_session_id is None and 'session_id' in response:
-            self.genai_session_id = response['session_id']
+        params = {"userPrompt": user_prompt, 'sessionId': self.genai_session_id, 'chatGPTModel': chat_gpt_model}
+
+        try:
+            response = self._send_request(endpoint=endpoint, params=params)
+            if self.genai_session_id is None and 'session_id' in response:
+                self.genai_session_id = response['session_id']
+        except (AlgoBullsAPIResourceNotFoundErrorException, AlgoBullsAPIForbiddenErrorException, AlgoBullsAPIBadRequestException, AlgoBullsAPITooManyRequestsException) as ex:
+            print('\nFail.')
+            print(f'{ex.get_error_type()}: {ex.response}')
+            response = None
+
         return response
 
     def handle_genai_response_timeout(self):
@@ -514,9 +534,15 @@ class AlgoBullsAPI:
         """
         endpoint = 'v1/build/python/genai/response'
         params = {'session_id': self.genai_session_id}
-        response = self._send_request(endpoint=endpoint, params=params)
-        if self.genai_session_id is None and 'session_id' in response:
-            self.genai_session_id = response['session_id']
+
+        try:
+            response = self._send_request(endpoint=endpoint, params=params)
+            if self.genai_session_id is None and 'session_id' in response:
+                self.genai_session_id = response['session_id']
+        except AlgoBullsAPIResourceNotFoundErrorException as ex:
+            print('\nFail.')
+            print(f'{ex.get_error_type()}: {ex.response}')
+            response = None
 
         return response
 
