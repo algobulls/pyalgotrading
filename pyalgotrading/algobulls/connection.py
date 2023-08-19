@@ -14,7 +14,7 @@ from tabulate import tabulate
 from tqdm.auto import tqdm
 
 from .api import AlgoBullsAPI
-from .exceptions import AlgoBullsAPIBadRequestException, AlgoBullsAPIGatewayTimeoutErrorException
+from .exceptions import AlgoBullsAPIBadRequestException, AlgoBullsAPIGatewayTimeoutErrorException, AlgoBullsAPIForbiddenErrorException
 from ..constants import StrategyMode, TradingType, TradingReportType, CandleInterval, AlgoBullsEngineVersion, Country, ExecutionStatus, EXCHANGE_LOCALE_MAP, Locale
 from ..strategy.strategy_base import StrategyBase
 from ..utils.func import get_valid_enum_names, get_datetime_with_tz
@@ -33,10 +33,7 @@ class AlgoBullsConnection:
         """
         self.api = AlgoBullsAPI(self)
 
-        self.saved_parameters = {
-            'start_timestamp_map': {},
-            'end_timestamp_map': {}
-        }
+        self.saved_parameters = {"start_timestamp_map": {}, "end_timestamp_map": {}}
 
         self.strategy_country_map = {
             TradingType.BACKTESTING: {},
@@ -47,6 +44,7 @@ class AlgoBullsConnection:
         self.backtesting_pnl_data = None
         self.papertrade_pnl_data = None
         self.realtrade_pnl_data = None
+        self.recent_genai_response = None
 
     @staticmethod
     def get_authorization_url():
@@ -56,8 +54,8 @@ class AlgoBullsConnection:
         Returns:
             Authorization URL
         """
-        url = 'https://app.algobulls.com/user/login'
-        print(f'Please login to this URL with your AlgoBulls credentials and get your developer access token: {url}')
+        url = "https://app.algobulls.com/user/login"
+        print(f"Please login to this URL with your AlgoBulls credentials and get your developer access token: {url}")
 
     @staticmethod
     def get_token_url():
@@ -67,8 +65,8 @@ class AlgoBullsConnection:
         Returns:
             Token URL
         """
-        url = 'https://app.algobulls.com/settings?section=developerOptions'
-        print(f'Please login to this URL to get your unique token: {url}')
+        url = "https://app.algobulls.com/settings?section=developerOptions"
+        print(f"Please login to this URL to get your unique token: {url}")
 
     def set_access_token(self, access_token):
         """
@@ -143,7 +141,7 @@ class AlgoBullsConnection:
 
         customer_genai_session_history = self.api.get_genai_session_history(session_id)
         if customer_genai_session_history:
-            for chat in customer_genai_session_history:
+            for chat in customer_genai_session_history[::-1]:
                 print(f"User:\n{chat['user_prompt']}", end="\n\n")
                 print(f"GenAI:\n{chat['genai_response']}", end=f"\n\n{'-' * 50}\n\n")
         else:
@@ -168,22 +166,27 @@ class AlgoBullsConnection:
 
         print("Session Start", end="\n\n")
         while True:
-            print("Enter 'Exit' to exit the session.")
-            user_prompt = str(input("Enter query: "))
+            print("Enter 'Save' to save the Strategy. Enter 'Exit' to exit the session.", end="\r")
+            user_prompt = str(input("Enter query: ")).lower()
             if user_prompt:
-                if user_prompt.lower() == "exit":
+                if user_prompt == "exit":
                     print("Session End")
                     return
 
-                print("Please wait your request is being precessed.")
+                if user_prompt == 'save':
+                    strategy_name = str(input("Input a Strategy Name"))
+                    return self.save_last_generated_strategy(strategy_name=strategy_name)
+                    return
+
+                print("Please wait your request is being precessed.", end='\r')
                 response = self.get_genai_response_pooling(1, user_prompt, chat_gpt_model)
                 if not response:
                     break
 
                 self.recent_genai_response = response['message']
-                print(f"GenAI: {response['message']}", end="\n\n")
+                print(f"\nGenAI: {response['message']}", end=f"\n\n{'-' * 50}\n\n")
 
-    def save_last_generated_strategy(self, strategy_code=None, strategy_name=None):
+    def save_last_generated_strategy(self, strategy_name=None, strategy_code=None):
         if self.recent_genai_response or strategy_code:
             strategy_name = strategy_name or f'GenAI Strategy-{time.time():.0f}'
             strategy_details = strategy_code or self.recent_genai_response
@@ -205,9 +208,12 @@ class AlgoBullsConnection:
                 strategy_details = code_matches[0]
 
             response = self.api.create_strategy(strategy_name=strategy_name, strategy_details=strategy_details, abc_version='3.3.3')
+            if response:
+                self.recent_genai_response = None
             return response
+
         else:
-            print("Please generate a GenAI strategy")
+            print("Warning: Please generate a strategy using GenAI before saving.")
 
     def create_strategy(self, strategy, overwrite=False, strategy_code=None, abc_version=None):
         """
