@@ -36,7 +36,7 @@ copyright: Copyright © 2020 | All Rights Reserved | AlgoBulls Technologies Priv
 nav:
   - Home: 'index.md'
   - Pyalgotrading:
-    - Comprehensive Guide to pyalgotrading: 'pyalgotrad/pyalgotrading_comprehensive_guide.md'
+#    - Comprehensive Guide to pyalgotrading: 'pyalgotrad/python_build_comprehensive_guide.md'
     - Introduction: 'pyalgotrad/introduction.md'
     - Setup your Workspace: 'pyalgotrad/prerequisites.md'
     - Strategy Creation and Execution:
@@ -120,10 +120,11 @@ extra:
 
 markdown_extensions:
   - admonition              # Add note, tip, question, warning, error, etc. Docs: https://squidfunk.github.io/mkdocs-material/extensions/admonition/
-  - codehilite
-  - toc:                    # Docs: https://squidfunk.github.io/mkdocs-material/extensions/permalinks/
-      permalink: true
   - attr_list
+  - codehilite
+  - md_in_html
   - pymdownx.superfences
   - pymdownx.tabbed:
       alternate_style: true
+  - toc:                    # Docs: https://squidfunk.github.io/mkdocs-material/extensions/permalinks/
+      permalink: true
