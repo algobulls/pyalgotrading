@@ -21,9 +21,7 @@ class AlgoBullsAPI:
     """
     AlgoBulls API
     """
-    SERVER_ENDPOINT = 'http://localhost:7003/'
-
-    # SERVER_ENDPOINT = 'https://api.algobulls.com/'
+    SERVER_ENDPOINT = 'https://api.algobulls.com/'
 
     def __init__(self, connection):
         """
@@ -595,6 +593,7 @@ class AlgoBullsAPI:
         Fetch GenAI session history.
 
         Args:
+            session_id: GenAI chat session id
         Returns:
            GenAI session history for the customer.
 
