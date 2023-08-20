@@ -244,7 +244,7 @@ that calculates the entry condition like a crossover or compares the latest valu
 
 There are other methods that are used in the strategy:
 
-** i. check_and_place_stoploss_order:**
+**i. check_and_place_stoploss_order:**
 
 This method is called in the ```strategy_select_instruments_for_exit``` when our entry order is open, and we want to place a stoploss exit order for the same.
 

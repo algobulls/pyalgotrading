@@ -1,89 +1,56 @@
 # Introduction
 
----
-
-This documentation aims to help users practice and get familiar with the [Pyalgotrading](https://github.com/algobulls/pyalgotrading/) package, which is a Python-based algorithmic trading library. It allows you to create and execute your trading strategies on various financial instruments such as equities, futures, options, and more. To start developing with pyalgotrading, you will need to have an active and working [AlgoBulls](https://www.algobulls.com/) account, which is a platform for creating and testing trading strategies.
-
-
-!!! Note "Prerequisites"
-    Before starting with development, make sure you have set your work-space and have all the prerequisites ready as given [here](prerequisites.md)
-
----
+This documentation aims to help users practice and get familiar with the [Pyalgotrading](https://github.com/algobulls/pyalgotrading/) package. Pyalgotrading is a Python-based algorithmic trading library that allows you to create and execute trading strategies on various financial instruments like equities, futures, and options. To start developing with Pyalgotrading, you'll need an active and working [AlgoBulls](https://www.algobulls.com/) account, a platform for creating and testing trading strategies.
 
 ## Features
-- Powered by the [AlgoBulls Platform](https://algobulls.com){target=_blank}
-- Everything related to Algorithmic Trading Strategies!
-    - Create & upload strategies on the [AlgoBulls Platform](https://algobulls.com){target=_blank}
-    - Free pool of Strategies are available separately at [pyalgostrategypool](https://github.com/algobulls/pyalgostrategypool){target=_blank}!
-    - Support for all 150+ Technical Indicators provided by [TA-Lib](https://pypi.org/project/TA-Lib/){target=_blank}
-    - Support for multiple candlesticks patterns - Japanese OHLC, Renko, Heikin-Ashi, Linebreak
-    - Support for multiple candle intervals - 1 minute, 3 minutes, 5 minutes, 10 minutes, 15 minutes, 30 minutes, 1 hour, 1 day. 
-    - Support for **MARKET**, **LIMIT**, **STOPLOSS-MARKET**, **STOPLOSS-LIMIT** orders
-    - Support for **INTRADAY** and **DELIVERY** orders
-- Support for **Backtesting**, **Paper Trading** and **Real Trading**
 
-    - Currently supported [brokers](https://app.algobulls.com/user/brokerlogin){target=_blank} 
-- Real-time Logs for Backtesting, Paper Trading and Real Trading
-- Multiple real-time Reports available for Backtesting, Paper Trading and Real Trading - 
-    - Profit-n-Loss report (PnL report)
-    - Statistics of (PnL report)
-    - Order History for each order with state transitions & timestamps
-- Plot Candlestick charts using [plotly.py](https://github.com/plotly/plotly.py){target=_blank}
-    
-Backtesting, Paper Trading and Real Trading can be performed on the same strategy code base!
+- Powered by the [AlgoBulls Platform](https://algobulls.com)
+- Everything related to Algorithmic Trading Strategies:
+  - Create & upload strategies on the [AlgoBulls Platform](https://algobulls.com)
+  - Free pool of strategies available at [pyalgostrategypool](https://github.com/algobulls/pyalgostrategypool)
+  - Support for over 150 Technical Indicators from [TA-Lib](https://pypi.org/project/TA-Lib/)
+  - Support for various candlestick patterns like Japanese OHLC, Renko, Heikin-Ashi, Linebreak
+  - Support for multiple candle intervals - 1 minute, 3 minutes, 5 minutes, and more
+  - Support for order types like **MARKET**, **LIMIT**, **STOPLOSS-MARKET**, **STOPLOSS-LIMIT**
+  - Support for both **INTRADAY** and **DELIVERY** orders
+- Support for **Backtesting**, **Paper Trading**, and **Real Trading**:
+  - Currently supported [brokers](https://app.algobulls.com/user/brokerlogin)
+- Real-time Logs and Reports for Backtesting, Paper Trading, and Real Trading:
+  - Profit and Loss report (PnL report)
+  - Statistics of PnL report
+  - Order History with state transitions and timestamps
+- Plot Candlestick charts using [plotly.py](https://github.com/plotly/plotly.py)
 
-### Python 
-- Python Support: `Python 3.10+`.
-- Python Requirements: See [requirements.txt](https://github.com/algobulls/pyalgotrading/blob/master/requirements.txt){target=_blank}.
-- We recommend you to use the latest version of Python (v3.10+) to enjoy better performance benefits, especially for pandas (v1.5.3). 
+You can perform Backtesting, Paper Trading, and Real Trading on the same strategy code base.
 
-### Installation
-Package can be easily installed using `pip` - 
-```
-pip install pyalgotrading
-```
+!!! Note "Prerequisites"
+    Before you start development, make sure you've set up your workspace and gathered all the prerequisites as described [here](prerequisites.md).
 
 ## Support / Getting Help
-- *Bug Reporting / New Feature Request*: Please [create a new issue](https://github.com/algobulls/pyalgotrading/issues/new){target=_blank} here on GitHub.
-- *Discussion Forum*: Discuss with our developers on this [forum](https://community.algobulls.com/c/github/pyalgotrading/42){target=_blank}
-- *Additional Support*: If none of the above help, please contact [pushpak@algobulls.com](mailto:pushpak@algobulls.com){target=_blank}.
 
+- **Bug Reporting / New Feature Request**: [Create a new issue](https://github.com/algobulls/pyalgotrading/issues/new) on GitHub.
+- **Discussion Forum**: Join the discussion with developers on this [forum](https://community.algobulls.com/c/github/pyalgotrading/42).
+- **Additional Support**: If you need further assistance, contact [pushpak@algobulls.com](mailto:pushpak@algobulls.com).
 
----
-## Tutorial Steps
+## Overview
 
-1. Code your own simple strategy using the Pyalgotrading package: In this step, you will use your Python IDE to code your own trading strategy using Pyalgotrading package. You can also use the ready-made strategy provided by the pyalgostrategypool package if you don't want to code your own.  
+1. [Check out the basic structure of a strategy](strategy_guides/structure.md): Before coding your strategy, refer to the basic structure guide provided by the Pyalgotrading package. This will help you understand the trading strategy methods and flow.
 
-    ---
+2. Code your own simple strategy using the Pyalgotrading package: Use your Python IDE to code your trading strategy using the Pyalgotrading package. You can also use ready-made strategies from the pyalgostrategypool package if you prefer not to code your own.
 
-2. Upload your strategy to the [AlgoBulls](https://www.algobulls.com/){target=_blank} platform: After coding your strategy, you will need to upload it to the [AlgoBulls](https://www.algobulls.com/){target=_blank} platform. This can be done by creating a new strategy on the platform and then uploading your strategy file.  
-    
-    ---
+3. [Upload your strategy to the platform](upload.md): After coding your strategy, upload it to the [AlgoBulls](https://www.algobulls.com/) platform by creating a new strategy and uploading the file.
 
-3. Run Backtest / Paper Trade / Real Trade using your strategy: Once you have uploaded your strategy, you can run backtests, paper trades or real trades to see how your strategy performs. These can be done from the AlgoBulls platform itself.  
-    
-    ---
+4. [Run Backtest / Paper Trade / Real Trade using your strategy](testing.md/#submit-a-job): Once your strategy is uploaded, run backtests, paper trades, or real trades on the AlgoBulls platform to evaluate its performance.
 
-4. Fetch logs during runtime, see reports, view statistics, and see your order history: You can fetch the logs during runtime to monitor your strategy's performance and view reports and statistics to analyze its effectiveness. You can also view your order history to see the trades executed by your strategy.  
-    
-    ---
+5. [Fetch logs during runtime, view reports and statistics, see your order history](testing.md/#fetch-logs): Monitor your strategy's performance by fetching runtime logs, viewing reports and statistics, and checking your order history to see executed trades.
 
-5. Check out the basic [structure](strategy_guides/structure.md) of a strategy: Before coding your strategy, you can refer to the basic structure of a strategy provided by the Pyalgotrading package. This will give you an idea of the methods involved in the trading strategy and their flow.  
-    
-    ---
-
-6. Reach out to [AlgoBulls Support](mailto:support@algobulls.com){target=_blank} for any queries: If you face any issues during the tutorial, you can reach out to the [AlgoBulls Support](mailto:support@algobulls.com)(mailto:support@algobulls.com){target=_blank} team for help.  
-
----
+6. Reach out to [AlgoBulls Support](mailto:support@algobulls.com) for any queries: If you encounter issues during the tutorial, contact the [AlgoBulls Support](mailto:support@algobulls.com) team for assistance.
 
 ## Conclusion
 
-In conclusion, this documentation helps users get started with the Pyalgotrading package and create their own trading strategies. It also provides information on how to upload, run and monitor the strategies on the [AlgoBulls](https://www.algobulls.com/){target=_blank} platform. The tutorial aims to equip users with the necessary skills to create effective trading strategies using the Pyalgotrading package.
-
----
+This documentation helps users get started with the Pyalgotrading package and creating their own trading strategies. It also guides users on uploading, running, and monitoring strategies on the [AlgoBulls](https://www.algobulls.com/) platform. The tutorial aims to equip users with the skills needed to create effective trading strategies using Pyalgotrading.
 
 ## Contribution Guidelines
-Here’s how we suggest you go about proposing a change to this project:
 
 1. [Fork this project][fork]{target=_blank} to your account.
 2. [Create a branch][branch]{target=_blank} for the change you intend to make.
@@ -94,8 +61,4 @@ Here’s how we suggest you go about proposing a change to this project:
 [branch]: https://help.github.com/articles/creating-and-deleting-branches-within-your-repository
 [pr]: https://help.github.com/articles/using-pull-requests/
 
-### Changelog
-See [CHANGELOG.md](https://github.com/algobulls/pyalgotrading/blob/master/CHANGELOG.md){target=_blank}.
-
-### License
-See [LICENSE](https://github.com/algobulls/pyalgotrading/blob/master/LICENSE){target=_blank}.
+See [CHANGELOG.md](https://github.com/algobulls/pyalgotrading/blob/master/CHANGELOG.md) for the changelog and [LICENSE](https://github.com/algobulls/pyalgotrading/blob/master/LICENSE) for the license.

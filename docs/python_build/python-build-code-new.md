@@ -11,8 +11,8 @@ A new blank code editor will open, allowing you to start coding your new strateg
 
 Next, you need to configure the strategy’s parameters by clicking on the settings symbol in the top right corner of the code editor. In this section you can add, view & edit the strategy parameters.
 
-To test the behaviour and performance of the strategy, click on **Save & Start** and follow the directions given earlier. The performance of the strategy will soon be available in the **Results** section.
+To test the behavior and performance of the strategy, click on **Save & Start** and follow the directions given earlier. The performance of the strategy will soon be available in the **Results** section.
 
-You can rename a strategy by clicking the edit symbol besides the strategy name. 
+You can rename a strategy by clicking the edit symbol beside the strategy name. 
 
 [![pythonbuild](imgs_v2/python_build_rename_new_strategy.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs_v2/python_build_rename_new_strategy.png)

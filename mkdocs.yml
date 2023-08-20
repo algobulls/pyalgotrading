@@ -17,6 +17,7 @@ theme:
   features:
     - content.code.copy
     - content.tabs.link
+    - tabs
 
   favicon: 'https://algobulls.com/img/favicon.svg'
   logo: 'algobulls_logo.svg'
@@ -47,6 +48,7 @@ nav:
           - Upload your Strategy: 'pyalgotrad/upload.md'
           - Select your Strategy: 'pyalgotrad/select.md'
           - Execute your Strategy: 'pyalgotrad/testing.md'
+          - Execute your Strategy Clean: 'pyalgotrad/testing_clean.md'
     - Analytics:
       - Analytics in pyalgotrading: 'pyalgotrad/pyalgotrading_analytics.md'
       - Analytics in AlgoBulls Platform: 'pyalgotrad/python-build-view-results.md'

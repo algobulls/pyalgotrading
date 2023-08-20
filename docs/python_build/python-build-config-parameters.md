@@ -4,7 +4,7 @@
 
 [![pythonbuild](imgs_v2/python_build_new_strategy_parameters.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs_v2/python_build_new_strategy_parameters.png)
 
-You can configure the strategy’s parameters by clicking on the settings symbol in the top right corner of the code editor. In this section you can view a strategy’s parameters or edit these parameters too.
+You can configure the strategy’s parameters by clicking on the settings symbol in the top right corner of the code editor. In this section, you can view a strategy’s parameters or edit these parameters too.
 
 To know more about the parameters, [click here](https://help.algobulls.com/member/tweak.html){target=_blank}.
 
@@ -24,21 +24,15 @@ After clicking **Save & Start**, a pop-up window will appear.
 
 **Step 2**
 
-In the **customizations** section choose **Backtesting** to back test or **Paper Trading** to Paper Trade a strategy.
+In the **customizations** section, choose **Backtesting** to backtest or **Paper Trading** to Paper Trade a strategy.
 
-Select the duration option in the customizations section. Add the desired date and time, as well as the quantity/lots. In Backtesting you will need to put the start date and end date along with time.
+Select the duration option in the customizations section. Add the desired date and time, as well as the quantity/lots. In Backtesting, you will need to put the start date and end date along with time.
 
 [![pythonbuild](imgs_v2/python_build_backtesting.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs_v2/python_build_backtesting.png)
 
-In Paper Trading you only need to add the start and end time.
+In Paper Trading, you only need to add the start and end time.
 
 [![pythonbuild](imgs_v2/python_build_papertesting.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs_v2/python_build_papertesting.png)
-
-[//]: # (**Step 3**)
-
-[//]: # (Once you scroll below, you will see the P&L tracker. Switch the P&L tracker ON and enter your desired profit and risk appetite. To keep things simple, you can also leave it turned off.)
-
-[//]: # ([![pythonbuild]&#40;imgs/python_build_pnl.png "Click to Enlarge or Ctrl+Click to open in a new Tab"&#41;]&#40;imgs_v2/python_build_pnl.png&#41;)
 
 **Step 3**
 
@@ -52,11 +46,11 @@ To begin testing the strategy, click on Execute.
 
 **Step 5**
 
-Go to the **Analytics** section to see the returns and performance of strategy visualized.
+Go to the **Analytics** section to see the returns and performance of the strategy visualized.
 
 !!! note "Note:" 
 
-    The use of Backtesting/Paper Trading is limited to one month. This would be available from Monday - Friday (excluding NSE holidays) from 9 AM to 11:30 PM. You can code your strategy & analyse the strategy results 24x7.
+    The use of Backtesting/Paper Trading is limited to one month. This would be available from Monday - Friday (excluding NSE holidays) from 9 AM to 11:30 PM. You can code your strategy & analyze the strategy results 24x7.
 
 [![pythonbuild](imgs_v2/python_build_results.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs_v2/python_build_results.png)
 
@@ -78,16 +72,12 @@ Go to the **Analytics** section to see the returns and performance of strategy v
 
 [![pythonbuild](imgs_v2/pnl_history.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs_v2/pnl_history.png)
 
-Go to the **Logs** section to see the step by step execution of strategy in logs.
+Go to the **Logs** section to see the step-by-step execution of the strategy in logs.
 
 [![pythonbuild](imgs_v2/python_build_user_logs.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs_v2/python_build_user_logs.png)
 
 [![pythonbuild](imgs_v2/python_build_order_history.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs_v2/python_build_order_history.png)
 
-You can **rename** a strategy by clicking the edit symbol besides the strategy name.
+You can **rename** a strategy by clicking the edit symbol beside the strategy name.
 
 [![pythonbuild](imgs_v2/python_build_strategy_rename.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs_v2/python_build_strategy_rename.png)
-
-[//]: # (!!! note "Note:" )
-
-[//]: # (    The Analytics & Graph sections are only visible to premium plan users. If you are using a free plan, switch to a [premium developer plan now]&#40;https://app.algobulls.com/wallet/checkout?packageType=PackageCombo&plan=5&type=buy-new-plan&#41;.)
