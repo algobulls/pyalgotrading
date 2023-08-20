@@ -33,7 +33,10 @@ class AlgoBullsConnection:
         """
         self.api = AlgoBullsAPI(self)
 
-        self.saved_parameters = {"start_timestamp_map": {}, "end_timestamp_map": {}}
+        self.saved_parameters = {
+            "start_timestamp_map": {}
+            , "end_timestamp_map": {}
+        }
 
         self.strategy_country_map = {
             TradingType.BACKTESTING: {},
