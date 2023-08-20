@@ -178,9 +178,6 @@ class AlgoBullsAPI:
 
         Warning:
             For every user, the `strategy_name` should be unique. You cannot create multiple strategies with the same name.
-
-        Info: ENDPOINT
-            `POST` v2/user/strategy/build/python
         """
 
         try:
@@ -206,9 +203,6 @@ class AlgoBullsAPI:
 
         Returns:
             JSON Response received from AlgoBulls platform after (attempt to) updating an existing strategy.
-
-        Info: ENDPOINT
-            PUT v2/user/strategy/build/python
         """
 
         json_data = {'strategyId': strategy_code, 'strategyName': strategy_name, 'strategyDetails': strategy_details, 'abcVersion': abc_version}
@@ -223,9 +217,6 @@ class AlgoBullsAPI:
 
         Returns:
             JSON Response received from AlgoBulls platform with list of all the created strategies.
-
-        Info: ENDPOINT
-            `OPTIONS` v3/build/python/user/strategy/code
         """
 
         endpoint = f'v3/build/python/user/strategy/code'
@@ -242,9 +233,6 @@ class AlgoBullsAPI:
 
         Returns:
             JSON
-            
-        Info: ENDPOINT
-            `GET` v3/build/python/user/strategy/code/{strategy_code}
         """
 
         params = {}
@@ -263,9 +251,6 @@ class AlgoBullsAPI:
 
         Returns:
             JSON Response
-            
-        INFO: ENDPOINT
-            `GET` v4/portfolio/searchInstrument
         """
 
         params = {'search': tradingsymbol, 'exchange': exchange}
@@ -283,9 +268,6 @@ class AlgoBullsAPI:
 
         Returns:
             response: response from api
-
-        Info: ENDPOINT
-           `DELETE` v3/build/python/user/strategy/deleteAll?strategyId={strategy}
         """
 
         endpoint = f'v3/build/python/user/strategy/deleteAll?strategyId={strategy}'
@@ -303,9 +285,6 @@ class AlgoBullsAPI:
             trading_type: BACKTESTING, PAPER TRADING or REAL TRADING
 
         Returns:
-
-        Info: ENDPOINT
-           `POST` v4/portfolio/tweak/{key}/?isPythonBuild=true
         """
 
         # Configure the params
@@ -330,9 +309,6 @@ class AlgoBullsAPI:
             location: Location of the exchange
             initial_funds_virtual: Virtual funds before starting the strategy
             broker_details: Client's broking details
-
-        Info: ENDPOINT
-            `PATCH` v5/portfolio/strategies?isPythonBuild=true
         """
 
         try:
@@ -404,9 +380,6 @@ class AlgoBullsAPI:
 
         Returns:
             Job status
-
-        Info: ENDPOINT
-            `GET` v2/user/strategy/status
         """
 
         key = self.__get_key(strategy_code=strategy_code, trading_type=trading_type)
@@ -428,9 +401,6 @@ class AlgoBullsAPI:
 
         Returns:
             Execution logs
-
-        Info: ENDPOINT
-            `POST`: v2/user/strategy/logs
         """
         key = self.__get_key(strategy_code=strategy_code, trading_type=trading_type)
         params = None
@@ -460,11 +430,6 @@ class AlgoBullsAPI:
 
         Returns:
             Report data
-
-        Info: ENDPOINT
-            `GET` v2/user/strategy/pltable          for P&L Table
-            `GET` v2/user/strategy/statstable       for Stats Table
-            `GET` v2/user/strategy/orderhistory     Order History
         """
 
         key = self.__get_key(strategy_code=strategy_code, trading_type=trading_type)
@@ -486,15 +451,10 @@ class AlgoBullsAPI:
         """
         Set GenAI Api key
 
-        This API is used to set GenAI API key.
-
         Args:
             genai_api_key: GenAI api key
         Returns:
             response
-
-        Info: ENDPOINT
-           `GET` v1/build/python/genai/key
         """
         endpoint = 'v1/build/python/genai/key'
         json_data = {"openaiApiKey": genai_api_key}
@@ -507,12 +467,8 @@ class AlgoBullsAPI:
 
         This API is used to check if user has set GenAI API key.
 
-        Args:
         Returns:
             response
-
-        Info: ENDPOINT
-           `GET` v1/build/python/genai/key
         """
         endpoint = f'v1/build/python/genai/key'
         response = self._send_request(endpoint=endpoint)
@@ -527,9 +483,6 @@ class AlgoBullsAPI:
            chat_gpt_model: Chat gpt model name
         Returns:
            GenAI response
-
-        Info: ENDPOINT
-           `GET` v1/build/python/genai              Get GenAI response
         """
         endpoint = 'v1/build/python/genai'
         params = {"userPrompt": user_prompt, 'sessionId': self.genai_session_id, 'chatGPTModel': chat_gpt_model}
@@ -549,12 +502,8 @@ class AlgoBullsAPI:
         """
         Fetch GenAI response.
 
-        Args:
         Returns:
-           GenAI response for current session. Last active session is used when session_id is None.
-
-        Info: ENDPOINT
-           `GET` v1/build/python/genai/response     Pooling API to get response in case of timeout
+           GenAI response for current session. Last active session is used when self.session_id is None.
         """
         endpoint = 'v1/build/python/genai/response'
         params = {'session_id': self.genai_session_id}
