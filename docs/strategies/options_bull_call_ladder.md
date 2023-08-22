@@ -3,7 +3,7 @@
 !!! Links
     - **[Strategy Code (.py)](https://github.com/algobulls/pyalgostrategypool/blob/master/pyalgostrategypool/options_bull_call_ladder.py){target=_blank}**
     - **[Strategy Structure (common methods used in an options strategy)](strategy_guides/common_options_strategy.md){target=_blank}**
-    - **[Strategy Design (workflow of a strategy)](../pyalgotrad/structure.md){target=_blank}**
+    - **[Strategy Design (workflow of a strategy)](strategy_guides/structure.md){target=_blank}**
 
 ### Bull Call Ladder
 

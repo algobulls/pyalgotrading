@@ -5,7 +5,7 @@ This is a trading strategy called "Stochastic Crossover" implemented in Python u
 !!! Links
     - **[Strategy Code (.py)](https://github.com/algobulls/pyalgostrategypool/blob/master/pyalgostrategypool/stochastic_crossover.py){target=_blank}**
     - **[Strategy Structure (common methods used in a regular strategy)](strategy_guides/common_regular_strategy.md){target=_blank}**
-    - **[Strategy Design (workflow of a strategy)](../pyalgotrad/structure.md){target=_blank}**
+    - **[Strategy Design (workflow of a strategy)](strategy_guides/structure.md){target=_blank}**
 
 
 # Stochastic Oscillator Indicator

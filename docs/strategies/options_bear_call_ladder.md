@@ -5,7 +5,7 @@ This class implements the Options Bear Call Ladder strategy.
 !!! Links
     - **[Strategy Code (.py)](https://github.com/algobulls/pyalgostrategypool/blob/master/pyalgostrategypool/options_bear_call_ladder.py){target=_blank}**
     - **[Strategy Structure (common methods used in an options strategy)](strategy_guides/common_options_strategy.md){target=_blank}**
-    - **[Strategy Design (workflow of a strategy)](../pyalgotrad/structure.md){target=_blank}**
+    - **[Strategy Design (workflow of a strategy)](strategy_guides/structure.md){target=_blank}**
 
 ### Bear Call Ladder
 - In the stock market, an options bear call ladder is a strategy that involves buying and selling call options with different strike prices to profit from a moderate bearish outlook on the underlying asset. It is a complex strategy that combines both long and short call positions.

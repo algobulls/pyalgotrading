@@ -104,6 +104,10 @@ plugins:
             show_source: true
       watch:
         - pyalgotrading
+  - redirects:
+      redirect_maps:
+          'strategies/common_regular_strategy.md': 'strategies/strategy_guides/common_regular_strategy.md'
+          'strategies/common_options_strategy.md': 'strategies/strategy_guides/common_options_strategy.md'
 
 google_analytics:
   - 'UA-147658856-4'

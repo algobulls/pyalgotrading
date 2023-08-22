@@ -5,7 +5,7 @@ This is a template for the Options Bear Put Ladder strategy. The strategy involv
 !!! Links
     - **[Strategy Code (.py)](https://github.com/algobulls/pyalgostrategypool/blob/master/pyalgostrategypool/options_bear_put_ladder.py){target=_blank}**
     - **[Strategy Structure (common methods used in an options strategy)](strategy_guides/common_options_strategy.md){target=_blank}**
-    - **[Strategy Design (workflow of a strategy)](../pyalgotrad/structure.md){target=_blank}**
+    - **[Strategy Design (workflow of a strategy)](strategy_guides/structure.md){target=_blank}**
 
 ### Bear Put Ladder
 - In the stock market, an options bear put ladder is a strategy that combines buying and selling put options with different strike prices to profit from a moderate bearish view on the underlying asset. It involves a mix of long and short put positions.

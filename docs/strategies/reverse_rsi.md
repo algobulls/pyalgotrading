@@ -5,7 +5,7 @@ This is a trading strategy called "Reverse RSI" implemented in Python using the 
 !!! Links
     - **[Strategy Code (.py)](https://github.com/algobulls/pyalgostrategypool/blob/master/pyalgostrategypool/reverse_rsi_crossover.py){target=_blank}**
     - **[Strategy Structure (common methods used in a regular strategy)](strategy_guides/common_regular_strategy.md){target=_blank}**
-    - **[Strategy Design (workflow of a strategy)](../pyalgotrad/structure.md){target=_blank}**
+    - **[Strategy Design (workflow of a strategy)](strategy_guides/structure.md){target=_blank}**
 
 ## Relative Strength Index
 RSI stands for Relative Strength Index, and it is a popular technical indicator used in the stock market to analyze the strength and momentum of a price trend. The RSI provides insights into whether a stock is overbought or oversold and can help identify potential trend reversals.
