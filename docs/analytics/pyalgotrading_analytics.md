@@ -1,9 +1,9 @@
 # Pyalgotrading Analytics
-- ### Metric Values and Statistics:
+- ### Metric Values and Statistics
     ![performance metrics a](../analytics/analytics_imgs/performance_metrics_a.png)
     ![performance metrics a](../analytics/analytics_imgs/performance_metrics_b.png)
 
-- ### Cumulative Returns:
+- ### Cumulative Returns
     - The **Cumulative Returns** chart illustrates how our strategy's returns value has evolved over time in percentage. 
     - Positive values indicate gains, while negatives reflect losses. Bigger positive returns are more favourable. 
     - Keep in mind, this chart focuses on gains and losses, excluding risk and timing considerations.
@@ -11,7 +11,7 @@
         ![cummulative returns normal](../analytics/analytics_imgs/cummulative_returns_normal.png)
         ![cummulative returns log](../analytics/analytics_imgs/cummulative_returns_log.png)
    
-- ### End of Year Returns (EoY):
+- ### End of Year Returns (EoY)
     - The **End of Year Returns** chart showcases our strategy's annual performance as a percentage. 
     - It quantifies its overall performance, considering gains or losses throughout each year.
         ![eoy returns](../analytics/analytics_imgs/eoy_returns.png)
@@ -21,7 +21,7 @@
     - This histogram helps us understand the range and patterns in monthly returns, shedding light on our strategy's volatility and performance trends.
         ![monthly returns histogram](../analytics/analytics_imgs/monthly_returns_histogram.png)
 
-- ### Daily Returns:
+- ### Daily Returns
     - The **Daily Returns Chart** portrays the percentage change in our strategy's returns between trading days. 
     - It provides insights into short-term volatility, trend analysis, and risk assessment.
         ![daily returns histogram](../analytics/analytics_imgs/daily_returns.png)
@@ -51,17 +51,15 @@
        ![worst 5 drawdown plot](../analytics/analytics_imgs/worst_5_drawdown_plot.png)
        ![worst 5 drawdown plot](../analytics/analytics_imgs/worst_5_drawdowns.png)
 
-- ### Underwater Plot:
+- ### Underwater Plot
     - The **Underwater Plot** visually narrates our strategy's performance concerning its past peaks. 
     - It showcases how much our returns value has dropped from its highest point over time. 
     - This aids in visualising periods of drawdown and recovery, offering insights into historical risk and resilience.
        ![underwater plot](../analytics/analytics_imgs/underwater_plot.png)
 
-- ### Monthly Returns (Heatmap):
+- ### Monthly Returns (Heatmap)
     - The **Monthly Returns Heatmap** offers a colour-coded view of our strategy's performance across months. 
     - Shades of green indicate positive returns, while shades of red signify losses. 
     - This visual tool helps spot trends and patterns, aiding in identifying strong and weak performance periods.
        ![monthly returns heatmap](../analytics/analytics_imgs/monthly_returns_heatmap.png)
-
-[//]: # (- ### Return Quantiles)
 

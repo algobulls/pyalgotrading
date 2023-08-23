@@ -1,4 +1,4 @@
-# Prerequisites
+## Prerequisites
 
 You will need the following to start with Pyalgotrading:
 

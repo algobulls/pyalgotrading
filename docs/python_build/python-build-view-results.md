@@ -2,9 +2,7 @@
 
 ----
 
-Once you start the strategy, it may take a while for it to complete the execution. You can switch to the Results tab after you run your strategy. Even if the strategy execution is not complete, you will still see intermediate results.
-
-Only Premium developer plans users will be able to view the strategy analytics values & graphs.
+Once you start the strategy, it may take a while for it to complete the execution. You can switch to the **Analytics** tab after you run your strategy. Even if the strategy execution is not complete, you will still see intermediate results.
 
 **Analytics:** In the analytics section, you can view a strategy’s Stats & various other metrics in the form of graphs like P&L.
 

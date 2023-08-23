@@ -43,3 +43,8 @@ Alpaca's platform aims to democratize algorithmic trading by providing accessibl
 ---
 - #### Get the `Secret-Key` and `API key`
     ![img.png](imgs/alpaca_api_keys_secret_keys.png)
+
+
+## Why do we need Alpaca Account ?
+If you want to run your strategy on American exchanges like NASDAQ or NYSE, you need access to the historical data as well as live data of all the stocks and that is provided by Alpaca.
+Besides this it will also be helpful to do live trading on AlgoBulls using these credentials.

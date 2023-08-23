@@ -3,95 +3,99 @@
 
 ## AlgoBulls
 
-Welcome to AlgoBulls, the AI-driven trading platform that unveils uncharted dimensions within algorithmic trading. Our mission is to enhance your expertise in formulating and executing personalized trading strategies using our pioneering product.
-- **Python Build**. 
+Welcome to AlgoBulls, the AI-powered trading platform that unlocks new dimensions in algorithmic trading. Our mission is to boost your expertise in designing and executing personalised trading strategies using our cutting-edge product - **Python Build**. 
 
 ---
 
 ## Introducing **Python Build**: Your Gateway to Algorithmic Trading
 
-**Python Build** your ultimate companion for meticulously crafting and seamlessly executing trading strategies with the finesse of a seasoned professional. Tailored to accommodate both adept traders and newcomers, this platform provides an array of sophisticated tools that empower you to make well-informed decisions and trade with unwavering confidence in the dynamic financial markets.
+**Python Build** is your ultimate companion for crafting and executing trading strategies with the precision of a seasoned professional. Designed for both experienced traders and newcomers, this platform offers a range of powerful tools that empower you to make well-informed decisions and trade confidently in dynamic financial markets.
 
-When it comes to strategy development, **Python Build** enables you to dive into coding, backtesting, and deploying your trading strategies with remarkable ease. Through an intuitive interface, you gain the power to precisely define when to enter and exit trades, manage multiple instruments, and execute actions based on informed insights.
+When it comes to strategy development, **Python Build** lets you dive into coding, backtesting, and deploying your trading strategies with remarkable ease. With an intuitive interface, you gain the ability to precisely set entry and exit points, handle multiple instruments, and take actions based on informed insights.
 
 ![algo trading basic image](imgs/python_build_basic_a.png)
 
-The adaptability of **Python Build** truly stands out through its cohesive strategy format, adaptable to diverse trading types. Whether you're immersed in backtesting, paper trading, or live trading, the same strategy code suffices for all three, simplifying the user experience.
+What sets **Python Build** apart is its adaptable strategy format, suitable for various trading styles. Whether you're into backtesting, paper trading, or live trading, the same strategy code works for all three, making the experience straightforward.
 
-The library offers parallel functionalities for all these scenarios (backtesting, paper trading, and live trading) during strategy execution or analytics generation. This harmonized approach ensures a seamless transition among these modes, eliminating the need for intricate adjustments. Furthermore, it streamlines the creation of progressive logs, enabling you to monitor your progress and anticipate completion times. For real-time updates, live logs are also available, enhancing transparency and command over your trading endeavors.
+The library covers all scenarios (**backtesting**, **paper trading**, and **live trading**) during strategy execution or generating analytics. This unified approach ensures seamless transitions between these modes, eliminating the need for complex adjustments. Additionally, it simplifies the creation of progress logs, helping you track your journey and anticipate completion times. For real-time updates, live logs are available too, offering transparency and control over your trading endeavours.
 
 ![algo trading basic image](imgs/algotrading_basic_4.png)
 
-**Python Build**'s strength lies in its ability to integrate seamlessly with real-time market data sources, historical data, and trading platforms. Its adaptable nature allows you to connect with a variety of data providers and broker APIs, enabling you to access the information you need to make well-informed trading decisions.
+**Python Build**'s strength lies in its seamless integration with real-time market data sources, historical data, and trading platforms. Its adaptable nature enables connection with various data providers and broker APIs, ensuring access to the information you need for well-informed trading decisions.
 
 ---
 
-## Powerful Statistics & Visual Analytics 
+## Powerful Stats & Visual Analytics
 <p align="center">
   <img src="imgs/analytics_mascot.svg" alt="algo trading basic image"/>
 </p>
 
-In the pursuit of successful trading, **Python Build** equips you with advanced visual tools for strategy analytics. By harnessing these tools, you gain a deeper understanding of your strategies' performance. You can effectively manage risks and fine-tune your strategies to optimize their potential for success. These visualization tools facilitate data-driven decision-making and provide a clearer perspective on the intricacies of your trading activities.
+In the pursuit of successful trading, **Python Build** equips you with advanced visual tools for strategy analytics. These tools provide a deeper understanding of your strategies' performance, helping you manage risks and fine-tune your plans for optimal success. Visualisations facilitate data-driven decision-making, giving you clearer insights into the intricacies of your trading activities.
 
 ---
 ## Multiple Platforms to use Python Build
 
 To support our diverse community of users, we have the options of two dynamic platforms for our users to use Python Build - **pyalgotrading** and **Python Build Web**
 
-[Explore our Python Package: Pyalgotrading](#){ .md-button .md-button--primary }
+[Explore our Python Package: Pyalgotrading](pyalgotrad/introduction.md){ .md-button }
 
-[Dive into the amazing Features of our Web-App: Python Build Web](#){ .md-button }
+[Dive into the amazing Features of our Web-App: Python Build Web](python_build/python-build-introduction.md){ .md-button }
 
 ---
 
-## Community
+## Join the Community
 
-Moreover, AlgoBulls isn't just about platforms; it's about community. Share, learn, and collaborate with traders and developers. Code your strategies or explore ours – AlgoBulls is where innovation meets trading expertise.
+AlgoBulls is more than just a platform; it's a community. Connect, learn, and collaborate with traders and developers. Code your strategies or explore ours – AlgoBulls is where innovation meets trading expertise.
 
-By joining the thriving **Python Build** community, you tap into a rich network of traders and developers. This community serves as a platform for collaboration, where you can seek guidance, share valuable insights, and collectively refine your trading strategies. The synergy of diverse perspectives helps you approach trading challenges from various angles, fostering growth and improvement.
+By becoming part of the **Python Build** community, you tap into a rich network of traders and developers. This community serves as a platform for collaboration, offering guidance, valuable insights, and collective refinement of trading strategies. Diverse perspectives help you approach trading challenges from multiple angles, fostering growth and improvement.
 
-Join us on this journey as AlgoBulls revolutionizes algorithmic trading!
+Join us in this journey as AlgoBulls revolutionizes algorithmic trading!
 
-In a nutshell, **Python Build** transcends being a mere product; it serves as your all-encompassing passage to honing the craft of algorithmic trading. Boasting a user-friendly interface, an array of functionalities, and seamless integration capabilities, it emerges as a prized possession for traders regardless of their proficiency. By streamlining the intricacies of strategy crafting, integration, execution, and analysis, **Python Build** bestows upon you the ability to maneuver the realm of trading with unwavering confidence and remarkable precision.
+In essence, **Python Build** is more than a product; it's your comprehensive guide to mastering algorithmic trading. With its user-friendly interface, diverse functionalities, and seamless integration, it's a valuable asset for traders of all levels. By simplifying strategy crafting, integration, execution, and analysis, **Python Build** empowers you to navigate the trading world with confidence and precision.
 
 ## Open Source Strategy Library
 
-We maintain a open source GitHub repo [pyalgostrategypool](https://github.com/algobulls/pyalgostrategypool){target=_blank} of fully working algorithmic trading strategies. You can use these strategies for Backtesting, Paper Trading or Live Trading across multiple brokers, and across multiple exchanges. The same code works in all trading modes.
+We maintain an open source GitHub repository, [pyalgostrategypool](https://github.com/algobulls/pyalgostrategypool){target=_blank} containing fully functional algorithmic trading strategies. These strategies can be used for Backtesting, Paper Trading, or Live Trading across various brokers and exchanges. The same code works in all trading modes.
 
 !!!tip "Keep an eye on our GitHub repo"
     Our team periodically updates the library to add more strategy Python codes
 
-For those who are new to algorithmic trading or **Python Build**, exploring the included example strategies is a fantastic way to get started. These example strategies are pre-built trading scenarios that demonstrate different trading strategies and concepts. By studying and experimenting with these examples, you can gain a deeper understanding of how **Python Build** functions and how strategies are constructed.
+For those new to algorithmic trading or **Python Build**, exploring included example strategies is an excellent starting point. These strategies are pre-built scenarios showcasing different trading strategies and concepts. By studying and experimenting with these examples, you'll gain a deeper grasp of how **Python Build** operates and how strategies are constructed.
+
 
 Here's what you can do with the example strategies:
 
-- **Analyze Structure**: Examine the code structure, including how strategies are defined, conditions are set, and actions are executed.
-- **Modify and Experiment**: Once you're comfortable with the example strategies, tailor them to your preferences. Adjust parameters, conditions, and actions to see how these modifications affect trading outcomes.
-- **Learn Strategies**: Each example strategy may represent a different trading approach, such as trend-following or mean-reversion. By studying these examples, you can learn about various trading strategies and their underlying principles.
+- **Analyze Structure**: Study code structure, including strategy definition, condition setting, and action execution.
+- **Modify and Experiment**: Once comfortable with examples, customise them to your preferences. Adjust parameters, conditions, and actions to observe their impact on trading outcomes.
 
-Remember that the example strategies serve as a foundation for your learning journey. As you become more familiar with the library, you can start building and customizing your own strategies based on your trading preferences and insights.
+- **Learn Strategies**: Each example represents a different trading approach, like trend-following or mean-reversion. Studying these examples introduces you to various trading strategies and their underlying principles.
 
-In conclusion, the installation process gets you ready to start using **Python Build**, while the documentation and example strategies empower you to explore the library's capabilities and apply them to real trading scenarios. Whether you're a newcomer or an experienced trader...
+Remember, these example strategies lay the foundation for your learning journey. As you grow more familiar with the library, you can create and customise your own strategies based on your insights and preferences.
+
+To conclude, the installation process readies you to use **Python Build**, while the documentation and example strategies empower you to explore the library's capabilities and apply them to real trading situations. Whether you're a beginner or a seasoned trader...
 
 ---
 ## Limitations of **Python Build**
 
-In the exciting world of algorithmic trading, **Python Build** stands as a formidable tool, offering a range of benefits and considerations for traders and developers. Let's also know the limitations to help you make an informed decision.
+In the exciting world of algorithmic trading, **Python Build** offers numerous benefits and considerations for traders and developers. Let's also acknowledge its limitations to help you make an informed decision.
 <p align="center">
   <img src="imgs/pros_n_cons.svg" alt="algo trading basic image", width="400px"/>
 </p>
 
-1. **Python Speed Limitations:** While versatile, Python isn't the fastest language for computation. This might pose challenges with complex strategies requiring extensive calculations. Our team is working on porting a majority of the codebase on Cython to help with the speedup, while maintaining the simplicity of Python. We may explore other avenues like GPUs in the future.
-2. **Cloud Cold-Start Speed Limitations:** We execute every strategy on a dedicated virtual server in the cloud. While this is great as every strategy is executed in a separate secure environment with dedicated resources, it takes time to fetch the dedicated resource on the cloud before the strategy execution can start. This results in an initial small delay while starting a strategy.
+1. **Python Speed Limitations:**  While versatile, Python isn't the fastest language for computation. This may pose challenges for complex strategies requiring extensive calculations. Our team is actively transitioning a major part of the codebase to Cython to enhance speed while retaining Python's simplicity. We're also exploring options like GPUs for the future.
+
+2. **Cloud Cold-Start Speed Limitations:** Each strategy runs on a dedicated virtual server in the cloud. While this ensures secure execution with dedicated resources, there's a short delay as the cloud fetches the resource before strategy execution begins. This minor delay is part of our ongoing optimization efforts.
+
 
 !!! tip "Note"
     Our team is working round the clock to make these limitations a thing of the past.
 
 ---
-## References:
+## References
 
-To fully unleash the potential of **Python Build**, dive into its comprehensive documentation. This documentation serves as your roadmap, offering detailed insights into the product's features, functionalities, and capabilities. The documentation is your go-to resource for understanding how to effectively harness the power of **Python Build**. It includes:
+To unleash **Python Build**'s full potential, dive into its comprehensive documentation. This roadmap offers detailed insights into the product's features, functionalities, and capabilities. It's your go-to resource for harnessing the power of **Python Build** effectively. The documentation includes:
 
-- **[Code Examples](https://github.com/algobulls/pyalgostrategypool){target=_blank}**: Real code snippets and examples that showcase how to implement specific strategies, functions, and techniques using **Python Build**.
+
+- **[Code Examples](https://github.com/algobulls/pyalgostrategypool){target=_blank}**: Real code snippets showcasing how to implement specific strategies, functions, and techniques using **Python Build**.
 - **[Python Cookbook for Algorithmic Trading](https://github.com/PacktPublishing/Python-Algorithmic-Trading-Cookbook){target=_blank}**: A Python Cookbook for Algorithmic Trading, explaining in-depth about strategy creation and execution from scratch using Python. Explore the technical content of the book on [GitHub](https://github.com/PacktPublishing/Python-Algorithmic-Trading-Cookbook).
 

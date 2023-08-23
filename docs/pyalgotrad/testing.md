@@ -1,10 +1,10 @@
-# Test your Strategy
+# Execute your Strategy
 
-### **Previously...**
+### Previously...
 You have uploaded your strategy to the AlgoBulls platform.
 
 ---
-### **Now...**
+### Now...
 Using the uploaded strategy, you can now try:
 * Backtesting
 * Paper Trading
@@ -12,7 +12,7 @@ Using the uploaded strategy, you can now try:
 
 ---
 
-### **Before you start...**
+### Before you start...
 Open a Jupyter Notebook.
 
 The steps you will follow are:
@@ -28,7 +28,7 @@ The steps you will follow are:
 9. Fetch Reports. (PnL, Statistics, Order History)
 
 ---
-### **Let's Start...**
+### Let's Start...
 Run the following code snippets into the Jupyter Notebook one by one (or all together).
 
 #### Import statements

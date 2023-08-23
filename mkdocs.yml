@@ -48,12 +48,11 @@ nav:
           - Upload your Strategy: 'pyalgotrad/upload.md'
           - Select your Strategy: 'pyalgotrad/select.md'
           - Execute your Strategy: 'pyalgotrad/testing.md'
-          - Execute your Strategy Clean: 'pyalgotrad/testing_clean.md'
     - Analytics:
       - Analytics in pyalgotrading: 'pyalgotrad/pyalgotrading_analytics.md'
       - Analytics in AlgoBulls Platform: 'pyalgotrad/python-build-view-results.md'
-  - Python Build:
-      - Introduction: 'python_build/python-build-overview.md'
+  - Python Build Web:
+      - Introduction: 'python_build/python-build-introduction.md'
 #        - Introduction: 'python_build/python-build-introduction.md'
 #        - Overview: 'python_build/python-build-overview.md'
       - Setup your Workspace:  'python_build/python-build-getstarted.md'
@@ -129,6 +128,7 @@ markdown_extensions:
   - attr_list
   - codehilite
   - md_in_html
+  - def_list
   - pymdownx.superfences
   - pymdownx.tabbed:
       alternate_style: true

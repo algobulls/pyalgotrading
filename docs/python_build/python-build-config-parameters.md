@@ -1,6 +1,6 @@
-## How to Configure Strategy Parameters and Execute Strategy ?
 
 ---
+## Configure Strategy Parameters
 
 [![pythonbuild](imgs_v2/python_build_new_strategy_parameters.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs_v2/python_build_new_strategy_parameters.png)
 
@@ -14,7 +14,7 @@ To know more about the parameters, [click here](https://help.algobulls.com/membe
 
 Once Strategy and User Parameters are configured, you can follow these steps to execute your strategy.
 
-Follow these simple steps to test the strategy's performance
+## Follow these simple steps to test the strategy's performance
 
 **Step 1**
 
