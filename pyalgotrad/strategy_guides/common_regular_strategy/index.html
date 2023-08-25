@@ -421,6 +421,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#naming-your-strategy" class="md-nav__link">
+    Naming your Strategy
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -444,13 +451,6 @@
           <li class="md-nav__item">
   <a href="#parameter-creation" class="md-nav__link">
     Parameter creation
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#parameter-validation" class="md-nav__link">
-    Parameter validation
   </a>
   
 </li>
@@ -1590,6 +1590,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#naming-your-strategy" class="md-nav__link">
+    Naming your Strategy
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1613,13 +1620,6 @@
           <li class="md-nav__item">
   <a href="#parameter-creation" class="md-nav__link">
     Parameter creation
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#parameter-validation" class="md-nav__link">
-    Parameter validation
   </a>
   
 </li>
@@ -1815,30 +1815,35 @@
 <ol>
 <li>
 <h3 id="create-a-new-strategy-file">Create a new strategy file<a class="headerlink" href="#create-a-new-strategy-file" title="Permanent link">&para;</a></h3>
-   eg: strategy_<code>&lt;developer_initials&gt;</code>_futures_ema_crossover.py<div class="admonition tips">
+<div class="admonition info">
+<p class="admonition-title">this is for <strong>pyalgotrading</strong> users</p>
+</div>
+<p>eg: strategy_<code>&lt;unique_code_if_needed&gt;</code>_futures_ema_crossover.py</p>
+<div class="admonition tips">
 <p class="admonition-title">Coding Conventions</p>
 <ul>
 <li>Keep a unique file name</li>
-<li>Add the initials of your name after the word strategy in the strategy file name so that it becomes easier to identify the developer who developed the strategy and also helps with a unique strategy name.</li>
 <li>Make sure that the file name is in lowercase and that each word is separated with an underscore '_' as shown above.</li>
 </ul>
 </div>
 </li>
 <li>
 <h3 id="naming-a-class">Naming a Class<a class="headerlink" href="#naming-a-class" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="n">eg</span><span class="o">:</span><span class="w"> </span><span class="n">For</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">above</span><span class="w"> </span><span class="n">strategy</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="n">would</span><span class="w"> </span><span class="n">be</span><span class="o">:</span>
-<span class="w">    </span><span class="n">Strategy</span><span class="err">```</span><span class="o">&lt;</span><span class="n">developer_initials</span><span class="o">&gt;</span><span class="err">```</span><span class="n">FuturesEMACrossover</span><span class="o">(</span><span class="n">StrategyBase</span><span class="o">)</span>
+<p>eg: For the above strategy name the class name would be:
+    <div class="highlight"><pre><span></span><code>StrategyFuturesEMACrossover(StrategyBase)
 </code></pre></div>
-
-<div class="admonition tips">
-<p class="admonition-title">Coding Conventions<ul>
-<li>Make a class with the same name as the file name</li>
-<li>Make sure the first letter of each word is in uppercase and the initials should be in uppercase as well.</li>
-<li>If the class name includes indicator names like EMA, SMA, and VWAP the name should be in uppercase in the class name but not in the file name.</li>
-<li>Every strategy is a child class of the StrategyBase class.</li>
-</ul>
-</p>
-</div>
+    !!! Tips "Coding Conventions"
+            * Make a class with the same name as the file name
+            * Make sure the first letter of each word is in uppercase and the initials should be in uppercase as well.
+            * If the class name includes indicator names like EMA, SMA, and VWAP the name should be in uppercase in the class name but not in the file name.
+            * Every strategy is a child class of the StrategyBase class.</p>
+</li>
+<li>
+<h3 id="naming-your-strategy">Naming your Strategy<a class="headerlink" href="#naming-your-strategy" title="Permanent link">&para;</a></h3>
+<p>This name will be displayed in your <strong>My Coded Strategies</strong> in Python Build Web, and it will also be the <strong>strategy_name</strong> when you are fetching all strategies in pyalgotrading.<br />
+Inside your strategy class, you can write your first parameter as <code>name</code>.
+    <div class="highlight"><pre><span></span><code>name = &#39;futures_ema_crossover&#39;
+</code></pre></div></p>
 </li>
 </ol>
 <hr />
@@ -1847,47 +1852,9 @@
 <ol>
 <li>
 <h3 id="strategy-info">Strategy info<a class="headerlink" href="#strategy-info" title="Permanent link">&para;</a></h3>
-<p>In the <strong>init</strong> method add the <code>super().__init__(*args, **kwargs)</code> and add the below lines.</p>
-<div class="highlight"><pre><span></span><code>VERSION = strategy_version 
-CLIENT = client_name
-STRATEGY_TYPE = &#39;FUTURES&#39;
-
-self.logger.info(f&#39;\n{&quot;#&quot; * 40}\nSTRATEGY VERSION: {VERSION}\n{&quot;#&quot; * 40}&#39;)
-self.logger.debug(f&#39;\n{&quot;#&quot; * 60}\nSTRATEGY TYPE: {STRATEGY_TYPE} | CLIENT: {CLIENT}\n{&quot;#&quot; * 60}&#39;)
-</code></pre></div>
-<ul>
-<li>
-<p><strong>VERSION</strong>: This is the strategy version, the initial version is 3.3.1 as there are fixes/updates/changes in the strategy the version should be updated to 3.3.2, and so on.</p>
-</li>
-<li>
-<p><strong>CLIENT</strong>: Name of the client.</p>
-</li>
-<li>
-<p><strong>STRATEGY_TYPE</strong>: Whether the strategy is FUTURES, REGULAR, or OPTIONS.</p>
-</li>
-</ul>
-<p>We print this information in the next line, so whenever we run the strategy this information is displayed in the logs.</p>
-<p>We save the parameter string in the parameter_string variable and check if the length of the parameter_string matches the number of parameters in the strategy's YAML file.</p>
-<p>eg:</p>
-<div class="highlight"><pre><span></span><code>parameter_string = &#39;\n(1) FRESH_ORDER_CANDLE \n(1) START_TIME_HOURS \n(1) START_TIME_MINUTES \n(1) END_TIME_HOURS \n(1) END_TIME_MINUTES &#39; \
-                           &#39;\n(1) EMA_PERIOD_ONE \n(1) EMA_PERIOD_TWO \n(1) TARGET_PERCENTAGE \n(1) STOPLOSS_PERCENTAGE \n(1) STOPLOSS_RANGE \n(1) STOPLOSS_ORDER_COUNT_ALLOWED&#39;
-
-check_argument(self.strategy_parameters, &#39;extern_function&#39;, lambda x: len(x) &gt;= 11, err_message=f&#39;Need 11 parameters for this strategy: {parameter_string}&#39;)
-</code></pre></div>
-<ul>
-<li>
-<p>parameter_string: This string contains all the strategy parameters as shown above.</p>
-</li>
-<li>
-<p>We check if the number of parameters matches those in the strategy YAML file.</p>
-<div class="admonition note">
-<p class="admonition-title">Note<ul>
-<li>The parameter names and the number of parameters may be different for different strategies.</li>
-</ul>
-</p>
-</div>
-</li>
-</ul>
+<p>In the <strong>init</strong> method add the line given below
+<div class="highlight"><pre><span></span><code>super().__init__(*args, **kwargs)
+</code></pre></div></p>
 </li>
 <li>
 <h3 id="parameter-creation">Parameter creation<a class="headerlink" href="#parameter-creation" title="Permanent link">&para;</a></h3>
@@ -1905,61 +1872,25 @@ self.stoploss_percentage = self.strategy_parameters[&#39;STOPLOSS_PERCENTAGE&#39
 self.stoploss_range = self.strategy_parameters[&#39;STOPLOSS_RANGE&#39;]
 self.stoploss_order_count_allowed = self.strategy_parameters[&#39;STOPLOSS_ORDER_COUNT_ALLOWED&#39;]
 </code></pre></div></p>
-</li>
-<li>
-<h3 id="parameter-validation">Parameter validation<a class="headerlink" href="#parameter-validation" title="Permanent link">&para;</a></h3>
-<p>We validate each parameter's value according to the strategy requirement. The following methods can be used to validate the parameter values:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <ul>
-<li>
-<p><strong>check_argument</strong><br />
-    Checks a single parameter passed in it.
-    Syntax:
-        check_argument(value to be checked, 'extern_function', validating condition or method, error_message)
-        eg: </p>
-<div class="codehilite"><pre><span></span><code>check_argument(self.strategy_parameters, &#39;extern_function&#39;, lambda x: len(x) &gt;= 11, err_message=f&#39;Need 11 parameters for this strategy: {parameter_string}&#39;)
-</code></pre></div>
-
-</li>
-<li>
-<p><strong>check_argument_bulk</strong><br />
-    Checks multiple parameters passed in a list
-    Syntax:
-        check_argument_bulk(list of values to be checked, 'extern_function', validating condition or method, error_message)
-        eg: </p>
-<div class="codehilite"><pre><span></span><code>is_nonnegative_int_arg_list = [self.start_time_hours, self.start_time_minutes, self.end_time_hours, self.end_time_minutes]
-check_argument_bulk(is_nonnegative_int_arg_list, &#39;extern_function&#39;, is_nonnegative_int, &#39;Value should be &gt;=0&#39;)
-</code></pre></div>
-
-</li>
-<li>
-<p><strong>is_nonnegative_int</strong> <br />
-   Checks whether the value is greater than or equal to zero.</p>
-</li>
-<li>
-<p><strong>is_positive_int_or_float</strong><br />
-   Checks whether the value is greater than zero and is an integer or a float value.</p>
-</li>
-<li>
-<p><strong>is_positive_int</strong><br />
-   Checks whether the value is greater than zero and is an integer value.</p>
-</li>
-<li>
-<p><strong>is_nonnegative_int_or_float</strong><br />
-   Checks whether the value is greater than or equal to zero and is an integer or a float value.</p>
-</li>
+<li>The parameter names and the number of parameters may be different for different strategies.</li>
 </ul>
+</div>
 </li>
 <li>
 <h3 id="start-time-and-end-time-creation">Start time and End time creation<a class="headerlink" href="#start-time-and-end-time-creation" title="Permanent link">&para;</a></h3>
-<p>Add the below code to calculate the strategy start time and end time, from the start time and end time parameters in the strategy YAML file.<br />
-try:
-<div class="highlight"><pre><span></span><code>    self.candle_start_time = time(hour=self.start_time_hours, minute=self.start_time_minutes)
+<p>Adding Start and End time is useful when you want to define a timerange between which the strategy will be running each day.
+Add the below code to calculate the strategy start time and end time, from the <code>strategy_parameters</code>.<br />
+    try:
+    <div class="highlight"><pre><span></span><code>    self.candle_start_time = time(hour=self.start_time_hours, minute=self.start_time_minutes)
 except ValueError:
     self.logger.fatal(&#39;Error converting start hours and minutes... EXITING&#39;)
     raise SystemExit
 </code></pre></div>
-try: 
-<div class="highlight"><pre><span></span><code>    self.candle_end_time = time(hour=self.end_time_hours, minute=self.end_time_minutes)
+    try: 
+    <div class="highlight"><pre><span></span><code>    self.candle_end_time = time(hour=self.end_time_hours, minute=self.end_time_minutes)
 except ValueError:
     self.logger.fatal(&#39;Error converting end time hours and minutes... EXITING&#39;)
     raise SystemExit
@@ -1982,7 +1913,8 @@ except ValueError:
 <p>Unlike the <code>init method</code>, this method gets called every day at the beginning of the day once the strategy is started.</p>
 <p>Here the strategy variables that were initialized as None are again defined as dictionaries/lists except for the <code>self.order_tag_manager</code>. 
 Create a reference for <code>OrderTagManager</code> as shown below:</p>
-<p><code>self.order_tag_manager = OrderTagManager</code> </p>
+<div class="highlight"><pre><span></span><code>self.order_tag_manager = OrderTagManager
+</code></pre></div>
 <hr />
 <h2 id="4-ordertagmanager">4. OrderTagManager<a class="headerlink" href="#4-ordertagmanager" title="Permanent link">&para;</a></h2>
 <p>The <code>self.order_tag_manager</code> is used to store/remove the entry/exit orders. The <code>self.order_tag_manager</code> has the following methods:</p>
@@ -2108,14 +2040,14 @@ that calculates the entry condition like a crossover or compares the latest valu
 </ol>
 <hr />
 <p>To know more about a strategy from our given template, simply <strong>check the first line of comment</strong> in the code of that specific strategy.
-You can even access them <a href="https://algobulls.github.io/pyalgotrading/">here</a> in <code>Strategies</code> Section</p>
+You can even access them <a href="https://algobulls.github.io/pyalgotrading/">here</a> in <code>Strategies</code> section</p>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-08-23T15:09:08+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-08-23</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-08-25T18:43:18+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-08-25</span>
       
     
   </small>

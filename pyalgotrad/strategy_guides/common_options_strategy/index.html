@@ -435,6 +435,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#naming-your-strategy" class="md-nav__link">
+    Naming your Strategy
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -458,13 +465,6 @@
           <li class="md-nav__item">
   <a href="#parameter-creation" class="md-nav__link">
     Parameter creation
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#parameter-validation" class="md-nav__link">
-    Parameter validation
   </a>
   
 </li>
@@ -1638,6 +1638,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#naming-your-strategy" class="md-nav__link">
+    Naming your Strategy
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1661,13 +1668,6 @@
           <li class="md-nav__item">
   <a href="#parameter-creation" class="md-nav__link">
     Parameter creation
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#parameter-validation" class="md-nav__link">
-    Parameter validation
   </a>
   
 </li>
@@ -1911,21 +1911,23 @@
 <ol>
 <li>
 <h3 id="create-a-new-strategy-file">Create a new strategy file<a class="headerlink" href="#create-a-new-strategy-file" title="Permanent link">&para;</a></h3>
-   eg: strategy_<code>&lt;developer_initials&gt;</code>_options_ema_crossover.py<div class="admonition tips">
+<div class="admonition info">
+<p class="admonition-title">this is for <strong>pyalgotrading</strong> users</p>
+</div>
+<p>eg: strategy_<code>&lt;unique_code_if_needed&gt;</code>_options_ema_crossover.py</p>
+<div class="admonition tips">
 <p class="admonition-title">Coding Conventions</p>
 <ul>
 <li>Keep a unique file name</li>
-<li>Add the initials of your name after the word strategy in the strategy file name so that it becomes easier to identify the developer who developed the strategy and also helps with a unique strategy name.</li>
 <li>Make sure that the file name is in lowercase and that each word is separated with an underscore '_' as shown above.</li>
 </ul>
 </div>
 </li>
 <li>
 <h3 id="naming-a-class">Naming a Class<a class="headerlink" href="#naming-a-class" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="n">eg</span><span class="o">:</span><span class="w"> </span><span class="n">For</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">above</span><span class="w"> </span><span class="n">strategy</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="n">would</span><span class="w"> </span><span class="n">be</span><span class="o">:</span>
-<span class="w">    </span><span class="n">Strategy</span><span class="err">```</span><span class="o">&lt;</span><span class="n">developer_initials</span><span class="o">&gt;</span><span class="err">```</span><span class="n">OptionsEMACrossover</span><span class="o">(</span><span class="n">StrategyOptionsBaseV2</span><span class="o">)</span>
-</code></pre></div>
-
+<p>eg: For the above strategy name the class name would be:
+    <div class="highlight"><pre><span></span><code>StrategyOptionsEMACrossover(StrategyOptionsBaseV2)
+</code></pre></div></p>
 <div class="admonition tips">
 <p class="admonition-title">Coding Conventions<ul>
 <li>Make a class with the same name as the file name</li>
@@ -1936,6 +1938,13 @@
 </p>
 </div>
 </li>
+<li>
+<h3 id="naming-your-strategy">Naming your Strategy<a class="headerlink" href="#naming-your-strategy" title="Permanent link">&para;</a></h3>
+<p>This name will be displayed in your <strong>My Coded Strategies</strong> in Python Build Web, and it will also be the <strong>strategy_name</strong> when you are fetching all strategies in pyalgotrading.<br />
+Inside your strategy class, you can write your first parameter as <code>name</code>.
+    <div class="highlight"><pre><span></span><code>name = &#39;options_ema_crossover&#39;
+</code></pre></div></p>
+</li>
 </ol>
 <hr />
 <h2 id="2-init-method">2. Init method<a class="headerlink" href="#2-init-method" title="Permanent link">&para;</a></h2>
@@ -1943,48 +1952,9 @@
 <ol>
 <li>
 <h3 id="strategy-info">Strategy info<a class="headerlink" href="#strategy-info" title="Permanent link">&para;</a></h3>
-<p>In the <strong>init</strong> method add the <code>super().__init__(*args, **kwargs)</code> and add the below lines.</p>
-<div class="highlight"><pre><span></span><code>VERSION = strategy_version 
-CLIENT = client_name
-STRATEGY_TYPE = &#39;OPTIONS&#39;
-
-self.logger.info(f&#39;\n{&quot;#&quot; * 40}\nSTRATEGY VERSION: {VERSION}\n{&quot;#&quot; * 40}&#39;)
-self.logger.debug(f&#39;\n{&quot;#&quot; * 60}\nSTRATEGY TYPE: {STRATEGY_TYPE} | CLIENT: {CLIENT}\n{&quot;#&quot; * 60}&#39;)
-</code></pre></div>
-<ul>
-<li>
-<p><strong>VERSION</strong>: This is the strategy version, the initial version is 3.3.1 as and when there are fixes/updates/changes in the strategy the version should be updated to 3.3.2, and so on.</p>
-</li>
-<li>
-<p><strong>CLIENT</strong>: Name of the client.</p>
-</li>
-<li>
-<p><strong>STRATEGY_TYPE</strong>: Whether the strategy is a FUTURES strategy or an OPTIONS strategy.</p>
-</li>
-</ul>
-<p>We print this information in the next line, so whenever we run the strategy this information is displayed in the logs.</p>
-<p>We save the parameter string in the parameter_string variable and check if the length of the parameter_string matches the number of parameters in the strategy's YAML file.</p>
-<p>eg:</p>
-<div class="highlight"><pre><span></span><code>parameter_string = &#39;\n(1) FRESH_ORDER_CANDLE \n(1) START_TIME_HOURS \n(1) START_TIME_MINUTES \n(1) END_TIME_HOURS \n(1) END_TIME_MINUTES \n(1) \n(1) STRIKES_DIRECTION_CE&#39; 
-                    &#39;\n(1) STRIKES_DIRECTION_PE \n(1) NO_OF_STRIKES_AWAY_CE \n(1) NO_OF_STRIKES_AWAY_PE \n(1) EMA_PERIOD_ONE \n(1) EMA_PERIOD_TWO&#39; 
-                    &#39;\n(1) TARGET_PERCENTAGE \n(1) STOPLOSS_PERCENTAGE \n(1) STOPLOSS_RANGE \n(1) STOPLOSS_ORDER_COUNT_ALLOWED&#39;
-
-check_argument(self.strategy_parameters, &#39;extern_function&#39;, lambda x: len(x) &gt;= 15, err_message=f&#39;Need 15 parameters for this strategy: {parameter_string}&#39;)
-</code></pre></div>
-<ul>
-<li>
-<p><strong>parameter_string</strong>: This string contains all the strategy parameters as shown above.</p>
-</li>
-<li>
-<p>We check if the number of parameters matches those in the strategy YAML file.</p>
-</li>
-</ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<ul>
-<li>The parameter names and the number of parameters may change for different strategies.</li>
-</ul>
-</div>
+<p>In the <strong>init</strong> method add the line given below
+<div class="highlight"><pre><span></span><code>super().__init__(*args, **kwargs)
+</code></pre></div></p>
 </li>
 <li>
 <h3 id="parameter-creation">Parameter creation<a class="headerlink" href="#parameter-creation" title="Permanent link">&para;</a></h3>
@@ -2006,69 +1976,17 @@ self.stoploss_percentage = self.strategy_parameters[&#39;STOPLOSS_PERCENTAGE&#39
 self.stoploss_range = self.strategy_parameters[&#39;STOPLOSS_RANGE&#39;]
 self.stoploss_order_count_allowed = self.strategy_parameters[&#39;STOPLOSS_ORDER_COUNT_ALLOWED&#39;]
 </code></pre></div></p>
-</li>
-<li>
-<h3 id="parameter-validation">Parameter validation<a class="headerlink" href="#parameter-validation" title="Permanent link">&para;</a></h3>
-<p>We validate each parameter's value according to the strategy requirement. The following methods can be used to validate the parameter values:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <ul>
-<li>
-<p><strong>check_argument</strong><br />
-     Checks a single parameter passed in it.
-     Syntax:
-         check_argument(value to be checked, 'extern_function', validating condition or method, error_message)
-         eg: </p>
-<div class="codehilite"><pre><span></span><code> check_argument(self.strategy_parameters, &#39;extern_function&#39;, lambda x: len(x) &gt;= 11, err_message=f&#39;Need 11 parameters for this strategy: {parameter_string}&#39;)
-</code></pre></div>
-
-</li>
-<li>
-<p><strong>check_argument_bulk</strong><br />
-     Checks multiple parameters passed in a list </p>
-<p>Syntax:
-   check_argument_bulk(list of values to be checked, 'extern_function', validating condition or method, error_message)
-     eg:</p>
-<div class="codehilite"><pre><span></span><code> is_nonnegative_int_arg_list = [self.start_time_hours, self.start_time_minutes, self.end_time_hours, self.end_time_minutes]
- check_argument_bulk(is_nonnegative_int_arg_list, &#39;extern_function&#39;, is_nonnegative_int, &#39;Value should be &gt;=0&#39;)
-</code></pre></div>
-
-</li>
-<li>
-<p><strong>is_nonnegative_int</strong>: Checks whether the value is greater than or equal to zero.</p>
-</li>
-<li>
-<p><strong>is_positive_int_or_float</strong>: Checks whether the value is greater than zero and is an integer or a float value.</p>
-</li>
-<li>
-<p><strong>is_positive_int</strong>: Checks whether the value is greater than zero and is an integer value.</p>
-</li>
-<li>
-<p><strong>is_nonnegative_int_or_float</strong>: Checks whether the value is greater than or equal to zero and is an integer or a float value.</p>
-</li>
+<li>The parameter names and the number of parameters may change for different strategies.</li>
 </ul>
-<p>No of the strikes values are validated as follows:</p>
-<div class="highlight"><pre><span></span><code>no_of_strikes_list = [(self.no_of_strikes_away_ce, &#39;NO_OF_STRIKES_AWAY_CE&#39;), (self.no_of_strikes_away_pe, &#39;NO_OF_STRIKES_AWAY_PE&#39;)]
-
-for no_of_strikes, text in no_of_strikes_list:
-    check_argument(no_of_strikes, &#39;extern_function&#39;, lambda x: 0 &lt;= x &lt;= 50 and isinstance(x, int), err_message=f&#39;{text} should be an integer with possible values between 0 to 50&#39;)
-</code></pre></div>
-<p>Strike direction values are validated as follows:</p>
-<div class="highlight"><pre><span></span><code>strikes_direction_list = [(self._strike_direction_ce, &#39;STRIKE_DIRECTION_CE&#39;), (self._strike_direction_pe, &#39;STRIKE_DIRECTION_PE&#39;)]
-
-for strike_direction, text in strikes_direction_list:
-    check_argument(strike_direction, &#39;extern_function&#39;, lambda x: x in [0, 1, 2] and isinstance(x, int), err_message=f&#39;{text} should be an integer with possible values - 0: ITM or 1: ATM or 2: OTM&#39;)
-</code></pre></div>
-<p>Once all the parameters are validated we calculate the actual value of the strike direction from the strike direction values given in the strategy YAML file.</p>
-<p>We define the below dictionary for <code>strike_direction</code>.</p>
-<div class="highlight"><pre><span></span><code>strike_direction_map = {0: OptionsStrikeDirection.ITM.value, 1: OptionsStrikeDirection.ATM.value, 2: OptionsStrikeDirection.OTM.value}
-</code></pre></div>
-<p>Then we create new variables for strike direction that save the value as ATM, ITM, and OTM based on the YAML parameter value.</p>
-<div class="highlight"><pre><span></span><code>self.strike_direction_ce = strike_direction_map[self._strike_direction_ce]
-self.strike_direction_pe = strike_direction_map[self._strike_direction_pe]
-</code></pre></div>
+</div>
 </li>
 <li>
 <h3 id="start-time-and-end-time-creation">Start time and End time creation<a class="headerlink" href="#start-time-and-end-time-creation" title="Permanent link">&para;</a></h3>
-<p>Add the below code to calculate the strategy start time and end time, from the start time and end time parameters in the strategy YAML file.</p>
+<p>Adding Start and End time is useful when you want to define a timerange between which the strategy will be running each day.<br />
+Add the below code to calculate the strategy start time and end time, from the <code>strategy_parameters</code>.</p>
 <p>try:
 <div class="highlight"><pre><span></span><code>    self.candle_start_time = time(hour=self.start_time_hours, minute=self.start_time_minutes)
 except ValueError:
@@ -2169,27 +2087,21 @@ Here the <code>main_order</code> order object is removed from the <code>OrderTag
 <ol>
 <li>
 <h3 id="get_ltp"><strong>get_ltp</strong><a class="headerlink" href="#get_ltp" title="Permanent link">&para;</a></h3>
-<p>Fetch the ltp of the base instrument (instrument in the YAML)
+<p>Fetch the ltp of the base instrument (instrument set while executing strategy)
 <div class="highlight"><pre><span></span><code>ltp = self.broker.get_ltp(self.underlying_instrument)
 </code></pre></div></p>
 </li>
 <li>
 <h3 id="options_instruments_set_up_local"><strong>options_instruments_set_up_local</strong><a class="headerlink" href="#options_instruments_set_up_local" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="nx">Get</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">ATM</span><span class="w"> </span><span class="nx">ITM</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="nx">OTM</span><span class="w"> </span><span class="nx">lists</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">child</span><span class="w"> </span><span class="nx">instrument</span><span class="w"> </span><span class="nx">based</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">LTP</span>
-<span class="sb">```</span>
-<span class="sb">self.options_instruments_set_up_local(self.underlying_instrument, tradingsymbol_suffix, ltp)</span>
-<span class="sb">```</span>
-</code></pre></div>
-
+<p>Get the ATM ITM and OTM lists of the child instrument based on the LTP
+    <div class="highlight"><pre><span></span><code>self.options_instruments_set_up_local(self.underlying_instrument, tradingsymbol_suffix, ltp)
+</code></pre></div></p>
 </li>
 <li>
 <h3 id="get_child_instrument_details"><strong>get_child_instrument_details</strong><a class="headerlink" href="#get_child_instrument_details" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>Select a child instrument from the lists of ATM, ITM, and OTM based on the strike direction and no of strikes given for the child instrument
-<span class="s">```</span>
-child_instrument = self.get_child_instrument_details(self.underlying_instrument, tradingsymbol_suffix, strike_direction, no_of_strikes)
-<span class="s">```</span>
-</code></pre></div>
-
+<p>Select a child instrument from the lists of ATM, ITM, and OTM based on the strike direction and no of strikes given for the child instrument
+    <div class="highlight"><pre><span></span><code>child_instrument = self.get_child_instrument_details(self.underlying_instrument, tradingsymbol_suffix, strike_direction, no_of_strikes)
+</code></pre></div></p>
 </li>
 </ol>
 <hr />
@@ -2259,19 +2171,19 @@ that calculates the entry condition like a crossover or compares the latest valu
 <p>Add comments and docstrings wherever possible to improve code readability.</p>
 </li>
 <li>
-<p>Once the strategy is completed perform O-I-L on the strategy code and remove unwanted imports, variables, and methods before delivering the code.**</p>
+<p>Once the strategy is completed perform O-I-L on the strategy code and remove unwanted imports, variables, and methods before delivering the code.</p>
 </li>
 </ol>
 <hr />
 <p>To know more about a strategy from our given template, simply <strong>check the first line of comment</strong> in the code of that specific strategy.
-You can even access them <a href="https://algobulls.github.io/pyalgotrading/" target="_blank">here</a> in <code>Strategies</code> Section</p>
+You can even access them <a href="https://algobulls.github.io/pyalgotrading/" target="_blank">here</a> in <code>Strategies</code> section</p>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-08-23T15:09:08+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-08-23</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-08-25T18:43:18+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-08-25</span>
       
     
   </small>
