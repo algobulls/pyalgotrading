@@ -36,6 +36,6 @@ On clicking **Create new secret key** a pop-up will appear, where you can enter 
 [![chat gpt profile](imgs/chat_gpt_copy_api_key.png)](imgs/chat_gpt_copy_api_key.png)
 
 ### Step 5 - Ready to go with AlgoBulls
-Once you have copied your secret key then you can now save it on your AlgoBulls Account for accessing the gen-ai feature to create a strategy, and there you go.
-
+Once you have copied your secret key then you can now save it on your AlgoBulls Account for accessing the gen-ai feature to create a strategy, and there you go.  
+To know how to save keys and start with generating strategies using Chat-GPT, click [here](../python_build/python-build-code-gen-ai.md)  
 Happy Trading !
