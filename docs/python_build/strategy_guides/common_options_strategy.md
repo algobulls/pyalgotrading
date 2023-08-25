@@ -6,16 +6,18 @@
 ## 1. Initial steps
 
 1. ### Create a new strategy file
-   eg: strategy_```<developer_initials>```_options_ema_crossover.py
+    !!! info "this is for **pyalgotrading** users"
+    eg: strategy_```<unique_code_if_needed>```_options_ema_crossover.py
 
     !!!Tips "Coding Conventions"
         * Keep a unique file name
-        * Add the initials of your name after the word strategy in the strategy file name so that it becomes easier to identify the developer who developed the strategy and also helps with a unique strategy name.
         * Make sure that the file name is in lowercase and that each word is separated with an underscore '_' as shown above.
 
 2. ### Naming a Class
-    eg: For the above strategy name the class name would be:
-        Strategy```<developer_initials>```OptionsEMACrossover(StrategyOptionsBaseV2)
+eg: For the above strategy name the class name would be:
+    ```
+    StrategyOptionsEMACrossover(StrategyOptionsBaseV2)
+    ```
 
     !!! Tips "Coding Conventions"
             * Make a class with the same name as the file name
@@ -23,6 +25,12 @@
             * If the class name includes indicator names like EMA, SMA, and VWAP the name should be in uppercase in the class name but not in the file name.
             * Every options strategy is a child class of the StrategyOptionsBaseV2 class.
 
+3. ### Naming your Strategy
+This name will be displayed in your **My Coded Strategies** in Python Build Web, and it will also be the **strategy_name** when you are fetching all strategies in pyalgotrading.  
+Inside your strategy class, you can write your first parameter as `name`.
+    ```
+    name = 'options_ema_crossover'
+    ```
 ---
 
 ## 2. Init method
@@ -31,42 +39,10 @@ This method gets called only once when the strategy is started.
 
 1. ### Strategy info
 
-    In the __init__ method add the ```super().__init__(*args, **kwargs)``` and add the below lines.
-    
+    In the __init__ method add the line given below
     ```
-    VERSION = strategy_version 
-    CLIENT = client_name
-    STRATEGY_TYPE = 'OPTIONS'
-    
-    self.logger.info(f'\n{"#" * 40}\nSTRATEGY VERSION: {VERSION}\n{"#" * 40}')
-    self.logger.debug(f'\n{"#" * 60}\nSTRATEGY TYPE: {STRATEGY_TYPE} | CLIENT: {CLIENT}\n{"#" * 60}')
-    ```
-
-    * **VERSION**: This is the strategy version, the initial version is 3.3.1 as and when there are fixes/updates/changes in the strategy the version should be updated to 3.3.2, and so on.
-
-    * **CLIENT**: Name of the client.
-
-    * **STRATEGY_TYPE**: Whether the strategy is a FUTURES strategy or an OPTIONS strategy.
-
-    We print this information in the next line, so whenever we run the strategy this information is displayed in the logs.
-
-    We save the parameter string in the parameter_string variable and check if the length of the parameter_string matches the number of parameters in the strategy's YAML file.
-
-    eg:
-    
-    ```
-    parameter_string = '\n(1) FRESH_ORDER_CANDLE \n(1) START_TIME_HOURS \n(1) START_TIME_MINUTES \n(1) END_TIME_HOURS \n(1) END_TIME_MINUTES \n(1) \n(1) STRIKES_DIRECTION_CE' 
-                        '\n(1) STRIKES_DIRECTION_PE \n(1) NO_OF_STRIKES_AWAY_CE \n(1) NO_OF_STRIKES_AWAY_PE \n(1) EMA_PERIOD_ONE \n(1) EMA_PERIOD_TWO' 
-                        '\n(1) TARGET_PERCENTAGE \n(1) STOPLOSS_PERCENTAGE \n(1) STOPLOSS_RANGE \n(1) STOPLOSS_ORDER_COUNT_ALLOWED'
-    
-    check_argument(self.strategy_parameters, 'extern_function', lambda x: len(x) >= 15, err_message=f'Need 15 parameters for this strategy: {parameter_string}')
-    ```
-
-    * **parameter_string**: This string contains all the strategy parameters as shown above.
-
-    * We check if the number of parameters matches those in the strategy YAML file.
-    !!! Note
-          * The parameter names and the number of parameters may change for different strategies.
+    super().__init__(*args, **kwargs)
+    ``` 
 
 2. ### Parameter creation
 
@@ -90,73 +66,12 @@ This method gets called only once when the strategy is started.
     self.stoploss_range = self.strategy_parameters['STOPLOSS_RANGE']
     self.stoploss_order_count_allowed = self.strategy_parameters['STOPLOSS_ORDER_COUNT_ALLOWED']
     ```
-
-3. ### Parameter validation
-
-    We validate each parameter's value according to the strategy requirement. The following methods can be used to validate the parameter values:
-
-    * **check_argument**  
-         Checks a single parameter passed in it.
-         Syntax:
-             check_argument(value to be checked, 'extern_function', validating condition or method, error_message)
-             eg: 
-
-             check_argument(self.strategy_parameters, 'extern_function', lambda x: len(x) >= 11, err_message=f'Need 11 parameters for this strategy: {parameter_string}')
-
-    * **check_argument_bulk**  
-         Checks multiple parameters passed in a list 
-      
-         Syntax:
-           check_argument_bulk(list of values to be checked, 'extern_function', validating condition or method, error_message)
-             eg:
-   
-             is_nonnegative_int_arg_list = [self.start_time_hours, self.start_time_minutes, self.end_time_hours, self.end_time_minutes]
-             check_argument_bulk(is_nonnegative_int_arg_list, 'extern_function', is_nonnegative_int, 'Value should be >=0')
-
-    * **is_nonnegative_int**: Checks whether the value is greater than or equal to zero.
-
-    * **is_positive_int_or_float**: Checks whether the value is greater than zero and is an integer or a float value.
-
-    * **is_positive_int**: Checks whether the value is greater than zero and is an integer value.
-
-    * **is_nonnegative_int_or_float**: Checks whether the value is greater than or equal to zero and is an integer or a float value.
-
-    No of the strikes values are validated as follows:
-
-    ```
-    no_of_strikes_list = [(self.no_of_strikes_away_ce, 'NO_OF_STRIKES_AWAY_CE'), (self.no_of_strikes_away_pe, 'NO_OF_STRIKES_AWAY_PE')]
-    
-    for no_of_strikes, text in no_of_strikes_list:
-        check_argument(no_of_strikes, 'extern_function', lambda x: 0 <= x <= 50 and isinstance(x, int), err_message=f'{text} should be an integer with possible values between 0 to 50')
-    ```
-
-    Strike direction values are validated as follows:
-
-    ```
-    strikes_direction_list = [(self._strike_direction_ce, 'STRIKE_DIRECTION_CE'), (self._strike_direction_pe, 'STRIKE_DIRECTION_PE')]
-    
-    for strike_direction, text in strikes_direction_list:
-        check_argument(strike_direction, 'extern_function', lambda x: x in [0, 1, 2] and isinstance(x, int), err_message=f'{text} should be an integer with possible values - 0: ITM or 1: ATM or 2: OTM')
-    ```
-
-    Once all the parameters are validated we calculate the actual value of the strike direction from the strike direction values given in the strategy YAML file.
-    
-    We define the below dictionary for ```strike_direction```.
-    
-    ```
-    strike_direction_map = {0: OptionsStrikeDirection.ITM.value, 1: OptionsStrikeDirection.ATM.value, 2: OptionsStrikeDirection.OTM.value}
-    ```
-
-    Then we create new variables for strike direction that save the value as ATM, ITM, and OTM based on the YAML parameter value.
-    
-    ```
-    self.strike_direction_ce = strike_direction_map[self._strike_direction_ce]
-    self.strike_direction_pe = strike_direction_map[self._strike_direction_pe]
-    ```
+    !!! Note
+          * The parameter names and the number of parameters may change for different strategies.
 
 4. ### Start time and End time creation
-
-    Add the below code to calculate the strategy start time and end time, from the start time and end time parameters in the strategy YAML file.
+Adding Start and End time is useful when you want to define a timerange between which the strategy will be running each day.  
+Add the below code to calculate the strategy start time and end time, from the `strategy_parameters`.
 
     try:
     ```
@@ -262,19 +177,19 @@ The ```self.order_tag_manager``` is used to store/remove the entry/exit orders. 
 ## 5. Child instruments calculation
 
 1. ### **get_ltp** 
-    Fetch the ltp of the base instrument (instrument in the YAML)
+    Fetch the ltp of the base instrument (instrument set while executing strategy)
     ```
     ltp = self.broker.get_ltp(self.underlying_instrument)
     ```
 
 2. ### **options_instruments_set_up_local**
-    Get the ATM ITM and OTM lists of the child instrument based on the LTP
+   Get the ATM ITM and OTM lists of the child instrument based on the LTP
     ```
     self.options_instruments_set_up_local(self.underlying_instrument, tradingsymbol_suffix, ltp)
     ```
 
 3. ### **get_child_instrument_details**
-    Select a child instrument from the lists of ATM, ITM, and OTM based on the strike direction and no of strikes given for the child instrument
+   Select a child instrument from the lists of ATM, ITM, and OTM based on the strike direction and no of strikes given for the child instrument
     ```
     child_instrument = self.get_child_instrument_details(self.underlying_instrument, tradingsymbol_suffix, strike_direction, no_of_strikes)
     ```
@@ -332,9 +247,9 @@ There are other methods that are used in the strategy:
 
 1. Add comments and docstrings wherever possible to improve code readability.
 
-2. Once the strategy is completed perform O-I-L on the strategy code and remove unwanted imports, variables, and methods before delivering the code.**
+2. Once the strategy is completed perform O-I-L on the strategy code and remove unwanted imports, variables, and methods before delivering the code.
 
 ---
 
 To know more about a strategy from our given template, simply **check the first line of comment** in the code of that specific strategy.
-You can even access them [here](https://algobulls.github.io/pyalgotrading/){target=_blank} in `Strategies` Section
+You can even access them [here](https://algobulls.github.io/pyalgotrading/){target=_blank} in `Strategies` section
