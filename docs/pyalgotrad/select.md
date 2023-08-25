@@ -1,7 +1,7 @@
 # Select your Strategy
 
 ---
-### Previously...
+## Previously...
 
 You have uploaded or saved a strategy by:
 
@@ -15,22 +15,22 @@ You have uploaded or saved a strategy by:
 
 
 ---
-### Now...
+## Now...
 You are now ready to select or import your strategy from your AlgoBulls account for Backtesting, Paper Trading and/or Real Trading. 
 
 ---
-### Before you start...
+## Before you start...
 * Make sure you have an active working AlgoBulls account ready to go!
 * Open a Jupyter Notebook.
 * If you have coded the strategy yourself and not used a ready strategy from the [pyalgostrategypool](https://github.com/algobulls/pyalgostrategypool){target=_blank} package, then make sure your strategy file (.py) and the Jupyter Notebook **are in the same folder**. 
 
 ---
-### Let's Start...
+## Let's Start...
 Run the following code snippets into the Jupyter Notebook one by one (or all together).
 
 
 ---
-#### Import statements
+### Import statements
 
 ```python
 import inspect
@@ -38,7 +38,7 @@ from pyalgotrading.algobulls import AlgoBullsConnection
 ```
 
 ---
-#### Import the strategy class
+### Import the strategy class
 Perform the below step either to import a ready strategy **OR** to import your own created strategy.
 
 - **Import a ready strategy**
@@ -52,7 +52,7 @@ from strategy_sma_regular_order import StrategySMARegularOrder
 ```
 
 ---
-#### Establish a connection to the AlgoBulls Platform
+### Establish a connection to the AlgoBulls Platform
 
 ```python
 algobulls_connection = AlgoBullsConnection()
@@ -74,7 +74,7 @@ algobulls_connection.set_access_token('4365817b795770ea31040a21ad29c8e78b63ad88'
 Replace the token you have copied with the token in the code above.
 
 ---
-#### View all the strategies in your AlgoBulls Account
+### View all the strategies in your AlgoBulls Account
 You can view all the strategy saved on your AlgoBulls account.
 ```python
 all_strategies_df = algobulls_connection.get_all_strategies()
@@ -82,7 +82,7 @@ print(all_strategies_df)
 ```
 
 ---
-#### Search your Strategy
+### Search your Strategy
 -  Search your strategy using `strategy name`. Make sure you have the strategy with given name in your AlgoBulls Account.
      ```python
          strategy_name = 'Exponential Moving Averages Crossover'
@@ -95,7 +95,7 @@ print(all_strategies_df)
      ```
 
 ---
-### What's Next...
+## What's Next...
 You are now ready to test your uploaded strategy and perform Backtesting, Paper Trading and/or Real Trading with it.
 
 ---
