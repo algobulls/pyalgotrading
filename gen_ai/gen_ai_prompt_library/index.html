@@ -1205,7 +1205,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../broker_alpaca_guide/" class="md-nav__link">
+      <a href="../../brokers/broker_alpaca_guide/" class="md-nav__link">
         Alpaca
       </a>
     </li>
@@ -1308,6 +1308,82 @@
     Here are some prompts for Creating Strategy using GenAI
   </a>
   
+    <nav class="md-nav" aria-label="Here are some prompts for Creating Strategy using GenAI">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#moving-averages-ema-or-sma" class="md-nav__link">
+    Moving Averages (EMA or SMA)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#relative-strength-index-rsi" class="md-nav__link">
+    Relative Strength Index (RSI)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aroon" class="md-nav__link">
+    Aroon
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stochastic" class="md-nav__link">
+    Stochastic
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bollinger-bands-bb" class="md-nav__link">
+    Bollinger Bands (BB)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fibonacci" class="md-nav__link">
+    Fibonacci
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#atr-volatility" class="md-nav__link">
+    ATR (Volatility)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#moving-average-convergence-divergence-macd" class="md-nav__link">
+    Moving Average Convergence Divergence (MACD)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#volume-weighted-average-price-vwap" class="md-nav__link">
+    Volume Weighted Average Price (VWAP)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#miscellaneous" class="md-nav__link">
+    Miscellaneous
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -1356,6 +1432,82 @@
     Here are some prompts for Creating Strategy using GenAI
   </a>
   
+    <nav class="md-nav" aria-label="Here are some prompts for Creating Strategy using GenAI">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#moving-averages-ema-or-sma" class="md-nav__link">
+    Moving Averages (EMA or SMA)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#relative-strength-index-rsi" class="md-nav__link">
+    Relative Strength Index (RSI)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aroon" class="md-nav__link">
+    Aroon
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stochastic" class="md-nav__link">
+    Stochastic
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bollinger-bands-bb" class="md-nav__link">
+    Bollinger Bands (BB)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fibonacci" class="md-nav__link">
+    Fibonacci
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#atr-volatility" class="md-nav__link">
+    ATR (Volatility)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#moving-average-convergence-divergence-macd" class="md-nav__link">
+    Moving Average Convergence Divergence (MACD)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#volume-weighted-average-price-vwap" class="md-nav__link">
+    Volume Weighted Average Price (VWAP)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#miscellaneous" class="md-nav__link">
+    Miscellaneous
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -1378,13 +1530,63 @@
 
 <h1 id="prompt-library-for-gen-ai">Prompt Library for Gen AI<a class="headerlink" href="#prompt-library-for-gen-ai" title="Permanent link">&para;</a></h1>
 <h2 id="here-are-some-prompts-for-creating-strategy-using-genai">Here are some prompts for Creating Strategy using GenAI<a class="headerlink" href="#here-are-some-prompts-for-creating-strategy-using-genai" title="Permanent link">&para;</a></h2>
+<h3 id="moving-averages-ema-or-sma">Moving Averages (EMA or SMA)<a class="headerlink" href="#moving-averages-ema-or-sma" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Create a trading strategy which takes a BUY trade when EMA cuts SMA upwards and a SELL trade when EMA cuts SMA downwards. While placing a trade, if a previous position is open, it should be exited before placing the new trade</li>
+<li>Create a strategy which uses 2 EMAs of different time periods, and it BUYs when EMA of timeperiod 1 crosses the EMA of timeperiod 2 upwards and SELLs when EMA of timeperiod 1 crosses the EMA of timeperiod 2 downwards.</li>
+<li>Create a trading strategy which takes a BUY trade when EMA cuts SMA upwards and a SELL trade when EMA cuts SMA downwards. While placing a trade, if a previous position is open, it should be exited before placing the new trade</li>
+<li>Develop a strategy that generates a BUY signal when a shorter-term moving average crosses above an intermediate-term moving average, which then crosses above a longer-term moving average. Conversely, generate a SELL signal when the moving averages crossover in the opposite direction.</li>
+</ul>
+<h3 id="relative-strength-index-rsi">Relative Strength Index (RSI)<a class="headerlink" href="#relative-strength-index-rsi" title="Permanent link">&para;</a></h3>
+<ul>
 <li>Create a strategy that uses RSI indicator to give signals based on over bought or over sold conditions. If RSI is above 70, the strategy should generate a SELL signal and if it's below 30, it should generate a BUY signal</li>
 <li>Create a strategy using RSI of MACD-signal of close with fast MA period as X, slow MA period as Y and signal period as Z, which will SELL on crossing the upper band and BUY on crossing the lower band</li>
 <li>Create a trading strategy which takes BUY when RSI crosses lower band and create a SELL when RSI crosses the upward band, set a stop loss of 2% and target to be 15%.</li>
-<li>Create a strategy which uses 2 EMAs of different time periods, and it BUYs when EMA of timeperiod 1 crosses the EMA of timeperiod 2 upwards and SELLs when EMA of timeperiod 1 crosses the EMA of timeperiod 2 downwards.</li>
 <li>Create a trading strategy using RSI technical indicator</li>
+<li>Create a strategy using RSI of MACD-signal of close with fast MA period as X, slow MA period as Y and signal period as Z, which will SELL on crossing the upper band and BUY on crossing the lower band</li>
+<li>Please help me with a strategy that uses RSI indicator to give signals based on over bought or over sold conditions. If RSI is above 70, the strategy should generate a SELL signal and if it's below 30, it should generate a BUY signal</li>
+<li>Create a trading strategy which takes BUY when RSI crosses lower band and create a SELL when RSI crosses the upward band, set a stop loss of 2% and target to be 15%.</li>
+</ul>
+<h3 id="aroon">Aroon<a class="headerlink" href="#aroon" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Create a trading strategy that utilizes the Aroon indicator to generate signals based on overbought or oversold conditions. If the Aroon Up line crosses below the Aroon Down line and falls below 30, the strategy should generate a BUY signal. Conversely, if the Aroon Up line crosses above the Aroon Down line and rises above 70, the strategy should generate a SELL signal</li>
+</ul>
+<h3 id="stochastic">Stochastic<a class="headerlink" href="#stochastic" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Develop a trading strategy that incorporates the stochastic crossover to generate signals. When the %K line crosses above the %D line and both lines are below 30, the strategy should generate a BUY signal. Similarly, when the %K line crosses below the %D line and both lines are above 70, the strategy should generate a SELL signal</li>
+<li>Develop a strategy that generates a BUY signal when the Stochastic RSI indicator crosses above the oversold level (e.g., 20) and a SELL signal when it crosses below the overbought level (e.g., 80).</li>
+</ul>
+<h3 id="bollinger-bands-bb">Bollinger Bands (BB)<a class="headerlink" href="#bollinger-bands-bb" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Develop a strategy that generates a BUY signal when the price breaks above the upper Bollinger Band. Similarly, generate a SELL signal when the price breaks below the lower Bollinger Band</li>
+</ul>
+<h3 id="fibonacci">Fibonacci<a class="headerlink" href="#fibonacci" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Develop a strategy that generates a BUY signal when the price retraces to a key Fibonacci level (e.g., 38.2% or 50%) and shows signs of reversal using other technical indicators. Similarly, generate a SELL signal when the price retraces to a Fibonacci level and shows signs of continuation in the prevailing trend</li>
+<li>Create a strategy that generates a BUY signal when the price retraces to a key Fibonacci level (e.g., 61.8%) and then extends beyond the previous swing high. Similarly, generate a SELL signal when the price retraces to a Fibonacci level and then extends beyond the previous swing low.</li>
+</ul>
+<h3 id="atr-volatility">ATR (Volatility)<a class="headerlink" href="#atr-volatility" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Develop a strategy that generates a BUY signal when the price surpasses a multiple of the ATR above a recent swing high, indicating increased volatility and potential upward momentum. Conversely, generate a SELL signal when the price drops below a multiple of the ATR below a recent swing low, indicating increased volatility and potential downward momentum.</li>
+</ul>
+<h3 id="moving-average-convergence-divergence-macd">Moving Average Convergence Divergence (MACD)<a class="headerlink" href="#moving-average-convergence-divergence-macd" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Create a strategy that generates a BUY signal when the MACD histogram bars cross above the zero line and a SELL signal when the histogram bars cross below the zero line.</li>
+</ul>
+<h3 id="volume-weighted-average-price-vwap">Volume Weighted Average Price (VWAP)<a class="headerlink" href="#volume-weighted-average-price-vwap" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Create a strategy that generates a BUY signal when the price rises above the VWAP line and a SELL signal when the price drops below the VWAP line, indicating potential shifts in supply and demand.</li>
+</ul>
+<h3 id="miscellaneous">Miscellaneous<a class="headerlink" href="#miscellaneous" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Create a strategy that generates a BUY signal when the price crosses above the cloud (Span A and Span B) and the cloud changes color from red to green. Conversely, generate a SELL signal when the price crosses below the cloud and the cloud changes color from green to red.</li>
+<li>Create a strategy that generates a BUY signal when there is a significant increase in volume accompanied by a bullish candlestick pattern. Similarly, generate a SELL signal when there is a significant increase in volume accompanied by a bearish candlestick pattern</li>
+<li>Create a strategy that generates a BUY signal when the RVI indicator crosses above its signal line and a SELL signal when it crosses below its signal line, indicating potential changes in momentum.</li>
+<li>Create a strategy that generates a BUY signal when the price breaks above the upper pivot point level or a key resistance level and a SELL signal when the price breaks below the lower pivot point level or a key support level.</li>
+<li>Develop a strategy that generates a BUY signal when the price crosses above the Parabolic SAR dots and a SELL signal when the price crosses below the dots.</li>
+<li>Create a strategy that generates a BUY signal when a bullish harmonic pattern, such as a bullish butterfly or bullish Gartley, forms and validates with other technical indicators. Similarly, generate a SELL signal when a bearish harmonic pattern forms and validates.</li>
+<li>Create a strategy that generates a BUY signal when the price breaks above the upper Donchian Channel and a SELL signal when the price breaks below the lower Donchian Channel.</li>
+<li>Implement a gap and go strategy that capitalizes on the momentum created by price gaps at the market open. When the price gaps up significantly and continues to move higher, generate a BUY signal. Similarly, when the price gaps down substantially and continues to move lower, generate a SELL signal.</li>
 </ul>
 
   <hr>
@@ -1392,7 +1594,7 @@
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-08-25T11:48:50+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-08-25</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-08-25T18:37:32+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-08-25</span>
       
     
   </small>

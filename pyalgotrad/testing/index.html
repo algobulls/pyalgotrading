@@ -501,12 +501,18 @@
     Establish a connection to the AlgoBulls Platform
   </a>
   
-</li>
+    <nav class="md-nav" aria-label="Establish a connection to the AlgoBulls Platform">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#display-all-strategies-in-your-account" class="md-nav__link">
     Display all strategies in your account
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -1384,7 +1390,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../broker_alpaca_guide/" class="md-nav__link">
+      <a href="../../brokers/broker_alpaca_guide/" class="md-nav__link">
         Alpaca
       </a>
     </li>
@@ -1528,12 +1534,18 @@
     Establish a connection to the AlgoBulls Platform
   </a>
   
-</li>
+    <nav class="md-nav" aria-label="Establish a connection to the AlgoBulls Platform">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#display-all-strategies-in-your-account" class="md-nav__link">
     Display all strategies in your account
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -1645,16 +1657,16 @@
 
 
 <h1 id="execute-your-strategy">Execute your Strategy<a class="headerlink" href="#execute-your-strategy" title="Permanent link">&para;</a></h1>
-<h3 id="previously">Previously...<a class="headerlink" href="#previously" title="Permanent link">&para;</a></h3>
+<h2 id="previously">Previously...<a class="headerlink" href="#previously" title="Permanent link">&para;</a></h2>
 <p>You have uploaded your strategy to the AlgoBulls platform.</p>
 <hr />
-<h3 id="now">Now...<a class="headerlink" href="#now" title="Permanent link">&para;</a></h3>
+<h2 id="now">Now...<a class="headerlink" href="#now" title="Permanent link">&para;</a></h2>
 <p>Using the uploaded strategy, you can now try:
 * Backtesting
 * Paper Trading
 * Real Trading </p>
 <hr />
-<h3 id="before-you-start">Before you start...<a class="headerlink" href="#before-you-start" title="Permanent link">&para;</a></h3>
+<h2 id="before-you-start">Before you start...<a class="headerlink" href="#before-you-start" title="Permanent link">&para;</a></h2>
 <p>Open a Jupyter Notebook.</p>
 <p>The steps you will follow are:</p>
 <ol>
@@ -1669,15 +1681,15 @@
 <li>Fetch Reports. (PnL, Statistics, Order History)</li>
 </ol>
 <hr />
-<h3 id="lets-start">Let's Start...<a class="headerlink" href="#lets-start" title="Permanent link">&para;</a></h3>
+<h2 id="lets-start">Let's Start...<a class="headerlink" href="#lets-start" title="Permanent link">&para;</a></h2>
 <p>Run the following code snippets into the Jupyter Notebook one by one (or all together).</p>
-<h4 id="import-statements">Import statements<a class="headerlink" href="#import-statements" title="Permanent link">&para;</a></h4>
+<h3 id="import-statements">Import statements<a class="headerlink" href="#import-statements" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pyalgotrading.algobulls</span> <span class="kn">import</span> <span class="n">AlgoBullsConnection</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span> <span class="k">as</span> <span class="n">dt</span>
 <span class="kn">from</span> <span class="nn">pyalgotrading.constants</span> <span class="kn">import</span> <span class="o">*</span>
 </code></pre></div>
 <hr />
-<h4 id="establish-a-connection-to-the-algobulls-platform">Establish a connection to the AlgoBulls Platform<a class="headerlink" href="#establish-a-connection-to-the-algobulls-platform" title="Permanent link">&para;</a></h4>
+<h3 id="establish-a-connection-to-the-algobulls-platform">Establish a connection to the AlgoBulls Platform<a class="headerlink" href="#establish-a-connection-to-the-algobulls-platform" title="Permanent link">&para;</a></h3>
 <p><div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span> <span class="o">=</span> <span class="n">AlgoBullsConnection</span><span class="p">()</span>
 <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_authorization_url</span><span class="p">()</span>
 </code></pre></div>
@@ -1700,31 +1712,31 @@ The output of the above step is:</p>
 </code></pre></div>
 <p>An example of the output will be:
 <img alt="Output" src="../output.png" title="Sample Output" /></p>
-<h4 id="select-the-strategy">Select the strategy<a class="headerlink" href="#select-the-strategy" title="Permanent link">&para;</a></h4>
+<h3 id="select-the-strategy">Select the strategy<a class="headerlink" href="#select-the-strategy" title="Permanent link">&para;</a></h3>
 <p>Select the last entry of the <code>strategyCode</code> column and display it.
 <div class="highlight"><pre><span></span><code><span class="n">strategy_code</span> <span class="o">=</span> <span class="n">all_strategies</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;strategyCode&#39;</span><span class="p">]</span>
 <span class="n">strategy_code</span>
 </code></pre></div></p>
 <hr />
-<h4 id="print-your-strategy-code">Print your Strategy code<a class="headerlink" href="#print-your-strategy-code" title="Permanent link">&para;</a></h4>
+<h3 id="print-your-strategy-code">Print your Strategy code<a class="headerlink" href="#print-your-strategy-code" title="Permanent link">&para;</a></h3>
 <p>You can print your strategy code once to verify if this is the correct code. This step is optional.</p>
 <div class="highlight"><pre><span></span><code><span class="n">strategy_details1</span> <span class="o">=</span> <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_strategy_details</span><span class="p">(</span><span class="n">strategy_code</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">strategy_details1</span><span class="p">)</span>
 </code></pre></div>
 <hr />
-<h4 id="search-for-instruments-based-on-a-search-query">Search for instruments (based on a search query)<a class="headerlink" href="#search-for-instruments-based-on-a-search-query" title="Permanent link">&para;</a></h4>
+<h3 id="search-for-instruments-based-on-a-search-query">Search for instruments (based on a search query)<a class="headerlink" href="#search-for-instruments-based-on-a-search-query" title="Permanent link">&para;</a></h3>
 <p>Now display a few instruments with some keyword. The example below uses 'SBIN' as the keyword.</p>
 <div class="highlight"><pre><span></span><code><span class="n">instruments</span> <span class="o">=</span> <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">search_instrument</span><span class="p">(</span><span class="s1">&#39;SBIN&#39;</span><span class="p">)</span>
 <span class="n">instruments</span>
 </code></pre></div>
 <hr />
-<h4 id="select-an-instrument">Select an instrument<a class="headerlink" href="#select-an-instrument" title="Permanent link">&para;</a></h4>
+<h3 id="select-an-instrument">Select an instrument<a class="headerlink" href="#select-an-instrument" title="Permanent link">&para;</a></h3>
 <p>From the output, select the instrument on which you wish to test your strategy. For this example, select the first one.
 <div class="highlight"><pre><span></span><code><span class="n">instrument</span> <span class="o">=</span> <span class="n">instruments</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;value&#39;</span><span class="p">]</span>
 <span class="n">instrument</span>
 </code></pre></div></p>
 <hr />
-<h4 id="submit-a-job">Submit a Job<a class="headerlink" href="#submit-a-job" title="Permanent link">&para;</a></h4>
+<h3 id="submit-a-job">Submit a Job<a class="headerlink" href="#submit-a-job" title="Permanent link">&para;</a></h3>
 <p>Delete previous trades
 <div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">delete_previous_trades</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="n">strategy</span><span class="p">)</span>
 </code></pre></div></p>
@@ -1800,7 +1812,7 @@ The output of the above step is:</p>
 </div>
 </div>
 <hr />
-<h4 id="fetch-job-status">Fetch Job Status<a class="headerlink" href="#fetch-job-status" title="Permanent link">&para;</a></h4>
+<h3 id="fetch-job-status">Fetch Job Status<a class="headerlink" href="#fetch-job-status" title="Permanent link">&para;</a></h3>
 <p>Click on each of the tabs to see the relevant code snippet.
 There are 4 stages of your strategy execution : <strong>STARTING</strong>, <strong>STARTED</strong>, <strong>STOPPING</strong> and <strong>STOPPED</strong>  </p>
 <div class="tabbed-set tabbed-alternate" data-tabs="2:3"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1"><strong>Backtesting</strong></label><label for="__tabbed_2_2"><strong>Paper Trading</strong></label><label for="__tabbed_2_3"><strong>Real Trading</strong></label></div>
@@ -1821,7 +1833,7 @@ There are 4 stages of your strategy execution : <strong>STARTING</strong>, <stro
 </div>
 <p>You can stop a submitted job anytime.</p>
 <hr />
-<h4 id="stop-a-job">Stop a Job<a class="headerlink" href="#stop-a-job" title="Permanent link">&para;</a></h4>
+<h3 id="stop-a-job">Stop a Job<a class="headerlink" href="#stop-a-job" title="Permanent link">&para;</a></h3>
 <p>Click on each of the tabs to see the relevant code snippet.  </p>
 <div class="tabbed-set tabbed-alternate" data-tabs="3:3"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><input id="__tabbed_3_3" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1"><strong>Backtesting</strong></label><label for="__tabbed_3_2"><strong>Paper Trading</strong></label><label for="__tabbed_3_3"><strong>Real Trading</strong></label></div>
 <div class="tabbed-content">
@@ -1841,7 +1853,7 @@ There are 4 stages of your strategy execution : <strong>STARTING</strong>, <stro
 </div>
 <p>You can fetch the logs in the middle of a job to monitor the progress.</p>
 <hr />
-<h4 id="fetch-logs">Fetch logs<a class="headerlink" href="#fetch-logs" title="Permanent link">&para;</a></h4>
+<h3 id="fetch-logs">Fetch logs<a class="headerlink" href="#fetch-logs" title="Permanent link">&para;</a></h3>
 <div class="admonition tip">
 <p class="admonition-title">Logging Tip</p>
 <ul>
@@ -1886,7 +1898,7 @@ There are 4 stages of your strategy execution : <strong>STARTING</strong>, <stro
 </div>
 <p>You can fetch the PnL report, statistics and order history for a job.</p>
 <hr />
-<h4 id="fetch-pnl-reports">Fetch PnL Reports<a class="headerlink" href="#fetch-pnl-reports" title="Permanent link">&para;</a></h4>
+<h3 id="fetch-pnl-reports">Fetch PnL Reports<a class="headerlink" href="#fetch-pnl-reports" title="Permanent link">&para;</a></h3>
 <p>Click on each of the tabs to see the relevant code snippet.</p>
 <div class="admonition warning">
 <p class="admonition-title">Please Note</p>
@@ -1924,7 +1936,7 @@ There are 4 stages of your strategy execution : <strong>STARTING</strong>, <stro
 </div>
 </div>
 <hr />
-<h4 id="fetch-report-statistics">Fetch Report Statistics<a class="headerlink" href="#fetch-report-statistics" title="Permanent link">&para;</a></h4>
+<h3 id="fetch-report-statistics">Fetch Report Statistics<a class="headerlink" href="#fetch-report-statistics" title="Permanent link">&para;</a></h3>
 <p>Click on each of the tabs to see the relevant code snippet.</p>
 <div class="admonition tip">
 <p class="admonition-title">Analytics Tips</p>
@@ -1962,7 +1974,7 @@ There are 4 stages of your strategy execution : <strong>STARTING</strong>, <stro
 </div>
 </div>
 <hr />
-<h4 id="fetch-order-history">Fetch Order History<a class="headerlink" href="#fetch-order-history" title="Permanent link">&para;</a></h4>
+<h3 id="fetch-order-history">Fetch Order History<a class="headerlink" href="#fetch-order-history" title="Permanent link">&para;</a></h3>
 <p>Click on each of the tabs to see the relevant code snippet.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="7:3"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><input id="__tabbed_7_3" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1"><strong>Backtesting</strong></label><label for="__tabbed_7_2"><strong>Paper Trading</strong></label><label for="__tabbed_7_3"><strong>Real Trading</strong></label></div>
 <div class="tabbed-content">
@@ -1991,7 +2003,7 @@ There are 4 stages of your strategy execution : <strong>STARTING</strong>, <stro
 </ul>
 </div>
 <hr />
-<h3 id="whats-next">What's Next...<a class="headerlink" href="#whats-next" title="Permanent link">&para;</a></h3>
+<h2 id="whats-next">What's Next...<a class="headerlink" href="#whats-next" title="Permanent link">&para;</a></h2>
 <p>You can now explore more by creating and uploading more complex strategies.</p>
 <p>You can also check out the <a href="codeguide.md">Strategy Coding Guidelines</a>.</p>
 
@@ -2000,7 +2012,7 @@ There are 4 stages of your strategy execution : <strong>STARTING</strong>, <stro
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-08-23T15:09:08+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-08-23</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-08-25T18:37:32+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-08-25</span>
       
     
   </small>
