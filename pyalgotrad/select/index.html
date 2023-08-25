@@ -1520,7 +1520,7 @@
 
 <h1 id="select-your-strategy">Select your Strategy<a class="headerlink" href="#select-your-strategy" title="Permanent link">&para;</a></h1>
 <hr />
-<h3 id="previously">Previously...<a class="headerlink" href="#previously" title="Permanent link">&para;</a></h3>
+<h2 id="previously">Previously...<a class="headerlink" href="#previously" title="Permanent link">&para;</a></h2>
 <p>You have uploaded or saved a strategy by:</p>
 <ul>
 <li>Your strategy is already <a href="../upload/">uploaded</a> on the AlgoBulls account and you want to search or select it</li>
@@ -1530,25 +1530,25 @@
 <li>You have saved the strategy from the AlgoBulls Website</li>
 </ul>
 <hr />
-<h3 id="now">Now...<a class="headerlink" href="#now" title="Permanent link">&para;</a></h3>
+<h2 id="now">Now...<a class="headerlink" href="#now" title="Permanent link">&para;</a></h2>
 <p>You are now ready to select or import your strategy from your AlgoBulls account for Backtesting, Paper Trading and/or Real Trading. </p>
 <hr />
-<h3 id="before-you-start">Before you start...<a class="headerlink" href="#before-you-start" title="Permanent link">&para;</a></h3>
+<h2 id="before-you-start">Before you start...<a class="headerlink" href="#before-you-start" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Make sure you have an active working AlgoBulls account ready to go!</li>
 <li>Open a Jupyter Notebook.</li>
 <li>If you have coded the strategy yourself and not used a ready strategy from the <a href="https://github.com/algobulls/pyalgostrategypool" target="_blank">pyalgostrategypool</a> package, then make sure your strategy file (.py) and the Jupyter Notebook <strong>are in the same folder</strong>. </li>
 </ul>
 <hr />
-<h3 id="lets-start">Let's Start...<a class="headerlink" href="#lets-start" title="Permanent link">&para;</a></h3>
+<h2 id="lets-start">Let's Start...<a class="headerlink" href="#lets-start" title="Permanent link">&para;</a></h2>
 <p>Run the following code snippets into the Jupyter Notebook one by one (or all together).</p>
 <hr />
-<h4 id="import-statements">Import statements<a class="headerlink" href="#import-statements" title="Permanent link">&para;</a></h4>
+<h3 id="import-statements">Import statements<a class="headerlink" href="#import-statements" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">inspect</span>
 <span class="kn">from</span> <span class="nn">pyalgotrading.algobulls</span> <span class="kn">import</span> <span class="n">AlgoBullsConnection</span>
 </code></pre></div>
 <hr />
-<h4 id="import-the-strategy-class">Import the strategy class<a class="headerlink" href="#import-the-strategy-class" title="Permanent link">&para;</a></h4>
+<h3 id="import-the-strategy-class">Import the strategy class<a class="headerlink" href="#import-the-strategy-class" title="Permanent link">&para;</a></h3>
 <p>Perform the below step either to import a ready strategy <strong>OR</strong> to import your own created strategy.</p>
 <ul>
 <li>
@@ -1563,7 +1563,7 @@
 </li>
 </ul>
 <hr />
-<h4 id="establish-a-connection-to-the-algobulls-platform">Establish a connection to the AlgoBulls Platform<a class="headerlink" href="#establish-a-connection-to-the-algobulls-platform" title="Permanent link">&para;</a></h4>
+<h3 id="establish-a-connection-to-the-algobulls-platform">Establish a connection to the AlgoBulls Platform<a class="headerlink" href="#establish-a-connection-to-the-algobulls-platform" title="Permanent link">&para;</a></h3>
 <p><div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span> <span class="o">=</span> <span class="n">AlgoBullsConnection</span><span class="p">()</span>
 <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_authorization_url</span><span class="p">()</span>
 </code></pre></div>
@@ -1579,13 +1579,13 @@ The output of the above step is:</p>
 </code></pre></div>
 Replace the token you have copied with the token in the code above.</p>
 <hr />
-<h4 id="view-all-the-strategies-in-your-algobulls-account">View all the strategies in your AlgoBulls Account<a class="headerlink" href="#view-all-the-strategies-in-your-algobulls-account" title="Permanent link">&para;</a></h4>
+<h3 id="view-all-the-strategies-in-your-algobulls-account">View all the strategies in your AlgoBulls Account<a class="headerlink" href="#view-all-the-strategies-in-your-algobulls-account" title="Permanent link">&para;</a></h3>
 <p>You can view all the strategy saved on your AlgoBulls account.
 <div class="highlight"><pre><span></span><code><span class="n">all_strategies_df</span> <span class="o">=</span> <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_all_strategies</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">all_strategies_df</span><span class="p">)</span>
 </code></pre></div></p>
 <hr />
-<h4 id="search-your-strategy">Search your Strategy<a class="headerlink" href="#search-your-strategy" title="Permanent link">&para;</a></h4>
+<h3 id="search-your-strategy">Search your Strategy<a class="headerlink" href="#search-your-strategy" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Search your strategy using <code>strategy name</code>. Make sure you have the strategy with given name in your AlgoBulls Account.
      <div class="highlight"><pre><span></span><code>    <span class="n">strategy_name</span> <span class="o">=</span> <span class="s1">&#39;Exponential Moving Averages Crossover&#39;</span>
@@ -1597,7 +1597,7 @@ Replace the token you have copied with the token in the code above.</p>
 </code></pre></div></li>
 </ul>
 <hr />
-<h3 id="whats-next">What's Next...<a class="headerlink" href="#whats-next" title="Permanent link">&para;</a></h3>
+<h2 id="whats-next">What's Next...<a class="headerlink" href="#whats-next" title="Permanent link">&para;</a></h2>
 <p>You are now ready to test your uploaded strategy and perform Backtesting, Paper Trading and/or Real Trading with it.</p>
 <hr />
 
@@ -1606,7 +1606,7 @@ Replace the token you have copied with the token in the code above.</p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-08-18T12:21:03+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-08-18</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-08-25T18:45:13+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-08-25</span>
       
     
   </small>
