@@ -7,23 +7,30 @@
 ## 1. Initial steps
 
 1. ### Create a new strategy file
-   eg: strategy_```<developer_initials>```_futures_ema_crossover.py
+    !!! info "this is for **pyalgotrading** users"
+    eg: strategy_```<unique_code_if_needed>```_futures_ema_crossover.py
 
     !!!Tips "Coding Conventions"
         * Keep a unique file name
-        * Add the initials of your name after the word strategy in the strategy file name so that it becomes easier to identify the developer who developed the strategy and also helps with a unique strategy name.
         * Make sure that the file name is in lowercase and that each word is separated with an underscore '_' as shown above.
 
 2. ### Naming a Class
-    eg: For the above strategy name the class name would be:
-        Strategy```<developer_initials>```FuturesEMACrossover(StrategyBase)
-
+eg: For the above strategy name the class name would be:
+    ```
+    StrategyFuturesEMACrossover(StrategyBase)
+    ```
     !!! Tips "Coding Conventions"
             * Make a class with the same name as the file name
             * Make sure the first letter of each word is in uppercase and the initials should be in uppercase as well.
             * If the class name includes indicator names like EMA, SMA, and VWAP the name should be in uppercase in the class name but not in the file name.
             * Every strategy is a child class of the StrategyBase class.
 
+3. ### Naming your Strategy
+This name will be displayed in your **My Coded Strategies** in Python Build Web, and it will also be the **strategy_name** when you are fetching all strategies in pyalgotrading.  
+Inside your strategy class, you can write your first parameter as `name`.
+    ```
+    name = 'futures_ema_crossover'
+    ```
 ---
 
 ## 2. Init method
@@ -32,42 +39,10 @@ This method gets called only once when the strategy is started.
 
 1. ### Strategy info
 
-    In the __init__ method add the ```super().__init__(*args, **kwargs)``` and add the below lines.
-
+    In the __init__ method add the line given below
     ```
-    VERSION = strategy_version 
-    CLIENT = client_name
-    STRATEGY_TYPE = 'FUTURES'
-    
-    self.logger.info(f'\n{"#" * 40}\nSTRATEGY VERSION: {VERSION}\n{"#" * 40}')
-    self.logger.debug(f'\n{"#" * 60}\nSTRATEGY TYPE: {STRATEGY_TYPE} | CLIENT: {CLIENT}\n{"#" * 60}')
+    super().__init__(*args, **kwargs)
     ```
-
-    * **VERSION**: This is the strategy version, the initial version is 3.3.1 as there are fixes/updates/changes in the strategy the version should be updated to 3.3.2, and so on.
-
-    * **CLIENT**: Name of the client.
-
-    * **STRATEGY_TYPE**: Whether the strategy is FUTURES, REGULAR, or OPTIONS.
-
-    We print this information in the next line, so whenever we run the strategy this information is displayed in the logs.
-
-    We save the parameter string in the parameter_string variable and check if the length of the parameter_string matches the number of parameters in the strategy's YAML file.
-
-    eg:
-
-    ```
-    parameter_string = '\n(1) FRESH_ORDER_CANDLE \n(1) START_TIME_HOURS \n(1) START_TIME_MINUTES \n(1) END_TIME_HOURS \n(1) END_TIME_MINUTES ' \
-                               '\n(1) EMA_PERIOD_ONE \n(1) EMA_PERIOD_TWO \n(1) TARGET_PERCENTAGE \n(1) STOPLOSS_PERCENTAGE \n(1) STOPLOSS_RANGE \n(1) STOPLOSS_ORDER_COUNT_ALLOWED'
-    
-    check_argument(self.strategy_parameters, 'extern_function', lambda x: len(x) >= 11, err_message=f'Need 11 parameters for this strategy: {parameter_string}')
-    ```
-
-    * parameter_string: This string contains all the strategy parameters as shown above.
-
-    * We check if the number of parameters matches those in the strategy YAML file.
-
-        !!! Note
-                * The parameter names and the number of parameters may be different for different strategies.
 
 2. ### Parameter creation
 
@@ -87,43 +62,12 @@ This method gets called only once when the strategy is started.
     self.stoploss_range = self.strategy_parameters['STOPLOSS_RANGE']
     self.stoploss_order_count_allowed = self.strategy_parameters['STOPLOSS_ORDER_COUNT_ALLOWED']
     ```
+    !!! Note
+         * The parameter names and the number of parameters may be different for different strategies.
 
-3. ### Parameter validation
-
-    We validate each parameter's value according to the strategy requirement. The following methods can be used to validate the parameter values:
-
-    * **check_argument**  
-        Checks a single parameter passed in it.
-        Syntax:
-            check_argument(value to be checked, 'extern_function', validating condition or method, error_message)
-            eg: 
-
-            check_argument(self.strategy_parameters, 'extern_function', lambda x: len(x) >= 11, err_message=f'Need 11 parameters for this strategy: {parameter_string}')
-
-    * **check_argument_bulk**  
-        Checks multiple parameters passed in a list
-        Syntax:
-            check_argument_bulk(list of values to be checked, 'extern_function', validating condition or method, error_message)
-            eg: 
-   
-            is_nonnegative_int_arg_list = [self.start_time_hours, self.start_time_minutes, self.end_time_hours, self.end_time_minutes]
-            check_argument_bulk(is_nonnegative_int_arg_list, 'extern_function', is_nonnegative_int, 'Value should be >=0')
-
-    * **is_nonnegative_int**   
-       Checks whether the value is greater than or equal to zero.
-
-    * **is_positive_int_or_float**  
-       Checks whether the value is greater than zero and is an integer or a float value.
-
-    * **is_positive_int**  
-       Checks whether the value is greater than zero and is an integer value.
-
-    * **is_nonnegative_int_or_float**  
-       Checks whether the value is greater than or equal to zero and is an integer or a float value.
-
-4. ### Start time and End time creation
-
-    Add the below code to calculate the strategy start time and end time, from the start time and end time parameters in the strategy YAML file.  
+3. ### Start time and End time creation
+Adding Start and End time is useful when you want to define a timerange between which the strategy will be running each day.
+Add the below code to calculate the strategy start time and end time, from the `strategy_parameters`.  
     try:
     ```
         self.candle_start_time = time(hour=self.start_time_hours, minute=self.start_time_minutes)
@@ -139,7 +83,7 @@ This method gets called only once when the strategy is started.
         raise SystemExit
     ```
 
-5. ### Strategy variables
+4. ### Strategy variables
 
     We create our own strategy variables other than the strategy parameter variables which will be used throughout the strategy.
 
@@ -160,7 +104,9 @@ Unlike the ```init method```, this method gets called every day at the beginning
 Here the strategy variables that were initialized as None are again defined as dictionaries/lists except for the ```self.order_tag_manager```. 
 Create a reference for ```OrderTagManager``` as shown below:
 
-```self.order_tag_manager = OrderTagManager``` 
+```
+self.order_tag_manager = OrderTagManager
+``` 
 
 ---
 
@@ -259,4 +205,4 @@ There are other methods that are used in the strategy:
 ---
 
 To know more about a strategy from our given template, simply **check the first line of comment** in the code of that specific strategy.
-You can even access them [here](https://algobulls.github.io/pyalgotrading/) in `Strategies` Section
+You can even access them [here](https://algobulls.github.io/pyalgotrading/) in `Strategies` section

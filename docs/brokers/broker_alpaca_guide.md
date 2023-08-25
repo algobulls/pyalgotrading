@@ -29,20 +29,20 @@ Alpaca's platform aims to democratize algorithmic trading by providing accessibl
 ---
 
 - #### Create or Login to Alpaca Account
-  [![main page](imgs/alpaca_main_page.png)](https://alpaca.markets/){target=_blank}
+  [![main page](../imgs/alpaca_main_page.png)](https://alpaca.markets/){target=_blank}
 
 ---
 - #### Go to Home Page of your Account
-  [![img.png](imgs/alpaca_account_home.png)](https://app.alpaca.markets/paper/dashboard/overview){target=_blank}
+  [![img.png](../imgs/alpaca_account_home.png)](https://app.alpaca.markets/paper/dashboard/overview){target=_blank}
 
 ---
 - #### View API keys or Generate API keys
-    ![img.png](imgs/alpaca_view_api_keys.png)
-    ![img.png](imgs/alpaca_regenerate_api_keys.png)
+    ![img.png](../imgs/alpaca_view_api_keys.png)
+    ![img.png](../imgs/alpaca_regenerate_api_keys.png)
 
 ---
 - #### Get the `Secret-Key` and `API key`
-    ![img.png](imgs/alpaca_api_keys_secret_keys.png)
+    ![img.png](../imgs/alpaca_api_keys_secret_keys.png)
 
 
 ## Why do we need Alpaca Account ?

@@ -10,8 +10,8 @@ Once you start the strategy, it may take a while for it to complete the executio
 In this section you can see the **total returns, sharpe ratio, sortino ratio, volatility, Max Drawdown, Total wins or Loses, Total short or long trades, hit ratio, number of trades, average trades per day, max profit, max loss, average profit per winning trade, average loss per losing trade**.
 ![Stats](../python_build/imgs_v2/python_build_stats.png)
 
-#### Cummulative Returns
-![Cummulative Returns](../python_build/imgs_v2/python_build_cummulative_return_plot.png)
+#### Cumulative Returns
+![Cumulative Returns](../python_build/imgs_v2/python_build_cumulative_return_plot.png)
 
 #### Profit & Loss (Currency or %)
 The trade by trade P&L in Currency or Percentage.

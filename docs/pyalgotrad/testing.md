@@ -1,10 +1,10 @@
 # Execute your Strategy
 
-### Previously...
+## Previously...
 You have uploaded your strategy to the AlgoBulls platform.
 
 ---
-### Now...
+## Now...
 Using the uploaded strategy, you can now try:
 * Backtesting
 * Paper Trading
@@ -12,7 +12,7 @@ Using the uploaded strategy, you can now try:
 
 ---
 
-### Before you start...
+## Before you start...
 Open a Jupyter Notebook.
 
 The steps you will follow are:
@@ -28,10 +28,10 @@ The steps you will follow are:
 9. Fetch Reports. (PnL, Statistics, Order History)
 
 ---
-### Let's Start...
+## Let's Start...
 Run the following code snippets into the Jupyter Notebook one by one (or all together).
 
-#### Import statements
+### Import statements
 
 ```python
 from pyalgotrading.algobulls import AlgoBullsConnection
@@ -40,7 +40,7 @@ from pyalgotrading.constants import *
 ```
 
 ---
-#### Establish a connection to the AlgoBulls Platform
+### Establish a connection to the AlgoBulls Platform
 
 ```python
 algobulls_connection = AlgoBullsConnection()
@@ -75,7 +75,7 @@ all_strategies
 An example of the output will be:
 ![Output](output.png "Sample Output")
 
-#### Select the strategy
+### Select the strategy
 
 Select the last entry of the `strategyCode` column and display it.
 ```python
@@ -84,7 +84,7 @@ strategy_code
 ```
 
 ---
-#### Print your Strategy code
+### Print your Strategy code
 
 You can print your strategy code once to verify if this is the correct code. This step is optional.
 
@@ -94,7 +94,7 @@ print(strategy_details1)
 ```
 
 ---
-#### Search for instruments (based on a search query)
+### Search for instruments (based on a search query)
 
 Now display a few instruments with some keyword. The example below uses 'SBIN' as the keyword.
 
@@ -104,7 +104,7 @@ instruments
 ```
 
 --- 
-#### Select an instrument
+### Select an instrument
 
 From the output, select the instrument on which you wish to test your strategy. For this example, select the first one.
 ```python
@@ -113,7 +113,7 @@ instrument
 ```
 
 ---
-#### Submit a Job
+### Submit a Job
 
 Delete previous trades
 ```python
@@ -201,7 +201,7 @@ Click on each of the tabs to see the relevant code snippet.
 
 
 ---
-#### Fetch Job Status
+### Fetch Job Status
 
 Click on each of the tabs to see the relevant code snippet.
 There are 4 stages of your strategy execution : **STARTING**, **STARTED**, **STOPPING** and **STOPPED**  
@@ -224,7 +224,7 @@ There are 4 stages of your strategy execution : **STARTING**, **STARTED**, **STO
 You can stop a submitted job anytime.
 
 ---
-#### Stop a Job
+### Stop a Job
 
 Click on each of the tabs to see the relevant code snippet.  
 
@@ -246,7 +246,7 @@ Click on each of the tabs to see the relevant code snippet.
 You can fetch the logs in the middle of a job to monitor the progress.
 
 ---
-#### Fetch logs
+### Fetch logs
 
 !!! Tip "Logging Tip"
     - There are 2 variations when fetching logs:  
@@ -288,7 +288,7 @@ Click on each of the tabs to see the relevant code snippet.
 You can fetch the PnL report, statistics and order history for a job.
     
 ---
-#### Fetch PnL Reports
+### Fetch PnL Reports
 
 Click on each of the tabs to see the relevant code snippet.
 
@@ -326,7 +326,7 @@ Click on each of the tabs to see the relevant code snippet.
     ```
 
 ---
-#### Fetch Report Statistics
+### Fetch Report Statistics
 
 Click on each of the tabs to see the relevant code snippet.
 
@@ -364,7 +364,7 @@ Click on each of the tabs to see the relevant code snippet.
     ```
    
 --- 
-#### Fetch Order History
+### Fetch Order History
 
 Click on each of the tabs to see the relevant code snippet.
 
@@ -391,7 +391,7 @@ Click on each of the tabs to see the relevant code snippet.
     - Order History for Backtesting, Paper Trading and Real Trading is supported by the **AlgoBulls Virtual Brokers**.
 
 ---
-### What's Next...
+## What's Next...
 
 You can now explore more by creating and uploading more complex strategies.
 

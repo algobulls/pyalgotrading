@@ -59,6 +59,7 @@ nav:
       - Strategy Creation and Execution:
           - Code Structure of Strategy: 'python_build/strategy_guides/structure.md'
           - Create your Strategy:
+            - Code Using AI: 'python_build/python-build-code-gen-ai.md'
             - Code Ready Templates: 'python_build/python-build-code-ready-templates.md'
             - Code New Strategy: 'python_build/python-build-code-new.md'
             - Regular Strategy: 'python_build/strategy_guides/common_regular_strategy.md'
@@ -70,7 +71,6 @@ nav:
   - Strategies:
       - General Strategy Guide:
           - Code Structure of Strategy: 'strategies/strategy_guides/structure.md'
-          - Using Generative AI: 'gen_ai_guide.md'
           - Regular Strategy: 'strategies/strategy_guides/common_regular_strategy.md'
           - Options Strategy: 'strategies/strategy_guides/common_options_strategy.md'
       - Regular Strategies:
@@ -90,7 +90,10 @@ nav:
           - Options Straddle: 'strategies/options_straddle.md'
           - Options Strangle: 'strategies/options_strangle.md'
   - Brokers:
-      - Alpaca: 'broker_alpaca_guide.md'
+      - Alpaca: 'brokers/broker_alpaca_guide.md'
+  - Gen AI:
+      - Create your OpenAI Keys: 'gen_ai/get_open_ai_keys.md'
+      - Prompt Library: 'gen_ai/gen_ai_prompt_library.md'
 plugins:
   - search                                  # necessary for search to work
   - git-revision-date-localized:            # When enabled, the respective 'Last Updated' date is automatically added at the bottom of each page. Docs: https://squidfunk.github.io/mkdocs-material/plugins/revision-date/

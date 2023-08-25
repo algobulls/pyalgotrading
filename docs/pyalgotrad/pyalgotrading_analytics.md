@@ -8,8 +8,8 @@
     - Positive values indicate gains, while negatives reflect losses. Bigger positive returns are more favourable. 
     - Keep in mind, this chart focuses on gains and losses, excluding risk and timing considerations.
     - There are 2 sub categories of cumulative returns chart depending on the scale we are using. One is **normal scaled** and other is **log scaled**
-        ![cummulative returns normal](../analytics/analytics_imgs/cummulative_returns_normal.png)
-        ![cummulative returns log](../analytics/analytics_imgs/cummulative_returns_log.png)
+        ![cumulative returns normal](../analytics/analytics_imgs/cumulative_returns_normal.png)
+        ![cumulative returns log](../analytics/analytics_imgs/cumulative_returns_log.png)
    
 - ### End of Year Returns (EoY)
     - The **End of Year Returns** chart showcases our strategy's annual performance as a percentage. 
