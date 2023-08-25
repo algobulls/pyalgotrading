@@ -641,6 +641,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../python-build-code-gen-ai/" class="md-nav__link">
+        Code Using AI
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../python-build-code-ready-templates/" class="md-nav__link">
         Code Ready Templates
       </a>
@@ -737,6 +751,40 @@
   <a href="#configure-strategy-parameters" class="md-nav__link">
     Configure Strategy Parameters
   </a>
+  
+    <nav class="md-nav" aria-label="Configure Strategy Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#instruments" class="md-nav__link">
+    Instruments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#strategy-settings" class="md-nav__link">
+    Strategy Settings
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#order-settings" class="md-nav__link">
+    Order Settings
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-parameters" class="md-nav__link">
+    User Parameters
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -895,20 +943,6 @@
     <li class="md-nav__item">
       <a href="../../strategies/strategy_guides/structure/" class="md-nav__link">
         Code Structure of Strategy
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../gen_ai_guide/" class="md-nav__link">
-        Using Generative AI
       </a>
     </li>
   
@@ -1269,6 +1303,69 @@
   
 
     
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+          Gen AI
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Gen AI
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gen_ai/get_open_ai_keys/" class="md-nav__link">
+        Create your OpenAI Keys
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gen_ai/gen_ai_prompt_library/" class="md-nav__link">
+        Prompt Library
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -1297,6 +1394,40 @@
   <a href="#configure-strategy-parameters" class="md-nav__link">
     Configure Strategy Parameters
   </a>
+  
+    <nav class="md-nav" aria-label="Configure Strategy Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#instruments" class="md-nav__link">
+    Instruments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#strategy-settings" class="md-nav__link">
+    Strategy Settings
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#order-settings" class="md-nav__link">
+    Order Settings
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-parameters" class="md-nav__link">
+    User Parameters
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1331,8 +1462,30 @@
 <h2 id="configure-strategy-parameters">Configure Strategy Parameters<a class="headerlink" href="#configure-strategy-parameters" title="Permanent link">&para;</a></h2>
 <p><a href="../imgs_v2/python_build_new_strategy_parameters.png"><img alt="pythonbuild" src="../imgs_v2/python_build_new_strategy_parameters.png" title="Click to Enlarge or Ctrl+Click to open in a new Tab" /></a></p>
 <p>You can configure the strategy’s parameters by clicking on the settings symbol in the top right corner of the code editor. In this section, you can view a strategy’s parameters or edit these parameters too.</p>
-<p>To know more about the parameters, <a href="https://help.algobulls.com/member/tweak.html" target="_blank">click here</a>.</p>
 <p><a href="../imgs_v2/python_build_edit_configuration.png"><img alt="pythonbuild" src="../imgs_v2/python_build_edit_configuration.png" title="Click to Enlarge or Ctrl+Click to open in a new Tab" /></a></p>
+<p>There 4 sections for configuring your parameters:</p>
+<h3 id="instruments">Instruments<a class="headerlink" href="#instruments" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Here you can select the allowed exchanges from the drop box given on the left (eg: <strong>NASDAQ</strong>, <strong>NYSE</strong>, <strong>NSE</strong> etc.)</li>
+<li>Once you have selected the exchange you can search the instrument in the search-box right beside it</li>
+</ul>
+<h3 id="strategy-settings">Strategy Settings<a class="headerlink" href="#strategy-settings" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Here you can select the candle size, it is the size of candle on which you are running your strategy is going to be executed</li>
+<li>You can even select the mode i.e. <strong>INTRADAY</strong> or <strong>DELIVERY</strong></li>
+</ul>
+<h3 id="order-settings">Order Settings<a class="headerlink" href="#order-settings" title="Permanent link">&para;</a></h3>
+<ul>
+<li>You can adjust your orders, on how they will act when the strategy is 'Resumed' or strategy is 'Exited'</li>
+<li><strong>Resume Positions from Start</strong>: If you have previous trades in your strategy, you can resume your strategy without deleting or overwriting them. Only applicable for DELIVERY mode.</li>
+<li><strong>Exit Intraday Orders on Stop</strong>: If checked, strategy will square-off positions automatically at the end of each trading day.</li>
+<li><strong>Max Order Count</strong>: Maximum number of orders your strategy will execute per day. Once this limit is completed for the day, all BUY/SELL signals for new orders would be automatically ignored.</li>
+<li><strong>Crossover Accuracy Decimal</strong>: When running a crossover strategy, the number of decimals of the underlying indicators to be taken do decide an upward cut, downward cut or no cut.</li>
+<li><strong>Credit Exposure Factor</strong>: Applicable only for Live Trading. Use this to set the exposure limit given by your broker. System will take available funds as 'current fund balance X credit exposure factor' for executing the strategy</li>
+</ul>
+<h3 id="user-parameters">User Parameters<a class="headerlink" href="#user-parameters" title="Permanent link">&para;</a></h3>
+<p>Use this option to pass various values of the strategy parameters from outside, without changing the code base for every execution. The are accessible as a dictionary called 'strategy_parameters' inside  your strategy class' constructor method.</p>
+<p>To know more about the parameters, <a href="https://help.algobulls.com/member/tweak.html" target="_blank">click here</a>.</p>
 <p><strong>User Parameters:</strong> In this section, you can customize/create your own parameters for the strategy. Click on <strong>+Add New Parameter</strong> to begin adding them. They should match with the parameters you have defined in your Python class.</p>
 <p>Once Strategy and User Parameters are configured, you can follow these steps to execute your strategy.</p>
 <h2 id="follow-these-simple-steps-to-test-the-strategys-performance">Follow these simple steps to test the strategy's performance<a class="headerlink" href="#follow-these-simple-steps-to-test-the-strategys-performance" title="Permanent link">&para;</a></h2>
@@ -1341,24 +1494,25 @@
 <p><a href="../imgs_v2/python_build_save_and_start.png"><img alt="pythonbuild" src="../imgs_v2/python_build_save_and_start.png" title="Click to Enlarge or Ctrl+Click to open in a new Tab" /></a></p>
 <p><strong>Step 2</strong></p>
 <p>In the <strong>customizations</strong> section, choose <strong>Backtesting</strong> to backtest or <strong>Paper Trading</strong> to Paper Trade a strategy.</p>
-<p>Select the duration option in the customizations section. Add the desired date and time, as well as the quantity/lots. In Backtesting, you will need to put the start date and end date along with time.</p>
+<p>Select the duration option in the customizations section. Add the desired <strong>date</strong> and <strong>time</strong>, as well as the <strong>quantity</strong>/<strong>lots</strong>. In Backtesting, you will need to put the start date and end date along with time.</p>
 <p><a href="../imgs_v2/python_build_backtesting.png"><img alt="pythonbuild" src="../imgs_v2/python_build_backtesting.png" title="Click to Enlarge or Ctrl+Click to open in a new Tab" /></a></p>
-<p>In Paper Trading, you only need to add the start and end time.</p>
+<p>In Paper Trading, you only need to add the start and end <strong>time</strong>.</p>
 <p><a href="../imgs_v2/python_build_papertesting.png"><img alt="pythonbuild" src="../imgs_v2/python_build_papertesting.png" title="Click to Enlarge or Ctrl+Click to open in a new Tab" /></a></p>
 <p><strong>Step 3</strong></p>
-<p>In the <strong>Strategy Configuration</strong> section, you can check the parameters added or modified by you.</p>
+<p>In the <strong>Strategy Configuration</strong> section, you can check the parameters added or modified by you.
+<a href="../imgs_v2/python_build_check_config.png"><img alt="pythonbuild" src="../imgs_v2/python_build_check_config.png" title="Click to Enlarge or Ctrl+Click to open in a new Tab" /></a></p>
 <p><strong>Step 4</strong></p>
-<p>To begin testing the strategy, click on Execute.</p>
-<p><a href="../imgs_v2/python_build_terms_check.png"><img alt="pythonbuild" src="../imgs_v2/python_build_terms_check.png" title="Click to Enlarge or Ctrl+Click to open in a new Tab" /></a></p>
+<p>To begin testing the strategy, click on Execute.
+<a href="../imgs_v2/python_build_execute_button.png"><img alt="pythonbuild" src="../imgs_v2/python_build_execute_button.png" title="Click to Enlarge or Ctrl+Click to open in a new Tab" /></a></p>
 <p><strong>Step 5</strong></p>
 <p>Go to the <strong>Analytics</strong> section to see the returns and performance of the strategy visualized.</p>
 <div class="admonition note">
 <p class="admonition-title">Note:</p>
-<p>The use of Backtesting/Paper Trading is limited to one month. This would be available from Monday - Friday (excluding NSE holidays) from 9 AM to 11:30 PM. You can code your strategy &amp; analyze the strategy results 24x7.</p>
+<p>The use of Paper Trading would be available from Monday - Friday (excluding exchange's holidays) from 9 AM to 16:00 PM. You can code your strategy &amp; analyze the strategy results 24x7.</p>
 </div>
 <p><a href="../imgs_v2/python_build_results.png"><img alt="pythonbuild" src="../imgs_v2/python_build_results.png" title="Click to Enlarge or Ctrl+Click to open in a new Tab" /></a></p>
 <p><a href="../imgs_v2/python_build_stats.png"><img alt="pythonbuild" src="../imgs_v2/python_build_stats.png" title="Click to Enlarge or Ctrl+Click to open in a new Tab" /></a></p>
-<p><a href="../imgs_v2/python_build_cummulative_return_plot.png"><img alt="pythonbuild" src="../imgs_v2/python_build_cummulative_return_plot.png" title="Click to Enlarge or Ctrl+Click to open in a new Tab" /></a></p>
+<p><a href="../imgs_v2/python_build_cumulative_return_plot.png"><img alt="pythonbuild" src="../imgs_v2/python_build_cumulative_return_plot.png" title="Click to Enlarge or Ctrl+Click to open in a new Tab" /></a></p>
 <p><a href="../imgs_v2/python_build_pnl_bar_chart.png"><img alt="pythonbuild" src="../imgs_v2/python_build_pnl_bar_chart.png" title="Click to Enlarge or Ctrl+Click to open in a new Tab" /></a></p>
 <p><a href="../imgs_v2/python_build_eoy_monthly_returns_histogram.png"><img alt="pythonbuild" src="../imgs_v2/python_build_eoy_monthly_returns_histogram.png" title="Click to Enlarge or Ctrl+Click to open in a new Tab" /></a></p>
 <p><a href="../imgs_v2/python_build_monthly_returns_heatmap.png"><img alt="pythonbuild" src="../imgs_v2/python_build_monthly_returns_heatmap.png" title="Click to Enlarge or Ctrl+Click to open in a new Tab" /></a></p>

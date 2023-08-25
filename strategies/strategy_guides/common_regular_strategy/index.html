@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://algobulls.github.io/pyalgotrading/strategies/strategy_guides/common_regular_strategy/">
       
       
-        <link rel="prev" href="../../../gen_ai_guide/">
+        <link rel="prev" href="../structure/">
       
       
         <link rel="next" href="../common_options_strategy/">
@@ -637,6 +637,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../python_build/python-build-code-gen-ai/" class="md-nav__link">
+        Code Using AI
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../python_build/python-build-code-ready-templates/" class="md-nav__link">
         Code Ready Templates
       </a>
@@ -851,20 +865,6 @@
     <li class="md-nav__item">
       <a href="../structure/" class="md-nav__link">
         Code Structure of Strategy
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../gen_ai_guide/" class="md-nav__link">
-        Using Generative AI
       </a>
     </li>
   
@@ -1477,6 +1477,69 @@
   
 
     
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+          Gen AI
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Gen AI
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../gen_ai/get_open_ai_keys/" class="md-nav__link">
+        Create your OpenAI Keys
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../gen_ai/gen_ai_prompt_library/" class="md-nav__link">
+        Prompt Library
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -1801,29 +1864,15 @@ self.logger.debug(f&#39;\n{&quot;#&quot; * 60}\nSTRATEGY TYPE: {STRATEGY_TYPE} |
 <p><strong>STRATEGY_TYPE</strong>: Whether the strategy is FUTURES, REGULAR, or OPTIONS.</p>
 </li>
 </ul>
-<p>We print this information in the next line, so whenever we run the strategy this information is displayed in the logs.</p>
-<p>We save the parameter string in the parameter_string variable and check if the length of the parameter_string matches the number of parameters in the strategy's YAML file.</p>
-<p>eg:</p>
-<div class="highlight"><pre><span></span><code>parameter_string = &#39;\n(1) FRESH_ORDER_CANDLE \n(1) START_TIME_HOURS \n(1) START_TIME_MINUTES \n(1) END_TIME_HOURS \n(1) END_TIME_MINUTES &#39; \
-                           &#39;\n(1) EMA_PERIOD_ONE \n(1) EMA_PERIOD_TWO \n(1) TARGET_PERCENTAGE \n(1) STOPLOSS_PERCENTAGE \n(1) STOPLOSS_RANGE \n(1) STOPLOSS_ORDER_COUNT_ALLOWED&#39;
-
-check_argument(self.strategy_parameters, &#39;extern_function&#39;, lambda x: len(x) &gt;= 11, err_message=f&#39;Need 11 parameters for this strategy: {parameter_string}&#39;)
-</code></pre></div>
-<ul>
-<li>
-<p>parameter_string: This string contains all the strategy parameters as shown above.</p>
 </li>
-<li>
-<p>We check if the number of parameters matches those in the strategy YAML file.</p>
+</ol>
 <div class="admonition note">
-<p class="admonition-title">Note<ul>
+<p class="admonition-title">Note</p>
+<ul>
 <li>The parameter names and the number of parameters may be different for different strategies.</li>
 </ul>
-</p>
 </div>
-</li>
-</ul>
-</li>
+<ol>
 <li>
 <h3 id="parameter-creation">Parameter creation<a class="headerlink" href="#parameter-creation" title="Permanent link">&para;</a></h3>
 <p>Next we assign the parameter values to the class variables of the same name as the parameters but in the lowercase format, as shown below:</p>
