@@ -6,6 +6,8 @@ This is a trading strategy called "Bollinger Bands" implemented in Python using 
     - **[Strategy Code (.py)](https://github.com/algobulls/pyalgostrategypool/blob/master/pyalgostrategypool/bollinger_bands.py){target=_blank}**
     - **[Strategy Structure (common methods used in a regular strategy)](strategy_guides/common_regular_strategy.md){target=_blank}**
     - **[Strategy Design (workflow of a strategy)](strategy_guides/structure.md){target=_blank}**
+    - **[Running this strategy for NSE exchange in Jupyter Notebook using pyalgotrading (.ipynb)](https://nbviewer.org/github/algobulls/pyalgotrading/blob/2f3fb6fb83fd09981e286fe2f0930249a848cc8e/jupyter/nse_jupyter_notebooks/Bollinger%20Bands.ipynb){target=_blank}**
+    - **[Running this strategy for NASDAQ exchange in Jupyter Notebook using pyalgotrading (.ipynb)](https://nbviewer.org/github/algobulls/pyalgotrading/blob/526dabc0a92775f4184aaab543c0a9f424613a55/jupyter/nasdaq_jupyter_notebooks/Bollinger%20Bands%20US.ipynb){target=_blank}**
 
 
 ## Bollinger Bands Indicator

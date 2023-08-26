@@ -5,6 +5,8 @@ This is a trading strategy called "Inverse EMA Scalping Regular Order Strategy" 
     - **[Strategy Code (.py)](https://github.com/algobulls/pyalgostrategypool/blob/master/pyalgostrategypool/inverse_ema_scalping.py){target=_blank}**
     - **[Strategy Structure (common methods used in a regular strategy)](strategy_guides/common_regular_strategy.md){target=_blank}**
     - **[Strategy Design (workflow of a strategy)](strategy_guides/structure.md){target=_blank}**
+    - **[Running this strategy for NSE exchange in Jupyter Notebook using pyalgotrading (.ipynb)](https://nbviewer.org/github/algobulls/pyalgotrading/blob/2f3fb6fb83fd09981e286fe2f0930249a848cc8e/jupyter/nse_jupyter_notebooks/Inverse%20EMA%20Scalping%20Crossover.ipynb){target=_blank}**
+    - **[Running this strategy for NASDAQ exchange in Jupyter Notebook using pyalgotrading (.ipynb)](https://nbviewer.org/github/algobulls/pyalgotrading/blob/526dabc0a92775f4184aaab543c0a9f424613a55/jupyter/nasdaq_jupyter_notebooks/Inverse%20EMA%20Scalping%20Crossover%20US.ipynb){target=_blank}**
 
 ## What is Inverse EMA 
 Inverse EMA, also known as Reverse Exponential Moving Average (REMA), is a variation of the Exponential Moving Average (EMA) in the stock market. While the EMA gives more weight to recent price data, the Inverse EMA assigns more weight to older data points.

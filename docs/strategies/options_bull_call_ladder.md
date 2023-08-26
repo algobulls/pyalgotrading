@@ -4,6 +4,8 @@
     - **[Strategy Code (.py)](https://github.com/algobulls/pyalgostrategypool/blob/master/pyalgostrategypool/options_bull_call_ladder.py){target=_blank}**
     - **[Strategy Structure (common methods used in an options strategy)](strategy_guides/common_options_strategy.md){target=_blank}**
     - **[Strategy Design (workflow of a strategy)](strategy_guides/structure.md){target=_blank}**
+    - **[Running this strategy for NSE exchange in Jupyter Notebook using pyalgotrading (.ipynb)](https://nbviewer.org/github/algobulls/pyalgotrading/blob/2f3fb6fb83fd09981e286fe2f0930249a848cc8e/jupyter/nse_jupyter_notebooks/Aroon%20Crossover.ipynb){target=_blank}**
+    - **[Running this strategy for NASDAQ exchange in Jupyter Notebook using pyalgotrading (.ipynb)](https://nbviewer.org/github/algobulls/pyalgotrading/blob/2f3fb6fb83fd09981e286fe2f0930249a848cc8e/jupyter/nse_jupyter_notebooks/Aroon%20Crossover.ipynb){target=_blank}**
 
 ### Bull Call Ladder
 
