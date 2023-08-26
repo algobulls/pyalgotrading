@@ -125,6 +125,9 @@ extra:
       link: https://github.com/algobulls/
   disqus: algobulls
 
+extra_css:
+  - stylesheets/extra.css
+
 
 markdown_extensions:
   - admonition              # Add note, tip, question, warning, error, etc. Docs: https://squidfunk.github.io/mkdocs-material/extensions/admonition/
@@ -135,5 +138,11 @@ markdown_extensions:
   - pymdownx.superfences
   - pymdownx.tabbed:
       alternate_style: true
+#      anchor_linenums: true
   - toc:                    # Docs: https://squidfunk.github.io/mkdocs-material/extensions/permalinks/
       permalink: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      auto_title: false
+      pygments_lang_class: true
