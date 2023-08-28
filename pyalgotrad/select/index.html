@@ -52,6 +52,8 @@
     
       <link rel="stylesheet" href="../../css/timeago.css">
     
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -1544,29 +1546,29 @@
 <p>Run the following code snippets into the Jupyter Notebook one by one (or all together).</p>
 <hr />
 <h3 id="import-statements">Import statements<a class="headerlink" href="#import-statements" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">inspect</span>
-<span class="kn">from</span> <span class="nn">pyalgotrading.algobulls</span> <span class="kn">import</span> <span class="n">AlgoBullsConnection</span>
-</code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span> <span class="nn">inspect</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span> <span class="nn">pyalgotrading.algobulls</span> <span class="kn">import</span> <span class="n">AlgoBullsConnection</span>
+</span></code></pre></div>
 <hr />
 <h3 id="import-the-strategy-class">Import the strategy class<a class="headerlink" href="#import-the-strategy-class" title="Permanent link">&para;</a></h3>
 <p>Perform the below step either to import a ready strategy <strong>OR</strong> to import your own created strategy.</p>
 <ul>
 <li>
 <p><strong>Import a ready strategy</strong>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pyalgostrategypool.strategy_ema_regular_order</span> <span class="kn">import</span> <span class="n">StrategyEMARegularOrder</span>
-</code></pre></div></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span> <span class="nn">pyalgostrategypool.strategy_ema_regular_order</span> <span class="kn">import</span> <span class="n">StrategyEMARegularOrder</span>
+</span></code></pre></div></p>
 </li>
 <li>
 <p><strong>Import your own strategy</strong>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">strategy_sma_regular_order</span> <span class="kn">import</span> <span class="n">StrategySMARegularOrder</span>
-</code></pre></div></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span> <span class="nn">strategy_sma_regular_order</span> <span class="kn">import</span> <span class="n">StrategySMARegularOrder</span>
+</span></code></pre></div></p>
 </li>
 </ul>
 <hr />
 <h3 id="establish-a-connection-to-the-algobulls-platform">Establish a connection to the AlgoBulls Platform<a class="headerlink" href="#establish-a-connection-to-the-algobulls-platform" title="Permanent link">&para;</a></h3>
-<p><div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span> <span class="o">=</span> <span class="n">AlgoBullsConnection</span><span class="p">()</span>
-<span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_authorization_url</span><span class="p">()</span>
-</code></pre></div>
+<p><div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">algobulls_connection</span> <span class="o">=</span> <span class="n">AlgoBullsConnection</span><span class="p">()</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_authorization_url</span><span class="p">()</span>
+</span></code></pre></div>
 The output of the above step is:</p>
 <p><code>Please login to this URL with your AlgoBulls credentials and get your developer access token: https://app.algobulls.com/user/login</code></p>
 <div class="admonition info">
@@ -1575,26 +1577,26 @@ The output of the above step is:</p>
 <strong>Settings</strong> -&gt; <strong>General</strong> -&gt; <strong>Developer Options</strong>  </p>
 </div>
 <p>Once you have the access token, set it in the code as shown here:</p>
-<p><div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">set_access_token</span><span class="p">(</span><span class="s1">&#39;4365817b795770ea31040a21ad29c8e78b63ad88&#39;</span><span class="p">)</span>
-</code></pre></div>
+<p><div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">set_access_token</span><span class="p">(</span><span class="s1">&#39;4365817b795770ea31040a21ad29c8e78b63ad88&#39;</span><span class="p">)</span>
+</span></code></pre></div>
 Replace the token you have copied with the token in the code above.</p>
 <hr />
 <h3 id="view-all-the-strategies-in-your-algobulls-account">View all the strategies in your AlgoBulls Account<a class="headerlink" href="#view-all-the-strategies-in-your-algobulls-account" title="Permanent link">&para;</a></h3>
 <p>You can view all the strategy saved on your AlgoBulls account.
-<div class="highlight"><pre><span></span><code><span class="n">all_strategies_df</span> <span class="o">=</span> <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_all_strategies</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">all_strategies_df</span><span class="p">)</span>
-</code></pre></div></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">all_strategies_df</span> <span class="o">=</span> <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_all_strategies</span><span class="p">()</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">all_strategies_df</span><span class="p">)</span>
+</span></code></pre></div></p>
 <hr />
 <h3 id="search-your-strategy">Search your Strategy<a class="headerlink" href="#search-your-strategy" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Search your strategy using <code>strategy name</code>. Make sure you have the strategy with given name in your AlgoBulls Account.
-     <div class="highlight"><pre><span></span><code>    <span class="n">strategy_name</span> <span class="o">=</span> <span class="s1">&#39;Exponential Moving Averages Crossover&#39;</span>
-    <span class="n">strategy_code</span><span class="p">,</span> <span class="n">strategy_name</span> <span class="o">=</span> <span class="n">all_strategies_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">all_strategies_df</span><span class="p">[</span><span class="s1">&#39;strategyName&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">strategy_name</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>        
-</code></pre></div></li>
+     <div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>    <span class="n">strategy_name</span> <span class="o">=</span> <span class="s1">&#39;Exponential Moving Averages Crossover&#39;</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    <span class="n">strategy_code</span><span class="p">,</span> <span class="n">strategy_name</span> <span class="o">=</span> <span class="n">all_strategies_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">all_strategies_df</span><span class="p">[</span><span class="s1">&#39;strategyName&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">strategy_name</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>        
+</span></code></pre></div></li>
 <li>Search your strategy using <code>strategy code</code>. Make sure you have the strategy with given code in your AlgoBulls Account.
-     <div class="highlight"><pre><span></span><code><span class="n">strategy_code</span> <span class="o">=</span> <span class="s1">&#39;afd6214c5db94dbeae7502e861fa4ffc&#39;</span>
-<span class="n">strategycode</span><span class="p">,</span> <span class="n">strategyname</span> <span class="o">=</span> <span class="n">all_strategies_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">all_strategies_df</span><span class="p">[</span><span class="s1">&#39;strategyCode&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">strategy_code</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-</code></pre></div></li>
+     <div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">strategy_code</span> <span class="o">=</span> <span class="s1">&#39;afd6214c5db94dbeae7502e861fa4ffc&#39;</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="n">strategycode</span><span class="p">,</span> <span class="n">strategyname</span> <span class="o">=</span> <span class="n">all_strategies_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">all_strategies_df</span><span class="p">[</span><span class="s1">&#39;strategyCode&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">strategy_code</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span></code></pre></div></li>
 </ul>
 <hr />
 <h2 id="whats-next">What's Next...<a class="headerlink" href="#whats-next" title="Permanent link">&para;</a></h2>

@@ -52,6 +52,8 @@
     
       <link rel="stylesheet" href="../../../css/timeago.css">
     
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -1926,8 +1928,8 @@
 <li>
 <h3 id="naming-a-class">Naming a Class<a class="headerlink" href="#naming-a-class" title="Permanent link">&para;</a></h3>
 <p>eg: For the above strategy name the class name would be:
-    <div class="highlight"><pre><span></span><code>StrategyOptionsEMACrossover(StrategyOptionsBaseV2)
-</code></pre></div></p>
+    <div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>StrategyOptionsEMACrossover(StrategyOptionsBaseV2)
+</span></code></pre></div></p>
 <div class="admonition tips">
 <p class="admonition-title">Coding Conventions<ul>
 <li>Make a class with the same name as the file name</li>
@@ -1942,8 +1944,8 @@
 <h3 id="naming-your-strategy">Naming your Strategy<a class="headerlink" href="#naming-your-strategy" title="Permanent link">&para;</a></h3>
 <p>This name will be displayed in your <strong>My Coded Strategies</strong> in Python Build Web, and it will also be the <strong>strategy_name</strong> when you are fetching all strategies in pyalgotrading.<br />
 Inside your strategy class, you can write your first parameter as <code>name</code>.
-    <div class="highlight"><pre><span></span><code>name = &#39;options_ema_crossover&#39;
-</code></pre></div></p>
+    <div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>name = &#39;options_ema_crossover&#39;
+</span></code></pre></div></p>
 </li>
 </ol>
 <hr />
@@ -1953,29 +1955,29 @@ Inside your strategy class, you can write your first parameter as <code>name</co
 <li>
 <h3 id="strategy-info">Strategy info<a class="headerlink" href="#strategy-info" title="Permanent link">&para;</a></h3>
 <p>In the <strong>init</strong> method add the line given below
-<div class="highlight"><pre><span></span><code>super().__init__(*args, **kwargs)
-</code></pre></div></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>super().__init__(*args, **kwargs)
+</span></code></pre></div></p>
 </li>
 <li>
 <h3 id="parameter-creation">Parameter creation<a class="headerlink" href="#parameter-creation" title="Permanent link">&para;</a></h3>
 <p>Next, we assign the parameter values to the class variables of the same name as the parameters but in the lowercase format as shown below:</p>
 <p>eg:
-<div class="highlight"><pre><span></span><code>self.fresh_order_candle = self.strategy_parameters[&#39;FRESH_ORDER_CANDLE&#39;]
-self.start_time_hours = self.strategy_parameters[&#39;START_TIME_HOURS&#39;]
-self.start_time_minutes = self.strategy_parameters[&#39;START_TIME_MINUTES&#39;]
-self.end_time_hours = self.strategy_parameters[&#39;END_TIME_HOURS&#39;]
-self.end_time_minutes = self.strategy_parameters[&#39;END_TIME_MINUTES&#39;]
-self.no_of_strikes_away_ce = self.strategy_parameters[&#39;NO_OF_STRIKES_AWAY_CE&#39;]
-self.no_of_strikes_away_p = self.strategy_parameters[&#39;NO_OF_STRIKES_AWAY_PE&#39;]
-self._strike_direction_ce = self.strategy_parameters[&#39;STRIKES_DIRECTION_CE&#39;]
-self._strike_direction_pe = self.strategy_parameters[&#39;STRIKES_DIRECTION_PE&#39;]
-self.ema_period_one = self.strategy_parameters[&#39;EMA_PERIOD_ONE&#39;]
-self.ema_period_two = self.strategy_parameters[&#39;EMA_PERIOD_TWO&#39;]
-self.target_percentage = self.strategy_parameters[&#39;TARGET_PERCENTAGE&#39;]
-self.stoploss_percentage = self.strategy_parameters[&#39;STOPLOSS_PERCENTAGE&#39;]
-self.stoploss_range = self.strategy_parameters[&#39;STOPLOSS_RANGE&#39;]
-self.stoploss_order_count_allowed = self.strategy_parameters[&#39;STOPLOSS_ORDER_COUNT_ALLOWED&#39;]
-</code></pre></div></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>self.fresh_order_candle = self.strategy_parameters[&#39;FRESH_ORDER_CANDLE&#39;]
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>self.start_time_hours = self.strategy_parameters[&#39;START_TIME_HOURS&#39;]
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>self.start_time_minutes = self.strategy_parameters[&#39;START_TIME_MINUTES&#39;]
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>self.end_time_hours = self.strategy_parameters[&#39;END_TIME_HOURS&#39;]
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>self.end_time_minutes = self.strategy_parameters[&#39;END_TIME_MINUTES&#39;]
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>self.no_of_strikes_away_ce = self.strategy_parameters[&#39;NO_OF_STRIKES_AWAY_CE&#39;]
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>self.no_of_strikes_away_p = self.strategy_parameters[&#39;NO_OF_STRIKES_AWAY_PE&#39;]
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>self._strike_direction_ce = self.strategy_parameters[&#39;STRIKES_DIRECTION_CE&#39;]
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>self._strike_direction_pe = self.strategy_parameters[&#39;STRIKES_DIRECTION_PE&#39;]
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>self.ema_period_one = self.strategy_parameters[&#39;EMA_PERIOD_ONE&#39;]
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>self.ema_period_two = self.strategy_parameters[&#39;EMA_PERIOD_TWO&#39;]
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>self.target_percentage = self.strategy_parameters[&#39;TARGET_PERCENTAGE&#39;]
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>self.stoploss_percentage = self.strategy_parameters[&#39;STOPLOSS_PERCENTAGE&#39;]
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>self.stoploss_range = self.strategy_parameters[&#39;STOPLOSS_RANGE&#39;]
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>self.stoploss_order_count_allowed = self.strategy_parameters[&#39;STOPLOSS_ORDER_COUNT_ALLOWED&#39;]
+</span></code></pre></div></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul>
@@ -1988,25 +1990,25 @@ self.stoploss_order_count_allowed = self.strategy_parameters[&#39;STOPLOSS_ORDER
 <p>Adding Start and End time is useful when you want to define a timerange between which the strategy will be running each day.<br />
 Add the below code to calculate the strategy start time and end time, from the <code>strategy_parameters</code>.</p>
 <p>try:
-<div class="highlight"><pre><span></span><code>    self.candle_start_time = time(hour=self.start_time_hours, minute=self.start_time_minutes)
-except ValueError:
-    self.logger.fatal(&#39;Error converting start hours and minutes... EXITING&#39;)
-    raise SystemExit
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>    self.candle_start_time = time(hour=self.start_time_hours, minute=self.start_time_minutes)
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>except ValueError:
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    self.logger.fatal(&#39;Error converting start hours and minutes... EXITING&#39;)
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    raise SystemExit
+</span></code></pre></div>
 try:
-<div class="highlight"><pre><span></span><code>    self.candle_end_time = time(hour=self.end_time_hours, minute=self.end_time_minutes)
-except ValueError:
-    self.logger.fatal(&#39;Error converting end time hours and minutes... EXITING&#39;)
-    raise SystemExit
-</code></pre></div></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>    self.candle_end_time = time(hour=self.end_time_hours, minute=self.end_time_minutes)
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>except ValueError:
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    self.logger.fatal(&#39;Error converting end time hours and minutes... EXITING&#39;)
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    raise SystemExit
+</span></code></pre></div></p>
 </li>
 <li>
 <h3 id="strategy-variables">Strategy variables<a class="headerlink" href="#strategy-variables" title="Permanent link">&para;</a></h3>
 <p>We create our own strategy variables other than the strategy parameter variables which will be used throughout the strategy.</p>
 <p>eg:
-<div class="highlight"><pre><span></span><code>self.main_order = None            # We save the entry order in this variable
-self.stoploss_order = None        # We save the corresponding stoploss exit order of the entry order in this variable
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>self.main_order = None            # We save the entry order in this variable
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>self.stoploss_order = None        # We save the corresponding stoploss exit order of the entry order in this variable
+</span></code></pre></div>
 We initialize the variables with a None value.
     !!! Note
             There could be more strategy variables required as per the strategy requirement. </p>
@@ -2017,8 +2019,8 @@ We initialize the variables with a None value.
 <p>Unlike the <code>init method</code>, this method gets called every day at the beginning of the day once the strategy is started.</p>
 <p>Here the strategy variables that were initialized as None are again defined as dictionaries/lists except for the <code>self.order_tag_manager</code>. 
 Create a reference for <code>OrderTagManager</code> as shown below:</p>
-<div class="highlight"><pre><span></span><code>self.order_tag_manager = OrderTagManager
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>self.order_tag_manager = OrderTagManager
+</span></code></pre></div>
 <hr />
 <h2 id="4-ordertagmanager">4. OrderTagManager<a class="headerlink" href="#4-ordertagmanager" title="Permanent link">&para;</a></h2>
 <p>The <code>self.order_tag_manager</code> is used to store/remove the entry/exit orders. The <code>self.order_tag_manager</code> has the following methods:</p>
@@ -2029,8 +2031,8 @@ Create a reference for <code>OrderTagManager</code> as shown below:</p>
 <li>Stores the order object for the given tags.
 eg:</li>
 </ul>
-<div class="highlight"><pre><span></span><code>self.order_tag_manager.add_order(_order, tags=[base_inst_str, entry_key])
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>self.order_tag_manager.add_order(_order, tags=[base_inst_str, entry_key])
+</span></code></pre></div>
 <ul>
 <li>Here the <code>_order</code> is the order object stored inside the <code>OrderTagManager</code> for the tags <code>base_inst_str</code> and <code>entry_key</code>.</li>
 </ul>
@@ -2041,8 +2043,8 @@ eg:</li>
 <li>Retrieve the order(s) for the given tags.</li>
 </ul>
 <p>eg:</p>
-<div class="highlight"><pre><span></span><code>self.order_tag_manager.get_orders(tags=[base_inst_str, BrokerExistingOrderPositionConstants.ENTER, entry_key], ignore_errors=True)
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>self.order_tag_manager.get_orders(tags=[base_inst_str, BrokerExistingOrderPositionConstants.ENTER, entry_key], ignore_errors=True)
+</span></code></pre></div>
 <ul>
 <li>Here the order object retrieved from the <code>OrderTagManager</code> for the tags <code>base_inst_str, BrokerExistingOrderPositionConstants.ENTER</code> and <code>entry_key</code></li>
 </ul>
@@ -2053,8 +2055,8 @@ eg:</li>
 <li>Removes the tags stored in the <code>OrderTagManager</code> along with the orders related stored in that tag</li>
 </ul>
 <p>eg:</p>
-<div class="highlight"><pre><span></span><code>self.order_tag_manager.remove_tags(tags=entry_key)
-</code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>self.order_tag_manager.remove_tags(tags=entry_key)
+</span></code></pre></div>
 <p>Here the <code>entry_key</code> tag is removed from the <code>OrderTagManager</code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -2067,8 +2069,8 @@ eg:</li>
 <li>Remove the order(s) from the <code>OrderTagManager</code> for the given tag(s).</li>
 </ul>
 <p>eg:</p>
-<p><div class="highlight"><pre><span></span><code>self.order_tag_manager.remove_order(main_order)
-</code></pre></div>
+<p><div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>self.order_tag_manager.remove_order(main_order)
+</span></code></pre></div>
 Here the <code>main_order</code> order object is removed from the <code>OrderTagManager</code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -2088,20 +2090,20 @@ Here the <code>main_order</code> order object is removed from the <code>OrderTag
 <li>
 <h3 id="get_ltp"><strong>get_ltp</strong><a class="headerlink" href="#get_ltp" title="Permanent link">&para;</a></h3>
 <p>Fetch the ltp of the base instrument (instrument set while executing strategy)
-<div class="highlight"><pre><span></span><code>ltp = self.broker.get_ltp(self.underlying_instrument)
-</code></pre></div></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>ltp = self.broker.get_ltp(self.underlying_instrument)
+</span></code></pre></div></p>
 </li>
 <li>
 <h3 id="options_instruments_set_up_local"><strong>options_instruments_set_up_local</strong><a class="headerlink" href="#options_instruments_set_up_local" title="Permanent link">&para;</a></h3>
 <p>Get the ATM ITM and OTM lists of the child instrument based on the LTP
-    <div class="highlight"><pre><span></span><code>self.options_instruments_set_up_local(self.underlying_instrument, tradingsymbol_suffix, ltp)
-</code></pre></div></p>
+    <div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>self.options_instruments_set_up_local(self.underlying_instrument, tradingsymbol_suffix, ltp)
+</span></code></pre></div></p>
 </li>
 <li>
 <h3 id="get_child_instrument_details"><strong>get_child_instrument_details</strong><a class="headerlink" href="#get_child_instrument_details" title="Permanent link">&para;</a></h3>
 <p>Select a child instrument from the lists of ATM, ITM, and OTM based on the strike direction and no of strikes given for the child instrument
-    <div class="highlight"><pre><span></span><code>child_instrument = self.get_child_instrument_details(self.underlying_instrument, tradingsymbol_suffix, strike_direction, no_of_strikes)
-</code></pre></div></p>
+    <div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>child_instrument = self.get_child_instrument_details(self.underlying_instrument, tradingsymbol_suffix, strike_direction, no_of_strikes)
+</span></code></pre></div></p>
 </li>
 </ol>
 <hr />

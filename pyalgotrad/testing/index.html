@@ -52,6 +52,8 @@
     
       <link rel="stylesheet" href="../../css/timeago.css">
     
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -1684,15 +1686,15 @@
 <h2 id="lets-start">Let's Start...<a class="headerlink" href="#lets-start" title="Permanent link">&para;</a></h2>
 <p>Run the following code snippets into the Jupyter Notebook one by one (or all together).</p>
 <h3 id="import-statements">Import statements<a class="headerlink" href="#import-statements" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pyalgotrading.algobulls</span> <span class="kn">import</span> <span class="n">AlgoBullsConnection</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span> <span class="k">as</span> <span class="n">dt</span>
-<span class="kn">from</span> <span class="nn">pyalgotrading.constants</span> <span class="kn">import</span> <span class="o">*</span>
-</code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span> <span class="nn">pyalgotrading.algobulls</span> <span class="kn">import</span> <span class="n">AlgoBullsConnection</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span> <span class="k">as</span> <span class="n">dt</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">from</span> <span class="nn">pyalgotrading.constants</span> <span class="kn">import</span> <span class="o">*</span>
+</span></code></pre></div>
 <hr />
 <h3 id="establish-a-connection-to-the-algobulls-platform">Establish a connection to the AlgoBulls Platform<a class="headerlink" href="#establish-a-connection-to-the-algobulls-platform" title="Permanent link">&para;</a></h3>
-<p><div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span> <span class="o">=</span> <span class="n">AlgoBullsConnection</span><span class="p">()</span>
-<span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_authorization_url</span><span class="p">()</span>
-</code></pre></div>
+<p><div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">algobulls_connection</span> <span class="o">=</span> <span class="n">AlgoBullsConnection</span><span class="p">()</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_authorization_url</span><span class="p">()</span>
+</span></code></pre></div>
 The output of the above step is:</p>
 <p><code>Please login to this URL with your AlgoBulls credentials and get your developer access token: https://app.algobulls.com/user/login</code></p>
 <div class="admonition info">
@@ -1701,113 +1703,113 @@ The output of the above step is:</p>
 <strong>Settings</strong> -&gt; <strong>General</strong> -&gt; <strong>Developer Options</strong>  </p>
 </div>
 <p>Once you have the access token, set it in the code as shown here:</p>
-<div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">set_access_token</span><span class="p">(</span><span class="s1">&#39;4365817b795770ea31040a21ad29c8e78b63ad88&#39;</span><span class="p">)</span>
-</code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">set_access_token</span><span class="p">(</span><span class="s1">&#39;4365817b795770ea31040a21ad29c8e78b63ad88&#39;</span><span class="p">)</span>
+</span></code></pre></div>
 <p>Replace the token you have copied with the token in the code above.</p>
 <hr />
 <h4 id="display-all-strategies-in-your-account">Display all strategies in your account<a class="headerlink" href="#display-all-strategies-in-your-account" title="Permanent link">&para;</a></h4>
 <hr />
-<div class="highlight"><pre><span></span><code><span class="n">all_strategies</span> <span class="o">=</span> <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_all_strategies</span><span class="p">()</span>
-<span class="n">all_strategies</span>
-</code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">all_strategies</span> <span class="o">=</span> <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_all_strategies</span><span class="p">()</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">all_strategies</span>
+</span></code></pre></div>
 <p>An example of the output will be:
 <img alt="Output" src="../output.png" title="Sample Output" /></p>
 <h3 id="select-the-strategy">Select the strategy<a class="headerlink" href="#select-the-strategy" title="Permanent link">&para;</a></h3>
 <p>Select the last entry of the <code>strategyCode</code> column and display it.
-<div class="highlight"><pre><span></span><code><span class="n">strategy_code</span> <span class="o">=</span> <span class="n">all_strategies</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;strategyCode&#39;</span><span class="p">]</span>
-<span class="n">strategy_code</span>
-</code></pre></div></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">strategy_code</span> <span class="o">=</span> <span class="n">all_strategies</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;strategyCode&#39;</span><span class="p">]</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">strategy_code</span>
+</span></code></pre></div></p>
 <hr />
 <h3 id="print-your-strategy-code">Print your Strategy code<a class="headerlink" href="#print-your-strategy-code" title="Permanent link">&para;</a></h3>
 <p>You can print your strategy code once to verify if this is the correct code. This step is optional.</p>
-<div class="highlight"><pre><span></span><code><span class="n">strategy_details1</span> <span class="o">=</span> <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_strategy_details</span><span class="p">(</span><span class="n">strategy_code</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">strategy_details1</span><span class="p">)</span>
-</code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">strategy_details1</span> <span class="o">=</span> <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_strategy_details</span><span class="p">(</span><span class="n">strategy_code</span><span class="p">)</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">strategy_details1</span><span class="p">)</span>
+</span></code></pre></div>
 <hr />
 <h3 id="search-for-instruments-based-on-a-search-query">Search for instruments (based on a search query)<a class="headerlink" href="#search-for-instruments-based-on-a-search-query" title="Permanent link">&para;</a></h3>
 <p>Now display a few instruments with some keyword. The example below uses 'SBIN' as the keyword.</p>
-<div class="highlight"><pre><span></span><code><span class="n">instruments</span> <span class="o">=</span> <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">search_instrument</span><span class="p">(</span><span class="s1">&#39;SBIN&#39;</span><span class="p">)</span>
-<span class="n">instruments</span>
-</code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">instruments</span> <span class="o">=</span> <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">search_instrument</span><span class="p">(</span><span class="s1">&#39;SBIN&#39;</span><span class="p">)</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="n">instruments</span>
+</span></code></pre></div>
 <hr />
 <h3 id="select-an-instrument">Select an instrument<a class="headerlink" href="#select-an-instrument" title="Permanent link">&para;</a></h3>
 <p>From the output, select the instrument on which you wish to test your strategy. For this example, select the first one.
-<div class="highlight"><pre><span></span><code><span class="n">instrument</span> <span class="o">=</span> <span class="n">instruments</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;value&#39;</span><span class="p">]</span>
-<span class="n">instrument</span>
-</code></pre></div></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">instrument</span> <span class="o">=</span> <span class="n">instruments</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;value&#39;</span><span class="p">]</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="n">instrument</span>
+</span></code></pre></div></p>
 <hr />
 <h3 id="submit-a-job">Submit a Job<a class="headerlink" href="#submit-a-job" title="Permanent link">&para;</a></h3>
 <p>Delete previous trades
-<div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">delete_previous_trades</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="n">strategy</span><span class="p">)</span>
-</code></pre></div></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">delete_previous_trades</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="n">strategy</span><span class="p">)</span>
+</span></code></pre></div></p>
 <p>Set the <strong>parameters</strong> for the strategy
-<div class="highlight"><pre><span></span><code><span class="n">parameters</span><span class="o">=</span><span class="p">{</span>
-    <span class="s1">&#39;timeperiod1&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
-    <span class="s1">&#39;timeperiod2&#39;</span><span class="p">:</span> <span class="mi">12</span>
-<span class="p">}</span>
-</code></pre></div></p>
-<div class="highlight"><pre><span></span><code><span class="n">vendor_details</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;brokerName&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;VENDOR_NAME&gt;&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;credentialParameters&#39;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s1">&#39;api_key&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;API_KEY&gt;&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;secret_key&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;SECRET_KEY&gt;&#39;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="n">broking_details</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;brokerName&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;BROKER_NAME&gt;&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;credentialParameters&#39;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s1">&#39;user_id&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;USER_ID&gt;&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;api_key&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;API_KEY&gt;&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;password&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;PASSWORD&gt;&#39;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">parameters</span><span class="o">=</span><span class="p">{</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>    <span class="s1">&#39;timeperiod1&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>    <span class="s1">&#39;timeperiod2&#39;</span><span class="p">:</span> <span class="mi">12</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="p">}</span>
+</span></code></pre></div></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">vendor_details</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>    <span class="s1">&#39;brokerName&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;VENDOR_NAME&gt;&#39;</span><span class="p">,</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>    <span class="s1">&#39;credentialParameters&#39;</span><span class="p">:</span> <span class="p">{</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>        <span class="s1">&#39;api_key&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;API_KEY&gt;&#39;</span><span class="p">,</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>        <span class="s1">&#39;secret_key&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;SECRET_KEY&gt;&#39;</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>    <span class="p">}</span>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="n">broking_details</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>    <span class="s1">&#39;brokerName&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;BROKER_NAME&gt;&#39;</span><span class="p">,</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>    <span class="s1">&#39;credentialParameters&#39;</span><span class="p">:</span> <span class="p">{</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>        <span class="s1">&#39;user_id&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;USER_ID&gt;&#39;</span><span class="p">,</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>        <span class="s1">&#39;api_key&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;API_KEY&gt;&#39;</span><span class="p">,</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>        <span class="s1">&#39;password&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;PASSWORD&gt;&#39;</span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>    <span class="p">}</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="p">}</span>
+</span></code></pre></div>
 <p>Click on each of the tabs to see the relevant code snippet.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1"><strong>Backtesting</strong></label><label for="__tabbed_1_2"><strong>Paper Trading</strong></label><label for="__tabbed_1_3"><strong>Real Trading</strong></label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">backtest</span><span class="p">(</span>
-        <span class="n">strategy</span><span class="o">=</span><span class="n">strategy_code</span><span class="p">,</span>         <span class="c1"># strategy code</span>
-        <span class="n">start</span><span class="o">=</span><span class="s1">&#39;2020-7-1 09:15 +0530&#39;</span><span class="p">,</span>   <span class="c1"># start date-time of strategy (&#39;YYYY-MM-DD HH:MM z&#39;)</span>
-        <span class="n">end</span><span class="o">=</span><span class="s1">&#39;2020-7-7 15:30 +0530&#39;</span><span class="p">,</span>     <span class="c1"># end date-time of strategy (&#39;YYYY-MM-DD HH:MM z&#39;)</span>
-        <span class="n">instruments</span><span class="o">=</span><span class="s1">&#39;NSE:SBIN&#39;</span><span class="p">,</span>         <span class="c1"># name of the instrument</span>
-        <span class="n">lots</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>                         <span class="c1"># number of lots per trade</span>
-        <span class="n">parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">,</span>          <span class="c1"># parameters required for the strategy</span>
-        <span class="n">candle</span><span class="o">=</span><span class="s1">&#39;15 minutes&#39;</span><span class="p">,</span>            <span class="c1"># candle size eg : &#39;1 Day&#39;, &#39;1 hour&#39;, &#39;3 minutes&#39;</span>
-        <span class="n">delete_previous_trades</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>    <span class="c1"># delete the previous trades for papertrading (default is true),</span>
-        <span class="n">initial_funds_virtual</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span>    <span class="c1"># virtual funds allotted before the paper trading starts (default is 1e9)</span>
-        <span class="n">vendor_details</span><span class="o">=</span><span class="n">vendor_details</span>   <span class="c1"># vendor&#39;s details for authentication and verification </span>
-<span class="p">)</span>
-</code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">backtest</span><span class="p">(</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>        <span class="n">strategy</span><span class="o">=</span><span class="n">strategy_code</span><span class="p">,</span>         <span class="c1"># strategy code</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>        <span class="n">start</span><span class="o">=</span><span class="s1">&#39;2020-7-1 09:15 +0530&#39;</span><span class="p">,</span>   <span class="c1"># start date-time of strategy (&#39;YYYY-MM-DD HH:MM z&#39;)</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>        <span class="n">end</span><span class="o">=</span><span class="s1">&#39;2020-7-7 15:30 +0530&#39;</span><span class="p">,</span>     <span class="c1"># end date-time of strategy (&#39;YYYY-MM-DD HH:MM z&#39;)</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>        <span class="n">instruments</span><span class="o">=</span><span class="s1">&#39;NSE:SBIN&#39;</span><span class="p">,</span>         <span class="c1"># name of the instrument</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>        <span class="n">lots</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>                         <span class="c1"># number of lots per trade</span>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>        <span class="n">parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">,</span>          <span class="c1"># parameters required for the strategy</span>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>        <span class="n">candle</span><span class="o">=</span><span class="s1">&#39;15 minutes&#39;</span><span class="p">,</span>            <span class="c1"># candle size eg : &#39;1 Day&#39;, &#39;1 hour&#39;, &#39;3 minutes&#39;</span>
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>        <span class="n">delete_previous_trades</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>    <span class="c1"># delete the previous trades for papertrading (default is true),</span>
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>        <span class="n">initial_funds_virtual</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span>    <span class="c1"># virtual funds allotted before the paper trading starts (default is 1e9)</span>
+</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a>        <span class="n">vendor_details</span><span class="o">=</span><span class="n">vendor_details</span>   <span class="c1"># vendor&#39;s details for authentication and verification </span>
+</span><span id="__span-12-12"><a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a><span class="p">)</span>
+</span></code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">papertrade</span><span class="p">(</span>
-        <span class="n">strategy</span><span class="o">=</span><span class="n">strategy_code</span><span class="p">,</span>         <span class="c1"># strategy code</span>
-        <span class="n">start</span><span class="o">=</span><span class="s1">&#39;09:15 +0530&#39;</span><span class="p">,</span>            <span class="c1"># start time of strategy (HH:MM z)     </span>
-        <span class="n">end</span><span class="o">=</span><span class="s1">&#39;15:30 +0530&#39;</span><span class="p">,</span>              <span class="c1"># end time of strategy (HH:MM z)</span>
-        <span class="n">instruments</span><span class="o">=</span><span class="s1">&#39;NSE:SBIN&#39;</span><span class="p">,</span>         <span class="c1"># name of the instrument</span>
-        <span class="n">lots</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>                         <span class="c1"># number of lots per trade</span>
-        <span class="n">parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">,</span>          <span class="c1"># parameters required for the strategy</span>
-        <span class="n">candle</span><span class="o">=</span><span class="s1">&#39;15 minutes&#39;</span><span class="p">,</span>            <span class="c1"># candle size eg : &#39;1 Day&#39;, &#39;1 hour&#39;, &#39;3 minutes&#39;</span>
-        <span class="n">delete_previous_trades</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>    <span class="c1"># delete the previous trades for papertrading (default is true)</span>
-        <span class="n">initial_funds_virtual</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span>    <span class="c1"># virtual funds allotted before the paper trading starts (default is 1e9)</span>
-        <span class="n">vendor_details</span><span class="o">=</span><span class="n">vendor_details</span>   <span class="c1"># vendor&#39;s details for authentication and verification </span>
-<span class="p">)</span>
-</code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">papertrade</span><span class="p">(</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>        <span class="n">strategy</span><span class="o">=</span><span class="n">strategy_code</span><span class="p">,</span>         <span class="c1"># strategy code</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>        <span class="n">start</span><span class="o">=</span><span class="s1">&#39;09:15 +0530&#39;</span><span class="p">,</span>            <span class="c1"># start time of strategy (HH:MM z)     </span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>        <span class="n">end</span><span class="o">=</span><span class="s1">&#39;15:30 +0530&#39;</span><span class="p">,</span>              <span class="c1"># end time of strategy (HH:MM z)</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>        <span class="n">instruments</span><span class="o">=</span><span class="s1">&#39;NSE:SBIN&#39;</span><span class="p">,</span>         <span class="c1"># name of the instrument</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>        <span class="n">lots</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>                         <span class="c1"># number of lots per trade</span>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>        <span class="n">parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">,</span>          <span class="c1"># parameters required for the strategy</span>
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>        <span class="n">candle</span><span class="o">=</span><span class="s1">&#39;15 minutes&#39;</span><span class="p">,</span>            <span class="c1"># candle size eg : &#39;1 Day&#39;, &#39;1 hour&#39;, &#39;3 minutes&#39;</span>
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>        <span class="n">delete_previous_trades</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>    <span class="c1"># delete the previous trades for papertrading (default is true)</span>
+</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>        <span class="n">initial_funds_virtual</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span>    <span class="c1"># virtual funds allotted before the paper trading starts (default is 1e9)</span>
+</span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>        <span class="n">vendor_details</span><span class="o">=</span><span class="n">vendor_details</span>   <span class="c1"># vendor&#39;s details for authentication and verification </span>
+</span><span id="__span-13-12"><a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a><span class="p">)</span>
+</span></code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">realtrade</span><span class="p">(</span>
-        <span class="n">strategy</span><span class="o">=</span><span class="n">strategy_code</span><span class="p">,</span>          <span class="c1"># strategy code</span>
-        <span class="n">start</span><span class="o">=</span><span class="s1">&#39;09:15 +0530&#39;</span><span class="p">,</span>             <span class="c1"># start time of strategy (HH:MM z)     </span>
-        <span class="n">end</span><span class="o">=</span><span class="s1">&#39;15:30 +0530&#39;</span><span class="p">,</span>               <span class="c1"># end time of strategy (HH:MM z)</span>
-        <span class="n">instruments</span><span class="o">=</span><span class="s1">&#39;NSE:SBIN&#39;</span><span class="p">,</span>          <span class="c1"># name of the instrument</span>
-        <span class="n">lots</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>                          <span class="c1"># number of lots per trade</span>
-        <span class="n">parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">,</span>           <span class="c1"># parameters required for the strategy</span>
-        <span class="n">candle</span><span class="o">=</span><span class="s1">&#39;15 minutes&#39;</span><span class="p">,</span>             <span class="c1"># candle size eg : &#39;1 Day&#39;, &#39;1 hour&#39;, &#39;3 minutes&#39;</span>
-        <span class="n">broking_details</span><span class="o">=</span><span class="n">broking_details</span>  <span class="c1"># broker&#39;s details for authentication and verification </span>
-<span class="p">)</span>
-</code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">realtrade</span><span class="p">(</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>        <span class="n">strategy</span><span class="o">=</span><span class="n">strategy_code</span><span class="p">,</span>          <span class="c1"># strategy code</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>        <span class="n">start</span><span class="o">=</span><span class="s1">&#39;09:15 +0530&#39;</span><span class="p">,</span>             <span class="c1"># start time of strategy (HH:MM z)     </span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>        <span class="n">end</span><span class="o">=</span><span class="s1">&#39;15:30 +0530&#39;</span><span class="p">,</span>               <span class="c1"># end time of strategy (HH:MM z)</span>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>        <span class="n">instruments</span><span class="o">=</span><span class="s1">&#39;NSE:SBIN&#39;</span><span class="p">,</span>          <span class="c1"># name of the instrument</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>        <span class="n">lots</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>                          <span class="c1"># number of lots per trade</span>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>        <span class="n">parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">,</span>           <span class="c1"># parameters required for the strategy</span>
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>        <span class="n">candle</span><span class="o">=</span><span class="s1">&#39;15 minutes&#39;</span><span class="p">,</span>             <span class="c1"># candle size eg : &#39;1 Day&#39;, &#39;1 hour&#39;, &#39;3 minutes&#39;</span>
+</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>        <span class="n">broking_details</span><span class="o">=</span><span class="n">broking_details</span>  <span class="c1"># broker&#39;s details for authentication and verification </span>
+</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a><span class="p">)</span>
+</span></code></pre></div>
 </div>
 </div>
 </div>
@@ -1818,16 +1820,16 @@ There are 4 stages of your strategy execution : <strong>STARTING</strong>, <stro
 <div class="tabbed-set tabbed-alternate" data-tabs="2:3"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1"><strong>Backtesting</strong></label><label for="__tabbed_2_2"><strong>Paper Trading</strong></label><label for="__tabbed_2_3"><strong>Real Trading</strong></label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_backtesting_job_status</span><span class="p">(</span><span class="n">strategy_code</span><span class="p">)</span>
-</code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_backtesting_job_status</span><span class="p">(</span><span class="n">strategy_code</span><span class="p">)</span>
+</span></code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_papertrading_job_status</span><span class="p">(</span><span class="n">strategy_code</span><span class="p">)</span>
-</code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_papertrading_job_status</span><span class="p">(</span><span class="n">strategy_code</span><span class="p">)</span>
+</span></code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_realtrading_job_status</span><span class="p">(</span><span class="n">strategy_code</span><span class="p">)</span>
-</code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_realtrading_job_status</span><span class="p">(</span><span class="n">strategy_code</span><span class="p">)</span>
+</span></code></pre></div>
 </div>
 </div>
 </div>
@@ -1838,16 +1840,16 @@ There are 4 stages of your strategy execution : <strong>STARTING</strong>, <stro
 <div class="tabbed-set tabbed-alternate" data-tabs="3:3"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><input id="__tabbed_3_3" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1"><strong>Backtesting</strong></label><label for="__tabbed_3_2"><strong>Paper Trading</strong></label><label for="__tabbed_3_3"><strong>Real Trading</strong></label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">stop_backtesting_job</span><span class="p">(</span><span class="n">strategy_code</span><span class="p">)</span>
-</code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">stop_backtesting_job</span><span class="p">(</span><span class="n">strategy_code</span><span class="p">)</span>
+</span></code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">stop_papertrading_job</span><span class="p">(</span><span class="n">strategy_code</span><span class="p">)</span>
-</code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">stop_papertrading_job</span><span class="p">(</span><span class="n">strategy_code</span><span class="p">)</span>
+</span></code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">stop_realtrading_job</span><span class="p">(</span><span class="n">strategy_code</span><span class="p">)</span>
-</code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">stop_realtrading_job</span><span class="p">(</span><span class="n">strategy_code</span><span class="p">)</span>
+</span></code></pre></div>
 </div>
 </div>
 </div>
@@ -1868,31 +1870,31 @@ There are 4 stages of your strategy execution : <strong>STARTING</strong>, <stro
 <div class="tabbed-set tabbed-alternate" data-tabs="4:3"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><input id="__tabbed_4_3" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1"><strong>Backtesting</strong></label><label for="__tabbed_4_2"><strong>Paper Trading</strong></label><label for="__tabbed_4_3"><strong>Real Trading</strong></label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="n">logs</span> <span class="o">=</span> <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_backtesting_logs</span><span class="p">(</span>
-            <span class="n">strategy_code</span><span class="p">,</span>                              <span class="c1"># strategy code </span>
-            <span class="n">auto_update</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>                           <span class="c1"># (default=True)update the logs and show your strategy progress. If False, will only fetch logs from start to the current stage of execution</span>
-            <span class="n">display_logs_in_auto_update_mode</span><span class="o">=</span><span class="kc">True</span>       <span class="c1"># only if auto_update is also True, will print logs as the progress is tracked</span>
-        <span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">logs</span><span class="p">)</span>
-</code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="n">logs</span> <span class="o">=</span> <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_backtesting_logs</span><span class="p">(</span>
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>            <span class="n">strategy_code</span><span class="p">,</span>                              <span class="c1"># strategy code </span>
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>            <span class="n">auto_update</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>                           <span class="c1"># (default=True)update the logs and show your strategy progress. If False, will only fetch logs from start to the current stage of execution</span>
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>            <span class="n">display_logs_in_auto_update_mode</span><span class="o">=</span><span class="kc">True</span>       <span class="c1"># only if auto_update is also True, will print logs as the progress is tracked</span>
+</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>        <span class="p">)</span>
+</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a><span class="nb">print</span><span class="p">(</span><span class="n">logs</span><span class="p">)</span>
+</span></code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="n">logs</span> <span class="o">=</span> <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_papertrading_logs</span><span class="p">(</span>
-            <span class="n">strategy_code</span><span class="p">,</span>                              <span class="c1"># strategy code </span>
-            <span class="n">auto_update</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>                           <span class="c1"># (default=True)update the logs and show your strategy progress. If False, will only fetch logs from start to the current stage of execution</span>
-            <span class="n">display_logs_in_auto_update_mode</span><span class="o">=</span><span class="kc">True</span>       <span class="c1"># only if auto_update is also True, will print logs as the progress is tracked</span>
-        <span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">logs</span><span class="p">)</span>
-</code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="n">logs</span> <span class="o">=</span> <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_papertrading_logs</span><span class="p">(</span>
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>            <span class="n">strategy_code</span><span class="p">,</span>                              <span class="c1"># strategy code </span>
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>            <span class="n">auto_update</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>                           <span class="c1"># (default=True)update the logs and show your strategy progress. If False, will only fetch logs from start to the current stage of execution</span>
+</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>            <span class="n">display_logs_in_auto_update_mode</span><span class="o">=</span><span class="kc">True</span>       <span class="c1"># only if auto_update is also True, will print logs as the progress is tracked</span>
+</span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>        <span class="p">)</span>
+</span><span id="__span-22-6"><a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a><span class="nb">print</span><span class="p">(</span><span class="n">logs</span><span class="p">)</span>
+</span></code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="n">logs</span> <span class="o">=</span> <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_realtrading_logs</span><span class="p">(</span>
-            <span class="n">strategy_code</span><span class="p">,</span>                              <span class="c1"># strategy code </span>
-            <span class="n">auto_update</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>                           <span class="c1"># (default=True)update the logs and show your strategy progress. If False, will only fetch logs from start to the current stage of execution</span>
-            <span class="n">display_logs_in_auto_update_mode</span><span class="o">=</span><span class="kc">True</span>       <span class="c1"># only if auto_update is also True, will print logs as the progress is tracked</span>
-        <span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">logs</span><span class="p">)</span>
-</code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="n">logs</span> <span class="o">=</span> <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_realtrading_logs</span><span class="p">(</span>
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>            <span class="n">strategy_code</span><span class="p">,</span>                              <span class="c1"># strategy code </span>
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>            <span class="n">auto_update</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>                           <span class="c1"># (default=True)update the logs and show your strategy progress. If False, will only fetch logs from start to the current stage of execution</span>
+</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>            <span class="n">display_logs_in_auto_update_mode</span><span class="o">=</span><span class="kc">True</span>       <span class="c1"># only if auto_update is also True, will print logs as the progress is tracked</span>
+</span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>        <span class="p">)</span>
+</span><span id="__span-23-6"><a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a><span class="nb">print</span><span class="p">(</span><span class="n">logs</span><span class="p">)</span>
+</span></code></pre></div>
 </div>
 </div>
 </div>
@@ -1907,31 +1909,31 @@ There are 4 stages of your strategy execution : <strong>STARTING</strong>, <stro
 <div class="tabbed-set tabbed-alternate" data-tabs="5:3"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><input id="__tabbed_5_3" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1"><strong>Backtesting</strong></label><label for="__tabbed_5_2"><strong>Paper Trading</strong></label><label for="__tabbed_5_3"><strong>Real Trading</strong></label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_backtesting_report_pnl_table</span><span class="p">(</span>
-        <span class="n">strategy_code</span><span class="p">,</span>              <span class="c1"># strategy code</span>
-        <span class="n">show_all_rows</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>         <span class="c1"># default=True         </span>
-        <span class="n">force_fetch</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>           <span class="c1"># pnl data is saved locally once fetched, to update the locally fetched data, make this parameter True</span>
-        <span class="n">country</span><span class="o">=</span><span class="s1">&#39;USA&#39;</span><span class="p">,</span>              <span class="c1"># country of the exchange that was used while starting the job (&#39;India&#39; or &#39;USA&#39;)</span>
-<span class="p">)</span>
-</code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_backtesting_report_pnl_table</span><span class="p">(</span>
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>        <span class="n">strategy_code</span><span class="p">,</span>              <span class="c1"># strategy code</span>
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>        <span class="n">show_all_rows</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>         <span class="c1"># default=True         </span>
+</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>        <span class="n">force_fetch</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>           <span class="c1"># pnl data is saved locally once fetched, to update the locally fetched data, make this parameter True</span>
+</span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a>        <span class="n">country</span><span class="o">=</span><span class="s1">&#39;USA&#39;</span><span class="p">,</span>              <span class="c1"># country of the exchange that was used while starting the job (&#39;India&#39; or &#39;USA&#39;)</span>
+</span><span id="__span-24-6"><a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a><span class="p">)</span>
+</span></code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_papertrading_report_pnl_table</span><span class="p">(</span>
-        <span class="n">strategy_code</span><span class="p">,</span>              <span class="c1"># strategy code</span>
-        <span class="n">show_all_rows</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>         <span class="c1"># default=True         </span>
-        <span class="n">force_fetch</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>           <span class="c1"># pnl data is saved locally once fetched, to update the locally fetched data, make this parameter True</span>
-        <span class="n">country</span><span class="o">=</span><span class="s1">&#39;USA&#39;</span><span class="p">,</span>              <span class="c1"># country of the exchange that was used while starting the job (&#39;India&#39; or &#39;USA&#39;)</span>
-<span class="p">)</span>
-</code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_papertrading_report_pnl_table</span><span class="p">(</span>
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>        <span class="n">strategy_code</span><span class="p">,</span>              <span class="c1"># strategy code</span>
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>        <span class="n">show_all_rows</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>         <span class="c1"># default=True         </span>
+</span><span id="__span-25-4"><a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a>        <span class="n">force_fetch</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>           <span class="c1"># pnl data is saved locally once fetched, to update the locally fetched data, make this parameter True</span>
+</span><span id="__span-25-5"><a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>        <span class="n">country</span><span class="o">=</span><span class="s1">&#39;USA&#39;</span><span class="p">,</span>              <span class="c1"># country of the exchange that was used while starting the job (&#39;India&#39; or &#39;USA&#39;)</span>
+</span><span id="__span-25-6"><a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a><span class="p">)</span>
+</span></code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_realtrading_report_pnl_table</span><span class="p">(</span>
-        <span class="n">strategy_code</span><span class="p">,</span>              <span class="c1"># strategy code</span>
-        <span class="n">show_all_rows</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>         <span class="c1"># default=True         </span>
-        <span class="n">force_fetch</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>           <span class="c1"># pnl data is saved locally once fetched, to update the locally fetched data, make this parameter True</span>
-        <span class="n">country</span><span class="o">=</span><span class="s1">&#39;USA&#39;</span><span class="p">,</span>              <span class="c1"># country of the exchange that was used while starting the job (&#39;India&#39; or &#39;USA&#39;)</span>
-<span class="p">)</span>
-</code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_realtrading_report_pnl_table</span><span class="p">(</span>
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>        <span class="n">strategy_code</span><span class="p">,</span>              <span class="c1"># strategy code</span>
+</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>        <span class="n">show_all_rows</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>         <span class="c1"># default=True         </span>
+</span><span id="__span-26-4"><a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a>        <span class="n">force_fetch</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>           <span class="c1"># pnl data is saved locally once fetched, to update the locally fetched data, make this parameter True</span>
+</span><span id="__span-26-5"><a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a>        <span class="n">country</span><span class="o">=</span><span class="s1">&#39;USA&#39;</span><span class="p">,</span>              <span class="c1"># country of the exchange that was used while starting the job (&#39;India&#39; or &#39;USA&#39;)</span>
+</span><span id="__span-26-6"><a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a><span class="p">)</span>
+</span></code></pre></div>
 </div>
 </div>
 </div>
@@ -1945,31 +1947,31 @@ There are 4 stages of your strategy execution : <strong>STARTING</strong>, <stro
 <div class="tabbed-set tabbed-alternate" data-tabs="6:3"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><input id="__tabbed_6_3" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1"><strong>Backtesting</strong></label><label for="__tabbed_6_2"><strong>Paper Trading</strong></label><label for="__tabbed_6_3"><strong>Real Trading</strong></label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_backtesting_report_statistics</span><span class="p">(</span>
-    <span class="n">strategy_code</span><span class="p">,</span>          <span class="c1"># strategy code</span>
-    <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;quantstats&#39;</span><span class="p">,</span>      <span class="c1"># package used to generate statistics</span>
-    <span class="n">report</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">,</span>          <span class="c1"># format of the report</span>
-    <span class="n">html_dump</span><span class="o">=</span><span class="kc">True</span>          <span class="c1"># save report as html file</span>
-<span class="p">)</span>
-</code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_backtesting_report_statistics</span><span class="p">(</span>
+</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>    <span class="n">strategy_code</span><span class="p">,</span>          <span class="c1"># strategy code</span>
+</span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>    <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;quantstats&#39;</span><span class="p">,</span>      <span class="c1"># package used to generate statistics</span>
+</span><span id="__span-27-4"><a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a>    <span class="n">report</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">,</span>          <span class="c1"># format of the report</span>
+</span><span id="__span-27-5"><a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a>    <span class="n">html_dump</span><span class="o">=</span><span class="kc">True</span>          <span class="c1"># save report as html file</span>
+</span><span id="__span-27-6"><a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a><span class="p">)</span>
+</span></code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_papertrading_report_statistics</span><span class="p">(</span>
-    <span class="n">strategy_code</span><span class="p">,</span>          <span class="c1"># strategy code</span>
-    <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;quantstats&#39;</span><span class="p">,</span>      <span class="c1"># package used to generate statistics</span>
-    <span class="n">report</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">,</span>          <span class="c1"># format of the report</span>
-    <span class="n">html_dump</span><span class="o">=</span><span class="kc">True</span>          <span class="c1"># save report as html file</span>
-<span class="p">)</span>
-</code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_papertrading_report_statistics</span><span class="p">(</span>
+</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>    <span class="n">strategy_code</span><span class="p">,</span>          <span class="c1"># strategy code</span>
+</span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>    <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;quantstats&#39;</span><span class="p">,</span>      <span class="c1"># package used to generate statistics</span>
+</span><span id="__span-28-4"><a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a>    <span class="n">report</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">,</span>          <span class="c1"># format of the report</span>
+</span><span id="__span-28-5"><a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a>    <span class="n">html_dump</span><span class="o">=</span><span class="kc">True</span>          <span class="c1"># save report as html file</span>
+</span><span id="__span-28-6"><a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a><span class="p">)</span>
+</span></code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_realtrading_report_statistics</span><span class="p">(</span>
-    <span class="n">strategy_code</span><span class="p">,</span>          <span class="c1"># strategy code</span>
-    <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;quantstats&#39;</span><span class="p">,</span>      <span class="c1"># package used to generate statistics</span>
-    <span class="n">report</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">,</span>          <span class="c1"># format of the report</span>
-    <span class="n">html_dump</span><span class="o">=</span><span class="kc">True</span>          <span class="c1"># save report as html file</span>
-<span class="p">)</span>
-</code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_realtrading_report_statistics</span><span class="p">(</span>
+</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>    <span class="n">strategy_code</span><span class="p">,</span>          <span class="c1"># strategy code</span>
+</span><span id="__span-29-3"><a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>    <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;quantstats&#39;</span><span class="p">,</span>      <span class="c1"># package used to generate statistics</span>
+</span><span id="__span-29-4"><a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a>    <span class="n">report</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">,</span>          <span class="c1"># format of the report</span>
+</span><span id="__span-29-5"><a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a>    <span class="n">html_dump</span><span class="o">=</span><span class="kc">True</span>          <span class="c1"># save report as html file</span>
+</span><span id="__span-29-6"><a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a><span class="p">)</span>
+</span></code></pre></div>
 </div>
 </div>
 </div>
@@ -1979,19 +1981,19 @@ There are 4 stages of your strategy execution : <strong>STARTING</strong>, <stro
 <div class="tabbed-set tabbed-alternate" data-tabs="7:3"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><input id="__tabbed_7_3" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1"><strong>Backtesting</strong></label><label for="__tabbed_7_2"><strong>Paper Trading</strong></label><label for="__tabbed_7_3"><strong>Real Trading</strong></label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="n">order_history</span> <span class="o">=</span> <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_backtesting_report_order_history</span><span class="p">(</span><span class="n">strategy_code</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">order_history</span><span class="p">)</span>
-</code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="n">order_history</span> <span class="o">=</span> <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_backtesting_report_order_history</span><span class="p">(</span><span class="n">strategy_code</span><span class="p">)</span>
+</span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">order_history</span><span class="p">)</span>
+</span></code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="n">order_history</span> <span class="o">=</span> <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_papertrading_report_order_history</span><span class="p">(</span><span class="n">strategy_code</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">order_history</span><span class="p">)</span>
-</code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="n">order_history</span> <span class="o">=</span> <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_papertrading_report_order_history</span><span class="p">(</span><span class="n">strategy_code</span><span class="p">)</span>
+</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">order_history</span><span class="p">)</span>
+</span></code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="n">order_history</span> <span class="o">=</span> <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_realtrading_report_order_history</span><span class="p">(</span><span class="n">strategy_code</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">order_history</span><span class="p">)</span>
-</code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="n">order_history</span> <span class="o">=</span> <span class="n">algobulls_connection</span><span class="o">.</span><span class="n">get_realtrading_report_order_history</span><span class="p">(</span><span class="n">strategy_code</span><span class="p">)</span>
+</span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">order_history</span><span class="p">)</span>
+</span></code></pre></div>
 </div>
 </div>
 </div>

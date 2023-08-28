@@ -48,6 +48,8 @@
     
       <link rel="stylesheet" href="../../css/timeago.css">
     
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -1465,25 +1467,25 @@
 <p>You will add the following code snippets into the file and then save it.</p>
 <hr />
 <h4 id="import-statements">Import statements<a class="headerlink" href="#import-statements" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pyalgotrading.strategy.strategy_base</span> <span class="kn">import</span> <span class="n">StrategyBase</span>
-<span class="kn">from</span> <span class="nn">pyalgotrading.constants</span> <span class="kn">import</span> <span class="o">*</span>
-</code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span> <span class="nn">pyalgotrading.strategy.strategy_base</span> <span class="kn">import</span> <span class="n">StrategyBase</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span> <span class="nn">pyalgotrading.constants</span> <span class="kn">import</span> <span class="o">*</span>
+</span></code></pre></div>
 <hr />
 <h4 id="create-the-class-strategysmaregularorder-and-subclass-it-from-strategybase">Create the class <code>StrategySMARegularOrder</code> and subclass it from <code>StrategyBase</code><a class="headerlink" href="#create-the-class-strategysmaregularorder-and-subclass-it-from-strategybase" title="Permanent link">&para;</a></h4>
-<p><div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">StrategySMARegularOrder</span><span class="p">(</span><span class="n">StrategyBase</span><span class="p">):</span>
-</code></pre></div>
+<p><div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">class</span> <span class="nc">StrategySMARegularOrder</span><span class="p">(</span><span class="n">StrategyBase</span><span class="p">):</span>
+</span></code></pre></div>
 Now you can add the methods mentioned in the <a href="structure.md">structure</a> inside the class. First you can add the <code>__init__</code> and the <code>initialize</code> methods.</p>
 <hr />
 <h4 id="constructor-def-__init__">Constructor: <code>def __init__()</code><a class="headerlink" href="#constructor-def-__init__" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;SMA Regular Order Strategy&#39;</span>
-    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-    <span class="bp">self</span><span class="o">.</span><span class="n">timeperiod_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">strategy_parameters</span><span class="p">[</span><span class="s1">&#39;timeperiod1&#39;</span><span class="p">]</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">timeperiod_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">strategy_parameters</span><span class="p">[</span><span class="s1">&#39;timeperiod2&#39;</span><span class="p">]</span>
-
-    <span class="bp">self</span><span class="o">.</span><span class="n">main_order</span> <span class="o">=</span> <span class="kc">None</span>
-</code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;SMA Regular Order Strategy&#39;</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">timeperiod_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">strategy_parameters</span><span class="p">[</span><span class="s1">&#39;timeperiod1&#39;</span><span class="p">]</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">timeperiod_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">strategy_parameters</span><span class="p">[</span><span class="s1">&#39;timeperiod2&#39;</span><span class="p">]</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">main_order</span> <span class="o">=</span> <span class="kc">None</span>
+</span></code></pre></div>
 <p>The <code>init</code> method does the following:</p>
 <ol>
 <li><code>name</code> - variable which should store the name of your strategy</li>
@@ -1496,27 +1498,27 @@ For SMA, we are calculating crossover for 2 SMA timeperiod values, example 5 and
 <p>The <code>init</code> method is specific to Python's internal workings, and it is preceded and succeeded by double underscores ( _ _ ) joined together.</p>
 <hr />
 <h4 id="def-initialize"><code>def initialize()</code><a class="headerlink" href="#def-initialize" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">main_order</span> <span class="o">=</span> <span class="p">{}</span>
-</code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">main_order</span> <span class="o">=</span> <span class="p">{}</span>
+</span></code></pre></div>
 <p>The <code>initialize</code> method sets the <code>self.main_order</code> as an empty dictionary. This method is called at the start of every trading day.</p>
 <p>For instance, say you are submitting a backtesting job for 5 previous days starting at 10:30 every day, then the <code>initialize</code> method will be called every day for 5 days at 10:30.</p>
 <p>Now add the two static methods, <code>name</code> and <code>versions_supprted</code>.</p>
 <hr />
 <h4 id="def-name-optional"><code>def name()</code> (optional)<a class="headerlink" href="#def-name-optional" title="Permanent link">&para;</a></h4>
 <p>If the <code>name</code> variable is defined in <code>__init__()</code>, this function is not needed.
-<div class="highlight"><pre><span></span><code><span class="nd">@staticmethod</span>
-<span class="k">def</span> <span class="nf">name</span><span class="p">():</span>
-    <span class="k">return</span> <span class="s1">&#39;SMA Regular Order Strategy&#39;</span>
-</code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nd">@staticmethod</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="k">def</span> <span class="nf">name</span><span class="p">():</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    <span class="k">return</span> <span class="s1">&#39;SMA Regular Order Strategy&#39;</span>
+</span></code></pre></div>
 The name should be unique in your collection of strategies.</p>
 <hr />
 <h4 id="def-versions_supported-optional"><code>def versions_supported()</code> (optional)<a class="headerlink" href="#def-versions_supported-optional" title="Permanent link">&para;</a></h4>
 <p>not required it will take the latest version of AlgoBullsEngine by default
-<div class="highlight"><pre><span></span><code><span class="nd">@staticmethod</span>
-<span class="k">def</span> <span class="nf">versions_supported</span><span class="p">():</span>
-    <span class="k">return</span> <span class="n">AlgoBullsEngineVersion</span><span class="o">.</span><span class="n">VERSION_3_2_0</span>
-</code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nd">@staticmethod</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="k">def</span> <span class="nf">versions_supported</span><span class="p">():</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    <span class="k">return</span> <span class="n">AlgoBullsEngineVersion</span><span class="o">.</span><span class="n">VERSION_3_2_0</span>
+</span></code></pre></div>
 Mark both the above methods as <code>@staticmethod</code>.</p>
 <p>The <code>versions_supported</code> method does the following:</p>
 <ol>
@@ -1527,23 +1529,23 @@ Mark both the above methods as <code>@staticmethod</code>.</p>
 </ol>
 <hr />
 <h4 id="def-strategy_select_instruments_for_entry"><code>def strategy_select_instruments_for_entry()</code><a class="headerlink" href="#def-strategy_select_instruments_for_entry" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">strategy_select_instruments_for_entry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">candle</span><span class="p">,</span> <span class="n">instruments_bucket</span><span class="p">):</span>
-
-    <span class="n">instruments</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">meta</span> <span class="o">=</span> <span class="p">[]</span>
-
-    <span class="k">for</span> <span class="n">instrument</span> <span class="ow">in</span> <span class="n">instruments_bucket</span><span class="p">:</span>
-        <span class="n">crossover_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_crossover_value</span><span class="p">(</span><span class="n">instrument</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">crossover_value</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="n">instruments</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">instrument</span><span class="p">)</span>
-            <span class="n">meta</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;action&#39;</span><span class="p">:</span> <span class="s1">&#39;BUY&#39;</span><span class="p">})</span>
-        <span class="k">elif</span> <span class="n">crossover_value</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">strategy_mode</span> <span class="ow">is</span> <span class="n">StrategyMode</span><span class="o">.</span><span class="n">INTRADAY</span><span class="p">:</span>
-                <span class="n">instruments</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">instrument</span><span class="p">)</span>
-                <span class="n">meta</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;action&#39;</span><span class="p">:</span> <span class="s1">&#39;SELL&#39;</span><span class="p">})</span>
-
-    <span class="k">return</span> <span class="n">instruments</span><span class="p">,</span> <span class="n">meta</span>
-</code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">def</span> <span class="nf">strategy_select_instruments_for_entry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">candle</span><span class="p">,</span> <span class="n">instruments_bucket</span><span class="p">):</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    <span class="n">instruments</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    <span class="n">meta</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>    <span class="k">for</span> <span class="n">instrument</span> <span class="ow">in</span> <span class="n">instruments_bucket</span><span class="p">:</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>        <span class="n">crossover_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_crossover_value</span><span class="p">(</span><span class="n">instrument</span><span class="p">)</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>        <span class="k">if</span> <span class="n">crossover_value</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>            <span class="n">instruments</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">instrument</span><span class="p">)</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>            <span class="n">meta</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;action&#39;</span><span class="p">:</span> <span class="s1">&#39;BUY&#39;</span><span class="p">})</span>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>        <span class="k">elif</span> <span class="n">crossover_value</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">strategy_mode</span> <span class="ow">is</span> <span class="n">StrategyMode</span><span class="o">.</span><span class="n">INTRADAY</span><span class="p">:</span>
+</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>                <span class="n">instruments</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">instrument</span><span class="p">)</span>
+</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>                <span class="n">meta</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;action&#39;</span><span class="p">:</span> <span class="s1">&#39;SELL&#39;</span><span class="p">})</span>
+</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>
+</span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>    <span class="k">return</span> <span class="n">instruments</span><span class="p">,</span> <span class="n">meta</span>
+</span></code></pre></div>
 <p>The <code>strategy_select_instruments_for_entry</code> method does the following:</p>
 <ol>
 <li><code>instruments</code> and <code>meta</code> - Creates 2 empty lists that will be used to pass the selected instruments and additional information about them respectively.</li>
@@ -1568,37 +1570,37 @@ Mark both the above methods as <code>@staticmethod</code>.</p>
 </div>
 <hr />
 <h4 id="def-strategy_enter_position"><code>def strategy_enter_position()</code><a class="headerlink" href="#def-strategy_enter_position" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">strategy_enter_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">candle</span><span class="p">,</span> <span class="n">instrument</span><span class="p">,</span> <span class="n">sideband_info</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">sideband_info</span><span class="p">[</span><span class="s1">&#39;action&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;BUY&#39;</span><span class="p">:</span>
-        <span class="n">qty</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">number_of_lots</span> <span class="o">*</span> <span class="n">instrument</span><span class="o">.</span><span class="n">lot_size</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">main_order</span><span class="p">[</span><span class="n">instrument</span><span class="p">]</span> <span class="o">=</span> \
-            <span class="bp">self</span><span class="o">.</span><span class="n">broker</span><span class="o">.</span><span class="n">BuyOrderRegular</span><span class="p">(</span><span class="n">instrument</span><span class="o">=</span><span class="n">instrument</span><span class="p">,</span>
-                <span class="n">order_code</span><span class="o">=</span><span class="n">BrokerOrderCodeConstants</span><span class="o">.</span><span class="n">INTRADAY</span><span class="p">,</span>
-                <span class="n">order_variety</span><span class="o">=</span><span class="n">BrokerOrderVarietyConstants</span><span class="o">.</span><span class="n">MARKET</span><span class="p">,</span>
-                <span class="n">quantity</span><span class="o">=</span><span class="n">qty</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">sideband_info</span><span class="p">[</span><span class="s1">&#39;action&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;SELL&#39;</span><span class="p">:</span>
-        <span class="n">qty</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">number_of_lots</span> <span class="o">*</span> <span class="n">instrument</span><span class="o">.</span><span class="n">lot_size</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">main_order</span><span class="p">[</span><span class="n">instrument</span><span class="p">]</span> <span class="o">=</span> \
-            <span class="bp">self</span><span class="o">.</span><span class="n">broker</span><span class="o">.</span><span class="n">SellOrderRegular</span><span class="p">(</span><span class="n">instrument</span><span class="o">=</span><span class="n">instrument</span><span class="p">,</span>
-                 <span class="n">order_code</span><span class="o">=</span><span class="n">BrokerOrderCodeConstants</span><span class="o">.</span><span class="n">INTRADAY</span><span class="p">,</span>
-                 <span class="n">order_variety</span><span class="o">=</span><span class="n">BrokerOrderVarietyConstants</span><span class="o">.</span><span class="n">MARKET</span><span class="p">,</span>
-                 <span class="n">quantity</span><span class="o">=</span><span class="n">qty</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">SystemExit</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Got invalid sideband_info value: </span><span class="si">{</span><span class="n">sideband_info</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">main_order</span><span class="p">[</span><span class="n">instrument</span><span class="p">]</span>
-</code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">def</span> <span class="nf">strategy_enter_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">candle</span><span class="p">,</span> <span class="n">instrument</span><span class="p">,</span> <span class="n">sideband_info</span><span class="p">):</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>    <span class="k">if</span> <span class="n">sideband_info</span><span class="p">[</span><span class="s1">&#39;action&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;BUY&#39;</span><span class="p">:</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>        <span class="n">qty</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">number_of_lots</span> <span class="o">*</span> <span class="n">instrument</span><span class="o">.</span><span class="n">lot_size</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">main_order</span><span class="p">[</span><span class="n">instrument</span><span class="p">]</span> <span class="o">=</span> \
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">broker</span><span class="o">.</span><span class="n">BuyOrderRegular</span><span class="p">(</span><span class="n">instrument</span><span class="o">=</span><span class="n">instrument</span><span class="p">,</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>                <span class="n">order_code</span><span class="o">=</span><span class="n">BrokerOrderCodeConstants</span><span class="o">.</span><span class="n">INTRADAY</span><span class="p">,</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>                <span class="n">order_variety</span><span class="o">=</span><span class="n">BrokerOrderVarietyConstants</span><span class="o">.</span><span class="n">MARKET</span><span class="p">,</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>                <span class="n">quantity</span><span class="o">=</span><span class="n">qty</span><span class="p">)</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>    <span class="k">elif</span> <span class="n">sideband_info</span><span class="p">[</span><span class="s1">&#39;action&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;SELL&#39;</span><span class="p">:</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>        <span class="n">qty</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">number_of_lots</span> <span class="o">*</span> <span class="n">instrument</span><span class="o">.</span><span class="n">lot_size</span>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">main_order</span><span class="p">[</span><span class="n">instrument</span><span class="p">]</span> <span class="o">=</span> \
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">broker</span><span class="o">.</span><span class="n">SellOrderRegular</span><span class="p">(</span><span class="n">instrument</span><span class="o">=</span><span class="n">instrument</span><span class="p">,</span>
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>                 <span class="n">order_code</span><span class="o">=</span><span class="n">BrokerOrderCodeConstants</span><span class="o">.</span><span class="n">INTRADAY</span><span class="p">,</span>
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>                 <span class="n">order_variety</span><span class="o">=</span><span class="n">BrokerOrderVarietyConstants</span><span class="o">.</span><span class="n">MARKET</span><span class="p">,</span>
+</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>                 <span class="n">quantity</span><span class="o">=</span><span class="n">qty</span><span class="p">)</span>
+</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a>    <span class="k">else</span><span class="p">:</span>
+</span><span id="__span-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a>        <span class="k">raise</span> <span class="ne">SystemExit</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Got invalid sideband_info value: </span><span class="si">{</span><span class="n">sideband_info</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</span><span id="__span-7-18"><a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a>
+</span><span id="__span-7-19"><a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">main_order</span><span class="p">[</span><span class="n">instrument</span><span class="p">]</span>
+</span></code></pre></div>
 <h4 id="or"><strong>or</strong><a class="headerlink" href="#or" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">strategy_enter_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">candle</span><span class="p">,</span> <span class="n">instrument</span><span class="p">,</span> <span class="n">meta</span><span class="p">):</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">main_order_map</span><span class="p">[</span><span class="n">instrument</span><span class="p">]</span> <span class="o">=</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">broker</span><span class="o">.</span><span class="n">OrderRegular</span><span class="p">(</span>
-        <span class="n">intrument</span><span class="o">=</span><span class="n">instrument</span><span class="p">,</span>                           
-        <span class="n">order_transaction_type</span><span class="o">=</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;action&#39;</span><span class="p">],</span>              <span class="c1"># &#39;BUY&#39; or &#39;SELL&#39;</span>
-        <span class="n">quantity</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">number_of_lots</span> <span class="o">*</span> <span class="n">instrument</span><span class="o">.</span><span class="n">lot_size</span><span class="p">,</span> <span class="c1"># number of lots (int)</span>
-        <span class="n">price</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">trigger_price</span><span class="o">=</span><span class="kc">None</span>
-    <span class="p">)</span>
-    <span class="k">return</span> <span class="n">_</span>
-</code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">def</span> <span class="nf">strategy_enter_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">candle</span><span class="p">,</span> <span class="n">instrument</span><span class="p">,</span> <span class="n">meta</span><span class="p">):</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>    <span class="bp">self</span><span class="o">.</span><span class="n">main_order_map</span><span class="p">[</span><span class="n">instrument</span><span class="p">]</span> <span class="o">=</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">broker</span><span class="o">.</span><span class="n">OrderRegular</span><span class="p">(</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>        <span class="n">intrument</span><span class="o">=</span><span class="n">instrument</span><span class="p">,</span>                           
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>        <span class="n">order_transaction_type</span><span class="o">=</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;action&#39;</span><span class="p">],</span>              <span class="c1"># &#39;BUY&#39; or &#39;SELL&#39;</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>        <span class="n">quantity</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">number_of_lots</span> <span class="o">*</span> <span class="n">instrument</span><span class="o">.</span><span class="n">lot_size</span><span class="p">,</span> <span class="c1"># number of lots (int)</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>        <span class="n">price</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>        <span class="n">trigger_price</span><span class="o">=</span><span class="kc">None</span>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>    <span class="p">)</span>
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>    <span class="k">return</span> <span class="n">_</span>
+</span></code></pre></div>
 <p>The <code>strategy_enter_position</code> method does the following:</p>
 <ol>
 <li>If conditions - The conditions read the action from the <code>sideband_info</code> and perform the required action (BUY/SELL).</li>
@@ -1625,18 +1627,18 @@ Mark both the above methods as <code>@staticmethod</code>.</p>
 <li><code>self.main_order</code> - The main order (for that particular instrument) is now populated (BUY OR SELL) and is returned to the platform for further actions.</li>
 </ol>
 <p>You can also punch Bracket Orders instead of Regular Orders. A typical BUY Bracket Order will look like this:
-<div class="highlight"><pre><span></span><code><span class="n">qty</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">number_of_lots</span> <span class="o">*</span> <span class="n">instrument</span><span class="o">.</span><span class="n">lot_size</span>
-<span class="n">ltp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">broker</span><span class="o">.</span><span class="n">get_ltp</span><span class="p">(</span><span class="n">instrument</span><span class="p">)</span>
-<span class="bp">self</span><span class="o">.</span><span class="n">main_order</span><span class="p">[</span><span class="n">instrument</span><span class="p">]</span> <span class="o">=</span> \
-            <span class="bp">self</span><span class="o">.</span><span class="n">broker</span><span class="o">.</span><span class="n">BuyOrderBracket</span><span class="p">(</span><span class="n">instrument</span><span class="o">=</span><span class="n">instrument</span><span class="p">,</span>
-                <span class="n">order_code</span><span class="o">=</span><span class="n">BrokerOrderCodeConstants</span><span class="o">.</span><span class="n">INTRADAY</span><span class="p">,</span>
-                <span class="n">order_variety</span><span class="o">=</span><span class="n">BrokerOrderVarietyConstants</span><span class="o">.</span><span class="n">LIMIT</span><span class="p">,</span>
-                <span class="n">quantity</span><span class="o">=</span><span class="n">qty</span><span class="p">,</span>
-                <span class="n">price</span><span class="o">=</span><span class="n">ltp</span><span class="p">,</span>
-                <span class="n">stoploss_trigger</span><span class="o">=</span><span class="n">ltp</span> <span class="o">-</span> <span class="p">(</span><span class="n">ltp</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">stoploss</span><span class="p">),</span>
-                <span class="n">target_trigger</span><span class="o">=</span><span class="n">ltp</span> <span class="o">+</span> <span class="p">(</span><span class="n">ltp</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">target</span><span class="p">),</span>
-                <span class="n">trailing_stoploss_trigger</span><span class="o">=</span><span class="n">ltp</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">trailing_stoploss</span><span class="p">)</span>
-</code></pre></div></p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">qty</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">number_of_lots</span> <span class="o">*</span> <span class="n">instrument</span><span class="o">.</span><span class="n">lot_size</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="n">ltp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">broker</span><span class="o">.</span><span class="n">get_ltp</span><span class="p">(</span><span class="n">instrument</span><span class="p">)</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="bp">self</span><span class="o">.</span><span class="n">main_order</span><span class="p">[</span><span class="n">instrument</span><span class="p">]</span> <span class="o">=</span> \
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">broker</span><span class="o">.</span><span class="n">BuyOrderBracket</span><span class="p">(</span><span class="n">instrument</span><span class="o">=</span><span class="n">instrument</span><span class="p">,</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>                <span class="n">order_code</span><span class="o">=</span><span class="n">BrokerOrderCodeConstants</span><span class="o">.</span><span class="n">INTRADAY</span><span class="p">,</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>                <span class="n">order_variety</span><span class="o">=</span><span class="n">BrokerOrderVarietyConstants</span><span class="o">.</span><span class="n">LIMIT</span><span class="p">,</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>                <span class="n">quantity</span><span class="o">=</span><span class="n">qty</span><span class="p">,</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>                <span class="n">price</span><span class="o">=</span><span class="n">ltp</span><span class="p">,</span>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>                <span class="n">stoploss_trigger</span><span class="o">=</span><span class="n">ltp</span> <span class="o">-</span> <span class="p">(</span><span class="n">ltp</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">stoploss</span><span class="p">),</span>
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>                <span class="n">target_trigger</span><span class="o">=</span><span class="n">ltp</span> <span class="o">+</span> <span class="p">(</span><span class="n">ltp</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">target</span><span class="p">),</span>
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>                <span class="n">trailing_stoploss_trigger</span><span class="o">=</span><span class="n">ltp</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">trailing_stoploss</span><span class="p">)</span>
+</span></code></pre></div></p>
 <p>The additional parameters are:</p>
 <ul>
 <li><code>price</code> - If you want to BUY at the market price (Last Traded Price) or LTP, then just fetch the LTP using <code>get_ltp</code> as shown in the code above. Store the value in <code>ltp</code> and pass it to <code>price</code>.</li>
@@ -1653,18 +1655,18 @@ the job that you will submit. The parameters will be caught as <code>self.stoplo
 </div>
 <hr />
 <h4 id="def-strategy_select_instruments_for_exit"><code>def strategy_select_instruments_for_exit()</code><a class="headerlink" href="#def-strategy_select_instruments_for_exit" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">strategy_select_instruments_for_exit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">candle</span><span class="p">,</span> <span class="n">instruments_bucket</span><span class="p">):</span>
-    <span class="n">instruments</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">meta</span> <span class="o">=</span> <span class="p">[]</span>
-
-    <span class="k">for</span> <span class="n">instrument</span> <span class="ow">in</span> <span class="n">instruments_bucket</span><span class="p">:</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">main_order</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">instrument</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">crossover_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_crossover_value</span><span class="p">(</span><span class="n">instrument</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">crossover_value</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
-                <span class="n">instruments</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">instrument</span><span class="p">)</span>
-                <span class="n">meta</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;action&#39;</span><span class="p">:</span> <span class="s1">&#39;EXIT&#39;</span><span class="p">})</span>
-    <span class="k">return</span> <span class="n">instruments</span><span class="p">,</span> <span class="n">meta</span>
-</code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">def</span> <span class="nf">strategy_select_instruments_for_exit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">candle</span><span class="p">,</span> <span class="n">instruments_bucket</span><span class="p">):</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>    <span class="n">instruments</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>    <span class="n">meta</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>    <span class="k">for</span> <span class="n">instrument</span> <span class="ow">in</span> <span class="n">instruments_bucket</span><span class="p">:</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">main_order</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">instrument</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>            <span class="n">crossover_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_crossover_value</span><span class="p">(</span><span class="n">instrument</span><span class="p">)</span>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>            <span class="k">if</span> <span class="n">crossover_value</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>                <span class="n">instruments</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">instrument</span><span class="p">)</span>
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>                <span class="n">meta</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;action&#39;</span><span class="p">:</span> <span class="s1">&#39;EXIT&#39;</span><span class="p">})</span>
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>    <span class="k">return</span> <span class="n">instruments</span><span class="p">,</span> <span class="n">meta</span>
+</span></code></pre></div>
 <p>The <code>strategy_select_instruments_for_exit</code> method does the following:</p>
 <ol>
 <li><code>instruments</code> and <code>meta</code> - Creates 2 empty lists that will be used to pass the selected instruments and additional information about them respectively.</li>
@@ -1689,14 +1691,14 @@ the job that you will submit. The parameters will be caught as <code>self.stoplo
 </div>
 <hr />
 <h4 id="def-strategy_exit_position"><code>def strategy_exit_position()</code><a class="headerlink" href="#def-strategy_exit_position" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">strategy_exit_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">candle</span><span class="p">,</span> <span class="n">instrument</span><span class="p">,</span> <span class="n">sideband_info</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">sideband_info</span><span class="p">[</span><span class="s1">&#39;action&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;EXIT&#39;</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">main_order</span><span class="p">[</span><span class="n">instrument</span><span class="p">]</span><span class="o">.</span><span class="n">exit_position</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">main_order</span><span class="p">[</span><span class="n">instrument</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="k">return</span> <span class="kc">True</span>
-
-    <span class="k">return</span> <span class="kc">False</span>
-</code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">def</span> <span class="nf">strategy_exit_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">candle</span><span class="p">,</span> <span class="n">instrument</span><span class="p">,</span> <span class="n">sideband_info</span><span class="p">):</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>    <span class="k">if</span> <span class="n">sideband_info</span><span class="p">[</span><span class="s1">&#39;action&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;EXIT&#39;</span><span class="p">:</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">main_order</span><span class="p">[</span><span class="n">instrument</span><span class="p">]</span><span class="o">.</span><span class="n">exit_position</span><span class="p">()</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">main_order</span><span class="p">[</span><span class="n">instrument</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>        <span class="k">return</span> <span class="kc">True</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>    <span class="k">return</span> <span class="kc">False</span>
+</span></code></pre></div>
 <p>The <code>strategy_exit_position</code> method does the following:</p>
 <ol>
 <li>If condition - checks whether the appropriate action is set in the <code>sideband_info</code>.</li>
@@ -1706,13 +1708,13 @@ the job that you will submit. The parameters will be caught as <code>self.stoplo
 </ol>
 <hr />
 <h4 id="def-get_crossover_value"><code>def get_crossover_value()</code><a class="headerlink" href="#def-get_crossover_value" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_crossover_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instrument</span><span class="p">):</span>
-    <span class="n">hist_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_historical_data</span><span class="p">(</span><span class="n">instrument</span><span class="p">)</span>
-    <span class="n">sma_x</span> <span class="o">=</span> <span class="n">talib</span><span class="o">.</span><span class="n">SMA</span><span class="p">(</span><span class="n">hist_data</span><span class="p">[</span><span class="s1">&#39;close&#39;</span><span class="p">],</span> <span class="n">timeperiod</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">timeperiod_x</span><span class="p">)</span>
-    <span class="n">sma_y</span> <span class="o">=</span> <span class="n">talib</span><span class="o">.</span><span class="n">SMA</span><span class="p">(</span><span class="n">hist_data</span><span class="p">[</span><span class="s1">&#39;close&#39;</span><span class="p">],</span> <span class="n">timeperiod</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">timeperiod_y</span><span class="p">)</span>
-    <span class="n">crossover_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">crossover</span><span class="p">(</span><span class="n">sma_x</span><span class="p">,</span> <span class="n">sma_y</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">crossover_value</span>
-</code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">def</span> <span class="nf">get_crossover_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instrument</span><span class="p">):</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>    <span class="n">hist_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_historical_data</span><span class="p">(</span><span class="n">instrument</span><span class="p">)</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>    <span class="n">sma_x</span> <span class="o">=</span> <span class="n">talib</span><span class="o">.</span><span class="n">SMA</span><span class="p">(</span><span class="n">hist_data</span><span class="p">[</span><span class="s1">&#39;close&#39;</span><span class="p">],</span> <span class="n">timeperiod</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">timeperiod_x</span><span class="p">)</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>    <span class="n">sma_y</span> <span class="o">=</span> <span class="n">talib</span><span class="o">.</span><span class="n">SMA</span><span class="p">(</span><span class="n">hist_data</span><span class="p">[</span><span class="s1">&#39;close&#39;</span><span class="p">],</span> <span class="n">timeperiod</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">timeperiod_y</span><span class="p">)</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>    <span class="n">crossover_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">crossover</span><span class="p">(</span><span class="n">sma_x</span><span class="p">,</span> <span class="n">sma_y</span><span class="p">)</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>    <span class="k">return</span> <span class="n">crossover_value</span>
+</span></code></pre></div>
 <p>The <code>get_crossover_value</code> method does the following:</p>
 <ol>
 <li><code>hist_data</code> - The historical data for the instrument is fetched using the <code>get_historical_data</code> method and stored here. The data is in the form of a table (Pandas DataFrame) having the following columns:<ul>

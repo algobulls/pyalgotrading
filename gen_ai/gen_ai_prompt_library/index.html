@@ -50,6 +50,8 @@
     
       <link rel="stylesheet" href="../../css/timeago.css">
     
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -1531,70 +1533,78 @@
 <h1 id="prompt-library-for-gen-ai">Prompt Library for Gen AI<a class="headerlink" href="#prompt-library-for-gen-ai" title="Permanent link">&para;</a></h1>
 <h2 id="here-are-some-prompts-for-creating-strategy-using-genai">Here are some prompts for Creating Strategy using GenAI<a class="headerlink" href="#here-are-some-prompts-for-creating-strategy-using-genai" title="Permanent link">&para;</a></h2>
 <h3 id="moving-averages-ema-or-sma">Moving Averages (EMA or SMA)<a class="headerlink" href="#moving-averages-ema-or-sma" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Create a trading strategy which takes a BUY trade when EMA cuts SMA upwards and a SELL trade when EMA cuts SMA downwards. While placing a trade, if a previous position is open, it should be exited before placing the new trade</li>
-<li>Create a strategy which uses 2 EMAs of different time periods, and it BUYs when EMA of timeperiod 1 crosses the EMA of timeperiod 2 upwards and SELLs when EMA of timeperiod 1 crosses the EMA of timeperiod 2 downwards.</li>
-<li>Create a trading strategy which takes a BUY trade when EMA cuts SMA upwards and a SELL trade when EMA cuts SMA downwards. While placing a trade, if a previous position is open, it should be exited before placing the new trade</li>
-<li>Develop a strategy that generates a BUY signal when a shorter-term moving average crosses above an intermediate-term moving average, which then crosses above a longer-term moving average. Conversely, generate a SELL signal when the moving averages crossover in the opposite direction.</li>
-</ul>
+<p><div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Create a trading strategy which takes a BUY trade when EMA cuts SMA upwards and a SELL trade when EMA cuts SMA downwards. While placing a trade, if a previous position is open, it should be exited before placing the new trade
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Create a strategy which uses 2 EMAs of different time periods, and it BUYs when EMA of timeperiod 1 crosses the EMA of timeperiod 2 upwards and SELLs when EMA of timeperiod 1 crosses the EMA of timeperiod 2 downwards.
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Create a trading strategy which takes a BUY trade when EMA cuts SMA upwards and a SELL trade when EMA cuts SMA downwards. While placing a trade, if a previous position is open, it should be exited before placing the new trade
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Develop a strategy that generates a BUY signal when a shorter-term moving average crosses above an intermediate-term moving average, which then crosses above a longer-term moving average. Conversely, generate a SELL signal when the moving averages crossover in the opposite direction.
+</span></code></pre></div></p>
 <h3 id="relative-strength-index-rsi">Relative Strength Index (RSI)<a class="headerlink" href="#relative-strength-index-rsi" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Create a strategy that uses RSI indicator to give signals based on over bought or over sold conditions. If RSI is above 70, the strategy should generate a SELL signal and if it's below 30, it should generate a BUY signal</li>
-<li>Create a strategy using RSI of MACD-signal of close with fast MA period as X, slow MA period as Y and signal period as Z, which will SELL on crossing the upper band and BUY on crossing the lower band</li>
-<li>Create a trading strategy which takes BUY when RSI crosses lower band and create a SELL when RSI crosses the upward band, set a stop loss of 2% and target to be 15%.</li>
-<li>Create a trading strategy using RSI technical indicator</li>
-<li>Create a strategy using RSI of MACD-signal of close with fast MA period as X, slow MA period as Y and signal period as Z, which will SELL on crossing the upper band and BUY on crossing the lower band</li>
-<li>Please help me with a strategy that uses RSI indicator to give signals based on over bought or over sold conditions. If RSI is above 70, the strategy should generate a SELL signal and if it's below 30, it should generate a BUY signal</li>
-<li>Create a trading strategy which takes BUY when RSI crosses lower band and create a SELL when RSI crosses the upward band, set a stop loss of 2% and target to be 15%.</li>
-</ul>
+<p><div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>Create a strategy that uses RSI indicator to give signals based on over bought or over sold conditions. If RSI is above 70, the strategy should generate a SELL signal and if it&#39;s below 30, it should generate a BUY signal
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>Create a strategy using RSI of MACD-signal of close with fast MA period as X, slow MA period as Y and signal period as Z, which will SELL on crossing the upper band and BUY on crossing the lower band
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>Create a trading strategy which takes BUY when RSI crosses lower band and create a SELL when RSI crosses the upward band, set a stop loss of 2% and target to be 15%.
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>Create a trading strategy using RSI technical indicator
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>Create a strategy using RSI of MACD-signal of close with fast MA period as X, slow MA period as Y and signal period as Z, which will SELL on crossing the upper band and BUY on crossing the lower band
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>Please help me with a strategy that uses RSI indicator to give signals based on over bought or over sold conditions. If RSI is above 70, the strategy should generate a SELL signal and if it&#39;s below 30, it should generate a BUY signal
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>Create a trading strategy which takes BUY when RSI crosses lower band and create a SELL when RSI crosses the upward band, set a stop loss of 2% and target to be 15%.
+</span></code></pre></div></p>
 <h3 id="aroon">Aroon<a class="headerlink" href="#aroon" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Create a trading strategy that utilizes the Aroon indicator to generate signals based on overbought or oversold conditions. If the Aroon Up line crosses below the Aroon Down line and falls below 30, the strategy should generate a BUY signal. Conversely, if the Aroon Up line crosses above the Aroon Down line and rises above 70, the strategy should generate a SELL signal</li>
-</ul>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>Create a trading strategy that utilizes the Aroon indicator to generate signals based on overbought or oversold conditions. If the Aroon Up line crosses below the Aroon Down line and falls below 30, the strategy should generate a BUY signal. Conversely, if the Aroon Up line crosses above the Aroon Down line and rises above 70, the strategy should generate a SELL signal
+</span></code></pre></div>
 <h3 id="stochastic">Stochastic<a class="headerlink" href="#stochastic" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Develop a trading strategy that incorporates the stochastic crossover to generate signals. When the %K line crosses above the %D line and both lines are below 30, the strategy should generate a BUY signal. Similarly, when the %K line crosses below the %D line and both lines are above 70, the strategy should generate a SELL signal</li>
-<li>Develop a strategy that generates a BUY signal when the Stochastic RSI indicator crosses above the oversold level (e.g., 20) and a SELL signal when it crosses below the overbought level (e.g., 80).</li>
-</ul>
+<p><div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>Develop a trading strategy that incorporates the stochastic crossover to generate signals. When the %K line crosses above the %D line and both lines are below 30, the strategy should generate a BUY signal. Similarly, when the %K line crosses below the %D line and both lines are above 70, the strategy should generate a SELL signal
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>Develop a strategy that generates a BUY signal when the Stochastic RSI indicator crosses above the oversold level (e.g., 20) and a SELL signal when it crosses below the overbought level (e.g., 80).
+</span></code></pre></div></p>
 <h3 id="bollinger-bands-bb">Bollinger Bands (BB)<a class="headerlink" href="#bollinger-bands-bb" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Develop a strategy that generates a BUY signal when the price breaks above the upper Bollinger Band. Similarly, generate a SELL signal when the price breaks below the lower Bollinger Band</li>
-</ul>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>Develop a strategy that generates a BUY signal when the price breaks above the upper Bollinger Band. Similarly, generate a SELL signal when the price breaks below the lower Bollinger Band
+</span></code></pre></div>
 <h3 id="fibonacci">Fibonacci<a class="headerlink" href="#fibonacci" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Develop a strategy that generates a BUY signal when the price retraces to a key Fibonacci level (e.g., 38.2% or 50%) and shows signs of reversal using other technical indicators. Similarly, generate a SELL signal when the price retraces to a Fibonacci level and shows signs of continuation in the prevailing trend</li>
-<li>Create a strategy that generates a BUY signal when the price retraces to a key Fibonacci level (e.g., 61.8%) and then extends beyond the previous swing high. Similarly, generate a SELL signal when the price retraces to a Fibonacci level and then extends beyond the previous swing low.</li>
-</ul>
+<p><div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>Develop a strategy that generates a BUY signal when the price retraces to a key Fibonacci level (e.g., 38.2% or 50%) and shows signs of reversal using other technical indicators. Similarly, generate a SELL signal when the price retraces to a Fibonacci level and shows signs of continuation in the prevailing trend
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>Create a strategy that generates a BUY signal when the price retraces to a key Fibonacci level (e.g., 61.8%) and then extends beyond the previous swing high. Similarly, generate a SELL signal when the price retraces to a Fibonacci level and then extends beyond the previous swing low.
+</span></code></pre></div></p>
 <h3 id="atr-volatility">ATR (Volatility)<a class="headerlink" href="#atr-volatility" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Develop a strategy that generates a BUY signal when the price surpasses a multiple of the ATR above a recent swing high, indicating increased volatility and potential upward momentum. Conversely, generate a SELL signal when the price drops below a multiple of the ATR below a recent swing low, indicating increased volatility and potential downward momentum.</li>
-</ul>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>Develop a strategy that generates a BUY signal when the price surpasses a multiple of the ATR above a recent swing high, indicating increased volatility and potential upward momentum. Conversely, generate a SELL signal when the price drops below a multiple of the ATR below a recent swing low, indicating increased volatility and potential downward momentum.
+</span></code></pre></div>
 <h3 id="moving-average-convergence-divergence-macd">Moving Average Convergence Divergence (MACD)<a class="headerlink" href="#moving-average-convergence-divergence-macd" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Create a strategy that generates a BUY signal when the MACD histogram bars cross above the zero line and a SELL signal when the histogram bars cross below the zero line.</li>
-</ul>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>Create a strategy that generates a BUY signal when the MACD histogram bars cross above the zero line and a SELL signal when the histogram bars cross below the zero line.
+</span></code></pre></div>
 <h3 id="volume-weighted-average-price-vwap">Volume Weighted Average Price (VWAP)<a class="headerlink" href="#volume-weighted-average-price-vwap" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Create a strategy that generates a BUY signal when the price rises above the VWAP line and a SELL signal when the price drops below the VWAP line, indicating potential shifts in supply and demand.</li>
-</ul>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>Create a strategy that generates a BUY signal when the price rises above the VWAP line and a SELL signal when the price drops below the VWAP line, indicating potential shifts in supply and demand.
+</span></code></pre></div>
 <h3 id="miscellaneous">Miscellaneous<a class="headerlink" href="#miscellaneous" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Create a strategy that generates a BUY signal when the price crosses above the cloud (Span A and Span B) and the cloud changes color from red to green. Conversely, generate a SELL signal when the price crosses below the cloud and the cloud changes color from green to red.</li>
-<li>Create a strategy that generates a BUY signal when there is a significant increase in volume accompanied by a bullish candlestick pattern. Similarly, generate a SELL signal when there is a significant increase in volume accompanied by a bearish candlestick pattern</li>
-<li>Create a strategy that generates a BUY signal when the RVI indicator crosses above its signal line and a SELL signal when it crosses below its signal line, indicating potential changes in momentum.</li>
-<li>Create a strategy that generates a BUY signal when the price breaks above the upper pivot point level or a key resistance level and a SELL signal when the price breaks below the lower pivot point level or a key support level.</li>
-<li>Develop a strategy that generates a BUY signal when the price crosses above the Parabolic SAR dots and a SELL signal when the price crosses below the dots.</li>
-<li>Create a strategy that generates a BUY signal when a bullish harmonic pattern, such as a bullish butterfly or bullish Gartley, forms and validates with other technical indicators. Similarly, generate a SELL signal when a bearish harmonic pattern forms and validates.</li>
-<li>Create a strategy that generates a BUY signal when the price breaks above the upper Donchian Channel and a SELL signal when the price breaks below the lower Donchian Channel.</li>
-<li>Implement a gap and go strategy that capitalizes on the momentum created by price gaps at the market open. When the price gaps up significantly and continues to move higher, generate a BUY signal. Similarly, when the price gaps down substantially and continues to move lower, generate a SELL signal.</li>
-</ul>
+<p><div class="language-text highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>Create a strategy that generates a BUY signal when the price crosses above the cloud (Span A and Span B) and the cloud changes color from red to green. Conversely, generate a SELL signal when the price crosses below the cloud and the cloud changes color from green to red.
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>Create a strategy that generates a BUY signal when there is a significant increase in volume accompanied by a bullish candlestick pattern. Similarly, generate a SELL signal when there is a significant increase in volume accompanied by a bearish candlestick pattern
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>Create a strategy that generates a BUY signal when the RVI indicator crosses above its signal line and a SELL signal when it crosses below its signal line, indicating potential changes in momentum.
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>Create a strategy that generates a BUY signal when the price breaks above the upper pivot point level or a key resistance level and a SELL signal when the price breaks below the lower pivot point level or a key support level.
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>Develop a strategy that generates a BUY signal when the price crosses above the Parabolic SAR dots and a SELL signal when the price crosses below the dots.
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>Create a strategy that generates a BUY signal when a bullish harmonic pattern, such as a bullish butterfly or bullish Gartley, forms and validates with other technical indicators. Similarly, generate a SELL signal when a bearish harmonic pattern forms and validates.
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>Create a strategy that generates a BUY signal when the price breaks above the upper Donchian Channel and a SELL signal when the price breaks below the lower Donchian Channel.
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>Implement a gap and go strategy that capitalizes on the momentum created by price gaps at the market open. When the price gaps up significantly and continues to move higher, generate a BUY signal. Similarly, when the price gaps down substantially and continues to move lower, generate a SELL signal.
+</span></code></pre></div></p>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-08-25T18:37:32+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-08-25</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-08-26T07:52:14+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-08-26</span>
       
     
   </small>
