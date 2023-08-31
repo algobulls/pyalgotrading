@@ -251,5 +251,17 @@ There are other methods that are used in the strategy:
 
 ---
 
-To know more about a strategy from our given template, simply **check the first line of comment** in the code of that specific strategy.
-You can even access them [here](https://algobulls.github.io/pyalgotrading/){target=_blank} in `Strategies` section
+
+## 10. Check out our docs for developed **Regular** strategies 
+- [Aroon Crossover](../../strategies/aroon_crossover.md){target=_blank}
+- [Bollinger Bands](../../strategies/bollinger_bands.md){target=_blank}
+- [EMA Crossover](../../strategies/ema_crossover.md){target=_blank}
+- [Inverse EMA Scalping](../../strategies/inverse_ema_scalping.md){target=_blank}
+- [Reverse RSI](../../strategies/reverse_rsi.md){target=_blank}
+- [Stochastic Crossover](../../strategies/stochastic_crossover.md){target=_blank}
+- [VWAP Crossover](../../strategies/vwap_crossover.md){target=_blank}
+
+!!! Tip 
+     To know more about a strategy from our given template, simply **check the first line of comment** in the code of that specific strategy.  
+
+

@@ -97,5 +97,5 @@ To unleash **Python Build**'s full potential, dive into its comprehensive docume
 
 
 - **[Code Examples](https://github.com/algobulls/pyalgostrategypool){target=_blank}**: Real code snippets showcasing how to implement specific strategies, functions, and techniques using **Python Build**.
-- **[Python Cookbook for Algorithmic Trading](https://github.com/PacktPublishing/Python-Algorithmic-Trading-Cookbook){target=_blank}**: A Python Cookbook for Algorithmic Trading, explaining in-depth about strategy creation and execution from scratch using Python. Explore the technical content of the book on [GitHub](https://github.com/PacktPublishing/Python-Algorithmic-Trading-Cookbook).
+- **[Python Cookbook for Algorithmic Trading](https://www.amazon.in/Python-Algorithmic-Trading-Cookbook-algorithmic/dp/1838989358){target=_blank}**: A Python Cookbook for Algorithmic Trading, explaining in-depth about strategy creation and execution from scratch using Python. Explore the technical content of the book on [GitHub](https://github.com/PacktPublishing/Python-Algorithmic-Trading-Cookbook){target=_blank}.
 

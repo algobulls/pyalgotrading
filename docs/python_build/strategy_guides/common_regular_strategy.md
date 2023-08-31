@@ -204,5 +204,16 @@ There are other methods that are used in the strategy:
 
 ---
 
-To know more about a strategy from our given template, simply **check the first line of comment** in the code of that specific strategy.
-You can even access them [here](https://algobulls.github.io/pyalgotrading/) in `Strategies` section
+## 10. Check out our docs for developed **Regular** strategies 
+- [Options Bear Call Ladder](../../strategies/options_bear_call_ladder.md){target=_blank}
+- [Options Bear Put Ladder](../../strategies/options_bear_put_ladder.md){target=_blank}
+- [Options Bull Call Ladder](../../strategies/options_bull_call_ladder.md){target=_blank}
+- [Options Bull Put Ladder](../../strategies/options_bull_put_ladder.md){target=_blank}
+- [Options Long Iron Butterfly](../../strategies/options_long_iron_butterfly.md){target=_blank}
+- [Options Straddle](../../strategies/options_straddle.md){target=_blank}
+- [Options Strangle](../../strategies/options_strangle.md){target=_blank}
+
+!!! Tip 
+     To know more about a strategy from our given template, simply **check the first line of comment** in the code of that specific strategy.  
+
+

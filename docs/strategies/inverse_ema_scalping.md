@@ -10,7 +10,7 @@ This is a trading strategy called "Inverse EMA Scalping Regular Order Strategy" 
     - **[Click here to view a working notebook for NSE exchange in cloud. No installation required. ](https://nbviewer.org/github/algobulls/pyalgotrading/blob/2f3fb6fb83fd09981e286fe2f0930249a848cc8e/jupyter/nse_jupyter_notebooks/Inverse%20EMA%20Scalping%20Crossover.ipynb){target=_blank}**
     - **[Click here to execute a working notebook for NSE exchange in cloud. No installation required. ](https://mybinder.org/v2/gh/algobulls/pyalgotrading/0a1c06d6e159b3bebf2348efd198608b662c3ffc?urlpath=lab%2Ftree%2Fjupyter%2Fnse_equity%2Finverse_ema_scalping_crossover.ipynb){target=_blank}**
 
-!!! Tips "Jupyter Notebooks for American Exchange (NASDAQ)"
+!!! Tips "Jupyter Notebooks for US Exchange (NASDAQ)"
     - **[Click here to view a working notebook for NASDAQ exchange in cloud. No installation required. ](https://nbviewer.org/github/algobulls/pyalgotrading/blob/526dabc0a92775f4184aaab543c0a9f424613a55/jupyter/nasdaq_jupyter_notebooks/Inverse%20EMA%20Scalping%20Crossover%20US.ipynb){target=_blank}**
     - **[Click here to execute a working notebook for NASDAQ exchange in cloud. No installation required. ](https://mybinder.org/v2/gh/algobulls/pyalgotrading/0a1c06d6e159b3bebf2348efd198608b662c3ffc?urlpath=lab%2Ftree%2Fjupyter%2Fnasdaq_equity%2Finverse_ema_scalping_crossover_us.ipynb){target=_blank}**
 

@@ -32,13 +32,13 @@ Execute Backtesting, Paper Trading, and Real Trading using the same strategy cod
 
 - **Bug Reporting / New Feature Request**: [Create a new issue](https://github.com/algobulls/pyalgotrading/issues/new) on GitHub.
 - **Engage in Discussion**: Join fellow developers on the discussion [forum](https://community.algobulls.com/c/github/pyalgotrading/42).
-- **Additional Support**: For further help, contact [pushpak@algobulls.com](mailto:pushpak@algobulls.com).
+- **Additional Support**: For further help, contact [support@algobulls.com](mailto:support@algobulls.com).
 
 ## Overview
 
 1. [Check out the basic structure of a strategy](strategy_guides/structure.md): Before coding your strategy, refer to the basic structure guide provided by the Pyalgotrading package. This will help you understand the trading strategy methods and flow.
 
-2. [Code your own simple strategy using the pyalgotrading package](https://github.com/algobulls/pyalgotrading/): Use your Python IDE to code your trading strategy using the pyalgotrading package. You can also use ready-made strategies from the pyalgostrategypool package if you prefer not to code your own.
+2. [Code your own simple strategy using the pyalgotrading package](prerequisites.md): Use your Python IDE to code your trading strategy using the pyalgotrading package. You can also use ready-made strategies from the pyalgostrategypool package if you prefer not to code your own.
 
 3. [Upload your strategy to the platform](upload.md): Upon coding your strategy, upload it to the AlgoBulls platform by crafting a new strategy and uploading the corresponding file.
 
@@ -63,4 +63,3 @@ This documentation serves as your launchpad into the Pyalgotrading package and t
 [branch]: https://help.github.com/articles/creating-and-deleting-branches-within-your-repository
 [pr]: https://help.github.com/articles/using-pull-requests/
 
-See [CHANGELOG.md](https://github.com/algobulls/pyalgotrading/blob/master/CHANGELOG.md) for the changelog and [LICENSE](https://github.com/algobulls/pyalgotrading/blob/master/LICENSE) for the license.
