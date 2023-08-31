@@ -4,10 +4,10 @@
 # yaml-language-server: $schema=https://squidfunk.github.io/mkdocs-material/schema.json
 
 # Project Information
-site_name: pyalgotrading
+site_name: PythonBuild
 site_description: Official Python Package for Algorithmic Trading APIs powered by AlgoBulls
 site_author: Pushpak Dagade (pushpak@algobulls.com)
-site_url: https://algobulls.github.io/pyalgotrading/
+site_url: https://algobulls.github.io/pythonbuild/
 
 # GitHub Repo information
 repo_url: https://github.com/algobulls/pyalgotrading

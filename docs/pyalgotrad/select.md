@@ -63,7 +63,7 @@ The output of the above step is:
 `Please login to this URL with your AlgoBulls credentials and get your developer access token: https://app.algobulls.com/user/login`
 
 !!! info "Get Developer Key"
-    You will need to log in to your AlgoBulls account and fetch the access token from:  ([See How](https://algobulls.github.io/pyalgotrading/pyalgotrad/prerequisites/#algobulls-account]{target=_blank}))  
+    You will need to log in to your AlgoBulls account and fetch the access token from:  ([See How](prerequisites.md/#algobulls-account){target="_blank"})  
     **Settings** -> **General** -> **Developer Options**  
   
 Once you have the access token, set it in the code as shown here:

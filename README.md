@@ -29,7 +29,7 @@ Backtesting, Paper Trading and Real Trading can be performed on the same strateg
 
 ### Documentation
 
-You can find the docs [here](https://algobulls.github.io/pyalgotrading/).
+You can find the docs [here](https://algobulls.github.io/pythonbuild/).
 
 ### Python
 
