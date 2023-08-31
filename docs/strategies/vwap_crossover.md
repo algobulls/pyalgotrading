@@ -13,7 +13,7 @@ This is a trading strategy called "VWAP Crossover" implemented in Python using t
 
 !!! Tips "Jupyter Notebook for US Exchange (NASDAQ)"
     - **[Click here to view a working notebook for NASDAQ exchange in cloud. No installation required. ](https://nbviewer.org/github/algobulls/pyalgotrading/blob/526dabc0a92775f4184aaab543c0a9f424613a55/jupyter/nasdaq_jupyter_notebooks/VWAP%20Crossover%20US.ipynb){target=_blank}**
-    - **[Click here to execute a working notebook for NASDAQ exchange in cloud. No installation required. ](https://mybinder.org/v2/gh/algobulls/pyalgotrading/0a1c06d6e159b3bebf2348efd198608b662c3ffc?urlpath=lab%2Ftree%2Fjupyter%2Fnasdaq_equity%2Fvwap_crossover_us.ipynb){target=_blank}**
+    - **[Click here to execute a working notebook for NASDAQ exchange in cloud. No installation required. ](https://mybinder.org/v2/gh/algobulls/pyalgotrading/52ec68cf886a116d72356da261d01537021d7710?urlpath=lab%2Ftree%2Fjupyter%2Fnasdaq_equity%2Fvwap_crossover_us.ipynb){target=_blank}**
 
 
 ## VWAP indicator
