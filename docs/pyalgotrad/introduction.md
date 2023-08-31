@@ -8,20 +8,20 @@ Welcome to the **Pyalgotrading** Documentation – your guide to practising and 
 
 - Fueled by the **AlgoBulls**
 - Comprehensive Support for Algorithmic Trading Strategies:
-  - Create & upload strategies seamlessly on the [AlgoBulls Platform](https://algobulls.com)
-  - Access a range of strategies from the [pyalgostrategypool](https://github.com/algobulls/pyalgostrategypool)
-  -  Over 150 Technical Indicators from [TA-Lib](https://pypi.org/project/TA-Lib/) at your disposal
+  - Create & upload strategies seamlessly on the [AlgoBulls Platform](https://algobulls.com){target="_blank"}
+  - Access a range of strategies from the [pyalgostrategypool](https://github.com/algobulls/pyalgostrategypool){target="_blank"}
+  -  Over 150 Technical Indicators from [TA-Lib](https://pypi.org/project/TA-Lib/){target="_blank"} at your disposal
   - Multiple candlestick patterns including Japanese OHLC, Renko, Heikin-Ashi, Linebreak
   - Support for varied candle intervals: 1 minute, 3 minutes, 5 minutes, and more
   - Diverse order types supported: **MARKET**, **LIMIT**, **STOPLOSS-MARKET**, **STOPLOSS-LIMIT**
   - Flexibility for both **INTRADAY** and **DELIVERY** orders
 - Full Spectrum of Trading: **Backtesting**, **Paper Trading**, and **Real Trading**:
-  - Currently supported with selected [brokers](https://app.algobulls.com/user/brokerlogin)
+  - Currently supported with selected [brokers](https://app.algobulls.com/user/brokerlogin){target="_blank"}
 - Real-time Logs and Reports for Backtesting, Paper Trading, and Real Trading:
   - Detailed Profit and Loss reports (PnL report)
   - Insightful statistics derived from PnL report
   - Order History showcasing state transitions and timestamps
-- Generate Candlestick charts using [plotly.py](https://github.com/plotly/plotly.py)
+- Generate Candlestick charts using [plotly.py](https://github.com/plotly/plotly.py){target="_blank"}
 
 Execute Backtesting, Paper Trading, and Real Trading using the same strategy code base.
 
