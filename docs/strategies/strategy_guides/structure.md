@@ -70,8 +70,3 @@ Once you create your own strategy or use a ready strategy from the [pyalgostrate
 
 ![Flowchart](flowchart_structure.png "How does a Strategy work")
 
-
----
-### What's Next...
-
-Checkout the strategy guides for building a [Regular Strategy](common_regular_strategy.md) or [Options Strategy](common_options_strategy.md)

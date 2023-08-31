@@ -5,10 +5,11 @@ You have uploaded your strategy to the AlgoBulls platform.
 
 ---
 ## Now...
-Using the uploaded strategy, you can now try:
-* Backtesting
-* Paper Trading
-* Real Trading 
+Using the uploaded strategy, you can now try:  
+
+- **Backtesting** 
+- **Paper Trading**
+- **Real Trading** 
 
 ---
 
@@ -395,4 +396,4 @@ Click on each of the tabs to see the relevant code snippet.
 
 You can now explore more by creating and uploading more complex strategies.
 
-You can also check out the [Strategy Coding Guidelines](codeguide.md).
+You can also check out the [Analytics](pyalgotrading_analytics.md), to understand more about the returns and analyze your strategy based on the analytics report.

@@ -5,7 +5,7 @@
 
 You have created a strategy by:
 
-* Coding the complete strategy from the [Create](programexample.md) page.
+* Coding the complete strategy from the [Create](strategy_guides/structure.md) page.
 
 **OR**
 

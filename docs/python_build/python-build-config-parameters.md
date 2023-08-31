@@ -27,13 +27,13 @@ There 4 sections for configuring your parameters:
 - **Credit Exposure Factor**: Applicable only for Live Trading. Use this to set the exposure limit given by your broker. System will take available funds as 'current fund balance X credit exposure factor' for executing the strategy
 
 ### User Parameters
-Use this option to pass various values of the strategy parameters from outside, without changing the code base for every execution. The are accessible as a dictionary called 'strategy_parameters' inside  your strategy class' constructor method.
+- Use this option to pass various values of the strategy parameters from outside, without changing the code base for every execution. They are accessible as a dictionary called `strategy_parameters` inside  your strategy class' constructor method.
+- You can customize/create your own parameters for the strategy. Click on **+Add New Parameter** to begin adding them. They should match with the parameters you have defined in your Python class.
 
-To know more about the parameters, [click here](https://help.algobulls.com/member/tweak.html){target=_blank}.
-
-**User Parameters:** In this section, you can customize/create your own parameters for the strategy. Click on **+Add New Parameter** to begin adding them. They should match with the parameters you have defined in your Python class.
 
 Once Strategy and User Parameters are configured, you can follow these steps to execute your strategy.
+
+[//]: # (To know more about the parameters, [click here]&#40;https://help.algobulls.com/member/tweak.html&#41;{target=_blank}.)
 
 ## Follow these simple steps to test the strategy's performance
 

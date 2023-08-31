@@ -5,7 +5,8 @@ If you have creative ideas in your mind and want to design a algotrading strateg
 [//]: # (To start with **Create using AI** feature, go to our Python Build page, there you will land on our splash page)
 [//]: # ([![add-gen-ai-keys]&#40;imgs_v2/python_build_splash.png&#41;]&#40;imgs_v2/python-build-add-gen-ai-key.png&#41;)
 
-You can check [here](../gen_ai/get_open_ai_keys.md) on how to get your Chat-GPT API key
+!!! Tip
+    You can check [here](../gen_ai/get_open_ai_keys.md) on how to get your Chat-GPT API key
 
 ## Set your Gen-AI API keys and Model
 1. Once you have retrieved the API key, you need to paste it in the input box for API keys.  

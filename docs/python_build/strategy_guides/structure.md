@@ -69,9 +69,3 @@ This handy function calculates something called the "crossover value" for you. I
 Once you create your own strategy or use a ready strategy from the [pyalgostrategypool](https://github.com/algobulls/pyalgostrategypool){target=_blank} package, this is how it works internally on the AlgoBulls Core Trading Engine.
 
 ![Flowchart](flowchart_structure.png "How does a Strategy work")
-
-
----
-### What's Next...
-
-Checkout the strategy guides for building a [Regular Strategy](common_regular_strategy.md) or [Options Strategy](common_options_strategy.md)
