@@ -9,7 +9,7 @@ This is a template for the Options Bear Put Ladder strategy. The strategy involv
 
 !!! Tips "Jupyter Notebook for Options from Indian Exchange (NSE)"
     - **[Click here to view a working notebook for options from NSE exchange in cloud. No installation required. ](https://nbviewer.org/github/algobulls/pyalgotrading/blob/d77ba21f66764971362b51c1a39367a1f78c308d/jupyter/nse_options_jupyter_notebooks/options_bear_put_ladder.ipynb){target=_blank}**
-    - **[Click here to execute a working notebook for options from NSE exchange in cloud. No installation required. ](https://mybinder.org/v2/gh/algobulls/pyalgotrading/0a1c06d6e159b3bebf2348efd198608b662c3ffc?urlpath=lab%2Ftree%2Fjupyter%2Fnse_options%2Foptions_bear_put_ladder.ipynb){target=_blank}**
+    - **[Click here to execute a working notebook for options from NSE exchange in cloud. No installation required. ](https://mybinder.org/v2/gh/algobulls/pyalgotrading/52ec68cf886a116d72356da261d01537021d7710?urlpath=lab%2Ftree%2Fjupyter%2Fnse_options%2Foptions_bear_put_ladder.ipynb){target=_blank}**
 
 
 ### Bear Put Ladder
