@@ -4,7 +4,7 @@
 # yaml-language-server: $schema=https://squidfunk.github.io/mkdocs-material/schema.json
 
 # Project Information
-site_name: PythonBuild
+site_name: Python Build
 site_description: Official Python Package for Algorithmic Trading APIs powered by AlgoBulls
 site_author: Pushpak Dagade (pushpak@algobulls.com)
 site_url: https://algobulls.github.io/pythonbuild/
