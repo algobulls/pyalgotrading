@@ -81,6 +81,7 @@ nav:
           - Code Structure of Strategy: 'python_build/strategy_guides/structure.md'
           - Create your Strategy:
             - Code Using AI: 'python_build/python-build-code-gen-ai.md'
+            - Professional Support: 'python_build/python-build-professional.md'
             - Code Ready Templates: 'python_build/python-build-code-ready-templates.md'
             - Code New Strategy: 'python_build/python-build-code-new.md'
             - Regular Strategy: 'python_build/strategy_guides/common_regular_strategy.md'
