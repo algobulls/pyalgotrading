@@ -37,7 +37,7 @@ from pyalgotrading.constants import *
 ``` python
 class StrategySMARegularOrder(StrategyBase):
 ```
-Now you can add the methods mentioned in the [structure](structure.md) inside the class. First you can add the `__init__` and the `initialize` methods.
+Now you can add the methods mentioned in the [structure](strategy_guides/structure.md) inside the class. First you can add the `__init__` and the `initialize` methods.
 
 ---
 #### Constructor: `def __init__()`

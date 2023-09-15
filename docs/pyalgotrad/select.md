@@ -12,8 +12,6 @@ You have uploaded or saved a strategy by:
 
 * You have saved the strategy from the AlgoBulls Website
 
-
-
 ---
 ## Now...
 You are now ready to select or import your strategy from your AlgoBulls account for Backtesting, Paper Trading and/or Real Trading. 

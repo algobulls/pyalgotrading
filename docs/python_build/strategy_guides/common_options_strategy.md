@@ -5,15 +5,7 @@
 
 ## 1. Initial steps
 
-1. ### Create a new strategy file
-    !!! info "this is for **pyalgotrading** users"
-    eg: strategy_```<unique_code_if_needed>```_options_ema_crossover.py
-
-    !!!Tips "Coding Conventions"
-        * Keep a unique file name
-        * Make sure that the file name is in lowercase and that each word is separated with an underscore '_' as shown above.
-
-2. ### Naming a Class
+1. ### Naming a Class
 eg: For the above strategy name the class name would be:
     ```
     StrategyOptionsEMACrossover(StrategyOptionsBaseV2)
@@ -25,7 +17,7 @@ eg: For the above strategy name the class name would be:
             * If the class name includes indicator names like EMA, SMA, and VWAP the name should be in uppercase in the class name but not in the file name.
             * Every options strategy is a child class of the StrategyOptionsBaseV2 class.
 
-3. ### Naming your Strategy
+2. ### Naming your Strategy
 This name will be displayed in your **My Coded Strategies** in Python Build Web, and it will also be the **strategy_name** when you are fetching all strategies in pyalgotrading.  
 Inside your strategy class, you can write your first parameter as `name`.
     ```
@@ -246,8 +238,7 @@ There are other methods that are used in the strategy:
 ## 9. Cleanup
 
 1. Add comments and docstrings wherever possible to improve code readability.
-
-2. Once the strategy is completed perform O-I-L on the strategy code and remove unwanted imports, variables, and methods before delivering the code.
+2. Once the strategy is completed you can optimize imports, give proper indentation and proper formatting to the strategy code and remove unwanted imports, variables, and methods before delivering the code.
 
 ---
 

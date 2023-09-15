@@ -1,5 +1,17 @@
 
----
+To effectively use pyalgotrading and make the most of your trading strategy, it's essential to be familiar with some frequently used stock market terminologies. Let's go over these terms before diving into configuring your strategy parameters.
+
+
+1. **Exchange**: An exchange is a marketplace where various financial instruments like securities, commodities, and derivatives are traded. Examples include NSE (National Stock Exchange), BSE (Bombay Stock Exchange), NYSE (New York Stock Exchange), and NASDAQ.
+2. **Instruments**: Instruments are the specific assets or securities traded on these exchanges. These include stocks like AAPL (Apple Inc.), TSLA (Tesla, Inc.), TATAMOTORS (Tata Motors Limited), and SBIN (State Bank of India).
+3. **Candlestick** Charts: Candlestick charts are commonly used in stock market analysis. They represent the opening and closing prices of a stock or asset over regular time intervals, which are often referred to as "candle size."
+4. **Intraday** Trading: Intraday trading, also known as day trading, involves buying and selling stocks within the same trading day.
+5. **Delivery** Trading: Delivery trading is a type of trading where traders buy shares and hold them for an extended period, which can range from a few days to several months or even years.
+6. **Position**: A position refers to the amount of a security or asset owned (or sold short) by an individual or entity. Traders take positions when they make buy or sell orders.
+7. **Order**: An order is an instruction to buy or sell a security or asset on a trading venue, such as a stock market or cryptocurrency exchange.
+8. **Crossover**: A crossover occurs when two signal lines intersect. Signal lines can be various indicators like moving averages, Relative Strength Index (RSI), Volume Weighted Averages, etc. Crossovers are often used to trigger and place orders.
+Now that we've covered these essential terms, let's move on to configuring your trading strategy parameters.
+
 ## Configure Strategy Parameters
 
 [![pythonbuild](imgs_v2/python_build_new_strategy_parameters.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs_v2/python_build_new_strategy_parameters.png)

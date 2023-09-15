@@ -36,6 +36,27 @@ copyright: Copyright © 2020 | All Rights Reserved | AlgoBulls Technologies Priv
 # Navigation
 nav:
   - Home: 'index.md'
+  - Strategies:
+      - General Strategy Guide:
+          - Code Structure of Strategy: 'strategies/strategy_guides/structure.md'
+          - Regular Strategy: 'strategies/strategy_guides/common_regular_strategy.md'
+          - Options Strategy: 'strategies/strategy_guides/common_options_strategy.md'
+      - Regular Strategies:
+          - Aroon Crossover: 'strategies/aroon_crossover.md'
+          - Bollinger Bands: 'strategies/bollinger_bands.md'
+          - EMA Crossover: 'strategies/ema_crossover.md'
+          - Inverse EMA Scalping: 'strategies/inverse_ema_scalping.md'
+          - Reverse RSI: 'strategies/reverse_rsi.md'
+          - Stochastic Crossover: 'strategies/stochastic_crossover.md'
+          - VWAP Crossover: 'strategies/vwap_crossover.md'
+      - Options Strategies:
+          - Options Bear Call Ladder: 'strategies/options_bear_call_ladder.md'
+          - Options Bear Put Ladder: 'strategies/options_bear_put_ladder.md'
+          - Options Bull Call Ladder: 'strategies/options_bull_call_ladder.md'
+          - Options Bull Put Ladder: 'strategies/options_bull_put_ladder.md'
+          - Options Long Iron Butterfly: 'strategies/options_long_iron_butterfly.md'
+          - Options Straddle: 'strategies/options_straddle.md'
+          - Options Strangle: 'strategies/options_strangle.md'
   - Pyalgotrading:
 #    - Comprehensive Guide to pyalgotrading: 'pyalgotrad/python_build_comprehensive_guide.md'
     - Introduction: 'pyalgotrad/introduction.md'
@@ -68,27 +89,7 @@ nav:
       - Analytics:
           - Analytics in pyalgotrading: 'python_build/pyalgotrading_analytics.md'
           - Analytics in AlgoBulls Platform: 'python_build/python-build-view-results.md'
-  - Strategies:
-      - General Strategy Guide:
-          - Code Structure of Strategy: 'strategies/strategy_guides/structure.md'
-          - Regular Strategy: 'strategies/strategy_guides/common_regular_strategy.md'
-          - Options Strategy: 'strategies/strategy_guides/common_options_strategy.md'
-      - Regular Strategies:
-          - Aroon Crossover: 'strategies/aroon_crossover.md'
-          - Bollinger Bands: 'strategies/bollinger_bands.md'
-          - EMA Crossover: 'strategies/ema_crossover.md'
-          - Inverse EMA Scalping: 'strategies/inverse_ema_scalping.md'
-          - Reverse RSI: 'strategies/reverse_rsi.md'
-          - Stochastic Crossover: 'strategies/stochastic_crossover.md'
-          - VWAP Crossover: 'strategies/vwap_crossover.md'
-      - Options Strategies:
-          - Options Bear Call Ladder: 'strategies/options_bear_call_ladder.md'
-          - Options Bear Put Ladder: 'strategies/options_bear_put_ladder.md'
-          - Options Bull Call Ladder: 'strategies/options_bull_call_ladder.md'
-          - Options Bull Put Ladder: 'strategies/options_bull_put_ladder.md'
-          - Options Long Iron Butterfly: 'strategies/options_long_iron_butterfly.md'
-          - Options Straddle: 'strategies/options_straddle.md'
-          - Options Strangle: 'strategies/options_strangle.md'
+
   - Brokers:
       - Alpaca: 'brokers/broker_alpaca_guide.md'
   - Gen AI:

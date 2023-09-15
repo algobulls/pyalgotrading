@@ -32,6 +32,20 @@ The steps you will follow are:
 ## Let's Start...
 Run the following code snippets into the Jupyter Notebook one by one (or all together).
 
+### Create a new strategy file
+eg: strategy_```<unique_code_if_needed>```_options_ema_crossover.py
+Make sure this strategy file is in the same folder as the jupyter notebook.
+
+!!!Tips "Coding Conventions"
+    * Keep a unique file name
+    * Make sure that the file name is in lowercase and that each word is separated with an underscore '_' as shown above.
+
+
+!!!Tips "How to Code ?"
+    To know more on how to code trading strategies and understand their format, click [here](strategy_guides/structure.md).
+    We have in detail explanation for [regular strategies](strategy_guides/common_regular_strategy.md) as well as [options strategies](strategy_guides/common_options_strategy.md)
+
+
 ### Import statements
 
 ```python
