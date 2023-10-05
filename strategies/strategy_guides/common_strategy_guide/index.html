@@ -12,20 +12,20 @@
         <meta name="author" content="Pushpak Dagade (pushpak@algobulls.com)">
       
       
-        <link rel="canonical" href="https://algobulls.github.io/pythonbuild/strategies/strategy_guides/common_regular_strategy/">
+        <link rel="canonical" href="https://algobulls.github.io/pythonbuild/strategies/strategy_guides/common_strategy_guide/">
       
       
-        <link rel="prev" href="../common_strategy_guide/">
+        <link rel="prev" href="../structure/">
       
       
-        <link rel="next" href="../common_options_strategy/">
+        <link rel="next" href="../common_regular_strategy/">
       
       <link rel="icon" href="https://algobulls.com/img/favicon.svg">
       <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.1.21">
     
     
       
-        <title>Regular Strategy - Python Build</title>
+        <title>Common Strategy Guide - Python Build</title>
       
     
     
@@ -79,7 +79,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#regular-strategy-structure" class="md-skip">
+        <a href="#common-strategy-building-guide" class="md-skip">
           Skip to content
         </a>
       
@@ -113,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Regular Strategy
+              Common Strategy Guide
             
           </span>
         </div>
@@ -309,20 +309,6 @@
               
   
   
-  
-    <li class="md-nav__item">
-      <a href="../common_strategy_guide/" class="md-nav__link">
-        Common Strategy Guide
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
     
   
   
@@ -335,12 +321,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Regular Strategy
+          Common Strategy Guide
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        Regular Strategy
+        Common Strategy Guide
       </a>
       
         
@@ -359,23 +345,23 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-initial-steps" class="md-nav__link">
-    1. Initial steps
+  <a href="#setting-up-imports-and-environment" class="md-nav__link">
+    Setting Up: Imports and Environment
   </a>
   
-    <nav class="md-nav" aria-label="1. Initial steps">
+    <nav class="md-nav" aria-label="Setting Up: Imports and Environment">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#naming-a-class" class="md-nav__link">
-    Naming a Class
+  <a href="#pyalgotrading" class="md-nav__link">
+    Pyalgotrading
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#naming-your-strategy" class="md-nav__link">
-    Naming your Strategy
+  <a href="#python-build-web" class="md-nav__link">
+    Python Build Web
   </a>
   
 </li>
@@ -386,37 +372,31 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-init-method" class="md-nav__link">
-    2. Init method
+  <a href="#strategy-code-creation-lets-get-started" class="md-nav__link">
+    Strategy Code Creation: Let's Get Started
   </a>
   
-    <nav class="md-nav" aria-label="2. Init method">
+    <nav class="md-nav" aria-label="Strategy Code Creation: Let's Get Started">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#strategy-info" class="md-nav__link">
-    Strategy info
+  <a href="#initialization-functions" class="md-nav__link">
+    Initialization Functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Initialization Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#init" class="md-nav__link">
+    init()
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#parameter-creation" class="md-nav__link">
-    Parameter creation
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#start-time-and-end-time-creation" class="md-nav__link">
-    Start time and End time creation
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#strategy-variables" class="md-nav__link">
-    Strategy variables
+  <a href="#initialize" class="md-nav__link">
+    initialize()
   </a>
   
 </li>
@@ -425,154 +405,79 @@
     </nav>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#3-initialize-method" class="md-nav__link">
-    3. Initialize method
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-ordertagmanager" class="md-nav__link">
-    4. OrderTagManager
-  </a>
-  
-    <nav class="md-nav" aria-label="4. OrderTagManager">
-      <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#add_order" class="md-nav__link">
-    add_order
+  <a href="#get_decision-for-making-decisions" class="md-nav__link">
+    get_decision(): For Making Decisions
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#get_orders" class="md-nav__link">
-    get_orders
+  <a href="#get_child_instrument_details-searching-the-required-child-instrument" class="md-nav__link">
+    get_child_instrument_details(): Searching the Required Child Instrument
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#remove_tags" class="md-nav__link">
-    remove_tags
+  <a href="#get_allowed_expiry_dates-extracting-expiry-dates" class="md-nav__link">
+    get_allowed_expiry_dates(): Extracting Expiry Dates
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#remove_order" class="md-nav__link">
-    remove_order
+  <a href="#get_options_instrument_with_strike_direction-choosing-options-instruments" class="md-nav__link">
+    get_options_instrument_with_strike_direction(): Choosing Options Instruments
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#get_internals" class="md-nav__link">
-    get_internals
+  <a href="#options_instruments_set_up_local-setting-up-local-instances-of-options-instruments" class="md-nav__link">
+    options_instruments_set_up_local(): Setting Up Local Instances of Options Instruments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#options_instruments_set_up-options-strategy-setup" class="md-nav__link">
+    options_instruments_set_up(): Options Strategy Setup
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#strategy_select_instruments_for_entry-selecting-instruments-for-entry" class="md-nav__link">
+    strategy_select_instruments_for_entry(): Selecting Instruments for Entry
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#strategy_enter_position-entering-positions" class="md-nav__link">
+    strategy_enter_position(): Entering Positions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#strategy_select_instruments_for_exit-selecting-instruments-for-exit" class="md-nav__link">
+    strategy_select_instruments_for_exit(): Selecting Instruments for Exit
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#strategy_exit_position-exiting-the-positions" class="md-nav__link">
+    strategy_exit_position(): Exiting the Positions
   </a>
   
 </li>
         
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-entry-methods" class="md-nav__link">
-    5. Entry Methods
-  </a>
-  
-    <nav class="md-nav" aria-label="5. Entry Methods">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#strategy_select_instruments_for_entry" class="md-nav__link">
-    strategy_select_instruments_for_entry
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#strategy_enter_position" class="md-nav__link">
-    strategy_enter_position
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#6-exit-methods" class="md-nav__link">
-    6. Exit Methods
-  </a>
-  
-    <nav class="md-nav" aria-label="6. Exit Methods">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#strategy_select_instruments_for_exit" class="md-nav__link">
-    strategy_select_instruments_for_exit:
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#strategy_exit_position" class="md-nav__link">
-    strategy_exit_position
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#7-other-common-methods" class="md-nav__link">
-    7. Other common methods
-  </a>
-  
-    <nav class="md-nav" aria-label="7. Other common methods">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#check_and_place_stoploss_order" class="md-nav__link">
-    check_and_place_stoploss_order
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#set_all_none" class="md-nav__link">
-    set_all_none
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#8-cleanup" class="md-nav__link">
-    8. Cleanup
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#10-check-out-our-docs-for-developed-regular-strategies" class="md-nav__link">
-    10. Check out our docs for developed Regular strategies
-  </a>
   
 </li>
       
@@ -580,6 +485,20 @@
   
 </nav>
       
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../common_regular_strategy/" class="md-nav__link">
+        Regular Strategy
+      </a>
     </li>
   
 
@@ -1597,23 +1516,23 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-initial-steps" class="md-nav__link">
-    1. Initial steps
+  <a href="#setting-up-imports-and-environment" class="md-nav__link">
+    Setting Up: Imports and Environment
   </a>
   
-    <nav class="md-nav" aria-label="1. Initial steps">
+    <nav class="md-nav" aria-label="Setting Up: Imports and Environment">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#naming-a-class" class="md-nav__link">
-    Naming a Class
+  <a href="#pyalgotrading" class="md-nav__link">
+    Pyalgotrading
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#naming-your-strategy" class="md-nav__link">
-    Naming your Strategy
+  <a href="#python-build-web" class="md-nav__link">
+    Python Build Web
   </a>
   
 </li>
@@ -1624,37 +1543,31 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-init-method" class="md-nav__link">
-    2. Init method
+  <a href="#strategy-code-creation-lets-get-started" class="md-nav__link">
+    Strategy Code Creation: Let's Get Started
   </a>
   
-    <nav class="md-nav" aria-label="2. Init method">
+    <nav class="md-nav" aria-label="Strategy Code Creation: Let's Get Started">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#strategy-info" class="md-nav__link">
-    Strategy info
+  <a href="#initialization-functions" class="md-nav__link">
+    Initialization Functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Initialization Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#init" class="md-nav__link">
+    init()
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#parameter-creation" class="md-nav__link">
-    Parameter creation
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#start-time-and-end-time-creation" class="md-nav__link">
-    Start time and End time creation
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#strategy-variables" class="md-nav__link">
-    Strategy variables
+  <a href="#initialize" class="md-nav__link">
+    initialize()
   </a>
   
 </li>
@@ -1663,154 +1576,79 @@
     </nav>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#3-initialize-method" class="md-nav__link">
-    3. Initialize method
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-ordertagmanager" class="md-nav__link">
-    4. OrderTagManager
-  </a>
-  
-    <nav class="md-nav" aria-label="4. OrderTagManager">
-      <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#add_order" class="md-nav__link">
-    add_order
+  <a href="#get_decision-for-making-decisions" class="md-nav__link">
+    get_decision(): For Making Decisions
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#get_orders" class="md-nav__link">
-    get_orders
+  <a href="#get_child_instrument_details-searching-the-required-child-instrument" class="md-nav__link">
+    get_child_instrument_details(): Searching the Required Child Instrument
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#remove_tags" class="md-nav__link">
-    remove_tags
+  <a href="#get_allowed_expiry_dates-extracting-expiry-dates" class="md-nav__link">
+    get_allowed_expiry_dates(): Extracting Expiry Dates
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#remove_order" class="md-nav__link">
-    remove_order
+  <a href="#get_options_instrument_with_strike_direction-choosing-options-instruments" class="md-nav__link">
+    get_options_instrument_with_strike_direction(): Choosing Options Instruments
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#get_internals" class="md-nav__link">
-    get_internals
+  <a href="#options_instruments_set_up_local-setting-up-local-instances-of-options-instruments" class="md-nav__link">
+    options_instruments_set_up_local(): Setting Up Local Instances of Options Instruments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#options_instruments_set_up-options-strategy-setup" class="md-nav__link">
+    options_instruments_set_up(): Options Strategy Setup
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#strategy_select_instruments_for_entry-selecting-instruments-for-entry" class="md-nav__link">
+    strategy_select_instruments_for_entry(): Selecting Instruments for Entry
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#strategy_enter_position-entering-positions" class="md-nav__link">
+    strategy_enter_position(): Entering Positions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#strategy_select_instruments_for_exit-selecting-instruments-for-exit" class="md-nav__link">
+    strategy_select_instruments_for_exit(): Selecting Instruments for Exit
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#strategy_exit_position-exiting-the-positions" class="md-nav__link">
+    strategy_exit_position(): Exiting the Positions
   </a>
   
 </li>
         
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-entry-methods" class="md-nav__link">
-    5. Entry Methods
-  </a>
-  
-    <nav class="md-nav" aria-label="5. Entry Methods">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#strategy_select_instruments_for_entry" class="md-nav__link">
-    strategy_select_instruments_for_entry
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#strategy_enter_position" class="md-nav__link">
-    strategy_enter_position
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#6-exit-methods" class="md-nav__link">
-    6. Exit Methods
-  </a>
-  
-    <nav class="md-nav" aria-label="6. Exit Methods">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#strategy_select_instruments_for_exit" class="md-nav__link">
-    strategy_select_instruments_for_exit:
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#strategy_exit_position" class="md-nav__link">
-    strategy_exit_position
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#7-other-common-methods" class="md-nav__link">
-    7. Other common methods
-  </a>
-  
-    <nav class="md-nav" aria-label="7. Other common methods">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#check_and_place_stoploss_order" class="md-nav__link">
-    check_and_place_stoploss_order
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#set_all_none" class="md-nav__link">
-    set_all_none
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#8-cleanup" class="md-nav__link">
-    8. Cleanup
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#10-check-out-our-docs-for-developed-regular-strategies" class="md-nav__link">
-    10. Check out our docs for developed Regular strategies
-  </a>
   
 </li>
       
@@ -1832,245 +1670,252 @@
   
 
 
-<h1 id="regular-strategy-structure">Regular Strategy Structure<a class="headerlink" href="#regular-strategy-structure" title="Permanent link">&para;</a></h1>
-<div class="admonition links">
-<p class="admonition-title">Links</p>
-<ul>
-<li><strong><a href="../structure/">Code Structure of Strategy (workflow of a strategy)</a></strong></li>
-</ul>
-</div>
-<h2 id="1-initial-steps">1. Initial steps<a class="headerlink" href="#1-initial-steps" title="Permanent link">&para;</a></h2>
-<ol>
-<li>
-<h3 id="naming-a-class">Naming a Class<a class="headerlink" href="#naming-a-class" title="Permanent link">&para;</a></h3>
-eg: For the above strategy name the class name would be:
-    <div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>StrategyFuturesEMACrossover(StrategyBase)
-</span></code></pre></div><div class="admonition tips">
-<p class="admonition-title">Coding Conventions<ul>
-<li>Make a class with the same name as the file name</li>
-<li>Make sure the first letter of each word is in uppercase and the initials should be in uppercase as well.</li>
-<li>If the class name includes indicator names like EMA, SMA, and VWAP the name should be in uppercase in the class name but not in the file name.</li>
-<li>Every strategy is a child class of the StrategyBase class.</li>
-</ul>
-</p>
-</div>
-</li>
-<li>
-<h3 id="naming-your-strategy">Naming your Strategy<a class="headerlink" href="#naming-your-strategy" title="Permanent link">&para;</a></h3>
-<p>This name will be displayed in your <strong>My Coded Strategies</strong> in Python Build Web, and it will also be the <strong>strategy_name</strong> when you are fetching all strategies in pyalgotrading.<br />
-Inside your strategy class, you can write your first parameter as <code>name</code>.
-    <div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>name = &#39;futures_ema_crossover&#39;
-</span></code></pre></div></p>
-</li>
-</ol>
-<hr />
-<h2 id="2-init-method">2. Init method<a class="headerlink" href="#2-init-method" title="Permanent link">&para;</a></h2>
-<p>This method gets called only once when the strategy is started.</p>
-<ol>
-<li>
-<h3 id="strategy-info">Strategy info<a class="headerlink" href="#strategy-info" title="Permanent link">&para;</a></h3>
-<p>In the <strong>init</strong> method add the line given below
-<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>super().__init__(*args, **kwargs)
-</span></code></pre></div></p>
-</li>
-<li>
-<h3 id="parameter-creation">Parameter creation<a class="headerlink" href="#parameter-creation" title="Permanent link">&para;</a></h3>
-<p>Next we assign the parameter values to the class variables of the same name as the parameters but in the lowercase format, as shown below:</p>
-<p>eg:
-<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>self.fresh_order_candle = self.strategy_parameters[&#39;FRESH_ORDER_CANDLE&#39;]
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>self.start_time_hours = self.strategy_parameters[&#39;START_TIME_HOURS&#39;]
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>self.start_time_minutes = self.strategy_parameters[&#39;START_TIME_MINUTES&#39;]
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>self.end_time_hours = self.strategy_parameters[&#39;END_TIME_HOURS&#39;]
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>self.end_time_minutes = self.strategy_parameters[&#39;END_TIME_MINUTES&#39;]
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>self.ema_period_one = self.strategy_parameters[&#39;EMA_PERIOD_ONE&#39;]
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>self.ema_period_two = self.strategy_parameters[&#39;EMA_PERIOD_TWO&#39;]
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>self.target_percentage = self.strategy_parameters[&#39;TARGET_PERCENTAGE&#39;]
-</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>self.stoploss_percentage = self.strategy_parameters[&#39;STOPLOSS_PERCENTAGE&#39;]
-</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>self.stoploss_range = self.strategy_parameters[&#39;STOPLOSS_RANGE&#39;]
-</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>self.stoploss_order_count_allowed = self.strategy_parameters[&#39;STOPLOSS_ORDER_COUNT_ALLOWED&#39;]
-</span></code></pre></div></p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<ul>
-<li>The parameter names and the number of parameters may be different for different strategies.</li>
-</ul>
-</div>
-</li>
-<li>
-<h3 id="start-time-and-end-time-creation">Start time and End time creation<a class="headerlink" href="#start-time-and-end-time-creation" title="Permanent link">&para;</a></h3>
-<p>Adding Start and End time is useful when you want to define a timerange between which the strategy will be running each day.
-Add the below code to calculate the strategy start time and end time, from the <code>strategy_parameters</code>.<br />
-    try:
-    <div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>    self.candle_start_time = time(hour=self.start_time_hours, minute=self.start_time_minutes)
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>except ValueError:
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    self.logger.fatal(&#39;Error converting start hours and minutes... EXITING&#39;)
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    raise SystemExit
+<h1 id="common-strategy-building-guide">Common Strategy Building Guide<a class="headerlink" href="#common-strategy-building-guide" title="Permanent link">&para;</a></h1>
+<h2 id="setting-up-imports-and-environment">Setting Up: Imports and Environment<a class="headerlink" href="#setting-up-imports-and-environment" title="Permanent link">&para;</a></h2>
+<p>Before we dive into building of a strategy we need to fist setup our workspace depending the tool we are using.
+The available tools for creating a workspace of strategy are <strong>Pyalgotrading</strong> and <strong>Python Build Web</strong>.  </p>
+<h3 id="pyalgotrading">Pyalgotrading<a class="headerlink" href="#pyalgotrading" title="Permanent link">&para;</a></h3>
+<p>If you're coding on your local machine, I recommend setting up a virtual environment and installing the "pyalgotrading" Python package to keep things organised.<br />
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip3 install pyalgotrading
 </span></code></pre></div>
-    try: 
-    <div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>    self.candle_end_time = time(hour=self.end_time_hours, minute=self.end_time_minutes)
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>except ValueError:
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    self.logger.fatal(&#39;Error converting end time hours and minutes... EXITING&#39;)
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    raise SystemExit
-</span></code></pre></div></p>
-</li>
-<li>
-<h3 id="strategy-variables">Strategy variables<a class="headerlink" href="#strategy-variables" title="Permanent link">&para;</a></h3>
-<p>We create our own strategy variables other than the strategy parameter variables which will be used throughout the strategy.</p>
-<p>eg:
-<code>self.order_tag_manager = None</code>  </p>
-<p>We initialize the variables with a None value.</p>
-<div class="admonition note">
-<p class="admonition-title">Note<p>There could be more strategy variables required as per the strategy requirement. </p>
-</p>
-</div>
-</li>
-</ol>
-<hr />
-<h2 id="3-initialize-method">3. Initialize method<a class="headerlink" href="#3-initialize-method" title="Permanent link">&para;</a></h2>
-<p>Unlike the <code>init method</code>, this method gets called every day at the beginning of the day once the strategy is started.</p>
-<p>Here the strategy variables that were initialized as None are again defined as dictionaries/lists except for the <code>self.order_tag_manager</code>. 
-Create a reference for <code>OrderTagManager</code> as shown below:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>self.order_tag_manager = OrderTagManager
+Once you've got it installed, it's time to bring in the magic. Import the package and its constants into your Python file where your trading strategy will take shape.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>from pyalgotrading.algobulls import AlgoBullsConnection
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>from pyalgotrading.strategy import *
 </span></code></pre></div>
-<hr />
-<h2 id="4-ordertagmanager">4. OrderTagManager<a class="headerlink" href="#4-ordertagmanager" title="Permanent link">&para;</a></h2>
-<p>The <code>self.order_tag_manager</code> is used to store/remove the entry/exit orders. The <code>self.order_tag_manager</code> has the following methods:</p>
-<ol>
-<li>
-<h3 id="add_order"><strong>add_order</strong><a class="headerlink" href="#add_order" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Stores the order object for the given tags.<br />
-eg:
-<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>self.order_tag_manager.add_order(_order, tags=[base_inst_str, entry_key])
-</span></code></pre></div></li>
-<li>Here the <code>_order</code> is the order object stored inside the <code>OrderTagManager</code> for the tags <code>base_inst_str</code> and <code>entry_key</code>.</li>
-</ul>
-</li>
-<li>
-<h3 id="get_orders"><strong>get_orders</strong><a class="headerlink" href="#get_orders" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Retrieve the order(s) for the given tags.<br />
-eg:
-<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>self.order_tag_manager.get_orders(tags=[base_inst_str, BrokerExistingOrderPositionConstants.ENTER, entry_key], ignore_errors=True)
-</span></code></pre></div></li>
-<li>Here the order object retrieved from the <code>OrderTagManager</code> for the tags <code>base_inst_str, BrokerExistingOrderPositionConstants.ENTER</code> and <code>entry_key</code></li>
-</ul>
-</li>
-<li>
-<h3 id="remove_tags"><strong>remove_tags</strong><a class="headerlink" href="#remove_tags" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Removes the tags stored in the <code>OrderTagManager</code> along with the orders related stored in that tag
-eg:
-<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>self.order_tag_manager.remove_tags(tags=entry_key)
-</span></code></pre></div></li>
-<li>Here the <code>entry_key</code> tag is removed from the <code>OrderTagManager</code>.</li>
-</ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>When the tag is removed the order objects stored in that tag are also removed but the same order objects would still be present in the order tags.</p>
-</div>
-</li>
-<li>
-<h3 id="remove_order"><strong>remove_order</strong><a class="headerlink" href="#remove_order" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Remove the order(s) from the <code>OrderTagManager</code> for the given tag(s).
-eg:</li>
-</ul>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>self.order_tag_manager.remove_order(main_order)
+<h3 id="python-build-web">Python Build Web<a class="headerlink" href="#python-build-web" title="Permanent link">&para;</a></h3>
+<p>Now, if you prefer a web-based approach, we've got you covered. Head over to the "Code New Strategy" section on the Python Build page of the AlgoBulls website. Here, you can craft your strategy without the need to import any classes or packages. The choice is yours – flexibility at its best.</p>
+<h2 id="strategy-code-creation-lets-get-started">Strategy Code Creation: Let's Get Started<a class="headerlink" href="#strategy-code-creation-lets-get-started" title="Permanent link">&para;</a></h2>
+<p>With the groundwork laid, it's time to create your strategy class. Be sure to choose the appropriate base class for your strategy. For regular equity strategies, the base class is <code>StrategyBase</code> while for options strategies, it's <code>StrategyOptionsBaseV2</code>.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>class MovingAverageCrossoverV2(StrategyBase):
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    name = &#39;Moving Average Crossover V2&#39;
 </span></code></pre></div>
-<p>Here the <code>main_order</code> order object is removed from the <code>OrderTagManager</code>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The order object will be removed from all the tags ta</p>
-</div>
-</li>
-<li>
-<h3 id="get_internals"><strong>get_internals</strong><a class="headerlink" href="#get_internals" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Returns the values i.e. both the entry and exit orders stored inside the tags list.   </li>
-</ul>
-</li>
-</ol>
-<hr />
-<h2 id="5-entry-methods">5. Entry Methods<a class="headerlink" href="#5-entry-methods" title="Permanent link">&para;</a></h2>
-<ol>
-<li>
-<h3 id="strategy_select_instruments_for_entry"><strong>strategy_select_instruments_for_entry</strong><a class="headerlink" href="#strategy_select_instruments_for_entry" title="Permanent link">&para;</a></h3>
-<ul>
-<li>
-<p>In this method we process each instrument in the instruments bucket, if there is some entry condition to be checked then we create an <code>get_entry_decision</code> method 
-that calculates the entry condition like a crossover or compares the latest value of the OHLC data or indicator data.</p>
-</li>
-<li>
-<p>When the order has to be placed we add the <code>instrument</code> to <code>selected_instruments_bucket</code> and additional data related to the instrument that will be required while placing to the <code>sideband_info</code>. This information is passed to the <code>strategy_enter_position</code> method</p>
-</li>
-</ul>
-</li>
-<li>
-<h3 id="strategy_enter_position"><strong>strategy_enter_position</strong><a class="headerlink" href="#strategy_enter_position" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Here is where we actually place the entry order for which we calculate the quantity for the order to be placed. If the order is placed successfully we save the order in a class variable such that we can access the order object via the variable in the exit methods.</li>
-</ul>
-</li>
-</ol>
-<hr />
-<h2 id="6-exit-methods">6. Exit Methods<a class="headerlink" href="#6-exit-methods" title="Permanent link">&para;</a></h2>
-<ol>
-<li>
-<h3 id="strategy_select_instruments_for_exit"><strong>strategy_select_instruments_for_exit:</strong><a class="headerlink" href="#strategy_select_instruments_for_exit" title="Permanent link">&para;</a></h3>
-<ul>
-<li>This method is called before the entry methods because in the case of delivery strategy we want to resume and exit previous day orders before we can place new entry orders.</li>
-<li>Here we place stoploss exit orders, target exit orders, and check for exit conditions for the open entry orders.</li>
-</ul>
-</li>
-<li>
-<h3 id="strategy_exit_position"><strong>strategy_exit_position</strong><a class="headerlink" href="#strategy_exit_position" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Here is where we actually place the exit order for where we exit the order which was placed during entry. If the order is placed successfully we clear the order in a class variable such that we can add new orders to the vacant place in variable in the entry methods.</li>
-</ul>
-</li>
-</ol>
-<hr />
-<h2 id="7-other-common-methods">7. Other common methods<a class="headerlink" href="#7-other-common-methods" title="Permanent link">&para;</a></h2>
-<p>There are other methods that are used in the strategy:</p>
-<ol>
-<li>
-<h3 id="check_and_place_stoploss_order"><strong>check_and_place_stoploss_order</strong><a class="headerlink" href="#check_and_place_stoploss_order" title="Permanent link">&para;</a></h3>
-<p>This method is called in the <code>strategy_select_instruments_for_exit</code> when our entry order is open, and we want to place a stoploss exit order for the same.</p>
-</li>
-<li>
-<h3 id="set_all_none"><strong>set_all_none</strong><a class="headerlink" href="#set_all_none" title="Permanent link">&para;</a></h3>
-<p>This method is called in the <code>strategy_exit_position</code> when our entry order has exited, and we want to remove the order object from the <code>self.main_order</code> variable.</p>
-</li>
-</ol>
-<hr />
-<h2 id="8-cleanup">8. Cleanup<a class="headerlink" href="#8-cleanup" title="Permanent link">&para;</a></h2>
-<ol>
-<li>Add comments and docstrings wherever possible to improve code readability.</li>
-<li>Once the strategy is completed you can optimize imports, give proper indentation and proper formatting to the strategy code and remove unwanted imports, variables, and methods before delivering the code.</li>
-</ol>
-<hr />
-<h2 id="10-check-out-our-docs-for-developed-regular-strategies">10. Check out our docs for developed <strong>Regular</strong> strategies<a class="headerlink" href="#10-check-out-our-docs-for-developed-regular-strategies" title="Permanent link">&para;</a></h2>
-<ul>
-<li><a href="../../aroon_crossover/" target="_blank">Aroon Crossover</a></li>
-<li><a href="../../bollinger_bands/" target="_blank">Bollinger Bands</a></li>
-<li><a href="../../ema_crossover/" target="_blank">EMA Crossover</a></li>
-<li><a href="../../inverse_ema_scalping/" target="_blank">Inverse EMA Scalping</a></li>
-<li><a href="../../reverse_rsi/" target="_blank">Reverse RSI</a></li>
-<li><a href="../../stochastic_crossover/" target="_blank">Stochastic Crossover</a></li>
-<li><a href="../../vwap_crossover/" target="_blank">VWAP Crossover</a></li>
-</ul>
+<p>Feel free to get creative with your class name, but it's good practice to make it unique among your strategy class names. Below this declaration, we set the strategy's name.</p>
 <div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>To know more about a strategy from our given template, simply <strong>check the first line of comment</strong> in the code of that specific strategy.  </p>
+<p class="admonition-title">For Pyalgotrading users</p>
+<p>If you are uploading the strategy via pyalgotrading functions, then this <code>name</code> parameter's value will be the name of the strategy. That means this name will be displayed in <strong>My Coded Strategies</strong> section in Python Build.</p>
 </div>
+<hr />
+<h3 id="initialization-functions">Initialization Functions<a class="headerlink" href="#initialization-functions" title="Permanent link">&para;</a></h3>
+<h4 id="init"><strong>init</strong>()<a class="headerlink" href="#init" title="Permanent link">&para;</a></h4>
+<p>Every great trading strategy starts with a solid foundation – the constructor method, also known as the "init" method. Here's what it looks like:</p>
+<p><div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>def __init__(self, *args, **kwargs):
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    super().__init__(*args, **kwargs)
+</span></code></pre></div>
+Within this method, you extract the parameters provided by the user. These user-defined parameters are stored in a dictionary called "self.strategy_parameters." Here's how you can access these values:</p>
+<p><div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>self.timeperiod1 = self.strategy_parameters[&#39;TIMEPERIOD1&#39;]
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>self.timeperiod2 = self.strategy_parameters[&#39;TIMEPERIOD2&#39;]
+</span></code></pre></div>
+Feel free to initialise other variables here, such as <code>self.main_order</code>, <code>self.number_of_allowed_expiry_dates</code>, <code>self.transaction_type_map</code> and more.</p>
+<p><strong>Example:</strong><br />
+This is how the declaration of class along with its constructor would look like.
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>class StrategyEMARegularOrder(StrategyBase):
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    name = &#39;EMA Regular Order Strategy&#39;
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    def __init__(self, *args, **kwargs):
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>        super().__init__(*args, **kwargs)
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>        self.timeperiod1 = self.strategy_parameters[&#39;TIMEPERIOD1&#39;]
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>        self.timeperiod2 = self.strategy_parameters[&#39;TIMEPERIOD2&#39;]
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>        self.main_order_map = None
+</span></code></pre></div></p>
+<hr />
+<h4 id="initialize">initialize()<a class="headerlink" href="#initialize" title="Permanent link">&para;</a></h4>
+<p>The "<strong>initialize</strong>" method is your strategy's workspace, where you get everything ready for a fresh trading day. It's called at the start of each trading day, allowing you to reset variables, set up your tools, and perform any other tasks to ensure your strategy is primed and ready.</p>
+<p><strong>Example:</strong><br />
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>def initialize(self):
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    self.main_order_map = {}
+</span></code></pre></div></p>
+<hr />
+<h3 id="get_decision-for-making-decisions">get_decision(): For Making Decisions<a class="headerlink" href="#get_decision-for-making-decisions" title="Permanent link">&para;</a></h3>
+<p>Now, let's dive into the heart of your strategy – the "<strong>get_decision</strong>" function. This function is where the magic happens, where you decide when to enter or exit a trade, set stop losses, and target prices. Here's how it works:</p>
+<p>Historical data of the instrument up to a certain point in your strategy is collected using:</p>
+<p><div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>hist_data = self.get_historical_data(instrument)
+</span></code></pre></div>
+Next, you analyze this data to determine trading signals and calculate indicator values. You can rely on functions from "<strong>talib</strong>" for this, as shown below:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>ema_x = talib.EMA(hist_data[&#39;close&#39;], timeperiod=self.timeperiod1)
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>ema_y = talib.EMA(hist_data[&#39;close&#39;], timeperiod=self.timeperiod2)
+</span></code></pre></div></p>
+<p>You can even calculate the crossover direction of any two signals you've extracted, like so:</p>
+<p><div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>crossover_value = self.utils.crossover(ema_x, ema_y)
+</span></code></pre></div>
+By combining these calculated values with historical data, you can make informed decisions about when to initiate or close a trade. Additionally, you can use this information to compute potential target prices or set stop losses.</p>
+<p>Let's shift our focus to options strategies. AlgoBulls' Python Build empowers you to navigate the complexities of options trading with ease. </p>
+<p><strong>Example:</strong>  </p>
+<p>This is how an ideal get_decision() function would look like. This example is from RSI Crossover Strategy.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>    def get_crossover_value(self, instrument):
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>        hist_data = self.get_historical_data(instrument)
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>        rsi_value = talib.RSI(hist_data[&#39;close&#39;],    timeperiod=self.time_period)
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>        oversold_list = [self.oversold_value] * rsi_value.size
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>        overbought_list = [self.overbought_value] * rsi_value.size
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>        oversold_crossover_value = self.utils.crossover(rsi_value, oversold_list)
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>        overbought_crossover_value = self.utils.crossover(rsi_value, overbought_list)
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>        return oversold_crossover_value, overbought_crossover_value
+</span></code></pre></div>
+<hr />
+<h3 id="get_child_instrument_details-searching-the-required-child-instrument">get_child_instrument_details(): Searching the Required Child Instrument<a class="headerlink" href="#get_child_instrument_details-searching-the-required-child-instrument" title="Permanent link">&para;</a></h3>
+<p>The <strong>get_child_instrument_details</strong> function is at your disposal. It takes several parameters:  </p>
+<ul>
+<li><strong>base_instrument</strong>: The foundation of your options strategy, often represented by an index.</li>
+<li><strong>tradingsymbol_suffix</strong>: Specifies whether the option should be a call option (CE) or a put option (PE), determining the trading symbol's suffix.</li>
+<li><strong>strike_direction</strong>: Defines the direction relative to the current strike price, with options like "In The Money" (ITM), "Out of The Money" (OTM), and "At the Money" (ATM).</li>
+<li><strong>no_of_strikes</strong>: Specifies how many strikes away from the current strike price the function should consider, setting the distance in strike prices within the chosen strike direction.</li>
+</ul>
+<p>This function calls two other functions: <code>self.get_allowed_expiry_dates()</code> and <code>get_options_instrument_with_strike_direction()</code>.</p>
+<p><strong>Example:</strong><br />
+This is how the function looks ideally. This example was taken from “Options Bear Call Strategy” from ready templates.
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>    def get_child_instrument_details(self, base_instrument, tradingsymbol_suffix, strike_direction, no_of_strikes):
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>        expiry_date = self.get_allowed_expiry_dates()[0]
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>        child_instrument = self.get_options_instrument_with_strike_direction(base_instrument, expiry_date, tradingsymbol_suffix, strike_direction, no_of_strikes)
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>        return child_instrument
+</span></code></pre></div></p>
+<hr />
+<h3 id="get_allowed_expiry_dates-extracting-expiry-dates">get_allowed_expiry_dates(): Extracting Expiry Dates<a class="headerlink" href="#get_allowed_expiry_dates-extracting-expiry-dates" title="Permanent link">&para;</a></h3>
+<p>In options strategies, the <strong>get_allowed_expiry_dates</strong> function plays a vital role. It doesn't require parameters; instead, it relies on the <strong>number_of_allowed_expiry_dates</strong> variable defined in the constructor method.  </p>
+<ul>
+<li>If <strong>number_of_allowed_expiry_dates</strong> is set to 1, the function returns the monthly expiry date.</li>
+<li>If <strong>number_of_allowed_expiry_dates</strong> is set to 0, the function returns a weekly expiry date.</li>
+</ul>
+<p>In essence, this function helps you select the appropriate expiry date based on the value you assign to <code>number_of_allowed_expiry_dates</code> variable.</p>
+<hr />
+<h3 id="get_options_instrument_with_strike_direction-choosing-options-instruments">get_options_instrument_with_strike_direction(): Choosing Options Instruments<a class="headerlink" href="#get_options_instrument_with_strike_direction-choosing-options-instruments" title="Permanent link">&para;</a></h3>
+<p>This function is a key player in options strategies, taking parameters such as:  </p>
+<ul>
+<li><strong>base_instrument</strong>: The foundation of your options strategy.</li>
+<li><strong>expiry_date</strong>: The expiry date of the child instrument, calculated using the "get_allowed_expiry_dates" function.</li>
+<li><strong>tradingsymbol_suffix</strong>: Specifies whether the option should be a call option (CE) or a put option (PE), helping identify the appropriate options.</li>
+<li><strong>strike_direction</strong>: Determines the direction in relation to the current strike price, offering options like "In The Money" (ITM), "Out of The Money" (OTM), and "At the Money" (ATM).</li>
+<li><strong>no_of_strikes</strong>: Specifies how many strikes away from the current strike price the function should consider, defining the distance in strike prices within the chosen strike direction.</li>
+</ul>
+<h3 id="options_instruments_set_up_local-setting-up-local-instances-of-options-instruments">options_instruments_set_up_local(): Setting Up Local Instances of Options Instruments<a class="headerlink" href="#options_instruments_set_up_local-setting-up-local-instances-of-options-instruments" title="Permanent link">&para;</a></h3>
+<p>Now, let's talk about a crucial piece of the options strategy puzzle – <code>options_instruments_set_up_local</code>. This function creates local instances of all available child instruments based on specified parameters:  </p>
+<ul>
+<li><strong>base_instrument</strong>: The foundation of your options strategy, typically an index.</li>
+<li><strong>tradingsymbol_suffix</strong>: Specifies whether the child instrument should be a call option (CE) or a put option (PE), aiding in the identification of the appropriate options.</li>
+<li><strong>current_close</strong> (strike_price): The current price of the base instrument, also known as the strike price.</li>
+<li><strong>direction</strong>: Determines the direction in relation to the current strike price, helping select the child instrument (i.e., ATM, ITM, or OTM).</li>
+</ul>
+<p>Once executed, this function sets up and stores local instances of child instruments matching your criteria. These instances become valuable assets for further analysis or operations, including utilising the "get_child_instrument_details" function.</p>
+<p><strong>Example:</strong><br />
+This is how this function looks ideally. This example was taken from “Options Bear Call Ladder” from ready templates.
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>def options_instruments_set_up_local(self, base_instrument, tradingsymbol_suffix, current_close, direction=OptionsInstrumentDirection.EXACT):
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>        expiry_dates = self.get_allowed_expiry_dates()
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>        for expiry_date in expiry_dates:
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>            self.options_instruments_set_up(base_instrument, direction, expiry_date, tradingsymbol_suffix, current_close)
+</span></code></pre></div></p>
+<hr />
+<h3 id="options_instruments_set_up-options-strategy-setup">options_instruments_set_up(): Options Strategy Setup<a class="headerlink" href="#options_instruments_set_up-options-strategy-setup" title="Permanent link">&para;</a></h3>
+<p>The final piece of the puzzle is "options_instruments_set_up." This function takes parameters like:  </p>
+<ul>
+<li><strong>base_instrument</strong>: The foundation of your options strategy.</li>
+<li><strong>direction</strong>: Determines the direction in relation to the current strike price, helping select the child instrument (i.e., ATM, ITM, or OTM).</li>
+<li><strong>expiry_date</strong>: The expiry date of the child instrument, calculated using the "get_allowed_expiry_dates" function.</li>
+<li><strong>tradingsymbol_suffix</strong>: Specifies whether the child instrument should be a call option (CE) or a put option (PE), aiding in the identification of the appropriate options.</li>
+<li><strong>current_close</strong>: The current price of the base instrument, also known as the strike price.</li>
+</ul>
+<hr />
+<p>Now, let's talk about the engine that drives your strategy – the core loop functions. </p>
+<p>These include "<strong>strategy_select_instruments_for_entry</strong>", "<strong>strategy_enter_position</strong>", "<strong>strategy_select_instruments_for_exit</strong>" and "<strong>strategy_exit_position</strong>" These functions are called within a loop from the AlgoBulls core until an Exit Event for the strategy occurs.</p>
+<hr />
+<h3 id="strategy_select_instruments_for_entry-selecting-instruments-for-entry">strategy_select_instruments_for_entry(): Selecting Instruments for Entry<a class="headerlink" href="#strategy_select_instruments_for_entry-selecting-instruments-for-entry" title="Permanent link">&para;</a></h3>
+<p>This function takes parameters:  </p>
+<ul>
+<li><strong>candle</strong>: The current candle where the strategy is executing its algorithm.</li>
+<li><strong>instrument_bucket</strong>: A list of all the instruments provided by the user when starting the strategy.
+Here, you iterate through the instruments, calling "self.get_decision()" to determine actions for each. For options strategies, you can also use "self.options_instruments_set_up_local()" to set up child instruments for each base instrument. The selected instruments and their meta-information are returned by the function.</li>
+</ul>
+<p><strong>Example</strong>:<br />
+This function would ideally look like this. This example was taken from “Options Straddle” from Ready Templates.
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>    def strategy_select_instruments_for_entry(self, candle, instruments_bucket):
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>            selected_instruments, meta = [], []
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>            for instrument in instruments_bucket:
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>                if instrument not in self.instruments_done_for_the_day:
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>                    self.instruments_done_for_the_day.append(instrument)
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>                    ltp = self.broker.get_ltp(instrument)
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>
+</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>                    # setup child instruments
+</span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>                    self.options_instruments_set_up_local(instrument, &quot;CE&quot;, ltp)
+</span><span id="__span-13-12"><a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a>                    self.options_instruments_set_up_local(instrument, &quot;PE&quot;, ltp)
+</span><span id="__span-13-13"><a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a>
+</span><span id="__span-13-14"><a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a>                    leg_wise_list = [(&#39;LEG_ONE&#39;, self._leg_one_tradingsymbol_suffix, self._leg_one_strike_direction, self._leg_one_number_of_strikes, self._leg_one_transaction_type),
+</span><span id="__span-13-15"><a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a>                                     (&#39;LEG_TWO&#39;, self._leg_two_tradingsymbol_suffix, self._leg_two_strike_direction, self._leg_two_number_of_strikes, self._leg_two_transaction_type)]
+</span><span id="__span-13-16"><a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a>
+</span><span id="__span-13-17"><a id="__codelineno-13-17" name="__codelineno-13-17" href="#__codelineno-13-17"></a>                    for leg_number, tradingingsymbol_suffix, strike_direction, number_of_strikes, transaction_type in leg_wise_list:
+</span><span id="__span-13-18"><a id="__codelineno-13-18" name="__codelineno-13-18" href="#__codelineno-13-18"></a>                        self.logger.info(f&#39;Processing {leg_number}...&#39;)
+</span><span id="__span-13-19"><a id="__codelineno-13-19" name="__codelineno-13-19" href="#__codelineno-13-19"></a>                        child_instrument = self.get_child_instrument_details(instrument, self.tradingsymbol_suffix_map[tradingingsymbol_suffix], self.strike_direction_map[strike_direction], number_of_strikes)
+</span><span id="__span-13-20"><a id="__codelineno-13-20" name="__codelineno-13-20" href="#__codelineno-13-20"></a>                        selected_instruments.append(child_instrument)
+</span><span id="__span-13-21"><a id="__codelineno-13-21" name="__codelineno-13-21" href="#__codelineno-13-21"></a>                        meta.append({&#39;base_instrument&#39;: instrument, &#39;action&#39;: self.transaction_type_map[transaction_type]})
+</span><span id="__span-13-22"><a id="__codelineno-13-22" name="__codelineno-13-22" href="#__codelineno-13-22"></a>
+</span><span id="__span-13-23"><a id="__codelineno-13-23" name="__codelineno-13-23" href="#__codelineno-13-23"></a>            return selected_instruments, meta
+</span></code></pre></div></p>
+<hr />
+<h3 id="strategy_enter_position-entering-positions">strategy_enter_position(): Entering Positions<a class="headerlink" href="#strategy_enter_position-entering-positions" title="Permanent link">&para;</a></h3>
+<p>This function takes parameters:  </p>
+<ul>
+<li><strong>candle</strong>: The current candle where the strategy is executing its algorithm.</li>
+<li><strong>instrument</strong>: One of the instruments from the selected instruments list returned by "strategy_select_instruments_for_entry."</li>
+<li><strong>meta</strong>: Meta-information of that particular instrument, aligning with the instrument from the meta list.</li>
+</ul>
+<p>Here, you place orders for the selected instruments, updating them in "self.main_order" for easy access in exit functions.</p>
+<p><strong>Example</strong>:<br />
+This function would ideally look like this. This example was taken from “Options Straddle” from Ready Templates.
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>    def strategy_enter_position(self, candle, instrument, sideband_info):
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>        _ = self.broker.OrderRegular(instrument, sideband_info[&#39;action&#39;], quantity=self.number_of_lots * instrument.lot_size)
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>        return _
+</span></code></pre></div></p>
+<h3 id="strategy_select_instruments_for_exit-selecting-instruments-for-exit">strategy_select_instruments_for_exit(): Selecting Instruments for Exit<a class="headerlink" href="#strategy_select_instruments_for_exit-selecting-instruments-for-exit" title="Permanent link">&para;</a></h3>
+<p>Similar to entry, this function takes parameters:</p>
+<ul>
+<li><strong>candle</strong>: The current candle where the strategy is executing its algorithm.</li>
+<li><strong>instrument_bucket</strong>: A list of all instruments provided by the user when starting the strategy.</li>
+</ul>
+<p>The function iterates through the instrument bucket, checking if the instrument is present in "self.main_order" and whether its exit condition is satisfied. Instruments meeting exit conditions are added to the selected instruments list, along with their respective actions and meta-information.</p>
+<p><strong>Example</strong>:<br />
+This function should ideally look like this. This example was taken from “EMA Crossover Strategy”.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>    def strategy_select_instruments_for_exit(self, candle, instruments_bucket):
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>        selected_instruments, meta = [], []
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>        for instrument in instruments_bucket:
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>            if self.main_order_map.get(instrument) is not None:
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>                crossover = self.get_decision(instrument)
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>                if crossover in [1, -1]:
+</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>                    selected_instruments.append(instrument)
+</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>                    meta.append({&#39;action&#39;: &#39;EXIT&#39;})
+</span><span id="__span-15-11"><a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a>
+</span><span id="__span-15-12"><a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a>        return selected_instruments, meta
+</span></code></pre></div>
+<hr />
+<h3 id="strategy_exit_position-exiting-the-positions">strategy_exit_position(): Exiting the Positions<a class="headerlink" href="#strategy_exit_position-exiting-the-positions" title="Permanent link">&para;</a></h3>
+<p>Finally, this function takes parameters:</p>
+<ul>
+<li><strong>candle</strong>: The current candle where the strategy is executing its algorithm.</li>
+<li><strong>instrument</strong>: One of the instruments from the selected instruments list returned by "strategy_select_instruments_for_exit."</li>
+<li><strong>meta</strong>: Meta-information of that particular instrument, aligning with the instrument from the meta list.</li>
+</ul>
+<p>Here, you place orders for the selected instruments, removing them from "self.main_order" to prepare for the next iteration of the AlgoBulls core loop.</p>
+<p><strong>Example:</strong><br />
+This function should ideally look like this. This example was taken from “EMA Crossover Strategy”.
+<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>    def strategy_exit_position(self, candle, instrument, meta):
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>    if meta[&#39;action&#39;] == &#39;EXIT&#39;:
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>        self.main_order_map[instrument].exit_position()
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>        self.main_order_map[instrument] = None
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>        return True
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>    return False
+</span></code></pre></div></p>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-09-15T09:11:13+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-09-15</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-10-05T06:12:42+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-10-05</span>
       
     
   </small>
@@ -2098,7 +1943,7 @@ that calculates the entry condition like a crossover or compares the latest valu
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../common_strategy_guide/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Common Strategy Guide" rel="prev">
+          <a href="../structure/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Code Structure of Strategy" rel="prev">
             <div class="md-footer__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
             </div>
@@ -2107,20 +1952,20 @@ that calculates the entry condition like a crossover or compares the latest valu
                 Previous
               </span>
               <div class="md-ellipsis">
-                Common Strategy Guide
+                Code Structure of Strategy
               </div>
             </div>
           </a>
         
         
           
-          <a href="../common_options_strategy/" class="md-footer__link md-footer__link--next" aria-label="Next: Options Strategy" rel="next">
+          <a href="../common_regular_strategy/" class="md-footer__link md-footer__link--next" aria-label="Next: Regular Strategy" rel="next">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Options Strategy
+                Regular Strategy
               </div>
             </div>
             <div class="md-footer__button md-icon">
