@@ -55,13 +55,6 @@ Develop a strategy that generates a BUY signal when the Stochastic RSI indicator
 ```
 Develop a strategy that generates a BUY signal when the price breaks above the upper Bollinger Band. Similarly, generate a SELL signal when the price breaks below the lower Bollinger Band
 ```
-### Fibonacci
-```
-Develop a strategy that generates a BUY signal when the price retraces to a key Fibonacci level (e.g., 38.2% or 50%) and shows signs of reversal using other technical indicators. Similarly, generate a SELL signal when the price retraces to a Fibonacci level and shows signs of continuation in the prevailing trend
-```
-```
-Create a strategy that generates a BUY signal when the price retraces to a key Fibonacci level (e.g., 61.8%) and then extends beyond the previous swing high. Similarly, generate a SELL signal when the price retraces to a Fibonacci level and then extends beyond the previous swing low.
-```
 
 ### ATR (Volatility)
 ```
@@ -82,24 +75,12 @@ Create a strategy that generates a BUY signal when the price rises above the VWA
 ```
 Create a strategy that generates a BUY signal when the price crosses above the cloud (Span A and Span B) and the cloud changes color from red to green. Conversely, generate a SELL signal when the price crosses below the cloud and the cloud changes color from green to red.
 ```
-```
-Create a strategy that generates a BUY signal when there is a significant increase in volume accompanied by a bullish candlestick pattern. Similarly, generate a SELL signal when there is a significant increase in volume accompanied by a bearish candlestick pattern
-```
-```
-Create a strategy that generates a BUY signal when the RVI indicator crosses above its signal line and a SELL signal when it crosses below its signal line, indicating potential changes in momentum.
-```
-```
-Create a strategy that generates a BUY signal when the price breaks above the upper pivot point level or a key resistance level and a SELL signal when the price breaks below the lower pivot point level or a key support level.
-```
+
 ```
 Develop a strategy that generates a BUY signal when the price crosses above the Parabolic SAR dots and a SELL signal when the price crosses below the dots.
 ```
-```
-Create a strategy that generates a BUY signal when a bullish harmonic pattern, such as a bullish butterfly or bullish Gartley, forms and validates with other technical indicators. Similarly, generate a SELL signal when a bearish harmonic pattern forms and validates.
-```
-```
-Create a strategy that generates a BUY signal when the price breaks above the upper Donchian Channel and a SELL signal when the price breaks below the lower Donchian Channel.
-```
+
+
 ```
 Implement a gap and go strategy that capitalizes on the momentum created by price gaps at the market open. When the price gaps up significantly and continues to move higher, generate a BUY signal. Similarly, when the price gaps down substantially and continues to move lower, generate a SELL signal.
 ```

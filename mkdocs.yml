@@ -18,6 +18,7 @@ theme:
     - content.code.copy
     - content.tabs.link
     - tabs
+    - navigation.footer
 
   favicon: 'https://algobulls.com/img/favicon.svg'
   logo: 'algobulls_logo.svg'
@@ -39,6 +40,7 @@ nav:
   - Strategies:
       - General Strategy Guide:
           - Code Structure of Strategy: 'strategies/strategy_guides/structure.md'
+          - Common Strategy Guide: 'strategies/strategy_guides/common_strategy_guide.md'
           - Regular Strategy: 'strategies/strategy_guides/common_regular_strategy.md'
           - Options Strategy: 'strategies/strategy_guides/common_options_strategy.md'
       - Regular Strategies:
