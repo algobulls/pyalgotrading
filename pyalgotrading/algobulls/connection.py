@@ -302,12 +302,14 @@ class AlgoBullsConnection:
                 print("WARNING: Could not fetch the candle interval from saved parameters. Logs will be fetched every 60 seconds.")
                 sleep_time = 60
 
-        # save the parameters required for displaying progress bar
+        # initialize the parameters required for displaying progress bar
         if display_progress_bar:
             if start_timestamp_map.get(trading_type) and end_timestamp_map.get(trading_type):
                 start_timestamp = start_timestamp_map.get(trading_type).replace(tzinfo=None)
                 end_timestamp = end_timestamp_map.get(trading_type).replace(tzinfo=None)
                 total_seconds = (end_timestamp - start_timestamp).total_seconds()
+            else:
+                display_progress_bar = False
 
         # initialize all the variables
         all_logs = ''
