@@ -9,9 +9,12 @@ from json import JSONDecodeError
 import requests
 
 from .exceptions import AlgoBullsAPIBaseException, AlgoBullsAPIUnauthorizedErrorException, AlgoBullsAPIInsufficientBalanceErrorException, AlgoBullsAPIResourceNotFoundErrorException, AlgoBullsAPIBadRequestException, \
-    AlgoBullsAPIInternalServerErrorException, AlgoBullsAPIForbiddenErrorException, AlgoBullsAPIGatewayTimeoutErrorException
+    AlgoBullsAPIInternalServerErrorException, AlgoBullsAPIForbiddenErrorException, AlgoBullsAPIGatewayTimeoutErrorException, AlgoBullsAPITooManyRequestsException
 from ..constants import TradingType, TradingReportType
 from ..utils.func import get_raw_response
+
+GENAI_SESSION_SIZE = 100
+GENAI_SESSION_HISTORY_SIZE = 100
 
 
 class AlgoBullsAPI:
@@ -30,6 +33,8 @@ class AlgoBullsAPI:
         self.__key_papertrading = {}  # strategy-cstc_id mapping
         self.__key_realtrading = {}  # strategy-cstc_id mapping
         self.pattern = re.compile(r'(?<!^)(?=[A-Z])')
+        self.genai_session_id = None
+        self.genai_sessions_map = None
 
     def __convert(self, _dict):
         # Helps convert _dict keys from camelcase to snakecase
@@ -91,6 +96,9 @@ class AlgoBullsAPI:
         elif r.status_code == 404:
             r.raw.decode_content = True
             raise AlgoBullsAPIResourceNotFoundErrorException(method=method, url=url, response=get_raw_response(r), status_code=404)
+        elif r.status_code == 429:
+            r.raw.decode_content = True
+            raise AlgoBullsAPITooManyRequestsException(method=method, url=url, response=get_raw_response(r), status_code=429)
         elif r.status_code == 500:
             r.raw.decode_content = True
             raise AlgoBullsAPIInternalServerErrorException(method=method, url=url, response=get_raw_response(r), status_code=500)
@@ -170,9 +178,6 @@ class AlgoBullsAPI:
 
         Warning:
             For every user, the `strategy_name` should be unique. You cannot create multiple strategies with the same name.
-
-        Info: ENDPOINT
-            `POST` v2/user/strategy/build/python
         """
 
         try:
@@ -198,9 +203,6 @@ class AlgoBullsAPI:
 
         Returns:
             JSON Response received from AlgoBulls platform after (attempt to) updating an existing strategy.
-
-        Info: ENDPOINT
-            PUT v2/user/strategy/build/python
         """
 
         json_data = {'strategyId': strategy_code, 'strategyName': strategy_name, 'strategyDetails': strategy_details, 'abcVersion': abc_version}
@@ -215,9 +217,6 @@ class AlgoBullsAPI:
 
         Returns:
             JSON Response received from AlgoBulls platform with list of all the created strategies.
-
-        Info: ENDPOINT
-            `OPTIONS` v3/build/python/user/strategy/code
         """
 
         endpoint = f'v3/build/python/user/strategy/code'
@@ -234,9 +233,6 @@ class AlgoBullsAPI:
 
         Returns:
             JSON
-            
-        Info: ENDPOINT
-            `GET` v3/build/python/user/strategy/code/{strategy_code}
         """
 
         params = {}
@@ -255,9 +251,6 @@ class AlgoBullsAPI:
 
         Returns:
             JSON Response
-            
-        INFO: ENDPOINT
-            `GET` v4/portfolio/searchInstrument
         """
 
         params = {'search': tradingsymbol, 'exchange': exchange}
@@ -275,9 +268,6 @@ class AlgoBullsAPI:
 
         Returns:
             response: response from api
-
-        Info: ENDPOINT
-           `DELETE` v3/build/python/user/strategy/deleteAll?strategyId={strategy}
         """
 
         endpoint = f'v3/build/python/user/strategy/deleteAll?strategyId={strategy}'
@@ -295,9 +285,6 @@ class AlgoBullsAPI:
             trading_type: BACKTESTING, PAPER TRADING or REAL TRADING
 
         Returns:
-
-        Info: ENDPOINT
-           `POST` v4/portfolio/tweak/{key}/?isPythonBuild=true
         """
 
         # Configure the params
@@ -322,9 +309,6 @@ class AlgoBullsAPI:
             location: Location of the exchange
             initial_funds_virtual: Virtual funds before starting the strategy
             broker_details: Client's broking details
-
-        Info: ENDPOINT
-            `PATCH` v5/portfolio/strategies?isPythonBuild=true
         """
 
         try:
@@ -396,9 +380,6 @@ class AlgoBullsAPI:
 
         Returns:
             Job status
-
-        Info: ENDPOINT
-            `GET` v2/user/strategy/status
         """
 
         key = self.__get_key(strategy_code=strategy_code, trading_type=trading_type)
@@ -420,9 +401,6 @@ class AlgoBullsAPI:
 
         Returns:
             Execution logs
-
-        Info: ENDPOINT
-            `POST`: v2/user/strategy/logs
         """
         key = self.__get_key(strategy_code=strategy_code, trading_type=trading_type)
         params = None
@@ -452,11 +430,6 @@ class AlgoBullsAPI:
 
         Returns:
             Report data
-
-        Info: ENDPOINT
-            `GET` v2/user/strategy/pltable          for P&L Table
-            `GET` v2/user/strategy/statstable       for Stats Table
-            `GET` v2/user/strategy/orderhistory     Order History
         """
 
         key = self.__get_key(strategy_code=strategy_code, trading_type=trading_type)
@@ -473,3 +446,111 @@ class AlgoBullsAPI:
         response = self._send_request(endpoint=endpoint, params=params)
 
         return response
+
+    def set_genai_api_key(self, genai_api_key):
+        """
+        Set GenAI Api key
+
+        Args:
+            genai_api_key: GenAI api key
+        Returns:
+            response
+        """
+        endpoint = 'v1/build/python/genai/key'
+        json_data = {"openaiApiKey": genai_api_key}
+        response = self._send_request(method='post', endpoint=endpoint, json_data=json_data)
+        return response
+
+    def get_genai_api_key_status(self):
+        """
+        Gen GenAI Api key status
+
+        This API is used to check if user has set GenAI API key.
+
+        Returns:
+            response
+        """
+        endpoint = f'v1/build/python/genai/key'
+        response = self._send_request(endpoint=endpoint)
+        return response
+
+    def get_genai_response(self, user_prompt: str, chat_gpt_model: str = ''):
+        """
+        Fetch GenAI response.
+
+        Args:
+           user_prompt: User question
+           chat_gpt_model: Chat gpt model name
+        Returns:
+           GenAI response
+        """
+        endpoint = 'v1/build/python/genai'
+        params = {"userPrompt": user_prompt, 'sessionId': self.genai_session_id, 'chatGPTModel': chat_gpt_model}
+
+        try:
+            response = self._send_request(endpoint=endpoint, params=params)
+            if self.genai_session_id is None and 'session_id' in response:
+                self.genai_session_id = response['session_id']
+        except (AlgoBullsAPIResourceNotFoundErrorException, AlgoBullsAPIForbiddenErrorException, AlgoBullsAPIBadRequestException, AlgoBullsAPITooManyRequestsException) as ex:
+            print('\nFail.')
+            print(f'{ex.get_error_type()}: {ex.response}')
+            response = None
+
+        return response
+
+    def handle_genai_response_timeout(self):
+        """
+        Fetch GenAI response.
+
+        Returns:
+           GenAI response for current session. Last active session is used when self.session_id is None.
+        """
+        endpoint = 'v1/build/python/genai/response'
+        params = {'session_id': self.genai_session_id}
+
+        try:
+            response = self._send_request(endpoint=endpoint, params=params)
+            if self.genai_session_id is None and 'session_id' in response:
+                self.genai_session_id = response['session_id']
+        except AlgoBullsAPIResourceNotFoundErrorException as ex:
+            print('\nFail.')
+            print(f'{ex.get_error_type()}: {ex.response}')
+            response = None
+
+        return response
+
+    def get_genai_sessions(self):
+        """
+        Fetch GenAI sessions.
+
+        Args:
+        Returns:
+           GenAI sessions for the customer.
+
+        Info: ENDPOINT
+           `GET` v1/build/python/genai/sessions
+        """
+        endpoint = 'v1/build/python/genai/sessions'
+        params = {'session_id': self.genai_session_id, 'pageSize': GENAI_SESSION_SIZE}
+        response = self._send_request(endpoint=endpoint, params=params)
+        self.genai_sessions_map = response['data']
+
+        return response['data']
+
+    def get_genai_session_history(self, session_id):
+        """
+        Fetch GenAI session history.
+
+        Args:
+            session_id: GenAI chat session id
+        Returns:
+           GenAI session history for the customer.
+
+        Info: ENDPOINT
+           `GET` v1/build/python/genai/session/history
+        """
+        endpoint = 'v1/build/python/genai/session/history'
+        params = {'sessionId': self.genai_sessions_map[session_id - 1]['id'], 'pageSize': GENAI_SESSION_HISTORY_SIZE}
+        response = self._send_request(endpoint=endpoint, params=params)
+
+        return response['data']

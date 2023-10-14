@@ -14,10 +14,12 @@ from tabulate import tabulate
 from tqdm.auto import tqdm
 
 from .api import AlgoBullsAPI
-from .exceptions import AlgoBullsAPIBadRequestException, AlgoBullsAPIGatewayTimeoutErrorException
+from .exceptions import AlgoBullsAPIBadRequestException, AlgoBullsAPIGatewayTimeoutErrorException, AlgoBullsAPIForbiddenErrorException
 from ..constants import StrategyMode, TradingType, TradingReportType, CandleInterval, AlgoBullsEngineVersion, Country, ExecutionStatus, EXCHANGE_LOCALE_MAP, Locale
 from ..strategy.strategy_base import StrategyBase
 from ..utils.func import get_valid_enum_names, get_datetime_with_tz
+
+GENAI_RESPONSE_POOLING_LIMIT = 20
 
 
 class AlgoBullsConnection:
@@ -32,8 +34,8 @@ class AlgoBullsConnection:
         self.api = AlgoBullsAPI(self)
 
         self.saved_parameters = {
-            'start_timestamp_map': {},
-            'end_timestamp_map': {}
+            "start_timestamp_map": {},
+            "end_timestamp_map": {}
         }
 
         self.strategy_country_map = {
@@ -45,6 +47,7 @@ class AlgoBullsConnection:
         self.backtesting_pnl_data = None
         self.papertrade_pnl_data = None
         self.realtrade_pnl_data = None
+        self.recent_genai_response = None
 
     @staticmethod
     def get_authorization_url():
@@ -54,8 +57,8 @@ class AlgoBullsConnection:
         Returns:
             Authorization URL
         """
-        url = 'https://app.algobulls.com/user/login'
-        print(f'Please login to this URL with your AlgoBulls credentials and get your developer access token: {url}')
+        url = "https://app.algobulls.com/user/login"
+        print(f"Please login to this URL with your AlgoBulls credentials and get your developer access token: {url}")
 
     @staticmethod
     def get_token_url():
@@ -65,8 +68,8 @@ class AlgoBullsConnection:
         Returns:
             Token URL
         """
-        url = 'https://app.algobulls.com/settings?section=developerOptions'
-        print(f'Please login to this URL to get your unique token: {url}')
+        url = "https://app.algobulls.com/settings?section=developerOptions"
+        print(f"Please login to this URL to get your unique token: {url}")
 
     def set_access_token(self, access_token):
         """
@@ -80,6 +83,209 @@ class AlgoBullsConnection:
         """
         assert isinstance(access_token, str), f'Argument "access_token" should be a string'
         self.api.set_access_token(access_token)
+
+    def set_generative_ai_keys(self, genai_api_key):
+        """
+        Set the API keys of the generative AI took used
+
+        Args:
+            genai_api_key: GenAI API key
+
+        Returns:
+            None
+        """
+        assert isinstance(genai_api_key, str), f'Argument "api_key" should be a string'
+        self.api.set_genai_api_key(genai_api_key)
+
+    def get_genai_response_pooling(self, no_of_tries, user_prompt=None, chat_gpt_model=None):
+        """
+        Method to get GenAI response
+
+        During first execution get_genai_response API is fired and for next consecutive calls handle_genai_response_timeout API is fired
+        till we get a response other than AlgoBullsAPIGatewayTimeoutErrorException or GENAI_RESPONSE_POOLING_LIMIT is reached.
+
+        Args:
+            no_of_tries: No of times this function is called recursively
+            user_prompt: User question
+            chat_gpt_model: OpenAI chat model name
+
+        Returns:
+            GenAI response
+        """
+        if no_of_tries < GENAI_RESPONSE_POOLING_LIMIT:
+            try:
+                if no_of_tries > 1:
+                    response = self.api.handle_genai_response_timeout()
+                else:
+                    response = self.api.get_genai_response(user_prompt, chat_gpt_model)
+
+            except AlgoBullsAPIGatewayTimeoutErrorException:
+                response = self.get_genai_response_pooling(no_of_tries + 1)
+        else:
+            response = {"message": "Somthing went wrong please try again"}
+        return response
+
+    def display_genai_sessions(self):
+        """
+        Display previous sessions
+        Returns:
+            available sessions
+        """
+        customer_genai_sessions = self.api.get_genai_sessions()
+        df = pd.DataFrame(customer_genai_sessions)
+        df.index += 1
+
+        if customer_genai_sessions:
+            df.drop(columns=["id"], inplace=True)
+        print(tabulate(df, headers=["id", "Timestamp Created", "Title"], tablefmt="pretty"))
+
+        return customer_genai_sessions
+
+    def continue_from_previous_sessions(self):
+        """
+        Let user select from displayed sessions
+
+        Returns:
+            None
+        """
+        customer_genai_sessions = self.display_genai_sessions()
+        while True:
+            user_input = int(input("Enter session number"))
+            if not isinstance(user_input, int):
+                print('Argument "user_input" should be a int')
+            elif 1 <= int(user_input) <= len(customer_genai_sessions):
+                selected_session_index = int(user_input) - 1
+                selected_session_id = customer_genai_sessions[selected_session_index][0]
+                self.api.genai_session_id = selected_session_id
+                break
+            else:
+                print("Please select a valid session number.")
+
+    def display_session_chat_history(self, session_id):
+        """
+        Display Chat history for given session
+
+        Args:
+            session_id: session id
+
+        Returns:
+            None
+        """
+        if not self.api.genai_sessions_map:
+            self.api.get_genai_sessions()
+
+        customer_genai_session_history = self.api.get_genai_session_history(session_id)
+        if customer_genai_session_history:
+            for chat in customer_genai_session_history[::-1]:
+                print(f"User:\n{chat['user_prompt']}", end="\n\n")
+                print(f"GenAI:\n{chat['genai_response']}", end=f"\n\n{'-' * 50}\n\n")
+        else:
+            print(f"No available chat history for session id: {session_id}")
+
+    def start_chat(self, start_fresh=None, session_id=None, chat_gpt_model=None):
+        """
+        Start chat with GenAI
+
+        If start_fresh is True -
+            New session is started
+        If start_fresh is False -
+            If session_id is None
+                All available sessions are displayed and user is can select from available sessions.
+            If session_id is given
+                Session linked with given session id is used
+
+        Args:
+            start_fresh: strategy name
+            session_id: strategy python code
+            chat_gpt_model: OpenAI chat model name
+
+        Returns:
+            None
+        """
+
+        response = self.api.get_genai_api_key_status()
+        assert response['key_available'], f"Please set your GenAI key using set_generative_ai_keys()"
+
+        # This will reset the session_id
+        if start_fresh:
+            # reset session
+            self.api.genai_session_id = None
+        elif start_fresh is not None:
+            if session_id:
+                if self.api.genai_sessions_map is not None:
+                    self.api.get_genai_sessions()
+                assert session_id in self.api.genai_sessions_map, f"Please selecta valid session id."
+                self.api.genai_session_id = self.api.genai_sessions_map[session_id - 1][0]
+            else:
+                self.continue_from_previous_sessions()
+
+        print("Session Start", end="\n\n")
+        while True:
+            print("Enter 'Save' to save the Strategy. Enter 'Exit' to exit the session.", end="\r")
+            user_prompt = str(input("Enter query: ")).lower()
+            if user_prompt:
+                if user_prompt == "exit":
+                    print("Session End")
+                    return
+
+                if user_prompt == 'save':
+                    strategy_name = str(input("Input a Strategy Name"))
+                    return self.save_last_generated_strategy(strategy_name=strategy_name)
+                    return
+
+                print("Please wait your request is being precessed.", end='\r')
+                response = self.get_genai_response_pooling(1, user_prompt, chat_gpt_model)
+                if not response:
+                    break
+
+                self.recent_genai_response = response['message']
+                print(f"\nGenAI: {response['message']}", end=f"\n\n{'-' * 50}\n\n")
+
+    def save_last_generated_strategy(self, strategy_name=None, strategy_code=None):
+        """
+        Method to save last generated genai response as strategy
+
+        User can either pass strategy code as a parameter our use last saved genai response to save strategy.
+
+        All strategies are unique by name, per customer.
+        If customer tries to upload strategy with the same name as an already existing strategy
+            - AlgoBullsAPIBadRequest Exception will be thrown. No change would be done in the backend database.
+
+        Args:
+            strategy_name: strategy name
+            strategy_code: strategy python code
+
+        Returns:
+            Dictionary containing strategy name, strategy_id and cstc_id
+        """
+
+        if self.recent_genai_response or strategy_code:
+            strategy_name = strategy_name or f'GenAI Strategy-{time.time():.0f}'
+            strategy_details = strategy_code or self.recent_genai_response
+
+            pattern = r"```python\n(.*?)\n```\n"
+            code_matches = re.findall(pattern, strategy_details, re.DOTALL)
+
+            if not code_matches:
+                print(strategy_details)
+                print("Do you want to save the following strategy? (Yes/No)")
+
+                while True:
+                    user_response = input().lower()
+                    if user_response == 'yes':
+                        break
+                    elif user_response == 'no':
+                        return
+            else:
+                strategy_details = code_matches[0]
+
+            response = self.api.create_strategy(strategy_name=strategy_name, strategy_details=strategy_details, abc_version='3.3.3')
+            if response:
+                self.recent_genai_response = None
+            return response
+
+        else:
+            print("Warning: Please generate a strategy using GenAI before saving.")
 
     def create_strategy(self, strategy, overwrite=False, strategy_code=None, abc_version=None):
         """
