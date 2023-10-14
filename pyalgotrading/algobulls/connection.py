@@ -280,7 +280,7 @@ class AlgoBullsConnection:
             strategy_code: strategy code
             trading_type: trading type
             display_progress_bar: to track the execution progress progress bar as your strategy is executed
-
+            print_live_logs: to print the logs as they are fetched
         Returns:
             Execution logs
         """
