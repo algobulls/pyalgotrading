@@ -834,7 +834,7 @@ class AlgoBullsConnection:
 
         return self.backtesting_pnl_data
 
-    def get_backtesting_report_statistics(self, strategy_code, initial_funds=1e9, mode='quantstats', report='metrics', html_dump=False):
+    def get_backtesting_report_statistics(self, strategy_code, initial_funds=None, mode='quantstats', report='metrics', html_dump=False):
         """
         Fetch Back Testing report statistics
 
@@ -855,6 +855,9 @@ class AlgoBullsConnection:
             self.get_backtesting_report_pnl_table(strategy_code)
         else:
             print('Generating Statistics for already fetched P&L data...')
+
+        if initial_funds is None:
+            initial_funds = self.saved_parameters.get("initial_funds_virtual") or 1e9
 
         order_report = self.get_report_statistics(strategy_code, initial_funds, report, html_dump, self.backtesting_pnl_data)
 
@@ -980,7 +983,7 @@ class AlgoBullsConnection:
 
         return self.papertrade_pnl_data
 
-    def get_papertrading_report_statistics(self, strategy_code, initial_funds=1e9, mode='quantstats', report='metrics', html_dump=False):
+    def get_papertrading_report_statistics(self, strategy_code, initial_funds=None, mode='quantstats', report='metrics', html_dump=False):
         """
         Fetch Paper Trading report statistics
 
@@ -1001,6 +1004,9 @@ class AlgoBullsConnection:
             self.get_papertrading_report_pnl_table(strategy_code)
         else:
             print('Generating Statistics for already fetched P&L data...')
+
+        if initial_funds is None:
+            initial_funds = self.saved_parameters.get("initial_funds_virtual") or 1e9
 
         order_report = self.get_report_statistics(strategy_code, initial_funds, report, html_dump, self.papertrade_pnl_data)
 
@@ -1129,7 +1135,7 @@ class AlgoBullsConnection:
 
         return self.realtrade_pnl_data
 
-    def get_realtrading_report_statistics(self, strategy_code, initial_funds=1e9, mode='quantstats', report='metrics', html_dump=False):
+    def get_realtrading_report_statistics(self, strategy_code, initial_funds=None, mode='quantstats', report='metrics', html_dump=False):
         """
         Fetch Real Trading report statistics
 
@@ -1150,6 +1156,9 @@ class AlgoBullsConnection:
             self.get_realtrading_report_pnl_table(strategy_code)
         else:
             print('Generating Statistics for already fetched P&L data...')
+
+        if initial_funds is None:
+            initial_funds = self.saved_parameters.get("initial_funds_virtual") or 1e9
 
         order_report = self.get_report_statistics(strategy_code, initial_funds, report, html_dump, self.realtrade_pnl_data)
 
