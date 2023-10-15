@@ -2,6 +2,7 @@
 Module for AlgoBulls connection
 """
 import inspect
+import os
 import pprint
 import re
 import time
@@ -495,7 +496,7 @@ class AlgoBullsConnection:
 
         return _df
 
-    def get_report_statistics(self, strategy_code, initial_funds, report, html_dump, pnl_df):
+    def get_report_statistics(self, strategy_code=None, initial_funds=None, report="full", html_dump=True, pnl_df=None, file_path="None", date_time_format="%Y-%m-%d %H:%M:%S%z"):
         """
             Fetch BT/PT/RT report statistics
 
@@ -505,9 +506,32 @@ class AlgoBullsConnection:
                 html_dump: save it as a html file
                 pnl_df: dataframe containing pnl reports
                 initial_funds: initial funds to before starting the job
+                file_path: file path of the csv or xlsx containing pnl data for statistics
+                date_time_format: datetime format of the column inside the "entry_timestamp" column in the csv or xlxs file
             Returns:
                 Report details
         """
+
+        if os.path.isfile(file_path):
+            # only accept csv or xlxs files
+            _, _ext = os.path.splitext(file_path)
+            if _ext == '.csv':
+                pnl_df = pd.read_csv(file_path)
+            elif _ext == '.xlxs':
+                pnl_df = pd.read_excel(file_path)
+            else:
+                raise Exception(f'ERROR: File with extention {_ext} is not supported.\n Please provide path to files with extention as ".csv" or ".xlxs"')
+
+            # handle the exceptions gracefuly, providing the info why an error was raised
+            if "entry_timestamp" not in pnl_df.columns or "pnl_absolute" not in pnl_df.columns:
+                raise Exception(f"ERROR: Given  {_ext} file does not have the required columns 'entry_timestamp' and 'pnl_absolute'.")
+            try:
+                dt.strptime(pnl_df.iloc[0]["entry_timestamp"], date_time_format)
+            except ValueError:
+                raise ValueError(f"ERROR: Datetime strings inside 'entry_timestamp' column should be of the format {date_time_format}.")
+
+            # cleanup dataframe generated from read files
+            pnl_df[['entry_timestamp']] = pnl_df[['entry_timestamp']].apply(pd.to_datetime, format=date_time_format, errors="coerce")
 
         order_report = None
 
@@ -526,15 +550,21 @@ class AlgoBullsConnection:
         total_funds_series = _returns_df.total_funds
 
         # select report type
-        if report == "metrics":
-            order_report = qs.reports.metrics(total_funds_series)
-        elif report == "full":
-            order_report = qs.reports.full(total_funds_series)
+        try:
+            if report == "metrics":
+                order_report = qs.reports.metrics(total_funds_series)
+            elif report == "full":
+                order_report = qs.reports.full(total_funds_series)
+        except ZeroDivisionError:
+            raise Exception("ERROR: PnL data generated is too less to perform statistical analysis")
 
         # save as html file
         if html_dump:
-            all_strategies = self.get_all_strategies()
-            strategy_name = all_strategies.loc[all_strategies['strategyCode'] == strategy_code]['strategyName'].iloc[0]
+            try:
+                all_strategies = self.get_all_strategies()
+                strategy_name = all_strategies.loc[all_strategies['strategyCode'] == strategy_code]['strategyName'].iloc[0]
+            except Exception as e:
+                strategy_name = 'strategy_results'
             qs.reports.html(total_funds_series, title=strategy_name, output='', download_filename=f'report_{strategy_name}_{time.time():.0f}.html')
 
         return order_report
