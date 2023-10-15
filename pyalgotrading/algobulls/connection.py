@@ -2,21 +2,16 @@
 Module for AlgoBulls connection
 """
 import inspect
-import os
-import pprint
-import re
 import time
 from collections import OrderedDict
 from datetime import datetime as dt
 
 import pandas as pd
 import quantstats as qs
-from tabulate import tabulate
-from tqdm.auto import tqdm
 
 from .api import AlgoBullsAPI
 from .exceptions import AlgoBullsAPIBadRequestException, AlgoBullsAPIGatewayTimeoutErrorException
-from ..constants import StrategyMode, TradingType, TradingReportType, CandleInterval, AlgoBullsEngineVersion, Country, ExecutionStatus, EXCHANGE_LOCALE_MAP, Locale, CandleIntervalSecondsMap
+from ..constants import StrategyMode, TradingType, TradingReportType, CandleInterval, AlgoBullsEngineVersion, EXCHANGE_LOCALE_MAP, Locale
 from ..strategy.strategy_base import StrategyBase
 from ..utils.func import get_valid_enum_names, get_datetime_with_tz
 
@@ -31,21 +26,15 @@ class AlgoBullsConnection:
         Init method that is used while creating an object of this class
         """
         self.api = AlgoBullsAPI(self)
+        self.backtesting_pnl_data = None
+        self.papertrade_pnl_data = None
+        self.realtrade_pnl_data = None
 
-        self.saved_parameters = {
-            'start_timestamp_map': {},
-            'end_timestamp_map': {}
-        }
-
-        self.strategy_country_map = {
+        self.strategy_locale_map = {
             TradingType.BACKTESTING: {},
             TradingType.PAPERTRADING: {},
             TradingType.REALTRADING: {},
         }
-
-        self.backtesting_pnl_data = None
-        self.papertrade_pnl_data = None
-        self.realtrade_pnl_data = None
 
     @staticmethod
     def get_authorization_url():
@@ -69,24 +58,18 @@ class AlgoBullsConnection:
         url = 'https://app.algobulls.com/settings?section=developerOptions'
         print(f'Please login to this URL to get your unique token: {url}')
 
-    def set_access_token(self, access_token, validate_token=False):
+    def set_access_token(self, access_token):
         """
         Set the access token
 
         Args:
             access_token: access token
-            validate_token: whether you want to validate the access-token
+
         Returns:
             None
         """
         assert isinstance(access_token, str), f'Argument "access_token" should be a string'
         self.api.set_access_token(access_token)
-        if validate_token:
-            try:
-                response = self.api.get_all_strategies()
-                print("Connection with AlgoBulls Server was Successful !!")
-            except Exception as e:
-                print(f"Connection with AlgoBulls Server Failed !! \nReason: {e}")
 
     def create_strategy(self, strategy, overwrite=False, strategy_code=None, abc_version=None):
         """
@@ -167,26 +150,6 @@ class AlgoBullsConnection:
             return pd.DataFrame(_) if return_as_dataframe else _
         else:
             return response
-
-    def get_strategy_name(self, strategy_code):
-        """
-        Fetch the name of the strategy using strategy-code
-
-        Args:
-            strategy_code: strategy code
-
-        Returns:
-            name of the strategy
-        """
-        strategy_name = None
-        try:
-            # TODO: Currently fetching strategy name over API everytime. Will be optimized in future to avoid repeated API calls.
-            all_strategies_df = self.get_all_strategies()
-            strategy_name = all_strategies_df.loc[all_strategies_df['strategyCode'] == strategy_code].iloc[0]['strategyName']
-
-        except Exception as ex:
-            print(f'Error while fetching strategy name of strategy code {strategy_code}. Error: {ex}')
-        return strategy_name
 
     def get_strategy_details(self, strategy_code):
         """
@@ -279,15 +242,14 @@ class AlgoBullsConnection:
 
         response = self.api.stop_strategy_algotrading(strategy_code=strategy_code, trading_type=trading_type)
 
-    def get_logs(self, strategy_code, trading_type, display_progress_bar=True, print_live_logs=False):
+    def get_logs(self, strategy_code, trading_type):
         """
         Fetch logs for a strategy
 
         Args:
             strategy_code: strategy code
             trading_type: trading type
-            display_progress_bar: to track the execution progress progress bar as your strategy is executed
-            print_live_logs: to print the logs as they are fetched
+
         Returns:
             Execution logs
         """
@@ -295,123 +257,9 @@ class AlgoBullsConnection:
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
         assert isinstance(trading_type, TradingType), f'Argument "trading_type" should be an enum of type {TradingType.__name__}'
 
-        # TODO: to extract timestamp from a different source which will be independent of whether save parameters are present in the object
-        start_timestamp_map = self.saved_parameters.get('start_timestamp_map')
-        end_timestamp_map = self.saved_parameters.get('end_timestamp_map')
-        sleep_time = 1
+        return self.api.get_logs(strategy_code=strategy_code, trading_type=trading_type).get('data')
 
-        # calculate the sleep time for RT and PT
-        if trading_type is not TradingType.BACKTESTING:
-            try:
-                sleep_time = CandleIntervalSecondsMap[self.saved_parameters.get('candle_interval').value]
-                print(f"Your candle interval is {self.saved_parameters.get('candle_interval').value}, therefore logs will be fetched every {sleep_time} seconds.")
-            except Exception as e:
-                print("WARNING: Could not fetch the candle interval from saved parameters. Logs will be fetched every 60 seconds.")
-                sleep_time = 60
-
-        # initialize the parameters required for displaying progress bar
-        if display_progress_bar:
-            if start_timestamp_map.get(trading_type) and end_timestamp_map.get(trading_type):
-                start_timestamp = start_timestamp_map.get(trading_type).replace(tzinfo=None)
-                end_timestamp = end_timestamp_map.get(trading_type).replace(tzinfo=None)
-                total_seconds = (end_timestamp - start_timestamp).total_seconds()
-            else:
-                display_progress_bar = False
-
-        # initialize all the variables
-        all_logs = ''
-        tqdm_progress_bar = None
-        initial_next_token = None
-        error_counter = 0
-        status = None
-        count_starting_status = 0
-
-        while True:
-
-            # if logs are in starting phase, we wait until it changes
-            if status is None or status == ExecutionStatus.STARTING.value:
-                status = self.get_job_status(strategy_code, trading_type)["message"]
-                time.sleep(5)
-                if status == ExecutionStatus.STARTING.value:
-                    count_starting_status += 1
-                    print('\r', end=f'Looking for a dedicated virtual server to execute your strategy... ({count_starting_status})')
-                continue
-
-            # if logs get in started phase, we initialize the tqdm object for progress tracking
-            if display_progress_bar:
-                if tqdm_progress_bar is None and status == ExecutionStatus.STARTED.value:
-                    tqdm_progress_bar = tqdm(desc='Execution Progress', total=total_seconds, position=0, leave=True, bar_format='{l_bar}{bar}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}]')
-
-            for i in range(5):
-                try:
-                    response = self.api.get_logs(strategy_code=strategy_code, trading_type=trading_type, initial_next_token=initial_next_token)
-                    logs = response.get('data')
-                    if logs:
-                        break
-                except Exception as e:
-                    tqdm.write(f"\n{'----' * 10}\nFaced an error while fetching logs. \nError: {e}\n{'----' * 10}\n")
-                    time.sleep(5)
-                    pass
-
-            initial_next_token = response.get('nextForwardToken')
-            # if logs are empty we wait
-            if not logs:
-                status = self.get_job_status(strategy_code, trading_type)["message"]
-
-                # if status is stopped we break the while loop
-                if status in [ExecutionStatus.STOPPED.value, ExecutionStatus.STOPPING.value]:
-                    # tqdm.write(f'INFO: Got status as {status}, strategy execution completed.')    # for debug
-                    if display_progress_bar:
-                        if tqdm_progress_bar is not None:
-                            tqdm_progress_bar.close()
-                    break
-
-                # continue if logs are not fetched
-                else:
-                    # tqdm.write(f'WARNING: got no data, current status is {status}...')      # for debug
-                    time.sleep(5)
-                    continue
-
-            else:
-                if type(logs) is list and initial_next_token:
-                    all_logs += ''.join(logs)
-
-                # print the logs below progressbar
-                if print_live_logs:
-                    tqdm.write(''.join(logs))
-
-                # iterate in reverse order
-                if display_progress_bar:
-                    for log in logs[::-1]:
-                        try:
-                            # extract log terms inside square brackets
-                            _ = re.findall(r'\[(.*?)\]', log)
-
-                            # extract datetime from logs
-                            if tqdm_progress_bar is not None and _[0] in ['BT', 'PT', 'RT']:
-                                current_timestamp = dt.strptime(_[1].split(',')[0], '%Y-%m-%d %H:%M:%S')
-                                total_completion = (current_timestamp - start_timestamp).total_seconds()
-                                tqdm_progress_bar.update(total_completion - tqdm_progress_bar.n)
-                                break
-
-                        except Exception as ex:
-                            tqdm.write(f'WARNING: faced an error while updating logs process. Error: {ex}')
-                            error_counter += 1
-
-                    # avoid infinite loop in case of error
-                    if error_counter > 5:
-                        break
-
-                print(len(logs))
-                if len(logs) >= 1000:
-                    tqdm.write(f"\n{'-----' * 5}\nWaiting {sleep_time} seconds for fetching next logs ...\n{'-----' * 5}\n")  # for debug
-                    time.sleep(sleep_time)
-                else:
-                    time.sleep(1)
-
-        return all_logs
-
-    def get_report(self, strategy_code, trading_type, report_type, render_as_dataframe=False, show_all_rows=False, country=None):
+    def get_report(self, strategy_code, trading_type, report_type, render_as_dataframe=False, show_all_rows=False, location=None):
         """
         Fetch report for a strategy
 
@@ -421,7 +269,7 @@ class AlgoBullsConnection:
             report_type: Value of TradingReportType Enum
             render_as_dataframe: True or False
             show_all_rows: True or False
-            country: country of the Exchange
+            location: Location of the Exchange
 
         Returns:
             report details
@@ -433,7 +281,7 @@ class AlgoBullsConnection:
         assert isinstance(render_as_dataframe, bool), f'Argument "render_as_dataframe" should be a bool'
         assert isinstance(show_all_rows, bool), f'Argument "show_all_rows" should be a bool'
         # assert (broker is None or isinstance(broker, AlgoBullsSupportedBrokers) is True), f'Argument broker should be None or an enum of type {AlgoBullsSupportedBrokers.__name__}'
-        response = self.api.get_reports(strategy_code=strategy_code, trading_type=trading_type, report_type=report_type, country=country)
+        response = self.api.get_reports(strategy_code=strategy_code, trading_type=trading_type, report_type=report_type, location=location)
         if response.get('data'):
             if render_as_dataframe:
                 if show_all_rows:
@@ -445,14 +293,14 @@ class AlgoBullsConnection:
         else:
             print('Report not available yet. Please retry in sometime')
 
-    def get_pnl_report_table(self, strategy_code, trading_type, country):
+    def get_pnl_report_table(self, strategy_code, trading_type, location):
         """
             Fetch BT/PT/RT Profit & Loss details
 
             Args:
                 strategy_code: strategy code
                 trading_type: type of trades : Backtesting, Papertrading, Realtrading
-                country: country of the exchange
+                location: Location of the exchange
 
             Returns:
                 Report details
@@ -461,10 +309,10 @@ class AlgoBullsConnection:
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
 
         # Fetch the data
-        if country is None:
-            country = self.strategy_country_map[trading_type].get(strategy_code, Country.DEFAULT.value)
+        if location is None:
+            location = self.strategy_locale_map[trading_type].get(strategy_code, Locale.DEFAULT.value)
 
-        data = self.get_report(strategy_code=strategy_code, trading_type=trading_type, report_type=TradingReportType.PNL_TABLE, country=country)
+        data = self.get_report(strategy_code=strategy_code, trading_type=trading_type, report_type=TradingReportType.PNL_TABLE, location=location)
 
         # Post-processing: Cleanup & converting data to dataframe
         column_rename_map = OrderedDict([
@@ -496,7 +344,7 @@ class AlgoBullsConnection:
 
         return _df
 
-    def get_report_statistics(self, strategy_code=None, initial_funds=None, report="full", html_dump=True, pnl_df=None, file_path="None", date_time_format="%Y-%m-%d %H:%M:%S%z"):
+    def get_report_statistics(self, strategy_code, initial_funds, report, html_dump, pnl_df):
         """
             Fetch BT/PT/RT report statistics
 
@@ -506,38 +354,15 @@ class AlgoBullsConnection:
                 html_dump: save it as a html file
                 pnl_df: dataframe containing pnl reports
                 initial_funds: initial funds to before starting the job
-                file_path: file path of the csv or xlsx containing pnl data for statistics
-                date_time_format: datetime format of the column inside the "entry_timestamp" column in the csv or xlxs file
             Returns:
                 Report details
         """
-
-        if os.path.isfile(file_path):
-            # only accept csv or xlxs files
-            _, _ext = os.path.splitext(file_path)
-            if _ext == '.csv':
-                pnl_df = pd.read_csv(file_path)
-            elif _ext == '.xlxs':
-                pnl_df = pd.read_excel(file_path)
-            else:
-                raise Exception(f'ERROR: File with extention {_ext} is not supported.\n Please provide path to files with extention as ".csv" or ".xlxs"')
-
-            # handle the exceptions gracefuly, providing the info why an error was raised
-            if "entry_timestamp" not in pnl_df.columns or "pnl_absolute" not in pnl_df.columns:
-                raise Exception(f"ERROR: Given  {_ext} file does not have the required columns 'entry_timestamp' and 'pnl_absolute'.")
-            try:
-                dt.strptime(pnl_df.iloc[0]["entry_timestamp"], date_time_format)
-            except ValueError:
-                raise ValueError(f"ERROR: Datetime strings inside 'entry_timestamp' column should be of the format {date_time_format}.")
-
-            # cleanup dataframe generated from read files
-            pnl_df[['entry_timestamp']] = pnl_df[['entry_timestamp']].apply(pd.to_datetime, format=date_time_format, errors="coerce")
 
         order_report = None
 
         # get pnl data and cleanup as per quantstats format
         _returns_df = pnl_df[['entry_timestamp', 'pnl_absolute']]
-        _returns_df['entry_timestamp'] = _returns_df['entry_timestamp'].dt.tz_localize(None)  # Note: Quantstats has a bug. It doesn't accept the df index, which is set below, with timezone. Hence, we have to drop the timezone info
+        _returns_df['entry_timestamp'] = _returns_df['entry_timestamp'].dt.tz_localize(None)            # Note: Quantstats has a bug. It doesn't accept the df index, which is set below, with timezone. Hence we have to drop the timezone info
         _returns_df = _returns_df.set_index('entry_timestamp')
         _returns_df["total_funds"] = _returns_df.pnl_absolute.cumsum() + initial_funds
         _returns_df = _returns_df.dropna()
@@ -550,67 +375,33 @@ class AlgoBullsConnection:
         total_funds_series = _returns_df.total_funds
 
         # select report type
-        try:
-            if report == "metrics":
-                order_report = qs.reports.metrics(total_funds_series)
-            elif report == "full":
-                order_report = qs.reports.full(total_funds_series)
-        except ZeroDivisionError:
-            raise Exception("ERROR: PnL data generated is too less to perform statistical analysis")
+        if report == "metrics":
+            order_report = qs.reports.metrics(total_funds_series)
+        elif report == "full":
+            order_report = qs.reports.full(total_funds_series)
 
         # save as html file
         if html_dump:
-            try:
-                all_strategies = self.get_all_strategies()
-                strategy_name = all_strategies.loc[all_strategies['strategyCode'] == strategy_code]['strategyName'].iloc[0]
-            except Exception as e:
-                strategy_name = 'strategy_results'
+            all_strategies = self.get_all_strategies()
+            strategy_name = all_strategies.loc[all_strategies['strategyCode'] == strategy_code]['strategyName'].iloc[0]
             qs.reports.html(total_funds_series, title=strategy_name, output='', download_filename=f'report_{strategy_name}_{time.time():.0f}.html')
 
         return order_report
 
-    def print_strategy_config(self, trading_type):
-        _ = self.saved_parameters
-        strategy_name = self.get_strategy_name(_['strategy_code'])
-
-        data = [
-            ['Strategy Name', strategy_name],
-            # ['Strategy Code', _['strategy_code']],    # not required as of now
-            ['Trading Type', trading_type.name],
-            ['Instrument(s)', pprint.pformat(_['instruments'])],
-            ['Quantity/Lots', _['lots']],
-            ['Start Timestamp', _['start_timestamp_map'][trading_type]],
-            ['End Timestamp', _['end_timestamp_map'][trading_type]],
-            ['Parameters', pprint.pformat(_['strategy_parameters'])],
-            ['Candle', _['candle_interval'].value],
-            ['Mode', _['strategy_mode'].name],
-        ]
-
-        if trading_type in [TradingType.BACKTESTING, TradingType.PAPERTRADING]:
-            data.append(['Initial Funds (Virtual)', _['initial_funds_virtual']])
-        elif trading_type in [TradingType.REALTRADING]:
-            data.insert(0, ["Broker Name", _['vendor_details']['brokerName']])  # Note, key is still 'vendor_details' even for broking purpose
-
-        if _.get('vendor_details') is not None:
-            data.insert(0, ["Vendor Name", _['vendor_details']['brokerName']])
-
-        _msg = tabulate(data, headers=['Config', 'Value'], tablefmt="fancy_grid")
-        print(f"\nStarting the strategy '{strategy_name}' in {trading_type.name} mode...\n{_msg}\n")
-
-    def start_job(self, strategy_code=None, start_timestamp=None, end_timestamp=None, instruments=None, lots=None, strategy_parameters=None, candle_interval=None, strategy_mode=None, initial_funds_virtual=None, delete_previous_trades=True,
-                  trading_type=None, broking_details=None, **kwargs):
+    def start_job(self, strategy=None, start=None, end=None, instruments=None, lots=1, parameters=None, candle=None, mode=StrategyMode.INTRADAY, initial_funds_virtual=1e9, delete_previous_trades=True, trading_type=None, broking_details=None,
+                  **kwargs):
         """
         Submit a BT/PT/RT job for a strategy on the AlgoBulls Platform
 
         Args:
-            strategy_code: Strategy code
-            start_timestamp: Start date-time/time
-            end_timestamp: End date-time/time
+            strategy: Strategy code
+            start: Start date-time/time
+            end: End date-time/time
             instruments: Instrument key
             lots: Number of lots of the passed instrument to trade on
-            strategy_parameters: Parameters
-            candle_interval: Candle interval
-            strategy_mode: Intraday or delivery
+            parameters: Parameters
+            candle: Candle interval
+            mode: Intraday or delivery
             delete_previous_trades: Delete data for previous trades
             initial_funds_virtual: virtual funds allotted before the backtesting starts
             trading_type: type of trading : PT/BT/RT
@@ -627,22 +418,17 @@ class AlgoBullsConnection:
 
         Returns:
             job submission status
+            location of the instruments
         """
 
-        # check if values received by new parameter names, else extract from old parameter names, else extract from saved parameters
-        saved_params = self.saved_parameters
-        start_timestamp_map = saved_params.get('start_timestamp_map')
-        end_timestamp_map = saved_params.get('end_timestamp_map')
-        strategy_code = strategy_code or kwargs.get('strategy_code') or saved_params.get('strategy_code')
-        start_timestamp = start_timestamp or kwargs.get('start_timestamp') or start_timestamp_map.get(trading_type)
-        end_timestamp = end_timestamp or kwargs.get('end_timestamp') or end_timestamp_map.get(trading_type)
-        strategy_parameters = strategy_parameters or kwargs.get('strategy_parameters') or saved_params.get('strategy_parameters')
-        candle_interval = candle_interval or kwargs.get('candle_interval') or saved_params.get('candle_interval')
-        instruments = instruments or kwargs.get('instrument') or saved_params.get('instruments')
-        strategy_mode = strategy_mode or kwargs.get('strategy_mode') or saved_params.get('strategy_mode') or StrategyMode.INTRADAY
-        lots = lots or saved_params.get('lots')
-        initial_funds_virtual = initial_funds_virtual or saved_params.get('initial_funds_virtual') or 1e9
-        broking_details = broking_details or saved_params.get('vendor_details')
+        # check if values received by new parameter names, else extract from old parameter names
+        strategy = strategy if strategy is not None else kwargs.get('strategy_code')
+        start = start if start is not None else kwargs.get('start_timestamp')
+        end = end if end is not None else kwargs.get('end_timestamp')
+        parameters = parameters if parameters is not None else kwargs.get('strategy_parameters')
+        candle = candle if candle is not None else kwargs.get('candle_interval')
+        instruments = instruments if instruments is not None else kwargs.get('instrument')
+        mode = mode if 'strategy_mode' not in kwargs else kwargs.get('strategy_mode')
 
         # Sanity checks - Convert config parameters
         _error_msg_candle = f'Argument "candle" should be a valid string or an enum of type CandleInterval. Possible string values can be: {get_valid_enum_names(CandleInterval)}'
@@ -652,33 +438,31 @@ class AlgoBullsConnection:
         _error_msg_broking_details = 'Argument "broking_details" should be a valid dict with valid keys. Expected keys "brokerName" and "credentialParameters" '
 
         initial_funds_virtual = float(initial_funds_virtual)
-        if isinstance(start_timestamp, str):
-            start_timestamp = get_datetime_with_tz(start_timestamp, trading_type)
-        if isinstance(end_timestamp, str):
-            end_timestamp = get_datetime_with_tz(end_timestamp, trading_type)
-        if isinstance(strategy_mode, str):
-            _ = strategy_mode.upper()
+        if isinstance(start, str):
+            start = get_datetime_with_tz(start, trading_type)
+        if isinstance(end, str):
+            end = get_datetime_with_tz(end, trading_type)
+        if isinstance(mode, str):
+            _ = mode.upper()
             assert _ in StrategyMode.__members__, _error_msg_candle
-            strategy_mode = StrategyMode[_]
-        if isinstance(candle_interval, str):
-            _ = f"{'_' if candle_interval[0].isdigit() else ''}{candle_interval.strip().upper().replace(' ', '_')}"
+            mode = StrategyMode[_]
+        if isinstance(candle, str):
+            _ = f"{'_' if candle[0].isdigit() else ''}{candle.strip().upper().replace(' ', '_')}"
             assert _ in CandleInterval.__members__, _error_msg_candle
-            candle_interval = CandleInterval[_]
+            candle = CandleInterval[_]
         if isinstance(instruments, str):
             instruments = [instruments]
-        if strategy_parameters == {} or strategy_parameters is None:
-            strategy_parameters = dict()
 
         # Sanity checks - Validate config parameters
-        assert isinstance(strategy_code, str), f'Argument "strategy" should be a valid string'
-        assert isinstance(start_timestamp, dt), 'Argument "start" should be a valid timestamp string\n' + _error_msg_timestamps
-        assert isinstance(end_timestamp, dt), 'Argument "end" should be a valid timestamp string\n' + _error_msg_timestamps
+        assert isinstance(strategy, str), f'Argument "strategy" should be a valid string'
+        assert isinstance(start, dt), 'Argument "start" should be a valid timestamp string\n' + _error_msg_timestamps
+        assert isinstance(end, dt), 'Argument "end" should be a valid timestamp string\n' + _error_msg_timestamps
         assert isinstance(instruments, list), _error_msg_instruments
         assert len(instruments) > 0, _error_msg_instruments
         assert (isinstance(lots, int) and lots > 0), f'Argument "lots" should be a positive integer.'
-        assert isinstance(strategy_parameters, dict), f'Argument "parameters" should be a dict'
-        assert isinstance(strategy_mode, StrategyMode), _error_msg_mode
-        assert isinstance(candle_interval, CandleInterval), _error_msg_candle
+        assert isinstance(parameters, dict), f'Argument "parameters" should be a dict'
+        assert isinstance(mode, StrategyMode), _error_msg_mode
+        assert isinstance(candle, CandleInterval), _error_msg_candle
         assert isinstance(initial_funds_virtual, float), 'Argument "initial_funds_virtual" should be a float'
         assert isinstance(delete_previous_trades, bool), 'Argument "delete_previous_trades" should be a boolean'
 
@@ -688,24 +472,15 @@ class AlgoBullsConnection:
             assert 'credentialParameters' in broking_details, f'Argument "broking_details" should be a dict with "credentialParameters" key'
 
         if trading_type is not TradingType.BACKTESTING:
-            start_timestamp = dt.combine(dt.now().astimezone(start_timestamp.tzinfo).date(), start_timestamp.time(), tzinfo=start_timestamp.tzinfo)
-            end_timestamp = dt.combine(dt.now().astimezone(end_timestamp.tzinfo).date(), end_timestamp.time(), tzinfo=end_timestamp.tzinfo)
-
-            start_timestamp_map[TradingType.REALTRADING] = start_timestamp
-            start_timestamp_map[TradingType.PAPERTRADING] = start_timestamp
-            end_timestamp_map[TradingType.REALTRADING] = end_timestamp
-            end_timestamp_map[TradingType.PAPERTRADING] = end_timestamp
-
-        else:
-            start_timestamp_map[TradingType.BACKTESTING] = start_timestamp
-            end_timestamp_map[TradingType.BACKTESTING] = end_timestamp
+            start = dt.combine(dt.now().astimezone(start.tzinfo).date(), start.time(), tzinfo=start.tzinfo)
+            end = dt.combine(dt.now().astimezone(end.tzinfo).date(), end.time(), tzinfo=end.tzinfo)
 
         # Restructuring strategy params
         restructured_strategy_parameters = []
-        for parameter_name in strategy_parameters:
+        for parameter_name in parameters:
             restructured_strategy_parameters.append({
                 'paramName': parameter_name,
-                'paramValue': strategy_parameters[parameter_name]
+                'paramValue': parameters[parameter_name]
             })
 
         # get exchange location
@@ -715,7 +490,7 @@ class AlgoBullsConnection:
         else:
             print('Warning: Valid exchange not given, assuming exchange as "NSE_EQ".\n Expected format for giving an instrument "<EXCHANGE>:<TRADING_SYMBOL>"\nPossible exchange values include: {EXCHANGE_LOCALE_MAP.keys()}')
             location = EXCHANGE_LOCALE_MAP[Locale.DEFAULT.value]
-
+            
         # generate instruments' id list
         instrument_list = []
         for _instrument in instruments:
@@ -726,25 +501,9 @@ class AlgoBullsConnection:
                     instrument_list.append({'id': _["id"]})
                     break
 
-        # save BT/PT/RT parameters
-        self.saved_parameters = {
-            'strategy_code': strategy_code,
-            'start_timestamp_map': start_timestamp_map,
-            'end_timestamp_map': end_timestamp_map,
-            'strategy_parameters': strategy_parameters,
-            'candle_interval': candle_interval,
-            'instruments': instruments,
-            'strategy_mode': strategy_mode,
-            'lots': lots,
-            'initial_funds_virtual': initial_funds_virtual,
-            'vendor_details': broking_details  # Note: key name is saved as vendor_details for logging purpose
-        }
-
-        self.print_strategy_config(trading_type)
-
         # delete previous trades
         if delete_previous_trades and trading_type in [TradingType.BACKTESTING, TradingType.PAPERTRADING]:
-            self.delete_previous_trades(strategy_code)
+            self.delete_previous_trades(strategy)
 
         # Setup config for starting the job
         strategy_config = {
@@ -753,19 +512,19 @@ class AlgoBullsConnection:
             },
             'lots': lots,
             'userParams': restructured_strategy_parameters,
-            'candleDuration': candle_interval.value,
-            'strategyMode': strategy_mode.value
+            'candleDuration': candle.value,
+            'strategyMode': mode.value
         }
-        self.api.set_strategy_config(strategy_code=strategy_code, strategy_config=strategy_config, trading_type=trading_type)
+        self.api.set_strategy_config(strategy_code=strategy, strategy_config=strategy_config, trading_type=trading_type)
 
         # Submit trading job
-        response = self.api.start_strategy_algotrading(strategy_code=strategy_code, start_timestamp=start_timestamp, end_timestamp=end_timestamp, trading_type=trading_type,
+        response = self.api.start_strategy_algotrading(strategy_code=strategy, start_timestamp=start, end_timestamp=end, trading_type=trading_type,
                                                        lots=lots, initial_funds_virtual=initial_funds_virtual, broker_details=broking_details, location=location)
 
-        self.strategy_country_map[trading_type][strategy_code] = Country[Locale(location).name].value
+        self.strategy_locale_map[trading_type][strategy] = location
         return response
 
-    def backtest(self, strategy=None, start=None, end=None, instruments=None, lots=None, parameters=None, candle=None, mode=None, delete_previous_trades=True, initial_funds_virtual=None, vendor_details=None, **kwargs):
+    def backtest(self, strategy=None, start=None, end=None, instruments=None, lots=1, parameters=None, candle=None, mode=StrategyMode.INTRADAY, delete_previous_trades=True, initial_funds_virtual=1e9, vendor_details=None, **kwargs):
         """
         Submit a backtesting job for a strategy on the AlgoBulls Platform
 
@@ -797,7 +556,7 @@ class AlgoBullsConnection:
 
         # start backtesting job
         response = self.start_job(
-            strategy_code=strategy, start_timestamp=start, end_timestamp=end, instruments=instruments, lots=lots, strategy_parameters=parameters, candle_interval=candle, strategy_mode=mode,
+            strategy=strategy, start=start, end=end, instruments=instruments, lots=lots, parameters=parameters, candle=candle, mode=mode,
             initial_funds_virtual=initial_funds_virtual, delete_previous_trades=delete_previous_trades, trading_type=TradingType.BACKTESTING, broking_details=vendor_details, **kwargs
         )
 
@@ -834,32 +593,28 @@ class AlgoBullsConnection:
 
         return self.stop_job(strategy_code=strategy_code, trading_type=TradingType.BACKTESTING)
 
-    def get_backtesting_logs(self, strategy_code, display_progress_bar=True, print_live_logs=False):
+    def get_backtesting_logs(self, strategy_code):
         """
         Fetch Back Testing logs
 
         Args:
             strategy_code: Strategy code
-            display_progress_bar: to track the execution on progress bar as your strategy is executed
-            print_live_logs: to print the live logs as your strategy is executed
 
         Returns:
             Report details
         """
 
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
-        assert isinstance(display_progress_bar, bool), f'Argument "display_progress_bar" should be a boolean'
-        assert isinstance(print_live_logs, bool), f'Argument "print_live_logs" should be a boolean'
 
-        return self.get_logs(strategy_code, trading_type=TradingType.BACKTESTING, display_progress_bar=display_progress_bar, print_live_logs=print_live_logs)
+        return self.get_logs(strategy_code, trading_type=TradingType.BACKTESTING)
 
-    def get_backtesting_report_pnl_table(self, strategy_code, country=None, show_all_rows=False, force_fetch=False):
+    def get_backtesting_report_pnl_table(self, strategy_code, location=None, show_all_rows=False, force_fetch=False):
         """
         Fetch Back Testing Profit & Loss details
 
         Args:
             strategy_code: strategy code
-            country: country of Exchange
+            location: Location of Exchange
             show_all_rows: True or False
             force_fetch: Forcefully fetch PnL data
 
@@ -867,12 +622,12 @@ class AlgoBullsConnection:
             Report details
         """
 
-        if self.backtesting_pnl_data is None or country is not None or force_fetch:
-            self.backtesting_pnl_data = self.get_pnl_report_table(strategy_code, TradingType.BACKTESTING, country)
+        if self.backtesting_pnl_data is None or location is not None or force_fetch:
+            self.backtesting_pnl_data = self.get_pnl_report_table(strategy_code, TradingType.BACKTESTING, location)
 
         return self.backtesting_pnl_data
 
-    def get_backtesting_report_statistics(self, strategy_code, initial_funds=None, mode='quantstats', report='metrics', html_dump=False):
+    def get_backtesting_report_statistics(self, strategy_code, initial_funds=1e9, mode='quantstats', report='metrics', html_dump=False):
         """
         Fetch Back Testing report statistics
 
@@ -894,9 +649,6 @@ class AlgoBullsConnection:
         else:
             print('Generating Statistics for already fetched P&L data...')
 
-        if initial_funds is None:
-            initial_funds = self.saved_parameters.get("initial_funds_virtual") or 1e9
-
         order_report = self.get_report_statistics(strategy_code, initial_funds, report, html_dump, self.backtesting_pnl_data)
 
         return order_report
@@ -916,7 +668,7 @@ class AlgoBullsConnection:
 
         return self.get_report(strategy_code=strategy_code, trading_type=TradingType.BACKTESTING, report_type=TradingReportType.ORDER_HISTORY)
 
-    def papertrade(self, strategy=None, start=None, end=None, instruments=None, lots=None, parameters=None, candle=None, mode=None, delete_previous_trades=True, initial_funds_virtual=None, vendor_details=None, **kwargs):
+    def papertrade(self, strategy=None, start=None, end=None, instruments=None, lots=None, parameters=None, candle=None, mode=StrategyMode.INTRADAY, delete_previous_trades=True, initial_funds_virtual=1e9, vendor_details=None, **kwargs):
         """
         Submit a papertrade job for a strategy on the AlgoBulls Platform
 
@@ -948,7 +700,7 @@ class AlgoBullsConnection:
 
         # start papertrading job
         response = self.start_job(
-            strategy_code=strategy, start_timestamp=start, end_timestamp=end, instruments=instruments, lots=lots, strategy_parameters=parameters, candle_interval=candle, strategy_mode=mode,
+            strategy=strategy, start=start, end=end, instruments=instruments, lots=lots, parameters=parameters, candle=candle, mode=mode,
             initial_funds_virtual=initial_funds_virtual, delete_previous_trades=delete_previous_trades, trading_type=TradingType.PAPERTRADING, broking_details=vendor_details, **kwargs
         )
 
@@ -985,32 +737,28 @@ class AlgoBullsConnection:
 
         return self.stop_job(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING)
 
-    def get_papertrading_logs(self, strategy_code, display_progress_bar=True, print_live_logs=True):
+    def get_papertrading_logs(self, strategy_code):
         """
         Fetch Paper Trading logs
 
         Args:
             strategy_code: Strategy code
-            display_progress_bar: to track the execution on progress bar as your strategy is executed
-            print_live_logs: to print the live logs as your strategy is executed
 
         Returns:
             Report details
         """
 
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
-        assert isinstance(display_progress_bar, bool), f'Argument "display_progress_bar" should be a boolean'
-        assert isinstance(print_live_logs, bool), f'Argument "print_live_logs" should be a boolean'
 
-        return self.get_logs(strategy_code, trading_type=TradingType.PAPERTRADING, display_progress_bar=display_progress_bar, print_live_logs=print_live_logs)
+        return self.get_logs(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING)
 
-    def get_papertrading_report_pnl_table(self, strategy_code, country=None, show_all_rows=False, force_fetch=False):
+    def get_papertrading_report_pnl_table(self, strategy_code, location=None, show_all_rows=False, force_fetch=False):
         """
         Fetch Paper Trading Profit & Loss details
 
         Args:
             strategy_code: strategy code
-            country: country of the exchange
+            location: Location of the exchange
             show_all_rows: True or False
             force_fetch: Forcefully fetch PnL data
 
@@ -1018,12 +766,12 @@ class AlgoBullsConnection:
             Report details
         """
 
-        if self.papertrade_pnl_data is None or country is not None or force_fetch:
-            self.papertrade_pnl_data = self.get_pnl_report_table(strategy_code, TradingType.PAPERTRADING, country)
+        if self.papertrade_pnl_data is None or location is not None or force_fetch:
+            self.papertrade_pnl_data = self.get_pnl_report_table(strategy_code, TradingType.PAPERTRADING, location)
 
         return self.papertrade_pnl_data
 
-    def get_papertrading_report_statistics(self, strategy_code, initial_funds=None, mode='quantstats', report='metrics', html_dump=False):
+    def get_papertrading_report_statistics(self, strategy_code, initial_funds=1e9, mode='quantstats', report='metrics', html_dump=False):
         """
         Fetch Paper Trading report statistics
 
@@ -1045,9 +793,6 @@ class AlgoBullsConnection:
         else:
             print('Generating Statistics for already fetched P&L data...')
 
-        if initial_funds is None:
-            initial_funds = self.saved_parameters.get("initial_funds_virtual") or 1e9
-
         order_report = self.get_report_statistics(strategy_code, initial_funds, report, html_dump, self.papertrade_pnl_data)
 
         return order_report
@@ -1067,7 +812,7 @@ class AlgoBullsConnection:
 
         return self.get_report(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING, report_type=TradingReportType.ORDER_HISTORY)
 
-    def realtrade(self, strategy=None, start=None, end=None, instruments=None, lots=None, parameters=None, candle=None, mode=None, broking_details=None, **kwargs):
+    def realtrade(self, strategy=None, start=None, end=None, instruments=None, lots=None, parameters=None, candle=None, mode=StrategyMode.INTRADAY, broking_details=None, **kwargs):
         """
         Start a Real Trading session.
         Update: This requires an approval process which is currently on request basis.
@@ -1099,9 +844,7 @@ class AlgoBullsConnection:
         """
 
         # start realtrading job
-        response = self.start_job(strategy_code=strategy, start_timestamp=start, end_timestamp=end, instruments=instruments, lots=lots, strategy_parameters=parameters, candle_interval=candle, strategy_mode=mode, trading_type=TradingType.REALTRADING,
-                                  broking_details=broking_details,
-                                  **kwargs)
+        response = self.start_job(strategy=strategy, start=start, end=end, instruments=instruments, lots=lots, parameters=parameters, candle=candle, mode=mode, trading_type=TradingType.REALTRADING, broking_details=broking_details, **kwargs)
 
         # Update previously saved pnl data and exchange location
         self.realtrade_pnl_data = None
@@ -1139,32 +882,28 @@ class AlgoBullsConnection:
 
         return self.stop_job(strategy_code=strategy_code, trading_type=TradingType.REALTRADING)
 
-    def get_realtrading_logs(self, strategy_code, display_progress_bar=True, print_live_logs=True):
+    def get_realtrading_logs(self, strategy_code):
         """
         Fetch Real Trading logs
 
         Args:
             strategy_code: Strategy code
-            display_progress_bar: to track the execution on progress bar as your strategy is executed
-            print_live_logs: to print the live logs as your strategy is executed
 
         Returns:
             Report details
         """
 
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
-        assert isinstance(display_progress_bar, bool), f'Argument "display_progress_bar" should be a boolean'
-        assert isinstance(print_live_logs, bool), f'Argument "print_live_logs" should be a boolean'
 
-        return self.get_logs(strategy_code, trading_type=TradingType.REALTRADING, display_progress_bar=display_progress_bar, print_live_logs=print_live_logs)
+        return self.get_logs(strategy_code=strategy_code, trading_type=TradingType.REALTRADING)
 
-    def get_realtrading_report_pnl_table(self, strategy_code, country=None, show_all_rows=False, force_fetch=False):
+    def get_realtrading_report_pnl_table(self, strategy_code, location=None, show_all_rows=False, force_fetch=False):
         """
         Fetch Real Trading Profit & Loss details
 
         Args:
             strategy_code: strategy code
-            country: country of the Exchange
+            location: Location of the Exchange
             show_all_rows: True or False
             force_fetch: Forcefully fetch PnL data
 
@@ -1172,12 +911,12 @@ class AlgoBullsConnection:
             Report details
         """
 
-        if self.realtrade_pnl_data is None or country is not None or force_fetch:
-            self.realtrade_pnl_data = self.get_pnl_report_table(strategy_code, TradingType.REALTRADING, country)
+        if self.realtrade_pnl_data is None or location is not None or force_fetch:
+            self.realtrade_pnl_data = self.get_pnl_report_table(strategy_code, TradingType.REALTRADING, location)
 
         return self.realtrade_pnl_data
 
-    def get_realtrading_report_statistics(self, strategy_code, initial_funds=None, mode='quantstats', report='metrics', html_dump=False):
+    def get_realtrading_report_statistics(self, strategy_code, initial_funds=1e9, mode='quantstats', report='metrics', html_dump=False):
         """
         Fetch Real Trading report statistics
 
@@ -1198,9 +937,6 @@ class AlgoBullsConnection:
             self.get_realtrading_report_pnl_table(strategy_code)
         else:
             print('Generating Statistics for already fetched P&L data...')
-
-        if initial_funds is None:
-            initial_funds = self.saved_parameters.get("initial_funds_virtual") or 1e9
 
         order_report = self.get_report_statistics(strategy_code, initial_funds, report, html_dump, self.realtrade_pnl_data)
 
