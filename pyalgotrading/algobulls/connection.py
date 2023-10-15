@@ -636,6 +636,8 @@ class AlgoBullsConnection:
             candle_interval = CandleInterval[_]
         if isinstance(instruments, str):
             instruments = [instruments]
+        if strategy_parameters == {} or strategy_parameters is None:
+            strategy_parameters = dict()
 
         # Sanity checks - Validate config parameters
         assert isinstance(strategy_code, str), f'Argument "strategy" should be a valid string'
