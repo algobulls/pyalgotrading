@@ -3,7 +3,6 @@ Module for AlgoBulls connection
 """
 import inspect
 import pprint
-import re
 import time
 from collections import OrderedDict
 from datetime import datetime as dt
@@ -11,11 +10,10 @@ from datetime import datetime as dt
 import pandas as pd
 import quantstats as qs
 from tabulate import tabulate
-from tqdm.auto import tqdm
 
 from .api import AlgoBullsAPI
 from .exceptions import AlgoBullsAPIBadRequestException, AlgoBullsAPIGatewayTimeoutErrorException
-from ..constants import StrategyMode, TradingType, TradingReportType, CandleInterval, AlgoBullsEngineVersion, Country, ExecutionStatus, EXCHANGE_LOCALE_MAP, Locale
+from ..constants import StrategyMode, TradingType, TradingReportType, CandleInterval, AlgoBullsEngineVersion, EXCHANGE_LOCALE_MAP, Locale
 from ..strategy.strategy_base import StrategyBase
 from ..utils.func import get_valid_enum_names, get_datetime_with_tz
 
@@ -36,7 +34,7 @@ class AlgoBullsConnection:
             'end_timestamp_map': {}
         }
 
-        self.strategy_country_map = {
+        self.strategy_locale_map = {
             TradingType.BACKTESTING: {},
             TradingType.PAPERTRADING: {},
             TradingType.REALTRADING: {},
@@ -175,8 +173,7 @@ class AlgoBullsConnection:
         try:
             # TODO: Currently fetching strategy name over API everytime. Will be optimized in future to avoid repeated API calls.
             all_strategies_df = self.get_all_strategies()
-            strategy_name = all_strategies_df.loc[all_strategies_df['strategyCode'] == strategy_code].iloc[0]['strategyName']
-
+            strategy_name = all_strategies_df.loc[all_strategies_df['strategyCode'] == strategy_code]['strategyName'][0]
         except Exception as ex:
             print(f'Error while fetching strategy name of strategy code {strategy_code}. Error: {ex}')
         return strategy_name
@@ -272,15 +269,13 @@ class AlgoBullsConnection:
 
         response = self.api.stop_strategy_algotrading(strategy_code=strategy_code, trading_type=trading_type)
 
-    def get_logs(self, strategy_code, trading_type, auto_update=True, display_logs_in_auto_update_mode=False):
+    def get_logs(self, strategy_code, trading_type):
         """
         Fetch logs for a strategy
 
         Args:
             strategy_code: strategy code
             trading_type: trading type
-            auto_update: If True, logs will be continuously fetched until strategy execution is complete. A progress bar will show the live status of strategy execution
-            display_logs_in_auto_update_mode: Applicable only if auto_update is True; display the logs as they are fetched
 
         Returns:
             Execution logs
@@ -288,95 +283,10 @@ class AlgoBullsConnection:
 
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
         assert isinstance(trading_type, TradingType), f'Argument "trading_type" should be an enum of type {TradingType.__name__}'
-        assert isinstance(auto_update, bool), f'Argument "show_progress_bar" should be a boolean'
 
-        # TODO: to extract timestamp from a different source which will be independent of whether save parameters are present in the object
-        start_timestamp_map = self.saved_parameters.get('start_timestamp_map')
-        end_timestamp_map = self.saved_parameters.get('end_timestamp_map')
-        all_logs = ''
+        return self.api.get_logs(strategy_code=strategy_code, trading_type=trading_type).get('data')
 
-        # logging with progress bar
-        if auto_update and start_timestamp_map.get(trading_type) and end_timestamp_map.get(trading_type):
-            tqdm_progress_bar = None
-            initial_next_token = None
-            error_counter = 0
-            status = None
-
-            start_timestamp = start_timestamp_map.get(trading_type).replace(tzinfo=None)
-            end_timestamp = end_timestamp_map.get(trading_type).replace(tzinfo=None)
-            total_seconds = (end_timestamp - start_timestamp).total_seconds()
-
-            count_starting_status = 0
-            while True:
-
-                # if logs are in starting phase, we wait until it changes
-                if status is None or status == ExecutionStatus.STARTING.value:
-                    status = self.get_job_status(strategy_code, trading_type)["message"]
-                    time.sleep(5)
-                    if status == ExecutionStatus.STARTING.value:
-                        count_starting_status += 1
-                        print('\r', end=f'Looking for a dedicated virtual server to execute your strategy... ({count_starting_status})')
-                    continue
-
-                # if logs get in started phase, we initialize the tqdm object for progress tracking
-                if tqdm_progress_bar is None and status == ExecutionStatus.STARTED.value:
-                    tqdm_progress_bar = tqdm(desc='Execution Progress', total=total_seconds, position=0, leave=True, bar_format='{l_bar}{bar}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}]')
-
-                response = self.api.get_logs(strategy_code=strategy_code, trading_type=trading_type, log_type='partial', initial_next_token=initial_next_token)
-                logs = response.get('data')
-                if type(logs) is list:
-                    all_logs += '\n'.join(logs) + '\n'
-
-                # if logs are empty we wait
-                if not logs:
-                    status = self.get_job_status(strategy_code, trading_type)["message"]
-
-                    # if status is stopped we break the while loop
-                    if status in [ExecutionStatus.STOPPED.value, ExecutionStatus.STOPPING.value]:
-                        # tqdm.write(f'INFO: Got status as {status}, strategy execution completed.')    # for debug
-                        if tqdm_progress_bar is not None:
-                            tqdm_progress_bar.close()
-                        break
-
-                    # continue if logs are not fetched
-                    else:
-                        # tqdm.write(f'WARNING: got no data, current status is {status}...')      # for debug
-                        time.sleep(5)
-                        continue
-
-                else:
-                    # print the logs below progressbar
-                    if display_logs_in_auto_update_mode:
-                        tqdm.write('\n'.join(logs))
-
-                    # iterate in reverse order
-                    for log in logs[::-1]:
-                        try:
-
-                            # extract log terms inside square brackets
-                            _ = re.findall(r'\[(.*?)\]', log)
-
-                            # extract datetime from logs
-                            if tqdm_progress_bar is not None and _[0] in ['BT', 'PT', 'RT']:
-                                current_timestamp = dt.strptime(_[1].split(',')[0], '%Y-%m-%d %H:%M:%S')
-                                total_completion = (current_timestamp - start_timestamp).total_seconds()
-                                tqdm_progress_bar.update(total_completion - tqdm_progress_bar.n)
-                                break
-
-                        except Exception as ex:
-                            tqdm.write(f'WARNING: faced an error while updating logs process. Error: {ex}')
-                            error_counter += 1
-
-                        # avoid infinite loop in case of error
-                        if error_counter > 5:
-                            break
-
-                    initial_next_token = response.get('initialNextToken')
-        else:
-            all_logs = self.api.get_logs(strategy_code=strategy_code, trading_type=trading_type, log_type='full').get('data')
-        return all_logs
-
-    def get_report(self, strategy_code, trading_type, report_type, render_as_dataframe=False, show_all_rows=False, country=None):
+    def get_report(self, strategy_code, trading_type, report_type, render_as_dataframe=False, show_all_rows=False, location=None):
         """
         Fetch report for a strategy
 
@@ -386,7 +296,7 @@ class AlgoBullsConnection:
             report_type: Value of TradingReportType Enum
             render_as_dataframe: True or False
             show_all_rows: True or False
-            country: country of the Exchange
+            location: Location of the Exchange
 
         Returns:
             report details
@@ -398,7 +308,7 @@ class AlgoBullsConnection:
         assert isinstance(render_as_dataframe, bool), f'Argument "render_as_dataframe" should be a bool'
         assert isinstance(show_all_rows, bool), f'Argument "show_all_rows" should be a bool'
         # assert (broker is None or isinstance(broker, AlgoBullsSupportedBrokers) is True), f'Argument broker should be None or an enum of type {AlgoBullsSupportedBrokers.__name__}'
-        response = self.api.get_reports(strategy_code=strategy_code, trading_type=trading_type, report_type=report_type, country=country)
+        response = self.api.get_reports(strategy_code=strategy_code, trading_type=trading_type, report_type=report_type, location=location)
         if response.get('data'):
             if render_as_dataframe:
                 if show_all_rows:
@@ -410,14 +320,14 @@ class AlgoBullsConnection:
         else:
             print('Report not available yet. Please retry in sometime')
 
-    def get_pnl_report_table(self, strategy_code, trading_type, country):
+    def get_pnl_report_table(self, strategy_code, trading_type, location):
         """
             Fetch BT/PT/RT Profit & Loss details
 
             Args:
                 strategy_code: strategy code
                 trading_type: type of trades : Backtesting, Papertrading, Realtrading
-                country: country of the exchange
+                location: Location of the exchange
 
             Returns:
                 Report details
@@ -426,10 +336,10 @@ class AlgoBullsConnection:
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
 
         # Fetch the data
-        if country is None:
-            country = self.strategy_country_map[trading_type].get(strategy_code, Country.DEFAULT.value)
+        if location is None:
+            location = self.strategy_locale_map[trading_type].get(strategy_code, Locale.DEFAULT.value)
 
-        data = self.get_report(strategy_code=strategy_code, trading_type=trading_type, report_type=TradingReportType.PNL_TABLE, country=country)
+        data = self.get_report(strategy_code=strategy_code, trading_type=trading_type, report_type=TradingReportType.PNL_TABLE, location=location)
 
         # Post-processing: Cleanup & converting data to dataframe
         column_rename_map = OrderedDict([
@@ -563,6 +473,7 @@ class AlgoBullsConnection:
 
         Returns:
             job submission status
+            location of the instruments
         """
 
         # check if values received by new parameter names, else extract from old parameter names, else extract from saved parameters
@@ -696,7 +607,7 @@ class AlgoBullsConnection:
         response = self.api.start_strategy_algotrading(strategy_code=strategy_code, start_timestamp=start_timestamp, end_timestamp=end_timestamp, trading_type=trading_type,
                                                        lots=lots, initial_funds_virtual=initial_funds_virtual, broker_details=broking_details, location=location)
 
-        self.strategy_country_map[trading_type][strategy_code] = Country[Locale(location).name].value
+        self.strategy_locale_map[trading_type][strategy_code] = location
         return response
 
     def backtest(self, strategy=None, start=None, end=None, instruments=None, lots=None, parameters=None, candle=None, mode=None, delete_previous_trades=True, initial_funds_virtual=None, vendor_details=None, **kwargs):
@@ -768,14 +679,12 @@ class AlgoBullsConnection:
 
         return self.stop_job(strategy_code=strategy_code, trading_type=TradingType.BACKTESTING)
 
-    def get_backtesting_logs(self, strategy_code, auto_update=True, display_logs_in_auto_update_mode=False):
+    def get_backtesting_logs(self, strategy_code):
         """
         Fetch Back Testing logs
 
         Args:
             strategy_code: Strategy code
-            auto_update: If True, logs will be continuously fetched until strategy execution is complete. A progress bar will show the live status of strategy execution
-            display_logs_in_auto_update_mode: Applicable only if auto_update is True; display the logs as they are fetched
 
         Returns:
             Report details
@@ -783,15 +692,15 @@ class AlgoBullsConnection:
 
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
 
-        return self.get_logs(strategy_code, trading_type=TradingType.BACKTESTING, auto_update=auto_update, display_logs_in_auto_update_mode=display_logs_in_auto_update_mode)
+        return self.get_logs(strategy_code, trading_type=TradingType.BACKTESTING)
 
-    def get_backtesting_report_pnl_table(self, strategy_code, country=None, show_all_rows=False, force_fetch=False):
+    def get_backtesting_report_pnl_table(self, strategy_code, location=None, show_all_rows=False, force_fetch=False):
         """
         Fetch Back Testing Profit & Loss details
 
         Args:
             strategy_code: strategy code
-            country: country of Exchange
+            location: Location of Exchange
             show_all_rows: True or False
             force_fetch: Forcefully fetch PnL data
 
@@ -799,8 +708,8 @@ class AlgoBullsConnection:
             Report details
         """
 
-        if self.backtesting_pnl_data is None or country is not None or force_fetch:
-            self.backtesting_pnl_data = self.get_pnl_report_table(strategy_code, TradingType.BACKTESTING, country)
+        if self.backtesting_pnl_data is None or location is not None or force_fetch:
+            self.backtesting_pnl_data = self.get_pnl_report_table(strategy_code, TradingType.BACKTESTING, location)
 
         return self.backtesting_pnl_data
 
@@ -914,14 +823,12 @@ class AlgoBullsConnection:
 
         return self.stop_job(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING)
 
-    def get_papertrading_logs(self, strategy_code, auto_update=False, display_logs_in_auto_update_mode=False):
+    def get_papertrading_logs(self, strategy_code):
         """
         Fetch Paper Trading logs
 
         Args:
             strategy_code: Strategy code
-            auto_update: If True, logs will be continuously fetched until strategy execution is complete. A progress bar will show the live status of strategy execution
-            display_logs_in_auto_update_mode: Applicable only if auto_update is True; display the logs as they are fetched
 
         Returns:
             Report details
@@ -929,15 +836,15 @@ class AlgoBullsConnection:
 
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
 
-        return self.get_logs(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING, auto_update=auto_update, display_logs_in_auto_update_mode=display_logs_in_auto_update_mode)
+        return self.get_logs(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING)
 
-    def get_papertrading_report_pnl_table(self, strategy_code, country=None, show_all_rows=False, force_fetch=False):
+    def get_papertrading_report_pnl_table(self, strategy_code, location=None, show_all_rows=False, force_fetch=False):
         """
         Fetch Paper Trading Profit & Loss details
 
         Args:
             strategy_code: strategy code
-            country: country of the exchange
+            location: Location of the exchange
             show_all_rows: True or False
             force_fetch: Forcefully fetch PnL data
 
@@ -945,8 +852,8 @@ class AlgoBullsConnection:
             Report details
         """
 
-        if self.papertrade_pnl_data is None or country is not None or force_fetch:
-            self.papertrade_pnl_data = self.get_pnl_report_table(strategy_code, TradingType.PAPERTRADING, country)
+        if self.papertrade_pnl_data is None or location is not None or force_fetch:
+            self.papertrade_pnl_data = self.get_pnl_report_table(strategy_code, TradingType.PAPERTRADING, location)
 
         return self.papertrade_pnl_data
 
@@ -1063,14 +970,12 @@ class AlgoBullsConnection:
 
         return self.stop_job(strategy_code=strategy_code, trading_type=TradingType.REALTRADING)
 
-    def get_realtrading_logs(self, strategy_code, auto_update=False, display_logs_in_auto_update_mode=False):
+    def get_realtrading_logs(self, strategy_code):
         """
         Fetch Real Trading logs
 
         Args:
             strategy_code: Strategy code
-            auto_update: If True, logs will be continuously fetched until strategy execution is complete. A progress bar will show the live status of strategy execution
-            display_logs_in_auto_update_mode: Applicable only if auto_update is True; display the logs as they are fetched
 
         Returns:
             Report details
@@ -1078,15 +983,15 @@ class AlgoBullsConnection:
 
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
 
-        return self.get_logs(strategy_code=strategy_code, trading_type=TradingType.REALTRADING, auto_update=auto_update, display_logs_in_auto_update_mode=display_logs_in_auto_update_mode)
+        return self.get_logs(strategy_code=strategy_code, trading_type=TradingType.REALTRADING)
 
-    def get_realtrading_report_pnl_table(self, strategy_code, country=None, show_all_rows=False, force_fetch=False):
+    def get_realtrading_report_pnl_table(self, strategy_code, location=None, show_all_rows=False, force_fetch=False):
         """
         Fetch Real Trading Profit & Loss details
 
         Args:
             strategy_code: strategy code
-            country: country of the Exchange
+            location: Location of the Exchange
             show_all_rows: True or False
             force_fetch: Forcefully fetch PnL data
 
@@ -1094,8 +999,8 @@ class AlgoBullsConnection:
             Report details
         """
 
-        if self.realtrade_pnl_data is None or country is not None or force_fetch:
-            self.realtrade_pnl_data = self.get_pnl_report_table(strategy_code, TradingType.REALTRADING, country)
+        if self.realtrade_pnl_data is None or location is not None or force_fetch:
+            self.realtrade_pnl_data = self.get_pnl_report_table(strategy_code, TradingType.REALTRADING, location)
 
         return self.realtrade_pnl_data
 
