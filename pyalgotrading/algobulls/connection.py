@@ -445,7 +445,7 @@ class AlgoBullsConnection:
         else:
             print('Report not available yet. Please retry in sometime')
 
-    def get_pnl_report_table(self, strategy_code, trading_type, country):
+    def get_pnl_report_table(self, strategy_code, trading_type, country, broker_commission_percentage=0, broker_commission_price=None):
         """
             Fetch BT/PT/RT Profit & Loss details
 
@@ -453,6 +453,8 @@ class AlgoBullsConnection:
                 strategy_code: strategy code
                 trading_type: type of trades : Backtesting, Papertrading, Realtrading
                 country: country of the exchange
+                broker_commission_percentage: Percentage of broker commission per trade
+                broker_commission_price: Broker fee per trade
 
             Returns:
                 Report details
@@ -490,9 +492,16 @@ class AlgoBullsConnection:
             _df['exit_transaction_type'] = _df['exit_transaction_type'].apply(lambda _: 'BUY' if _ else 'SELL')
             _df["pnl_cumulative_absolute"] = _df["pnl_absolute"].cumsum(axis=0, skipna=True)
 
+            # add brokerage
+            _df['brokerage'] = ((_df['entry_price'] * _df['entry_quantity']) + (_df['exit_price'] * _df['exit_quantity'])) * (broker_commission_percentage / 100)
+            if broker_commission_price is not None:
+                _df["brokerage"].loc[_df["brokerage"] > broker_commission_price] = broker_commission_price
+            _df['net_pnl'] = _df['pnl_absolute'] - _df['brokerage']
+
         else:
             # No data available, send back an empty dataframe
             _df = pd.DataFrame(columns=list(column_rename_map.values()))
+            _df['net_pnl'] = None
 
         return _df
 
@@ -853,7 +862,7 @@ class AlgoBullsConnection:
 
         return self.get_logs(strategy_code, trading_type=TradingType.BACKTESTING, display_progress_bar=display_progress_bar, print_live_logs=print_live_logs)
 
-    def get_backtesting_report_pnl_table(self, strategy_code, country=None, show_all_rows=False, force_fetch=False):
+    def get_backtesting_report_pnl_table(self, strategy_code, country=None, show_all_rows=False, force_fetch=False, broker_commission_percentage=0, broker_commission_price=None):
         """
         Fetch Back Testing Profit & Loss details
 
@@ -862,13 +871,15 @@ class AlgoBullsConnection:
             country: country of Exchange
             show_all_rows: True or False
             force_fetch: Forcefully fetch PnL data
+            broker_commission_percentage: Percentage of broker commission per trade
+            broker_commission_price: Broker fee per trade
 
         Returns:
             Report details
         """
 
         if self.backtesting_pnl_data is None or country is not None or force_fetch:
-            self.backtesting_pnl_data = self.get_pnl_report_table(strategy_code, TradingType.BACKTESTING, country)
+            self.backtesting_pnl_data = self.get_pnl_report_table(strategy_code, TradingType.BACKTESTING, country, broker_commission_percentage, broker_commission_price)
 
         return self.backtesting_pnl_data
 
@@ -1004,7 +1015,7 @@ class AlgoBullsConnection:
 
         return self.get_logs(strategy_code, trading_type=TradingType.PAPERTRADING, display_progress_bar=display_progress_bar, print_live_logs=print_live_logs)
 
-    def get_papertrading_report_pnl_table(self, strategy_code, country=None, show_all_rows=False, force_fetch=False):
+    def get_papertrading_report_pnl_table(self, strategy_code, country=None, show_all_rows=False, force_fetch=False, broker_commission_percentage=0, broker_commission_price=None):
         """
         Fetch Paper Trading Profit & Loss details
 
@@ -1013,13 +1024,15 @@ class AlgoBullsConnection:
             country: country of the exchange
             show_all_rows: True or False
             force_fetch: Forcefully fetch PnL data
+            broker_commission_percentage: Percentage of broker commission per trade
+            broker_commission_price: Broker fee per trade
 
         Returns:
             Report details
         """
 
         if self.papertrade_pnl_data is None or country is not None or force_fetch:
-            self.papertrade_pnl_data = self.get_pnl_report_table(strategy_code, TradingType.PAPERTRADING, country)
+            self.papertrade_pnl_data = self.get_pnl_report_table(strategy_code, TradingType.PAPERTRADING, country, broker_commission_percentage, broker_commission_price)
 
         return self.papertrade_pnl_data
 
@@ -1158,7 +1171,7 @@ class AlgoBullsConnection:
 
         return self.get_logs(strategy_code, trading_type=TradingType.REALTRADING, display_progress_bar=display_progress_bar, print_live_logs=print_live_logs)
 
-    def get_realtrading_report_pnl_table(self, strategy_code, country=None, show_all_rows=False, force_fetch=False):
+    def get_realtrading_report_pnl_table(self, strategy_code, country=None, show_all_rows=False, force_fetch=False, broker_commission_percentage=0, broker_commission_price=None):
         """
         Fetch Real Trading Profit & Loss details
 
@@ -1167,13 +1180,15 @@ class AlgoBullsConnection:
             country: country of the Exchange
             show_all_rows: True or False
             force_fetch: Forcefully fetch PnL data
+            broker_commission_percentage: Percentage of broker commission per trade
+            broker_commission_price: Broker fee per trade
 
         Returns:
             Report details
         """
 
         if self.realtrade_pnl_data is None or country is not None or force_fetch:
-            self.realtrade_pnl_data = self.get_pnl_report_table(strategy_code, TradingType.REALTRADING, country)
+            self.realtrade_pnl_data = self.get_pnl_report_table(strategy_code, TradingType.REALTRADING, country, broker_commission_percentage, broker_commission_price)
 
         return self.realtrade_pnl_data
 
