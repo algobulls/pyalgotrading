@@ -68,18 +68,24 @@ class AlgoBullsConnection:
         url = 'https://app.algobulls.com/settings?section=developerOptions'
         print(f'Please login to this URL to get your unique token: {url}')
 
-    def set_access_token(self, access_token):
+    def set_access_token(self, access_token, validate_token=False):
         """
         Set the access token
 
         Args:
             access_token: access token
-
+            validate_token: whether you want to validate the access-token
         Returns:
             None
         """
         assert isinstance(access_token, str), f'Argument "access_token" should be a string'
         self.api.set_access_token(access_token)
+        if validate_token:
+            try:
+                response = self.api.get_all_strategies()
+                print("Connection with AlgoBulls Server was Successful !!")
+            except Exception as e:
+                print(f"Connection with AlgoBulls Server Failed !! \nReason: {e}")
 
     def create_strategy(self, strategy, overwrite=False, strategy_code=None, abc_version=None):
         """
