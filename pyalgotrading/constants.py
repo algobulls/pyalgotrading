@@ -274,6 +274,17 @@ class ExecutionStatus(Enum):
     STOPPED = 'STOPPED'
 
 
+CandleIntervalSecondsMap = {
+    'minute': 60,
+    '3minutes': 180,
+    '5minutes': 300,
+    '10minutes': 600,
+    '15minutes': 900,
+    '30minutes': 1800,
+    '60minutes': 3600,
+    'day': 86400
+}
+
 KEY_DT_FORMAT_WITH_TIMEZONE = 0
 KEY_DT_FORMAT_WITHOUT_TIMEZONE = 1
 
