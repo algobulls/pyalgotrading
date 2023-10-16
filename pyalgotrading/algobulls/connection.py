@@ -83,7 +83,7 @@ class AlgoBullsConnection:
         self.api.set_access_token(access_token)
         if validate_token:
             try:
-                response = self.api.get_all_strategies()
+                _ = self.api.get_all_strategies()
                 print("Connection with AlgoBulls Server was Successful !!")
             except Exception as e:
                 print(f"Connection with AlgoBulls Server Failed !! \nReason: {e}")
@@ -277,7 +277,7 @@ class AlgoBullsConnection:
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
         assert isinstance(trading_type, TradingType), f'Argument "trading_type" should be an enum of type {TradingType.__name__}'
 
-        response = self.api.stop_strategy_algotrading(strategy_code=strategy_code, trading_type=trading_type)
+        _ = self.api.stop_strategy_algotrading(strategy_code=strategy_code, trading_type=trading_type)
 
     def get_logs(self, strategy_code, trading_type, display_progress_bar=True, print_live_logs=False):
         """
@@ -286,7 +286,7 @@ class AlgoBullsConnection:
         Args:
             strategy_code: strategy code
             trading_type: trading type
-            display_progress_bar: to track the execution progress progress bar as your strategy is executed
+            display_progress_bar: to track the execution progress bar as your strategy is executed
             print_live_logs: to print the logs as they are fetched
         Returns:
             Execution logs
@@ -305,7 +305,7 @@ class AlgoBullsConnection:
             try:
                 sleep_time = CandleIntervalSecondsMap[self.saved_parameters.get('candle_interval').value]
                 print(f"Your candle interval is {self.saved_parameters.get('candle_interval').value}, therefore logs will be fetched every {sleep_time} seconds.")
-            except Exception as e:
+            except AttributeError:
                 print("WARNING: Could not fetch the candle interval from saved parameters. Logs will be fetched every 60 seconds.")
                 sleep_time = 60
 
@@ -325,13 +325,16 @@ class AlgoBullsConnection:
         error_counter = 0
         status = None
         count_starting_status = 0
+        response = {}
+        logs = []
 
         while True:
-
             # if logs are in starting phase, we wait until it changes
             if status is None or status == ExecutionStatus.STARTING.value:
                 status = self.get_job_status(strategy_code, trading_type)["message"]
                 time.sleep(5)
+
+                # log the counting for "STARTING" phase of execution
                 if status == ExecutionStatus.STARTING.value:
                     count_starting_status += 1
                     print('\r', end=f'Looking for a dedicated virtual server to execute your strategy... ({count_starting_status})')
@@ -342,6 +345,7 @@ class AlgoBullsConnection:
                 if tqdm_progress_bar is None and status == ExecutionStatus.STARTED.value:
                     tqdm_progress_bar = tqdm(desc='Execution Progress', total=total_seconds, position=0, leave=True, bar_format='{l_bar}{bar}| {n_fmt}/{total_fmt} [{elapsed}<{remaining}]')
 
+            # try the logs API 5 times or until it succeeds
             for i in range(5):
                 try:
                     response = self.api.get_logs(strategy_code=strategy_code, trading_type=trading_type, initial_next_token=initial_next_token)
@@ -354,13 +358,15 @@ class AlgoBullsConnection:
                     pass
 
             initial_next_token = response.get('nextForwardToken')
-            # if logs are empty we wait
+
+            # if logs are empty we validate the status of execution
             if not logs:
                 status = self.get_job_status(strategy_code, trading_type)["message"]
 
                 # if status is stopped we break the while loop
                 if status in [ExecutionStatus.STOPPED.value, ExecutionStatus.STOPPING.value]:
-                    # tqdm.write(f'INFO: Got status as {status}, strategy execution completed.')    # for debug
+
+                    # tqdm.write(f"INFO: Got status as {status}, strategy execution completed.")    # for debug
                     if display_progress_bar:
                         if tqdm_progress_bar is not None:
                             tqdm_progress_bar.close()
@@ -368,11 +374,13 @@ class AlgoBullsConnection:
 
                 # continue if logs are not fetched
                 else:
-                    # tqdm.write(f'WARNING: got no data, current status is {status}...')      # for debug
                     time.sleep(5)
+
+                    # tqdm.write(f"WARNING: got no data, current status is {status}...")      # for debug
                     continue
 
             else:
+                # incoming logs are in list, merge them to string
                 if type(logs) is list and initial_next_token:
                     all_logs += ''.join(logs)
 
@@ -542,9 +550,9 @@ class AlgoBullsConnection:
             elif _ext == '.xlxs':
                 pnl_df = pd.read_excel(file_path)
             else:
-                raise Exception(f'ERROR: File with extention {_ext} is not supported.\n Please provide path to files with extention as ".csv" or ".xlxs"')
+                raise Exception(f'ERROR: File with extension {_ext} is not supported.\n Please provide path to files with extension as ".csv" or ".xlxs"')
 
-            # handle the exceptions gracefuly, check the validity of the input file
+            # handle the exceptions gracefully, check the validity of the input file
             if "entry_timestamp" not in pnl_df.columns or "net_pnl" not in pnl_df.columns:
                 raise Exception(f"ERROR: Given  {_ext} file does not have the required columns 'entry_timestamp' and 'net_pnl'.")
             try:
@@ -582,10 +590,11 @@ class AlgoBullsConnection:
 
         # save as html file
         if html_dump:
+            # if there is an error in calling the API, give a default name to html file.
             try:
                 all_strategies = self.get_all_strategies()
                 strategy_name = all_strategies.loc[all_strategies['strategyCode'] == strategy_code]['strategyName'].iloc[0]
-            except Exception as e:
+            except Exception:
                 strategy_name = 'strategy_results'
             qs.reports.html(total_funds_series, title=strategy_name, output='', download_filename=f'report_{strategy_name}_{time.time():.0f}.html')
 
@@ -818,7 +827,7 @@ class AlgoBullsConnection:
         """
 
         # start backtesting job
-        response = self.start_job(
+        _ = self.start_job(
             strategy_code=strategy, start_timestamp=start, end_timestamp=end, instruments=instruments, lots=lots, strategy_parameters=parameters, candle_interval=candle, strategy_mode=mode,
             initial_funds_virtual=initial_funds_virtual, delete_previous_trades=delete_previous_trades, trading_type=TradingType.BACKTESTING, broking_details=vendor_details, **kwargs
         )
@@ -875,14 +884,13 @@ class AlgoBullsConnection:
 
         return self.get_logs(strategy_code, trading_type=TradingType.BACKTESTING, display_progress_bar=display_progress_bar, print_live_logs=print_live_logs)
 
-    def get_backtesting_report_pnl_table(self, strategy_code, country=None, show_all_rows=False, force_fetch=False, broker_commission_percentage=0, broker_commission_price=None, slippage_percent=None):
+    def get_backtesting_report_pnl_table(self, strategy_code, country=None, force_fetch=False, broker_commission_percentage=0, broker_commission_price=None, slippage_percent=None):
         """
         Fetch Back Testing Profit & Loss details
 
         Args:
             strategy_code: strategy code
             country: country of Exchange
-            show_all_rows: True or False
             force_fetch: Forcefully fetch PnL data
             broker_commission_percentage: Percentage of broker commission per trade
             broker_commission_price: Broker fee per trade
@@ -897,14 +905,13 @@ class AlgoBullsConnection:
 
         return self.backtesting_pnl_data
 
-    def get_backtesting_report_statistics(self, strategy_code, initial_funds=None, mode='quantstats', report='metrics', html_dump=False):
+    def get_backtesting_report_statistics(self, strategy_code, initial_funds=None, report='metrics', html_dump=False):
         """
         Fetch Back Testing report statistics
 
         Args:
             strategy_code: strategy code
             initial_funds: initial funds that were set before backtesting
-            mode: extension used to generate statistics
             report: format and content of the report
             html_dump: save it as a html file
 
@@ -972,7 +979,7 @@ class AlgoBullsConnection:
         """
 
         # start papertrading job
-        response = self.start_job(
+        _ = self.start_job(
             strategy_code=strategy, start_timestamp=start, end_timestamp=end, instruments=instruments, lots=lots, strategy_parameters=parameters, candle_interval=candle, strategy_mode=mode,
             initial_funds_virtual=initial_funds_virtual, delete_previous_trades=delete_previous_trades, trading_type=TradingType.PAPERTRADING, broking_details=vendor_details, **kwargs
         )
@@ -1029,14 +1036,13 @@ class AlgoBullsConnection:
 
         return self.get_logs(strategy_code, trading_type=TradingType.PAPERTRADING, display_progress_bar=display_progress_bar, print_live_logs=print_live_logs)
 
-    def get_papertrading_report_pnl_table(self, strategy_code, country=None, show_all_rows=False, force_fetch=False, broker_commission_percentage=0, broker_commission_price=None, slippage_percent=None):
+    def get_papertrading_report_pnl_table(self, strategy_code, country=None, force_fetch=False, broker_commission_percentage=0, broker_commission_price=None, slippage_percent=None):
         """
         Fetch Paper Trading Profit & Loss details
 
         Args:
             strategy_code: strategy code
             country: country of the exchange
-            show_all_rows: True or False
             force_fetch: Forcefully fetch PnL data
             broker_commission_percentage: Percentage of broker commission per trade
             broker_commission_price: Broker fee per trade
@@ -1051,14 +1057,13 @@ class AlgoBullsConnection:
 
         return self.papertrade_pnl_data
 
-    def get_papertrading_report_statistics(self, strategy_code, initial_funds=None, mode='quantstats', report='metrics', html_dump=False):
+    def get_papertrading_report_statistics(self, strategy_code, initial_funds=None, report='metrics', html_dump=False):
         """
         Fetch Paper Trading report statistics
 
         Args:
             strategy_code: strategy code
             initial_funds: initial funds allotted before papertrading
-            mode: extension used to generate statistics
             report: format and content of the report
             html_dump: save it as a html file
 
@@ -1127,9 +1132,8 @@ class AlgoBullsConnection:
         """
 
         # start realtrading job
-        response = self.start_job(strategy_code=strategy, start_timestamp=start, end_timestamp=end, instruments=instruments, lots=lots, strategy_parameters=parameters, candle_interval=candle, strategy_mode=mode, trading_type=TradingType.REALTRADING,
-                                  broking_details=broking_details,
-                                  **kwargs)
+        _ = self.start_job(strategy_code=strategy, start_timestamp=start, end_timestamp=end, instruments=instruments, lots=lots, strategy_parameters=parameters, candle_interval=candle, strategy_mode=mode, trading_type=TradingType.REALTRADING,
+                           broking_details=broking_details, **kwargs)
 
         # Update previously saved pnl data and exchange location
         self.realtrade_pnl_data = None
@@ -1186,14 +1190,13 @@ class AlgoBullsConnection:
 
         return self.get_logs(strategy_code, trading_type=TradingType.REALTRADING, display_progress_bar=display_progress_bar, print_live_logs=print_live_logs)
 
-    def get_realtrading_report_pnl_table(self, strategy_code, country=None, show_all_rows=False, force_fetch=False, broker_commission_percentage=0, broker_commission_price=None):
+    def get_realtrading_report_pnl_table(self, strategy_code, country=None, force_fetch=False, broker_commission_percentage=0, broker_commission_price=None):
         """
         Fetch Real Trading Profit & Loss details
 
         Args:
             strategy_code: strategy code
             country: country of the Exchange
-            show_all_rows: True or False
             force_fetch: Forcefully fetch PnL data
             broker_commission_percentage: Percentage of broker commission per trade
             broker_commission_price: Broker fee per trade
@@ -1207,14 +1210,13 @@ class AlgoBullsConnection:
 
         return self.realtrade_pnl_data
 
-    def get_realtrading_report_statistics(self, strategy_code, initial_funds=None, mode='quantstats', report='metrics', html_dump=False):
+    def get_realtrading_report_statistics(self, strategy_code, initial_funds=None, report='metrics', html_dump=False):
         """
         Fetch Real Trading report statistics
 
         Args:
             strategy_code: strategy code
             initial_funds: initial funds allotted before realtrading
-            mode: extension used to generate statistics
             report: format and content of the report
             html_dump: save it as a html file
 
