@@ -69,7 +69,7 @@ class AlgoBullsConnection:
         url = 'https://app.algobulls.com/settings?section=developerOptions'
         print(f'Please login to this URL to get your unique token: {url}')
 
-    def set_access_token(self, access_token, validate_token=False):
+    def set_access_token(self, access_token, validate_token=True):
         """
         Set the access token
 
@@ -402,7 +402,6 @@ class AlgoBullsConnection:
                     if error_counter > 5:
                         break
 
-                print(len(logs))
                 if len(logs) >= 1000:
                     tqdm.write(f"\n{'-----' * 5}\nWaiting {sleep_time} seconds for fetching next logs ...\n{'-----' * 5}\n")  # for debug
                     time.sleep(sleep_time)
@@ -457,7 +456,6 @@ class AlgoBullsConnection:
                 broker_commission_price: Broker fee per trade
                 slippage_percent: percentage of slippage per order
 
-
             Returns:
                 Report details
         """
@@ -496,15 +494,23 @@ class AlgoBullsConnection:
 
             # add slippage here
             if slippage_percent:
+                if 'exit_variety' not in _df.columns or 'entry_variety' not in _df.columns:
+                    _df['exit_variety'] = 'MARKET'
+                    _df['entry_variety'] = 'MARKET'
+                    print('WARNING: Column for Order Variety not found. Assuming all trades are Market Orders.')
+
                 _df[['entry_price', 'exit_price']] = _df.apply(
                     lambda row: (slippage(row.entry_price, row.entry_variety, row.entry_transaction_type, slippage_percent), slippage(row.exit_price, row.exit_variety, row.exit_transaction_type, slippage_percent)), axis=1, result_type='expand')
+
                 _df['pnl_absolute'] = _df['exit_price'] - _df['entry_price']
 
             # add brokerage
             _df['brokerage'] = ((_df['entry_price'] * _df['entry_quantity']) + (_df['exit_price'] * _df['exit_quantity'])) * (broker_commission_percentage / 100)
             if broker_commission_price is not None:
                 _df["brokerage"].loc[_df["brokerage"] > broker_commission_price] = broker_commission_price
+
             _df['net_pnl'] = _df['pnl_absolute'] - _df['brokerage']
+
         else:
             # No data available, send back an empty dataframe
             _df = pd.DataFrame(columns=list(column_rename_map.values()))
@@ -538,9 +544,9 @@ class AlgoBullsConnection:
             else:
                 raise Exception(f'ERROR: File with extention {_ext} is not supported.\n Please provide path to files with extention as ".csv" or ".xlxs"')
 
-            # handle the exceptions gracefuly, providing the info why an error was raised
-            if "entry_timestamp" not in pnl_df.columns or "pnl_absolute" not in pnl_df.columns:
-                raise Exception(f"ERROR: Given  {_ext} file does not have the required columns 'entry_timestamp' and 'pnl_absolute'.")
+            # handle the exceptions gracefuly, check the validity of the input file
+            if "entry_timestamp" not in pnl_df.columns or "net_pnl" not in pnl_df.columns:
+                raise Exception(f"ERROR: Given  {_ext} file does not have the required columns 'entry_timestamp' and 'net_pnl'.")
             try:
                 dt.strptime(pnl_df.iloc[0]["entry_timestamp"], date_time_format)
             except ValueError:
@@ -552,10 +558,10 @@ class AlgoBullsConnection:
         order_report = None
 
         # get pnl data and cleanup as per quantstats format
-        _returns_df = pnl_df[['entry_timestamp', 'pnl_absolute']]
+        _returns_df = pnl_df[['entry_timestamp', 'net_pnl']]
         _returns_df['entry_timestamp'] = _returns_df['entry_timestamp'].dt.tz_localize(None)  # Note: Quantstats has a bug. It doesn't accept the df index, which is set below, with timezone. Hence, we have to drop the timezone info
         _returns_df = _returns_df.set_index('entry_timestamp')
-        _returns_df["total_funds"] = _returns_df.pnl_absolute.cumsum() + initial_funds
+        _returns_df["total_funds"] = _returns_df.net_pnl.cumsum() + initial_funds
         _returns_df = _returns_df.dropna()
 
         # Note: Quantstats has a potential bug. It cannot work with multiple entries having the same timestamp. For now, we are dropping multiple entries with the same entry_timestamp (else the quantstats code below would throw an error)
