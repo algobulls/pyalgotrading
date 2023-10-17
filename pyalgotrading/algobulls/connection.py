@@ -411,7 +411,8 @@ class AlgoBullsConnection:
                         break
 
                 if len(logs) >= 1000:
-                    tqdm.write(f"\n{'-----' * 5}\nWaiting {sleep_time} seconds for fetching next logs ...\n{'-----' * 5}\n")  # for debug
+                    if print_live_logs:
+                        tqdm.write(f"\n{'-----' * 5}\nWaiting {sleep_time} seconds for fetching next logs ...\n{'-----' * 5}\n")  # for debug
                     time.sleep(sleep_time)
                 else:
                     time.sleep(1)
