@@ -15,17 +15,13 @@
         <link rel="canonical" href="https://algobulls.github.io/pythonbuild/strategies/strategy_guides/common_regular_strategy/">
       
       
-        <link rel="prev" href="../common_strategy_guide/">
-      
-      
-        <link rel="next" href="../common_options_strategy/">
       
       <link rel="icon" href="https://algobulls.com/img/favicon.svg">
       <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.1.21">
     
     
       
-        <title>Regular Strategy - Python Build</title>
+        <title>Regular Strategy Structure - Python Build</title>
       
     
     
@@ -113,7 +109,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Regular Strategy
+              Regular Strategy Structure
             
           </span>
         </div>
@@ -237,16 +233,14 @@
 
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
       
       
       
@@ -255,7 +249,7 @@
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2">
           <span class="md-nav__icon md-icon"></span>
           Strategies
@@ -266,341 +260,11 @@
               
   
   
-    
-  
-  
-    
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
-      
-      
-      
-      
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
-      
-      
-      
-        <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
-          General Strategy Guide
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
-        <label class="md-nav__title" for="__nav_2_1">
-          <span class="md-nav__icon md-icon"></span>
-          General Strategy Guide
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../structure/" class="md-nav__link">
-        Code Structure of Strategy
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
   
     <li class="md-nav__item">
       <a href="../common_strategy_guide/" class="md-nav__link">
-        Common Strategy Guide
+        General Strategy Guide
       </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-    
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Regular Strategy
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
-        Regular Strategy
-      </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#1-initial-steps" class="md-nav__link">
-    1. Initial steps
-  </a>
-  
-    <nav class="md-nav" aria-label="1. Initial steps">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#naming-a-class" class="md-nav__link">
-    Naming a Class
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#naming-your-strategy" class="md-nav__link">
-    Naming your Strategy
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-init-method" class="md-nav__link">
-    2. Init method
-  </a>
-  
-    <nav class="md-nav" aria-label="2. Init method">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#strategy-info" class="md-nav__link">
-    Strategy info
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#parameter-creation" class="md-nav__link">
-    Parameter creation
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#start-time-and-end-time-creation" class="md-nav__link">
-    Start time and End time creation
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#strategy-variables" class="md-nav__link">
-    Strategy variables
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-initialize-method" class="md-nav__link">
-    3. Initialize method
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-ordertagmanager" class="md-nav__link">
-    4. OrderTagManager
-  </a>
-  
-    <nav class="md-nav" aria-label="4. OrderTagManager">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#add_order" class="md-nav__link">
-    add_order
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#get_orders" class="md-nav__link">
-    get_orders
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#remove_tags" class="md-nav__link">
-    remove_tags
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#remove_order" class="md-nav__link">
-    remove_order
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#get_internals" class="md-nav__link">
-    get_internals
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-entry-methods" class="md-nav__link">
-    5. Entry Methods
-  </a>
-  
-    <nav class="md-nav" aria-label="5. Entry Methods">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#strategy_select_instruments_for_entry" class="md-nav__link">
-    strategy_select_instruments_for_entry
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#strategy_enter_position" class="md-nav__link">
-    strategy_enter_position
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#6-exit-methods" class="md-nav__link">
-    6. Exit Methods
-  </a>
-  
-    <nav class="md-nav" aria-label="6. Exit Methods">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#strategy_select_instruments_for_exit" class="md-nav__link">
-    strategy_select_instruments_for_exit:
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#strategy_exit_position" class="md-nav__link">
-    strategy_exit_position
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#7-other-common-methods" class="md-nav__link">
-    7. Other common methods
-  </a>
-  
-    <nav class="md-nav" aria-label="7. Other common methods">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#check_and_place_stoploss_order" class="md-nav__link">
-    check_and_place_stoploss_order
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#set_all_none" class="md-nav__link">
-    set_all_none
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#8-cleanup" class="md-nav__link">
-    8. Cleanup
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#10-check-out-our-docs-for-developed-regular-strategies" class="md-nav__link">
-    10. Check out our docs for developed Regular strategies
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../common_options_strategy/" class="md-nav__link">
-        Options Strategy
-      </a>
-    </li>
-  
-
-            
-          
-        </ul>
-      </nav>
     </li>
   
 
@@ -966,82 +630,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../pyalgotrad/strategy_guides/structure/" class="md-nav__link">
-        Code Structure of Strategy
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-      
-      
-      
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3_2" >
-      
-      
-      
-        <label class="md-nav__link" for="__nav_3_3_2" id="__nav_3_3_2_label" tabindex="0">
-          Create your Strategy
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_3_2_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_3_3_2">
-          <span class="md-nav__icon md-icon"></span>
-          Create your Strategy
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../pyalgotrad/strategy_guides/common_regular_strategy/" class="md-nav__link">
-        Regular Strategy
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../pyalgotrad/strategy_guides/common_options_strategy/" class="md-nav__link">
-        Options Strategy
-      </a>
-    </li>
-  
-
-            
-          
-        </ul>
-      </nav>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../../pyalgotrad/upload/" class="md-nav__link">
         Upload your Strategy
       </a>
@@ -1090,58 +678,10 @@
   
   
   
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-      
-      
-      
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
-      
-      
-      
-        <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
-          Analytics
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_3_4">
-          <span class="md-nav__icon md-icon"></span>
-          Analytics
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
-            
-              
-  
-  
-  
     <li class="md-nav__item">
       <a href="../../../pyalgotrad/pyalgotrading_analytics/" class="md-nav__link">
-        Analytics in pyalgotrading
+        Analytics
       </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../pyalgotrad/python-build-view-results/" class="md-nav__link">
-        Analytics in AlgoBulls Platform
-      </a>
-    </li>
-  
-
-            
-          
-        </ul>
-      </nav>
     </li>
   
 
@@ -1243,47 +783,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../python_build/strategy_guides/structure/" class="md-nav__link">
-        Code Structure of Strategy
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-      
-      
-      
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3_2" >
-      
-      
-      
-        <label class="md-nav__link" for="__nav_4_3_2" id="__nav_4_3_2_label" tabindex="0">
-          Create your Strategy
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_3_2_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_4_3_2">
-          <span class="md-nav__icon md-icon"></span>
-          Create your Strategy
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../../python_build/python-build-code-gen-ai/" class="md-nav__link">
         Code Using AI
       </a>
@@ -1340,41 +839,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../python_build/strategy_guides/common_regular_strategy/" class="md-nav__link">
-        Regular Strategy
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../python_build/strategy_guides/common_options_strategy/" class="md-nav__link">
-        Options Strategy
-      </a>
-    </li>
-  
-
-            
-          
-        </ul>
-      </nav>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../../python_build/python-build-config-parameters/" class="md-nav__link">
         Configure and Execute your Strategy
       </a>
@@ -1395,58 +859,10 @@
   
   
   
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-      
-      
-      
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
-      
-      
-      
-        <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
-          Analytics
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_4_4">
-          <span class="md-nav__icon md-icon"></span>
-          Analytics
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../python_build/pyalgotrading_analytics/" class="md-nav__link">
-        Analytics in pyalgotrading
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
     <li class="md-nav__item">
       <a href="../../../python_build/python-build-view-results/" class="md-nav__link">
-        Analytics in AlgoBulls Platform
+        Analytics
       </a>
-    </li>
-  
-
-            
-          
-        </ul>
-      </nav>
     </li>
   
 
@@ -2093,42 +1509,6 @@ that calculates the entry condition like a crossover or compares the latest valu
       
         <footer class="md-footer">
   
-    
-      
-      <nav class="md-footer__inner md-grid" aria-label="Footer" >
-        
-          
-          <a href="../common_strategy_guide/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Common Strategy Guide" rel="prev">
-            <div class="md-footer__button md-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
-            </div>
-            <div class="md-footer__title">
-              <span class="md-footer__direction">
-                Previous
-              </span>
-              <div class="md-ellipsis">
-                Common Strategy Guide
-              </div>
-            </div>
-          </a>
-        
-        
-          
-          <a href="../common_options_strategy/" class="md-footer__link md-footer__link--next" aria-label="Next: Options Strategy" rel="next">
-            <div class="md-footer__title">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              <div class="md-ellipsis">
-                Options Strategy
-              </div>
-            </div>
-            <div class="md-footer__button md-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
-            </div>
-          </a>
-        
-      </nav>
     
   
   <div class="md-footer-meta md-typeset">
