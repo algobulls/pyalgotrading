@@ -398,14 +398,54 @@ class AlgoBullsConnection:
         assert isinstance(render_as_dataframe, bool), f'Argument "render_as_dataframe" should be a bool'
         assert isinstance(show_all_rows, bool), f'Argument "show_all_rows" should be a bool'
         # assert (broker is None or isinstance(broker, AlgoBullsSupportedBrokers) is True), f'Argument broker should be None or an enum of type {AlgoBullsSupportedBrokers.__name__}'
-        response = self.api.get_reports(strategy_code=strategy_code, trading_type=trading_type, report_type=report_type, country=country)
-        if response.get('data'):
+
+        if report_type is TradingReportType.PNL_TABLE:
+            response = self.api.get_reports(strategy_code=strategy_code, trading_type=trading_type, report_type=report_type, country=country, current_page=1)
+            main_data = response.get("data")
+        else:
+            main_data = []
+            total_data = 0
+            i = 1
+            while True:
+                response = self.api.get_reports(strategy_code=strategy_code, trading_type=trading_type, report_type=report_type, country=country, current_page=i)
+                _total = response.get("totalTrades")
+                _data = response.get("data")
+
+                if _data and isinstance(_data, list):
+                    main_data.extend(_data)
+                    total_data += 1000
+                    i += 1
+                else:
+                    break
+
+                if total_data > _total:
+                    break
+
+        if main_data:
             if render_as_dataframe:
                 if show_all_rows:
                     pandas_dataframe_all_rows()
                 _response = pd.DataFrame(response['data'])
+                if report_type is TradingReportType.ORDER_HISTORY:
+                    df = _response.explode('customer_tradebook_states').reset_index(drop=True)
+                    df = df.join(pd.json_normalize(df.pop('customer_tradebook_states')))
+                    _response = df.set_index("orderId").sort_values("timestamp_created")[["timestamp_created", "transaction_type", "state", "instrument", "quantity", "currency", "price"]]
             else:
-                _response = response['data']
+                _response = main_data
+                if report_type is TradingReportType.ORDER_HISTORY:
+                    main_order_string = ""
+                    for i in range(len(main_data)):
+                        order_detail = [
+                            ["Order ID", main_data[i]["orderId"]],
+                            ["Transaction Type", main_data[i]["transaction_type"]],
+                            ["Instrument", main_data[i]["instrument"]],
+                            ["Quantity", main_data[i]["quantity"]],
+                            ["Price", str(main_data[i]["currency"]) + str(main_data[i]["price"])]
+                        ]
+                        main_order_string += tabulate(order_detail, tablefmt="psql") + "\n"
+                        main_order_string += tabulate(main_data[i]["customer_tradebook_states"], headers="keys", tablefmt="psql") + "\n"
+                        main_order_string += '\n' + '======' * 15 + '\n'
+                    _response = main_order_string
             return _response
         else:
             print('Report not available yet. Please retry in sometime')

@@ -440,7 +440,7 @@ class AlgoBullsAPI:
 
         return response
 
-    def get_reports(self, strategy_code: str, trading_type: TradingType, report_type: TradingReportType, country: str) -> dict:
+    def get_reports(self, strategy_code: str, trading_type: TradingType, report_type: TradingReportType, country: str, current_page: int) -> dict:
         """
         Fetch report for a strategy
 
@@ -449,14 +449,13 @@ class AlgoBullsAPI:
             trading_type: Value of TradingType Enum
             report_type: Value of TradingReportType Enum
             country: Country of the exchange
-
+            current_page: current page of data being retrieved (for order history)
         Returns:
             Report data
 
         Info: ENDPOINT
-            `GET` v2/user/strategy/pltable          for P&L Table
-            `GET` v2/user/strategy/statstable       for Stats Table
-            `GET` v2/user/strategy/orderhistory     Order History
+            `GET` v4/book/pl/data                       for P&L Table
+            `GET` v5/build/python/user/order/charts     Order History
         """
 
         key = self.__get_key(strategy_code=strategy_code, trading_type=trading_type)
@@ -465,8 +464,8 @@ class AlgoBullsAPI:
             endpoint = f'v4/book/pl/data'
             params = {'pageSize': 0, 'isPythonBuild': "true", 'strategyId': strategy_code, 'isLive': trading_type is TradingType.REALTRADING, 'country': country, 'filters': _filter}
         elif report_type is TradingReportType.ORDER_HISTORY:
-            endpoint = 'v2/user/strategy/orderhistory'
-            params = {'key': key}
+            endpoint = 'v5/build/python/user/order/charts'
+            params = {'strategyId': strategy_code, 'country': "USA", 'currentPage': current_page, 'pageSize': 1000, 'isLive': trading_type is TradingType.REALTRADING}
         else:
             raise NotImplementedError
 
