@@ -458,7 +458,7 @@ class AlgoBullsAPI:
             params = {'pageSize': 0, 'isPythonBuild': "true", 'strategyId': strategy_code, 'isLive': trading_type is TradingType.REALTRADING, 'country': country, 'filters': _filter}
         elif report_type is TradingReportType.ORDER_HISTORY:
             endpoint = 'v5/build/python/user/order/charts'
-            params = {'strategyId': strategy_code, 'country': "USA", 'currentPage': current_page, 'pageSize': 1000, 'isLive': trading_type is TradingType.REALTRADING}
+            params = {'strategyId': strategy_code, 'country': country, 'currentPage': current_page, 'pageSize': 1000, 'isLive': trading_type is TradingType.REALTRADING}
         else:
             raise NotImplementedError
 

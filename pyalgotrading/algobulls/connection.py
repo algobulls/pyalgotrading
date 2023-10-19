@@ -994,7 +994,7 @@ class AlgoBullsConnection:
 
         return order_report
 
-    def get_backtesting_report_order_history(self, strategy_code):
+    def get_backtesting_report_order_history(self, strategy_code, country=None, render_as_dataframe=False):
         """
         Fetch Back Testing order history
 
@@ -1007,7 +1007,10 @@ class AlgoBullsConnection:
 
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
 
-        return self.get_report(strategy_code=strategy_code, trading_type=TradingType.BACKTESTING, report_type=TradingReportType.ORDER_HISTORY)
+        if country is None:
+            country = self.strategy_country_map[TradingType.BACKTESTING].get(strategy_code, Country.DEFAULT.value)
+
+        return self.get_report(strategy_code=strategy_code, trading_type=TradingType.BACKTESTING, report_type=TradingReportType.ORDER_HISTORY, render_as_dataframe=render_as_dataframe, country=country)
 
     def papertrade(self, strategy=None, start=None, end=None, instruments=None, lots=None, parameters=None, candle=None, mode=None, delete_previous_trades=True, initial_funds_virtual=None, vendor_details=None, **kwargs):
         """
