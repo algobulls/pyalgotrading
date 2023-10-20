@@ -274,6 +274,30 @@ class ExecutionStatus(Enum):
     STOPPED = 'STOPPED'
 
 
+class OptionsStrikeDirection(Enum):
+    ITM = 'ITM'
+    ATM = 'ATM'
+    OTM = 'OTM'
+
+
+class OptionsTradingsymbolSuffix(Enum):
+    CE = 'CE'
+    PE = 'PE'
+
+
+class OptionsExpiryKey(Enum):
+    WEEKLY_CURRENT = 'WEEKLY_CURRENT'
+    WEEKLY_NEXT = 'WEEKLY_NEXT'
+    MONTHLY_CURRENT = 'MONTHLY_CURRENT'
+    MONTHLY_NEXT = 'MONTHLY_NEXT'
+
+
+class OptionsInstrumentDirection(Enum):
+    EXACT = 'EXACT'
+    ROUNDUP = 'ROUNDUP'
+    ROUNDDOWN = 'ROUNDDOWN'
+
+
 CandleIntervalSecondsMap = {
     'minute': 60,
     '3minutes': 180,
@@ -300,3 +324,4 @@ EXCHANGE_LOCALE_MAP = {
     'NASDAQ': Locale.USA.value,
     'NYSE': Locale.USA.value,
 }
+
