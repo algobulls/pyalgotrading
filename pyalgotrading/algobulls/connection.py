@@ -420,7 +420,7 @@ class AlgoBullsConnection:
 
         return all_logs
 
-    def get_order_history_report(self, strategy_code, trading_type, render_as_dataframe=False, show_all_rows=True, country=None):
+    def get_report_order_history(self, strategy_code, trading_type, render_as_dataframe=False, show_all_rows=True, country=None):
         """
         Fetch report for a strategy
 
@@ -506,7 +506,7 @@ class AlgoBullsConnection:
         else:
             print("Report not available yet. Please retry in sometime")
 
-    def get_pnl_report_table(self, strategy_code, trading_type, country, broker_commission_percentage=0, broker_commission_price=None, slippage_percent=None, show_all_rows=True):
+    def get_report_pnl_table(self, strategy_code, trading_type, country, broker_commission_percentage=0, broker_commission_price=None, slippage_percent=None, show_all_rows=True):
         """
             Fetch BT/PT/RT Profit & Loss details
 
@@ -552,6 +552,8 @@ class AlgoBullsConnection:
             ('exit.price', 'exit_price'),
             ('pnlAbsolute.value', 'pnl_absolute')
         ])
+
+        _displayed_columns = list(column_rename_map.values())
         if data:
             # Generate df from json data & perform cleanups
             _df = pd.json_normalize(data[::-1])[list(column_rename_map.keys())].rename(columns=column_rename_map)
@@ -572,19 +574,22 @@ class AlgoBullsConnection:
 
                 _df['pnl_absolute'] = _df['exit_price'] - _df['entry_price']
 
+                _displayed_columns.extend(["entry_variety", "exit_variety"])
             # add brokerage
             _df['brokerage'] = ((_df['entry_price'] * _df['entry_quantity']) + (_df['exit_price'] * _df['exit_quantity'])) * (broker_commission_percentage / 100)
             if broker_commission_price is not None:
                 _df["brokerage"].loc[_df["brokerage"] > broker_commission_price] = broker_commission_price
+                _displayed_columns.append("brokerage")
 
             _df['net_pnl'] = _df['pnl_absolute'] - _df['brokerage']
 
         else:
             # No data available, send back an empty dataframe
-            _df = pd.DataFrame(columns=list(column_rename_map.values()))
+            _df = pd.DataFrame(columns=_displayed_columns)
             _df['net_pnl'] = None
 
-        return _df
+        _displayed_columns.append("net_pnl")
+        return _df[_displayed_columns]
 
     def get_report_statistics(self, strategy_code=None, initial_funds=None, report="full", html_dump=True, pnl_df=None, file_path="None", date_time_format="%Y-%m-%d %H:%M:%S%z"):
         """
@@ -961,7 +966,7 @@ class AlgoBullsConnection:
         """
 
         if self.backtesting_pnl_data is None or country is not None or force_fetch:
-            self.backtesting_pnl_data = self.get_pnl_report_table(strategy_code, TradingType.BACKTESTING, country, broker_commission_percentage, broker_commission_price, slippage_percent)
+            self.backtesting_pnl_data = self.get_report_pnl_table(strategy_code, TradingType.BACKTESTING, country, broker_commission_percentage, broker_commission_price, slippage_percent)
 
         return self.backtesting_pnl_data
 
@@ -1007,7 +1012,7 @@ class AlgoBullsConnection:
 
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
 
-        return self.get_order_history_report(strategy_code=strategy_code, trading_type=TradingType.BACKTESTING, render_as_dataframe=render_as_dataframe, country=country)
+        return self.get_report_order_history(strategy_code=strategy_code, trading_type=TradingType.BACKTESTING, render_as_dataframe=render_as_dataframe, country=country)
 
     def papertrade(self, strategy=None, start=None, end=None, instruments=None, lots=None, parameters=None, candle=None, mode=None, delete_previous_trades=True, initial_funds_virtual=None, vendor_details=None, **kwargs):
         """
@@ -1114,7 +1119,7 @@ class AlgoBullsConnection:
         """
 
         if self.papertrade_pnl_data is None or country is not None or force_fetch:
-            self.papertrade_pnl_data = self.get_pnl_report_table(strategy_code, TradingType.PAPERTRADING, country, broker_commission_percentage, broker_commission_price, slippage_percent)
+            self.papertrade_pnl_data = self.get_report_pnl_table(strategy_code, TradingType.PAPERTRADING, country, broker_commission_percentage, broker_commission_price, slippage_percent)
 
         return self.papertrade_pnl_data
 
@@ -1161,7 +1166,7 @@ class AlgoBullsConnection:
 
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
 
-        return self.get_order_history_report(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING, render_as_dataframe=render_as_dataframe, country=country)
+        return self.get_report_order_history(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING, render_as_dataframe=render_as_dataframe, country=country)
 
     def realtrade(self, strategy=None, start=None, end=None, instruments=None, lots=None, parameters=None, candle=None, mode=None, broking_details=None, **kwargs):
         """
@@ -1269,7 +1274,7 @@ class AlgoBullsConnection:
         """
 
         if self.realtrade_pnl_data is None or country is not None or force_fetch:
-            self.realtrade_pnl_data = self.get_pnl_report_table(strategy_code, TradingType.REALTRADING, country, broker_commission_percentage, broker_commission_price)
+            self.realtrade_pnl_data = self.get_report_pnl_table(strategy_code, TradingType.REALTRADING, country, broker_commission_percentage, broker_commission_price)
 
         return self.realtrade_pnl_data
 
@@ -1315,7 +1320,7 @@ class AlgoBullsConnection:
         # assert (isinstance(broker, AlgoBullsSupportedBrokers) is True), f'Argument broker should be an enum of type {AlgoBullsSupportedBrokers.__name__}'
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
 
-        return self.get_order_history_report(strategy_code=strategy_code, trading_type=TradingType.REALTRADING, render_as_dataframe=render_as_dataframe, country=country)
+        return self.get_report_order_history(strategy_code=strategy_code, trading_type=TradingType.REALTRADING, render_as_dataframe=render_as_dataframe, country=country)
 
 
 def pandas_dataframe_all_rows():
