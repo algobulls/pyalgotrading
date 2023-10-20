@@ -18,7 +18,7 @@ from .api import AlgoBullsAPI
 from .exceptions import AlgoBullsAPIBadRequestException, AlgoBullsAPIGatewayTimeoutErrorException, AlgoBullsAPIUnauthorizedErrorException
 from ..constants import StrategyMode, TradingType, TradingReportType, CandleInterval, AlgoBullsEngineVersion, Country, ExecutionStatus, EXCHANGE_LOCALE_MAP, Locale, CandleIntervalSecondsMap
 from ..strategy.strategy_base import StrategyBase
-from ..utils.func import get_valid_enum_names, get_datetime_with_tz, slippage
+from ..utils.func import get_valid_enum_names, get_datetime_with_tz, calculate_brokerage, calculate_slippage
 
 
 class AlgoBullsConnection:
@@ -488,7 +488,6 @@ class AlgoBullsConnection:
                 main_order_string = ""
 
                 for i in range(len(main_data)):
-
                     # tables for displaying order details and order stats
                     order_detail = [
                         ["Order ID", main_data[i]["orderId"]],
@@ -506,7 +505,7 @@ class AlgoBullsConnection:
         else:
             print("Report not available yet. Please retry in sometime")
 
-    def get_report_pnl_table(self, strategy_code, trading_type, country, broker_commission_percentage=0, broker_commission_price=None, slippage_percent=None, show_all_rows=True):
+    def get_report_pnl_table(self, strategy_code, trading_type, country, brokerage_percentage=None, brokerage_flat_price=None, slippage_percent=None, show_all_rows=True):
         """
             Fetch BT/PT/RT Profit & Loss details
 
@@ -514,8 +513,8 @@ class AlgoBullsConnection:
                 strategy_code: strategy code
                 trading_type: type of trades : Backtesting, Papertrading, Realtrading
                 country: country of the exchange
-                broker_commission_percentage: Percentage of broker commission per trade
-                broker_commission_price: Broker fee per trade
+                brokerage_percentage: Percentage of broker commission per trade
+                brokerage_flat_price: Broker fee per trade
                 slippage_percent: percentage of slippage per order
                 show_all_rows: show all rows of the dataframe returned
 
@@ -553,7 +552,6 @@ class AlgoBullsConnection:
             ('pnlAbsolute.value', 'pnl_absolute')
         ])
 
-        _displayed_columns = list(column_rename_map.values())
         if data:
             # Generate df from json data & perform cleanups
             _df = pd.json_normalize(data[::-1])[list(column_rename_map.keys())].rename(columns=column_rename_map)
@@ -562,34 +560,17 @@ class AlgoBullsConnection:
             _df['exit_transaction_type'] = _df['exit_transaction_type'].apply(lambda _: 'BUY' if _ else 'SELL')
             _df["pnl_cumulative_absolute"] = _df["pnl_absolute"].cumsum(axis=0, skipna=True)
 
-            # add slippage here
+            # generate slippage data
             if slippage_percent:
-                if 'exit_variety' not in _df.columns or 'entry_variety' not in _df.columns:
-                    _df['exit_variety'] = 'MARKET'
-                    _df['entry_variety'] = 'MARKET'
-                    print('WARNING: Column for Order Variety not found. Assuming all trades are Market Orders.')
+                _df = calculate_slippage(pnl_df=_df, slippage_percent=slippage_percent)
 
-                _df[['entry_price', 'exit_price']] = _df.apply(
-                    lambda row: (slippage(row.entry_price, row.entry_variety, row.entry_transaction_type, slippage_percent), slippage(row.exit_price, row.exit_variety, row.exit_transaction_type, slippage_percent)), axis=1, result_type='expand')
-
-                _df['pnl_absolute'] = _df['exit_price'] - _df['entry_price']
-
-                _displayed_columns.extend(["entry_variety", "exit_variety"])
-            # add brokerage
-            _df['brokerage'] = ((_df['entry_price'] * _df['entry_quantity']) + (_df['exit_price'] * _df['exit_quantity'])) * (broker_commission_percentage / 100)
-            if broker_commission_price is not None:
-                _df["brokerage"].loc[_df["brokerage"] > broker_commission_price] = broker_commission_price
-                _displayed_columns.append("brokerage")
-
-            _df['net_pnl'] = _df['pnl_absolute'] - _df['brokerage']
-
+            _df = calculate_brokerage(pnl_df=_df, brokerage_percentage=brokerage_percentage, brokerage_flat_price=brokerage_flat_price)
         else:
             # No data available, send back an empty dataframe
-            _df = pd.DataFrame(columns=_displayed_columns)
+            _df = pd.DataFrame(columns=list(column_rename_map.values()))
             _df['net_pnl'] = None
 
-        _displayed_columns.append("net_pnl")
-        return _df[_displayed_columns]
+        return _df
 
     def get_report_statistics(self, strategy_code=None, initial_funds=None, report="full", html_dump=True, pnl_df=None, file_path="None", date_time_format="%Y-%m-%d %H:%M:%S%z"):
         """
@@ -599,14 +580,15 @@ class AlgoBullsConnection:
                 strategy_code: strategy code
                 report: format and content of the report
                 html_dump: save it as a html file
-                pnl_df: dataframe containing pnl reports
+                pnl_df: dataframe containing pnl reports; this parameter will be ignored if file_path is provided
                 initial_funds: initial funds to before starting the job
-                file_path: file path of the csv or xlsx containing pnl data for statistics
+                file_path: file path of the csv or xlsx containing pnl data for statistics; if provided, pnl_df would be ignored
                 date_time_format: datetime format of the column inside the "entry_timestamp" column in the csv or xlxs file
             Returns:
                 Report details
         """
 
+        # read and validate the csv given in path file
         if os.path.isfile(file_path):
             # only accept csv or xlxs files
             _, _ext = os.path.splitext(file_path)
@@ -629,6 +611,8 @@ class AlgoBullsConnection:
             pnl_df[['entry_timestamp']] = pnl_df[['entry_timestamp']].apply(pd.to_datetime, format=date_time_format, errors="coerce")
 
         order_report = None
+        if initial_funds is None:
+            initial_funds = self.saved_parameters.get("initial_funds_virtual") or 1e9
 
         # get pnl data and cleanup as per quantstats format
         _returns_df = pnl_df[['entry_timestamp', 'net_pnl']]
@@ -949,7 +933,7 @@ class AlgoBullsConnection:
 
         return self.get_logs(strategy_code, trading_type=TradingType.BACKTESTING, display_progress_bar=display_progress_bar, print_live_logs=print_live_logs)
 
-    def get_backtesting_report_pnl_table(self, strategy_code, country=None, force_fetch=False, broker_commission_percentage=0, broker_commission_price=None, slippage_percent=None):
+    def get_backtesting_report_pnl_table(self, strategy_code, country=None, force_fetch=False, broker_commission_percentage=None, broker_commission_price=None, slippage_percent=None):
         """
         Fetch Back Testing Profit & Loss details
 
@@ -990,9 +974,6 @@ class AlgoBullsConnection:
             self.get_backtesting_report_pnl_table(strategy_code)
         else:
             print('Generating Statistics for already fetched P&L data...')
-
-        if initial_funds is None:
-            initial_funds = self.saved_parameters.get("initial_funds_virtual") or 1e9
 
         order_report = self.get_report_statistics(strategy_code, initial_funds, report, html_dump, self.backtesting_pnl_data)
 
@@ -1102,7 +1083,7 @@ class AlgoBullsConnection:
 
         return self.get_logs(strategy_code, trading_type=TradingType.PAPERTRADING, display_progress_bar=display_progress_bar, print_live_logs=print_live_logs)
 
-    def get_papertrading_report_pnl_table(self, strategy_code, country=None, force_fetch=False, broker_commission_percentage=0, broker_commission_price=None, slippage_percent=None):
+    def get_papertrading_report_pnl_table(self, strategy_code, country=None, force_fetch=False, broker_commission_percentage=None, broker_commission_price=None, slippage_percent=None):
         """
         Fetch Paper Trading Profit & Loss details
 
@@ -1143,9 +1124,6 @@ class AlgoBullsConnection:
             self.get_papertrading_report_pnl_table(strategy_code)
         else:
             print('Generating Statistics for already fetched P&L data...')
-
-        if initial_funds is None:
-            initial_funds = self.saved_parameters.get("initial_funds_virtual") or 1e9
 
         order_report = self.get_report_statistics(strategy_code, initial_funds, report, html_dump, self.papertrade_pnl_data)
 
@@ -1258,7 +1236,7 @@ class AlgoBullsConnection:
 
         return self.get_logs(strategy_code, trading_type=TradingType.REALTRADING, display_progress_bar=display_progress_bar, print_live_logs=print_live_logs)
 
-    def get_realtrading_report_pnl_table(self, strategy_code, country=None, force_fetch=False, broker_commission_percentage=0, broker_commission_price=None):
+    def get_realtrading_report_pnl_table(self, strategy_code, country=None, force_fetch=False, broker_commission_percentage=None, broker_commission_price=None):
         """
         Fetch Real Trading Profit & Loss details
 
@@ -1298,9 +1276,6 @@ class AlgoBullsConnection:
             self.get_realtrading_report_pnl_table(strategy_code)
         else:
             print('Generating Statistics for already fetched P&L data...')
-
-        if initial_funds is None:
-            initial_funds = self.saved_parameters.get("initial_funds_virtual") or 1e9
 
         order_report = self.get_report_statistics(strategy_code, initial_funds, report, html_dump, self.realtrade_pnl_data)
 

@@ -163,12 +163,62 @@ def get_datetime_with_tz(timestamp_str, trading_type, label=''):
     return timestamp_str
 
 
+def calculate_slippage(pnl_df, slippage_percent):
+    if 'exit_variety' not in pnl_df.columns or 'entry_variety' not in pnl_df.columns:
+        pnl_df['exit_variety'] = 'MARKET'
+        pnl_df['entry_variety'] = 'MARKET'
+        print('WARNING: Column for Order Variety not found. Assuming all trades are Market Orders.')
+
+    pnl_df[['entry_price', 'exit_price']] = pnl_df.apply(
+        lambda row: (slippage(row.entry_price, row.entry_variety, row.entry_transaction_type, slippage_percent), slippage(row.exit_price, row.exit_variety, row.exit_transaction_type, slippage_percent)), axis=1, result_type='expand')
+
+    pnl_df['pnl_absolute'] = pnl_df['exit_price'] - pnl_df['entry_price']
+    return pnl_df
+
+
+def calculate_brokerage(pnl_df, brokerage_percentage, brokerage_flat_price):
+    # generate brokerage data
+    brokerage_generated = False
+
+    # brokerage commission based on only percentage
+    if brokerage_percentage is not None:
+        pnl_df['brokerage'] = ((pnl_df['entry_price'] * pnl_df['entry_quantity']) + (pnl_df['exit_price'] * pnl_df['exit_quantity'])) * (brokerage_percentage / 100)
+        brokerage_generated = True
+
+    # brokerage commission based on only flat price
+    elif brokerage_flat_price is not None:
+        pnl_df['brokerage'] = brokerage_flat_price
+        brokerage_generated = True
+
+    # brokerage 0
+    else:
+        pnl_df['brokerage'] = 0
+
+    # brokerage commission based on minimum of percentage and flat price
+    if brokerage_percentage is not None and brokerage_flat_price is not None:
+        pnl_df["brokerage"].loc[pnl_df["brokerage"] > brokerage_flat_price] = brokerage_flat_price
+        brokerage_generated = True
+
+    if brokerage_generated:
+        pnl_df['net_pnl'] = pnl_df['pnl_absolute'] - pnl_df['brokerage']
+    else:
+        pnl_df['net_pnl'] = pnl_df['pnl_absolute']
+
+    return pnl_df
+
+
 def slippage(price, variety, transaction_type, slip_percent=1):
-    slip_percent = slip_percent / 100
+
+    # convert slippage percentage to decimal
+    slip_percent = abs(slip_percent) / 100
+
+    # if market orders, we consider negative as well as positive slippage
     if variety in ['MARKET', 'STOPLOSS_MARKET']:
         return price*(1 + random.choice([1, 0, -1]) * slip_percent)
+
+    # if limit orders, we consider only positive slippage
     else:
         if transaction_type == 'BUY':
-            return price*(1 + random.choice([0, -5]) * slip_percent)
+            return price*(1 + random.choice([0, -1]) * slip_percent)
         else:
-            return price*(1 + random.choice([5, 0]) * slip_percent)
+            return price*(1 + random.choice([1, 0]) * slip_percent)
