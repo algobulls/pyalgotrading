@@ -15,7 +15,7 @@ from tabulate import tabulate
 from tqdm.auto import tqdm
 
 from .api import AlgoBullsAPI
-from .exceptions import AlgoBullsAPIBadRequestException, AlgoBullsAPIGatewayTimeoutErrorException
+from .exceptions import AlgoBullsAPIBadRequestException, AlgoBullsAPIGatewayTimeoutErrorException, AlgoBullsAPIUnauthorizedErrorException
 from ..constants import StrategyMode, TradingType, TradingReportType, CandleInterval, AlgoBullsEngineVersion, Country, ExecutionStatus, EXCHANGE_LOCALE_MAP, Locale, CandleIntervalSecondsMap
 from ..strategy.strategy_base import StrategyBase
 from ..utils.func import get_valid_enum_names, get_datetime_with_tz, slippage
@@ -81,12 +81,14 @@ class AlgoBullsConnection:
         """
         assert isinstance(access_token, str), f'Argument "access_token" should be a string'
         self.api.set_access_token(access_token)
+
         if validate_token:
             try:
                 _ = self.api.get_all_strategies()
-                print("Connection with AlgoBulls Server was Successful !!")
-            except Exception as e:
-                print(f"Connection with AlgoBulls Server Failed !! \nReason: {e}")
+                print("Access token is valid.")
+            except AlgoBullsAPIUnauthorizedErrorException:
+                print(f"Access token is invalid. ", end='')
+                self.get_token_url()
 
     def create_strategy(self, strategy, overwrite=False, strategy_code=None, abc_version=None):
         """
