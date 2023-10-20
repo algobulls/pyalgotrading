@@ -1000,7 +1000,8 @@ class AlgoBullsConnection:
 
         Args:
             strategy_code: strategy code
-
+            country: country of the segment
+            render_as_dataframe: return order history as dataframe or pretty string
         Returns:
             Report details
         """
@@ -1149,12 +1150,14 @@ class AlgoBullsConnection:
 
         return order_report
 
-    def get_papertrading_report_order_history(self, strategy_code):
+    def get_papertrading_report_order_history(self, strategy_code, country=None, render_as_dataframe=False):
         """
         Fetch Paper Trading order history
 
         Args:
-            strategy_code: Strategy code
+            strategy_code: strategy code
+            country: country of the segment
+            render_as_dataframe: return order history as dataframe or pretty string
 
         Returns:
             Report details
@@ -1162,7 +1165,10 @@ class AlgoBullsConnection:
 
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
 
-        return self.get_report(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING, report_type=TradingReportType.ORDER_HISTORY)
+        if country is None:
+            country = self.strategy_country_map[TradingType.PAPERTRADING].get(strategy_code, Country.DEFAULT.value)
+
+        return self.get_report(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING, report_type=TradingReportType.ORDER_HISTORY, render_as_dataframe=render_as_dataframe, country=country)
 
     def realtrade(self, strategy=None, start=None, end=None, instruments=None, lots=None, parameters=None, candle=None, mode=None, broking_details=None, **kwargs):
         """
@@ -1302,11 +1308,13 @@ class AlgoBullsConnection:
 
         return order_report
 
-    def get_realtrading_report_order_history(self, strategy_code):
+    def get_realtrading_report_order_history(self, strategy_code, country=None, render_as_dataframe=False):
         """
         Fetch Real Trading order history
         Args:
-            strategy_code: Strategy code
+            strategy_code: strategy code
+            country: country of the segment
+            render_as_dataframe: return order history as dataframe or pretty string
 
         Returns:
             Report details
@@ -1314,7 +1322,10 @@ class AlgoBullsConnection:
         # assert (isinstance(broker, AlgoBullsSupportedBrokers) is True), f'Argument broker should be an enum of type {AlgoBullsSupportedBrokers.__name__}'
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
 
-        return self.get_report(strategy_code=strategy_code, trading_type=TradingType.REALTRADING, report_type=TradingReportType.ORDER_HISTORY)
+        if country is None:
+            country = self.strategy_country_map[TradingType.REALTRADING].get(strategy_code, Country.DEFAULT.value)
+
+        return self.get_report(strategy_code=strategy_code, trading_type=TradingType.REALTRADING, report_type=TradingReportType.ORDER_HISTORY, render_as_dataframe=render_as_dataframe, country=country)
 
 
 def pandas_dataframe_all_rows():
