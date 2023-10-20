@@ -299,7 +299,7 @@ class AlgoBullsConnection:
         start_timestamp_map = self.saved_parameters.get('start_timestamp_map')
         end_timestamp_map = self.saved_parameters.get('end_timestamp_map')
         sleep_time = 1
-
+        total_seconds = 1
         # calculate the sleep time for RT and PT
         if trading_type is not TradingType.BACKTESTING:
             try:
