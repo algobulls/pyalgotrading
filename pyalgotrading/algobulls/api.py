@@ -26,6 +26,7 @@ class AlgoBullsAPI:
         """
         self.connection = connection
         self.headers = None
+        self.page_size = 1000
         self.__key_backtesting = {}  # strategy-cstc_id mapping
         self.__key_papertrading = {}  # strategy-cstc_id mapping
         self.__key_realtrading = {}  # strategy-cstc_id mapping
@@ -426,7 +427,7 @@ class AlgoBullsAPI:
 
         key = self.__get_key(strategy_code=strategy_code, trading_type=trading_type)
         endpoint = 'v4/user/strategy/logs'
-        json_data = {'key': key, 'nextForwardToken': initial_next_token, 'limit': 1000, 'direction': 'forward', 'type': 'userLogs'}
+        json_data = {'key': key, 'nextForwardToken': initial_next_token, 'limit': self.page_size, 'direction': 'forward', 'type': 'userLogs'}
         params = {'isPythonBuild': True, 'isLive': trading_type == TradingType.REALTRADING}
 
         response = self._send_request(method='post', endpoint=endpoint, json_data=json_data, params=params)
@@ -458,7 +459,7 @@ class AlgoBullsAPI:
             params = {'pageSize': 0, 'isPythonBuild': "true", 'strategyId': strategy_code, 'isLive': trading_type is TradingType.REALTRADING, 'country': country, 'filters': _filter}
         elif report_type is TradingReportType.ORDER_HISTORY:
             endpoint = 'v5/build/python/user/order/charts'
-            params = {'strategyId': strategy_code, 'country': country, 'currentPage': current_page, 'pageSize': 1000, 'isLive': trading_type is TradingType.REALTRADING}
+            params = {'strategyId': strategy_code, 'country': country, 'currentPage': current_page, 'pageSize': self.page_size, 'isLive': trading_type is TradingType.REALTRADING}
         else:
             raise NotImplementedError
 

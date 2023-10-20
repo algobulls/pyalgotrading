@@ -279,7 +279,7 @@ class AlgoBullsConnection:
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
         assert isinstance(trading_type, TradingType), f'Argument "trading_type" should be an enum of type {TradingType.__name__}'
 
-        _ = self.api.stop_strategy_algotrading(strategy_code=strategy_code, trading_type=trading_type)
+        self.api.stop_strategy_algotrading(strategy_code=strategy_code, trading_type=trading_type)
 
     def get_logs(self, strategy_code, trading_type, display_progress_bar=True, print_live_logs=False):
         """
@@ -302,6 +302,7 @@ class AlgoBullsConnection:
         end_timestamp_map = self.saved_parameters.get('end_timestamp_map')
         sleep_time = 1
         total_seconds = 1
+
         # calculate the sleep time for RT and PT
         if trading_type is not TradingType.BACKTESTING:
             try:
@@ -354,10 +355,9 @@ class AlgoBullsConnection:
                     logs = response.get('data')
                     if logs:
                         break
-                except Exception as e:
-                    tqdm.write(f"\n{'----' * 10}\nFaced an error while fetching logs. \nError: {e}\n{'----' * 10}\n")
+                except AlgoBullsAPIGatewayTimeoutErrorException:
+                    tqdm.write(f"\n{'----' * 10}\nFaced an error while fetching logs.\n{'----' * 10}\n")
                     time.sleep(5)
-                    pass
 
             initial_next_token = response.get('nextForwardToken')
 
@@ -412,23 +412,21 @@ class AlgoBullsConnection:
                     if error_counter > 5:
                         break
 
-                if len(logs) >= 1000:
-                    if print_live_logs:
-                        tqdm.write(f"\n{'-----' * 5}\nWaiting {sleep_time} seconds for fetching next logs ...\n{'-----' * 5}\n")  # for debug
+                if len(logs) >= self.api.page_size:
+                    # tqdm.write(f"\n{'-----' * 5}\nWaiting {sleep_time} seconds for fetching next logs ...\n{'-----' * 5}\n")  # for debug
                     time.sleep(sleep_time)
                 else:
                     time.sleep(1)
 
         return all_logs
 
-    def get_report(self, strategy_code, trading_type, report_type, render_as_dataframe=False, show_all_rows=False, country=None):
+    def get_order_history_report(self, strategy_code, trading_type, render_as_dataframe=False, show_all_rows=True, country=None):
         """
         Fetch report for a strategy
 
         Args:
             strategy_code: Strategy code
             trading_type: Value of TradingType Enum
-            report_type: Value of TradingReportType Enum
             render_as_dataframe: True or False
             show_all_rows: True or False
             country: country of the Exchange
@@ -439,83 +437,76 @@ class AlgoBullsConnection:
 
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
         assert isinstance(trading_type, TradingType), f'Argument "trading_type" should be an enum of type {TradingType.__name__}'
-        assert isinstance(report_type, TradingReportType), f'Argument "report_type" should be an enum of type {TradingReportType.__name__}'
         assert isinstance(render_as_dataframe, bool), f'Argument "render_as_dataframe" should be a bool'
         assert isinstance(show_all_rows, bool), f'Argument "show_all_rows" should be a bool'
         # assert (broker is None or isinstance(broker, AlgoBullsSupportedBrokers) is True), f'Argument broker should be None or an enum of type {AlgoBullsSupportedBrokers.__name__}'
 
-        if report_type is TradingReportType.PNL_TABLE:
-            response = self.api.get_reports(strategy_code=strategy_code, trading_type=trading_type, report_type=report_type, country=country, current_page=1)
-            main_data = response.get("data")
-        else:
-            main_data = []
-            total_data = 0
-            i = 1
+        main_data = []
+        total_data = 0
+        _total = 0
+        i = 1
 
-            while True:
-                response = self.api.get_reports(strategy_code=strategy_code, trading_type=trading_type, report_type=report_type, country=country, current_page=i)
-                _total = response.get("totalTrades")
-                _data = response.get("data")
+        if country is None:
+            country = self.strategy_country_map[trading_type].get(strategy_code, Country.DEFAULT.value)
 
-                # if data is retrieved as a list then update the main data
-                if _data and isinstance(_data, list):
-                    main_data.extend(_data)
-                    total_data += 1000
-                    i += 1
-                else:
-                    break
+        while True:
+            for _ in range(5):
+                try:
+                    response = self.api.get_reports(strategy_code=strategy_code, trading_type=trading_type, report_type=TradingReportType.ORDER_HISTORY, country=country, current_page=i)
+                    _total = response.get("totalTrades")
+                    _data = response.get("data")
 
-                # break if total requested data is more than total data
-                if total_data > _total:
-                    break
+                    # if data is retrieved as a list then update the main data
+                    if _data and isinstance(_data, list):
+                        main_data.extend(_data)
+                        total_data += self.api.page_size
+                        i += 1
+                        break
+
+                except AlgoBullsAPIGatewayTimeoutErrorException:
+                    time.sleep(5)
+
+            # break if total requested data is more than total data
+            if total_data > _total:
+                break
 
         if main_data:
+
             # for rendering as dataframe
             if render_as_dataframe:
-                if show_all_rows:
-                    pandas_dataframe_all_rows()
+                pandas_dataframe_all_rows()
 
-                # PNL data
-                _response = pd.DataFrame(response['data'])
-
-                # Order History data
-                if report_type is TradingReportType.ORDER_HISTORY:
-                    # explode the "customer_tradebook_states" column to get separate rows for every state
-                    df = _response.explode('customer_tradebook_states').reset_index(drop=True)
-                    df = df.join(pd.json_normalize(df.pop('customer_tradebook_states')))
-                    _response = df.set_index("orderId").sort_values("timestamp_created")[["timestamp_created", "transaction_type", "state", "instrument", "quantity", "currency", "price"]]
+                # explode the "customer_tradebook_states" column to get separate rows for every state
+                _response = pd.DataFrame(main_data)
+                df = _response.explode('customer_tradebook_states').reset_index(drop=True)
+                df = df.join(pd.json_normalize(df.pop('customer_tradebook_states')))
+                _response = df.set_index("orderId").sort_values("timestamp_created")[["timestamp_created", "transaction_type", "state", "instrument", "quantity", "currency", "price"]]
 
             # for rendering as string or json
             else:
-                # PNL data
                 _response = main_data
+                main_order_string = ""
 
-                # Order History data
-                if report_type is TradingReportType.ORDER_HISTORY:
-                    main_order_string = ""
+                for i in range(len(main_data)):
 
-                    for i in range(len(main_data)):
-                        # table for displaying order details
-                        order_detail = [
-                            ["Order ID", main_data[i]["orderId"]],
-                            ["Transaction Type", main_data[i]["transaction_type"]],
-                            ["Instrument", main_data[i]["instrument"]],
-                            ["Quantity", main_data[i]["quantity"]],
-                            ["Price", str(main_data[i]["currency"]) + str(main_data[i]["price"])]
-                        ]
-                        main_order_string += tabulate(order_detail, tablefmt="psql") + "\n"
+                    # tables for displaying order details and order stats
+                    order_detail = [
+                        ["Order ID", main_data[i]["orderId"]],
+                        ["Transaction Type", main_data[i]["transaction_type"]],
+                        ["Instrument", main_data[i]["instrument"]],
+                        ["Quantity", main_data[i]["quantity"]],
+                        ["Price", str(main_data[i]["currency"]) + str(main_data[i]["price"])]
+                    ]
+                    main_order_string += tabulate(order_detail, tablefmt="psql") + "\n"
+                    main_order_string += tabulate(main_data[i]["customer_tradebook_states"], headers="keys", tablefmt="psql") + "\n"
+                    main_order_string += '\n' + '======' * 15 + '\n'
 
-                        # table for displaying order status data
-                        main_order_string += tabulate(main_data[i]["customer_tradebook_states"], headers="keys", tablefmt="psql") + "\n"
-
-                        main_order_string += '\n' + '======' * 15 + '\n'
-                    _response = main_order_string
-
+                _response = main_order_string
             return _response
         else:
-            print('Report not available yet. Please retry in sometime')
+            print("Report not available yet. Please retry in sometime")
 
-    def get_pnl_report_table(self, strategy_code, trading_type, country, broker_commission_percentage=0, broker_commission_price=None, slippage_percent=None):
+    def get_pnl_report_table(self, strategy_code, trading_type, country, broker_commission_percentage=0, broker_commission_price=None, slippage_percent=None, show_all_rows=True):
         """
             Fetch BT/PT/RT Profit & Loss details
 
@@ -526,6 +517,7 @@ class AlgoBullsConnection:
                 broker_commission_percentage: Percentage of broker commission per trade
                 broker_commission_price: Broker fee per trade
                 slippage_percent: percentage of slippage per order
+                show_all_rows: show all rows of the dataframe returned
 
             Returns:
                 Report details
@@ -533,11 +525,16 @@ class AlgoBullsConnection:
 
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
 
-        # Fetch the data
+        # Set the country code
         if country is None:
             country = self.strategy_country_map[trading_type].get(strategy_code, Country.DEFAULT.value)
 
-        data = self.get_report(strategy_code=strategy_code, trading_type=trading_type, report_type=TradingReportType.PNL_TABLE, country=country)
+        # Fetch the data
+        response = self.api.get_reports(strategy_code=strategy_code, trading_type=trading_type, report_type=TradingReportType.PNL_TABLE, country=country, current_page=1)
+        data = response.get("data")
+
+        if show_all_rows:
+            pandas_dataframe_all_rows()
 
         # Post-processing: Cleanup & converting data to dataframe
         column_rename_map = OrderedDict([
@@ -1010,10 +1007,7 @@ class AlgoBullsConnection:
 
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
 
-        if country is None:
-            country = self.strategy_country_map[TradingType.BACKTESTING].get(strategy_code, Country.DEFAULT.value)
-
-        return self.get_report(strategy_code=strategy_code, trading_type=TradingType.BACKTESTING, report_type=TradingReportType.ORDER_HISTORY, render_as_dataframe=render_as_dataframe, country=country)
+        return self.get_order_history_report(strategy_code=strategy_code, trading_type=TradingType.BACKTESTING, render_as_dataframe=render_as_dataframe, country=country)
 
     def papertrade(self, strategy=None, start=None, end=None, instruments=None, lots=None, parameters=None, candle=None, mode=None, delete_previous_trades=True, initial_funds_virtual=None, vendor_details=None, **kwargs):
         """
@@ -1167,10 +1161,7 @@ class AlgoBullsConnection:
 
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
 
-        if country is None:
-            country = self.strategy_country_map[TradingType.PAPERTRADING].get(strategy_code, Country.DEFAULT.value)
-
-        return self.get_report(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING, report_type=TradingReportType.ORDER_HISTORY, render_as_dataframe=render_as_dataframe, country=country)
+        return self.get_order_history_report(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING, render_as_dataframe=render_as_dataframe, country=country)
 
     def realtrade(self, strategy=None, start=None, end=None, instruments=None, lots=None, parameters=None, candle=None, mode=None, broking_details=None, **kwargs):
         """
@@ -1324,10 +1315,7 @@ class AlgoBullsConnection:
         # assert (isinstance(broker, AlgoBullsSupportedBrokers) is True), f'Argument broker should be an enum of type {AlgoBullsSupportedBrokers.__name__}'
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
 
-        if country is None:
-            country = self.strategy_country_map[TradingType.REALTRADING].get(strategy_code, Country.DEFAULT.value)
-
-        return self.get_report(strategy_code=strategy_code, trading_type=TradingType.REALTRADING, report_type=TradingReportType.ORDER_HISTORY, render_as_dataframe=render_as_dataframe, country=country)
+        return self.get_order_history_report(strategy_code=strategy_code, trading_type=TradingType.REALTRADING, render_as_dataframe=render_as_dataframe, country=country)
 
 
 def pandas_dataframe_all_rows():

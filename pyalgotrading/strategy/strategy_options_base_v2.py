@@ -3,6 +3,11 @@ from pyalgotrading.constants import *
 
 
 class StrategyOptionsBaseV2(StrategyBase):
+    """
+    Dummy placeholder class. Here to ensure all required methods are implemented and as per requirements.
+
+    Once uploaded, this strategy will be replaced with the real base class strategy
+    """
 
     @staticmethod
     def get_options_ref_key(instrument, expiry_date):
@@ -12,6 +17,10 @@ class StrategyOptionsBaseV2(StrategyBase):
         pass
 
     def get_allowed_expiry_dates(self):
+        """
+        Gives the allowed expiry date, depending on the selection of monthly expiry or weekly expiry.
+        Checkout the documentation to understand in more detail
+        """
         return []
 
     def options_instruments_set_up(self, base_instrument, instrument_direction, expiry_date, tradingsymbol_suffix, ltp=None, apply_modulo=False, modulo_value=100):
