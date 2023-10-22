@@ -1,29 +1,31 @@
 # Common Strategy Building Guide
 
 ## Understanding the Strategy Structure
-The strategy code is basically a Python Class, with its Base Class as StrategyBase (for regular strategies) or StrategyBaseOptionsV2 (for options strategies). Inside the strategy class there are many methods that could be divided into 4 different sections: Initialization Methods, Algorithmic Calculation Methods, 4-Core Loop Methods, Miscellaneous Methods. These 4 sections are explained briefly below.
+The strategy code is basically a Python Class, with its Base Class as StrategyBase (for regular strategies) or StrategyBaseOptionsV2 (for options strategies). In this article we will focus on a regular strategy called ‘EMA Regular Order’  - a strategy which gives BUY and SELL signals based on two EMA indicators and takes new-entry & previous-exit at every crossover. We also will be discussing about an options strategy called "Options Bear Call Ladder Strategy" - strategy which uses 3 legs to optimize the risk and returns of the options. Inside the strategy class there are many methods that could be divided into 2 different sections: Mandatory Methods: Initialization Methods, 4-Core Loop Methods & Optional Methods: Algorithmic Calculation Methods & Miscellaneous Methods. These sections are explained briefly below.
 
 ### Mandatory Functions:
 
 #### Initialization Methods
-In this section, you will have the Strategy Class’s “__init__” method (a.k.a. Constructor). This method will extract the Strategy’s Configured Parameters and save them in the different variables. There is another method in this section called “initialization”, which will be called at the start of every trading day that will occur inside the timeline for which you are executing the strategy.
+In this section, you will have the Strategy Class’ “__init__” method (a.k.a. Constructor). This method will extract the Strategy’s Configured Parameters and save them in the different variables. There is another method in this section called “initialization”, which will be called at the start of every trading day that will occur inside the timeline for which you are executing the strategy.
 
 #### 4 Core Loop Methods
-These are the main methods that will be called by the AlgoBulls Core in a sequence for every candle (candle is the minimum time range for which the Open, High, Low and Close values of that instrument are available. Basically it is a representation of a time period and the data corresponds to the trades executed during that period). All the Logic Design methods are called inside these Core Methods, along with the helping methods.
+These are the main methods that will be called by the AlgoBulls Core in a sequence for every candle (candle is the minimum time range for which the Open, High, Low and Close values of that instrument are available. Basically it is a representation of a time period and the data corresponds to the trades executed during that period). All the logic design methods are called inside these Core Methods, along with the helping methods.
 
 ### Optional Function
 #### Algorithmic Calculations Methods
-This section will majorly contain the methods that are defined by the user. Their main purpose will be to perform operations on historical data of the selected instrument.  Based on the results of these operations, it needs to decide whether it should Buy, Sell or take no action on the instrument.
-Apart from decision making, some of the other methods can also be useful to calculate the stop loss or target price for a trade.
+This section contains the methods that are defined by the user. These are not mandatory but good to keep your code organized and simple. Their main purpose will be to perform operations on historical data or LTP data of the selected instrument.  Based on the results of these operations, it needs to decide whether it should Buy, Sell or take no action on the instrument.  
+Apart from decision making, some of the other methods can also be useful to calculate the stop loss or target price for a trade.  
 Point being, the purpose of these methods are totally dependent on the application of the user.
 
 #### Miscellaneous Methods
 These are handy methods that are created by a team of expert strategy developers and they are already a part of the base class. These methods do a lot of heavy lifting under the hood and can be used here for various purposes like getting the latest price of a stock, placing an order etc. These methods are not always necessary to be used and are generally a part of other methods mentioned above.
 
 ## Working Flow of the Strategy
+Below Diagram is Sample Diagram on how the strategy execution engine works. Blocks in green are the mandatory methods that need to be implemented for every strategy.  
+
 [![Flowchart](flowchart_structure_new.png "How does a Strategy work")](flowchart_structure_new.png)
 
-
+---
 
 ## Setting Up: Imports and Environment
 
@@ -45,6 +47,7 @@ from pyalgotrading.strategy import *
 ### Python Build Web
 Now, if you prefer a web-based approach, we've got you covered. Head over to the "Code New Strategy" section on the Python Build page of the AlgoBulls website. Here, you can craft your strategy without the need to import any classes or packages. The choice is yours – flexibility at its best.
 
+---
 
 ## Strategy Code Creation: Let's Get Started
 With the groundwork laid, it's time to create your strategy class. Be sure to choose the appropriate base class for your strategy. For regular equity strategies, the base class is `StrategyBase` while for options strategies, it's `StrategyOptionsBaseV2`.
