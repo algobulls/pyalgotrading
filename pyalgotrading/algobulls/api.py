@@ -26,6 +26,7 @@ class AlgoBullsAPI:
         """
         self.connection = connection
         self.headers = None
+        self.page_size = 1000
         self.__key_backtesting = {}  # strategy-cstc_id mapping
         self.__key_papertrading = {}  # strategy-cstc_id mapping
         self.__key_realtrading = {}  # strategy-cstc_id mapping
@@ -335,7 +336,7 @@ class AlgoBullsAPI:
                 TradingType.BACKTESTING: 'backDataDate'
             }
             execute_config = {
-                map_trading_type_to_date_key[trading_type]: [start_timestamp.astimezone(timezone.utc).isoformat(), end_timestamp.astimezone(timezone.utc).isoformat()],
+                map_trading_type_to_date_key[trading_type]: [start_timestamp.astimezone(timezone.utc).replace(tzinfo=None).isoformat(), end_timestamp.astimezone(timezone.utc).replace(tzinfo=None).isoformat()],
                 'isLiveDataTestMode': trading_type in [TradingType.PAPERTRADING, TradingType.REALTRADING],
                 'customizationsQuantity': lots,
                 'brokingDetails': broker_details,
@@ -408,14 +409,13 @@ class AlgoBullsAPI:
 
         return response
 
-    def get_logs(self, strategy_code: str, trading_type: TradingType, log_type: str, initial_next_token: str = None) -> dict:
+    def get_logs(self, strategy_code: str, trading_type: TradingType, initial_next_token: str = None) -> dict:
         """
         Fetch logs for a strategy
 
         Args:
             strategy_code: Strategy code
             trading_type: Trading type
-            log_type: type of logs, 'partial' or 'full' requests
             initial_next_token: Token of next logs for v4 logs
 
         Returns:
@@ -424,23 +424,17 @@ class AlgoBullsAPI:
         Info: ENDPOINT
             `POST`: v2/user/strategy/logs
         """
+
         key = self.__get_key(strategy_code=strategy_code, trading_type=trading_type)
-        params = None
-
-        if log_type == 'partial':
-            endpoint = 'v4/user/strategy/logs'
-            json_data = {'key': key, 'nextToken': initial_next_token, 'limit': 1000, 'direction': 'forward', 'reverse': False, 'type': 'userLogs'}
-            params = {'isPythonBuild': True, 'isLive': trading_type == TradingType.REALTRADING}
-
-        else:
-            endpoint = 'v2/user/strategy/logs'
-            json_data = {'key': key}
+        endpoint = 'v4/user/strategy/logs'
+        json_data = {'key': key, 'nextForwardToken': initial_next_token, 'limit': self.page_size, 'direction': 'forward', 'type': 'userLogs'}
+        params = {'isPythonBuild': True, 'isLive': trading_type == TradingType.REALTRADING}
 
         response = self._send_request(method='post', endpoint=endpoint, json_data=json_data, params=params)
 
         return response
 
-    def get_reports(self, strategy_code: str, trading_type: TradingType, report_type: TradingReportType, country: str) -> dict:
+    def get_reports(self, strategy_code: str, trading_type: TradingType, report_type: TradingReportType, country: str, current_page: int) -> dict:
         """
         Fetch report for a strategy
 
@@ -449,14 +443,13 @@ class AlgoBullsAPI:
             trading_type: Value of TradingType Enum
             report_type: Value of TradingReportType Enum
             country: Country of the exchange
-
+            current_page: current page of data being retrieved (for order history)
         Returns:
             Report data
 
         Info: ENDPOINT
-            `GET` v2/user/strategy/pltable          for P&L Table
-            `GET` v2/user/strategy/statstable       for Stats Table
-            `GET` v2/user/strategy/orderhistory     Order History
+            `GET` v4/book/pl/data                       for P&L Table
+            `GET` v5/build/python/user/order/charts     Order History
         """
 
         key = self.__get_key(strategy_code=strategy_code, trading_type=trading_type)
@@ -465,8 +458,8 @@ class AlgoBullsAPI:
             endpoint = f'v4/book/pl/data'
             params = {'pageSize': 0, 'isPythonBuild': "true", 'strategyId': strategy_code, 'isLive': trading_type is TradingType.REALTRADING, 'country': country, 'filters': _filter}
         elif report_type is TradingReportType.ORDER_HISTORY:
-            endpoint = 'v2/user/strategy/orderhistory'
-            params = {'key': key}
+            endpoint = 'v5/build/python/user/order/charts'
+            params = {'strategyId': strategy_code, 'country': country, 'currentPage': current_page, 'pageSize': self.page_size, 'isLive': trading_type is TradingType.REALTRADING}
         else:
             raise NotImplementedError
 
