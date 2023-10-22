@@ -380,7 +380,15 @@ Click on each of the tabs to see the relevant code snippet.
         html_dump=True          # save report as html file
     )
     ```
-   
+
+---
+
+### Generate Statistics from External CSV
+Make sure your csv has the columns names as "net_pnl" and "entry_timestamp". The "net_pnl" column will contain the net profit and loss of every trade and its respective entry time will be stored in "entry_timestamp".
+```python
+connection.get_report_statistics(file_path="testing_file.csv", initial_funds=3000)
+```
+
 --- 
 ### Fetch Order History
 
