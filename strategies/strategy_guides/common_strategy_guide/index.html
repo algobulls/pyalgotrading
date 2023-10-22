@@ -1572,7 +1572,7 @@
 
 <h1 id="common-strategy-building-guide">Common Strategy Building Guide<a class="headerlink" href="#common-strategy-building-guide" title="Permanent link">&para;</a></h1>
 <h2 id="understanding-the-strategy-structure">Understanding the Strategy Structure<a class="headerlink" href="#understanding-the-strategy-structure" title="Permanent link">&para;</a></h2>
-<p>The strategy code is basically a Python Class, with its Base Class as StrategyBase (for regular strategies) or StrategyBaseOptionsV2 (for options strategies). In this article we will focus on a regular strategy called ‘EMA Regular Order’  - a strategy which gives BUY and SELL signals based on two EMA indicators and takes new-entry &amp; previous-exit at every crossover. We also will be discussing about an options strategy called "Options Bear Call Ladder Strategy" - strategy which uses 3 legs to optimize the risk and returns of the options. Inside the strategy class there are many methods that could be divided into 2 different sections: Mandatory Methods: Initialization Methods, 4-Core Loop Methods &amp; Optional Methods: Algorithmic Calculation Methods &amp; Miscellaneous Methods. These sections are explained briefly below.</p>
+<p>The strategy code is basically a Python Class, with its Base Class as StrategyBase (for regular strategies) or StrategyBaseOptionsV2 (for options strategies). In this documentation we will focus on a regular strategy called ‘EMA Regular Order’  - a strategy which gives BUY and SELL signals based on two EMA indicators and takes new-entry &amp; previous-exit at every crossover. We also will be discussing about an options strategy called "Options Bear Call Ladder Strategy" - strategy which uses 3 legs to optimize the risk and returns of the options. Inside the strategy class there are many methods that could be divided into 2 different sections: Mandatory Methods: Initialization Methods, 4-Core Loop Methods &amp; Optional Methods: Algorithmic Calculation Methods &amp; Miscellaneous Methods. These sections are explained briefly below.</p>
 <h3 id="mandatory-functions">Mandatory Functions:<a class="headerlink" href="#mandatory-functions" title="Permanent link">&para;</a></h3>
 <h4 id="initialization-methods">Initialization Methods<a class="headerlink" href="#initialization-methods" title="Permanent link">&para;</a></h4>
 <p>In this section, you will have the Strategy Class’ “<strong>init</strong>” method (a.k.a. Constructor). This method will extract the Strategy’s Configured Parameters and save them in the different variables. There is another method in this section called “initialization”, which will be called at the start of every trading day that will occur inside the timeline for which you are executing the strategy.</p>
@@ -1959,7 +1959,7 @@ This function should ideally look like this. This example was taken from “EMA 
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-10-22T11:56:40+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-10-22</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-10-22T12:50:09+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-10-22</span>
       
     
   </small>
