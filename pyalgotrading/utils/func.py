@@ -164,6 +164,11 @@ def get_datetime_with_tz(timestamp_str, trading_type, label=''):
 
 
 def calculate_slippage(pnl_df, slippage_percent):
+    if 'exit_variety' not in pnl_df.columns or 'entry_variety' not in pnl_df.columns:
+        pnl_df['exit_variety'] = 'MARKET'
+        pnl_df['entry_variety'] = 'MARKET'
+        print('WARNING: Column for Order Variety not found. Assuming all trades are Market Orders.')
+
     pnl_df[['entry_price', 'exit_price']] = pnl_df.apply(
         lambda row: (slippage(row.entry_price, row.entry_variety, row.entry_transaction_type, slippage_percent), slippage(row.exit_price, row.exit_variety, row.exit_transaction_type, slippage_percent)), axis=1, result_type='expand')
 
