@@ -274,8 +274,8 @@ Click on each of the tabs to see the relevant code snippet.
     ```python
     logs = algobulls_connection.get_backtesting_logs(
                 strategy_code,                              # strategy code 
-                auto_update=True,                           # (default=True)update the logs and show your strategy progress. If False, will only fetch logs from start to the current stage of execution
-                display_logs_in_auto_update_mode=True       # only if auto_update is also True, will print logs as the progress is tracked
+                display_progress_bar=True,                  # (default=True) to track the execution on progress bar as your strategy is executed
+                print_live_logs: True                       # (default=False) to print the live logs as your strategy is executed
             )
     print(logs)
     ```
@@ -284,8 +284,8 @@ Click on each of the tabs to see the relevant code snippet.
     ```python
     logs = algobulls_connection.get_papertrading_logs(
                 strategy_code,                              # strategy code 
-                auto_update=True,                           # (default=True)update the logs and show your strategy progress. If False, will only fetch logs from start to the current stage of execution
-                display_logs_in_auto_update_mode=True       # only if auto_update is also True, will print logs as the progress is tracked
+                display_progress_bar=True,                  # (default=True) to track the execution on progress bar as your strategy is executed
+                print_live_logs: True                       # (default=True) to print the live logs as your strategy is executed
             )
     print(logs)
     ```
@@ -294,8 +294,8 @@ Click on each of the tabs to see the relevant code snippet.
     ```python
     logs = algobulls_connection.get_realtrading_logs(
                 strategy_code,                              # strategy code 
-                auto_update=True,                           # (default=True)update the logs and show your strategy progress. If False, will only fetch logs from start to the current stage of execution
-                display_logs_in_auto_update_mode=True       # only if auto_update is also True, will print logs as the progress is tracked
+                display_progress_bar=True,                  # (default=True) to track the execution on progress bar as your strategy is executed
+                print_live_logs: True                       # (default=True) to print the live logs as your strategy is executed
             )
     print(logs)
     ```
@@ -313,20 +313,26 @@ Click on each of the tabs to see the relevant code snippet.
 === "**Backtesting**"
     ```python
     algobulls_connection.get_backtesting_report_pnl_table(
-            strategy_code,              # strategy code
-            show_all_rows=True,         # default=True         
-            force_fetch=True,           # pnl data is saved locally once fetched, to update the locally fetched data, make this parameter True
-            country='USA',              # country of the exchange that was used while starting the job ('India' or 'USA')
+            strategy_code,                      # strategy code
+            show_all_rows=True,                 # default=True         
+            force_fetch=True,                   # pnl data is saved locally once fetched, to update the locally fetched data, make this parameter True
+            country='USA',                      # country of the exchange that was used while starting the job ('India' or 'USA')
+            broker_commission_percentage: 1     # Percentage of broker commission per trade
+            broker_commission_price: 0.2        # Broker fee per trade
+            slippage_percent: 3                 # Slippage percentage value
     )
     ```
     
 === "**Paper Trading**"
     ```python
     algobulls_connection.get_papertrading_report_pnl_table(
-            strategy_code,              # strategy code
-            show_all_rows=True,         # default=True         
-            force_fetch=True,           # pnl data is saved locally once fetched, to update the locally fetched data, make this parameter True
-            country='USA',              # country of the exchange that was used while starting the job ('India' or 'USA')
+            strategy_code,                      # strategy code
+            show_all_rows=True,                 # default=True         
+            force_fetch=True,                   # pnl data is saved locally once fetched, to update the locally fetched data, make this parameter True
+            country='USA',                      # country of the exchange that was used while starting the job ('India' or 'USA')
+            broker_commission_percentage: 1     # Percentage of broker commission per trade
+            broker_commission_price: 0.2        # Broker fee per trade
+            slippage_percent: 3                 # Slippage percentage value
     )
     ```
     
@@ -352,7 +358,6 @@ Click on each of the tabs to see the relevant code snippet.
     ```python
     algobulls_connection.get_backtesting_report_statistics(
         strategy_code,          # strategy code
-        mode='quantstats',      # package used to generate statistics
         report='full',          # format of the report
         html_dump=True          # save report as html file
     )
@@ -362,7 +367,6 @@ Click on each of the tabs to see the relevant code snippet.
     ```python
     algobulls_connection.get_papertrading_report_statistics(
         strategy_code,          # strategy code
-        mode='quantstats',      # package used to generate statistics
         report='full',          # format of the report
         html_dump=True          # save report as html file
     )
@@ -372,7 +376,6 @@ Click on each of the tabs to see the relevant code snippet.
     ```python
     algobulls_connection.get_realtrading_report_statistics(
         strategy_code,          # strategy code
-        mode='quantstats',      # package used to generate statistics
         report='full',          # format of the report
         html_dump=True          # save report as html file
     )
