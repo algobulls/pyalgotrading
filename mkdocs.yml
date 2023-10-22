@@ -1,20 +1,27 @@
 # Reference:
 # mkdocs - https://www.mkdocs.org/user-guide/configuration/
 # mkdocs material theme - https://squidfunk.github.io/mkdocs-material/getting-started/#configuration
+# yaml-language-server: $schema=https://squidfunk.github.io/mkdocs-material/schema.json
 
 # Project Information
-site_name: pyalgotrading
+site_name: Python Build
 site_description: Official Python Package for Algorithmic Trading APIs powered by AlgoBulls
 site_author: Pushpak Dagade (pushpak@algobulls.com)
-site_url: https://algobulls.github.io/pyalgotrading/
+site_url: https://algobulls.github.io/pythonbuild/
 
 # GitHub Repo information
 repo_url: https://github.com/algobulls/pyalgotrading
 
 theme:
-  name: readthedocs
-  # favicon: 'imgs/favicon.svg'
-  # logo: 'imgs/site_logo_white.svg'
+  name: material
+  features:
+    - content.code.copy
+    - content.tabs.link
+    - tabs
+    - navigation.footer
+
+  favicon: 'https://algobulls.com/img/favicon.svg'
+  logo: 'algobulls_logo.svg'
   palette:
     primary: blue
     accent: blue
@@ -22,40 +29,17 @@ theme:
     scheme: default     # light mode
   language: en
 
+  collapse_navigation: False
+  sticky_navigation: True
+
 copyright: Copyright © 2020 | All Rights Reserved | AlgoBulls Technologies Private Limited
 
 # Navigation
 nav:
   - Home: 'index.md'
-  - Pyalgotrading:
-    - Index: 'pyalgotrad/index.md'
-    - Tutorial:
-        - 'Introduction': 'pyalgotrad/introduction.md'
-        - 'Prerequisites': 'pyalgotrad/prerequisites.md'
-        - 'Code Structure of a Strategy': 'pyalgotrad/structure.md'
-        - 'Hands On':
-          - 'Create your Strategy': 'pyalgotrad/programexample.md'
-          - 'Upload your Strategy': 'pyalgotrad/upload.md'
-          - 'Test your Strategy': 'pyalgotrad/testing.md'
-    - Strategy Coding Guidelines: 'pyalgotrad/codeguide.md'
-  - Python Build:
-      - Index: 'python_build/index.md'
-      - Introduction:
-        - Introduction: 'python_build/python-build-introduction'
-        - Overview: 'python_build/python-build-overview.md'
-        - Get Started: 'python_build/python-build-getstarted'
-      - Code:
-          - Code Ready Templates: 'python_build/python-build-code-ready-templates.md'
-          - Code New Strategy: 'python_build/python-build-code-new.md'
-          - Configure Parameters: 'python_build/python-build-config-parameters.md'
-      - Features:
-          - View Results: 'python_build/python-build-view-results.md'
   - Strategies:
-      - Index: 'strategies/index.md'
-      - General Strategy Guide:
-          - Regular Strategy: 'strategies/common_regular_strategy.md'
-          - Options Strategy: 'strategies/common_options_strategy.md'
-      - Regular Strategy Guide:
+      - General Strategy Guide: 'strategies/strategy_guides/common_strategy_guide.md'
+      - Regular Strategies:
           - Aroon Crossover: 'strategies/aroon_crossover.md'
           - Bollinger Bands: 'strategies/bollinger_bands.md'
           - EMA Crossover: 'strategies/ema_crossover.md'
@@ -63,7 +47,7 @@ nav:
           - Reverse RSI: 'strategies/reverse_rsi.md'
           - Stochastic Crossover: 'strategies/stochastic_crossover.md'
           - VWAP Crossover: 'strategies/vwap_crossover.md'
-      - Options Strategy Guide:
+      - Options Strategies:
           - Options Bear Call Ladder: 'strategies/options_bear_call_ladder.md'
           - Options Bear Put Ladder: 'strategies/options_bear_put_ladder.md'
           - Options Bull Call Ladder: 'strategies/options_bull_call_ladder.md'
@@ -71,6 +55,30 @@ nav:
           - Options Long Iron Butterfly: 'strategies/options_long_iron_butterfly.md'
           - Options Straddle: 'strategies/options_straddle.md'
           - Options Strangle: 'strategies/options_strangle.md'
+  - Pyalgotrading:
+    - Introduction: 'pyalgotrad/introduction.md'
+    - Setup your Workspace: 'pyalgotrad/prerequisites.md'
+    - Strategy Creation and Execution:
+          - Upload your Strategy: 'pyalgotrad/upload.md'
+          - Select your Strategy: 'pyalgotrad/select.md'
+          - Execute your Strategy: 'pyalgotrad/testing.md'
+    - Analytics: 'pyalgotrad/pyalgotrading_analytics.md'
+
+  - Python Build Web:
+      - Introduction: 'python_build/python-build-introduction.md'
+      - Setup your Workspace:  'python_build/python-build-getstarted.md'
+      - Strategy Creation and Execution:
+          - Code Using AI: 'python_build/python-build-code-gen-ai.md'
+          - Professional Support: 'python_build/python-build-professional.md'
+          - Code Ready Templates: 'python_build/python-build-code-ready-templates.md'
+          - Code New Strategy: 'python_build/python-build-code-new.md'
+          - Configure and Execute your Strategy: 'python_build/python-build-config-parameters.md'
+      - Analytics: 'python_build/python-build-view-results.md'
+  - Brokers:
+      - Alpaca: 'brokers/broker_alpaca_guide.md'
+  - Gen AI:
+      - Create your OpenAI Keys: 'gen_ai/get_open_ai_keys.md'
+      - Prompt Library: 'gen_ai/gen_ai_prompt_library.md'
 plugins:
   - search                                  # necessary for search to work
   - git-revision-date-localized:            # When enabled, the respective 'Last Updated' date is automatically added at the bottom of each page. Docs: https://squidfunk.github.io/mkdocs-material/plugins/revision-date/
@@ -83,6 +91,10 @@ plugins:
             show_source: true
       watch:
         - pyalgotrading
+  - redirects:
+      redirect_maps:
+          'strategies/common_regular_strategy.md': 'strategies/strategy_guides/common_regular_strategy.md'
+          'strategies/common_options_strategy.md': 'strategies/strategy_guides/common_options_strategy.md'
 
 google_analytics:
   - 'UA-147658856-4'
@@ -98,12 +110,24 @@ extra:
       link: https://github.com/algobulls/
   disqus: algobulls
 
+extra_css:
+  - stylesheets/extra.css
+
 
 markdown_extensions:
   - admonition              # Add note, tip, question, warning, error, etc. Docs: https://squidfunk.github.io/mkdocs-material/extensions/admonition/
+  - attr_list
   - codehilite
+  - md_in_html
+  - def_list
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+#      anchor_linenums: true
   - toc:                    # Docs: https://squidfunk.github.io/mkdocs-material/extensions/permalinks/
       permalink: true
-  - pymdownx.tabbed
-  - pymdownx.superfences
-  - attr_list
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      auto_title: false
+      pygments_lang_class: true
