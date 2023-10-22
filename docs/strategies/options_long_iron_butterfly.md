@@ -4,8 +4,11 @@ This is a template for implementing the Options Long Iron Butterfly strategy in 
 
 !!! Links
     - **[Strategy Code (.py)](https://github.com/algobulls/pyalgostrategypool/blob/master/pyalgostrategypool/options_long_iron_butterfly.py){target=_blank}**
-    - **[Strategy Structure (common methods used in an options strategy)](common_options_strategy.md){target=_blank}**
-    - **[Strategy Design (workflow of a strategy)](../pyalgotrad/structure.md){target=_blank}**
+    - **[Strategy Structure (common methods used in a regular and options strategy)](strategy_guides/common_strategy_guide.md){target=_blank}**
+
+
+[//]: # (    - **[Click here to view a working notebook for options from NSE exchange in cloud. No installation required. ]&#40;https://nbviewer.org/github/algobulls/pyalgotrading/blob/2f3fb6fb83fd09981e286fe2f0930249a848cc8e/jupyter/nse_jupyter_notebooks/Aroon%20Crossover.ipynb&#41;{target=_blank}**)
+[//]: # (    - **[Click here to view a working notebook for NASDAQ exchange in cloud. No installation required. &#40;.ipynb&#41;]&#40;https://nbviewer.org/github/algobulls/pyalgotrading/blob/2f3fb6fb83fd09981e286fe2f0930249a848cc8e/jupyter/nse_jupyter_notebooks/Aroon%20Crossover.ipynb&#41;{target=_blank}**)
 
 ### Long Iron Butterfly
 - In the stock market, an options long iron butterfly is a complex strategy that involves buying two options with the same expiration date but different strike prices. It combines elements of both a bullish and bearish strategy and is designed to profit from low volatility in the underlying asset.
