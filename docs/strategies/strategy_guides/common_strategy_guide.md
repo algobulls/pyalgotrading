@@ -1,7 +1,7 @@
 # Common Strategy Building Guide
 
 ## Understanding the Strategy Structure
-The strategy code is basically a Python Class, with its Base Class as StrategyBase (for regular strategies) or StrategyBaseOptionsV2 (for options strategies). In this article we will focus on a regular strategy called ‘EMA Regular Order’  - a strategy which gives BUY and SELL signals based on two EMA indicators and takes new-entry & previous-exit at every crossover. We also will be discussing about an options strategy called "Options Bear Call Ladder Strategy" - strategy which uses 3 legs to optimize the risk and returns of the options. Inside the strategy class there are many methods that could be divided into 2 different sections: Mandatory Methods: Initialization Methods, 4-Core Loop Methods & Optional Methods: Algorithmic Calculation Methods & Miscellaneous Methods. These sections are explained briefly below.
+The strategy code is basically a Python Class, with its Base Class as StrategyBase (for regular strategies) or StrategyBaseOptionsV2 (for options strategies). In this documentation we will focus on a regular strategy called ‘EMA Regular Order’  - a strategy which gives BUY and SELL signals based on two EMA indicators and takes new-entry & previous-exit at every crossover. We also will be discussing about an options strategy called "Options Bear Call Ladder Strategy" - strategy which uses 3 legs to optimize the risk and returns of the options. Inside the strategy class there are many methods that could be divided into 2 different sections: Mandatory Methods: Initialization Methods, 4-Core Loop Methods & Optional Methods: Algorithmic Calculation Methods & Miscellaneous Methods. These sections are explained briefly below.
 
 ### Mandatory Functions:
 
