@@ -3,18 +3,21 @@
 ## Understanding the Strategy Structure
 The strategy code is basically a Python Class, with its Base Class as StrategyBase (for regular strategies) or StrategyBaseOptionsV2 (for options strategies). Inside the strategy class there are many methods that could be divided into 4 different sections: Initialization Methods, Algorithmic Calculation Methods, 4-Core Loop Methods, Miscellaneous Methods. These 4 sections are explained briefly below.
 
-### Initialization Methods
+### Mandatory Functions:
+
+#### Initialization Methods
 In this section, you will have the Strategy Class’s “__init__” method (a.k.a. Constructor). This method will extract the Strategy’s Configured Parameters and save them in the different variables. There is another method in this section called “initialization”, which will be called at the start of every trading day that will occur inside the timeline for which you are executing the strategy.
 
-### Algorithmic Calculations Methods
+#### 4 Core Loop Methods
+These are the main methods that will be called by the AlgoBulls Core in a sequence for every candle (candle is the minimum time range for which the Open, High, Low and Close values of that instrument are available. Basically it is a representation of a time period and the data corresponds to the trades executed during that period). All the Logic Design methods are called inside these Core Methods, along with the helping methods.
+
+### Optional Function
+#### Algorithmic Calculations Methods
 This section will majorly contain the methods that are defined by the user. Their main purpose will be to perform operations on historical data of the selected instrument.  Based on the results of these operations, it needs to decide whether it should Buy, Sell or take no action on the instrument.
 Apart from decision making, some of the other methods can also be useful to calculate the stop loss or target price for a trade.
 Point being, the purpose of these methods are totally dependent on the application of the user.
 
-### 4 Core Loop Methods
-These are the main methods that will be called by the AlgoBulls Core in a sequence for every candle (candle is the minimum time range for which the Open, High, Low and Close values of that instrument are available. Basically it is a representation of a time period and the data corresponds to the trades executed during that period). All the Logic Design methods are called inside these Core Methods, along with the helping methods.
-
-### Miscellaneous Methods
+#### Miscellaneous Methods
 These are handy methods that are created by a team of expert strategy developers and they are already a part of the base class. These methods do a lot of heavy lifting under the hood and can be used here for various purposes like getting the latest price of a stock, placing an order etc. These methods are not always necessary to be used and are generally a part of other methods mentioned above.
 
 ## Working Flow of the Strategy
