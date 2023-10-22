@@ -4,8 +4,8 @@ This class implements the Options Bear Call Ladder strategy.
 
 !!! Links
     - **[Strategy Code (.py)](https://github.com/algobulls/pyalgostrategypool/blob/master/pyalgostrategypool/options_bear_call_ladder.py){target=_blank}**
-    - **[Strategy Structure (common methods used in an options strategy)](strategy_guides/common_options_strategy.md){target=_blank}**
-    - **[Strategy Design (workflow of a strategy)](strategy_guides/structure.md){target=_blank}**
+    - **[Strategy Structure (common methods used in a regular and options strategy)](strategy_guides/common_strategy_guide.md){target=_blank}**
+
 
 !!! Tips "Jupyter Notebook for Options from Indian Exchange (NSE)"
     - **[Click here to view a working notebook for options from NSE exchange in cloud. No installation required. ](https://nbviewer.org/github/algobulls/pyalgotrading/blob/d77ba21f66764971362b51c1a39367a1f78c308d/jupyter/nse_options_jupyter_notebooks/options_bear_call_ladder.ipynb){target=_blank}**

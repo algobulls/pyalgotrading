@@ -36,7 +36,7 @@ Execute Backtesting, Paper Trading, and Real Trading using the same strategy cod
 
 ## Overview
 
-1. [Check out the basic structure of a strategy](strategy_guides/structure.md): Before coding your strategy, refer to the basic structure guide provided by the Pyalgotrading package. This will help you understand the trading strategy methods and flow.
+1. [Check out the basic structure of a strategy](../strategies/strategy_guides/common_strategy_guide.md): Before coding your strategy, refer to the basic structure guide provided by the Pyalgotrading package. This will help you understand the trading strategy methods and flow.
 
 2. [Code your own simple strategy using the pyalgotrading package](prerequisites.md): Use your Python IDE to code your trading strategy using the pyalgotrading package. You can also use ready-made strategies from the pyalgostrategypool package if you prefer not to code your own.
 

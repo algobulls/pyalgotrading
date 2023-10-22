@@ -4,8 +4,8 @@ This is a trading strategy called "EMA Regular Order Strategy" implemented in Py
 
 !!! Links
     - **[Strategy Code (.py)](https://github.com/algobulls/pyalgostrategypool/blob/master/pyalgostrategypool/ema_crossover.py){target=_blank}**
-    - **[Strategy Structure (common methods used in a regular strategy)](strategy_guides/common_regular_strategy.md){target=_blank}**
-    - **[Strategy Design (workflow of a strategy)](strategy_guides/structure.md){target=_blank}**
+    - **[Strategy Structure (common methods used in a regular and options strategy)](strategy_guides/common_strategy_guide.md){target=_blank}**
+
 
 !!! Tips "Jupyter Notebooks for Indian Exchange (NSE)"
     - **[Click here to view a working notebook for NSE exchange in cloud. No installation required. ](https://nbviewer.org/github/algobulls/pyalgotrading/blob/2f3fb6fb83fd09981e286fe2f0930249a848cc8e/jupyter/nse_jupyter_notebooks/Moving%20Average%20Crossover.ipynb){target=_blank}**
