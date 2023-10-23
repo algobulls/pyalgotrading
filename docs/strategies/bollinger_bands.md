@@ -8,12 +8,12 @@ This is a trading strategy called "Bollinger Bands" implemented in Python using 
 
 
 !!! Tips "Jupyter Notebooks for Indian Exchange (NSE)"
-    - **[Click here to view a working notebook for NSE exchange in cloud. No installation required. ](https://nbviewer.org/github/algobulls/pyalgotrading/blob/2f3fb6fb83fd09981e286fe2f0930249a848cc8e/jupyter/nse_jupyter_notebooks/Bollinger%20Bands.ipynb){target=_blank}**
-    - **[Click here to execute a working notebook for NSE exchange in cloud. No installation required. ](https://mybinder.org/v2/gh/algobulls/pyalgotrading/52ec68cf886a116d72356da261d01537021d7710?urlpath=lab%2Ftree%2Fjupyter%2Fnse_equity%2Fbollinger_bands.ipynb){target=_blank}**
+    - **[Click here to view a working notebook for NSE exchange in cloud. No installation required. ](https://nbviewer.org/github/algobulls/pyalgotrading/blob/master/jupyter/nse_equity/bollinger_bands.ipynb){target=_blank}**
+    - **[Click here to execute a working notebook for NSE exchange in cloud. No installation required. ](https://notebooks.gesis.org/binder/jupyter/user/algobulls-pyalgotrading-5qbbxoau/lab/tree/jupyter/nse_equity/bollinger_bands.ipynb){target=_blank}**
 
 !!! Tips "Jupyter Notebook for US Exchange (NASDAQ)"
-    - **[Click here to view a working notebook for NASDAQ exchange in cloud. No installation required. ](https://nbviewer.org/github/algobulls/pyalgotrading/blob/526dabc0a92775f4184aaab543c0a9f424613a55/jupyter/nasdaq_jupyter_notebooks/Bollinger%20Bands%20US.ipynb){target=_blank}**
-    - **[Click here to execute a working notebook for NASDAQ exchange in cloud. No installation required. ](https://mybinder.org/v2/gh/algobulls/pyalgotrading/52ec68cf886a116d72356da261d01537021d7710?urlpath=lab%2Ftree%2Fjupyter%2Fnasdaq_equity%2Fbollinger_bands_us.ipynb){target=_blank}**
+    - **[Click here to view a working notebook for NASDAQ exchange in cloud. No installation required. ](https://nbviewer.org/github/algobulls/pyalgotrading/blob/master/jupyter/nasdaq_equity/bollinger_bands_us.ipynb){target=_blank}**
+    - **[Click here to execute a working notebook for NASDAQ exchange in cloud. No installation required. ](https://notebooks.gesis.org/binder/jupyter/user/algobulls-pyalgotrading-5qbbxoau/lab/tree/jupyter/nasdaq_equity/bollinger_bands_us.ipynb){target=_blank}**
 
 
 
