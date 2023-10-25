@@ -3,9 +3,8 @@ This is a trading strategy called "Mean Reversion Bollinger Bands" implemented i
 
 !!! Links
     - **[Strategy Code (.py)](https://github.com/algobulls/pyalgostrategypool/blob/master/pyalgostrategypool/mean_reversion_bollinger_bands.py){target=_blank}**
-    - **[Strategy Structure (common methods used in a regular strategy)](common_regular_strategy.md){target=_blank}**
-    - **[Strategy Design (workflow of a strategy)](../pyalgotrad/structure.md){target=_blank}**
-
+    - **[Strategy Structure (common methods used in a regular and options strategy)](strategy_guides/common_strategy_guide.md){target=_blank}**
+    
 !!! Tips "Jupyter Notebook for Indian Exchange (NSE)"
     - **[Click here to view a working notebook for NSE exchange in cloud. No installation required. ](https://nbviewer.org/github/algobulls/pyalgotrading/blob/master/jupyter/nse_equity/mean_reversion_bollinger_bands.ipynb){target=_blank}**
     - **[Click here to execute a working notebook for NSE exchange in cloud. No installation required. ](https://mybinder.org/v2/gh/algobulls/pyalgotrading/fe289cc5d5df69e7b87b930cce110326645cd99d?urlpath=lab%2Ftree%2Fjupyter%2Fnse_equity%2Fmean_reversion_bollinger_bands.ipynb){target=_blank}**
