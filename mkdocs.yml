@@ -44,9 +44,13 @@ nav:
           - Bollinger Bands: 'strategies/bollinger_bands.md'
           - EMA Crossover: 'strategies/ema_crossover.md'
           - Inverse EMA Scalping: 'strategies/inverse_ema_scalping.md'
+          - MACD Crossover: 'strategies/vmacd_crossover.md' 
+          - Mean Reversion Bollinger Bands: 'strategies/mean_reversion_bollinger_bands.md'     
           - Reverse RSI: 'strategies/reverse_rsi.md'
+          - RSI MACD Crossover : 'strategies/rsi_macd_crossover.md'
           - Stochastic Crossover: 'strategies/stochastic_crossover.md'
           - VWAP Crossover: 'strategies/vwap_crossover.md'
+          - Volatility Trend ATR : 'strategies/volatility_trend_atr.md'
       - Options Strategies:
           - Options Bear Call Ladder: 'strategies/options_bear_call_ladder.md'
           - Options Bear Put Ladder: 'strategies/options_bear_put_ladder.md'
@@ -95,6 +99,8 @@ plugins:
       redirect_maps:
           'strategies/common_regular_strategy.md': 'strategies/strategy_guides/common_regular_strategy.md'
           'strategies/common_options_strategy.md': 'strategies/strategy_guides/common_options_strategy.md'
+          'gen_ai_guide.md': 'gen_ai/get_open_ai_keys.md'
+
 
 google_analytics:
   - 'UA-147658856-4'

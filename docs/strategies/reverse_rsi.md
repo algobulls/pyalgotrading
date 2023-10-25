@@ -9,11 +9,11 @@ This is a trading strategy called "Reverse RSI" implemented in Python using the 
 
 !!! Tips "Jupyter Notebook for Indian Exchange (NSE)"
     - **[Click here to view a working notebook for NSE exchange in cloud. No installation required. ](https://nbviewer.org/github/algobulls/pyalgotrading/blob/master/jupyter/nse_equity/reverse_rsi_crossover.ipynb){target=_blank}**
-    - **[Click here to execute a working notebook for NSE exchange in cloud. No installation required. ](https://notebooks.gesis.org/binder/jupyter/user/algobulls-pyalgotrading-5qbbxoau/lab/tree/jupyter/nse_equity/reverse_rsi_crossover.ipynb){target=_blank}**
+    - **[Click here to execute a working notebook for NSE exchange in cloud. No installation required. ](https://mybinder.org/v2/gh/algobulls/pyalgotrading/fe289cc5d5df69e7b87b930cce110326645cd99d?urlpath=lab%2Ftree%2Fjupyter%2Fnse_equity%2Freverse_rsi_crossover.ipynb){target=_blank}**
     
 !!! Tips "Jupyter Notebook for US Exchange (NASDAQ)"
     - **[Click here to view a working notebook for NASDAQ exchange in cloud. No installation required. ](https://nbviewer.org/github/algobulls/pyalgotrading/blob/master/jupyter/nasdaq_equity/reverse_rsi_crossover_us.ipynb){target=_blank}**
-    - **[Click here to execute a working notebook for NASDAQ exchange in cloud. No installation required. ](https://notebooks.gesis.org/binder/jupyter/user/algobulls-pyalgotrading-5qbbxoau/lab/tree/jupyter/nasdaq_equity/reverse_rsi_crossover_us.ipynb){target=_blank}**
+    - **[Click here to execute a working notebook for NASDAQ exchange in cloud. No installation required. ](https://mybinder.org/v2/gh/algobulls/pyalgotrading/fe289cc5d5df69e7b87b930cce110326645cd99d?urlpath=lab%2Ftree%2Fjupyter%2Fnasdaq_equity%2Freverse_rsi_crossover_us.ipynb){target=_blank}**
 
 
 ## Relative Strength Index
