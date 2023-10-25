@@ -44,7 +44,7 @@ nav:
           - Bollinger Bands: 'strategies/bollinger_bands.md'
           - EMA Crossover: 'strategies/ema_crossover.md'
           - Inverse EMA Scalping: 'strategies/inverse_ema_scalping.md'
-          - MACD Crossover: 'strategies/vmacd_crossover.md' 
+          - MACD Crossover: 'strategies/macd_crossover.md' 
           - Mean Reversion Bollinger Bands: 'strategies/mean_reversion_bollinger_bands.md'     
           - Reverse RSI: 'strategies/reverse_rsi.md'
           - RSI MACD Crossover : 'strategies/rsi_macd_crossover.md'
