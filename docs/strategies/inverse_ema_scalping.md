@@ -7,12 +7,12 @@ This is a trading strategy called "Inverse EMA Scalping Regular Order Strategy" 
 
 
 !!! Tips "Jupyter Notebooks for Indian Exchange (NSE)"
-    - **[Click here to view a working notebook for NSE exchange in cloud. No installation required. ](https://nbviewer.org/github/algobulls/pyalgotrading/blob/2f3fb6fb83fd09981e286fe2f0930249a848cc8e/jupyter/nse_jupyter_notebooks/Inverse%20EMA%20Scalping%20Crossover.ipynb){target=_blank}**
-    - **[Click here to execute a working notebook for NSE exchange in cloud. No installation required. ](https://mybinder.org/v2/gh/algobulls/pyalgotrading/16b3e3f168057e89ab959770c4a9dec7507b6a04?urlpath=lab%2Ftree%2Fjupyter%2Fnse_equity%2Finverse_ema_scalping_crossover.ipynb){target=_blank}**
+    - **[Click here to view a working notebook for NSE exchange in cloud. No installation required. ](https://nbviewer.org/github/algobulls/pyalgotrading/blob/master/jupyter/nse_equity/inverse_ema_scalping_crossover.ipynb){target=_blank}**
+    - **[Click here to execute a working notebook for NSE exchange in cloud. No installation required. ](https://notebooks.gesis.org/binder/jupyter/user/algobulls-pyalgotrading-5qbbxoau/lab/tree/jupyter/nse_equity/inverse_ema_scalping_crossover.ipynb){target=_blank}**
 
 !!! Tips "Jupyter Notebooks for US Exchange (NASDAQ)"
-    - **[Click here to view a working notebook for NASDAQ exchange in cloud. No installation required. ](https://nbviewer.org/github/algobulls/pyalgotrading/blob/526dabc0a92775f4184aaab543c0a9f424613a55/jupyter/nasdaq_jupyter_notebooks/Inverse%20EMA%20Scalping%20Crossover%20US.ipynb){target=_blank}**
-    - **[Click here to execute a working notebook for NASDAQ exchange in cloud. No installation required. ](https://mybinder.org/v2/gh/algobulls/pyalgotrading/16b3e3f168057e89ab959770c4a9dec7507b6a04?urlpath=lab%2Ftree%2Fjupyter%2Fnasdaq_equity%2Finverse_ema_scalping_crossover_us.ipynb){target=_blank}**
+    - **[Click here to view a working notebook for NASDAQ exchange in cloud. No installation required. ](https://nbviewer.org/github/algobulls/pyalgotrading/blob/master/jupyter/nasdaq_equity/inverse_ema_scalping_crossover_us.ipynb){target=_blank}**
+    - **[Click here to execute a working notebook for NASDAQ exchange in cloud. No installation required. ](https://notebooks.gesis.org/binder/jupyter/user/algobulls-pyalgotrading-5qbbxoau/lab/tree/jupyter/nasdaq_equity/inverse_ema_scalping_crossover_us.ipynb){target=_blank}**
 
 
 ## What is Inverse EMA 
