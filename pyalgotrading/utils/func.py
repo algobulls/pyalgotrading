@@ -219,6 +219,6 @@ def slippage(price, variety, transaction_type, slip_percent=1):
     # if limit orders, we consider only positive slippage
     else:
         if transaction_type == 'BUY':
-            return price*(1 + random.choice([0, -1]) * slip_percent)
+            return round(price*(1 + random.choice([0, -1]) * slip_percent), 2)
         else:
-            return price*(1 + random.choice([1, 0]) * slip_percent)
+            return round(price*(1 + random.choice([1, 0]) * slip_percent), 2)
