@@ -41,6 +41,10 @@ Select **[Python Build](https://app.algobulls.com/build/python){target=_blank}**
 
 [![pythonbuild](imgs_v2/python_build_my_strategies.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs_v2/python_build_my_strategies.png)
 
+**Need Support:** You can raise support for the particular statregy from here make sure your stategy is present in My Coded Strategies section
+
+[![pythonbuild](imgs_v2/python_build_need_support.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs_v2/python_build_need_support.png)
+
 **Quick Help:** Resources to help you code better.
 
 [![pythonbuild](imgs_v2/python_build_help.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs_v2/python_build_help.png)
