@@ -10,7 +10,7 @@ From this section, select the strategy you're experiencing issues with.
 
 [![pythonbuild](../python_build/imgs_v2/python_build_need_support.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](../python_build/imgs_v2/python_build_need_support.png)
 
-After clicking on `Need Support`, you'll see a popup window. Here, select the strategy for which you need assistance.
+After clicking on `Need Support`, you'll see a popup window. Here, select the strategy for which you need assistance and explain you issue in brief.
 
 [![pythonbuild](../python_build/imgs_v2/python_build_select_strategy.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](../python_build/imgs_v2/python_build_select_strategy.png)
 

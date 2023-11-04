@@ -4,7 +4,7 @@ Requesting Support from pyalgotrading Module:
 If you're looking to raise a support request from pyalgotrading module, follow these simple steps:
  ```
 - Start by executing your strategy from the pyalgotrading module.
-- Next, navigate to the "My Coded Strategies" section in python build.
+- Next, navigate to the "My Coded Strategies" section in python build web.
  ```
 
 **My Coded Strategies:** This section displays all the strategies you've created or modified. It includes both new and updated strategies.
@@ -17,7 +17,7 @@ From this section, select the strategy you're experiencing issues with.
 
 [![pythonbuild](../python_build/imgs_v2/python_build_need_support.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](../python_build/imgs_v2/python_build_need_support.png)
 
-After clicking on `Need Support`, you'll see a popup window. Here, select the strategy for which you need assistance.
+After clicking on `Need Support`, you'll see a popup window. Here, select the strategy for which you need assistance and explain you issue in brief.
 
 [![pythonbuild](../python_build/imgs_v2/python_build_select_strategy.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](../python_build/imgs_v2/python_build_select_strategy.png)
 
