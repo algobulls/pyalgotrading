@@ -83,6 +83,9 @@ nav:
   - Gen AI:
       - Create your OpenAI Keys: 'gen_ai/get_open_ai_keys.md'
       - Prompt Library: 'gen_ai/gen_ai_prompt_library.md'
+  - Support:
+      - Strategy Support - Python Build Web: 'support/support_pybuild.md'
+      - Strategy Support - pyalgotrading: 'support/support_pyalgo.md'
 plugins:
   - search                                  # necessary for search to work
   - git-revision-date-localized:            # When enabled, the respective 'Last Updated' date is automatically added at the bottom of each page. Docs: https://squidfunk.github.io/mkdocs-material/plugins/revision-date/
