@@ -67,7 +67,9 @@ nav:
           - Select your Strategy: 'pyalgotrad/select.md'
           - Execute your Strategy: 'pyalgotrad/testing.md'
     - Analytics: 'pyalgotrad/pyalgotrading_analytics.md'
-
+    - Features:
+          - Slippage: 'pyalgotrad/slippage.md'
+          - Brokerage : 'pyalgotrad/brokerage.md'
   - Python Build Web:
       - Introduction: 'python_build/python-build-introduction.md'
       - Setup your Workspace:  'python_build/python-build-getstarted.md'
