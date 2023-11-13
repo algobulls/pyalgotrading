@@ -67,7 +67,9 @@ nav:
           - Select your Strategy: 'pyalgotrad/select.md'
           - Execute your Strategy: 'pyalgotrad/testing.md'
     - Analytics: 'pyalgotrad/pyalgotrading_analytics.md'
-
+    - Features:
+          - Slippage: 'pyalgotrad/slippage.md'
+          - Brokerage : 'pyalgotrad/brokerage.md'
   - Python Build Web:
       - Introduction: 'python_build/python-build-introduction.md'
       - Setup your Workspace:  'python_build/python-build-getstarted.md'
@@ -80,6 +82,7 @@ nav:
       - Analytics: 'python_build/python-build-view-results.md'
   - Brokers:
       - Alpaca: 'brokers/broker_alpaca_guide.md'
+      - Setting Up Alpaca with PyBuild: 'brokers/connecting_alpaca.md'
   - Gen AI:
       - Create your OpenAI Keys: 'gen_ai/get_open_ai_keys.md'
       - Prompt Library: 'gen_ai/gen_ai_prompt_library.md'

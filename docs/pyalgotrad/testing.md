@@ -265,8 +265,8 @@ You can fetch the logs in the middle of a job to monitor the progress.
 
 !!! Tip "Logging Tip"
     - There are 2 variations when fetching logs:  
-        - Progressive Logs (`auto_update` = True):  will show progress bar and update the latest logs as the strategy is executed
-        - Complete Logs (`auto_update` = False): will fetch logs only till the point where strategy is currently executing.(It wont update the latest logs, unless called manually again)
+        - Progressive Logs (`print_live_logs` = True):  will show progress bar and update the latest logs as the strategy is executed
+        - Complete Logs (`print_live_logs` = False): will fetch logs after strategy is executed.(It wont update the latest logs, unless called manually again)
 
 Click on each of the tabs to see the relevant code snippet.  
 
@@ -347,6 +347,7 @@ Click on each of the tabs to see the relevant code snippet.
     ```
 
 ---
+To know more about slippage and brokerage parameters click [here](./slippage.md)
 ### Fetch Report Statistics
 
 Click on each of the tabs to see the relevant code snippet.
