@@ -1,10 +1,10 @@
 # Binding Alpaca with Python Build 
 
-## Alpaca and PythonBuild 
+## Alpaca and Python Build 
 
 ---
 
-This comprehensive guide streamlines the process, allowing you to seamlessly connect Alpaca with PythonBuild Account. Elevate your trading experience with our visual analytics feature, and fine-tune your strategy until it meets your satisfaction. Gain expert approval for live trading and deploy it across 30+ supported brokers without the need for complex broker integration logic.
+This comprehensive guide streamlines the process, allowing you to seamlessly connect Alpaca with Python Build Account. Elevate your trading experience with our visual analytics feature, and fine-tune your strategy until it meets your satisfaction. Gain expert approval for live trading and deploy it across 30+ supported brokers without the need for complex broker integration logic.
 
 Select **[Broking Details](https://app.algobulls.com/broking?query=e30%3D){target=_blank}** from the navigation bar on the left to know more.
 
@@ -15,7 +15,7 @@ Select **[Broking Details](https://app.algobulls.com/broking?query=e30%3D){targe
 
 ---
 - Navigate to the `Broking Details` sections 
-- here you will see all the brokers you are connected with and their active status under `primary` column
+- Here you will see all the brokers you are connected with and their active status under `primary` column
 [![pythonbuild](../python_build/imgs_v2/pyBuild_broking_details.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](../python_build/imgs_v2/pyBuild_broking_details.png)
 
 
@@ -36,7 +36,7 @@ Select **[Broking Details](https://app.algobulls.com/broking?query=e30%3D){targe
   [![img.png](../python_build/imgs_v2/python_build_nonauth.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](../python_build/imgs_v2/python_build_nonauth.png)
 
 ---
-- #### Provide API key And Secret key to connect Alpaca with Python Build
+- #### Provide API And Secret key 
 Before this step, please make sure you have an Alpaca account. For assistance [click here](./broker_alpaca_guide.md)
     
     - After clicking `Alpaca Non-OAuth` you will see a pop-out 
