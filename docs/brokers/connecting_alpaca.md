@@ -21,23 +21,23 @@ Select **[Broking Details](https://app.algobulls.com/broking?query=e30%3D){targe
 
 ## How to set up Alpaca for trading in Python Build with OAuth?
 ---
+Before this step, please make sure you have an Alpaca account. For assistance [click here](./broker_alpaca_guide.md)
 
-- #### Add Broker
-    - Click on `Add Broker`. 
+### Add Broker
+  - Click on `Add Broker`. 
   
   [![main page](../python_build/imgs_v2/pyBuild_broking_details.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](../python_build/imgs_v2/pyBuild_broking_details.png)
 
 ---
-- #### Search for Alpaca
-    - After clicking on Add Broker you will see a pop-out window with a search bar
-    - **Alpaca Paper:** Opt for this for paper trading.
-    - **Alpaca Real:** Opt for this for real trading.
+### Search for Alpaca
+  - After clicking on Add Broker you will see a pop-out window with a search bar
+  - **Alpaca Paper:** Opt for this for paper trading.
+  - **Alpaca Real:** Opt for this for real trading.
   
-  [![img.png](../python_build/imgs_v2/pyBuild_broking_details_paper_mode.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](../python_build/imgs_v2/pyBuild_broking_details_paper_mode.png)
+  [![img.png](../python_build/imgs_v2/Python_Build_Broking_details_paper_mode_1.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](../python_build/imgs_v2/Python_Build_Broking_details_paper_mode_1.png)
 
 ---
-- #### Provide Permission
-Before this step, please make sure you have an Alpaca account. For assistance [click here](./broker_alpaca_guide.md)
+### Provide Permission
     
   - After clicking `Alpaca Paper` you will be redirected to Alpaca website for permission
   - Click `Allow` to Bind your Alpaca account with a Python Build account.
@@ -46,5 +46,5 @@ Before this step, please make sure you have an Alpaca account. For assistance [c
 
   - On successful authorisation, you will see the broker in the broker column 
     
-  [![img.png](../python_build/imgs_v2/pyBuild_broking_details_aplaca_succesfull.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](../python_build/imgs_v2/pyBuild_broking_details_aplaca_succesfull.png)
+  [![img.png](../python_build/imgs_v2/python_build_Oauth_successful.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](../python_build/imgs_v2/python_build_Oauth_successful.png)
 
