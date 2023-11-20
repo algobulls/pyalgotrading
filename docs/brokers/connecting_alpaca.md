@@ -28,7 +28,7 @@ Select **[Broking Details](https://app.algobulls.com/broking?query=e30%3D){targe
   [![main page](../python_build/imgs_v2/pyBuild_broking_details.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](../python_build/imgs_v2/pyBuild_broking_details.png)
 
 ---
-- #### Search for Alpca in the search tab
+- #### Search for Alpca 
     - After clicking on Add Broker you will see a pop-out window with a search bar
     - **Alpaca Paper:** Opt for this for paper trading.
     - **Alpaca Real:** Opt for this for real trading.
