@@ -24,24 +24,34 @@ Key features and offerings of Alpaca include:
 
 Alpaca's platform aims to democratize algorithmic trading by providing accessible tools and resources for both individual traders and developers. It's worth noting that the landscape of algorithmic trading and financial technology is constantly evolving, so it's a good idea to check Alpaca's official website for the most current information about their offerings and services.
 
-## How to get API-keys for trading in Alpaca ?
+## How to get API-keys for trading in Alpaca?
 
 ---
 
 - #### Create or Login to Alpaca Account
-  [![main page](../imgs/alpaca_main_page.png)](https://alpaca.markets/){target=_blank}
+    - Go to the official website of [Alpaca](https://alpaca.markets/)
+    - Click on `sign up for free` to create an alpaca account
+  
+    [![main page](../imgs/alpaca_main_page.png)](https://alpaca.markets/){target=_blank}
 
 ---
-- #### Go to Home Page of your Account
-  [![img.png](../imgs/alpaca_account_home.png)](https://app.alpaca.markets/paper/dashboard/overview){target=_blank}
+- #### Go to the Home Page of your Account
+    - After creating your account login into the home page 
+    - look for `View API Keys` on the right side under the `Quick Trade` Block
+  
+    [![img.png](../imgs/alpaca_account_home.png)](https://app.alpaca.markets/paper/dashboard/overview){target=_blank}
 
 ---
 - #### View API keys or Generate API keys
+    - click on `View API Keys` and then click on `Regenrate` to regenerate fresh keys
+   
     ![img.png](../imgs/alpaca_view_api_keys.png)
     ![img.png](../imgs/alpaca_regenerate_api_keys.png)
 
 ---
 - #### Get the `Secret-Key` and `API key`
+    - After regenerating you will get a fresh API key under the `Key` section and a secret key under the `Secret` section
+  
     ![img.png](../imgs/alpaca_api_keys_secret_keys.png)
 
 

@@ -19,7 +19,7 @@ Select **[Broking Details](https://app.algobulls.com/broking?query=e30%3D){targe
 [![pythonbuild](../python_build/imgs_v2/pyBuild_broking_details.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](../python_build/imgs_v2/pyBuild_broking_details.png)
 
 
-## How to set up Alpaca for trading in Python Build with OAuth?
+## How to set up Alpaca for trading in Python Build with Non-OAuth?
 ---
 
 - #### Add Broker
@@ -28,23 +28,23 @@ Select **[Broking Details](https://app.algobulls.com/broking?query=e30%3D){targe
   [![main page](../python_build/imgs_v2/pyBuild_broking_details.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](../python_build/imgs_v2/pyBuild_broking_details.png)
 
 ---
-- #### Search for Alpca in the search tab
+- #### Search for Alpaca in the search tab
     - After clicking on Add Broker you will see a pop-out window with a search bar
     - **Alpaca Paper:** Opt for this for paper trading.
     - **Alpaca Real:** Opt for this for real trading.
   
-  [![img.png](../python_build/imgs_v2/pyBuild_broking_details_paper_mode.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](../python_build/imgs_v2/pyBuild_broking_details_paper_mode.png)
+  [![img.png](../python_build/imgs_v2/python_build_nonauth.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](../python_build/imgs_v2/python_build_nonauth.png)
 
 ---
-- #### Provide Permission to connect Alpaca with Python Build`
+- #### Provide API key And Secret key to connect Alpaca with Python Build
 Before this step, please make sure you have an Alpaca account. For assistance [click here](./broker_alpaca_guide.md)
     
-  - After clicking `Alpaca Paper` you will be redirected to Alpaca website for permission
-  - Click `Allow` to Bind your Alpaca account with a Python Build account.
+    - After clicking `Alpaca Non-OAuth` you will see a pop-out 
+    - Enter your `API key` And `Secret key` here.
+    - Click `confirm` to Bind your Alpaca account with a Python Build account.
   
-  [![img.png](../python_build/imgs_v2/python_build_authorize.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](../python_build/imgs_v2/python_build_authorize.png)
+  [![img.png](../python_build/imgs_v2/python_build_non_auth_pop.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](../python_build/imgs_v2/python_build_non_auth_pop.png)
 
-  - on successful authorisation, you will see the broker in the broker column 
+  - On successful authorisation, you will see the broker in the broker column 
     
-  [![img.png](../python_build/imgs_v2/pyBuild_broking_details_aplaca_succesfull.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](../python_build/imgs_v2/pyBuild_broking_details_aplaca_succesfull.png)
-
+  [![img.png](../python_build/imgs_v2/python_build_non_auth_confirm.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](../python_build/imgs_v2/python_build_non_auth_confirm.png)
