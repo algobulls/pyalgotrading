@@ -4,18 +4,14 @@
 
 ---
 
-This comprehensive guide streamlines the process, allowing you to seamlessly connect Alpaca with Python Build Account. Elevate your trading experience with our visual analytics feature, and fine-tune your strategy until it meets your satisfaction. Gain expert approval for live trading and deploy it across 30+ supported brokers without the need for complex broker integration logic.
-
-Select **[Broking Details](https://app.algobulls.com/broking?query=e30%3D){target=_blank}** from the navigation bar on the left to know more.
-
-[![pythonbuild](../python_build/imgs_v2/pyBuild_broking_details_side_menu.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](../python_build/imgs_v2/pyBuild_broking_details_side_menu.png)
+This guide streamlines the process, allowing you to seamlessly connect Alpaca with Python Build Account. Elevate your trading experience with our visual analytics feature, and fine-tune your strategy until it meets your satisfaction. Gain expert approval for live trading and deploy it across 30+ supported brokers without the need for complex broker integration logic.
 
 
 ## An overview
 
 ---
-- Navigate to the `Broking Details` sections 
-- Here you will see all the brokers you are connected with and their active status under `primary` column
+- Navigate to the `Broking Details` section on the AlgoBulls platform.
+- Here you will see all the brokers you are connected with and their active statuses under `primary` column
 [![pythonbuild](../python_build/imgs_v2/pyBuild_broking_details.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](../python_build/imgs_v2/pyBuild_broking_details.png)
 
 
@@ -31,20 +27,21 @@ Before this step, please make sure you have an Alpaca account. For assistance [c
 ---
 ### Search for Alpaca
   - After clicking on Add Broker you will see a pop-out window with a search bar
-  - **Alpaca Paper:** Opt for this for paper trading.
-  - **Alpaca Real:** Opt for this for real trading.
+  - Type `Alpaca` in the search dialog box
+  - **Alpaca Paper:** Opt this for paper trading.
+  - **Alpaca Real:** Opt this for real trading.
   
   [![img.png](../python_build/imgs_v2/Python_Build_Broking_details_paper_mode_1.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](../python_build/imgs_v2/Python_Build_Broking_details_paper_mode_1.png)
 
 ---
 ### Provide Permission
     
-  - After clicking `Alpaca Paper` you will be redirected to Alpaca website for permission
-  - Click `Allow` to Bind your Alpaca account with a Python Build account.
+  - After clicking `Alpaca Paper` or `Alpaca Real` you will be redirected to Alpaca website for permission
+  - Click `Allow` to bind your Alpaca account with a Python Build account.
   
   [![img.png](../python_build/imgs_v2/python_build_authorize.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](../python_build/imgs_v2/python_build_authorize.png)
 
-  - On successful authorisation, you will see the broker in the broker column 
+  - On successful authorisation, you will see the broker in the broker column. 
     
   [![img.png](../python_build/imgs_v2/python_build_Oauth_successful.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](../python_build/imgs_v2/python_build_Oauth_successful.png)
 

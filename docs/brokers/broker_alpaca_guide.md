@@ -24,11 +24,11 @@ Key features and offerings of Alpaca include:
 
 Alpaca's platform aims to democratize algorithmic trading by providing accessible tools and resources for both individual traders and developers. It's worth noting that the landscape of algorithmic trading and financial technology is constantly evolving, so it's a good idea to check Alpaca's official website for the most current information about their offerings and services.
 
-## How to get API-keys for trading in Alpaca?
+## How to get API keys for trading in Alpaca?
 
 ---
 
-- #### Create or Login to Alpaca Account
+- #### Create your Alpaca Account
     - Go to the official website of [Alpaca](https://alpaca.markets/)
     - Click on `sign up for free` to create an alpaca account
   
@@ -36,25 +36,26 @@ Alpaca's platform aims to democratize algorithmic trading by providing accessibl
 
 ---
 - #### Go to the Home Page of your Account
-    - After creating your account login into the home page 
-    - look for `View API Keys` on the right side under the `Quick Trade` Block
+    - After creating your account, login to access the home page 
+    - Look for `View API Keys` on the right side under the `Quick Trade` block
   
     [![img.png](../imgs/alpaca_account_home.png)](https://app.alpaca.markets/paper/dashboard/overview){target=_blank}
 
 ---
 - #### View API keys or Generate API keys
-    - click on `View API Keys` and then click on `Regenrate` to regenerate fresh keys
+    - Click on `View API Keys` and then click on `Regenrate` to regenerate fresh keys
    
     ![img.png](../imgs/alpaca_view_api_keys.png)
     ![img.png](../imgs/alpaca_regenerate_api_keys.png)
 
 ---
-- #### Get the `Secret-Key` and `API key`
+- #### Get the `Secret Key` and `API Key`
     - After regenerating you will get a fresh API key under the `Key` section and a secret key under the `Secret` section
   
-    ![img.png](../imgs/alpaca_api_keys_secret_keys.png)
+    ![img.png](../imgs/python_build_alpaca_keys_1.png)
 
 
-## Why do we need Alpaca Account ?
-If you want to run your strategy on American exchanges like NASDAQ or NYSE, you need access to the historical data as well as live data of all the stocks and that is provided by Alpaca.
-Besides this it will also be helpful to do live trading on AlgoBulls using these credentials.
+## Advantages of Binding Alpaca with your Account
+-  You can run your strategy on American exchanges like NASDAQ or NYSE, 
+-  Binding Alpaca helps you access the historical data as well as live data of all the stocks from Alpaca.
+- It will also help you backtest, live trade and paper trade on AlgoBulls using these credentials.
