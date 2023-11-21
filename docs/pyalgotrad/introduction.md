@@ -40,6 +40,7 @@ Backtesting, Paper Trading and Real Trading can be performed on the same strateg
 
 - **Bug Reporting / New Feature Request**: [Create a new issue](https://github.com/algobulls/pyalgotrading/issues/new) on GitHub.
 - **Engage in Discussion**: Join fellow developers on the discussion [forum](https://community.algobulls.com/c/github/pyalgotrading/42).
+- **Discussion Community**: Join fellow algotrading ninjas on the discussion [Slack](https://join.slack.com/t/algotradingninjas/shared_invite/zt-234npz3lu-A1f55maTr~j0tOIoxWA5hA)
 - **Additional Support**: For further help, contact [support@algobulls.com](mailto:support@algobulls.com).
 
 ## Overview
