@@ -6,24 +6,32 @@ Welcome to the **Pyalgotrading** Documentation – your guide to practising and 
 
 ## Key Features
 
-- Fueled by the **AlgoBulls**
-- Comprehensive Support for Algorithmic Trading Strategies:
-  - Create & upload strategies seamlessly on the [AlgoBulls Platform](https://algobulls.com){target="_blank"}
-  - Access a range of strategies from the [pyalgostrategypool](https://github.com/algobulls/pyalgostrategypool){target="_blank"}
-  -  Over 150 Technical Indicators from [TA-Lib](https://pypi.org/project/TA-Lib/){target="_blank"} at your disposal
-  - Multiple candlestick patterns including Japanese OHLC, Renko, Heikin-Ashi, Linebreak
-  - Support for varied candle intervals: 1 minute, 3 minutes, 5 minutes, and more
-  - Diverse order types supported: **MARKET**, **LIMIT**, **STOPLOSS-MARKET**, **STOPLOSS-LIMIT**
-  - Flexibility for both **INTRADAY** and **DELIVERY** orders
-- Full Spectrum of Trading: **Backtesting**, **Paper Trading**, and **Real Trading**:
-  - Currently supported with selected [brokers](https://app.algobulls.com/user/brokerlogin){target="_blank"}
-- Real-time Logs and Reports for Backtesting, Paper Trading, and Real Trading:
-  - Detailed Profit and Loss reports (PnL report)
-  - Insightful statistics derived from PnL report
-  - Order History showcasing state transitions and timestamps
-- Generate Candlestick charts using [plotly.py](https://github.com/plotly/plotly.py){target="_blank"}
+- Powered by the [AlgoBulls Platform]([https://app.algobulls.com](https://algobulls.com/build/))
+- Everything related to Algorithmic Trading Strategies!
+    - Free pool of Strategies are available at [pyalgostrategypool](https://github.com/algobulls/pyalgostrategypool)!
+    - Create & upload strategies easily on the cloud
+    - Support for all 150+ Technical Indicators provided by [TA-Lib](https://pypi.org/project/TA-Lib/)
+    - Support for multiple candlesticks patterns - Japanese OHLC, Renko, Heikin-Ashi, Linebreak
+    - Support for multiple candle intervals - 1 minute, 3 minutes, 5 minutes, 10 minutes, 15 minutes, 30 minutes, 1 hour, 1 day.
+    - Support for **Regular Orders**, **Bracket Orders** and **Cover Orders**
+    - Support for **MARKET**, **LIMIT**, **STOPLOSS-LIMIT**, **STOPLOSS-MARKET** orders
+    - Support for **INTRADAY** and **DELIVERY** orders
+- Support for **Backtesting**
+- Support for **Paper Trading**
+- Support for **Live Trading** / **Real Trading**
+- Support for multiple brokers for Live Trading. Check list of supported brokers [here](https://app.algobulls.com/user/brokerlogin).
+- Real-time Logs for Backtesting, Paper Trading, Live Trading
+- Multiple real-time Reports available for Backtesting, Paper Trading and Live Trading:
+    - Profit-&-Loss report (P&L report)
+    - Statistics Report
+    - Order History Log for each order with state transitions & timestamps
+    - Detailed analytics with charts
+- Support for calculating Slippage
+- Support for calculating Brokerage
+- Support for importing external P&L table and generating analytics on the same
+- Plot Candlestick charts using [plotly.py](https://github.com/plotly/plotly.py)
 
-Execute Backtesting, Paper Trading, and Real Trading using the same strategy code base.
+Backtesting, Paper Trading and Real Trading can be performed on the same strategy code base!
 
 !!! Note "Prerequisites"
     Before you commence development, make sure to establish your workspace and gather all prerequisites as outlined [here](prerequisites.md).
@@ -32,6 +40,7 @@ Execute Backtesting, Paper Trading, and Real Trading using the same strategy cod
 
 - **Bug Reporting / New Feature Request**: [Create a new issue](https://github.com/algobulls/pyalgotrading/issues/new) on GitHub.
 - **Engage in Discussion**: Join fellow developers on the discussion [forum](https://community.algobulls.com/c/github/pyalgotrading/42).
+- **Discussion Community**: Join fellow algotrading ninjas on the discussion [Slack](https://join.slack.com/t/algotradingninjas/shared_invite/zt-234npz3lu-A1f55maTr~j0tOIoxWA5hA)
 - **Additional Support**: For further help, contact [support@algobulls.com](mailto:support@algobulls.com).
 
 ## Overview
