@@ -1478,26 +1478,6 @@
 
               
             
-              
-                
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../brokers/non_auth_alpaca/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Non-OAuth
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
           </ul>
         </nav>
       
@@ -1755,38 +1735,47 @@
 <p>This is a trading strategy called "VWAP Crossover" implemented in Python using the PyAlgoTrading library. The strategy is based on the crossover of the VWAP (Volume Weighted Average Price) indicator.</p>
 <div class="admonition links">
 <p class="admonition-title">Links</p>
+</div>
 <ul>
 <li><strong><a href="https://github.com/algobulls/pyalgostrategypool/blob/master/pyalgostrategypool/vwap_crossover.py" target="_blank">Strategy Code (.py)</a></strong></li>
 <li><strong><a href="../strategy_guides/common_strategy_guide/" target="_blank">Strategy Structure (common methods used in a regular and options strategy)</a></strong></li>
 </ul>
-</div>
 <div class="admonition tips">
 <p class="admonition-title">Jupyter Notebook for Indian Exchange (NSE)</p>
+</div>
 <ul>
 <li><strong><a href="https://nbviewer.org/github/algobulls/pyalgotrading/blob/master/jupyter/nse_equity/vwap_crossover.ipynb" target="_blank">Click here to view a working notebook for NSE exchange in cloud. No installation required. </a></strong></li>
-<li><strong><a href="https://mybinder.org/v2/gh/algobulls/pyalgotrading/fe289cc5d5df69e7b87b930cce110326645cd99d?urlpath=lab%2Ftree%2Fjupyter%2Fnse_equity%2Fvwap_crossover.ipynb" target="_blank">Click here to execute a working notebook for NSE exchange in cloud. No installation required. </a></strong></li>
+<li>*
+<em><a href="https://mybinder.org/v2/gh/algobulls/pyalgotrading/fe289cc5d5df69e7b87b930cce110326645cd99d?urlpath=lab%2Ftree%2Fjupyter%2Fnse_equity%2Fvwap_crossover.ipynb">Click here to execute a working notebook for NSE exchange in cloud. No installation required. </a>
+{target=_blank}</em>*</li>
 </ul>
-</div>
 <div class="admonition tips">
 <p class="admonition-title">Jupyter Notebook for US Exchange (NASDAQ)</p>
+</div>
 <ul>
 <li><strong><a href="https://nbviewer.org/github/algobulls/pyalgotrading/blob/master/jupyter/nasdaq_equity/vwap_crossover_us.ipynb" target="_blank">Click here to view a working notebook for NASDAQ exchange in cloud. No installation required. </a></strong></li>
-<li><strong><a href="https://mybinder.org/v2/gh/algobulls/pyalgotrading/fe289cc5d5df69e7b87b930cce110326645cd99d?urlpath=lab%2Ftree%2Fjupyter%2Fnasdaq_equity%2Fvwap_crossover_us.ipynb" target="_blank">Click here to execute a working notebook for NASDAQ exchange in cloud. No installation required. </a></strong></li>
+<li>*
+<em><a href="https://mybinder.org/v2/gh/algobulls/pyalgotrading/fe289cc5d5df69e7b87b930cce110326645cd99d?urlpath=lab%2Ftree%2Fjupyter%2Fnasdaq_equity%2Fvwap_crossover_us.ipynb">Click here to execute a working notebook for NASDAQ exchange in cloud. No installation required. </a>
+{target=_blank}</em>*</li>
 </ul>
-</div>
 <h2 id="vwap-indicator">VWAP indicator<a class="headerlink" href="#vwap-indicator" title="Permanent link">&para;</a></h2>
-<p>In the stock market, VWAP stands for Volume-Weighted Average Price. VWAP is a trading indicator that calculates the average price at which a particular stock or security has traded throughout the day, taking into account both the price and the volume of each trade.</p>
+<p>In the stock market, VWAP stands for Volume-Weighted Average Price. VWAP is a trading indicator that calculates the average price at which a particular stock or security has traded throughout the day, taking into account both the price and the volume
+of each trade.</p>
 <p>Here is a summary of VWAP in the stock market:</p>
 <ul>
 <li>VWAP is calculated by multiplying the price of each trade by the corresponding volume and then summing up these values over a specific time period. The total value is divided by the cumulative volume to obtain the average price.</li>
 <li>The volume-weighted aspect of VWAP gives more weight to trades with higher volume, reflecting the significance of larger trades in the overall average price calculation.</li>
 <li>VWAP is typically calculated on an intraday basis, such as the trading day or a specific session, and resets at the start of each new period.</li>
-<li>Traders and investors use VWAP as a benchmark to assess whether their own trades are executed at a better or worse price compared to the average market price. It helps evaluate the quality of their execution and determine if they are buying or selling at a favorable price.</li>
-<li>VWAP is commonly used by institutional traders who execute large orders as it helps them minimize market impact and avoid unfavorable executions. By comparing their execution price to VWAP, they can assess their performance and adjust their trading strategies accordingly.</li>
-<li>In addition to being used as a benchmark, VWAP is also employed as a trading strategy. Some traders use VWAP as a reference point for making buy or sell decisions. For example, if the current price is above VWAP, it may be considered bullish, while a price below VWAP could be seen as bearish.</li>
+<li>Traders and investors use VWAP as a benchmark to assess whether their own trades are executed at a better or worse price compared to the average market price. It helps evaluate the quality of their execution and determine if they are buying or
+  selling at a favorable price.</li>
+<li>VWAP is commonly used by institutional traders who execute large orders as it helps them minimize market impact and avoid unfavorable executions. By comparing their execution price to VWAP, they can assess their performance and adjust their trading
+  strategies accordingly.</li>
+<li>In addition to being used as a benchmark, VWAP is also employed as a trading strategy. Some traders use VWAP as a reference point for making buy or sell decisions. For example, if the current price is above VWAP, it may be considered bullish, while
+  a price below VWAP could be seen as bearish.</li>
 <li>VWAP is often displayed as a line on intraday price charts, allowing traders to visually compare the current price to the average price. It can provide insights into the market's overall sentiment and potential support or resistance levels.</li>
 <li>It is important to note that VWAP is a lagging indicator since it is based on historical data. Therefore, it is often used in combination with other indicators and analysis techniques to validate trade signals and make informed trading decisions.</li>
-<li>Overall, VWAP is a widely used indicator in the stock market that provides a volume-weighted average price, serving as a benchmark for evaluating trade execution quality and as a reference point for trading decisions. By considering both price and volume, VWAP offers insights into market dynamics and helps traders assess their performance relative to the average market price.</li>
+<li>Overall, VWAP is a widely used indicator in the stock market that provides a volume-weighted average price, serving as a benchmark for evaluating trade execution quality and as a reference point for trading decisions. By considering both price and
+  volume, VWAP offers insights into market dynamics and helps traders assess their performance relative to the average market price.</li>
 </ul>
 <table>
 <thead>
@@ -1801,9 +1790,10 @@
 </tbody>
 </table>
 <h2 id="strategy-overview">Strategy Overview<a class="headerlink" href="#strategy-overview" title="Permanent link">&para;</a></h2>
-<p>The strategy follows a simple rule based on the crossover of the VWAP indicator. When the price crosses above the VWAP, a buy signal is generated, and when the price crosses below the VWAP, a sell signal is generated. The strategy aims to capture potential trend reversals based on the VWAP.</p>
+<p>The strategy follows a simple rule based on the crossover of the VWAP indicator. When the price crosses above the VWAP, a buy signal is generated, and when the price crosses below the VWAP, a sell signal is generated. The strategy aims to capture
+potential trend reversals based on the VWAP.</p>
 <h2 id="strategy-parameters">Strategy Parameters<a class="headerlink" href="#strategy-parameters" title="Permanent link">&para;</a></h2>
-<p>No specific strategy parameters are mentioned in the code. </p>
+<p>No specific strategy parameters are mentioned in the code.</p>
 <h2 id="crossover-calculation">Crossover Calculation<a class="headerlink" href="#crossover-calculation" title="Permanent link">&para;</a></h2>
 <p>The <code>get_crossover_value</code> method calculates the VWAP from historical data and the crossover values for the VWAP of the instrument. The method returns the crossover values between close of hist data and vwap.</p>
 

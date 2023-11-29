@@ -1420,26 +1420,6 @@
 
               
             
-              
-                
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../brokers/non_auth_alpaca/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Non-OAuth
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
           </ul>
         </nav>
       
@@ -1661,35 +1641,44 @@
 <p>This is a trading strategy called "RSI MACD Crossovers" implemented in Python using the PyAlgoTrading library. The strategy is based on the RSI and MACD indicator crossover.</p>
 <div class="admonition links">
 <p class="admonition-title">Links</p>
+</div>
 <ul>
 <li><strong><a href="https://github.com/algobulls/pyalgostrategypool/blob/master/pyalgostrategypool/rsi_macd_crossover.py" target="_blank">Strategy Code (.py)</a></strong></li>
 <li><strong><a href="../strategy_guides/common_strategy_guide/" target="_blank">Strategy Structure (common methods used in a regular and options strategy)</a></strong></li>
 </ul>
-</div>
 <div class="admonition tips">
 <p class="admonition-title">Jupyter Notebook for Indian Exchange (NSE)</p>
+</div>
 <ul>
 <li><strong><a href="https://nbviewer.org/github/algobulls/pyalgotrading/blob/master/jupyter/nse_equity/rsi_macd_crossover.ipynb" target="_blank">Click here to view a working notebook for NSE exchange in cloud. No installation required. </a></strong></li>
-<li><strong><a href="https://mybinder.org/v2/gh/algobulls/pyalgotrading/fe289cc5d5df69e7b87b930cce110326645cd99d?urlpath=lab%2Ftree%2Fjupyter%2Fnse_equity%2Frsi_macd_crossover.ipynb" target="_blank">Click here to execute a working notebook for NSE exchange in cloud. No installation required. </a></strong></li>
+<li>*
+<em><a href="https://mybinder.org/v2/gh/algobulls/pyalgotrading/fe289cc5d5df69e7b87b930cce110326645cd99d?urlpath=lab%2Ftree%2Fjupyter%2Fnse_equity%2Frsi_macd_crossover.ipynb">Click here to execute a working notebook for NSE exchange in cloud. No installation required. </a>
+{target=_blank}</em>*</li>
 </ul>
-</div>
 <h1 id="rsi-and-macd-crossover">RSI and MACD Crossover<a class="headerlink" href="#rsi-and-macd-crossover" title="Permanent link">&para;</a></h1>
-<p>In the dynamic world of stock trading, effective strategies are the key to success. The combination of two powerful technical indicators, the Moving Average Convergence Divergence (MACD) and the Relative Strength Index (RSI), can be a game-changer for traders. This strategy leverages MACD and RSI crossovers to identify potential entry and exit points in the stock market.</p>
-<p>Here is a summary of RSI and MACD in the stock market:
-- The MACD is a trend-following momentum indicator. It consists of two lines: the MACD line and the Signal line. When the MACD line crosses above the Signal line, it generates a bullish signal, suggesting a potential uptrend. Conversely, a cross below the Signal line indicates a bearish signal, signaling a potential downtrend.</p>
+<p>In the dynamic world of stock trading, effective strategies are the key to success. The combination of two powerful technical indicators, the Moving Average Convergence Divergence (MACD) and the Relative Strength Index (RSI), can be a game-changer
+for traders. This strategy leverages MACD and RSI crossovers to identify potential entry and exit points in the stock market.</p>
+<p>Here is a summary of RSI and MACD in the stock market:</p>
 <ul>
 <li>
-<p>The RSI is an oscillator that measures the speed and change of price movements. RSI values above 70 typically indicate an overbought condition, signaling a potential price reversal to the downside. RSI values below 30 suggest an oversold condition, indicating a potential price reversal to the upside.</p>
+<p>The MACD is a trend-following momentum indicator. It consists of two lines: the MACD line and the Signal line. When the MACD line crosses above the Signal line, it generates a bullish signal, suggesting a potential uptrend. Conversely, a cross
+  below the Signal line indicates a bearish signal, signaling a potential downtrend.</p>
 </li>
 <li>
-<p>The essence of this strategy lies in the crossover of the MACD and RSI indicators. When the MACD generates a bullish crossover and the RSI confirms by being below 70 (not in an overbought condition), it could be an opportune time to consider a long (BUY) position. </p>
+<p>The RSI is an oscillator that measures the speed and change of price movements. RSI values above 70 typically indicate an overbought condition, signaling a potential price reversal to the downside. RSI values below 30 suggest an oversold condition,
+  indicating a potential price reversal to the upside.</p>
+</li>
+<li>
+<p>The essence of this strategy lies in the crossover of the MACD and RSI indicators. When the MACD generates a bullish crossover and the RSI confirms by being below 70 (not in an overbought condition), it could be an opportune time to consider a
+  long (BUY) position.</p>
 </li>
 <li>
 <p>Conversely, when the MACD produces a bearish crossover and the RSI is above 30 (not in an oversold condition), it may be a suitable moment to contemplate a short (SELL) position.</p>
 </li>
 </ul>
 <h2 id="strategy-overview">Strategy Overview<a class="headerlink" href="#strategy-overview" title="Permanent link">&para;</a></h2>
-<p>The MACD and RSI crossover strategy is a robust approach that combines the strength of two widely used technical indicators. By identifying potential entry and exit points based on these crossovers, traders can make more informed decisions in the stock market.</p>
+<p>The MACD and RSI crossover strategy is a robust approach that combines the strength of two widely used technical indicators. By identifying potential entry and exit points based on these crossovers, traders can make more informed decisions in the
+stock market.</p>
 <h2 id="strategy-parameters">Strategy Parameters<a class="headerlink" href="#strategy-parameters" title="Permanent link">&para;</a></h2>
 <p>The following parameters can be configured for the strategy:</p>
 <table>
@@ -1741,7 +1730,8 @@
 </tbody>
 </table>
 <h2 id="crossover-calculation">Crossover Calculation<a class="headerlink" href="#crossover-calculation" title="Permanent link">&para;</a></h2>
-<p>The <code>get_crossover_value</code> method calculates the crossover value based on the inverse crossover of the two EMAs of the closing prices. It uses the <code>talib.MACD</code> and <code>talib.RSI</code> function from the Talib library to calculate the MACD and RSI. The method then determines the crossover between the MACD and RSI and returns the corresponding value (-1, 0, or 1).</p>
+<p>The <code>get_crossover_value</code> method calculates the crossover value based on the inverse crossover of the two EMAs of the closing prices. It uses the <code>talib.MACD</code> and <code>talib.RSI</code> function from the Talib library to calculate the MACD and RSI. The method
+then determines the crossover between the MACD and RSI and returns the corresponding value (-1, 0, or 1).</p>
 
   <hr>
 <div class="md-source-file">

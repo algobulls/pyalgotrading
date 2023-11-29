@@ -1473,26 +1473,6 @@
 
               
             
-              
-                
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../brokers/non_auth_alpaca/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Non-OAuth
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
           </ul>
         </nav>
       
@@ -1746,25 +1726,31 @@
   <h1>Options Bear Put Ladder</h1>
 
 <h2 id="options-bear-put-ladder">Options Bear Put Ladder<a class="headerlink" href="#options-bear-put-ladder" title="Permanent link">&para;</a></h2>
-<p>This is a template for the Options Bear Put Ladder strategy. The strategy involves the combination of buying and selling put options to profit from a downward price movement in the underlying asset. It utilizes multiple legs with different strike prices and transaction types to create a ladder-like structure.</p>
+<p>This is a template for the Options Bear Put Ladder strategy. The strategy involves the combination of buying and selling put options to profit from a downward price movement in the underlying asset. It utilizes multiple legs with different strike
+prices and transaction types to create a ladder-like structure.</p>
 <div class="admonition links">
 <p class="admonition-title">Links</p>
+</div>
 <ul>
 <li><strong><a href="https://github.com/algobulls/pyalgostrategypool/blob/master/pyalgostrategypool/options_bear_put_ladder.py" target="_blank">Strategy Code (.py)</a></strong></li>
 <li><strong><a href="../strategy_guides/common_strategy_guide/" target="_blank">Strategy Structure (common methods used in a regular and options strategy)</a></strong></li>
 </ul>
-</div>
 <div class="admonition tips">
 <p class="admonition-title">Jupyter Notebook for Options from Indian Exchange (NSE)</p>
-<ul>
-<li><strong><a href="https://nbviewer.org/github/algobulls/pyalgotrading/blob/d77ba21f66764971362b51c1a39367a1f78c308d/jupyter/nse_options_jupyter_notebooks/options_bear_put_ladder.ipynb" target="_blank">Click here to view a working notebook for options from NSE exchange in cloud. No installation required. </a></strong></li>
-<li><strong><a href="https://mybinder.org/v2/gh/algobulls/pyalgotrading/52ec68cf886a116d72356da261d01537021d7710?urlpath=lab%2Ftree%2Fjupyter%2Fnse_options%2Foptions_bear_put_ladder.ipynb" target="_blank">Click here to execute a working notebook for options from NSE exchange in cloud. No installation required. </a></strong></li>
-</ul>
 </div>
+<ul>
+<li>*
+<em><a href="https://nbviewer.org/github/algobulls/pyalgotrading/blob/d77ba21f66764971362b51c1a39367a1f78c308d/jupyter/nse_options_jupyter_notebooks/options_bear_put_ladder.ipynb">Click here to view a working notebook for options from NSE exchange in cloud. No installation required. </a>
+{target=_blank}</em>*</li>
+<li>*
+<em><a href="https://mybinder.org/v2/gh/algobulls/pyalgotrading/52ec68cf886a116d72356da261d01537021d7710?urlpath=lab%2Ftree%2Fjupyter%2Fnse_options%2Foptions_bear_put_ladder.ipynb">Click here to execute a working notebook for options from NSE exchange in cloud. No installation required. </a>
+{target=_blank}</em>*</li>
+</ul>
 <h3 id="bear-put-ladder">Bear Put Ladder<a class="headerlink" href="#bear-put-ladder" title="Permanent link">&para;</a></h3>
 <ul>
 <li>
-<p>In the stock market, an options bear put ladder is a strategy that combines buying and selling put options with different strike prices to profit from a moderate bearish view on the underlying asset. It involves a mix of long and short put positions.</p>
+<p>In the stock market, an options bear put ladder is a strategy that combines buying and selling put options with different strike prices to profit from a moderate bearish view on the underlying asset. It involves a mix of long and short put
+  positions.</p>
 </li>
 <li>
 <p>To implement a bear put ladder strategy, an investor generally follows these steps:</p>
@@ -1775,16 +1761,19 @@
 </ol>
 </li>
 <li>
-<p>The goal of the bear put ladder is to generate a limited profit if the price of the underlying asset remains below the middle strike price at expiration. The strategy benefits from time decay and a moderate decline in the price of the underlying asset.</p>
+<p>The goal of the bear put ladder is to generate a limited profit if the price of the underlying asset remains below the middle strike price at expiration. The strategy benefits from time decay and a moderate decline in the price of the underlying
+  asset.</p>
 </li>
 <li>
-<p>The maximum profit potential is reached when the price of the underlying asset is below the middle strike price at expiration. If the price continues to decrease, the profit potential remains limited. However, if the price rises above the higher strike price, the strategy can result in losses.</p>
+<p>The maximum profit potential is reached when the price of the underlying asset is below the middle strike price at expiration. If the price continues to decrease, the profit potential remains limited. However, if the price rises above the higher
+  strike price, the strategy can result in losses.</p>
 </li>
 <li>
 <p>The bear put ladder strategy combines short put options to generate premium income and long put options to provide protection against significant losses in case the price of the underlying asset declines substantially.</p>
 </li>
 <li>
-<p>Traders implementing the bear put ladder strategy should consider factors such as the strike prices, premium costs, and expiration date to assess the risk-reward profile. It's crucial to have a comprehensive understanding of options trading and associated risks before employing this strategy in the stock market.</p>
+<p>Traders implementing the bear put ladder strategy should consider factors such as the strike prices, premium costs, and expiration date to assess the risk-reward profile. It's crucial to have a comprehensive understanding of options trading and
+  associated risks before employing this strategy in the stock market.</p>
 </li>
 <li>
 <p>Keep in mind that options trading can be complex and involves substantial risks. It is advisable to consult with a qualified financial advisor or broker before engaging in options trading activities.</p>

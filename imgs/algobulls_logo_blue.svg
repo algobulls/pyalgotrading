@@ -1,61 +1,60 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="104"
-   height="104"
-   viewBox="0 0 104 104"
-   fill="none"
-   version="1.1"
-   id="svg4"
-   sodipodi:docname="favicon_no_margin.svg"
-   inkscape:version="1.0.1 (0767f8302a, 2020-10-17)"
-   inkscape:export-filename="/home/pushpak/Documents/algobulls/logo/latestcolour/favicon_no_margin.png"
-   inkscape:export-xdpi="945.22998"
-   inkscape:export-ydpi="945.22998">
-  <metadata
-     id="metadata10">
-    <rdf:RDF>
-      <cc:Work
-         rdf:about="">
-        <dc:format>image/svg+xml</dc:format>
-        <dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-      </cc:Work>
-    </rdf:RDF>
-  </metadata>
-  <defs
-     id="defs8" />
-  <sodipodi:namedview
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1"
-     objecttolerance="10"
-     gridtolerance="10"
-     guidetolerance="10"
-     inkscape:pageopacity="0"
-     inkscape:pageshadow="2"
-     inkscape:window-width="1848"
-     inkscape:window-height="1016"
-     id="namedview6"
-     showgrid="false"
-     inkscape:zoom="4.2307692"
-     inkscape:cx="30.340018"
-     inkscape:cy="36.224509"
-     inkscape:window-x="72"
-     inkscape:window-y="27"
-     inkscape:window-maximized="1"
-     inkscape:current-layer="svg4"
-     inkscape:document-rotation="0" />
-  <path
-     fill-rule="evenodd"
-     clip-rule="evenodd"
-     d="m 94.45964,70.847968 c -0.4593,37.905102 3.6759,31.913102 -37.2048,31.863102 -23.4204,-0.026 -40.541,-13.834002 -46.23673,-36.484702 -5.77011,-22.936 4.14863,-49.9744 22.07123,-60.1591896 22.0082,-12.50683 47.781,-1.4347 57.5034,24.4608896 4.9393,13.1552 4.0183,26.7445 3.8669,40.3199 z m -41.631,-54.4976 c -14.9876,-0.5051 -27.7868,14.3145 -28.6552,33.1778 -0.8854,19.2575 11.6528,36.7965 26.8341,37.5433 15.0118,0.7371 28.351,-16.0953 28.4372,-35.8856 0.0819,-19.1063 -11.5457,-34.3264 -26.6161,-34.8355"
-     fill="#2c78f6"
-     id="path2" />
+        xmlns:dc="http://purl.org/dc/elements/1.1/"
+        xmlns:cc="http://creativecommons.org/ns#"
+        xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+        xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+        xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+        xmlns="http://www.w3.org/2000/svg"
+        width="104"
+        height="104"
+        viewBox="0 0 104 104"
+        fill="none"
+        version="1.1"
+        id="svg4"
+        sodipodi:docname="favicon_no_margin.svg"
+        inkscape:version="1.0.1 (0767f8302a, 2020-10-17)"
+        inkscape:export-filename="/home/pushpak/Documents/algobulls/logo/latestcolour/favicon_no_margin.png"
+        inkscape:export-xdpi="945.22998"
+        inkscape:export-ydpi="945.22998">
+    <metadata
+            id="metadata10">
+        <rdf:RDF>
+            <cc:Work
+                    rdf:about="">
+                <dc:format>image/svg+xml</dc:format>
+                <dc:type
+                        rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+            </cc:Work>
+        </rdf:RDF>
+    </metadata>
+    <defs
+            id="defs8"/>
+    <sodipodi:namedview
+            pagecolor="#ffffff"
+            bordercolor="#666666"
+            borderopacity="1"
+            objecttolerance="10"
+            gridtolerance="10"
+            guidetolerance="10"
+            inkscape:pageopacity="0"
+            inkscape:pageshadow="2"
+            inkscape:window-width="1848"
+            inkscape:window-height="1016"
+            id="namedview6"
+            showgrid="false"
+            inkscape:zoom="4.2307692"
+            inkscape:cx="30.340018"
+            inkscape:cy="36.224509"
+            inkscape:window-x="72"
+            inkscape:window-y="27"
+            inkscape:window-maximized="1"
+            inkscape:current-layer="svg4"
+            inkscape:document-rotation="0"/>
+    <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="m 94.45964,70.847968 c -0.4593,37.905102 3.6759,31.913102 -37.2048,31.863102 -23.4204,-0.026 -40.541,-13.834002 -46.23673,-36.484702 -5.77011,-22.936 4.14863,-49.9744 22.07123,-60.1591896 22.0082,-12.50683 47.781,-1.4347 57.5034,24.4608896 4.9393,13.1552 4.0183,26.7445 3.8669,40.3199 z m -41.631,-54.4976 c -14.9876,-0.5051 -27.7868,14.3145 -28.6552,33.1778 -0.8854,19.2575 11.6528,36.7965 26.8341,37.5433 15.0118,0.7371 28.351,-16.0953 28.4372,-35.8856 0.0819,-19.1063 -11.5457,-34.3264 -26.6161,-34.8355"
+            fill="#2c78f6"
+            id="path2"/>
 </svg>

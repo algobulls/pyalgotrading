@@ -1478,26 +1478,6 @@
 
               
             
-              
-                
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../brokers/non_auth_alpaca/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Non-OAuth
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
           </ul>
         </nav>
       
@@ -1755,25 +1735,29 @@
 <p>This is a trading strategy called "Bollinger Bands" implemented in Python using the PyAlgoTrading library. The strategy is based on the bollinger bands indicator values.</p>
 <div class="admonition links">
 <p class="admonition-title">Links</p>
+</div>
 <ul>
 <li><strong><a href="https://github.com/algobulls/pyalgostrategypool/blob/master/pyalgostrategypool/bollinger_bands.py" target="_blank">Strategy Code (.py)</a></strong></li>
 <li><strong><a href="../strategy_guides/common_strategy_guide/" target="_blank">Strategy Structure (common methods used in a regular and options strategy)</a></strong></li>
 </ul>
-</div>
 <div class="admonition tips">
 <p class="admonition-title">Jupyter Notebooks for Indian Exchange (NSE)</p>
+</div>
 <ul>
 <li><strong><a href="https://nbviewer.org/github/algobulls/pyalgotrading/blob/master/jupyter/nse_equity/bollinger_bands.ipynb" target="_blank">Click here to view a working notebook for NSE exchange in cloud. No installation required. </a></strong></li>
-<li><strong><a href="https://mybinder.org/v2/gh/algobulls/pyalgotrading/fe289cc5d5df69e7b87b930cce110326645cd99d?urlpath=lab%2Ftree%2Fjupyter%2Fnse_equity%2Fbollinger_bands.ipynb" target="_blank">Click here to execute a working notebook for NSE exchange in cloud. No installation required. </a></strong></li>
+<li>*
+<em><a href="https://mybinder.org/v2/gh/algobulls/pyalgotrading/fe289cc5d5df69e7b87b930cce110326645cd99d?urlpath=lab%2Ftree%2Fjupyter%2Fnse_equity%2Fbollinger_bands.ipynb">Click here to execute a working notebook for NSE exchange in cloud. No installation required. </a>
+{target=_blank}</em>*</li>
 </ul>
-</div>
 <div class="admonition tips">
 <p class="admonition-title">Jupyter Notebook for US Exchange (NASDAQ)</p>
+</div>
 <ul>
 <li><strong><a href="https://nbviewer.org/github/algobulls/pyalgotrading/blob/master/jupyter/nasdaq_equity/bollinger_bands_us.ipynb" target="_blank">Click here to view a working notebook for NASDAQ exchange in cloud. No installation required. </a></strong></li>
-<li><strong><a href="https://mybinder.org/v2/gh/algobulls/pyalgotrading/fe289cc5d5df69e7b87b930cce110326645cd99d?urlpath=lab%2Ftree%2Fjupyter%2Fnasdaq_equity%2Fbollinger_bands_us.ipynb" target="_blank">Click here to execute a working notebook for NASDAQ exchange in cloud. No installation required. </a></strong></li>
+<li>*
+<em><a href="https://mybinder.org/v2/gh/algobulls/pyalgotrading/fe289cc5d5df69e7b87b930cce110326645cd99d?urlpath=lab%2Ftree%2Fjupyter%2Fnasdaq_equity%2Fbollinger_bands_us.ipynb">Click here to execute a working notebook for NASDAQ exchange in cloud. No installation required. </a>
+{target=_blank}</em>*</li>
 </ul>
-</div>
 <h2 id="bollinger-bands-indicator">Bollinger Bands Indicator<a class="headerlink" href="#bollinger-bands-indicator" title="Permanent link">&para;</a></h2>
 <p>Bollinger Bands consists of a middle band (typically a 20-day Simple Moving Average) and two bands that represent the upper and lower price boundaries based on standard deviations. The bands adjust dynamically with market volatility.</p>
 <p>Key points about Bollinger Bands:</p>
@@ -1799,7 +1783,8 @@
 </tbody>
 </table>
 <h2 id="strategy-overview">Strategy Overview<a class="headerlink" href="#strategy-overview" title="Permanent link">&para;</a></h2>
-<p>This strategy, called Bollinger Bands, is an implementation of the Bollinger Bands indicator. It uses the Bollinger Bands values to compare with previous candle's OPEN, HIGH, LOW and CLOSE values and generate entry and exit signals for trading instruments.</p>
+<p>This strategy, called Bollinger Bands, is an implementation of the Bollinger Bands indicator. It uses the Bollinger Bands values to compare with previous candle's OPEN, HIGH, LOW and CLOSE values and generate entry and exit signals for trading
+instruments.</p>
 <h2 id="strategy-parameters">Strategy Parameters<a class="headerlink" href="#strategy-parameters" title="Permanent link">&para;</a></h2>
 <p>The following parameters can be configured for the strategy:</p>
 <table>
@@ -1827,7 +1812,8 @@
 </tbody>
 </table>
 <h2 id="decision-calculation">Decision Calculation<a class="headerlink" href="#decision-calculation" title="Permanent link">&para;</a></h2>
-<p>The <code>get_decision</code> method calculates the Bollinger Bands values for a given instrument based on the OHLC (Open, High, Low, Close) historical data. It uses the <code>talib.BBANDS</code> function from the Talib library to calculate the upper and lower bands. The method compares the previous candle's open, low, and close values with the upper and lower bands to determine the entry or exit action. If the conditions for a buy or sell signal are met, the corresponding action is returned.</p>
+<p>The <code>get_decision</code> method calculates the Bollinger Bands values for a given instrument based on the OHLC (Open, High, Low, Close) historical data. It uses the <code>talib.BBANDS</code> function from the Talib library to calculate the upper and lower bands. The
+method compares the previous candle's open, low, and close values with the upper and lower bands to determine the entry or exit action. If the conditions for a buy or sell signal are met, the corresponding action is returned.</p>
 
   <hr>
 <div class="md-source-file">
