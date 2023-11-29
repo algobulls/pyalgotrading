@@ -48,3 +48,5 @@ Before this step, please make sure you have an Alpaca account. For assistance [c
 
 [![img.png](../python_build/imgs_v2/python_build_Oauth_successful.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](../python_build/imgs_v2/python_build_Oauth_successful.png)
 
+!!! Note "NOTE: We have discontinued the Non-OAuth method in accordance with Alpaca’s recommendations. Please use the OAuth method for seamless integration and improved security. Be mindful of this update as you proceed with your integrations."
+

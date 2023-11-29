@@ -1,5 +1,7 @@
 # Binding Alpaca with Python Build
 
+!!! Note "NOTE: We have discontinued the Non-OAuth method in accordance with Alpaca’s recommendations. Please use the OAuth method for seamless integration and improved security. Be mindful of this update as you proceed with your integrations."
+
 ## Alpaca and Python Build
 
 ---
