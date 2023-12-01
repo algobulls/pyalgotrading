@@ -83,7 +83,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#binding-alpaca-with-python-build" class="md-skip">
+        <a href="#oauth" class="md-skip">
           Skip to content
         </a>
       
@@ -1442,13 +1442,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#alpaca-and-python-build" class="md-nav__link">
-    Alpaca and Python Build
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#an-overview" class="md-nav__link">
     An overview
   </a>
@@ -1456,11 +1449,11 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#how-to-set-up-alpaca-for-trading-in-python-build-with-oauth" class="md-nav__link">
-    How to set up Alpaca for trading in Python Build with OAuth?
+  <a href="#how-to-set-up-alpaca-for-trading-in-algobulls-with-oauth" class="md-nav__link">
+    How to set up Alpaca for trading in AlgoBulls with OAuth?
   </a>
   
-    <nav class="md-nav" aria-label="How to set up Alpaca for trading in Python Build with OAuth?">
+    <nav class="md-nav" aria-label="How to set up Alpaca for trading in AlgoBulls with OAuth?">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1726,13 +1719,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#alpaca-and-python-build" class="md-nav__link">
-    Alpaca and Python Build
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#an-overview" class="md-nav__link">
     An overview
   </a>
@@ -1740,11 +1726,11 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#how-to-set-up-alpaca-for-trading-in-python-build-with-oauth" class="md-nav__link">
-    How to set up Alpaca for trading in Python Build with OAuth?
+  <a href="#how-to-set-up-alpaca-for-trading-in-algobulls-with-oauth" class="md-nav__link">
+    How to set up Alpaca for trading in AlgoBulls with OAuth?
   </a>
   
-    <nav class="md-nav" aria-label="How to set up Alpaca for trading in Python Build with OAuth?">
+    <nav class="md-nav" aria-label="How to set up Alpaca for trading in AlgoBulls with OAuth?">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1791,18 +1777,17 @@
   
 
 
-<h1 id="binding-alpaca-with-python-build">Binding Alpaca with Python Build<a class="headerlink" href="#binding-alpaca-with-python-build" title="Permanent link">&para;</a></h1>
-<h2 id="alpaca-and-python-build">Alpaca and Python Build<a class="headerlink" href="#alpaca-and-python-build" title="Permanent link">&para;</a></h2>
+<h1 id="oauth">OAuth<a class="headerlink" href="#oauth" title="Permanent link">&para;</a></h1>
 <hr />
-<p>This guide streamlines the process, allowing you to seamlessly connect Alpaca with Python Build Account. Elevate your trading experience with our visual analytics feature, and fine-tune your strategy until it meets your satisfaction.</p>
+<p>Embark on a streamlined and secure journey as you bind your Alpaca broker with AlgoBulls through OAuth integration. This seamless process ensures a robust connection between your accounts, allowing for efficient data exchange and trading activities. With OAuth binding, you can experience the convenience of a secure link without compromising on the integrity of your financial operations. Follow our comprehensive guide to effortlessly set up OAuth binding and unleash the full potential of AlgoBulls with Alpaca integration.</p>
 <h2 id="an-overview">An overview<a class="headerlink" href="#an-overview" title="Permanent link">&para;</a></h2>
 <hr />
 <ul>
-<li>Navigate to the <code>Broking Details</code> section on the AlgoBulls platform.</li>
-<li>Here you will see all the brokers you are connected with and their active statuses under <code>primary</code> column
-  <a href="../../python_build/imgs_v2/pyBuild_broking_details.png"><img alt="pythonbuild" src="../../python_build/imgs_v2/pyBuild_broking_details.png" title="Click to Enlarge or Ctrl+Click to open in a new Tab" /></a></li>
+<li>Navigate to the <code>Broking Details</code>page on the AlgoBulls platform.</li>
+<li>Here you will see all the brokers you have connected and their current statuses.</li>
 </ul>
-<h2 id="how-to-set-up-alpaca-for-trading-in-python-build-with-oauth">How to set up Alpaca for trading in Python Build with OAuth?<a class="headerlink" href="#how-to-set-up-alpaca-for-trading-in-python-build-with-oauth" title="Permanent link">&para;</a></h2>
+<p><a href="../../python_build/imgs_v2/pyBuild_broking_details.png"><img alt="pythonbuild" src="../../python_build/imgs_v2/pyBuild_broking_details.png" title="Click to Enlarge or Ctrl+Click to open in a new Tab" /></a></p>
+<h2 id="how-to-set-up-alpaca-for-trading-in-algobulls-with-oauth">How to set up Alpaca for trading in AlgoBulls with OAuth?<a class="headerlink" href="#how-to-set-up-alpaca-for-trading-in-algobulls-with-oauth" title="Permanent link">&para;</a></h2>
 <hr />
 <p>Before this step, please make sure you have an Alpaca account. <a href="https://alpaca.markets/">Click here</a> to visit the Alpaca site for creating your account.</p>
 <h3 id="add-broker">Add Broker<a class="headerlink" href="#add-broker" title="Permanent link">&para;</a></h3>
@@ -1813,21 +1798,26 @@
 <hr />
 <h3 id="search-for-alpaca">Search for Alpaca<a class="headerlink" href="#search-for-alpaca" title="Permanent link">&para;</a></h3>
 <ul>
-<li>After clicking on Add Broker you will see a pop-out window with a search bar</li>
-<li>Type <code>Alpaca</code> in the search dialog box</li>
-<li><strong>Alpaca Paper:</strong> Opt this for paper trading.</li>
-<li><strong>Alpaca Real:</strong> Opt this for real trading.</li>
+<li>
+<p>On the pop-up window that appears, you have a search bar for finding your desired broker.</p>
+</li>
+<li>
+<p>Type <code>Alpaca</code> in the search dialog box</p>
+</li>
+<li>Click on <code>Alpaca Paper (OAuth)</code> for choosing your Alpaca Paper Account.</li>
+<li>Click on <code>Alpaca Live (OAuth)</code> for choosing your Alpaca Live Account.</li>
 </ul>
 <p><a href="../../python_build/imgs_v2/Python_Build_Broking_details_paper_mode_1.png"><img alt="img.png" src="../../python_build/imgs_v2/Python_Build_Broking_details_paper_mode_1.png" title="Click to Enlarge or Ctrl+Click to open in a new Tab" /></a></p>
 <hr />
 <h3 id="provide-permission">Provide Permission<a class="headerlink" href="#provide-permission" title="Permanent link">&para;</a></h3>
 <ul>
-<li>After clicking <code>Alpaca Paper</code> or <code>Alpaca Real</code> you will be redirected to Alpaca website for permission</li>
-<li>Click <code>Allow</code> to bind your Alpaca account with a Python Build account.</li>
+<li>After clicking <code>Alpaca Paper</code> or <code>Alpaca Real</code> you will be redirected to Alpaca website for permission.</li>
+<li>You will be asked to login if you are not already logged in.</li>
+<li>On the dialog box that appears, click <code>Allow</code>. This will bind your Alpaca account with the AlgoBulls account.</li>
 </ul>
 <p><a href="../../python_build/imgs_v2/python_build_authorize.png"><img alt="img.png" src="../../python_build/imgs_v2/python_build_authorize.png" title="Click to Enlarge or Ctrl+Click to open in a new Tab" /></a></p>
 <ul>
-<li>On successful authorisation, you will see the broker in the broker column.</li>
+<li>On successful authorisation, you will be redirected to the AlgoBulls platform and you will be able to see your broker.</li>
 </ul>
 <p><a href="../../python_build/imgs_v2/python_build_Oauth_successful.png"><img alt="img.png" src="../../python_build/imgs_v2/python_build_Oauth_successful.png" title="Click to Enlarge or Ctrl+Click to open in a new Tab" /></a></p>
 <div class="admonition note">
