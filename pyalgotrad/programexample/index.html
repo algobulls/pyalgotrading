@@ -1777,10 +1777,10 @@
 <p>You have covered the basic code structure of a strategy.</p>
 <hr />
 <h3 id="now"><strong>Now...</strong><a class="headerlink" href="#now" title="Permanent link">&para;</a></h3>
-<p>You can either follow this page to create a strategy, or you can pick up a ready strategy (shown below) and move to the next page.</p>
+<p>You can either follow this page to create a strategy, or you can pick up a ready strategy (shown below) and move to the next page. </p>
 <hr />
 <h3 id="before-you-start"><strong>Before you start...</strong><a class="headerlink" href="#before-you-start" title="Permanent link">&para;</a></h3>
-<p>If you want to use a ready strategy from the <a href="https://github.com/algobulls/pyalgostrategypool" target="_blank">pyalgostrategypool</a> package, then you can directly jump to the <a href="../upload/">Upload</a> section.</p>
+<p>If you want to use a ready strategy from the <a href="https://github.com/algobulls/pyalgostrategypool" target="_blank">pyalgostrategypool</a> package, then you can directly jump to the <a href="../upload/">Upload</a> section. </p>
 <hr />
 <h3 id="lets-start"><strong>Let's Start...</strong><a class="headerlink" href="#lets-start" title="Permanent link">&para;</a></h3>
 <p>Follow the steps given below to create a new strategy of your own.</p>
@@ -1793,9 +1793,9 @@
 </span></code></pre></div>
 <hr />
 <h4 id="create-the-class-strategysmaregularorder-and-subclass-it-from-strategybase">Create the class <code>StrategySMARegularOrder</code> and subclass it from <code>StrategyBase</code><a class="headerlink" href="#create-the-class-strategysmaregularorder-and-subclass-it-from-strategybase" title="Permanent link">&para;</a></h4>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">class</span> <span class="nc">StrategySMARegularOrder</span><span class="p">(</span><span class="n">StrategyBase</span><span class="p">):</span>
+<p><div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">class</span> <span class="nc">StrategySMARegularOrder</span><span class="p">(</span><span class="n">StrategyBase</span><span class="p">):</span>
 </span></code></pre></div>
-<p>Now you can add the methods mentioned in the <a href="../strategy_guides/structure/">structure</a> inside the class. First you can add the <code>__init__</code> and the <code>initialize</code> methods.</p>
+Now you can add the methods mentioned in the <a href="../strategy_guides/structure/">structure</a> inside the class. First you can add the <code>__init__</code> and the <code>initialize</code> methods.</p>
 <hr />
 <h4 id="constructor-def-__init__">Constructor: <code>def __init__()</code><a class="headerlink" href="#constructor-def-__init__" title="Permanent link">&para;</a></h4>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -1811,9 +1811,9 @@
 <ol>
 <li><code>name</code> - variable which should store the name of your strategy</li>
 <li><code>super()</code> - Calls the constructor of the superclass.</li>
-<li><code>self.strategy_parameters</code> - Catches the parameters and saves them for local use - When you will submit a testing job for your SMA strategy,
-   you will pass parameters that will be used inside the strategy.
-   For SMA, we are calculating crossover for 2 SMA timeperiod values, example 5 and 12. These 2 parameters will be caught by <code>self.strategy_parameters</code> and stored for local use in <code>self.timeperiod1</code> and <code>self.timeperiod2</code>.</li>
+<li><code>self.strategy_parameters</code> - Catches the parameters and saves them for local use - When you will submit a testing job for your SMA strategy, 
+you will pass parameters that will be used inside the strategy. 
+For SMA, we are calculating crossover for 2 SMA timeperiod values, example 5 and 12.  These 2 parameters will be caught by <code>self.strategy_parameters</code> and stored for local use in <code>self.timeperiod1</code> and <code>self.timeperiod2</code>.</li>
 <li><code>self.main_order</code> - Create an object that manages orders for you throughout the strategy.</li>
 </ol>
 <p>The <code>init</code> method is specific to Python's internal workings, and it is preceded and succeeded by double underscores ( _ _ ) joined together.</p>
@@ -1827,20 +1827,20 @@
 <p>Now add the two static methods, <code>name</code> and <code>versions_supprted</code>.</p>
 <hr />
 <h4 id="def-name-optional"><code>def name()</code> (optional)<a class="headerlink" href="#def-name-optional" title="Permanent link">&para;</a></h4>
-<p>If the <code>name</code> variable is defined in <code>__init__()</code>, this function is not needed.</p>
+<p>If the <code>name</code> variable is defined in <code>__init__()</code>, this function is not needed.
 <div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nd">@staticmethod</span>
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="k">def</span> <span class="nf">name</span><span class="p">():</span>
 </span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    <span class="k">return</span> <span class="s1">&#39;SMA Regular Order Strategy&#39;</span>
 </span></code></pre></div>
-<p>The name should be unique in your collection of strategies.</p>
+The name should be unique in your collection of strategies.</p>
 <hr />
 <h4 id="def-versions_supported-optional"><code>def versions_supported()</code> (optional)<a class="headerlink" href="#def-versions_supported-optional" title="Permanent link">&para;</a></h4>
-<p>not required it will take the latest version of AlgoBullsEngine by default</p>
+<p>not required it will take the latest version of AlgoBullsEngine by default
 <div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nd">@staticmethod</span>
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="k">def</span> <span class="nf">versions_supported</span><span class="p">():</span>
 </span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    <span class="k">return</span> <span class="n">AlgoBullsEngineVersion</span><span class="o">.</span><span class="n">VERSION_3_2_0</span>
 </span></code></pre></div>
-<p>Mark both the above methods as <code>@staticmethod</code>.</p>
+Mark both the above methods as <code>@staticmethod</code>.</p>
 <p>The <code>versions_supported</code> method does the following:</p>
 <ol>
 <li>It notifies the AlgoBulls platform that the strategy is working correctly for the platform version 3.2.0</li>
@@ -1877,19 +1877,18 @@
 <li>Value 0 - No crossover</li>
 </ol>
 </li>
-<li>If conditions - If the crossover value is 1, then the instrument is selected for entry position, with the position as 'BUY'. If the crossover value is -1, then the instrument is selected for entry position, with the position as 'SELL'. The
-   selected instrument is appended to the <code>instruments</code>, and the associated action (BUY/SELL) is appended to the <code>meta</code>.</li>
+<li>If conditions - If the crossover value is 1, then the instrument is selected for entry position, with the position as 'BUY'. If the crossover value is -1, then the instrument is selected for entry position, with the position as 'SELL'. The selected instrument is appended to the <code>instruments</code>, and the associated action (BUY/SELL) is appended to the <code>meta</code>.</li>
 <li><code>instruments</code> and <code>meta</code> - Both the lists (whether populated or empty) are returned to the platform for further actions.</li>
 </ol>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-</div>
 <ul>
 <li>SELL Entry positions are allowed only if the strategy is running for INTRADAY. DELIVERY strategies do not allow SELL as entry positions. This is taken care of in the <code>elif</code> part.</li>
 <li>The <code>strategy_select_instruments_for_entry</code> method is called once for every candle time. For Instance, if you submit a job with the candle time as 15 minutes, then this method will be called once for every 15 minute candle.</li>
 <li>The actual Entry position (BUY/SELL) is not entered here. Here, only the instrument is selected based on the crossover value with the proper action mentioned in the <code>meta</code>. The Entry position will be taken in the next method below.</li>
-<li>The <code>meta</code> contains a very versatile dictionary object. You may use it to pass any other additional information that you wish.</li>
+<li>The <code>meta</code> contains a very versatile dictionary object. You may use it to pass any other additional information that you wish. </li>
 </ul>
+</div>
 <hr />
 <h4 id="def-strategy_enter_position"><code>def strategy_enter_position()</code><a class="headerlink" href="#def-strategy_enter_position" title="Permanent link">&para;</a></h4>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">def</span> <span class="nf">strategy_enter_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">candle</span><span class="p">,</span> <span class="n">instrument</span><span class="p">,</span> <span class="n">sideband_info</span><span class="p">):</span>
@@ -1926,8 +1925,7 @@
 <p>The <code>strategy_enter_position</code> method does the following:</p>
 <ol>
 <li>If conditions - The conditions read the action from the <code>sideband_info</code> and perform the required action (BUY/SELL).</li>
-<li><code>qty</code> - The quantity is calculated and stored here. The number of lots will be passed by you as a parameter while submitting a job. The parameter will be caught in <code>self.number_of_lots</code>. The instrument object has the 'lot size', which you can
-   retrieve using <code>instrument.lot_size</code>. You can then use the formula as shown in the code to calculate the quantity.</li>
+<li><code>qty</code> - The quantity is calculated and stored here. The number of lots will be passed by you as a parameter while submitting a job. The parameter will be caught in <code>self.number_of_lots</code>. The instrument object has the 'lot size', which you can retrieve using <code>instrument.lot_size</code>. You can then use the formula as shown in the code to calculate the quantity.</li>
 <li><code>OrderRegular</code>,<code>BuyOrderRegular</code> and <code>SellOrderRegular</code> - These execute the required action. You need to pass the instrument, order code, order variety and the quantity values.<ul>
 <li><code>instrument</code> - the instrument on which the BUY/SELL action will be performed.</li>
 <li><code>order_code</code> - whether the order is for INTRADAY or DELIVERY. Possible values are:<ul>
@@ -1949,7 +1947,7 @@
 </li>
 <li><code>self.main_order</code> - The main order (for that particular instrument) is now populated (BUY OR SELL) and is returned to the platform for further actions.</li>
 </ol>
-<p>You can also punch Bracket Orders instead of Regular Orders. A typical BUY Bracket Order will look like this:</p>
+<p>You can also punch Bracket Orders instead of Regular Orders. A typical BUY Bracket Order will look like this:
 <div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">qty</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">number_of_lots</span> <span class="o">*</span> <span class="n">instrument</span><span class="o">.</span><span class="n">lot_size</span>
 </span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="n">ltp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">broker</span><span class="o">.</span><span class="n">get_ltp</span><span class="p">(</span><span class="n">instrument</span><span class="p">)</span>
 </span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="bp">self</span><span class="o">.</span><span class="n">main_order</span><span class="p">[</span><span class="n">instrument</span><span class="p">]</span> <span class="o">=</span> \
@@ -1961,22 +1959,21 @@
 </span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>                <span class="n">stoploss_trigger</span><span class="o">=</span><span class="n">ltp</span> <span class="o">-</span> <span class="p">(</span><span class="n">ltp</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">stoploss</span><span class="p">),</span>
 </span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>                <span class="n">target_trigger</span><span class="o">=</span><span class="n">ltp</span> <span class="o">+</span> <span class="p">(</span><span class="n">ltp</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">target</span><span class="p">),</span>
 </span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>                <span class="n">trailing_stoploss_trigger</span><span class="o">=</span><span class="n">ltp</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">trailing_stoploss</span><span class="p">)</span>
-</span></code></pre></div>
+</span></code></pre></div></p>
 <p>The additional parameters are:</p>
 <ul>
 <li><code>price</code> - If you want to BUY at the market price (Last Traded Price) or LTP, then just fetch the LTP using <code>get_ltp</code> as shown in the code above. Store the value in <code>ltp</code> and pass it to <code>price</code>.</li>
-<li><code>stoploss_trigger</code>, <code>target_trigger</code> and <code>trailing_stoploss_trigger</code> - You can calculate these using the <code>ltp</code> and the values you will pass through
-  the job that you will submit. The parameters will be caught as <code>self.stoploss</code>, <code>self.target</code> and <code>self.trailing_stoploss</code>.</li>
+<li><code>stoploss_trigger</code>, <code>target_trigger</code> and <code>trailing_stoploss_trigger</code> - You can calculate these using the <code>ltp</code> and the values you will pass through 
+the job that you will submit. The parameters will be caught as <code>self.stoploss</code>, <code>self.target</code> and <code>self.trailing_stoploss</code>.</li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-</div>
 <ul>
 <li>If you plan to use Bracket Order instead of Regular Orders, then create a separate Python file for it, say <code>strategy_sma_bracket_order.py</code>.
-You can also change the class name as <code>StrategySMABracketOrder</code>. There will be changes in the entry and exit methods also.</li>
-<li>The <code>strategy_enter_position</code> method is called once for every instrument. For instance, you want to run this strategy for 5 instruments. Say that the <code>strategy_select_instruments_for_entry</code> method selects 3 instruments for ENTRY positions (
-BUY/SELL). Then, the <code>strategy_enter_position</code> method will be called thrice, once for each instrument respectively within the candle time frame (say, 15 minutes).</li>
+ You can also change the class name as <code>StrategySMABracketOrder</code>. There will be changes in the entry and exit methods also.</li>
+<li>The <code>strategy_enter_position</code> method is called once for every instrument. For instance, you want to run this strategy for 5 instruments. Say that the <code>strategy_select_instruments_for_entry</code> method selects 3 instruments for ENTRY positions (BUY/SELL). Then, the <code>strategy_enter_position</code> method will be called thrice, once for each instrument respectively within the candle time frame (say, 15 minutes). </li>
 </ul>
+</div>
 <hr />
 <h4 id="def-strategy_select_instruments_for_exit"><code>def strategy_select_instruments_for_exit()</code><a class="headerlink" href="#def-strategy_select_instruments_for_exit" title="Permanent link">&para;</a></h4>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">def</span> <span class="nf">strategy_select_instruments_for_exit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">candle</span><span class="p">,</span> <span class="n">instruments_bucket</span><span class="p">):</span>
@@ -1995,7 +1992,7 @@ BUY/SELL). Then, the <code>strategy_enter_position</code> method will be called 
 <ol>
 <li><code>instruments</code> and <code>meta</code> - Creates 2 empty lists that will be used to pass the selected instruments and additional information about them respectively.</li>
 <li>The Loop - The loop will iterate over each instrument name passed (which are in Entry position (BUY/SELL)) and will decide whether to set an exit position or not for it.</li>
-<li>If condition - The exit steps are executed only if the instrument is holding at an ENTRY position (BUY/SELL). You can do this by checking if the <code>self.main_order</code> object is <code>None</code> or not, and proceed only if it is not <code>None</code>.</li>
+<li>If condition - The exit steps are executed only if the instrument is holding at an ENTRY position (BUY/SELL). You can do this by checking if the <code>self.main_order</code> object is <code>None</code> or not, and proceed only if it is not <code>None</code>. </li>
 <li><code>crossover_value</code> - The crossover value is calculated and stored here. Crossover values are interpreted as:<ol>
 <li>Value 1 - Cut upwards</li>
 <li>Value -1 - Cut downwards</li>
@@ -2007,13 +2004,12 @@ BUY/SELL). Then, the <code>strategy_enter_position</code> method will be called 
 </ol>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-</div>
 <ul>
 <li>The actual Exit position (BUY/SELL) is not entered here. Here, only the instrument is selected based on the crossover value with the proper action mentioned in the <code>meta</code>. The Exit position will be taken in the next method below.</li>
 <li>The <code>meta</code> contains a very versatile dictionary object. You may use it to pass any other additional information that you wish.</li>
-<li>Whenever a new trading day starts, the <code>strategy_select_instruments_for_exit</code> is called first. This is very important for DELIVERY strategies. Many instruments might be holding in an Entry Position at the end of the previous trading day, and they
-might be eligible for exit at the start of the new trading day.</li>
+<li>Whenever a new trading day starts, the <code>strategy_select_instruments_for_exit</code> is called first. This is very important for DELIVERY strategies. Many instruments might be holding in an Entry Position at the end of the previous trading day, and they might be eligible for exit at the start of the new trading day.  </li>
 </ul>
+</div>
 <hr />
 <h4 id="def-strategy_exit_position"><code>def strategy_exit_position()</code><a class="headerlink" href="#def-strategy_exit_position" title="Permanent link">&para;</a></h4>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">def</span> <span class="nf">strategy_exit_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">candle</span><span class="p">,</span> <span class="n">instrument</span><span class="p">,</span> <span class="n">sideband_info</span><span class="p">):</span>
@@ -2055,7 +2051,6 @@ might be eligible for exit at the start of the new trading day.</li>
 </ol>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-</div>
 <ul>
 <li>The order of values passed to the <code>crossover</code> method of the <code>utils</code> package is very important.</li>
 <li>Example: you have 2 SMA values, 5 and 12. The strategy describes that there should be an BUY Entry Position when SMA(5) cuts SMA(12) upwards (crossover value should be 1).</li>
@@ -2063,6 +2058,7 @@ might be eligible for exit at the start of the new trading day.</li>
 <li>Though, the crossover value is correct, the strategy is expecting to BUY at crossover 1 as per the code, which will not work now.</li>
 <li>Therefore, the strategy will work correctly only if you pass SMA(5) first and then SMA(12) to the <code>crossover</code> function, thus making the order of parameters passed an important point to be aware of, while coding the strategy.</li>
 </ul>
+</div>
 <h3 id="whats-next"><strong>What's Next...</strong><a class="headerlink" href="#whats-next" title="Permanent link">&para;</a></h3>
 <hr />
 <p>Next, you upload the strategy into your AlgoBulls account.</p>

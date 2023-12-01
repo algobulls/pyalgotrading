@@ -1751,11 +1751,9 @@
 <li><strong>Explanation:</strong> In addition to the percentage-based fees, some brokers charge a fixed fee for every trade. Use this parameter to include those fixed fees in your backtesting calculations.</li>
 </ul>
 <h3 id="how-to-use">How to Use<a class="headerlink" href="#how-to-use" title="Permanent link">&para;</a></h3>
-<p>To incorporate slippage and brokerage into your backtesting, simply pass the desired values for <code>slippage_percent</code>, <code>broker_commission_percentage</code>, and <code>broker_commission_price</code> when calling the <code>algobulls_connection.get_backtesting_report_pnl_table</code>
-function. These parameters help you account for real-world trading costs and execution variations, making your backtesting results more realistic.</p>
+<p>To incorporate slippage and brokerage into your backtesting, simply pass the desired values for <code>slippage_percent</code>, <code>broker_commission_percentage</code>, and <code>broker_commission_price</code> when calling the <code>algobulls_connection.get_backtesting_report_pnl_table</code> function. These parameters help you account for real-world trading costs and execution variations, making your backtesting results more realistic.</p>
 <ul>
-<li><strong>Note:</strong> When both <code>broker_commission_percentage</code> and <code>broker_commission_price</code> are provided, the function will automatically calculate the brokerage cost using both parameters and select the option that results in the lower brokerage cost. This
-  ensures that you pay the minimum brokerage fees for your trades.</li>
+<li><strong>Note:</strong> When both <code>broker_commission_percentage</code> and <code>broker_commission_price</code> are provided, the function will automatically calculate the brokerage cost using both parameters and select the option that results in the lower brokerage cost. This ensures that you pay the minimum brokerage fees for your trades.</li>
 </ul>
 <h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span> <span class="nn">algobulls_connection</span>

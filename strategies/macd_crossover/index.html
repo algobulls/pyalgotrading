@@ -1661,31 +1661,26 @@
 <p>This is a trading strategy called "MACD Crossovers" implemented in Python using the PyAlgoTrading library. The strategy is based on the MACD indicator crossover.</p>
 <div class="admonition links">
 <p class="admonition-title">Links</p>
-</div>
 <ul>
 <li><strong><a href="https://github.com/algobulls/pyalgostrategypool/blob/master/pyalgostrategypool/macd_crossover.py" target="_blank">Strategy Code (.py)</a></strong></li>
 <li><strong><a href="../strategy_guides/common_strategy_guide/" target="_blank">Strategy Structure (common methods used in a regular and options strategy)</a></strong></li>
 </ul>
+</div>
 <div class="admonition tips">
 <p class="admonition-title">Jupyter Notebook for Indian Exchange (NSE)</p>
-</div>
 <ul>
 <li><strong><a href="https://nbviewer.org/github/algobulls/pyalgotrading/blob/master/jupyter/nse_equity/macd_crossover.ipynb" target="_blank">Click here to view a working notebook for NSE exchange in cloud. No installation required. </a></strong></li>
-<li>*
-<em><a href="https://mybinder.org/v2/gh/algobulls/pyalgotrading/fe289cc5d5df69e7b87b930cce110326645cd99d?urlpath=lab%2Ftree%2Fjupyter%2Fnse_equity%2Fmacd_crossover.ipynb">Click here to execute a working notebook for NSE exchange in cloud. No installation required. </a>
-{target=_blank}</em>*</li>
+<li><strong><a href="https://mybinder.org/v2/gh/algobulls/pyalgotrading/fe289cc5d5df69e7b87b930cce110326645cd99d?urlpath=lab%2Ftree%2Fjupyter%2Fnse_equity%2Fmacd_crossover.ipynb" target="_blank">Click here to execute a working notebook for NSE exchange in cloud. No installation required. </a></strong></li>
 </ul>
+</div>
 <h1 id="macd-crossover_1">MACD Crossover<a class="headerlink" href="#macd-crossover_1" title="Permanent link">&para;</a></h1>
-<p>In the dynamic world of stock trading, mastering effective strategies is the key to success. The Moving Average Convergence Divergence (MACD) Crossover strategy is a powerful tool that can help traders identify potential entry and exit points in the
-stock market.</p>
-<p>Here is a summary of RSI and MACD in the stock market:</p>
-<ul>
-<li>The MACD is a trend-following momentum indicator that consists of two lines: the MACD line and the Signal line.</li>
-<li>A bullish signal is generated when the MACD line crosses above the Signal line, indicating a potential uptrend.</li>
-<li>Conversely, a bearish signal occurs when the MACD line crosses below the Signal line, suggesting a potential downtrend.</li>
-<li>When the MACD crosses above the Signal line, it's a signal to consider a long (BUY) position.</li>
-<li>Conversely, when the MACD crosses below the Signal line, it may be time to think about a short (SELL) position.</li>
-</ul>
+<p>In the dynamic world of stock trading, mastering effective strategies is the key to success. The Moving Average Convergence Divergence (MACD) Crossover strategy is a powerful tool that can help traders identify potential entry and exit points in the stock market.</p>
+<p>Here is a summary of RSI and MACD in the stock market:
+- The MACD is a trend-following momentum indicator that consists of two lines: the MACD line and the Signal line. 
+- A bullish signal is generated when the MACD line crosses above the Signal line, indicating a potential uptrend. 
+- Conversely, a bearish signal occurs when the MACD line crosses below the Signal line, suggesting a potential downtrend.
+- When the MACD crosses above the Signal line, it's a signal to consider a long (BUY) position. 
+- Conversely, when the MACD crosses below the Signal line, it may be time to think about a short (SELL) position.</p>
 <h2 id="strategy-overview">Strategy Overview<a class="headerlink" href="#strategy-overview" title="Permanent link">&para;</a></h2>
 <p>The MACD Crossover strategy is a robust approach that leverages the power of the MACD indicator to identify potential entry and exit points in the stock market.</p>
 <h2 id="strategy-parameters">Strategy Parameters<a class="headerlink" href="#strategy-parameters" title="Permanent link">&para;</a></h2>
@@ -1721,8 +1716,7 @@ stock market.</p>
 </tbody>
 </table>
 <h2 id="crossover-calculation">Crossover Calculation<a class="headerlink" href="#crossover-calculation" title="Permanent link">&para;</a></h2>
-<p>The <code>get_crossover_value</code> method calculates the crossover value based on the inverse crossover of the two EMAs of the closing prices. It uses the <code>talib.MACD</code> function from the Talib library to calculate the MACDs. The method then determines the
-crossover between the two MACDs and returns the corresponding value (-1, 0, or 1).</p>
+<p>The <code>get_crossover_value</code> method calculates the crossover value based on the inverse crossover of the two EMAs of the closing prices. It uses the <code>talib.MACD</code> function from the Talib library to calculate the MACDs. The method then determines the crossover between the two MACDs and returns the corresponding value (-1, 0, or 1).</p>
 
   <hr>
 <div class="md-source-file">

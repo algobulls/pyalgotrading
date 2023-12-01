@@ -1749,43 +1749,34 @@
 <p>The <code>StrategyOptionsStrangle</code> class is a strategy template for trading options strangles. It is derived from the <code>StrategyOptionsBaseV2</code> class.</p>
 <div class="admonition links">
 <p class="admonition-title">Links</p>
-</div>
 <ul>
 <li><strong><a href="https://github.com/algobulls/pyalgostrategypool/blob/master/pyalgostrategypool/options_strangle.py" target="_blank">Strategy Code (.py)</a></strong></li>
 <li><strong><a href="../strategy_guides/common_strategy_guide/" target="_blank">Strategy Structure (common methods used in a regular and options strategy)</a></strong></li>
 </ul>
+</div>
 <div class="admonition tips">
 <p class="admonition-title">Jupyter Notebook for Options from Indian Exchange (NSE)</p>
-</div>
 <ul>
-<li>*
-<em><a href="https://nbviewer.org/github/algobulls/pyalgotrading/blob/d77ba21f66764971362b51c1a39367a1f78c308d/jupyter/nse_options_jupyter_notebooks/options_strangle.ipynb">Click here to view a working notebook for options from NSE exchange in cloud. No installation required. </a>
-{target=_blank}</em>*</li>
-<li>*
-<em><a href="https://mybinder.org/v2/gh/algobulls/pyalgotrading/52ec68cf886a116d72356da261d01537021d7710?urlpath=lab%2Ftree%2Fjupyter%2Fnse_options%2Foptions_strangle.ipynb">Click here to execute a working notebook for options from NSE exchange in cloud. No installation required. </a>
-{target=_blank}</em>*</li>
+<li><strong><a href="https://nbviewer.org/github/algobulls/pyalgotrading/blob/d77ba21f66764971362b51c1a39367a1f78c308d/jupyter/nse_options_jupyter_notebooks/options_strangle.ipynb" target="_blank">Click here to view a working notebook for options from NSE exchange in cloud. No installation required. </a></strong></li>
+<li><strong><a href="https://mybinder.org/v2/gh/algobulls/pyalgotrading/52ec68cf886a116d72356da261d01537021d7710?urlpath=lab%2Ftree%2Fjupyter%2Fnse_options%2Foptions_strangle.ipynb" target="_blank">Click here to execute a working notebook for options from NSE exchange in cloud. No installation required. </a></strong></li>
 </ul>
+</div>
 <h3 id="strangle-options">Strangle Options<a class="headerlink" href="#strangle-options" title="Permanent link">&para;</a></h3>
 <ul>
 <li>
-<p>In the stock market, an options strangle is a strategy where an investor simultaneously buys or sells a call option and a put option on the same underlying asset but with different strike prices and the same expiration date. The purpose of this
-  strategy is to profit from significant price volatility in the underlying asset.</p>
+<p>In the stock market, an options strangle is a strategy where an investor simultaneously buys or sells a call option and a put option on the same underlying asset but with different strike prices and the same expiration date. The purpose of this strategy is to profit from significant price volatility in the underlying asset.</p>
 </li>
 <li>
-<p>Unlike an options straddle, which involves purchasing options at the same strike price, an options strangle involves selecting different strike prices. Typically, the investor buys an out-of-the-money call option (with a strike price above the
-  current market price) and an out-of-the-money put option (with a strike price below the current market price).</p>
+<p>Unlike an options straddle, which involves purchasing options at the same strike price, an options strangle involves selecting different strike prices. Typically, the investor buys an out-of-the-money call option (with a strike price above the current market price) and an out-of-the-money put option (with a strike price below the current market price).</p>
 </li>
 <li>
-<p>The strategy aims to benefit from a significant price movement in either direction. If the price of the underlying asset moves significantly upwards, the call option can generate profits. Conversely, if the price moves significantly downwards, the
-  put option can generate profits. The investor is essentially betting on increased price volatility rather than predicting the direction of the price movement.</p>
+<p>The strategy aims to benefit from a significant price movement in either direction. If the price of the underlying asset moves significantly upwards, the call option can generate profits. Conversely, if the price moves significantly downwards, the put option can generate profits. The investor is essentially betting on increased price volatility rather than predicting the direction of the price movement.</p>
 </li>
 <li>
-<p>Options strangles are commonly used when traders anticipate a substantial price movement but are unsure about the direction. This strategy allows for potential profits in either an upward or downward market scenario. However, it is important to
-  note that options strangles can involve higher risks, as the underlying asset's price must move significantly to offset the cost of purchasing both options.</p>
+<p>Options strangles are commonly used when traders anticipate a substantial price movement but are unsure about the direction. This strategy allows for potential profits in either an upward or downward market scenario. However, it is important to note that options strangles can involve higher risks, as the underlying asset's price must move significantly to offset the cost of purchasing both options.</p>
 </li>
 <li>
-<p>Traders employing options strangles should carefully consider factors such as the expected price volatility, the expiration date, and the costs associated with purchasing the options. Implementing risk management techniques and monitoring market
-  conditions are essential when utilizing an options strangle strategy.</p>
+<p>Traders employing options strangles should carefully consider factors such as the expected price volatility, the expiration date, and the costs associated with purchasing the options. Implementing risk management techniques and monitoring market conditions are essential when utilizing an options strangle strategy.</p>
 </li>
 </ul>
 <h3 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h3>

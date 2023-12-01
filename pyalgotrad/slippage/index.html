@@ -1760,21 +1760,17 @@
   <h1>Slippage</h1>
 
 <h2 id="slippage-and-brokerage-parameters">Slippage and Brokerage Parameters<a class="headerlink" href="#slippage-and-brokerage-parameters" title="Permanent link">&para;</a></h2>
-<p>In the <code>algobulls_connection.get_backtesting_report_pnl_table</code> function, you have the option to specify <code>slippage</code> and <code>brokerage</code> parameters to account for transaction costs and execution variations. These parameters allow you to fine-tune your
-backtesting results to better simulate real-world trading conditions.</p>
+<p>In the <code>algobulls_connection.get_backtesting_report_pnl_table</code> function, you have the option to specify <code>slippage</code> and <code>brokerage</code> parameters to account for transaction costs and execution variations. These parameters allow you to fine-tune your backtesting results to better simulate real-world trading conditions.</p>
 <h3 id="slippage">Slippage<a class="headerlink" href="#slippage" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Parameter Name:</strong> <code>slippage_percent</code></li>
 <li><strong>Type:</strong> float</li>
 <li><strong>Default Value:</strong> None</li>
-<li><strong>Definition:</strong> Slippage is the difference between the expected execution price of a trade and the actual execution price. It often occurs due to market volatility and the time it takes to execute an order. Slippage can have a significant impact on
-  trading results, and this parameter allows you to simulate it.</li>
-<li><strong>Explanation:</strong> Imagine you're trading and placing an order at a specific price, but the market moves quickly. Slippage accounts for the price difference between what you expected and what you actually get. Use this parameter to make your
-  backtesting experience more realistic.</li>
+<li><strong>Definition:</strong> Slippage is the difference between the expected execution price of a trade and the actual execution price. It often occurs due to market volatility and the time it takes to execute an order. Slippage can have a significant impact on trading results, and this parameter allows you to simulate it.</li>
+<li><strong>Explanation:</strong> Imagine you're trading and placing an order at a specific price, but the market moves quickly. Slippage accounts for the price difference between what you expected and what you actually get. Use this parameter to make your backtesting experience more realistic.</li>
 </ul>
 <h3 id="how-to-use">How to Use<a class="headerlink" href="#how-to-use" title="Permanent link">&para;</a></h3>
-<p>To incorporate slippage into your backtesting, simply pass the desired values for <code>slippage_percent</code>, when calling the <code>algobulls_connection.get_backtesting_report_pnl_table</code> function. These parameters help you account for real-world trading costs
-and execution variations, making your backtesting results more realistic.</p>
+<p>To incorporate slippage into your backtesting, simply pass the desired values for <code>slippage_percent</code>, when calling the <code>algobulls_connection.get_backtesting_report_pnl_table</code> function. These parameters help you account for real-world trading costs and execution variations, making your backtesting results more realistic.</p>
 <h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span> <span class="nn">algobulls_connection</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="c1"># Fetch PnL data for a trading strategy with custom slippage  settings</span>

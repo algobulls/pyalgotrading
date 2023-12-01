@@ -1759,81 +1759,67 @@
 <h1 id="code-structure-of-strategy">Code Structure of Strategy<a class="headerlink" href="#code-structure-of-strategy" title="Permanent link">&para;</a></h1>
 <div class="admonition tips">
 <p class="admonition-title">Coding Prerequisites</p>
-</div>
 <ul>
 <li>For pyalgotrading check <a href="../../prerequisites/">here</a>.</li>
 <li>For Python Build Web check <a href="../../../python_build/python-build-getstarted/">here</a>.</li>
 </ul>
+</div>
 <h2 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">&para;</a></h2>
 <ol>
 <li>
 <h3 id="strategy_select_instruments_for_entry"><strong>strategy_select_instruments_for_entry()</strong><a class="headerlink" href="#strategy_select_instruments_for_entry" title="Permanent link">&para;</a></h3>
+<p>This function helps you choose which trading instruments you want your strategy to work with. The system will use this function to go through each instrument one by one, at each candle's time. You get to write code that decides whether to place an order for a specific instrument or not.</p>
 </li>
-</ol>
-<p>This function helps you choose which trading instruments you want your strategy to work with. The system will use this function to go through each instrument one by one, at each candle's time. You get to write code that decides whether to place an
-order for a specific instrument or not.</p>
-<ol>
 <li>
 <h3 id="strategy_enter_position"><strong>strategy_enter_position()</strong><a class="headerlink" href="#strategy_enter_position" title="Permanent link">&para;</a></h3>
-</li>
-</ol>
 <p>This function is where you can place orders for the instruments you selected earlier. It's executed for each instrument you picked in the previous function.</p>
-<ol>
+</li>
 <li>
 <h3 id="strategy_select_instruments_for_exit"><strong>strategy_select_instruments_for_exit()</strong><a class="headerlink" href="#strategy_select_instruments_for_exit" title="Permanent link">&para;</a></h3>
-</li>
-</ol>
 <p>After you've entered a position for an instrument, this function is called for each of those instruments at each candle interval. You can use it to decide whether an instrument should be exited from the position.</p>
-<ol>
+</li>
 <li>
 <h3 id="strategy_exit_position"><strong>strategy_exit_position()</strong><a class="headerlink" href="#strategy_exit_position" title="Permanent link">&para;</a></h3>
+<p>In this function, you can close or exit positions for the instruments you marked for exiting in the previous function. It's done instrument by instrument.</p>
 </li>
 </ol>
-<p>In this function, you can close or exit positions for the instruments you marked for exiting in the previous function. It's done instrument by instrument.</p>
 <hr />
 <h2 id="supporting-methods">Supporting Methods<a class="headerlink" href="#supporting-methods" title="Permanent link">&para;</a></h2>
 <p>You have the following supporting methods:</p>
 <ol>
 <li>
 <h3 id="init"><strong><strong>init</strong>()</strong><a class="headerlink" href="#init" title="Permanent link">&para;</a></h3>
-</li>
-</ol>
 <p>This method is like a starter for your strategy. It checks if the values you give it make sense and sets up some useful information for your strategy to use.</p>
-<ol>
+</li>
 <li>
 <h3 id="initialize"><strong>initialize()</strong><a class="headerlink" href="#initialize" title="Permanent link">&para;</a></h3>
-</li>
-</ol>
 <p>This method is called when your strategy begins, both at the very start and at the beginning of each trading day. It's like setting up your strategy's workspace and giving your tools a starting position.</p>
-<ol>
+</li>
 <li>
 <h3 id="name"><strong>name()</strong><a class="headerlink" href="#name" title="Permanent link">&para;</a></h3>
-</li>
-</ol>
 <p>This method gives your strategy a special name. It's like giving your strategy a unique nickname.</p>
-<ol>
+</li>
 <li>
 <h3 id="versions_supported"><strong>versions_supported()</strong><a class="headerlink" href="#versions_supported" title="Permanent link">&para;</a></h3>
+<p>This method lets you specify which version of the AlgoBulls Platform your strategy works well with. It's like saying, "My strategy is ready for this specific version of the platform."</p>
 </li>
 </ol>
-<p>This method lets you specify which version of the AlgoBulls Platform your strategy works well with. It's like saying, "My strategy is ready for this specific version of the platform."</p>
 <hr />
 <h2 id="utility-functions">Utility Functions<a class="headerlink" href="#utility-functions" title="Permanent link">&para;</a></h2>
 <p>You have the following utility function to be used in this strategy :</p>
 <ol>
 <li>
 <h3 id="get_crossover_value"><strong>get_crossover_value()</strong><a class="headerlink" href="#get_crossover_value" title="Permanent link">&para;</a></h3>
-</li>
+This handy function calculates something called the "crossover value" for you. It's like having a calculator that figures out this specific value for your strategy.</li>
 </ol>
-<p>This handy function calculates something called the "crossover value" for you. It's like having a calculator that figures out this specific value for your strategy.</p>
 <hr />
 <div class="admonition links">
 <p class="admonition-title">Links</p>
-</div>
 <ul>
 <li><strong><a href="../../../strategies/strategy_guides/common_regular_strategy/">Strategy Structure (regular)</a></strong></li>
 <li><strong><a href="../../../strategies/strategy_guides/common_options_strategy/">Strategy Structure (options)</a></strong></li>
 </ul>
+</div>
 <hr />
 <h2 id="flowchart">Flowchart<a class="headerlink" href="#flowchart" title="Permanent link">&para;</a></h2>
 <p>Once you create your own strategy or use a ready strategy from the <a href="https://github.com/algobulls/pyalgostrategypool" target="_blank">pyalgostrategypool</a> package, this is how it works internally on the AlgoBulls Core Trading Engine.</p>

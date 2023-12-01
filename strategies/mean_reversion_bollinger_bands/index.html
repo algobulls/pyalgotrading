@@ -1755,31 +1755,26 @@
 <p>This is a trading strategy called "Mean Reversion Bollinger Bands" implemented in Python using the PyAlgoTrading library. The strategy is based on the bollingerbands indicator.</p>
 <div class="admonition links">
 <p class="admonition-title">Links</p>
-</div>
 <ul>
 <li><strong><a href="https://github.com/algobulls/pyalgostrategypool/blob/master/pyalgostrategypool/mean_reversion_bollinger_bands.py" target="_blank">Strategy Code (.py)</a></strong></li>
 <li><strong><a href="../strategy_guides/common_strategy_guide/" target="_blank">Strategy Structure (common methods used in a regular and options strategy)</a></strong></li>
 </ul>
+</div>
 <div class="admonition tips">
 <p class="admonition-title">Jupyter Notebook for Indian Exchange (NSE)</p>
-</div>
 <ul>
 <li><strong><a href="https://nbviewer.org/github/algobulls/pyalgotrading/blob/master/jupyter/nse_equity/mean_reversion_bollinger_bands.ipynb" target="_blank">Click here to view a working notebook for NSE exchange in cloud. No installation required. </a></strong></li>
-<li>*
-<em><a href="https://mybinder.org/v2/gh/algobulls/pyalgotrading/fe289cc5d5df69e7b87b930cce110326645cd99d?urlpath=lab%2Ftree%2Fjupyter%2Fnse_equity%2Fmean_reversion_bollinger_bands.ipynb">Click here to execute a working notebook for NSE exchange in cloud. No installation required. </a>
-{target=_blank}</em>*</li>
+<li><strong><a href="https://mybinder.org/v2/gh/algobulls/pyalgotrading/fe289cc5d5df69e7b87b930cce110326645cd99d?urlpath=lab%2Ftree%2Fjupyter%2Fnse_equity%2Fmean_reversion_bollinger_bands.ipynb" target="_blank">Click here to execute a working notebook for NSE exchange in cloud. No installation required. </a></strong></li>
 </ul>
+</div>
 <h2 id="mean-reversion-bollinger-bands_1">Mean Reversion Bollinger Bands<a class="headerlink" href="#mean-reversion-bollinger-bands_1" title="Permanent link">&para;</a></h2>
 <p>In the dynamic world of stock trading, effective strategies can make all the difference. The Mean Reversion Bollinger Bands strategy is a powerful tool that traders can use to identify potential entry and exit points in the stock market.</p>
-<p>Here is a summary of RSI and MACD in the stock market:</p>
-<ul>
-<li>Bollinger Bands are a volatility indicator that consists of a middle band (usually a simple moving average), an upper band, and a lower band. These bands expand and contract based on price volatility. The strategy leverages these bands to identify
-  potential mean reversion opportunities.</li>
-<li>Mean reversion is the idea that prices tend to revert to their historical average over time. In this strategy, traders look for situations where the price deviates significantly from the middle Bollinger Band and expect it to revert to the mean.</li>
-<li>The Mean Reversion Bollinger Bands strategy involves identifying price movements that touch or cross the upper or lower bands and anticipating a reversal.</li>
-<li>When the price touches the upper band, traders may consider a short (SELL) position, expecting a downward move.</li>
-<li>Conversely, when the price touches the lower band, it may signal a potential long (BUY) opportunity, anticipating an upward move.</li>
-</ul>
+<p>Here is a summary of RSI and MACD in the stock market:
+- Bollinger Bands are a volatility indicator that consists of a middle band (usually a simple moving average), an upper band, and a lower band. These bands expand and contract based on price volatility. The strategy leverages these bands to identify potential mean reversion opportunities.
+- Mean reversion is the idea that prices tend to revert to their historical average over time. In this strategy, traders look for situations where the price deviates significantly from the middle Bollinger Band and expect it to revert to the mean.
+- The Mean Reversion Bollinger Bands strategy involves identifying price movements that touch or cross the upper or lower bands and anticipating a reversal. 
+- When the price touches the upper band, traders may consider a short (SELL) position, expecting a downward move.
+- Conversely, when the price touches the lower band, it may signal a potential long (BUY) opportunity, anticipating an upward move.</p>
 <h2 id="strategy-overview">Strategy Overview<a class="headerlink" href="#strategy-overview" title="Permanent link">&para;</a></h2>
 <p>The Mean Reversion Bollinger Bands strategy is a robust approach that leverages the power of Bollinger Bands to identify potential mean reversion opportunities in the stock market.</p>
 <h2 id="strategy-parameters">Strategy Parameters<a class="headerlink" href="#strategy-parameters" title="Permanent link">&para;</a></h2>
@@ -1809,8 +1804,7 @@
 </tbody>
 </table>
 <h2 id="decision-calculation">Decision Calculation<a class="headerlink" href="#decision-calculation" title="Permanent link">&para;</a></h2>
-<p>The <code>get_decision</code> method calculates the Bollinger Bands values for a given instrument based on the OHLC (Open, High, Low, Close) historical data. It uses the <code>talib.BBANDS</code> function from the Talib library to calculate the upper and lower bands. The
-method compares the previous candle's open, low, and close values with the upper and lower bands to determine the entry or exit action. If the conditions for a buy or sell signal are met, the corresponding action is returned.</p>
+<p>The <code>get_decision</code> method calculates the Bollinger Bands values for a given instrument based on the OHLC (Open, High, Low, Close) historical data. It uses the <code>talib.BBANDS</code> function from the Talib library to calculate the upper and lower bands. The method compares the previous candle's open, low, and close values with the upper and lower bands to determine the entry or exit action. If the conditions for a buy or sell signal are met, the corresponding action is returned.</p>
 
   <hr>
 <div class="md-source-file">
