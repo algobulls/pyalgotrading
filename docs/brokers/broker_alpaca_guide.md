@@ -26,56 +26,20 @@ Key features and offerings of Alpaca include:
 Alpaca's platform aims to democratize algorithmic trading by providing accessible tools and resources for both individual traders and developers. It's worth noting that the landscape of algorithmic trading and financial technology is constantly
 evolving, so it's a good idea to check Alpaca's official website for the most current information about their offerings and services.
 
-## How to get API keys for trading in Alpaca?
+## Advantages of binding Alpaca with your AlgoBulls account
 
----
+- You can run your strategies on American exchanges like NASDAQ or NYSE.
+- It helps you access the historical data as well as live data of all the stocks from Alpaca.
+- It will also help you backtest, paper trade and live trade on AlgoBulls.
 
-- #### Create your Alpaca Account
-    - Go to the official website of [Alpaca](https://alpaca.markets/)
-    - Click on `sign up for free` to create an alpaca account
+## How to bind Alpaca with your AlgoBulls account?
 
-  [![main page](../imgs/alpaca_main_page.png)](https://alpaca.markets/){target=_blank}
+You can connect your Alpaca account with AlgoBulls in two ways: OAuth and Non-OAuth.
 
----
-
-- #### Go to the Home Page of your Account
-    - After creating your account, login to access the home page
-    - Look for `View API Keys` on the right side under the `Quick Trade` block
-
-  [![img.png](../imgs/alpaca_account_home.png)](https://app.alpaca.markets/paper/dashboard/overview){target=_blank}
-
----
-
-- #### View API keys or Generate API keys
-    - Click on `View API Keys` and then click on `Regenrate` to regenerate fresh keys
-
-  ![img.png](../imgs/alpaca_view_api_keys.png)
-  ![img.png](../imgs/alpaca_regenerate_api_keys.png)
-
----
-
-- #### Get the `Secret Key` and `API Key`
-    - After regenerating you will get a fresh API key under the `Key` section and a secret key under the `Secret` section
-
-  ![img.png](../imgs/python_build_alpaca_keys_1.png)
-
-## Advantages of Binding Alpaca with your Account
-
-- You can run your strategy on American exchanges like NASDAQ or NYSE,
-- Binding Alpaca helps you access the historical data as well as live data of all the stocks from Alpaca.
-- It will also help you backtest, live trade and paper trade on AlgoBulls using these credentials.
-
-## How to connect Alpaca with Python Build Account?
-
-Connecting your Alpaca account to Python Build can be done in two ways: OAuth and Non-OAuth.
-
-- **OAuth Method**:
-  Follow the simple steps mentioned [here](./connecting_alpaca.md) to connect using OAuth.
+- **OAuth Method**: Follow the simple steps mentioned [here](./connecting_alpaca.md) to connect using OAuth.
+- **Non-OAuth Method**: For the Non-OAuth method, you can follow the steps mentioned [here](./non_auth_alpaca.md).
 
 
-- **Non-OAuth Method**:
-  For the Non-OAuth method, you can follow the steps mentioned [here](./non_auth_alpaca.md)
-
-!!! Note "NOTE: We have discontinued the Non-OAuth method in accordance with Alpaca’s recommendations. Please use the OAuth method for seamless integration and improved security. Be mindful of this update as you proceed with your integrations."
+!!! Note "WARNING: We have discontinued the Non-OAuth method in accordance with Alpaca’s recommendations. Please use the OAuth method for seamless integration and improved security. Be mindful of this update as you proceed with your integrations."
   
 
