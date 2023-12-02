@@ -40,14 +40,14 @@ Before this step, please make sure you have an Alpaca account. [Click here](http
 
 ### Provide Permission
 
-- After clicking `Alpaca Paper` or `Alpaca Real` you will be redirected to Alpaca website for permission.
+- After clicking on `Alpaca Paper (OAuth)` or `Alpaca Live (OAuth)`, you will be redirected to the Alpaca website for permission.
 - You will be asked to login if you are not already logged in.
 - On the dialog box that appears, click `Allow`. This will bind your Alpaca account with the AlgoBulls account.
 
 
 [![img.png](../python_build/imgs_v2/python_build_authorize.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](../python_build/imgs_v2/python_build_authorize.png)
 
-- On successful authorisation, you will be redirected to the AlgoBulls platform and you will be able to see your broker.
+- On successful authorisation, you will be redirected to the AlgoBulls platform and you will be able to see your broker on the `Broking Details `page.
 
 [![img.png](../python_build/imgs_v2/python_build_Oauth_successful.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](../python_build/imgs_v2/python_build_Oauth_successful.png)
 

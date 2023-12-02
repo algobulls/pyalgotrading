@@ -21,11 +21,12 @@ Before trying to bind your broker, please make sure you have an Alpaca account o
 ---
 
 ### API keys
-- After creating your account, login to access the home page.
+- After creating your account, login to access the homepage.
     
 [![img.png](../imgs/alpaca_account_home.png)](https://app.alpaca.markets/paper/dashboard/overview){target=_blank}
     
-- Click on `View API Keys` and then click on `Regenrate` to regenerate fresh keys
+- Click on `View API Keys` on the right side under the `Quick Trade` block.
+
     
 ![img.png](../imgs/alpaca_view_api_keys.png)
    
@@ -34,12 +35,13 @@ Before trying to bind your broker, please make sure you have an Alpaca account o
 ![img.png](../imgs/alpaca_regenerate_api_keys.png)
 
 - On regenerating, you will get fresh API keys under the `Key` section and a secret key under the `Secret` section.
+
     
 ![img.png](../imgs/python_build_alpaca_keys_1.png)
 
 ---
 
-### Visit AlgoBulls
+### Add Broker
 
 - Click on `Add Broker`.
 
@@ -47,10 +49,10 @@ Before trying to bind your broker, please make sure you have an Alpaca account o
 
 ---
 
-### Search for Alpaca
+### Search for Alpaca Non-OAuth
 
-- After clicking on Add Broker you will see a pop-out window with a search bar.
-- Type `Alpaca` in the search box and choose `Alpaca Non-OAuth` from the search results.
+- On the pop-up window that appears, you have a search bar for finding your desired broker..
+- Type `Alpaca `in the search box and choose `Alpaca Non-OAuth` from the search results.
 
 [![img.png](../python_build/imgs_v2/Python_build_broking_details_non_oauth_1.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](../python_build/imgs_v2/Python_build_broking_details_non_oauth_1.png)
 
@@ -58,13 +60,13 @@ Before trying to bind your broker, please make sure you have an Alpaca account o
 
 ### Provide API And Secret key
 
-- After clicking `Alpaca Non-OAuth` you will see a dialog box requesting your API and Secret key
-- Enter your `API key` And `Secret key` here.
-- Click `confirm` to bind the Alpaca account with your Python Build account.
+- After clicking `Alpaca Non-OAuth`, you will see a dialog box requesting your API and Secret key.
+- Enter your keys there and click `Confirm` to bind Alpaca with your AlgoBulls account.
 
 [![img.png](../python_build/imgs_v2/python_build_non_auth_pop.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](../python_build/imgs_v2/python_build_non_auth_pop.png)
 
 
-- On successful authorisation, you will see the broker in the broker column.
+- On successful authorisation, you will be redirected to the AlgoBulls platform and you will be able to see your broker on the `Broking Details` page.
+
 
 [![img.png](../python_build/imgs_v2/python_build_non_oauth_succesful.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](../python_build/imgs_v2/python_build_non_oauth_succesful.png)

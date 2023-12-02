@@ -82,7 +82,7 @@ nav:
       - Analytics: 'python_build/python-build-view-results.md'
   - Brokers:
       - Alpaca: 'brokers/broker_alpaca_guide.md'
-      - Setting Up Alpaca with Python Build:
+      - Setting Up Alpaca with AlgoBulls:
           - OAuth: 'brokers/connecting_alpaca.md'
           - Non-OAuth: 'brokers/non_auth_alpaca.md'
   - Gen AI:
