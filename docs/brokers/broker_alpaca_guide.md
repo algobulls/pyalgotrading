@@ -72,8 +72,10 @@ Connecting your Alpaca account to Python Build can be done in two ways: OAuth an
 - **OAuth Method**:
   Follow the simple steps mentioned [here](./connecting_alpaca.md) to connect using OAuth.
 
+
 - **Non-OAuth Method**:
   For the Non-OAuth method, you can follow the steps mentioned [here](./non_auth_alpaca.md)
 
 !!! Note "NOTE: We have discontinued the Non-OAuth method in accordance with Alpaca’s recommendations. Please use the OAuth method for seamless integration and improved security. Be mindful of this update as you proceed with your integrations."
   
+
