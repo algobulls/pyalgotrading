@@ -1,17 +1,22 @@
-In this section, you 'll find everything you need to get the support you require. Whether its troubleshooting a problem or clarifying a doubt we've got you coverd
+Welcome to the realm of unparalleled support at AlgoBulls, where your algorithmic trading journey takes centre stage. Whether you're navigating the Python Build Web or harnessing the power of pyalgotrading, our commitment to your success remains unwavering. The Python Build Support page is your gateway to a world where every query, every challenge is met with expertise and dedication. We understand that your experience matters, and so does every line of code you craft.
+## Steps to get the support you need.
+### Choose your strategy
 
-**My Coded Strategies:** This section displays all the strategies you've created or modified. It includes both new and updated strategies.
+- Log in to your AlgoBulls account and choose Python Build from the left-side menu.
+    [![pythonbuild](../python_build/imgs_v2/home_screen_with_Python_Build_selected.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](../python_build/imgs_v2/home_screen_with_Python_Build_selected.png)
+- From the Python Build Splash Screen, choose the `My Coded Strategies` section display card. This is the section that holds all your saved strategies, whether you have coded them from scratch or modified them from ready templates.
+    [![pythonbuild](../python_build/imgs_v2/Splash_Screen_with_focus_on_My_Coded_Strategies.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](../python_build/imgs_v2/Splash_Screen_with_focus_on_My_Coded_Strategies.png)
+- Click and open the strategy that you think requires our assistance.
 
-[![pythonbuild](../python_build/imgs_v2/python_build_my_strategies.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](../python_build/imgs_v2/python_build_my_strategies.png)
+    [![pythonbuild](../python_build/imgs_v2/My_Coded_Strategies_section_with_the_saved_strategies.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](../python_build/imgs_v2/My_Coded_Strategies_section_with_the_saved_strategies.png)
 
-From this section, select the strategy you're experiencing issues with.
+### Need Support 
+- In the chosen strategy, click on the `Need Support` button on the top right corner of the page.
 
-**Need Support:** If you require assistance with a specific strategy, you can raise a support request from here. Please ensure that your strategy is present in the `My Coded Strategies` section.
+    [![pythonbuild](../python_build/imgs_v2/python_build_need_support.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](../python_build/imgs_v2/python_build_need_support.png)
 
-[![pythonbuild](../python_build/imgs_v2/python_build_need_support.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](../python_build/imgs_v2/python_build_need_support.png)
+- From the pop-up window that appears, click on the `Select Strategy` dropdown and choose the name of your strategy.
+- Write your query in the `Explain your query briefly` dialog box. This will help our team to get the best solution for you.
 
-After clicking on `Need Support`, you'll see a popup window. Here, select the strategy for which you need assistance and explain you issue in brief.
-
-[![pythonbuild](../python_build/imgs_v2/python_build_select_strategy.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](../python_build/imgs_v2/python_build_select_strategy.png)
-
-Then, click the `Submit` button. Our support team will actively assist you with any issues you're facing.
+- Click the `Submit` button. Our team will reach out to you with the solution within 1-2 business days.
+    [![pythonbuild](../python_build/imgs_v2/python_build_select_strategy.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](../python_build/imgs_v2/python_build_select_strategy.png)

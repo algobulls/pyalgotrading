@@ -1,22 +1,22 @@
-# Binding Alpaca with Python Build
-
-## Alpaca and Python Build
+# OAuth
 
 ---
 
-This guide streamlines the process, allowing you to seamlessly connect Alpaca with Python Build Account. Elevate your trading experience with our visual analytics feature, and fine-tune your strategy until it meets your satisfaction.
+Embark on a streamlined and secure journey as you bind your Alpaca broker with AlgoBulls through OAuth integration. This seamless process ensures a robust connection between your accounts, allowing for efficient data exchange and trading activities. With OAuth binding, you can experience the convenience of a secure link without compromising on the integrity of your financial operations. Follow our comprehensive guide to effortlessly set up OAuth binding and unleash the full potential of AlgoBulls with Alpaca integration.
 
 ## An overview
 
 ---
 
-- Navigate to the `Broking Details` section on the AlgoBulls platform.
-- Here you will see all the brokers you are connected with and their active statuses under `primary` column
+- Navigate to the `Broking Details `page on the AlgoBulls platform.
+- Here you will see all the brokers you have connected and their current statuses.
+
   [![pythonbuild](../python_build/imgs_v2/pyBuild_broking_details.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](../python_build/imgs_v2/pyBuild_broking_details.png)
 
-## How to set up Alpaca for trading in Python Build with OAuth?
+## How to set up Alpaca for trading in AlgoBulls with OAuth?
 ---
-Before this step, please make sure you have an Alpaca account. For assistance [click here](./broker_alpaca_guide.md)
+Before this step, please make sure you have an Alpaca account. [Click here](https://alpaca.markets/) to visit the Alpaca site for creating your account.
+
 
 ### Add Broker
 
@@ -28,10 +28,11 @@ Before this step, please make sure you have an Alpaca account. For assistance [c
 
 ### Search for Alpaca
 
-- After clicking on Add Broker you will see a pop-out window with a search bar
+- On the pop-up window that appears, you have a search bar for finding your desired broker.
+
 - Type `Alpaca` in the search dialog box
-- **Alpaca Paper:** Opt this for paper trading.
-- **Alpaca Real:** Opt this for real trading.
+- Click on `Alpaca Paper (OAuth)` for choosing your Alpaca Paper Account.
+- Click on `Alpaca Live (OAuth)` for choosing your Alpaca Live Account.
 
 [![img.png](../python_build/imgs_v2/Python_Build_Broking_details_paper_mode_1.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](../python_build/imgs_v2/Python_Build_Broking_details_paper_mode_1.png)
 
@@ -39,12 +40,19 @@ Before this step, please make sure you have an Alpaca account. For assistance [c
 
 ### Provide Permission
 
-- After clicking `Alpaca Paper` or `Alpaca Real` you will be redirected to Alpaca website for permission
-- Click `Allow` to bind your Alpaca account with a Python Build account.
+- After clicking on `Alpaca Paper (OAuth)` or `Alpaca Live (OAuth)`, you will be redirected to the Alpaca website for permission.
+- You will be asked to login if you are not already logged in.
+- On the dialog box that appears, click `Allow`. This will bind your Alpaca account with the AlgoBulls account.
+
 
 [![img.png](../python_build/imgs_v2/python_build_authorize.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](../python_build/imgs_v2/python_build_authorize.png)
 
-- On successful authorisation, you will see the broker in the broker column.
+- On successful authorisation, you will be redirected to the AlgoBulls platform and you will be able to see your broker on the `Broking Details `page.
 
 [![img.png](../python_build/imgs_v2/python_build_Oauth_successful.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](../python_build/imgs_v2/python_build_Oauth_successful.png)
+
+
+!!! Note "WARNING: We have discontinued the Non-OAuth method in accordance with Alpaca’s recommendations. Please use the OAuth method for seamless integration and improved security. Be mindful of this update as you proceed with your integrations."
+
+
 
