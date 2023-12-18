@@ -12,7 +12,7 @@ This is a trading strategy called "Inverse EMA Scalping Regular Order Strategy" 
 
 !!! Tips "Jupyter Notebooks for US Exchange (NASDAQ)"
     - **[Click here to view a working notebook for NASDAQ exchange in cloud. No installation required. ](https://nbviewer.org/github/algobulls/pyalgotrading/blob/master/jupyter/nasdaq_equity/inverse_ema_scalping_crossover_us.ipynb){target=_blank}**
-    - **[Click here to execute a working notebook for NASDAQ exchange in cloud. No installation required. ](https://mybinder.org/v2/gh/algobulls/pyalgotrading/5e2893cd5955df53d3915721aeb5cf5e8aec8e02?urlpath=lab%2Ftree%2Fjupyter%2Fnasdaq_equity%2Finverse_ema_scalping_crossover_us.ipynb){target=_blank}**
+    - **[Click here to execute a working notebook for NASDAQ exchange in cloud. No installation required. ](https://mybinder.org/v2/gh/algobulls/pyalgotrading/master?urlpath=lab%2Ftree%2Fjupyter%2Fnasdaq_equity%2Finverse_ema_scalping_crossover_us.ipynb){target=_blank}**
 
 
 ## What is Inverse EMA 
