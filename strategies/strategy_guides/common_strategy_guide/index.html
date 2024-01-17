@@ -561,26 +561,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#orderregular" class="md-nav__link">
-    OrderRegular
-  </a>
-  
-    <nav class="md-nav" aria-label="OrderRegular">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#parameters" class="md-nav__link">
-    Parameters:
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#strategy_select_instruments_for_exit" class="md-nav__link">
     strategy_select_instruments_for_exit()
   </a>
@@ -2108,26 +2088,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#orderregular" class="md-nav__link">
-    OrderRegular
-  </a>
-  
-    <nav class="md-nav" aria-label="OrderRegular">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#parameters" class="md-nav__link">
-    Parameters:
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#strategy_select_instruments_for_exit" class="md-nav__link">
     strategy_select_instruments_for_exit()
   </a>
@@ -2512,61 +2472,6 @@ This function would ideally look like this. This example was taken from “Optio
 </div>
 </div>
 </div>
-<h4 id="orderregular"><strong>OrderRegular</strong><a class="headerlink" href="#orderregular" title="Permanent link">&para;</a></h4>
-<p>The <code>self.broker.OrderRegular</code> is used to place the entry/exit orders.          </p>
-<h5 id="parameters">Parameters:<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h5>
-<ul>
-<li><code>instrument</code>: Instrument object on which to place the order.</li>
-<li><code>action</code>: Action to be taken, either 'BUY' or 'SELL'.</li>
-<li><code>quantity</code>: The quantity of the order, generally calculated as <code>self.number_of_lots * instrument.lot_size</code>.</li>
-<li><code>order_variety</code>: (Optional) Type of order. Default is MARKET order (<code>BrokerOrderVarietyConstants.MARKET</code>).</li>
-<li><code>price</code>: (Optional) The price at which the limit order will be placed.</li>
-<li><code>trigger_price</code>: (Optional) The trigger price for stop-loss orders.</li>
-</ul>
-<p>Click on each of the tabs to see the relevant code snippet.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="6:4"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><input id="__tabbed_6_3" name="__tabbed_6" type="radio" /><input id="__tabbed_6_4" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1"><strong>Market Order</strong></label><label for="__tabbed_6_2"><strong>Limit Order</strong></label><label for="__tabbed_6_3"><strong>Stoploss Market Order</strong></label><label for="__tabbed_6_4"><strong>Stoploss Limit Order</strong></label></div>
-<div class="tabbed-content">
-<div class="tabbed-block">
-<div class="language-python highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">broker</span><span class="o">.</span><span class="n">OrderRegular</span><span class="p">(</span>
-</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>    <span class="n">instrument</span><span class="p">,</span>
-</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>    <span class="n">action</span><span class="p">,</span> 
-</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>    <span class="n">quantity</span> 
-</span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a>    <span class="p">)</span>
-</span></code></pre></div>
-</div>
-<div class="tabbed-block">
-<div class="language-python highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">broker</span><span class="o">.</span><span class="n">OrderRegular</span><span class="p">(</span>
-</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>    <span class="n">instrument</span><span class="p">,</span> 
-</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>    <span class="n">action</span><span class="p">,</span> 
-</span><span id="__span-25-4"><a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a>    <span class="n">quantity</span><span class="p">,</span> 
-</span><span id="__span-25-5"><a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>    <span class="n">order_variety</span><span class="o">=</span><span class="n">BrokerOrderVarietyConstants</span><span class="o">.</span><span class="n">LIMIT</span><span class="p">,</span> 
-</span><span id="__span-25-6"><a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a>    <span class="n">price</span><span class="o">=</span><span class="n">price</span> 
-</span><span id="__span-25-7"><a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a>    <span class="p">)</span>
-</span></code></pre></div>
-</div>
-<div class="tabbed-block">
-<div class="language-python highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">broker</span><span class="o">.</span><span class="n">OrderRegular</span><span class="p">(</span>
-</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>    <span class="n">instrument</span><span class="p">,</span> 
-</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>    <span class="n">action</span><span class="p">,</span> 
-</span><span id="__span-26-4"><a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a>    <span class="n">quantity</span><span class="p">,</span> 
-</span><span id="__span-26-5"><a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a>    <span class="n">order</span><span class="o">=</span><span class="n">order_variety</span><span class="o">=</span><span class="n">BrokerOrderVarietyConstants</span><span class="o">.</span><span class="n">STOPLOSS_MARKET</span><span class="p">,</span> 
-</span><span id="__span-26-6"><a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a>    <span class="n">trigger_price</span><span class="o">=</span><span class="n">trigger_price</span>
-</span><span id="__span-26-7"><a id="__codelineno-26-7" name="__codelineno-26-7" href="#__codelineno-26-7"></a>    <span class="p">)</span>
-</span></code></pre></div>
-</div>
-<div class="tabbed-block">
-<div class="language-python highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">broker</span><span class="o">.</span><span class="n">OrderRegular</span><span class="p">(</span>
-</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>    <span class="n">instrument</span><span class="p">,</span>  
-</span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>    <span class="n">action</span><span class="p">,</span> 
-</span><span id="__span-27-4"><a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a>    <span class="n">quantity</span><span class="p">,</span>  
-</span><span id="__span-27-5"><a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a>    <span class="n">order_variety</span><span class="o">=</span><span class="n">BrokerOrderVarietyConstants</span><span class="o">.</span><span class="n">STOPLOSS_LIMIT</span><span class="p">,</span> 
-</span><span id="__span-27-6"><a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a>    <span class="n">price</span><span class="o">=</span><span class="n">price</span><span class="p">,</span> 
-</span><span id="__span-27-7"><a id="__codelineno-27-7" name="__codelineno-27-7" href="#__codelineno-27-7"></a>    <span class="n">trigger_price</span><span class="o">=</span><span class="n">trigger_price</span>
-</span><span id="__span-27-8"><a id="__codelineno-27-8" name="__codelineno-27-8" href="#__codelineno-27-8"></a><span class="p">)</span>
-</span></code></pre></div>
-</div>
-</div>
-</div>
 <h4 id="strategy_select_instruments_for_exit">strategy_select_instruments_for_exit()<a class="headerlink" href="#strategy_select_instruments_for_exit" title="Permanent link">&para;</a></h4>
 <p>Similar to entry, this function takes parameters:</p>
 <ul>
@@ -2576,18 +2481,18 @@ This function would ideally look like this. This example was taken from “Optio
 <p>The function iterates through the instrument bucket, checking if the instrument is present in "self.main_order" and whether its exit condition is satisfied. Instruments meeting exit conditions are added to the selected instruments list, along with their respective actions and meta-information.</p>
 <p><strong>Example</strong>:<br />
 This function should ideally look like this. This example was taken from “EMA Crossover Strategy”.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>    <span class="k">def</span> <span class="nf">strategy_select_instruments_for_exit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">candle</span><span class="p">,</span> <span class="n">instruments_bucket</span><span class="p">):</span>
-</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>        <span class="n">selected_instruments</span><span class="p">,</span> <span class="n">meta</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
-</span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>
-</span><span id="__span-28-4"><a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a>        <span class="k">for</span> <span class="n">instrument</span> <span class="ow">in</span> <span class="n">instruments_bucket</span><span class="p">:</span>
-</span><span id="__span-28-5"><a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a>            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">main_order_map</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">instrument</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="__span-28-6"><a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a>                <span class="n">crossover</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_decision</span><span class="p">(</span><span class="n">instrument</span><span class="p">)</span>
-</span><span id="__span-28-7"><a id="__codelineno-28-7" name="__codelineno-28-7" href="#__codelineno-28-7"></a>
-</span><span id="__span-28-8"><a id="__codelineno-28-8" name="__codelineno-28-8" href="#__codelineno-28-8"></a>                <span class="k">if</span> <span class="n">crossover</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
-</span><span id="__span-28-9"><a id="__codelineno-28-9" name="__codelineno-28-9" href="#__codelineno-28-9"></a>                    <span class="n">selected_instruments</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">instrument</span><span class="p">)</span>
-</span><span id="__span-28-10"><a id="__codelineno-28-10" name="__codelineno-28-10" href="#__codelineno-28-10"></a>                    <span class="n">meta</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;action&#39;</span><span class="p">:</span> <span class="s1">&#39;EXIT&#39;</span><span class="p">})</span>
-</span><span id="__span-28-11"><a id="__codelineno-28-11" name="__codelineno-28-11" href="#__codelineno-28-11"></a>
-</span><span id="__span-28-12"><a id="__codelineno-28-12" name="__codelineno-28-12" href="#__codelineno-28-12"></a>        <span class="k">return</span> <span class="n">selected_instruments</span><span class="p">,</span> <span class="n">meta</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>    <span class="k">def</span> <span class="nf">strategy_select_instruments_for_exit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">candle</span><span class="p">,</span> <span class="n">instruments_bucket</span><span class="p">):</span>
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>        <span class="n">selected_instruments</span><span class="p">,</span> <span class="n">meta</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>
+</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>        <span class="k">for</span> <span class="n">instrument</span> <span class="ow">in</span> <span class="n">instruments_bucket</span><span class="p">:</span>
+</span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a>            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">main_order_map</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">instrument</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="__span-24-6"><a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a>                <span class="n">crossover</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_decision</span><span class="p">(</span><span class="n">instrument</span><span class="p">)</span>
+</span><span id="__span-24-7"><a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a>
+</span><span id="__span-24-8"><a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a>                <span class="k">if</span> <span class="n">crossover</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+</span><span id="__span-24-9"><a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a>                    <span class="n">selected_instruments</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">instrument</span><span class="p">)</span>
+</span><span id="__span-24-10"><a id="__codelineno-24-10" name="__codelineno-24-10" href="#__codelineno-24-10"></a>                    <span class="n">meta</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;action&#39;</span><span class="p">:</span> <span class="s1">&#39;EXIT&#39;</span><span class="p">})</span>
+</span><span id="__span-24-11"><a id="__codelineno-24-11" name="__codelineno-24-11" href="#__codelineno-24-11"></a>
+</span><span id="__span-24-12"><a id="__codelineno-24-12" name="__codelineno-24-12" href="#__codelineno-24-12"></a>        <span class="k">return</span> <span class="n">selected_instruments</span><span class="p">,</span> <span class="n">meta</span>
 </span></code></pre></div>
 <hr />
 <h4 id="strategy_exit_position">strategy_exit_position()<a class="headerlink" href="#strategy_exit_position" title="Permanent link">&para;</a></h4>
@@ -2600,12 +2505,12 @@ This function should ideally look like this. This example was taken from “EMA 
 <p>Here, you place orders for the selected instruments, removing them from "self.main_order" to prepare for the next iteration of the AlgoBulls core loop.</p>
 <p><strong>Example:</strong><br />
 This function should ideally look like this. This example was taken from “EMA Crossover Strategy”.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>    <span class="k">def</span> <span class="nf">strategy_exit_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">candle</span><span class="p">,</span> <span class="n">instrument</span><span class="p">,</span> <span class="n">meta</span><span class="p">):</span>
-</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>    <span class="k">if</span> <span class="n">meta</span><span class="p">[</span><span class="s1">&#39;action&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;EXIT&#39;</span><span class="p">:</span>
-</span><span id="__span-29-3"><a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">main_order_map</span><span class="p">[</span><span class="n">instrument</span><span class="p">]</span><span class="o">.</span><span class="n">exit_position</span><span class="p">()</span>
-</span><span id="__span-29-4"><a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">main_order_map</span><span class="p">[</span><span class="n">instrument</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-</span><span id="__span-29-5"><a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a>        <span class="k">return</span> <span class="kc">True</span>
-</span><span id="__span-29-6"><a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a>    <span class="k">return</span> <span class="kc">False</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>    <span class="k">def</span> <span class="nf">strategy_exit_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">candle</span><span class="p">,</span> <span class="n">instrument</span><span class="p">,</span> <span class="n">meta</span><span class="p">):</span>
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>    <span class="k">if</span> <span class="n">meta</span><span class="p">[</span><span class="s1">&#39;action&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;EXIT&#39;</span><span class="p">:</span>
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">main_order_map</span><span class="p">[</span><span class="n">instrument</span><span class="p">]</span><span class="o">.</span><span class="n">exit_position</span><span class="p">()</span>
+</span><span id="__span-25-4"><a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">main_order_map</span><span class="p">[</span><span class="n">instrument</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span id="__span-25-5"><a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>        <span class="k">return</span> <span class="kc">True</span>
+</span><span id="__span-25-6"><a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a>    <span class="k">return</span> <span class="kc">False</span>
 </span></code></pre></div>
 
   <hr>
@@ -2613,7 +2518,7 @@ This function should ideally look like this. This example was taken from “EMA 
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-01-01T07:11:39+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-01-01</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-10-23T09:48:13+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-10-23</span>
       
     
   </small>
