@@ -3,7 +3,7 @@
 This class represents the implementation of an options straddle trading strategy.
 
 !!! Links
-    - **[Strategy Code (.py)](https://github.com/algobulls/pyalgostrategypool/blob/master/pyalgostrategypool/options_straddle.py){target=_blank}**
+    - **[Strategy Code (.py)](https://github.com/algobulls/pyalgostrategypool/blob/master/pyalgostrategypool/options_straddle/_strategy.py){target=_blank}**
     - **[Strategy Structure (common methods used in a regular and options strategy)](strategy_guides/common_strategy_guide.md){target=_blank}**
 
 

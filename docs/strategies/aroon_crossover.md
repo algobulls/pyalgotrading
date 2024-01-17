@@ -2,7 +2,7 @@
 This is a trading strategy called "Aroon Crossover" implemented in Python using the PyAlgoTrading library. The strategy is based on the Aroon indicator crossover.
 
 !!! Links
-    - **[Strategy Code (.py)](https://github.com/algobulls/pyalgostrategypool/blob/master/pyalgostrategypool/aroon_crossover.py){target=_blank}**
+    - **[Strategy Code (.py)](https://github.com/algobulls/pyalgostrategypool/blob/master/pyalgostrategypool/aroon_crossover/_strategy.py){target=_blank}**
     - **[Strategy Structure (common methods used in a regular and options strategy)](strategy_guides/common_strategy_guide.md){target=_blank}**
 
 !!! Tips "Jupyter Notebooks for Indian Exchange (NSE)"
