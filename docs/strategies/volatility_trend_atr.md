@@ -2,7 +2,7 @@
 This is a trading strategy called "Volatility Trends ATR" implemented in Python using the PyAlgoTrading library. The strategy is based on the ATR indicator crossover.
 
 !!! Links
-    - **[Strategy Code (.py)](https://github.com/algobulls/pyalgostrategypool/blob/master/pyalgostrategypool/volatility_trend_atr.py){target=_blank}**
+    - **[Strategy Code (.py)](https://github.com/algobulls/pyalgostrategypool/blob/master/pyalgostrategypool/volatility_trend_atr/_strategy.py){target=_blank}**
     - **[Strategy Structure (common methods used in a regular and options strategy)](strategy_guides/common_strategy_guide.md){target=_blank}**
 
 !!! Tips "Jupyter Notebook for Indian Exchange (NSE)"
