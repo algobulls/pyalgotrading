@@ -6,4 +6,4 @@ if ! pip freeze | grep -q twine; then
 fi
 rm -rf dist
 python setup.py bdist_wheel
-twine upload --skip-existing dist/*
+twine upload --skip-existing dist/* --repository pyalgotrading
