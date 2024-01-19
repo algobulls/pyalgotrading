@@ -1,6 +1,6 @@
 # Non-OAuth
 
-!!! Note "WARNING: We have discontinued the Non-OAuth method in accordance with Alpaca’s recommendations. Please use the OAuth method for seamless integration and improved security. Be mindful of this update as you proceed with your integrations."
+!!! failure "We have discontinued the Non-OAuth method in accordance with Alpaca’s recommendations. Please use the OAuth method for seamless integration and improved security. Be mindful of this update as you proceed with your integrations."
 
 If you are seeking an alternative to OAuth, the Non-OAuth binding option provides a straightforward and reliable approach to connect your Alpaca broker with AlgoBulls. This method ensures a direct and effective link between your accounts, maintaining the simplicity and efficiency that defines the AlgoBulls experience. Discover the step-by-step process to establish Non-OAuth binding and gain immediate access to the powerful synergy between AlgoBulls and Alpaca, facilitating seamless trading and data synchronisation.
 
