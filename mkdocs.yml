@@ -90,6 +90,7 @@ nav:
       - Prompt Library: 'gen_ai/gen_ai_prompt_library.md'
   - Python Build Support: 'support/support_pybuild.md'
   - How to: 'strategies/strategy_guides/how_to.md'
+  - Frequently Encountered Errors: 'strategies/strategy_guides/fee.md'
 plugins:
   - search                                  # necessary for search to work
   - git-revision-date-localized:            # When enabled, the respective 'Last Updated' date is automatically added at the bottom of each page. Docs: https://squidfunk.github.io/mkdocs-material/plugins/revision-date/
