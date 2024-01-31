@@ -189,7 +189,7 @@ Historical data of the instrument up to a certain point in your strategy is coll
     ema_x = talib.EMA(hist_data['close'], timeperiod=self.timeperiod1)
     ema_y = talib.EMA(hist_data['close'], timeperiod=self.timeperiod2)
     ```
-    As you can see, we have passed the “close” column and a strategy parameter value called “self.timeperiod1” and “self.timeperiod2” to the talib function. Each of the talib functions require unique input values, some require pandas.Series, some require constants like integers and floats and some require both. To understand the working of each talib function, refer here.
+    As you can see, we have passed the “close” column and a strategy parameter value called “self.timeperiod1” and “self.timeperiod2” to the talib function. Each of the talib functions require unique input values, some require pandas.Series, some require constants like integers and floats and some require both. To understand the working of each talib function, refer [here](https://hexdocs.pm/talib/api-reference.html).
 
 - Next, you analyze this data to determine trading signals and calculate indicator values. You can rely on functions from "**talib**" for this, as shown below:
     ```python
