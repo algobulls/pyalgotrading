@@ -1835,6 +1835,44 @@
   
 
     
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how_to/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How to
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fee/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Frequently Encountered Errors
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -2292,7 +2330,7 @@ Historical data of the instrument up to a certain point in your strategy is coll
     <div class="language-python highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="n">ema_x</span> <span class="o">=</span> <span class="n">talib</span><span class="o">.</span><span class="n">EMA</span><span class="p">(</span><span class="n">hist_data</span><span class="p">[</span><span class="s1">&#39;close&#39;</span><span class="p">],</span> <span class="n">timeperiod</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">timeperiod1</span><span class="p">)</span>
 </span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="n">ema_y</span> <span class="o">=</span> <span class="n">talib</span><span class="o">.</span><span class="n">EMA</span><span class="p">(</span><span class="n">hist_data</span><span class="p">[</span><span class="s1">&#39;close&#39;</span><span class="p">],</span> <span class="n">timeperiod</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">timeperiod2</span><span class="p">)</span>
 </span></code></pre></div>
-    As you can see, we have passed the “close” column and a strategy parameter value called “self.timeperiod1” and “self.timeperiod2” to the talib function. Each of the talib functions require unique input values, some require pandas.Series, some require constants like integers and floats and some require both. To understand the working of each talib function, refer <a href="https://technical-analysis-library-in-python.readthedocs.io/en/latest/">here.</a></p>
+    As you can see, we have passed the “close” column and a strategy parameter value called “self.timeperiod1” and “self.timeperiod2” to the talib function. Each of the talib functions require unique input values, some require pandas.Series, some require constants like integers and floats and some require both. To understand the working of each talib function, refer <a href="https://ta-lib.github.io/ta-lib-python/index.html">here.</a></p>
 </li>
 <li>
 <p>In many strategies, the condition to buy or sell can be triggered based on the crossover direction of 2 signals/indicators. A crossover refers to an instance where an indicator and a price, or multiple indicators, overlap and cross one another. Crossovers are used in technical analysis to confirm patterns and trends such as reversals and breakouts, generating buy or sell signals accordingly. Below we have given an example of how to calculate the crossover of the 2 indicator values we had calculated above.<br />
@@ -2513,7 +2551,7 @@ This function should ideally look like this. This example was taken from “EMA 
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-10-23T09:48:13+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-10-23</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-02-01T11:24:06+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-02-01</span>
       
     
   </small>

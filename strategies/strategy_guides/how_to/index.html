@@ -12,13 +12,13 @@
         <meta name="author" content="Pushpak Dagade (pushpak@algobulls.com)">
       
       
-        <link rel="canonical" href="https://algobulls.github.io/pythonbuild/brokers/non_auth_alpaca/">
+        <link rel="canonical" href="https://algobulls.github.io/pythonbuild/strategies/strategy_guides/how_to/">
       
       
-        <link rel="prev" href="../connecting_alpaca/">
+        <link rel="prev" href="../../../support/support_pybuild/">
       
       
-        <link rel="next" href="../../gen_ai/get_open_ai_keys/">
+        <link rel="next" href="../fee/">
       
       
       <link rel="icon" href="https://algobulls.com/img/favicon.svg">
@@ -26,14 +26,14 @@
     
     
       
-        <title>Non-OAuth - Python Build</title>
+        <title>How to - Python Build</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.35e1ed30.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.35e1ed30.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.356b1318.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.356b1318.min.css">
       
       
 
@@ -52,13 +52,13 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+      <link rel="stylesheet" href="../../../assets/_mkdocstrings.css">
     
-      <link rel="stylesheet" href="../../css/timeago.css">
+      <link rel="stylesheet" href="../../../css/timeago.css">
     
-      <link rel="stylesheet" href="../../stylesheets/extra.css">
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
     
-    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -83,7 +83,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#non-oauth" class="md-skip">
+        <a href="#fetch-last-traded-price-ltp-of-an-instrument" class="md-skip">
           Skip to content
         </a>
       
@@ -99,9 +99,9 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="Python Build" class="md-header__button md-logo" aria-label="Python Build" data-md-component="logo">
+    <a href="../../.." title="Python Build" class="md-header__button md-logo" aria-label="Python Build" data-md-component="logo">
       
-  <img src="../../algobulls_logo.svg" alt="logo">
+  <img src="../../../algobulls_logo.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -118,7 +118,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Non-OAuth
+              How to
             
           </span>
         </div>
@@ -204,9 +204,9 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="Python Build" class="md-nav__button md-logo" aria-label="Python Build" data-md-component="logo">
+    <a href="../../.." title="Python Build" class="md-nav__button md-logo" aria-label="Python Build" data-md-component="logo">
       
-  <img src="../../algobulls_logo.svg" alt="logo">
+  <img src="../../../algobulls_logo.svg" alt="logo">
 
     </a>
     Python Build
@@ -232,7 +232,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../.." class="md-nav__link">
+      <a href="../../.." class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -287,7 +287,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../strategies/strategy_guides/common_strategy_guide/" class="md-nav__link">
+      <a href="../common_strategy_guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -343,7 +343,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../strategies/aroon_crossover/" class="md-nav__link">
+      <a href="../../aroon_crossover/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -363,7 +363,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../strategies/bollinger_bands/" class="md-nav__link">
+      <a href="../../bollinger_bands/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -383,7 +383,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../strategies/ema_crossover/" class="md-nav__link">
+      <a href="../../ema_crossover/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -403,7 +403,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../strategies/inverse_ema_scalping/" class="md-nav__link">
+      <a href="../../inverse_ema_scalping/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -423,7 +423,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../strategies/macd_crossover/" class="md-nav__link">
+      <a href="../../macd_crossover/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -443,7 +443,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../strategies/mean_reversion_bollinger_bands/" class="md-nav__link">
+      <a href="../../mean_reversion_bollinger_bands/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -463,7 +463,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../strategies/reverse_rsi/" class="md-nav__link">
+      <a href="../../reverse_rsi/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -483,7 +483,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../strategies/rsi_macd_crossover/" class="md-nav__link">
+      <a href="../../rsi_macd_crossover/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -503,7 +503,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../strategies/stochastic_crossover/" class="md-nav__link">
+      <a href="../../stochastic_crossover/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -523,7 +523,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../strategies/vwap_crossover/" class="md-nav__link">
+      <a href="../../vwap_crossover/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -543,7 +543,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../strategies/volatility_trend_atr/" class="md-nav__link">
+      <a href="../../volatility_trend_atr/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -607,7 +607,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../strategies/options_bear_call_ladder/" class="md-nav__link">
+      <a href="../../options_bear_call_ladder/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -627,7 +627,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../strategies/options_bear_put_ladder/" class="md-nav__link">
+      <a href="../../options_bear_put_ladder/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -647,7 +647,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../strategies/options_bull_call_ladder/" class="md-nav__link">
+      <a href="../../options_bull_call_ladder/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -667,7 +667,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../strategies/options_bull_put_ladder/" class="md-nav__link">
+      <a href="../../options_bull_put_ladder/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -687,7 +687,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../strategies/options_long_iron_butterfly/" class="md-nav__link">
+      <a href="../../options_long_iron_butterfly/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -707,7 +707,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../strategies/options_straddle/" class="md-nav__link">
+      <a href="../../options_straddle/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -727,7 +727,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../strategies/options_strangle/" class="md-nav__link">
+      <a href="../../options_strangle/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -798,7 +798,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../pyalgotrad/introduction/" class="md-nav__link">
+      <a href="../../../pyalgotrad/introduction/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -818,7 +818,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../pyalgotrad/prerequisites/" class="md-nav__link">
+      <a href="../../../pyalgotrad/prerequisites/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -874,7 +874,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../pyalgotrad/upload/" class="md-nav__link">
+      <a href="../../../pyalgotrad/upload/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -894,7 +894,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../pyalgotrad/select/" class="md-nav__link">
+      <a href="../../../pyalgotrad/select/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -914,7 +914,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../pyalgotrad/testing/" class="md-nav__link">
+      <a href="../../../pyalgotrad/testing/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -942,7 +942,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../pyalgotrad/pyalgotrading_analytics/" class="md-nav__link">
+      <a href="../../../pyalgotrad/pyalgotrading_analytics/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -998,7 +998,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../pyalgotrad/slippage/" class="md-nav__link">
+      <a href="../../../pyalgotrad/slippage/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1018,7 +1018,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../pyalgotrad/brokerage/" class="md-nav__link">
+      <a href="../../../pyalgotrad/brokerage/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1089,7 +1089,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../python_build/python-build-introduction/" class="md-nav__link">
+      <a href="../../../python_build/python-build-introduction/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1109,7 +1109,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../python_build/python-build-getstarted/" class="md-nav__link">
+      <a href="../../../python_build/python-build-getstarted/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1165,7 +1165,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../python_build/python-build-code-gen-ai/" class="md-nav__link">
+      <a href="../../../python_build/python-build-code-gen-ai/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1185,7 +1185,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../python_build/python-build-professional/" class="md-nav__link">
+      <a href="../../../python_build/python-build-professional/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1205,7 +1205,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../python_build/python-build-code-ready-templates/" class="md-nav__link">
+      <a href="../../../python_build/python-build-code-ready-templates/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1225,7 +1225,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../python_build/python-build-code-new/" class="md-nav__link">
+      <a href="../../../python_build/python-build-code-new/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1245,7 +1245,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../python_build/python-build-config-parameters/" class="md-nav__link">
+      <a href="../../../python_build/python-build-config-parameters/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1273,7 +1273,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../python_build/python-build-view-results/" class="md-nav__link">
+      <a href="../../../python_build/python-build-view-results/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1298,20 +1298,18 @@
       
   
   
-    
-  
   
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
         
           
           <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
@@ -1325,7 +1323,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             Brokers
@@ -1338,7 +1336,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../broker_alpaca_guide/" class="md-nav__link">
+      <a href="../../../brokers/broker_alpaca_guide/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1356,20 +1354,18 @@
                 
   
   
-    
-  
   
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
         
           
           <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
@@ -1383,7 +1379,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5_2">
             <span class="md-nav__icon md-icon"></span>
             Setting Up Alpaca with AlgoBulls
@@ -1396,7 +1392,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../connecting_alpaca/" class="md-nav__link">
+      <a href="../../../brokers/connecting_alpaca/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1414,29 +1410,9 @@
                 
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Non-OAuth
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../../brokers/non_auth_alpaca/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1445,74 +1421,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#how-to-set-up-alpaca-for-trading-in-algobulls-with-non-oauth" class="md-nav__link">
-    How to set up Alpaca for trading in AlgoBulls with Non-OAuth?
-  </a>
-  
-    <nav class="md-nav" aria-label="How to set up Alpaca for trading in AlgoBulls with Non-OAuth?">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#create-your-alpaca-account" class="md-nav__link">
-    Create your Alpaca Account
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#api-keys" class="md-nav__link">
-    API keys
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#add-broker" class="md-nav__link">
-    Add Broker
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#search-for-alpaca-non-oauth" class="md-nav__link">
-    Search for Alpaca Non-OAuth
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#provide-api-and-secret-key" class="md-nav__link">
-    Provide API And Secret key
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1575,7 +1483,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../gen_ai/get_open_ai_keys/" class="md-nav__link">
+      <a href="../../../gen_ai/get_open_ai_keys/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1595,7 +1503,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../gen_ai/gen_ai_prompt_library/" class="md-nav__link">
+      <a href="../../../gen_ai/gen_ai_prompt_library/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1622,7 +1530,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../support/support_pybuild/" class="md-nav__link">
+      <a href="../../../support/support_pybuild/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1639,9 +1547,27 @@
       
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../../strategies/strategy_guides/how_to/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    How to
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -1650,6 +1576,45 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#fetch-last-traded-price-ltp-of-an-instrument" class="md-nav__link">
+    Fetch Last Traded Price (LTP) of an Instrument
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#access-attributes-of-an-instrument-object" class="md-nav__link">
+    Access Attributes of an Instrument Object
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fetch-different-types-of-instruments" class="md-nav__link">
+    Fetch Different Types of Instruments
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1660,7 +1625,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../strategies/strategy_guides/fee/" class="md-nav__link">
+      <a href="../fee/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1690,8 +1655,6 @@
   
   
   
-    
-  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -1700,50 +1663,23 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-to-set-up-alpaca-for-trading-in-algobulls-with-non-oauth" class="md-nav__link">
-    How to set up Alpaca for trading in AlgoBulls with Non-OAuth?
-  </a>
-  
-    <nav class="md-nav" aria-label="How to set up Alpaca for trading in AlgoBulls with Non-OAuth?">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#create-your-alpaca-account" class="md-nav__link">
-    Create your Alpaca Account
+  <a href="#fetch-last-traded-price-ltp-of-an-instrument" class="md-nav__link">
+    Fetch Last Traded Price (LTP) of an Instrument
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#api-keys" class="md-nav__link">
-    API keys
+      
+        <li class="md-nav__item">
+  <a href="#access-attributes-of-an-instrument-object" class="md-nav__link">
+    Access Attributes of an Instrument Object
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#add-broker" class="md-nav__link">
-    Add Broker
+      
+        <li class="md-nav__item">
+  <a href="#fetch-different-types-of-instruments" class="md-nav__link">
+    Fetch Different Types of Instruments
   </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#search-for-alpaca-non-oauth" class="md-nav__link">
-    Search for Alpaca Non-OAuth
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#provide-api-and-secret-key" class="md-nav__link">
-    Provide API And Secret key
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -1765,70 +1701,56 @@
   
 
 
-<h1 id="non-oauth">Non-OAuth<a class="headerlink" href="#non-oauth" title="Permanent link">&para;</a></h1>
-<div class="admonition failure">
-<p class="admonition-title">We have discontinued the Non-OAuth method in accordance with Alpaca’s recommendations. Please use the OAuth method for seamless integration and improved security. Be mindful of this update as you proceed with your integrations.</p>
+  <h1>How to</h1>
+
+<h3 id="fetch-last-traded-price-ltp-of-an-instrument">Fetch Last Traded Price (LTP) of an Instrument<a class="headerlink" href="#fetch-last-traded-price-ltp-of-an-instrument" title="Permanent link">&para;</a></h3>
+<p>To fetch the Last Traded Price (LTP) of any instrument, use the following method:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">broker</span><span class="o">.</span><span class="n">get_ltp</span><span class="p">(</span><span class="n">instrument</span><span class="p">)</span>
+</span></code></pre></div>
+<p>This method retrieves the last traded price of the specified instrument.</p>
+<hr />
+<h3 id="access-attributes-of-an-instrument-object">Access Attributes of an Instrument Object<a class="headerlink" href="#access-attributes-of-an-instrument-object" title="Permanent link">&para;</a></h3>
+<p>An instrument object typically contains various attributes providing information about the instrument:</p>
+<ul>
+<li><code>segment</code>: Trading segment of the instrument.</li>
+<li><code>exchange</code>: Exchange on which the instrument is listed.</li>
+<li><code>tradingsymbol</code>: Unique trading symbol of the instrument.</li>
+<li><code>tick_size</code>: Minimum price movement (tick) of the instrument.</li>
+<li><code>lot_size</code>: Number of units in a single lot of the instrument.</li>
+<li><code>expiry</code>: Expiration date of the instrument (applicable for derivatives).</li>
+<li><code>strike_price</code>: Strike price of the instrument (applicable for options).</li>
+</ul>
+<p>To access these attributes, use the following notation:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">instrument</span><span class="o">.</span><span class="n">segment</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">instrument</span><span class="o">.</span><span class="n">exchange</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">instrument</span><span class="o">.</span><span class="n">tradingsymbol</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="n">instrument</span><span class="o">.</span><span class="n">tick_size</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="n">instrument</span><span class="o">.</span><span class="n">lot_size</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="n">instrument</span><span class="o">.</span><span class="n">expiry</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="n">instrument</span><span class="o">.</span><span class="n">strike_price</span>
+</span></code></pre></div>
+<hr />
+<h3 id="fetch-different-types-of-instruments">Fetch Different Types of Instruments<a class="headerlink" href="#fetch-different-types-of-instruments" title="Permanent link">&para;</a></h3>
+<p>To fetch different types of instruments, use the <code>get_instruments_filtered</code> method:</p>
+<p>Method Signature:
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">broker</span><span class="o">.</span><span class="n">get_instruments_filtered</span><span class="p">(</span><span class="n">segment</span><span class="p">,</span> <span class="n">tradingsymbol_exact</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tradingsymbol_prefix</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tradingsymbol_suffix</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">expiry</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</span></code></pre></div>
+Example:
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">instruments</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">broker</span><span class="o">.</span><span class="n">get_instruments_filtered</span><span class="p">(</span><span class="n">segment</span><span class="o">=</span><span class="s1">&#39;NSE_FO&#39;</span><span class="p">,</span> <span class="n">tradingsymbol_prefix</span><span class="o">=</span><span class="s1">&#39;NIFTY&#39;</span><span class="p">,</span> <span class="n">expiry</span><span class="o">=</span><span class="s1">&#39;2024-01-04&#39;</span><span class="p">)</span>
+</span></code></pre></div></p>
+<p>This example fetches equity instruments with a trading symbol prefix of 'NIFTY' and an expiry date of 4th January, 2024.</p>
+<hr />
+<div class="admonition tip">
+<p class="admonition-title">Note</p>
+<p>The above three subsections are adequate for implementing your own logic for an options strategy.</p>
 </div>
-<p>If you are seeking an alternative to OAuth, the Non-OAuth binding option provides a straightforward and reliable approach to connect your Alpaca broker with AlgoBulls. This method ensures a direct and effective link between your accounts, maintaining the simplicity and efficiency that defines the AlgoBulls experience. Discover the step-by-step process to establish Non-OAuth binding and gain immediate access to the powerful synergy between AlgoBulls and Alpaca, facilitating seamless trading and data synchronisation.</p>
-<h2 id="how-to-set-up-alpaca-for-trading-in-algobulls-with-non-oauth">How to set up Alpaca for trading in AlgoBulls with Non-OAuth?<a class="headerlink" href="#how-to-set-up-alpaca-for-trading-in-algobulls-with-non-oauth" title="Permanent link">&para;</a></h2>
-<hr />
-<p>Before trying to bind your broker, please make sure you have an Alpaca account or follow the steps given below to create your account.</p>
-<h3 id="create-your-alpaca-account">Create your Alpaca Account<a class="headerlink" href="#create-your-alpaca-account" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Go the the official  <a href="https://alpaca.markets/">Alpaca website</a></li>
-<li>Click on <code>sign up for free</code>.</li>
-<li>Follow the steps there and add your details to create the account.</li>
-</ul>
-<p><a href="https://alpaca.markets/" target="_blank"><img alt="main page" src="../../imgs/alpaca_main_page.png" /></a></p>
-<hr />
-<h3 id="api-keys">API keys<a class="headerlink" href="#api-keys" title="Permanent link">&para;</a></h3>
-<ul>
-<li>After creating your account, login to access the homepage.</li>
-</ul>
-<p><a href="https://app.alpaca.markets/paper/dashboard/overview" target="_blank"><img alt="img.png" src="../../imgs/alpaca_account_home.png" /></a></p>
-<ul>
-<li>Click on <code>View API Keys</code> on the right side under the <code>Quick Trade</code> block.</li>
-</ul>
-<p><img alt="img.png" src="../../imgs/alpaca_view_api_keys.png" /></p>
-<ul>
-<li>Click on regenerate to create <code>API</code> and <code>Secret</code> Key.</li>
-</ul>
-<p><img alt="img.png" src="../../imgs/alpaca_regenerate_api_keys.png" /></p>
-<ul>
-<li>On regenerating, you will get fresh API keys under the <code>Key</code> section and a secret key under the <code>Secret</code> section.</li>
-</ul>
-<p><img alt="img.png" src="../../imgs/python_build_alpaca_keys_1.png" /></p>
-<hr />
-<h3 id="add-broker">Add Broker<a class="headerlink" href="#add-broker" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Click on <code>Add Broker</code>.</li>
-</ul>
-<p><a href="../../python_build/imgs_v2/pyBuild_broking_details.png"><img alt="main page" src="../../python_build/imgs_v2/pyBuild_broking_details.png" title="Click to Enlarge or Ctrl+Click to open in a new Tab" /></a></p>
-<hr />
-<h3 id="search-for-alpaca-non-oauth">Search for Alpaca Non-OAuth<a class="headerlink" href="#search-for-alpaca-non-oauth" title="Permanent link">&para;</a></h3>
-<ul>
-<li>On the pop-up window that appears, you have a search bar for finding your desired broker..</li>
-<li>Type <code>Alpaca</code>in the search box and choose <code>Alpaca Non-OAuth</code> from the search results.</li>
-</ul>
-<p><a href="../../python_build/imgs_v2/Python_build_broking_details_non_oauth_1.png"><img alt="img.png" src="../../python_build/imgs_v2/Python_build_broking_details_non_oauth_1.png" title="Click to Enlarge or Ctrl+Click to open in a new Tab" /></a></p>
-<hr />
-<h3 id="provide-api-and-secret-key">Provide API And Secret key<a class="headerlink" href="#provide-api-and-secret-key" title="Permanent link">&para;</a></h3>
-<ul>
-<li>After clicking <code>Alpaca Non-OAuth</code>, you will see a dialog box requesting your API and Secret key.</li>
-<li>Enter your keys there and click <code>Confirm</code> to bind Alpaca with your AlgoBulls account.</li>
-</ul>
-<p><a href="../../python_build/imgs_v2/python_build_non_auth_pop.png"><img alt="img.png" src="../../python_build/imgs_v2/python_build_non_auth_pop.png" title="Click to Enlarge or Ctrl+Click to open in a new Tab" /></a></p>
-<ul>
-<li>On successful authorisation, you will be redirected to the AlgoBulls platform and you will be able to see your broker on the <code>Broking Details</code> page.</li>
-</ul>
-<p><a href="../../python_build/imgs_v2/python_build_non_oauth_succesful.png"><img alt="img.png" src="../../python_build/imgs_v2/python_build_non_oauth_succesful.png" title="Click to Enlarge or Ctrl+Click to open in a new Tab" /></a></p>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-01-19T10:29:47+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-01-19</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-02-01T11:24:26+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-02-01</span>
       
     
   </small>
@@ -1856,7 +1778,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../connecting_alpaca/" class="md-footer__link md-footer__link--prev" aria-label="Previous: OAuth">
+          <a href="../../../support/support_pybuild/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Python Build Support">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
@@ -1866,20 +1788,20 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                OAuth
+                Python Build Support
               </div>
             </div>
           </a>
         
         
           
-          <a href="../../gen_ai/get_open_ai_keys/" class="md-footer__link md-footer__link--next" aria-label="Next: Create your OpenAI Keys">
+          <a href="../fee/" class="md-footer__link md-footer__link--next" aria-label="Next: Frequently Encountered Errors">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Create your OpenAI Keys
+                Frequently Encountered Errors
               </div>
             </div>
             <div class="md-footer__button md-icon">
@@ -1954,14 +1876,14 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "content.tabs.link", "tabs", "navigation.footer"], "search": "../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.copy", "content.tabs.link", "tabs", "navigation.footer"], "search": "../../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.aecac24b.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.aecac24b.min.js"></script>
       
-        <script src="../../js/timeago.min.js"></script>
+        <script src="../../../js/timeago.min.js"></script>
       
-        <script src="../../js/timeago_mkdocs_material.js"></script>
+        <script src="../../../js/timeago_mkdocs_material.js"></script>
       
     
   </body>
