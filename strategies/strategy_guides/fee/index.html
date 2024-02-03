@@ -1638,6 +1638,40 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#no-data-in-charts" class="md-nav__link">
+    No Data in Charts
+  </a>
+  
+    <nav class="md-nav" aria-label="No Data in Charts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#possible-causes_1" class="md-nav__link">
+    Possible Causes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solutions_1" class="md-nav__link">
+    Solutions
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1689,6 +1723,40 @@
         
           <li class="md-nav__item">
   <a href="#solutions" class="md-nav__link">
+    Solutions
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#no-data-in-charts" class="md-nav__link">
+    No Data in Charts
+  </a>
+  
+    <nav class="md-nav" aria-label="No Data in Charts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#possible-causes_1" class="md-nav__link">
+    Possible Causes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solutions_1" class="md-nav__link">
     Solutions
   </a>
   
@@ -1759,6 +1827,35 @@
 <li>
 <p><strong>Pre-Calculate Conditions:</strong></p>
 <p>Identify conditions that can be pre-calculated before the market opens. Adjust the strategy start time to accommodate these pre-calculations. If certain conditions can be chcked before the market starts, set the trading start time of the strategy to a value before the market start time. Add specific checks inside the strategy to ensure that the actual order placement, etc. are executed after the market starts.</p>
+</li>
+</ul>
+<h3 id="no-data-in-charts">No Data in Charts<a class="headerlink" href="#no-data-in-charts" title="Permanent link">&para;</a></h3>
+<h4 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h4>
+<p>Encountering the "NO data in charts" error while running a strategy is a common issue. This problem arises when using a small quantity with very large funds.
+<img alt="Scenario 1" src="../source_1.png" title="Large funds with small quantity" />
+<em>Limited visibility on charts due to large funds with a small quantity setting.</em></p>
+<h4 id="possible-causes_1">Possible Causes<a class="headerlink" href="#possible-causes_1" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p><strong>Scale Discrepancy:</strong></p>
+<p>The large fund amount may lead to extremely small values on the y-axis, which are not visible, causing charts to appear empty.</p>
+</li>
+<li>
+<p><strong>Default Quantity and Funds:</strong></p>
+<p>Default quantity and funds settings, if not adjusted, may lead to similar issues with empty charts.</p>
+</li>
+</ul>
+<h4 id="solutions_1">Solutions<a class="headerlink" href="#solutions_1" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p><strong>Normalize Values:</strong></p>
+<p>Normalize values by using larger quantities or scaling to ensure meaningful data display across various scenarios.</p>
+</li>
+<li>
+<p><strong>Adjust Default Settings:</strong></p>
+<p>Consider adjusting default values to something more suitable for common scenarios.
+<img alt="Scenario 2" src="../source_2.png" title="Suitable funds with suitable quantity" />
+<em>Charts displaying proper data with suitable funds and quantity settings</em></p>
 </li>
 </ul>
 
