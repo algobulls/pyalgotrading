@@ -43,3 +43,55 @@
  - **Pre-Calculate Conditions:**
     
     Identify conditions that can be pre-calculated before the market opens. Adjust the strategy start time to accommodate these pre-calculations. If certain conditions can be chcked before the market starts, set the trading start time of the strategy to a value before the market start time. Add specific checks inside the strategy to ensure that the actual order placement, etc. are executed after the market starts.
+
+
+### No Data in Charts
+
+#### Description
+
+Encountering the "NO data in charts" error while running a strategy is a common issue. This problem arises when using a small quantity with very large funds.
+![Scenario 1](source_1.png "Large funds with small quantity")
+*Limited visibility on charts due to large funds with a small quantity setting.*
+#### Possible Causes
+
+   - **Scale Discrepancy:**
+
+      The large fund amount may lead to extremely small values on the y-axis, which are not visible, causing charts to appear empty.
+
+   - **Default Quantity and Funds:**
+
+      Default quantity and funds settings, if not adjusted, may lead to similar issues with empty charts.
+
+#### Solutions
+
+   - **Normalize Values:**
+   
+      Normalize values by using larger quantities or scaling to ensure meaningful data display across various scenarios.
+
+   - **Adjust Default Settings:**
+   
+      Consider adjusting default values to something more suitable for common scenarios.
+![Scenario 2](source_2.png "Suitable funds with suitable quantity")
+*Charts displaying proper data with suitable funds and quantity settings*
+
+### OpenAI API Quota Depletion
+
+#### Description
+
+The "OpenAI API current quota exceeded" error indicates that the current quota or available credits for the OpenAI API has been exhausted. This typically occurs when the allotted usage limit for the API key has been reached.
+
+#### Possible Causes
+   - **Credit Depletion:**
+      
+      The API key has utilized its entire quota or available credits.
+
+#### Solutions
+
+   - **Purchase More Credits:**
+
+      To continue using the OpenAI API, consider purchasing additional credits or upgrading your plan to increase the quota. Click [here](https://platform.openai.com/account/billing/overview) to add more credits.
+      ![openAI credit](openAI_credit.png "Billing")
+   
+   - **Alternative Key:**
+
+      If available, switch to a different API key that still has unused credits.
