@@ -482,14 +482,31 @@ Finally, this function takes parameters:
 
 Here, you place orders for the selected instruments, removing them from "self.main_order" to prepare for the next iteration of the AlgoBulls core loop.
 
-**Example:**  
-This function should ideally look like this. This example was taken from “EMA Crossover Strategy”.
-
+**Example:**
+This function should ideally look like this. This example was taken from the "EMA Crossover Strategy". Here, we are telling the core to exit all positions:
 ```python
-    def strategy_exit_position(self, candle, instrument, meta):
+def strategy_exit_position(self, candle, instrument, meta):
     if meta['action'] == 'EXIT':
         self.main_order_map[instrument].exit_position()
         self.main_order_map[instrument] = None
         return True
     return False
 ```
+If you want the strategy to place the exit order instead of letting the core handle it, then this is what the function should look like:
+```python
+def strategy_exit_position(self, candle, instrument, meta):
+    if meta['action'] == 'EXIT':
+        self.broker.OrderRegular(
+            instrument,
+            action,
+            quantity,
+            related_order=entry_order,
+            position=BrokerExistingOrderPositionConstants.EXIT
+            )
+        return True
+    return False
+```
+!!! tip "Note"
+    - `meta['action']` has to be opposite of the entry order's transaction type. For example: if the entry order is 'BUY', then `meta['action']` should be 'SELL', and vice versa.
+    - Pass the entry order object as the `related_order` parameter.
+    - You can specify a lesser quantity if you want to partially exit your entry order. In case of partial exits, ensure that you return 'True' only if the quantity becomes zero after placing this order, else return 'False' for your intermediate/partial exits.
