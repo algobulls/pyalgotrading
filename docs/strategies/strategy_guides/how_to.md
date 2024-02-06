@@ -28,10 +28,10 @@ To access these attributes, use the following notation:
 instrument.exchange
 instrument.expiry
 instrument.lot_size
-instrument.segment
 instrument.strike_price
-instrument.tick_size
+instrument.segment
 instrument.tradingsymbol
+instrument.tick_size
 ```
 
 ---
