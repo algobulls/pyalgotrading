@@ -14,24 +14,24 @@ This method retrieves the last traded price of the specified instrument.
 
 An instrument object typically contains various attributes providing information about the instrument:
 
-- `segment`: Trading segment of the instrument.
 - `exchange`: Exchange on which the instrument is listed.
+- `expiry`: Expiration date of the instrument (applicable for derivatives).
+- `lot_size`: Number of units in a single lot of the instrument.
+- `strike_price`: Strike price of the instrument (applicable for options).
+- `segment`: Trading segment of the instrument.
 - `tradingsymbol`: Unique trading symbol of the instrument.
 - `tick_size`: Minimum price movement (tick) of the instrument.
-- `lot_size`: Number of units in a single lot of the instrument.
-- `expiry`: Expiration date of the instrument (applicable for derivatives).
-- `strike_price`: Strike price of the instrument (applicable for options).
 
 To access these attributes, use the following notation:
 
 ```python
-instrument.segment
 instrument.exchange
+instrument.expiry
+instrument.lot_size
+instrument.strike_price
+instrument.segment
 instrument.tradingsymbol
 instrument.tick_size
-instrument.lot_size
-instrument.expiry
-instrument.strike_price
 ```
 
 ---
@@ -54,5 +54,40 @@ This example fetches equity instruments with a trading symbol prefix of 'NIFTY' 
 ---
 !!! tip "Note"
     The above three subsections are adequate for implementing your own logic for an options strategy.
+
+### Access Attributes of an Order Object
+
+An order object typically contains various attributes providing information about the order:
+
+- `entry_price`: Entry price of the order.
+- `id`: AlgoBulls specific alphanumeric order ID.
+- `instrument`: Instrument for which the order is placed.
+- `order_code`: Code for the order type (INTRADAY/DELIVERY).
+- `order_time`: Time at which the order is placed.
+- `order_transaction_type`: Type of transaction (BUY/SELL).
+- `order_type`: Type of order (REGULAR/BRACKET/COVER).
+- `order_variety`: Variety of the order (MARKET, LIMIT, STOPLOSS_MARKET, STOPLOSS_LIMIT).
+- `position`: Position (ENTER/EXIT).
+- `price`: Price of the order.
+- `quantity`: Order quantity.
+- `quantity_pending`: Quantity that is currently pending.
+- `trigger_price`: Trigger price of the order.
+
+To access these attributes, use the following notation:
+```python
+order.entry_price
+order.id
+order.instrument
+order.order_code
+order.order_time
+order.order_transaction_type
+order.order_type
+order.order_variety
+order.position
+order.price
+order.quantity
+order.quantity_pending
+order.trigger_price
+```
 
 
