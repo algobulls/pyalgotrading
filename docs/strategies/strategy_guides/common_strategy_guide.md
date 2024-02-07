@@ -375,7 +375,6 @@ This function would ideally look like this. This example was taken from “Optio
     def strategy_enter_position(self, candle, instrument, meta):
         self.main_order_map[instrument] = _ = self.broker.OrderRegular(instrument, meta['action'], quantity=self.number_of_lots * instrument.lot_size)
         return _
-
     ```
 
 === "**Options**"
@@ -384,6 +383,62 @@ This function would ideally look like this. This example was taken from “Optio
         _ = self.broker.OrderRegular(instrument, sideband_info['action'], quantity=self.number_of_lots * instrument.lot_size)
         return _
     ```
+#### **OrderRegular**
+The ```self.broker.OrderRegular``` is used to place the entry/exit orders.          
+##### Parameters:
+- `instrument`: Instrument object on which to place the order.
+- `action`: Action to be taken, either 'BUY' or 'SELL'.
+- `quantity`: The quantity of the order, generally calculated as `self.number_of_lots * instrument.lot_size`.
+- `order_variety`: (Optional) Type of order. Default is MARKET order (`BrokerOrderVarietyConstants.MARKET`).
+- `price`: (Optional) The price at which the limit order will be placed.
+- `trigger_price`: (Optional) The trigger price for stop-loss orders.
+
+Click on each of the tabs to see the relevant code snippet.
+
+=== "**Market Order**"
+    ```python
+    self.broker.OrderRegular(
+        instrument,
+        action, 
+        quantity 
+        )
+    ```
+
+=== "**Limit Order**"
+    ```python
+    self.broker.OrderRegular(
+        instrument, 
+        action, 
+        quantity, 
+        order_variety=BrokerOrderVarietyConstants.LIMIT, 
+        price=price 
+        )
+    ```
+
+=== "**Stoploss Market Order**"
+    ```python
+    self.broker.OrderRegular(
+        instrument, 
+        action, 
+        quantity, 
+        order=order_variety=BrokerOrderVarietyConstants.STOPLOSS_MARKET, 
+        trigger_price=trigger_price
+        )
+    ```
+
+=== "**Stoploss Limit Order**"
+    ```python
+    self.broker.OrderRegular(
+        instrument,  
+        action, 
+        quantity,  
+        order_variety=BrokerOrderVarietyConstants.STOPLOSS_LIMIT, 
+        price=price, 
+        trigger_price=trigger_price
+    )
+    ```
+
+
 
 #### strategy_select_instruments_for_exit()
 Similar to entry, this function takes parameters:
@@ -421,14 +476,31 @@ Finally, this function takes parameters:
 
 Here, you place orders for the selected instruments, removing them from "self.main_order" to prepare for the next iteration of the AlgoBulls core loop.
 
-**Example:**  
-This function should ideally look like this. This example was taken from “EMA Crossover Strategy”.
-
+**Example:**
+This function should ideally look like this. This example was taken from the "EMA Crossover Strategy". Here, we are telling the core to exit all positions:
 ```python
-    def strategy_exit_position(self, candle, instrument, meta):
+def strategy_exit_position(self, candle, instrument, meta):
     if meta['action'] == 'EXIT':
         self.main_order_map[instrument].exit_position()
         self.main_order_map[instrument] = None
         return True
     return False
 ```
+If you want the strategy to place the exit order instead of letting the core handle it, then this is what the function should look like:
+```python
+def strategy_exit_position(self, candle, instrument, meta):
+    if meta['action'] == 'EXIT':
+        self.broker.OrderRegular(
+            instrument,
+            action,
+            quantity,
+            related_order=entry_order,
+            position=BrokerExistingOrderPositionConstants.EXIT
+            )
+        return True
+    return False
+```
+!!! tip "Note"
+    - `meta['action']` has to be opposite of the entry order's transaction type. For example: if the entry order is 'BUY', then `meta['action']` should be 'SELL', and vice versa.
+    - Pass the entry order object as the `related_order` parameter.
+    - You can specify a lesser quantity if you want to partially exit your entry order. In case of partial exits, ensure that you return 'True' only if the quantity becomes zero after placing this order, else return 'False' for your intermediate/partial exits.
