@@ -14,7 +14,7 @@ To begin developing your own strategy, you need to activate a plan from the  **[
 
 ### Advanced Python Build Plan:
 
-- Allows live trading in both US and Indian markets.
+- Allows live trading in both the US and Indian markets.
 - Offers a set of features for developing Algorithmic Trading Strategies.
 - Allows up to 200 strategies to be saved.
 - Provides an execution time of 30,000 minutes for backtesting/paper trading.
@@ -22,7 +22,7 @@ To begin developing your own strategy, you need to activate a plan from the  **[
     
    **Python Build Plan for India**
     [![pythonbuild](imgs_v2/python_build_plan_1.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs_v2/python_build_plan_1.png)
-   **Python Build Plan for US**
+   **Python Build Plan for the US**
     [![pythonbuild](imgs_v2/python_build_plan_2.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs_v2/python_build_plan_2.png)
 
 To start coding:
