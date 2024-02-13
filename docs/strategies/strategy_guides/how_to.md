@@ -53,9 +53,6 @@ instruments = self.broker.get_instruments_filtered(segment='NSE_FO', tradingsymb
 This example fetches equity instruments with a trading symbol prefix of 'NIFTY' and an expiry date of 4th January, 2024.
 
 ---
-!!! tip "Note"
-    - The above three subsections are adequate for implementing your own logic for an options strategy.
-    - Please ensure to import date from the datetime module for the expiry feature to function correctly.
 
 ### Access Attributes of an Order Object
 
