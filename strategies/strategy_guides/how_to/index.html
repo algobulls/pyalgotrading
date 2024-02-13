@@ -1750,13 +1750,17 @@
 <div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="bp">self</span><span class="o">.</span><span class="n">broker</span><span class="o">.</span><span class="n">get_instruments_filtered</span><span class="p">(</span><span class="n">segment</span><span class="p">,</span> <span class="n">tradingsymbol_exact</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tradingsymbol_prefix</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tradingsymbol_suffix</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">expiry</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </span></code></pre></div>
 Example:
-<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">instruments</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">broker</span><span class="o">.</span><span class="n">get_instruments_filtered</span><span class="p">(</span><span class="n">segment</span><span class="o">=</span><span class="s1">&#39;NSE_FO&#39;</span><span class="p">,</span> <span class="n">tradingsymbol_prefix</span><span class="o">=</span><span class="s1">&#39;NIFTY&#39;</span><span class="p">,</span> <span class="n">expiry</span><span class="o">=</span><span class="n">date</span><span class="p">(</span><span class="mi">2024</span><span class="p">,</span><span class="mi">01</span><span class="p">,</span><span class="mi">04</span><span class="p">))</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">instruments</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">broker</span><span class="o">.</span><span class="n">get_instruments_filtered</span><span class="p">(</span><span class="n">segment</span><span class="o">=</span><span class="s1">&#39;NSE_FO&#39;</span><span class="p">,</span> <span class="n">tradingsymbol_prefix</span><span class="o">=</span><span class="s1">&#39;NIFTY&#39;</span><span class="p">,</span> <span class="n">expiry</span><span class="o">=</span><span class="n">date</span><span class="p">(</span><span class="mi">2024</span><span class="p">,</span><span class="mi">01</span><span class="p">,</span><span class="mi">04</span><span class="p">))</span>
 </span></code></pre></div></p>
 <p>This example fetches equity instruments with a trading symbol prefix of 'NIFTY' and an expiry date of 4th January, 2024.</p>
 <hr />
 <div class="admonition tip">
 <p class="admonition-title">Note</p>
-<p>The above three subsections are adequate for implementing your own logic for an options strategy.</p>
+<ul>
+<li>The above three subsections are adequate for implementing your own logic for an options strategy.</li>
+<li>Please ensure to import date from the datetime module for the expiry feature to function correctly.</li>
+</ul>
 </div>
 <h3 id="access-attributes-of-an-order-object">Access Attributes of an Order Object<a class="headerlink" href="#access-attributes-of-an-order-object" title="Permanent link">&para;</a></h3>
 <p>An order object typically contains various attributes providing information about the order:</p>
