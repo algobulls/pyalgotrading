@@ -46,14 +46,16 @@ self.broker.get_instruments_filtered(segment, tradingsymbol_exact=None, tradings
 ```
 Example:
 ```python
-instruments = self.broker.get_instruments_filtered(segment='NSE_FO', tradingsymbol_prefix='NIFTY', expiry='2024-01-04')
+from datetime import date
+instruments = self.broker.get_instruments_filtered(segment='NSE_FO', tradingsymbol_prefix='NIFTY', expiry=date(2024,01,04))
 ```
 
 This example fetches equity instruments with a trading symbol prefix of 'NIFTY' and an expiry date of 4th January, 2024.
 
 ---
 !!! tip "Note"
-    The above three subsections are adequate for implementing your own logic for an options strategy.
+    - The above three subsections are adequate for implementing your own logic for an options strategy.
+    - Please ensure to import date from the datetime module for the expiry feature to function correctly.
 
 ### Access Attributes of an Order Object
 
