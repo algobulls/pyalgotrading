@@ -4,7 +4,7 @@
 
 [![pythonbuild](imgs_v2/python_build_ready_templates.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs_v2/python_build_ready_templates.png)
 
-Select a template that you would like to modify from the **Ready Template** section. To view all the ready-to-use templates, click on **[More](https://app.algobulls.com/pythonbuild/MyAllStrategy?query=eyJTdHJhdGVneVR5cGUiOiJSZWFkeVRlbXBsYXRlIiwiY3VycmVudFBhZ2UiOjEsInBhZ2VTaXplIjo4fQ%3D%3D){target=_blank}**.
+Select a template that you would like to modify from the **Ready Template** section. To view all the ready-to-use templates, click on **[More](https://build.algobulls.com/pythonbuild/MyAllStrategy?query=eyJTdHJhdGVneVR5cGUiOiJSZWFkeVRlbXBsYXRlIiwiY3VycmVudFBhZ2UiOjEsInBhZ2VTaXplIjo4fQ%3D%3D){target=_blank}**.
 
 [![pythonbuild](imgs_v2/python_build_all_ready_templates.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs_v2/python_build_all_ready_templates.png)
 
