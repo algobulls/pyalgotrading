@@ -43,3 +43,6 @@ Real-time logs from strategy execution are displayed in this section. Use these 
 #### Order History
 View the order state transition for every order placed by your strategy in-depth.
 ![Order History](../python_build/imgs_v2/python_build_order_history.png)
+#### P&L Table
+View comprehensive trade-by-trade report in a user-friendly tabular format. This table provides details on entry and exit trades, prices, timestamps, transaction types, and trade-by-trade profit and loss. You can display these figures in either percentages or dollars.
+![P&L table](../python_build/imgs_v2/python_build_pnl_table_1)
