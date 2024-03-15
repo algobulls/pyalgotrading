@@ -2,10 +2,29 @@
 
 ---
 
-To start developing your own strategy, you must first activate a plan from the **[Pricing](https://app.algobulls.com/pricing?section=Smart%20Plans){target=_blank}** section. Select the **[Developers](https://app.algobulls.com/pricing?section=Developers){target=_blank}** tab in the **Pricing** section and select a plan of your choice. There is currently one developer plan available:
+To begin developing your own strategy, you need to activate a plan from the  **[Pricing](https://app.algobulls.com/pricing?section=Smart%20Plans){target=_blank}** section. Choose from the available options:
 
-[![pythonbuild](imgs_v2/python_build_plans.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs_v2/python_build_plans.png)
+### Starter Python Build Plan:
+    
+- Allows live trading only in the US market.
+- Offers a set of features for developing Algorithmic Trading Strategies.
+- Allows up to 50 strategies to be saved.
+- Provides an execution time of 10,000 minutes for backtesting/paper trading.
+- Allows a maximum of 10 strategies to run in parallel.
 
-* **Advanced Developer Plan**: Develop your own Algorithmic Trading Strategy for Free along with Analytics support, concurrent Strategy Executions, Professional Support, and more.
+### Advanced Python Build Plan:
 
-After selecting your plan, you will be able to begin coding. You can either edit the preloaded **Ready templates** or use the **My Coded Strategies** section to create your own strategies.
+- Allows live trading in both the US and Indian markets.
+- Offers a set of features for developing Algorithmic Trading Strategies.
+- Allows up to 200 strategies to be saved.
+- Provides an execution time of 30,000 minutes for backtesting/paper trading.
+- Allows a maximum of 20 strategies to run in parallel.
+    
+   **Python Build Plan for India**
+    [![pythonbuild](imgs_v2/python_build_plan_1.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs_v2/python_build_plan_1.png)
+   **Python Build Plan for the US**
+    [![pythonbuild](imgs_v2/python_build_plan_2.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](imgs_v2/python_build_plan_2.png)
+
+To start coding:
+
+- Once you've selected your plan, you can start coding. Access the "Python Build Splash Screen" to explore various options, including "Code from Scratch" for creating your strategies.
