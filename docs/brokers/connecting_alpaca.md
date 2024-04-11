@@ -11,7 +11,7 @@ Embark on a streamlined and secure journey as you bind your Alpaca broker with A
 - Navigate to the `Broking Details `page on the AlgoBulls platform.
 - Here you will see all the brokers you have connected and their current statuses.
 
-  [![pythonbuild](../python_build/imgs_v2/pyBuild_broking_details.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](../python_build/imgs_v2/pyBuild_broking_details.png)
+  [![pythonbuild](../python_build/imgs_v2/pyBuild_broking_details_1.png "Click to Enlarge or Ctrl+Click to open in a new Tab")](../python_build/imgs_v2/pyBuild_broking_details_1.png)
 
 ## How to set up Alpaca for trading in AlgoBulls with OAuth?
 ---
