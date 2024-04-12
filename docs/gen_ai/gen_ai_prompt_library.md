@@ -11,9 +11,6 @@ Create a trading strategy which takes a BUY trade when EMA cuts SMA upwards and 
 Create a strategy which uses 2 EMAs of different time periods, and it BUYs when EMA of timeperiod 1 crosses the EMA of timeperiod 2 upwards and SELLs when EMA of timeperiod 1 crosses the EMA of timeperiod 2 downwards.
 ```
 ```
-Create a trading strategy which takes a BUY trade when EMA cuts SMA upwards and a SELL trade when EMA cuts SMA downwards. While placing a trade, if a previous position is open, it should be exited before placing the new trade
-```
-```
 Develop a strategy that generates a BUY signal when a shorter-term moving average crosses above an intermediate-term moving average, which then crosses above a longer-term moving average. Conversely, generate a SELL signal when the moving averages crossover in the opposite direction.
 ```
 
@@ -23,9 +20,6 @@ Create a strategy that uses RSI indicator to give signals based on over bought o
 ```
 ```
 Create a strategy using RSI of MACD-signal of close with fast MA period as X, slow MA period as Y and signal period as Z, which will SELL on crossing the upper band and BUY on crossing the lower band
-```
-```
-Create a trading strategy which takes BUY when RSI crosses lower band and create a SELL when RSI crosses the upward band, set a stop loss of 2% and target to be 15%.
 ```
 ```
 Create a trading strategy using RSI technical indicator
