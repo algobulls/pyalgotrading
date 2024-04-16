@@ -25,9 +25,6 @@ Create a strategy using RSI of MACD-signal of close with fast MA period as X, sl
 Create a trading strategy using RSI technical indicator
 ```
 ```
-Create a strategy using RSI of MACD-signal of close with fast MA period as X, slow MA period as Y and signal period as Z, which will SELL on crossing the upper band and BUY on crossing the lower band
-```
-```
 Please help me with a strategy that uses RSI indicator to give signals based on over bought or over sold conditions. If RSI is above 70, the strategy should generate a SELL signal and if it's below 30, it should generate a BUY signal
 ```
 ```
