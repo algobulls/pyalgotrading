@@ -27,9 +27,9 @@ Create a trading strategy using RSI technical indicator
 ```
 Please help me with a strategy that uses RSI indicator to give signals based on over bought or over sold conditions. If RSI is above 70, the strategy should generate a SELL signal and if it's below 30, it should generate a BUY signal
 ```
-```
+<!-- ```
 Create a trading strategy which takes BUY when RSI crosses lower band and create a SELL when RSI crosses the upward band, set a stop loss of 2% and target to be 15%.
-```
+``` -->
 
 ### Aroon
 ```
@@ -62,7 +62,7 @@ Create a strategy that generates a BUY signal when the MACD histogram bars cross
 Create a strategy that generates a BUY signal when the price rises above the VWAP line and a SELL signal when the price drops below the VWAP line, indicating potential shifts in supply and demand.
 ```
 
-### Miscellaneous
+<!-- ### Miscellaneous
 ```
 Create a strategy that generates a BUY signal when the price crosses above the cloud (Span A and Span B) and the cloud changes color from red to green. Conversely, generate a SELL signal when the price crosses below the cloud and the cloud changes color from green to red.
 ```
@@ -74,4 +74,4 @@ Develop a strategy that generates a BUY signal when the price crosses above the 
 
 ```
 Implement a gap and go strategy that capitalizes on the momentum created by price gaps at the market open. When the price gaps up significantly and continues to move higher, generate a BUY signal. Similarly, when the price gaps down substantially and continues to move lower, generate a SELL signal.
-```
+``` -->
