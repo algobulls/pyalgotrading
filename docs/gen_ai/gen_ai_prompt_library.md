@@ -11,9 +11,6 @@ Create a trading strategy which takes a BUY trade when EMA cuts SMA upwards and 
 Create a strategy which uses 2 EMAs of different time periods, and it BUYs when EMA of timeperiod 1 crosses the EMA of timeperiod 2 upwards and SELLs when EMA of timeperiod 1 crosses the EMA of timeperiod 2 downwards.
 ```
 ```
-Create a trading strategy which takes a BUY trade when EMA cuts SMA upwards and a SELL trade when EMA cuts SMA downwards. While placing a trade, if a previous position is open, it should be exited before placing the new trade
-```
-```
 Develop a strategy that generates a BUY signal when a shorter-term moving average crosses above an intermediate-term moving average, which then crosses above a longer-term moving average. Conversely, generate a SELL signal when the moving averages crossover in the opposite direction.
 ```
 
@@ -25,20 +22,14 @@ Create a strategy that uses RSI indicator to give signals based on over bought o
 Create a strategy using RSI of MACD-signal of close with fast MA period as X, slow MA period as Y and signal period as Z, which will SELL on crossing the upper band and BUY on crossing the lower band
 ```
 ```
-Create a trading strategy which takes BUY when RSI crosses lower band and create a SELL when RSI crosses the upward band, set a stop loss of 2% and target to be 15%.
-```
-```
 Create a trading strategy using RSI technical indicator
-```
-```
-Create a strategy using RSI of MACD-signal of close with fast MA period as X, slow MA period as Y and signal period as Z, which will SELL on crossing the upper band and BUY on crossing the lower band
 ```
 ```
 Please help me with a strategy that uses RSI indicator to give signals based on over bought or over sold conditions. If RSI is above 70, the strategy should generate a SELL signal and if it's below 30, it should generate a BUY signal
 ```
-```
+<!-- ```
 Create a trading strategy which takes BUY when RSI crosses lower band and create a SELL when RSI crosses the upward band, set a stop loss of 2% and target to be 15%.
-```
+``` -->
 
 ### Aroon
 ```
@@ -71,7 +62,7 @@ Create a strategy that generates a BUY signal when the MACD histogram bars cross
 Create a strategy that generates a BUY signal when the price rises above the VWAP line and a SELL signal when the price drops below the VWAP line, indicating potential shifts in supply and demand.
 ```
 
-### Miscellaneous
+<!-- ### Miscellaneous
 ```
 Create a strategy that generates a BUY signal when the price crosses above the cloud (Span A and Span B) and the cloud changes color from red to green. Conversely, generate a SELL signal when the price crosses below the cloud and the cloud changes color from green to red.
 ```
@@ -83,4 +74,4 @@ Develop a strategy that generates a BUY signal when the price crosses above the 
 
 ```
 Implement a gap and go strategy that capitalizes on the momentum created by price gaps at the market open. When the price gaps up significantly and continues to move higher, generate a BUY signal. Similarly, when the price gaps down substantially and continues to move lower, generate a SELL signal.
-```
+``` -->
