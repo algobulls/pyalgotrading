@@ -1,6 +1,7 @@
 # Frequently Encountered Errors
-
-### Execution time exceeded timeout_duration duration of 60 sec.
+This page provides insights into common errors encountered while developing and executing algorithmic trading strategies, along with their possible causes and solutions. These errors are often logged in the [user.log](https://github.com/algobulls/pyalgostrategypool/blob/master/pyalgostrategypool/aroon_crossover/golden/Aroon%20Crossover/2024-01-12/user.log)
+file.
+### `Execution time exceeded timeout_duration duration of 60 sec.`
 
 #### Possible Causes
 
@@ -45,12 +46,12 @@
     Identify conditions that can be pre-calculated before the market opens. Adjust the strategy start time to accommodate these pre-calculations. If certain conditions can be chcked before the market starts, set the trading start time of the strategy to a value before the market start time. Add specific checks inside the strategy to ensure that the actual order placement, etc. are executed after the market starts.
 
 
-### No Data in Charts
+### `No Data in Charts`
 
 #### Description
 
 Encountering the "NO data in charts" error while running a strategy is a common issue. This problem arises when using a small quantity with very large funds.
-![Scenario 1](source_1.png "Large funds with small quantity")
+![Scenario 1](strategy_guides/source_1.png "Large funds with small quantity")
 *Limited visibility on charts due to large funds with a small quantity setting.*
 #### Possible Causes
 
@@ -71,10 +72,10 @@ Encountering the "NO data in charts" error while running a strategy is a common 
    - **Adjust Default Settings:**
    
       Consider adjusting default values to something more suitable for common scenarios.
-![Scenario 2](source_2.png "Suitable funds with suitable quantity")
+![Scenario 2](strategy_guides/source_2.png "Suitable funds with suitable quantity")
 *Charts displaying proper data with suitable funds and quantity settings*
 
-### OpenAI API Quota Depletion
+### `OpenAI API Quota Depletion`
 
 #### Description
 
@@ -90,7 +91,7 @@ The "OpenAI API current quota exceeded" error indicates that the current quota o
    - **Purchase More Credits:**
 
       To continue using the OpenAI API, consider purchasing additional credits or upgrading your plan to increase the quota. Click [here](https://platform.openai.com/account/billing/overview) to add more credits.
-      ![openAI credit](openAI_credit.png "Billing")
+      ![openAI credit](strategy_guides/openAI_credit.png "Billing")
    
    - **Alternative Key:**
 
