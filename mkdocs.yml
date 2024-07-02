@@ -85,7 +85,7 @@ nav:
       - Setting Up Alpaca with AlgoBulls:
           - OAuth: 'brokers/connecting_alpaca.md'
           - Non-OAuth: 'brokers/non_auth_alpaca.md'
-  - Gen AI:
+  - Phoenix Copilot:
       - Create your OpenAI Keys: 'gen_ai/get_open_ai_keys.md'
       - Prompt Library: 'gen_ai/gen_ai_prompt_library.md'
   - Phoenix Support: 'support/support_pybuild.md'
