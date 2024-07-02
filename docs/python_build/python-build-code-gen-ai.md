@@ -1,4 +1,4 @@
-[//]: # (## How to Code a Strategy using Gen-AI)
+[//]: # (## How to Code a Strategy using Phoenix Copilot)
 
 If you have creative ideas in your mind and want to design a algotrading strategy but you are new at coding, don't worry, we have got it covered using our Phoenix's **Create Using AI** feature which will help you to create trading strategies seamlessly.
 
@@ -8,7 +8,7 @@ If you have creative ideas in your mind and want to design a algotrading strateg
 !!! Tip
     You can check [here](../gen_ai/get_open_ai_keys.md) on how to get your Chat-GPT API key
 
-## Set your Gen-AI API keys and Model
+## Set your Phoenix Copilot API keys and Model
 1. Once you have retrieved the API key, you need to paste it in the input box for API keys.  
 2. Select the model of AI from the drop-down menu below.   
 3. Click on the **Save** button to save your key and model and establish the connection.
