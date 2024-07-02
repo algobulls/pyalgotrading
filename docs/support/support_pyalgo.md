@@ -4,7 +4,7 @@ Requesting Support from pyalgotrading Module:
 If you're looking to raise a support request from pyalgotrading module, follow these simple steps:
  ```
 - Start by executing your strategy from the pyalgotrading module.
-- Next, navigate to the "My Coded Strategies" section in python build web.
+- Next, navigate to the "My Coded Strategies" section in Phoenix web.
  ```
 
 **My Coded Strategies:** This section displays all the strategies you've created or modified. It includes both new and updated strategies.

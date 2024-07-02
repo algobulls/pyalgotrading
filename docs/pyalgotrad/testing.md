@@ -353,7 +353,7 @@ To know more about slippage and brokerage parameters click [here](./slippage.md)
 Click on each of the tabs to see the relevant code snippet.
 
 !!! Tip "Analytics Tips"
-    You can view your analytics on the python build page as well, simply log inside your AlgoBulls Account, and look for your Strategy in **Python Build** -> **My Coded Strategies**
+    You can view your analytics on the Phoenix page as well, simply log inside your AlgoBulls Account, and look for your Strategy in **Phoenix** -> **My Coded Strategies**
 
 === "**Backtesting**"
     ```python

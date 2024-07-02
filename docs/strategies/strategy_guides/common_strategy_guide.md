@@ -30,7 +30,7 @@ Below Diagram is Sample Diagram on how the strategy execution engine works. Bloc
 ## Setting Up: Imports and Environment
 
 Before we dive into building of a strategy we need to fist setup our workspace depending the tool we are using.
-The available tools for creating a workspace of strategy are **Pyalgotrading** and **Python Build Web**.  
+The available tools for creating a workspace of strategy are **Pyalgotrading** and **Phoenix Web**.  
 
 ### Pyalgotrading
 If you're coding on your local machine, I recommend setting up a virtual environment and installing the "pyalgotrading" Python package to keep things organised.  
@@ -44,8 +44,8 @@ from pyalgotrading.algobulls import AlgoBullsConnection
 from pyalgotrading.strategy import *
 ```
 
-### Python Build Web
-Now, if you prefer a web-based approach, we've got you covered. Head over to the "Code New Strategy" section on the Python Build page of the AlgoBulls website. Here, you can craft your strategy without the need to import any classes or packages. The choice is yours – flexibility at its best.
+### Phoenix Web
+Now, if you prefer a web-based approach, we've got you covered. Head over to the "Code New Strategy" section on the Phoenix page of the AlgoBulls website. Here, you can craft your strategy without the need to import any classes or packages. The choice is yours – flexibility at its best.
 
 ---
 
@@ -69,7 +69,7 @@ With the groundwork laid, it's time to create your strategy class. Be sure to ch
 Feel free to get creative with your class name, but it's good practice to make it unique among your strategy class names. Below this declaration, we set the strategy's name.
 
 !!! Tip "For Pyalgotrading users"
-    If you are uploading the strategy via pyalgotrading functions, then this `name` parameter's value will be the name of the strategy. That means this name will be displayed in **My Coded Strategies** section in Python Build.
+    If you are uploading the strategy via pyalgotrading functions, then this `name` parameter's value will be the name of the strategy. That means this name will be displayed in **My Coded Strategies** section in Phoenix.
 
 ---
 ### Initialization Functions
@@ -198,7 +198,7 @@ Historical data of the instrument up to a certain point in your strategy is coll
     Here if crossover_value is 0 then the indicators ema_x and ema_y have not crossed. If it is 1 then indicator ema_x has crossed ema_y in upward direction. Similarly if it is -1 then indicator ema_x has crossed ema_y in downward direction
 
 By combining these calculated values with historical data, you can make informed decisions about when to initiate or close a trade. Additionally, you can use this information to compute potential target prices or set stop losses.  
-AlgoBulls' Python Build empowers you to navigate the complexities of options trading with ease. 
+AlgoBulls' Phoenix empowers you to navigate the complexities of options trading with ease. 
 
 **Example:**  
 

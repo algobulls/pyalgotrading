@@ -2,7 +2,7 @@
 
 !!! Tips "Coding Prerequisites"
     * For pyalgotrading check [here](../../pyalgotrad/prerequisites.md).
-    * For Python Build Web check [here](../../python_build/python-build-getstarted.md).
+    * For Phoenix Web check [here](../../python_build/python-build-getstarted.md).
 
 ## Methods
 
