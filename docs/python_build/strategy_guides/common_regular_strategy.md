@@ -19,7 +19,7 @@ eg: For the above strategy name the class name would be:
             * Every strategy is a child class of the StrategyBase class.
 
 2. ### Naming your Strategy
-This name will be displayed in your **My Coded Strategies** in Python Build Web, and it will also be the **strategy_name** when you are fetching all strategies in pyalgotrading.  
+This name will be displayed in your **My Coded Strategies** in Phoenix Web, and it will also be the **strategy_name** when you are fetching all strategies in pyalgotrading.  
 Inside your strategy class, you can write your first parameter as `name`.
     ```
     name = 'futures_ema_crossover'

@@ -4,7 +4,7 @@
 # yaml-language-server: $schema=https://squidfunk.github.io/mkdocs-material/schema.json
 
 # Project Information
-site_name: Python Build
+site_name: Phoenix
 site_description: Official Python Package for Algorithmic Trading APIs powered by AlgoBulls
 site_author: Pushpak Dagade (pushpak@algobulls.com)
 site_url: https://algobulls.github.io/pythonbuild/
@@ -70,7 +70,7 @@ nav:
     - Features:
           - Slippage: 'pyalgotrad/slippage.md'
           - Brokerage : 'pyalgotrad/brokerage.md'
-  - Python Build Web:
+  - Phoenix Web:
       - Introduction: 'python_build/python-build-introduction.md'
       - Setup your Workspace:  'python_build/python-build-getstarted.md'
       - Strategy Creation and Execution:
@@ -88,7 +88,7 @@ nav:
   - Gen AI:
       - Create your OpenAI Keys: 'gen_ai/get_open_ai_keys.md'
       - Prompt Library: 'gen_ai/gen_ai_prompt_library.md'
-  - Python Build Support: 'support/support_pybuild.md'
+  - Phoenix Support: 'support/support_pybuild.md'
   - How to: 'strategies/strategy_guides/how_to.md'
   - Frequently Encountered Errors: 'strategies/strategy_guides/fee.md'
 plugins:

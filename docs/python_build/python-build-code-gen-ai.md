@@ -1,8 +1,8 @@
 [//]: # (## How to Code a Strategy using Gen-AI)
 
-If you have creative ideas in your mind and want to design a algotrading strategy but you are new at coding, don't worry, we have got it covered using our Python Build's **Create Using AI** feature which will help you to create trading strategies seamlessly.
+If you have creative ideas in your mind and want to design a algotrading strategy but you are new at coding, don't worry, we have got it covered using our Phoenix's **Create Using AI** feature which will help you to create trading strategies seamlessly.
 
-[//]: # (To start with **Create using AI** feature, go to our Python Build page, there you will land on our splash page)
+[//]: # (To start with **Create using AI** feature, go to our Phoenix page, there you will land on our splash page)
 [//]: # ([![add-gen-ai-keys]&#40;imgs_v2/python_build_splash.png&#41;]&#40;imgs_v2/python-build-add-gen-ai-key.png&#41;)
 
 !!! Tip
@@ -40,7 +40,7 @@ If you have creative ideas in your mind and want to design a algotrading strateg
 1. Once it gives you the strategy you can ask it to make more changes as per your need or you can save it directly.
 2. To save, click on the top right corner of the code, you can even copy the code if you want.
 3. Once you save it, it will redirect you to a new page where you have save your strategy and update its configuration parameters from the parameter settings.
-4. All your saved strategies can be viewed in **My Coded Strategies** section in Python Build.
+4. All your saved strategies can be viewed in **My Coded Strategies** section in Phoenix.
     [![add-gen-ai-save-strategy](imgs_v2/python_build_save_strategy_from_ai.png)](imgs_v2/python_build_save_strategy_from_ai.png)
 
 

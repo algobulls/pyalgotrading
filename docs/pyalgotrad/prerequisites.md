@@ -7,7 +7,7 @@ You will need the following to start with Pyalgotrading:
 
 2. ### Developer Key
 To access the features, you will need a developer key. The key can be obtained as follows:
-    - **Step 1**: Activate the [Advanced Python Build Plan](https://build.algobulls.com/pricing?section=Developers){target=_blank} from the **Pricing** menu.
+    - **Step 1**: Activate the [Advanced Phoenix Plan](https://build.algobulls.com/pricing?section=Developers){target=_blank} from the **Pricing** menu.
     [![purchase plan](imgs/purchase_plan.png)](imgs/purchase_plan.png)
     - **Step 2**: Get the [Developer Key](https://build.algobulls.com/settings?query=eyJpc0xpdmUiOiJ0cnVlIn0%3D&section=developerOptions){target=_blank} from the **Settings** section.
     [![developer key](imgs/developer_key.png)](imgs/developer_key.png)
