@@ -18,7 +18,7 @@ class AlgoBullsAPI:
     """
     AlgoBulls API
     """
-    SERVER_ENDPOINT = 'https://api.algobulls.com/'
+    SERVER_ENDPOINT = 'http://localhost:7002/'
 
     def __init__(self, connection):
         """
@@ -310,7 +310,7 @@ class AlgoBullsAPI:
 
         return key, response
 
-    def start_strategy_algotrading(self, strategy_code: str, start_timestamp: dt, end_timestamp: dt, trading_type: TradingType, lots: int, location: str, initial_funds_virtual=1e9, broker_details: dict = None) -> dict:
+    def start_strategy_algotrading(self, strategy_code: str, start_timestamp: dt, end_timestamp: dt, trading_type: TradingType, lots: int, location: str, initial_funds_virtual=1e9, broker_details: dict = None, execution_mode:str=None) -> dict:
         """
         Submit Backtesting / Paper Trading / Real Trading job for strategy with code strategy_code & return the job ID.
         
@@ -340,7 +340,8 @@ class AlgoBullsAPI:
                 'isLiveDataTestMode': trading_type in [TradingType.PAPERTRADING, TradingType.REALTRADING],
                 'customizationsQuantity': lots,
                 'brokingDetails': broker_details,
-                'mode': trading_type.name
+                'mode': trading_type.name,
+                'execution_mode': execution_mode
             }
 
             params = None
@@ -465,4 +466,21 @@ class AlgoBullsAPI:
 
         response = self._send_request(endpoint=endpoint, params=params)
 
+        return response
+
+    def set_strategy_running_mode(self, running_mode):
+        """
+        Set user running strategy mode
+        Args:
+            running_mode: It can be either Regular or Fast
+        Returns:
+            Success or Failure message along with status_code
+        Comment:
+        If a user pass either Regular or Fast(not case-sensitive) he will get a 200 with success response.
+         If the user pass anything other that Regular or Fast he will get an 400 with Failure message
+        """
+        endpoint = 'v1/user/preference'
+        json_data = {"execution_mode": running_mode}
+
+        response = self._send_request(base_url='http://localhost:7002/', method='patch', endpoint=endpoint, json_data=json_data)
         return response
