@@ -150,7 +150,6 @@ class AlgoBullsConnection:
                 except KeyError:
                     response = self.api.create_strategy(strategy_name=strategy_name, strategy_details=strategy_details,
                                                         abc_version=_abc_version)
-        print('response', strategy)
         return response
 
     def get_all_strategies(self, return_as_dataframe=True):
