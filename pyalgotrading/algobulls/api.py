@@ -18,7 +18,7 @@ class AlgoBullsAPI:
     """
     AlgoBulls API
     """
-    SERVER_ENDPOINT = 'http://localhost:7002/'
+    SERVER_ENDPOINT = 'https://api.algobulls.com/'
 
     def __init__(self, connection):
         """
@@ -472,15 +472,16 @@ class AlgoBullsAPI:
         """
         Set user running strategy mode
         Args:
-            running_mode: It can be either Regular or Fast
+            execution_mode: It can be either Regular or Fast
+            trading_type: Choices are backTesting, paperTrading and liveTrading
         Returns:
             Success or Failure message along with status_code
         Comment:
-        If a user pass either Regular or Fast(not case-sensitive) he will get a 200 with success response.
+        If a user pass either execution_mode(not case-sensitive) along with trading_type(not case-sensitive) he will get a 200 with success response.
          If the user pass anything other that Regular or Fast he will get an 400 with Failure message
         """
         endpoint = 'v1/user/preference'
         json_data = {"executionMode": {"trading_type": trading_type, "mode": execution_mode}}
 
-        response = self._send_request(base_url='http://localhost:7002/', method='patch', endpoint=endpoint, json_data=json_data)
+        response = self._send_request(method='patch', endpoint=endpoint, json_data=json_data)
         return response

@@ -849,7 +849,6 @@ class AlgoBullsConnection:
         return response
 
     def backtest(self, strategy=None, start=None, end=None, instruments=None, lots=None, parameters=None, candle=None, mode=None, delete_previous_trades=True, initial_funds_virtual=None, vendor_details=None, execution_mode=None, **kwargs):
-        print('execution mode', execution_mode)
         """
         Submit a backtesting job for a strategy on the AlgoBulls Platform
 
@@ -1318,7 +1317,7 @@ class AlgoBullsConnection:
                 else:
                     data = {"Message": f"Invalid Execution Mode '{execution_mode}'. Valid choices are ['regular', 'fast']"}
             else:
-                data = {"Message": "Invalid Trading Type. Valid options are ['backtesting', 'papertrading', 'livetrading']"}
+                data = {"Message": "Invalid Trading Type. Valid options are ['backTesting', 'paperTrading', 'liveTrading']"}
         except AttributeError:
             data = {"Message": "Unknown Error! Please check the passed arguments"}
         return data
