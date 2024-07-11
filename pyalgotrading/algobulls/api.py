@@ -310,7 +310,7 @@ class AlgoBullsAPI:
 
         return key, response
 
-    def start_strategy_algotrading(self, strategy_code: str, start_timestamp: dt, end_timestamp: dt, trading_type: TradingType, lots: int, location: str, initial_funds_virtual=1e9, broker_details: dict = None, execution_mode:str=None) -> dict:
+    def start_strategy_algotrading(self, strategy_code: str, start_timestamp: dt, end_timestamp: dt, trading_type: TradingType, lots: int, location: str, initial_funds_virtual=1e9, broker_details: dict = None, execution_mode: str = None) -> dict:
         """
         Submit Backtesting / Paper Trading / Real Trading job for strategy with code strategy_code & return the job ID.
         
@@ -341,7 +341,7 @@ class AlgoBullsAPI:
                 'customizationsQuantity': lots,
                 'brokingDetails': broker_details,
                 'mode': trading_type.name,
-                'execution_mode': execution_mode
+                'executionMode': execution_mode
             }
 
             params = None
@@ -468,7 +468,7 @@ class AlgoBullsAPI:
 
         return response
 
-    def set_strategy_running_mode(self, running_mode):
+    def set_strategy_running_mode(self, execution_mode, trading_type):
         """
         Set user running strategy mode
         Args:
@@ -480,7 +480,7 @@ class AlgoBullsAPI:
          If the user pass anything other that Regular or Fast he will get an 400 with Failure message
         """
         endpoint = 'v1/user/preference'
-        json_data = {"execution_mode": running_mode}
+        json_data = {"executionMode": {"trading_type": trading_type, "mode": execution_mode}}
 
         response = self._send_request(base_url='http://localhost:7002/', method='patch', endpoint=endpoint, json_data=json_data)
         return response

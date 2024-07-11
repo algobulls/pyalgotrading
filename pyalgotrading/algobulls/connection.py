@@ -2,7 +2,6 @@
 Module for AlgoBulls connection
 """
 import inspect
-import json
 import os
 import pprint
 import re
@@ -17,7 +16,7 @@ from tqdm.auto import tqdm
 
 from .api import AlgoBullsAPI
 from .exceptions import AlgoBullsAPIBadRequestException, AlgoBullsAPIGatewayTimeoutErrorException, AlgoBullsAPIUnauthorizedErrorException
-from ..constants import StrategyMode, TradingType, TradingReportType, CandleInterval, AlgoBullsEngineVersion, Country, ExecutionStatus, EXCHANGE_LOCALE_MAP, Locale, CandleIntervalSecondsMap
+from ..constants import StrategyMode, TradingType, TradingReportType, CandleInterval, AlgoBullsEngineVersion, Country, ExecutionStatus, EXCHANGE_LOCALE_MAP, Locale, CandleIntervalSecondsMap, TRADING_TYPE_DICT_MAP
 from ..strategy.strategy_base import StrategyBase
 from ..utils.func import get_valid_enum_names, get_datetime_with_tz, calculate_brokerage, calculate_slippage
 
@@ -751,6 +750,8 @@ class AlgoBullsConnection:
             instruments = [instruments]
         if strategy_parameters == {} or strategy_parameters is None:
             strategy_parameters = dict()
+        if execution_mode is not None:
+            assert execution_mode.lower() in ['regular', 'fast'], f"Execution mode '{execution_mode}' is Invalid. Valid choices are ['regular', 'fast']"
 
         # Sanity checks - Validate config parameters
         assert isinstance(strategy_code, str), f'Argument "strategy" should be a valid string'
@@ -1301,16 +1302,26 @@ class AlgoBullsConnection:
 
         return self.get_report_order_history(strategy_code=strategy_code, trading_type=TradingType.REALTRADING, render_as_dataframe=render_as_dataframe, country=country)
 
-    def set_running_mode_preference(self, running_mode):
+    def set_execution_mode_preference(self, execution_mode, trading_type):
         """
         To choose the strategy_running_mode
         Args:
-            running_mode: User can pass either Regular or Fast mode
+            execution_mode: User can pass either Regular or Fast mode
         returns:
 
         Success or Failure message
         """
-        data = self.api.set_strategy_running_mode(running_mode)
+        try:
+            if trading_type.lower() in ['backtesting', 'papertrading', 'livetrading']:
+                trading_type = TRADING_TYPE_DICT_MAP[trading_type.lower()]
+                if execution_mode.lower() in ['regular', 'fast']:
+                    data = self.api.set_strategy_running_mode(execution_mode, trading_type)
+                else:
+                    data = {"Message": f"Invalid Execution Mode '{execution_mode}'. Valid choices are ['regular', 'fast']"}
+            else:
+                data = {"Message": "Invalid Trading Type. Valid options are ['backtesting', 'papertrading', 'livetrading']"}
+        except AttributeError:
+            data = {"Message": "Unknown Error! Please check the passed arguments"}
         return data
 
 
