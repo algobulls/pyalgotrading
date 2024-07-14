@@ -1,6 +1,6 @@
-# Prompt Library for Gen AI
+# Prompt Library for Phoenix Copilot
 
-## Here are some prompts for Creating Strategy using GenAI
+## Here are some prompts for Creating Strategy using Phoenix Copilot
 
 ### Moving Averages (EMA or SMA)
 
