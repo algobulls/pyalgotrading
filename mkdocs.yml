@@ -59,8 +59,6 @@ nav:
           - Options Long Iron Butterfly: 'strategies/options_long_iron_butterfly.md'
           - Options Straddle: 'strategies/options_straddle.md'
           - Options Strangle: 'strategies/options_strangle.md'
-      - How to: 'strategies/how_to.md'
-      - Frequently Encountered Errors: 'strategies/fee.md'
   - Pyalgotrading:
     - Introduction: 'pyalgotrad/introduction.md'
     - Setup your Workspace: 'pyalgotrad/prerequisites.md'
@@ -91,8 +89,8 @@ nav:
       - Create your OpenAI Keys: 'gen_ai/get_open_ai_keys.md'
       - Prompt Library: 'gen_ai/gen_ai_prompt_library.md'
   - Phoenix Support: 'support/support_pybuild.md'
-  - How to: 'strategies/strategy_guides/how_to.md'
-  - Frequently Encountered Errors: 'strategies/strategy_guides/fee.md'
+  - How to: 'strategies/how_to.md'
+  - Frequently Encountered Errors: 'strategies/fee.md'
 plugins:
   - search                                  # necessary for search to work
   - git-revision-date-localized:            # When enabled, the respective 'Last Updated' date is automatically added at the bottom of each page. Docs: https://squidfunk.github.io/mkdocs-material/plugins/revision-date/
