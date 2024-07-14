@@ -3,13 +3,13 @@
 You will need the following to start with Pyalgotrading:
 
 1. ### **[AlgoBulls Account](https://www.algobulls.com/){target=_blank}**
-    To upload and test your strategies, you will need this account. You can create your account for FREE on the [Algobulls website](https://app.algobulls.com/user/register){target=_blank}.
+    To upload and test your strategies, you will need this account. You can create your account for FREE on the [AlgoBulls website](https://build.algobulls.com/user/register){target=_blank}.
 
 2. ### Developer Key
 To access the features, you will need a developer key. The key can be obtained as follows:
-    - **Step 1**: Activate the [Advanced Developer Plan](https://app.algobulls.com/pricing?section=Developers){target=_blank} from the **Pricing** menu.
+    - **Step 1**: Activate the [Advanced Phoenix Plan](https://build.algobulls.com/pricing?section=Developers){target=_blank} from the **Pricing** menu.
     [![purchase plan](imgs/purchase_plan.png)](imgs/purchase_plan.png)
-    - **Step 2**: Get the [Developer Key](https://app.algobulls.com/settings?query=eyJpc0xpdmUiOiJ0cnVlIn0%3D&section=developerOptions){target=_blank} from the **Settings** section.
+    - **Step 2**: Get the [Developer Key](https://build.algobulls.com/settings?query=eyJpc0xpdmUiOiJ0cnVlIn0%3D&section=developerOptions){target=_blank} from the **Settings** section.
     [![developer key](imgs/developer_key.png)](imgs/developer_key.png)
     !!! Note "Please Note"
          For security reasons, the **developer key** will get reset every time you log out from your AlgoBulls account.
