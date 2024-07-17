@@ -325,3 +325,5 @@ EXCHANGE_LOCALE_MAP = {
     'NYSE': Locale.USA.value,
 }
 
+TRADING_TYPE_DICT_MAP = {'backtesting': 'backTesting', 'papertrading': 'paperTrading', 'livetrading': 'liveTrading'}
+
