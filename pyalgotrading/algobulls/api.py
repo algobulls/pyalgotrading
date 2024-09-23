@@ -267,7 +267,7 @@ class AlgoBullsAPI:
 
         return response
 
-    def delete_previous_trades(self, strategy: str):
+    def delete_previous_trades(self, strategy: str, trading_type: TradingType):
         """
         Delete the previous trades of given strategy
 
@@ -280,9 +280,10 @@ class AlgoBullsAPI:
         Info: ENDPOINT
            `DELETE` v3/build/python/user/strategy/deleteAll?strategyId={strategy}
         """
-
-        endpoint = f'v3/build/python/user/strategy/deleteAll?strategyId={strategy}'
-        response = self._send_request(method='delete', endpoint=endpoint)
+        key = self.__get_key(strategy_code=strategy, trading_type=trading_type)
+        params = {'cstcId': key, 'strategyId': strategy}
+        endpoint = f'v3/build/python/user/strategy/deleteAll'
+        response = self._send_request(method='delete', endpoint=endpoint, params=params)
 
         return response
 
