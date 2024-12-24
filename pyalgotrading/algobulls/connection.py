@@ -226,18 +226,19 @@ class AlgoBullsConnection:
 
         return response
 
-    def delete_previous_trades(self, strategy):
+    def delete_previous_trades(self, strategy, trading_type):
         """
         Delete all the previous trades and clear the pnl table
 
         Args:
             strategy: Strategy code
         """
-
+        assert isinstance(strategy, str), f'Argument "strategy_code" should be a string'
+        assert isinstance(trading_type, TradingType), f'Argument "trading_type" should be an enum of type {TradingType.__name__}'
         response = {}
         for _ in range(30):
             try:
-                response = self.api.delete_previous_trades(strategy)
+                response = self.api.delete_previous_trades(strategy, trading_type)
                 print(response.get('message'))
                 break
             except AlgoBullsAPIGatewayTimeoutErrorException as ex:
@@ -826,7 +827,7 @@ class AlgoBullsConnection:
 
         # delete previous trades
         if delete_previous_trades and trading_type in [TradingType.BACKTESTING, TradingType.PAPERTRADING]:
-            self.delete_previous_trades(strategy_code)
+            self.delete_previous_trades(strategy_code, trading_type)
 
         # Setup config for starting the job
         strategy_config = {
