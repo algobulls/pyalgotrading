@@ -299,14 +299,14 @@ class OptionsInstrumentDirection(Enum):
 
 
 CandleIntervalSecondsMap = {
-    'minute': 60,
-    '3minutes': 180,
-    '5minutes': 300,
-    '10minutes': 600,
-    '15minutes': 900,
-    '30minutes': 1800,
-    '60minutes': 3600,
-    'day': 86400
+    CandleInterval.MINUTE_1.value: 60,
+    CandleInterval.MINUTE_3.value: 180,
+    CandleInterval.MINUTE_5.value: 300,
+    CandleInterval.MINUTE_10.value: 600,
+    CandleInterval.MINUTE_15.value: 900,
+    CandleInterval.MINUTE_30.value: 1800,
+    CandleInterval.MINUTE_60.value: 3600,
+    CandleInterval.DAY_1.value: 86400
 }
 
 KEY_DT_FORMAT_WITH_TIMEZONE = 0
