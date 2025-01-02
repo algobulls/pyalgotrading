@@ -16,7 +16,7 @@ from tqdm.auto import tqdm
 
 from .api import AlgoBullsAPI
 from .exceptions import AlgoBullsAPIBadRequestException, AlgoBullsAPIGatewayTimeoutErrorException, AlgoBullsAPIUnauthorizedErrorException
-from ..constants import StrategyMode, TradingType, TradingReportType, CandleInterval, AlgoBullsEngineVersion, Country, ExecutionStatus, EXCHANGE_LOCALE_MAP, Locale, CandleIntervalSecondsMap
+from ..constants import StrategyMode, TradingType, TradingReportType, CandleInterval, AlgoBullsEngineVersion, Country, ExecutionStatus, EXCHANGE_LOCALE_MAP, Locale, CandleIntervalSecondsMap, TRADING_TYPE_DICT_MAP
 from ..strategy.strategy_base import StrategyBase
 from ..utils.func import get_valid_enum_names, get_datetime_with_tz, calculate_brokerage, calculate_slippage
 
@@ -150,7 +150,6 @@ class AlgoBullsConnection:
                 except KeyError:
                     response = self.api.create_strategy(strategy_name=strategy_name, strategy_details=strategy_details,
                                                         abc_version=_abc_version)
-
         return response
 
     def get_all_strategies(self, return_as_dataframe=True):
@@ -681,7 +680,7 @@ class AlgoBullsConnection:
         print(f"\nStarting the strategy '{strategy_name}' in {trading_type.name} mode...\n{_msg}\n")
 
     def start_job(self, strategy_code=None, start_timestamp=None, end_timestamp=None, instruments=None, lots=None, strategy_parameters=None, candle_interval=None, strategy_mode=None, initial_funds_virtual=None, delete_previous_trades=True,
-                  trading_type=None, broking_details=None, **kwargs):
+                  trading_type=None, broking_details=None, execution_mode=None, **kwargs):
         """
         Submit a BT/PT/RT job for a strategy on the AlgoBulls Platform
 
@@ -751,6 +750,8 @@ class AlgoBullsConnection:
             instruments = [instruments]
         if strategy_parameters == {} or strategy_parameters is None:
             strategy_parameters = dict()
+        if execution_mode is not None:
+            assert execution_mode.lower() in ['regular', 'fast'], f"Execution mode '{execution_mode}' is Invalid. Valid choices are ['regular', 'fast']"
 
         # Sanity checks - Validate config parameters
         assert isinstance(strategy_code, str), f'Argument "strategy" should be a valid string'
@@ -843,12 +844,12 @@ class AlgoBullsConnection:
 
         # Submit trading job
         response = self.api.start_strategy_algotrading(strategy_code=strategy_code, start_timestamp=start_timestamp, end_timestamp=end_timestamp, trading_type=trading_type,
-                                                       lots=lots, initial_funds_virtual=initial_funds_virtual, broker_details=broking_details, location=location)
+                                                       lots=lots, initial_funds_virtual=initial_funds_virtual, broker_details=broking_details, location=location, execution_mode=execution_mode)
 
         self.strategy_country_map[trading_type][strategy_code] = Country[Locale(location).name].value
         return response
 
-    def backtest(self, strategy=None, start=None, end=None, instruments=None, lots=None, parameters=None, candle=None, mode=None, delete_previous_trades=True, initial_funds_virtual=None, vendor_details=None, **kwargs):
+    def backtest(self, strategy=None, start=None, end=None, instruments=None, lots=None, parameters=None, candle=None, mode=None, delete_previous_trades=True, initial_funds_virtual=None, vendor_details=None, execution_mode=None, **kwargs):
         """
         Submit a backtesting job for a strategy on the AlgoBulls Platform
 
@@ -881,7 +882,7 @@ class AlgoBullsConnection:
         # start backtesting job
         _ = self.start_job(
             strategy_code=strategy, start_timestamp=start, end_timestamp=end, instruments=instruments, lots=lots, strategy_parameters=parameters, candle_interval=candle, strategy_mode=mode,
-            initial_funds_virtual=initial_funds_virtual, delete_previous_trades=delete_previous_trades, trading_type=TradingType.BACKTESTING, broking_details=vendor_details, **kwargs
+            initial_funds_virtual=initial_funds_virtual, delete_previous_trades=delete_previous_trades, trading_type=TradingType.BACKTESTING, broking_details=vendor_details, execution_mode=execution_mode, **kwargs
         )
 
         # Update previously saved pnl data and exchange location
@@ -998,7 +999,7 @@ class AlgoBullsConnection:
 
         return self.get_report_order_history(strategy_code=strategy_code, trading_type=TradingType.BACKTESTING, render_as_dataframe=render_as_dataframe, country=country)
 
-    def papertrade(self, strategy=None, start=None, end=None, instruments=None, lots=None, parameters=None, candle=None, mode=None, delete_previous_trades=True, initial_funds_virtual=None, vendor_details=None, **kwargs):
+    def papertrade(self, strategy=None, start=None, end=None, instruments=None, lots=None, parameters=None, candle=None, mode=None, delete_previous_trades=True, initial_funds_virtual=None, vendor_details=None, execution_mode=None, **kwargs):
         """
         Submit a papertrade job for a strategy on the AlgoBulls Platform
 
@@ -1031,7 +1032,7 @@ class AlgoBullsConnection:
         # start papertrading job
         _ = self.start_job(
             strategy_code=strategy, start_timestamp=start, end_timestamp=end, instruments=instruments, lots=lots, strategy_parameters=parameters, candle_interval=candle, strategy_mode=mode,
-            initial_funds_virtual=initial_funds_virtual, delete_previous_trades=delete_previous_trades, trading_type=TradingType.PAPERTRADING, broking_details=vendor_details, **kwargs
+            initial_funds_virtual=initial_funds_virtual, delete_previous_trades=delete_previous_trades, trading_type=TradingType.PAPERTRADING, broking_details=vendor_details, execution_mode=execution_mode, **kwargs
         )
 
         # Update previously saved pnl data and exchange location
@@ -1149,7 +1150,7 @@ class AlgoBullsConnection:
 
         return self.get_report_order_history(strategy_code=strategy_code, trading_type=TradingType.PAPERTRADING, render_as_dataframe=render_as_dataframe, country=country)
 
-    def realtrade(self, strategy=None, start=None, end=None, instruments=None, lots=None, parameters=None, candle=None, mode=None, broking_details=None, **kwargs):
+    def realtrade(self, strategy=None, start=None, end=None, instruments=None, lots=None, parameters=None, candle=None, mode=None, broking_details=None, execution_mode=None, **kwargs):
         """
         Start a Real Trading session.
         Update: This requires an approval process which is currently on request basis.
@@ -1182,7 +1183,7 @@ class AlgoBullsConnection:
 
         # start realtrading job
         _ = self.start_job(strategy_code=strategy, start_timestamp=start, end_timestamp=end, instruments=instruments, lots=lots, strategy_parameters=parameters, candle_interval=candle, strategy_mode=mode, trading_type=TradingType.REALTRADING,
-                           broking_details=broking_details, **kwargs)
+                           broking_details=broking_details, execution_mode=execution_mode, **kwargs)
 
         # Update previously saved pnl data and exchange location
         self.realtrade_pnl_data = None
@@ -1299,6 +1300,28 @@ class AlgoBullsConnection:
         assert isinstance(strategy_code, str), f'Argument "strategy_code" should be a string'
 
         return self.get_report_order_history(strategy_code=strategy_code, trading_type=TradingType.REALTRADING, render_as_dataframe=render_as_dataframe, country=country)
+
+    def set_execution_mode_preference(self, execution_mode, trading_type):
+        """
+        To choose the strategy_running_mode
+        Args:
+            execution_mode: User can pass either Regular or Fast mode
+        returns:
+
+        Success or Failure message
+        """
+        try:
+            if trading_type.lower() in ['backtesting', 'papertrading', 'livetrading']:
+                trading_type = TRADING_TYPE_DICT_MAP[trading_type.lower()]
+                if execution_mode.lower() in ['regular', 'fast']:
+                    data = self.api.set_strategy_running_mode(execution_mode, trading_type)
+                else:
+                    data = {"Message": f"Invalid Execution Mode '{execution_mode}'. Valid choices are ['regular', 'fast']"}
+            else:
+                data = {"Message": "Invalid Trading Type. Valid options are ['backTesting', 'paperTrading', 'liveTrading']"}
+        except AttributeError:
+            data = {"Message": "Unknown Error! Please check the passed arguments"}
+        return data
 
 
 def pandas_dataframe_all_rows():
