@@ -336,3 +336,7 @@ EXCHANGE_LOCALE_MAP = {
     'NYSE': Locale.USA.value,
 }
 
+
+class ABSystemExit(SystemExit):
+    # Use this class instead of SystemExit directly for stopping your strategy
+    pass
