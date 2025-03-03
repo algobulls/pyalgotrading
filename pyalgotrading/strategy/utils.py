@@ -1,3 +1,6 @@
+from constants import *
+
+
 def check_order_placed_successfully(self, _order):
     """
         This method checks whether --
