@@ -240,9 +240,8 @@ class AlgoBullsAPI:
             `GET` v3/build/python/user/strategy/code/{strategy_code}
         """
 
-        params = {}
         endpoint = f'v3/build/python/user/strategy/code/{strategy_code}'
-        response = self._send_request(endpoint=endpoint, params=params)
+        response = self._send_request(endpoint=endpoint, params={'type': 'user'})
 
         return response
 
@@ -304,7 +303,7 @@ class AlgoBullsAPI:
 
         # Configure the params
         key = self.__get_key(strategy_code=strategy_code, trading_type=trading_type)
-        endpoint = f'v4/portfolio/tweak/{key}?isPythonBuild=true'
+        endpoint = f'v2/portfolio/tweakconfig/{key}'
         print('Setting Strategy Config...', end=' ')
         response = self._send_request(method='post', endpoint=endpoint, json_data=strategy_config)
         print('Success.')

@@ -280,6 +280,17 @@ class OptionsStrikeDirection(Enum):
     OTM = 'OTM'
 
 
+OPTIONS_STRIKE_DIRECTION_NUMERIC_ITM = 0
+OPTIONS_STRIKE_DIRECTION_NUMERIC_ATM = 1
+OPTIONS_STRIKE_DIRECTION_NUMERIC_OTM = 2
+
+OptionsStrikeDirectionMap = {
+    OPTIONS_STRIKE_DIRECTION_NUMERIC_ITM: OptionsStrikeDirection.ITM.value,
+    OPTIONS_STRIKE_DIRECTION_NUMERIC_ATM: OptionsStrikeDirection.ATM.value,
+    OPTIONS_STRIKE_DIRECTION_NUMERIC_OTM: OptionsStrikeDirection.OTM.value
+}
+
+
 class OptionsTradingsymbolSuffix(Enum):
     CE = 'CE'
     PE = 'PE'
@@ -325,3 +336,7 @@ EXCHANGE_LOCALE_MAP = {
     'NYSE': Locale.USA.value,
 }
 
+
+class ABSystemExit(SystemExit):
+    # Use this class instead of SystemExit directly for stopping your strategy
+    pass

@@ -66,7 +66,7 @@ class AlgoBullsConnection:
         Returns:
             Token URL
         """
-        url = 'https://app.algobulls.com/settings?section=developerOptions'
+        url = f'{AlgoBullsAPI.SERVER_ENDPOINT}settings?section=developerOptions'
         print(f'Please login to this URL to get your unique token: {url}')
 
     def set_access_token(self, access_token, validate_token=True):
@@ -796,7 +796,7 @@ class AlgoBullsConnection:
         if len(_) == 2 and EXCHANGE_LOCALE_MAP.get(_[0]) is not None:
             location = EXCHANGE_LOCALE_MAP[_[0]]
         else:
-            print('Warning: Valid exchange not given, assuming exchange as "NSE_EQ".\n Expected format for giving an instrument "<EXCHANGE>:<TRADING_SYMBOL>"\nPossible exchange values include: {EXCHANGE_LOCALE_MAP.keys()}')
+            print(f'Warning: Valid exchange not given, assuming exchange as "NSE_EQ".\n Expected format for giving an instrument "<EXCHANGE>:<TRADING_SYMBOL>"\nPossible exchange values include: {EXCHANGE_LOCALE_MAP.keys()}')
             location = EXCHANGE_LOCALE_MAP[Locale.DEFAULT.value]
 
         # generate instruments' id list
@@ -805,7 +805,10 @@ class AlgoBullsConnection:
             exchange, tradingsymbol = _instrument.split(':')
             instrument_results = self.search_instrument(instrument=tradingsymbol, exchange=exchange)
             for _ in instrument_results:
-                if _["value"] == _instrument:
+                _exchange, _tradingsymbol = _['value'].split(':')
+
+                # The function `search_instrument` returns `NSE_EQ` instead of `NSE`; The below like handles that scenario
+                if _tradingsymbol == tradingsymbol and (_exchange == exchange or _exchange.split('_')[0] == exchange):
                     instrument_list.append({'id': _["id"]})
                     break
 
@@ -834,7 +837,6 @@ class AlgoBullsConnection:
             'instruments': {
                 'instruments': instrument_list
             },
-            'lots': lots,
             'userParams': restructured_strategy_parameters,
             'candleDuration': candle_interval.value,
             'strategyMode': strategy_mode.value
