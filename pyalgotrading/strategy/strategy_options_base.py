@@ -1,8 +1,7 @@
 from pyalgotrading.strategy.strategy_base import StrategyBase
-from pyalgotrading.constants import *
 
 
-class StrategyOptionsBaseV2(StrategyBase):
+class StrategyOptionsBase(StrategyBase):
     """
     Dummy placeholder class. Here to ensure all required methods are implemented and as per requirements.
 
