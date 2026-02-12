@@ -2,32 +2,93 @@ from pyalgotrading.strategy.strategy_base import StrategyBase
 from pyalgotrading.constants import *
 
 
-class StrategyOptionsBaseV2(StrategyBase):
-    """
-    Dummy placeholder class. Here to ensure all required methods are implemented and as per requirements.
+class OptionsStrikeDirection(Enum):
+    ITM = 'ITM'
+    ATM = 'ATM'
+    OTM = 'OTM'
 
-    Once uploaded, this strategy will be replaced with the real base class strategy
-    """
+
+class OptionsTradingsymbolSuffix(Enum):
+    CE = 'CE'
+    PE = 'PE'
+
+
+class OptionsExpiryKey(Enum):
+    WEEKLY_CURRENT = 'WEEKLY_CURRENT'
+    WEEKLY_NEXT = 'WEEKLY_NEXT'
+    MONTHLY_CURRENT = 'MONTHLY_CURRENT'
+    MONTHLY_NEXT = 'MONTHLY_NEXT'
+
+
+class OptionsInstrumentDirection(Enum):
+    EXACT = 'EXACT'
+    ROUNDUP = 'ROUNDUP'
+    ROUNDDOWN = 'ROUNDDOWN'
+
+
+class StrategyOptionsBaseV2(StrategyBase):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.flag_fetch_instruments_for_expiry_weekly_current = self.strategy_parameters.get('FLAG_FETCH_INSTRUMENTS_FOR_EXPIRY_WEEKLY_CURRENT', 1)
+        self.flag_fetch_instruments_for_expiry_weekly_next = self.strategy_parameters.get('FLAG_FETCH_INSTRUMENTS_FOR_EXPIRY_WEEKLY_NEXT', 0)
+        self.flag_fetch_instruments_for_expiry_monthly_current = self.strategy_parameters.get('FLAG_FETCH_INSTRUMENTS_FOR_EXPIRY_MONTHLY_CURRENT', 0)
+        self.flag_fetch_instruments_for_expiry_monthly_next = self.strategy_parameters.get('FLAG_FETCH_INSTRUMENTS_FOR_EXPIRY_MONTHLY_NEXT', 0)
+
+        _ = [self.flag_fetch_instruments_for_expiry_weekly_current, self.flag_fetch_instruments_for_expiry_weekly_next,
+             self.flag_fetch_instruments_for_expiry_monthly_current, self.flag_fetch_instruments_for_expiry_monthly_next]
+
+        self.instrument_nifty_bank_string = 'NIFTY BANK'
+        self.instrument_nifty_50_string = 'NIFTY 50'
+        self.instrument_fin_nifty_string = 'NIFTY FIN SERVICE'
+        self.instruments_list_ce = None
+        self.instruments_list_pe = None
+        self.instruments_ce_df = None
+        self.instruments_ce_itm = None
+        self.instruments_ce_atm = None
+        self.instruments_ce_otm = None
+        self.instruments_pe_df = None
+        self.instruments_pe_itm = None
+        self.instruments_pe_atm = None
+        self.instruments_pe_otm = None
+        self.weekly_expiry_date_current = None
+        self.monthly_expiry_date_current = None
+        self.weekly_expiry_date_next = None
+        self.monthly_expiry_date_next = None
+        self.expirykey_expirydate_map = None
+        self.flag_expirydate_map = None
+        self.instruments_mapper = IntrumentsMappingManager()
+
+    def initialize(self):
+        self.instruments_list_ce = {}
+        self.instruments_list_pe = {}
+        self.instruments_ce_df = {}
+        self.instruments_ce_itm = {}
+        self.instruments_ce_atm = {}
+        self.instruments_ce_otm = {}
+        self.instruments_pe_df = {}
+        self.instruments_pe_itm = {}
+        self.instruments_pe_atm = {}
+        self.instruments_pe_otm = {}
 
     @staticmethod
     def get_options_ref_key(instrument, expiry_date):
-        pass
+        _expiry_date = expiry_date if isinstance(expiry_date, str) else expiry_date.strftime("%y-%m-%d")
+        return f'{instrument}_{_expiry_date}'
 
     def initialize_instrument(self, instrument):
         pass
 
     def get_allowed_expiry_dates(self):
-        """
-        Gives the allowed expiry date, depending on the selection of monthly expiry or weekly expiry.
-        Checkout the documentation to understand in more detail
-        """
         return []
 
     def options_instruments_set_up(self, base_instrument, instrument_direction, expiry_date, tradingsymbol_suffix, ltp=None, apply_modulo=False, modulo_value=100):
         pass
 
     def get_options_instruments(self, base_instrument, expiry_date, tradingsymbol_suffix, instrument_direction, ltp, apply_modulo=False, modulo_value=100):
-        pass
+        instrument_details_df, instruments_itm, instrument_atm, instruments_otm = None, None, None, None
+        return instrument_details_df, instruments_itm, instrument_atm, instruments_otm
 
     def get_options_instrument_with_strike_direction(self, base_instrument, expiry_date, tradingsymbol_suffix, strike_direction, no_of_strikes):
         instrument = None
